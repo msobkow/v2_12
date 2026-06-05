@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CFSec
+		xmlns="uri://cfsec/cfsecloader"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="uri://cfsec/cfsecloader file:../bin/xsd/cfsec-structured.xsd" >
+	<ISOCountry ISOCode="ad" Name="Andorra" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ae" Name="United Arab Emirates" >
+		<ISOCountryCurrency Currency="AED" />
+	</ISOCountry>
+	<ISOCountry ISOCode="af" Name="Afghanistan" >
+		<ISOCountryCurrency Currency="AFN" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ag" Name="Antigua and Barbuda" >
+		<ISOCountryCurrency Currency="XCD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ai" Name="Anguilla" >
+		<ISOCountryCurrency Currency="XCD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="al" Name="Albania" >
+		<ISOCountryCurrency Currency="ALL" />
+	</ISOCountry>
+	<ISOCountry ISOCode="am" Name="Armenia" >
+		<ISOCountryCurrency Currency="AMD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="an" Name="Netherlands Antilles" >
+		<ISOCountryCurrency Currency="ANG" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ao" Name="Angola" >
+		<ISOCountryCurrency Currency="AOA" />
+	</ISOCountry>
+	<ISOCountry ISOCode="aq" Name="Antarctica" >
+		<ISOCountryCurrency Currency="XCD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ar" Name="Argentina" >
+		<ISOCountryCurrency Currency="ARS" />
+	</ISOCountry>
+	<ISOCountry ISOCode="as" Name="American Samoa" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="at" Name="Austria" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="au" Name="Australia" >
+		<ISOCountryCurrency Currency="AUD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="aw" Name="Aruba" >
+		<ISOCountryCurrency Currency="AWG" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ax" Name="Aaland Islands" >
+	</ISOCountry>
+	<ISOCountry ISOCode="az" Name="Azerbaijan" >
+		<ISOCountryCurrency Currency="AZN" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ba" Name="Bosnia and Herzegowina" >
+		<ISOCountryCurrency Currency="BAM" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bb" Name="Barbados" >
+		<ISOCountryCurrency Currency="BBD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bd" Name="Bangladesh" >
+		<ISOCountryCurrency Currency="BDT" />
+	</ISOCountry>
+	<ISOCountry ISOCode="be" Name="Belgium" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bf" Name="Burkina Faso" >
+		<ISOCountryCurrency Currency="XOF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bg" Name="Bulgaria" >
+		<ISOCountryCurrency Currency="BGN" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bh" Name="Bahrain" >
+		<ISOCountryCurrency Currency="BHD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bi" Name="Burundi" >
+		<ISOCountryCurrency Currency="BIF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bj" Name="Benin" >
+		<ISOCountryCurrency Currency="XOF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bm" Name="Bermuda" >
+		<ISOCountryCurrency Currency="BMD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bn" Name="Brunei Darussalam" >
+		<ISOCountryCurrency Currency="BND" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bo" Name="Bolivia" >
+		<ISOCountryCurrency Currency="BOB" />
+	</ISOCountry>
+	<ISOCountry ISOCode="br" Name="Brazil" >
+		<ISOCountryCurrency Currency="BRL" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bs" Name="Bahamas" >
+		<ISOCountryCurrency Currency="BSD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bt" Name="Bhutan" >
+		<ISOCountryCurrency Currency="BTN" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bv" Name="Bouvet Island" >
+		<ISOCountryCurrency Currency="NOK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bw" Name="Botswana" >
+		<ISOCountryCurrency Currency="BWP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="by" Name="Belarus" >
+		<ISOCountryCurrency Currency="BYR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="bz" Name="Belize" >
+		<ISOCountryCurrency Currency="BZD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ca" Name="Canada" >
+		<ISOCountryCurrency Currency="CAD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cc" Name="Cocos (Keeling) Islands" >
+		<ISOCountryCurrency Currency="AUD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cd" Name="Congo, Democratic Republic of (was Zaire)" >
+		<ISOCountryCurrency Currency="CDF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cf" Name="Central African Republic" >
+		<ISOCountryCurrency Currency="XAF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cg" Name="Congo, Republic of" >
+		<ISOCountryCurrency Currency="XAF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ch" Name="Switzerland" >
+		<ISOCountryCurrency Currency="CHF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ci" Name="Cote D&#39;ivoire" >
+	</ISOCountry>
+	<ISOCountry ISOCode="ck" Name="Cook Islands" >
+		<ISOCountryCurrency Currency="NZD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cl" Name="Chile" >
+		<ISOCountryCurrency Currency="CLP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cm" Name="Cameroon" >
+		<ISOCountryCurrency Currency="XAF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cn" Name="China" >
+		<ISOCountryCurrency Currency="CNY" />
+	</ISOCountry>
+	<ISOCountry ISOCode="co" Name="Colombia" >
+		<ISOCountryCurrency Currency="COP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cr" Name="Costa Rica" >
+		<ISOCountryCurrency Currency="CRC" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cs" Name="Serbia and Montenegro" >
+		<ISOCountryCurrency Currency="RSD" />
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cu" Name="Cuba " >
+		<ISOCountryCurrency Currency="CUP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cv" Name="Cape Verde" >
+		<ISOCountryCurrency Currency="CVE" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cx" Name="Christmas Island" >
+		<ISOCountryCurrency Currency="AUD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cy" Name="Cyprus" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="cz" Name="Czech Republic" >
+		<ISOCountryCurrency Currency="CZK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="de" Name="Germany" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="dj" Name="Djibouti" >
+		<ISOCountryCurrency Currency="DJF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="dk" Name="Denmark" >
+		<ISOCountryCurrency Currency="DKK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="dm" Name="Dominica" >
+		<ISOCountryCurrency Currency="XCD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="do" Name="Dominican Republic" >
+		<ISOCountryCurrency Currency="DOP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="dz" Name="Algeria" >
+		<ISOCountryCurrency Currency="DZD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ec" Name="Ecuador" >
+		<ISOCountryCurrency Currency="ECS" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ee" Name="Estonia" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="eg" Name="Egypt" >
+		<ISOCountryCurrency Currency="EGP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="eh" Name="Western Sahara" >
+		<ISOCountryCurrency Currency="MAD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="er" Name="Eritrea" >
+		<ISOCountryCurrency Currency="ERN" />
+	</ISOCountry>
+	<ISOCountry ISOCode="es" Name="Spain" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="et" Name="Ethiopia" >
+		<ISOCountryCurrency Currency="ETB" />
+	</ISOCountry>
+	<ISOCountry ISOCode="fi" Name="Finland" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="fj" Name="Fiji " >
+		<ISOCountryCurrency Currency="FJD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="fk" Name="Falkland Islands (Malvinas)" >
+		<ISOCountryCurrency Currency="FKP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="fm" Name="Micronesia, Federated States of" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="fo" Name="Faroe Islands" >
+		<ISOCountryCurrency Currency="DKK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="fr" Name="France" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ga" Name="Gabon" >
+		<ISOCountryCurrency Currency="XAF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gb" Name="United Kingdom" >
+		<ISOCountryCurrency Currency="GBP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gd" Name="Grenada" >
+		<ISOCountryCurrency Currency="XCD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ge" Name="Georgia" >
+		<ISOCountryCurrency Currency="GEL" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gf" Name="French Guiana" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gh" Name="Ghana" >
+		<ISOCountryCurrency Currency="GHS" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gi" Name="Gibraltar" >
+		<ISOCountryCurrency Currency="GIP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gl" Name="Greenland" >
+		<ISOCountryCurrency Currency="DKK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gm" Name="Gambia" >
+		<ISOCountryCurrency Currency="GMD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gn" Name="Guinea" >
+		<ISOCountryCurrency Currency="GNF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gp" Name="Guadeloupe" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gq" Name="Equatorial Guinea" >
+		<ISOCountryCurrency Currency="XAF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gr" Name="Greece" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gs" Name="South Georgia and The South Sandwich Islands" >
+		<ISOCountryCurrency Currency="GBP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gt" Name="Guatemala" >
+		<ISOCountryCurrency Currency="QTQ" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gu" Name="Guam " >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gw" Name="Guinea-Bissau" >
+		<ISOCountryCurrency Currency="GWP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="gy" Name="Guyana" >
+		<ISOCountryCurrency Currency="GYD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="hk" Name="Hong Kong" >
+		<ISOCountryCurrency Currency="HKD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="hm" Name="Heard and Mc Donald Islands" >
+		<ISOCountryCurrency Currency="AUD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="hn" Name="Honduras" >
+		<ISOCountryCurrency Currency="HNL" />
+	</ISOCountry>
+	<ISOCountry ISOCode="hr" Name="Croatia (local Name: Hrvatska)" >
+		<ISOCountryCurrency Currency="HRK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ht" Name="Haiti" >
+		<ISOCountryCurrency Currency="HTG" />
+	</ISOCountry>
+	<ISOCountry ISOCode="hu" Name="Hungary" >
+		<ISOCountryCurrency Currency="HUF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="id" Name="Indonesia" >
+		<ISOCountryCurrency Currency="IDR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ie" Name="Ireland" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="il" Name="Israel" >
+		<ISOCountryCurrency Currency="ILS" />
+	</ISOCountry>
+	<ISOCountry ISOCode="in" Name="India" >
+		<ISOCountryCurrency Currency="INR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="io" Name="British Indian Ocean Territory" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="iq" Name="Iraq " >
+		<ISOCountryCurrency Currency="IQD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ir" Name="Iran (Islamic Republic of)" >
+		<ISOCountryCurrency Currency="IRR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="is" Name="Iceland" >
+		<ISOCountryCurrency Currency="ISK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="it" Name="Italy" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="jm" Name="Jamaica" >
+		<ISOCountryCurrency Currency="JMD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="jo" Name="Jordan" >
+		<ISOCountryCurrency Currency="JOD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="jp" Name="Japan" >
+		<ISOCountryCurrency Currency="JPY" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ke" Name="Kenya" >
+		<ISOCountryCurrency Currency="KES" />
+	</ISOCountry>
+	<ISOCountry ISOCode="kg" Name="Kyrgyzstan" >
+		<ISOCountryCurrency Currency="KGS" />
+	</ISOCountry>
+	<ISOCountry ISOCode="kh" Name="Cambodia" >
+		<ISOCountryCurrency Currency="KHR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ki" Name="Kiribati" >
+		<ISOCountryCurrency Currency="AUD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="km" Name="Comoros" >
+		<ISOCountryCurrency Currency="KMF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="kn" Name="Saint Kitts and Nevis" >
+		<ISOCountryCurrency Currency="XCD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="kp" Name="Korea, Democratic People&#39;s Republic of" >
+		<ISOCountryCurrency Currency="KPW" />
+	</ISOCountry>
+	<ISOCountry ISOCode="kr" Name="Korea, Republic of" >
+		<ISOCountryCurrency Currency="KRW" />
+	</ISOCountry>
+	<ISOCountry ISOCode="kw" Name="Kuwait" >
+		<ISOCountryCurrency Currency="KWD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ky" Name="Cayman Islands" >
+		<ISOCountryCurrency Currency="KYD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="kz" Name="Kazakhstan" >
+		<ISOCountryCurrency Currency="KZT" />
+	</ISOCountry>
+	<ISOCountry ISOCode="la" Name="Lao People&#39;s Democratic Republic" >
+	</ISOCountry>
+	<ISOCountry ISOCode="lb" Name="Lebanon" >
+		<ISOCountryCurrency Currency="LBP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="lc" Name="Saint Lucia" >
+		<ISOCountryCurrency Currency="XCD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="li" Name="Liechtenstein" >
+		<ISOCountryCurrency Currency="CHF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="lk" Name="Sri Lanka" >
+		<ISOCountryCurrency Currency="LKR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="lr" Name="Liberia" >
+		<ISOCountryCurrency Currency="LRD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ls" Name="Lesotho" >
+		<ISOCountryCurrency Currency="LSL" />
+	</ISOCountry>
+	<ISOCountry ISOCode="lt" Name="Lithuania" >
+		<ISOCountryCurrency Currency="LTL" />
+	</ISOCountry>
+	<ISOCountry ISOCode="lu" Name="Luxembourg" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="lv" Name="Latvia" >
+		<ISOCountryCurrency Currency="LVL" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ly" Name="Libyan Arab Jamahiriya" >
+		<ISOCountryCurrency Currency="LYD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ma" Name="Morocco" >
+		<ISOCountryCurrency Currency="MAD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mc" Name="Monaco" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="md" Name="Moldova, Republic of" >
+		<ISOCountryCurrency Currency="MDL" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mg" Name="Madagascar" >
+		<ISOCountryCurrency Currency="MGF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mh" Name="Marshall Islands" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mk" Name="Macedonia, The Former Yugoslav Republic of" >
+		<ISOCountryCurrency Currency="MKD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ml" Name="Mali " >
+		<ISOCountryCurrency Currency="XOF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mm" Name="Myanmar" >
+		<ISOCountryCurrency Currency="MMK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mn" Name="Mongolia" >
+		<ISOCountryCurrency Currency="MNT" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mo" Name="Macau" >
+		<ISOCountryCurrency Currency="MOP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mp" Name="Northern Mariana Islands" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mq" Name="Martinique" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mr" Name="Mauritania" >
+		<ISOCountryCurrency Currency="MRO" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ms" Name="Montserrat" >
+		<ISOCountryCurrency Currency="XCD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mt" Name="Malta" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mu" Name="Mauritius" >
+		<ISOCountryCurrency Currency="MUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mv" Name="Maldives" >
+		<ISOCountryCurrency Currency="MVR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mw" Name="Malawi" >
+		<ISOCountryCurrency Currency="MWK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mx" Name="Mexico" >
+		<ISOCountryCurrency Currency="MXN" />
+	</ISOCountry>
+	<ISOCountry ISOCode="my" Name="Malaysia" >
+		<ISOCountryCurrency Currency="MYR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="mz" Name="Mozambique" >
+		<ISOCountryCurrency Currency="MZN" />
+	</ISOCountry>
+	<ISOCountry ISOCode="na" Name="Namibia" >
+		<ISOCountryCurrency Currency="NAD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="nc" Name="New Caledonia" >
+		<ISOCountryCurrency Currency="XPF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ne" Name="Niger" >
+		<ISOCountryCurrency Currency="XOF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="nf" Name="Norfolk Island" >
+		<ISOCountryCurrency Currency="AUD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ng" Name="Nigeria" >
+		<ISOCountryCurrency Currency="NGN" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ni" Name="Nicaragua" >
+		<ISOCountryCurrency Currency="NIO" />
+	</ISOCountry>
+	<ISOCountry ISOCode="nl" Name="Netherlands" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="no" Name="Norway" >
+		<ISOCountryCurrency Currency="NOK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="np" Name="Nepal" >
+		<ISOCountryCurrency Currency="NPR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="nr" Name="Nauru" >
+		<ISOCountryCurrency Currency="AUD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="nu" Name="Niue " >
+		<ISOCountryCurrency Currency="NZD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="nz" Name="New Zealand" >
+		<ISOCountryCurrency Currency="NZD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="om" Name="Oman " >
+		<ISOCountryCurrency Currency="OMR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="pa" Name="Panama" >
+		<ISOCountryCurrency Currency="PAB" />
+	</ISOCountry>
+	<ISOCountry ISOCode="pe" Name="Peru " >
+		<ISOCountryCurrency Currency="PEN" />
+	</ISOCountry>
+	<ISOCountry ISOCode="pf" Name="French Polynesia" >
+		<ISOCountryCurrency Currency="XPF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="pg" Name="Papua New Guinea" >
+		<ISOCountryCurrency Currency="PGK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ph" Name="Philippines" >
+		<ISOCountryCurrency Currency="PHP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="pk" Name="Pakistan" >
+		<ISOCountryCurrency Currency="PKR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="pl" Name="Poland" >
+		<ISOCountryCurrency Currency="PLN" />
+	</ISOCountry>
+	<ISOCountry ISOCode="pm" Name="Saint Pierre and Miquelon" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="pn" Name="Pitcairn" >
+		<ISOCountryCurrency Currency="NZD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="pr" Name="Puerto Rico" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ps" Name="Palestinian Territory, Occupied" >
+		<ISOCountryCurrency Currency="ILS" />
+	</ISOCountry>
+	<ISOCountry ISOCode="pt" Name="Portugal" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="pw" Name="Palau" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="py" Name="Paraguay" >
+		<ISOCountryCurrency Currency="PYG" />
+	</ISOCountry>
+	<ISOCountry ISOCode="qa" Name="Qatar" >
+		<ISOCountryCurrency Currency="QAR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="re" Name="Reunion" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ro" Name="Romania" >
+		<ISOCountryCurrency Currency="RON" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ru" Name="Russian Federation" >
+		<ISOCountryCurrency Currency="RUB" />
+	</ISOCountry>
+	<ISOCountry ISOCode="rw" Name="Rwanda" >
+		<ISOCountryCurrency Currency="RWF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sa" Name="Saudi Arabia" >
+		<ISOCountryCurrency Currency="SAR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sb" Name="Solomon Islands" >
+		<ISOCountryCurrency Currency="SBD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sc" Name="Seychelles" >
+		<ISOCountryCurrency Currency="SCR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sd" Name="Sudan" >
+		<ISOCountryCurrency Currency="SDG" />
+		<ISOCountryCurrency Currency="SSP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="se" Name="Sweden" >
+		<ISOCountryCurrency Currency="SEK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sg" Name="Singapore" >
+		<ISOCountryCurrency Currency="SGD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sh" Name="Saint Helena" >
+		<ISOCountryCurrency Currency="SHP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="si" Name="Slovenia" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sj" Name="Svalbard and Jan Mayen Islands" >
+		<ISOCountryCurrency Currency="NOK" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sk" Name="Slovakia" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sl" Name="Sierra Leone" >
+		<ISOCountryCurrency Currency="SLL" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sm" Name="San Marino" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sn" Name="Senegal" >
+		<ISOCountryCurrency Currency="XOF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="so" Name="Somalia" >
+		<ISOCountryCurrency Currency="SOS" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sr" Name="Suriname" >
+		<ISOCountryCurrency Currency="SRD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="st" Name="Sao Tome and Principe" >
+		<ISOCountryCurrency Currency="STD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sv" Name="El Salvador" >
+		<ISOCountryCurrency Currency="SVC" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sy" Name="Syrian Arab Republic" >
+		<ISOCountryCurrency Currency="SYP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="sz" Name="Swaziland" >
+		<ISOCountryCurrency Currency="SZL" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tc" Name="Turks and Caicos Islands" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="td" Name="Chad " >
+		<ISOCountryCurrency Currency="XAF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tf" Name="French Southern Territories" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tg" Name="Togo " >
+		<ISOCountryCurrency Currency="XOF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="th" Name="Thailand" >
+		<ISOCountryCurrency Currency="THB" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tj" Name="Tajikistan" >
+		<ISOCountryCurrency Currency="TJS" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tk" Name="Tokelau" >
+		<ISOCountryCurrency Currency="NZD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tl" Name="Timor-Leste" >
+	</ISOCountry>
+	<ISOCountry ISOCode="tm" Name="Turkmenistan" >
+		<ISOCountryCurrency Currency="TMT" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tn" Name="Tunisia" >
+		<ISOCountryCurrency Currency="TND" />
+	</ISOCountry>
+	<ISOCountry ISOCode="to" Name="Tonga" >
+		<ISOCountryCurrency Currency="TOP" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tr" Name="Turkey" >
+		<ISOCountryCurrency Currency="TRY" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tt" Name="Trinidad and Tobago" >
+		<ISOCountryCurrency Currency="TTD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tv" Name="Tuvalu" >
+		<ISOCountryCurrency Currency="AUD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tw" Name="Taiwan" >
+		<ISOCountryCurrency Currency="TWD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="tz" Name="Tanzania, United Republic of" >
+		<ISOCountryCurrency Currency="TZS" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ua" Name="Ukraine" >
+		<ISOCountryCurrency Currency="UAH" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ug" Name="Uganda" >
+		<ISOCountryCurrency Currency="UGX" />
+	</ISOCountry>
+	<ISOCountry ISOCode="um" Name="United States Minor Outlying Islands" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="us" Name="United States" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="uy" Name="Uruguay" >
+		<ISOCountryCurrency Currency="UYU" />
+	</ISOCountry>
+	<ISOCountry ISOCode="uz" Name="Uzbekistan" >
+		<ISOCountryCurrency Currency="UZS" />
+	</ISOCountry>
+	<ISOCountry ISOCode="va" Name="Vatican City State (Holy See)" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="vc" Name="Saint Vincent and The Grenadines" >
+		<ISOCountryCurrency Currency="XCD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ve" Name="Venezuela" >
+		<ISOCountryCurrency Currency="VEF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="vg" Name="Virgin Islands (British)" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="vi" Name="Virgin Islands (U.S.)" >
+		<ISOCountryCurrency Currency="USD" />
+	</ISOCountry>
+	<ISOCountry ISOCode="vn" Name="Viet Nam" >
+		<ISOCountryCurrency Currency="VND" />
+	</ISOCountry>
+	<ISOCountry ISOCode="vu" Name="Vanuatu" >
+		<ISOCountryCurrency Currency="VUV" />
+	</ISOCountry>
+	<ISOCountry ISOCode="wf" Name="Wallis and Futuna Islands" >
+		<ISOCountryCurrency Currency="XPF" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ws" Name="Samoa" >
+		<ISOCountryCurrency Currency="WST" />
+	</ISOCountry>
+	<ISOCountry ISOCode="ye" Name="Yemen" >
+		<ISOCountryCurrency Currency="YER" />
+	</ISOCountry>
+	<ISOCountry ISOCode="yt" Name="Mayotte" >
+		<ISOCountryCurrency Currency="EUR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="za" Name="South Africa" >
+		<ISOCountryCurrency Currency="ZAR" />
+	</ISOCountry>
+	<ISOCountry ISOCode="zm" Name="Zambia" >
+		<ISOCountryCurrency Currency="ZMW" />
+	</ISOCountry>
+	<ISOCountry ISOCode="zw" Name="Zimbabwe" >
+		<ISOCountryCurrency Currency="ZWD" />
+	</ISOCountry>
+</CFSec>

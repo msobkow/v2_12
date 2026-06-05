@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/crsp_bootstrap.oracle"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile GenDef="SchemaDef" Name="dbadminfile_CreateSPBootstrap"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="$dbadminfilename_CreateSPBootstrap$"
+		ExpansionKeyName="$dbadminfilename_CreateSPBootstrap$"
+		ExpansionFileName="$dbadminfilename_CreateSPBootstrap$" >--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+alter session set plsql_warnings = 'ENABLE:ALL';
+/
+
+create or replace procedure $lower DbSchemaName$.sp_bootstrap authid definer
+is
+	curtime timestamp;
+	clusid numeric(22,0);
+	tenantid numeric(22,0);
+begin
+	curtime := sysdate;
+$CrSPBootstrap_AuditActionCreated$
+$CrSPBootstrap_AuditActionUpdated$
+$CrSPBootstrap_AuditActionDeleted$
+$CrSPBootstrap_SecUser$
+$CrSPBootstrap_Clus$
+$CrSPBootstrap_Tenant$
+$CrSPBootstrap_SecSess$
+$CrSPBootstrap_UserHist$
+$CrSPBootstrap_ClusHist$
+$CrSPBootstrap_TenantHist$
+end sp_bootstrap;
+/
+
+show errors procedure $lower DbSchemaName$.$sp_bootstrap$;
+
+call $lower DbSchemaName$.$sp_bootstrap$();
+
+--drop function $lower DbSchemaName$.$sp_bootstrap$;
+--/
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="CrSPBootstrap_AuditActionCreated"></GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrSPBootstrap_AuditActionUpdated"></GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrSPBootstrap_AuditActionDeleted"></GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrSPBootstrap_SecUser">
+	insert into $lower DbSchemaName$.SecUser (
+		createdat,
+		createdby,
+		updatedat,
+		updatedby,
+		secuserid,
+		login_id,
+		email_addr,
+		pwd_hash,
+		revision )
+	values (
+		curtime,
+		'654dbba0-eda7-11e1-aff1-0800200c9a66',
+		curtime,
+		'654dbba0-eda7-11e1-aff1-0800200c9a66',
+		'654dbba0-eda7-11e1-aff1-0800200c9a66',
+		'system',
+		'root',
+		'bootstrap',
+		1 );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrSPBootstrap_Clus">
+	select $lower DbSchemaName$.nxt_clusteridgen()
+	into clusid
+	from dual;
+
+	insert into $lower DbSchemaName$.clus (
+		createdat,
+		createdby,
+		updatedat,
+		updatedby,
+		id,
+		fulldomainname,
+		description,
+		revision )
+	values (
+		curtime,
+		'654dbba0-eda7-11e1-aff1-0800200c9a66',
+		curtime,
+		'654dbba0-eda7-11e1-aff1-0800200c9a66',
+		clusid,
+		'system',
+		'system',
+		1 );
+
+	select id
+	into clusid
+	from $lower DbSchemaName$.clus
+	where fulldomainname = 'system';</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrSPBootstrap_Tenant">
+	select $lower DbSchemaName$.nxt_tenantidgen()
+	into tenantid
+	from dual;
+
+	insert into $lower DbSchemaName$.tenant (
+		createdat,
+		createdby,
+		updatedat,
+		updatedby,
+		clusterid,
+		id,
+		tenantname,
+		revision )
+	select
+		curtime,
+		'654dbba0-eda7-11e1-aff1-0800200c9a66',
+		curtime,
+		'654dbba0-eda7-11e1-aff1-0800200c9a66',
+		clusid,
+		tenantid,
+		'system',
+		1
+	from dual;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrSPBootstrap_SecSess">
+	insert into $lower DbSchemaName$.SecSess(
+		secsessionid,
+		secuserid,
+		start_ts,
+		finish_ts,
+		revision )
+	values (
+		'cb56d150-ea1a-11e2-91e2-0800200c9a66',
+		'654dbba0-eda7-11e1-aff1-0800200c9a66',
+		curtime,
+		curtime,
+		1 );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrSPBootstrap_UserHist">
+	insert into $lower DbSchemaName$.SecUser_h
+	select
+		secuserid,
+		revision,
+		clusid,
+		'cb56d150-ea1a-11e2-91e2-0800200c9a66',
+		login_id,
+		email_addr,
+		null,
+		null,
+		null,
+		pwd_hash,
+		null,
+		0,
+		curtime
+	from
+		$lower DbSchemaName$.SecUser
+		where login_id = 'system';</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrSPBootstrap_ClusHist">
+	insert into $lower DbSchemaName$.clus_h<!-- (
+		id,
+		revision,
+		auditclusterid,
+		auditsessionid,
+		fulldomainname,
+		description,
+		auditaction,
+		auditstamp )-->
+	select
+		id,
+		revision,
+		clusid,
+		'cb56d150-ea1a-11e2-91e2-0800200c9a66',
+		fulldomainname,
+		description,
+		0,
+		curtime
+	from $lower DbSchemaName$.clus
+	where fulldomainname = 'system';</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrSPBootstrap_TenantHist">
+	insert into $lower DbSchemaName$.tenant_h<!-- (
+		id,
+		revision,
+		auditclusterid,
+		auditsessionid,
+		clusterid,
+		tenantname,
+		auditaction,
+		auditstamp ) -->
+	select
+		id,
+		revision,
+		clusid,
+		'cb56d150-ea1a-11e2-91e2-0800200c9a66',
+		clusterid,
+		tenantname,
+		0,
+		curtime
+	from $lower DbSchemaName$.tenant
+	where
+		clusterid = clusid
+		and tenantname = 'system';</GenRule>
+
+</RuleSet>

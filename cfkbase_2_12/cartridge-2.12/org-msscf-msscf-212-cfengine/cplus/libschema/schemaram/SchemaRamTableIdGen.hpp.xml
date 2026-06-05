@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschemaram/schemaram/SchemaRamTableIdGen.hpp"
+	Revision="2.12"
+	Descr="C++18 Interface of a $TableName$ in-memory RAM Id Generator object.">
+
+	<GenFile GenDef="Id16Gen" Name="fileSchemaRamTableId16GenHPlus"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$ram"
+		ExpansionClassName="$SchemaName$Ram$popto Table TableName$Id16GenHPlus"
+		ExpansionKeyName="$SchemaName$Ram$popto Table TableName$Id16GenHPlus"
+		ExpansionFileName="$SchemaName$Ram$popto Table TableName$Id16Gen.hpp"
+>#pragma once
+
+// Description: C++18 Interface of a $popto Table TableName$ 16-bit in-memory RAM Id Generator object.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$Ram$popto Table TableName$Id16Gen
+	{
+	protected:$popto Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declColumnAttr )$
+		int16_t sliceId = 0;
+		int16_t nextId = 1;
+	public:
+		static const std::string CLASS_NAME;
+		static const std::string S_VALUE;$popto Table reference BaseClass reference PrimaryKeyIndex declTableId16GenConstructor$
+		int16_t getNextId();$popto Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declColumnGetterSetter )$$declTableSliceIdGetterSetter$$popto Table reference BaseClass reference PrimaryKeyIndex declTableIdGenGetHashCode$$popto Table reference BaseClass reference PrimaryKeyIndex declTableId16GenComparison$$popto Table reference BaseClass reference PrimaryKeyIndex declTableId16GenSet$
+	};
+}
+
+namespace std {$popto Table reference BaseClass reference PrimaryKeyIndex declStdTableId16GenComparison$
+}
+</GenFile>
+
+	<GenRule GenDef="Index" Name="declTableId16GenSet">
+		$SchemaName$Ram$popto Table TableName$Id16Gen operator =( $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; src );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId16GenComparison"
+		>$declTableId16GenComparisonLessThan$
+$declTableId16GenComparisonLessOrEqual$
+$declTableId16GenComparisonEqual$
+$declTableId16GenComparisonNotEqual$
+$declTableId16GenComparisonGreaterOrEqual$
+$declTableId16GenComparisonGreaterThan$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId16GenComparisonLessThan">
+		bool operator &lt;( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId16GenComparisonLessOrEqual">
+		bool operator &lt;=( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId16GenComparisonEqual">
+		bool operator ==( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId16GenComparisonNotEqual">
+		bool operator !=( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId16GenComparisonGreaterOrEqual">
+		bool operator &gt;=( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId16GenComparisonGreaterThan">
+		bool operator &gt;( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId16GenComparison">
+$declStdTableId16GenComparisonLessThan$
+$declStdTableId16GenComparisonLessOrEqual$
+$declStdTableId16GenComparisonEqual$
+$declStdTableId16GenComparisonNotEqual$
+$declStdTableId16GenComparisonGreaterOrEqual$
+$declStdTableId16GenComparisonGreaterThan$
+$implStdTableId16GenHash$
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId16GenComparisonLessThan">
+	bool operator &lt;(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId16GenComparisonLessOrEqual">
+	bool operator &lt;=(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+
+	<GenRule GenDef="Index" Name="declStdTableId16GenComparisonEqual">
+	bool operator ==(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId16GenComparisonNotEqual">
+	bool operator !=(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId16GenComparisonGreaterOrEqual">
+	bool operator &gt;=(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId16GenComparisonGreaterThan">
+	bool operator &gt;(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdTableId16GenHash">
+	template&lt;&gt; struct hash&lt;$CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen&gt; {
+		typedef $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id16Gen argument_type;
+		typedef size_t result_type;
+		result_type operator()(argument_type const&amp; s) const {
+			return( s.hashCode() );
+		}
+	};
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableIdGenGetHashCode">
+	size_t hashCode() const;
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declTableSliceIdGetterSetter">
+	int16_t getRequiredSliceId() const;
+	void setRequiredSliceId( int16_t value );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId16GenConstructor">
+	$SchemaName$Ram$TableName$Id16Gen();
+	~$SchemaName$Ram$TableName$Id16Gen();
+</GenRule>
+
+	<GenFile GenDef="Id32Gen" Name="fileSchemaRamTableId32GenHPlus"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$ram"
+		ExpansionClassName="$SchemaName$Ram$popto Table TableName$Id32GenHPlus"
+		ExpansionKeyName="$SchemaName$Ram$popto Table TableName$Id32GenHPlus"
+		ExpansionFileName="$SchemaName$Ram$popto Table TableName$Id32Gen.hpp"
+>#pragma once
+
+// Description: C++18 Interface of a $popto Table TableName$ 32-bit in-memory RAM Id Generator object.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$Ram$popto Table TableName$Id32Gen
+	{
+	protected:$popto Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declColumnAttr )$
+		int16_t sliceId = 0;
+		int32_t nextId = 1;
+	public:
+		static const std::string CLASS_NAME;
+		static const std::string S_VALUE;$popto Table reference BaseClass reference PrimaryKeyIndex declTableId32GenConstructor$
+		int32_t getNextId();$popto Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declColumnGetterSetter )$$declTableSliceIdGetterSetter$$popto Table reference BaseClass reference PrimaryKeyIndex declTableIdGenGetHashCode$$popto Table reference BaseClass reference PrimaryKeyIndex declTableId32GenComparison$$popto Table reference BaseClass reference PrimaryKeyIndex declTableId32GenSet$
+	};
+}
+
+namespace std {$popto Table reference BaseClass reference PrimaryKeyIndex declStdTableId32GenComparison$
+}
+</GenFile>
+
+	<GenRule GenDef="Index" Name="declTableId32GenComparison"
+		>$declTableId32GenComparisonLessThan$
+$declTableId32GenComparisonLessOrEqual$
+$declTableId32GenComparisonEqual$
+$declTableId32GenComparisonNotEqual$
+$declTableId32GenComparisonGreaterOrEqual$
+$declTableId32GenComparisonGreaterThan$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId32GenComparisonLessThan">
+		bool operator &lt;( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId32GenComparisonLessOrEqual">
+		bool operator &lt;=( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId32GenComparisonEqual">
+		bool operator ==( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId32GenComparisonNotEqual">
+		bool operator !=( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId32GenComparisonGreaterOrEqual">
+		bool operator &gt;=( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId32GenComparisonGreaterThan">
+		bool operator &gt;( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId32GenComparison">
+$declStdTableId32GenComparisonLessThan$
+$declStdTableId32GenComparisonLessOrEqual$
+$declStdTableId32GenComparisonEqual$
+$declStdTableId32GenComparisonNotEqual$
+$declStdTableId32GenComparisonGreaterOrEqual$
+$declStdTableId32GenComparisonGreaterThan$
+$implStdTableId32GenHash$
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId32GenComparisonLessThan">
+	bool operator &lt;(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId32GenComparisonLessOrEqual">
+	bool operator &lt;=(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+
+	<GenRule GenDef="Index" Name="declStdTableId32GenComparisonEqual">
+	bool operator ==(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId32GenComparisonNotEqual">
+	bool operator !=(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId32GenComparisonGreaterOrEqual">
+	bool operator &gt;=(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId32GenComparisonGreaterThan">
+	bool operator &gt;(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId32GenSet">
+		$SchemaName$Ram$popto Table TableName$Id32Gen operator =( $SchemaName$Ram$popto Table TableName$Id32Gen&amp; src );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdTableId32GenHash">
+	template&lt;&gt; struct hash&lt;$CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen&gt; {
+		typedef $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id32Gen argument_type;
+		typedef size_t result_type;
+		result_type operator()(argument_type const&amp; s) const {
+			return( s.hashCode() );
+		}
+	};
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId32GenConstructor">
+	$SchemaName$Ram$popto Table TableName$Id32Gen();
+	~$SchemaName$Ram$popto Table TableName$Id32Gen();
+</GenRule>
+
+	<GenFile GenDef="Id64Gen" Name="fileSchemaRamTableId64GenHPlus"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$ram"
+		ExpansionClassName="$SchemaName$Ram$popto Table TableName$Id64GenHPlus"
+		ExpansionKeyName="$SchemaName$Ram$popto Table TableName$Id64GenHPlus"
+		ExpansionFileName="$SchemaName$Ram$popto Table TableName$Id64Gen.hpp"
+>#pragma once
+
+// Description: C++18 Interface of a $popto Table TableName$ 64-bit in-memory RAM Id Generator object.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$Ram$popto Table TableName$Id64Gen
+	{
+	protected:$popto Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declColumnAttr )$
+		int16_t sliceId = 0;
+		int64_t nextId = 1;
+	public:
+		static const std::string CLASS_NAME;
+		static const std::string S_VALUE;$popto Table reference BaseClass reference PrimaryKeyIndex declTableId64GenConstructor$
+		int64_t getNextId();$popto Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declColumnGetterSetter )$$declTableSliceIdGetterSetter$$popto Table reference BaseClass reference PrimaryKeyIndex declTableIdGenGetHashCode$$popto Table reference BaseClass reference PrimaryKeyIndex declTableId64GenComparison$$popto Table reference BaseClass reference PrimaryKeyIndex declTableId64GenSet$
+	};
+}
+
+namespace std {$popto Table reference BaseClass reference PrimaryKeyIndex declStdTableId64GenComparison$
+}
+</GenFile>
+
+	<GenRule GenDef="Index" Name="declTableId64GenComparison"
+		>$declTableId64GenComparisonLessThan$
+$declTableId64GenComparisonLessOrEqual$
+$declTableId64GenComparisonEqual$
+$declTableId64GenComparisonNotEqual$
+$declTableId64GenComparisonGreaterOrEqual$
+$declTableId64GenComparisonGreaterThan$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId64GenComparisonLessThan">
+		bool operator &lt;( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId64GenComparisonLessOrEqual">
+		bool operator &lt;=( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId64GenComparisonEqual">
+		bool operator ==( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId64GenComparisonNotEqual">
+		bool operator !=( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId64GenComparisonGreaterOrEqual">
+		bool operator &gt;=( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId64GenComparisonGreaterThan">
+		bool operator &gt;( const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId64GenComparison">
+$declStdTableId64GenComparisonLessThan$
+$declStdTableId64GenComparisonLessOrEqual$
+$declStdTableId64GenComparisonEqual$
+$declStdTableId64GenComparisonNotEqual$
+$declStdTableId64GenComparisonGreaterOrEqual$
+$declStdTableId64GenComparisonGreaterThan$
+$implStdTableId64GenHash$
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId64GenComparisonLessThan">
+	bool operator &lt;(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId64GenComparisonLessOrEqual">
+	bool operator &lt;=(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+
+	<GenRule GenDef="Index" Name="declStdTableId64GenComparisonEqual">
+	bool operator ==(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId64GenComparisonNotEqual">
+	bool operator !=(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId64GenComparisonGreaterOrEqual">
+	bool operator &gt;=(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdTableId64GenComparisonGreaterThan">
+	bool operator &gt;(const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; lhs, const $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId64GenSet">
+		$SchemaName$Ram$popto Table TableName$Id64Gen operator =( $SchemaName$Ram$popto Table TableName$Id64Gen&amp; src );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdTableId64GenHash">
+	template&lt;&gt; struct hash&lt;$CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen&gt; {
+		typedef $CPlusNamespace$::$SchemaName$Ram$popto Table TableName$Id64Gen argument_type;
+		typedef size_t result_type;
+		result_type operator()(argument_type const&amp; s) const {
+			return( s.hashCode() );
+		}
+	};
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableId64GenConstructor">
+	$SchemaName$Ram$popto Table TableName$Id64Gen();
+	~$SchemaName$Ram$popto Table TableName$Id64Gen();
+</GenRule>
+
+</RuleSet>

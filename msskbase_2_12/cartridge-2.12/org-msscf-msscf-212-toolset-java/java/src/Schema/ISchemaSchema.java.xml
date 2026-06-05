@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/Schema/ISchemaSchema.java"
+	Revision="2.12"
+	Descr="Java 11 interface for a $SchemaName$ schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaISchemaJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="I$SchemaName$SchemaJava"
+		ExpansionKeyName="I$SchemaName$SchemaJava"
+		ExpansionFileName="I$SchemaName$Schema.java"
+>// Description: Java 11 interface for a $SchemaName$ schema.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$;
+$SchemaISchemaImports$
+public interface I$SchemaName$Schema$iterate SchemaRefs( first extendsPackageSchemaName each commaNewlinePackageSchemaName empty empty )$
+{$iterate Types( empty empty each declISchemaEnumType )$$iterate SchemaRefs( each empty empty declSchemaGetCFTipClientHandler )$$iterate SchemaRefs( first declSchemaConfigurationFileAccessors each empty empty declSchemaConfigurationFileAccessors )$$iterate SchemaRefs( first declSchemaJndiNameAccessors each empty empty declSchemaJndiNameAccessors )$$iterate SchemaRefs( each empty empty declSchemaAuthorizationAccessors )$$iterate SchemaRefs( first declSchemaConnectionMethods each empty empty declSchemaConnectionMethods )$$iterate SchemaRefs( first declFileImport each empty empty declFileImport )$$iterate SchemaRefs( first declNewSchema each empty empty declNewSchema )$$iterate Id16Generators( each declNextIdGen empty empty)$$iterate Id32Generators( each declNextIdGen empty empty)$$iterate Id64Generators( each declNextIdGen empty empty)$$iterate UuidGenerators( each declNextIdGen empty empty )$$iterate SchemaTables( each declTableMethods empty empty )
+$$iterate SchemaRefs( first declSchemaCommitControl each empty empty declSchemaCommitControl )$$iterate SchemaRefs( first declSchemaTablePermsAccessors each empty empty declSchemaTablePermsAccessors )$$iterate SchemaRefs( first declSchemaReleasePreparedStatements each empty empty declSchemaReleasePreparedStatements )$$iterate SchemaRefs( first declSchemaISchemaGetSetDbSchemaNameMethods each empty empty declSchemaISchemaGetSetDbSchemaNameMethods )$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaISchemaImports">
+import java.lang.reflect.*;
+import java.net.*;
+import java.rmi.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.Tip.CFTipClientHandler;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$
+</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="declISchemaEnumType"
+		>$switch HasDefSchema yes empty default reallyDeclISchemaEnumType$</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="reallyDeclISchemaEnumType">
+	public enum $Name$ {$iterate Tag( first declISchemaEnumTypeFirstTag each declISchemaEnumTypeEachTag )$
+	};
+</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="declISchemaEnumTypeFirstTag">
+		$Name$</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="declISchemaEnumTypeEachTag">,
+		$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="declISchemaEnumType"></GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaGetCFTipClientHandler">
+	CFTipClientHandler getCFTipClientHandler();
+
+	String getServerURL();
+	void setServerURL( String value );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="extendsPackageSchemaName">
+extends I$PackageSchemaName$Schema</GenRule>
+	<GenRule GenDef="SchemaRef" Name="commaNewlinePackageSchemaName">,
+	I$PackageSchemaName$Schema</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="PackageSchemaName"
+		>$reference RefSchema PackageSchemaName$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="PackageSchemaName"
+		>$SchemaName$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="importJavaPackageSchemaName"
+		>$reference RefSchema importJavaPackageSchemaName$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="importJavaPackageSchemaName">
+import $lower JavaExpandPackage$.$SchemaName$.*;</GenRule>
+	<GenRule GenDef="Table" Name="importJavaPackageSchemaName"
+		>$popto SchemaDef importJavaPackageSchemaName$</GenRule>
+	<GenRule GenDef="Object" Name="importJavaPackageSchemaName"
+		>$popto SchemaDef importJavaPackageSchemaName$</GenRule>
+
+	<GenRule GenDef="Tenant" Name="JavaExpandPackage"
+		></GenRule>
+	<GenRule GenDef="Tld" Name="JavaExpandPackage"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="JavaExpandPackage"
+		>$reference Scope JavaExpandPackage$</GenRule>
+
+	<GenRule GenDef="TopProject" Name="JavaExpandPackage"
+		>$reference Scope JavaExpandPackage$.$Name$</GenRule>
+
+	<GenRule GenDef="SubProject" Name="JavaExpandPackage"
+		>$reference Scope JavaExpandPackage$.$Name$</GenRule>
+
+	<GenRule GenDef="TopDomain" Name="JavaExpandPackage"
+		>$reference Scope JavaExpandPackage$.$Name$</GenRule>
+
+	<GenRule GenDef="MinorVersion" Name="JavaExpandPackage"
+		>$reference Scope reference Scope JavaExpandPackage$</GenRule>
+	<GenRule GenDef="MajorVersion" Name="JavaExpandPackage"
+		>$reference Scope JavaExpandPackage$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaISchemaGetSetDbSchemaNameMethods"
+		>$reference RefSchema declSchemaISchemaGetSetDbSchemaNameMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaISchemaGetSetDbSchemaNameMethods">
+	/**
+	 *	When you first connect to a database, you can opt to specify a database
+	 *	schema name to be used by the session.  The implementation code must always
+	 *	be dynamically based on the invocation of &lt;tt&gt;String getDbSchemaName()&lt;/tt&gt;
+	 *	at runtime.
+	 *	&lt;p&gt;
+	 *	The initial value is defined by the implementing schema model which has inherited
+	 *	the expression of the current schema model being expanded.  That is, it is specified
+	 *	in the DbSchemaName attribute of a SchemaDef instance.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	String getDbSchemaName();
+	String getLowerDbSchemaName();
+
+	/**
+	 *	The database is expected to override this implementation and invoke the
+	 *	&lt;tt&gt;super.setDbSchemaName( String argDbSchemaName )&lt;/tt&gt; early
+	 *	on in the implementation of the cust body.  You should let the exceptions
+	 *	which can be thrown by this implementation pass unimpeded.
+	 *	&lt;pg&gt;
+	 *	When you set the database schema name, the database-specific implementation
+	 *	of this method does a "commit; use database"-type sequence to change
+	 *	to the target database.  This should be specified globally for all
+	 *	database connections in a given cluster, so that all of
+	 *	the application implementation clients are using the same database instance
+	 *	regardless of what's been provided by the cust client implementation,
+	 *	be it as a Java application or a web interface written using JEE.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	void setDbSchemaName( String argDbSchemaName );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaISchemaGetSetDbSchemaNameMethods">
+	/**
+	 *	When you first connect to a database, you can opt to specify a database
+	 *	schema name to be used by the session.  The implementation code must always
+	 *	be dynamically based on the invocation of &lt;tt&gt;String getDbSchemaName()&lt;/tt&gt;
+	 *	at runtime.
+	 *	&lt;p&gt;
+	 *	The initial value is defined by the implementing schema model which has inherited
+	 *	the expression of the current schema model being expanded.  That is, it is specified
+	 *	in the DbSchemaName attribute of a SchemaDef instance.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	String getDbSchemaName();
+	String getLowerDbSchemaName();
+
+	/**
+	 *	The database is expected to override this implementation and invoke the
+	 *	&lt;tt&gt;super.setDbSchemaName( String argDbSchemaName )&lt;/tt&gt; early
+	 *	on in the implementation of the cust body.  You should let the exceptions
+	 *	which can be thrown by this implementation pass unimpeded.
+	 *	&lt;pg&gt;
+	 *	When you set the database schema name, the database-specific implementation
+	 *	of this method does a "commit; use database"-type sequence to change
+	 *	to the target database.  This should be specified globally for all
+	 *	database connections in a given cluster, so that all of
+	 *	the application implementation clients are using the same database instance
+	 *	regardless of what's been provided by the cust client implementation,
+	 *	be it as a Java application or a web interface written using JEE.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	void setDbSchemaName( String argDbSchemaName );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaReleasePreparedStatements"
+		>$reference RefSchema declSchemaReleasePreparedStatements$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaReleasePreparedStatements">
+	/**
+	 *	Release any prepared statements allocated by this instance.
+	 *
+	 *	@Exception CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	void releasePreparedStatements();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaReleasePreparedStatements">
+	/**
+	 *	Release any prepared statements allocated by this instance.
+	 *
+	 *	@Exception CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	void releasePreparedStatements();
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaConfigurationFileAccessors"
+		>$reference RefSchema declSchemaConfigurationFileAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaConfigurationFileAccessors"
+		>$iterate SchemaRefs( first reallyDeclSchemaConfigurationFileAccessors each empty empty reallyDeclSchemaConfigurationFileAccessors )$</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaConfigurationFileAccessors"
+		>$poptop SchemaDef iterate SchemaRefs( first reallyDeclSchemaConfigurationFileAccessors each empty empty reallyDeclSchemaConfigurationFileAccessors )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="reallyDeclSchemaConfigurationFileAccessors"
+		>$reference RefSchema reallyDeclSchemaConfiguratonFileAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="reallyDeclSchemaConfigurationFileAccessors">
+	$SchemaName$ConfigurationFile getConfigurationFile();
+	void setConfigurationFile( $SchemaName$ConfigurationFile value );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="reallyDeclSchemaConfigurationFileAccessors">
+	$popto SchemaDef SchemaName$ConfigurationFile getConfigurationFile();
+	void setConfigurationFile( $popto SchemaDef SchemaName$ConfigurationFile value );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaJndiNameAccessors"
+		>$reference RefSchema declSchemaJndiNameAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaJndiNameAccessors"
+		>$iterate SchemaRefs( first reallyDeclSchemaJndiNameAccessors each empty empty reallyDeclSchemaJndiNameAccessors )$</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaJndiNameAccessors"
+		>$poptop SchemaDef iterate SchemaRefs( first reallyDeclSchemaJndiNameAccessors each empty empty reallyDeclSchemaJndiNameAccessors )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="reallyDeclSchemaJndiNameAccessors"
+		>$reference RefSchema reallyDeclSchemaJndiNameAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="reallyDeclSchemaJndiNameAccessors">
+	String getJndiName();
+	void setJndiName( String value );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="reallyDeclSchemaJndiNameAccessors">
+	String getJndiName();
+	void setJndiName( String value );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaConnectionMethods"
+		>$reference RefSchema declSchemaConnectionMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaConnectionMethods"
+		>$iterate SchemaRefs( first reallyDeclSchemaConnectionMethods each empty empty reallyDeclSchemaConnectionMethods )$</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaConnectionMethods"
+		>$poptop SchemaDef iterate SchemaRefs( first reallyDeclSchemaConnectionMethods each empty empty reallyDeclSchemaConnectionMethods )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="reallyDeclSchemaConnectionMethods"
+		>$reference RefSchema reallyDeclSchemaConnectionMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="reallyDeclSchemaConnectionMethods">
+	/**
+	 *	Is the schema connected to a persistent storage server?
+	 *
+	 *	@return	True if the schema is connected to persistent storage,
+	 *		otherwise false.
+	 */
+	boolean isConnected();
+
+	/**
+	 *	Connect to the persistent storage server.
+	 *
+	 *	@return	True if a connection was established, otherwise false.
+	 */
+	boolean connect();
+
+	/**
+	 *	Connect to the persistent storage server using the specified
+	 *	user name and password with the server and database specified
+	 *	by the configuration file.  JNDI names are ignored by this method.
+	 *
+	 *	@return	True if a connection was established, otherwise false.
+	 */
+	boolean connect( String username, String password );
+
+	/**
+	 *	Extended login format for GUI login screens
+	 */
+	boolean connect( String loginId, String password, String clusterName, String tenantName );
+
+	/**
+	 *	Disconnect from the persistent storage server.
+	 */
+	void disconnect( boolean doCommit );
+
+	/**
+	 *	Log out of the server, releasing the authorization information.
+	 */
+	void logout( $SecSchemaName$Authorization auth );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="reallyDeclSchemaConnectionMethods">
+	/**
+	 *	Is the schema connected to a persistent storage server?
+	 *
+	 *	@return	True if the schema is connected to persistent storage,
+	 *		otherwise false.
+	 */
+	boolean isConnected();
+
+	/**
+	 *	Connect to the persistent storage server.
+	 *
+	 *	@return	True if a connection was established, otherwise false.
+	 */
+	boolean connect();
+
+	/**
+	 *	Connect to the persistent storage server using the specified
+	 *	user name and password with the server and database specified
+	 *	by the configuration file.  JNDI names are ignored by this method.
+	 *
+	 *	@return	True if a connection was established, otherwise false.
+	 */
+	boolean connect( String username, String password );
+
+	/**
+	 *	Extended login format for GUI login screens
+	 */
+	boolean connect( String loginId, String password, String clusterName, String tenantName );
+
+	/**
+	 *	Disconnect from the persistent storage server.
+	 */
+	void disconnect( boolean doCommit );
+
+	/**
+	 *	Log out of the server, releasing the authorization information.
+	 */
+	void logout( $SecSchemaName$Authorization auth );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaCommitControl"
+		>$reference RefSchema declSchemaCommitControl$</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaCommitControl">
+	/**
+	 *	If a transaction is already opened for the schema connection,
+	 *	return false.  If a new transaction is successfully opened,
+	 *	return true.  Otherwise throw a RuntimeException detailing
+	 *	why a transaction could not be initiated.
+	 *	&lt;p&gt;
+	 *	This permits the database persistence implementations to
+	 *	switch between participating in an existing transaction
+	 *	or implementing an implicit atomic transaction that is
+	 *	committed or rolled back before the method returns:
+	 *	&lt;p&gt;
+	 *		boolean txnInitiated = false;
+	 *		try {
+	 *			txnInitiated = schema.beginTransaction();
+	 *			... business logic and presentation code ...
+	 *			if( txnInitiated ) {
+	 *				schema.commit();
+	 *			}
+	 *		}
+	 *		catch( RuntimeException e ) {
+	 *			if( txnInitiated ) {
+	 *				try {
+	 *					schema.rollback();
+	 *				}
+	 *				catch( RuntimeException e ) {
+	 *				}
+	 *			}
+	 *			... report exception or throw exception with cause ...
+	 *		}
+	 *	&lt;p&gt;
+	 *	As the current web-form focused implementation will be managing
+	 *	the transactions in the Servlet page response, I don't need to
+	 *	implement the atomic transaction wrappers yet.
+	 */
+
+	/**
+	 *	The client-side implementations always return true for this method.
+	 *
+	 *	@return	True if there is currently a transaction open, otherwise false.
+	 *		Client-side implementations always return true.
+	 */
+	boolean isTransactionOpen();
+
+	/**
+	 *	Begin a transaction.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	boolean beginTransaction();
+
+	/**
+	 *	Commit the current open transaction.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	void commit();
+
+	/**
+	 *	Roll back the current open transaction.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	void rollback();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declFileImport">
+	/**
+	 *	Import the contents of the specified file name
+	 *	and file contents by applying a SAX Loader parse.
+	 */
+	String fileImport( $SecSchemaName$Authorization auth, String fileName, String fileContent );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declFileImport">
+	/**
+	 *	Import the contents of the specified file name
+	 *	and file contents by applying a SAX Loader parse.
+	 */
+	String fileImport( $SecSchemaName$Authorization auth, String fileName, String fileContent );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declNewSchema"
+		>$reference RefSchema declNewSchema$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declNewSchema">
+	/**
+	 *	Allocate a new schema instance.
+	 *
+	 *	@return	A new I$SchemaName$Schema instance.
+	 */
+	I$DefSchemaName$Schema newSchema();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declNewSchema">
+	/**
+	 *	Allocate a new schema instance.
+	 *
+	 *	@return	A new I$SchemaName$Schema instance.
+	 */
+	I$DefSchemaName$Schema newSchema();
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="declNextIdGen">
+	/**
+	 *	Get the next $Name$ identifier.
+	 *
+	 *	@return	The next $Name$ identifier.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	short next$Name$();
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="declNextIdGen">
+	/**
+	 *	Get the next $Name$ identifier.
+	 *
+	 *	@return	The next $Name$ identifier.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	int next$Name$();
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="declNextIdGen">
+	/**
+	 *	Get the next $Name$ identifier.
+	 *
+	 *	@return	The next $Name$ identifier.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	long next$Name$();
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidGen" Name="declNextIdGen">
+	/**
+	 *	Get the next $Name$ identifier.
+	 *
+	 *	@return	The next $Name$ identifier.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	UUID next$Name$();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableMethods"
+		>$declSchemaTableTableAccessors$$declSchemaTableFactoryAccessors$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableTableAccessors">
+	/**
+	 *	Get the $TableName$ Table interface for the schema.
+	 *
+	 *	@return	The $TableName$ Table interface for the schema.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	I$DefSchemaName$$TableName$Table getTable$TableName$();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableFactoryAccessors">
+	/**
+	 *	Get the $TableName$ Factory interface for the schema.
+	 *
+	 *	@return	The $TableName$ Factory interface for the schema.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	I$DefSchemaName$$TableName$Factory getFactory$TableName$();
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaTablePermsAccessors"
+		>$reference RefSchema declSchemaTablePermsAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaTablePermsAccessors">
+	/**
+	 *	Get the Table Permissions interface for the schema.
+	 *
+	 *	@return	The Table Permissions interface for the schema.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	I$DefSchemaName$TablePerms getTablePerms();
+
+	/**
+	 *	Set the Table Permissions interface for the schema.
+	 *
+	 *	@param	value	The Table Permissions interface to be used by the schema.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	void setTablePerms( I$DefSchemaName$TablePerms value );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaAuthorizationAccessors">
+	/**
+	 *	Get the Authorization used by the schema.
+	 *
+	 *	@return	The Authorization used by the schema.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	$SecSchemaName$Authorization getAuthorization();
+
+	/**
+	 *	Set the Authorization used by the schema.
+	 *
+	 *	@param	value	The Authorization to be used by the schema.
+	 *
+	 *	@throws CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	void setAuthorization( $SecSchemaName$Authorization value );
+</GenRule>
+
+</RuleSet>

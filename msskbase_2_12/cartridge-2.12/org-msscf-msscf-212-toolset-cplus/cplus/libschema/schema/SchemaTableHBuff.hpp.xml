@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schema/SchemaTableHBuff.hpp"
+	Revision="2.12"
+	Descr="C++18 specification of a $TableName$ history buffer object.">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableHBuffHpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$$TableName$HBuffHpp"
+		ExpansionKeyName="$SchemaName$$TableName$HBuffHpp"
+		ExpansionFileName="$SchemaName$$TableName$HBuff.hpp"
+>#pragma once
+
+// Description: C++18 specification of a $TableName$ history buffer object.
+
+$MssSourceLicense$
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+#include &lt;$lower SchemaName$/$SchemaName$HPKey.hpp&gt;
+$switch HasSuperClassRelation yes includeSchemaTableBuffInheritedHBuff default empty$
+#include &lt;$lower SchemaName$/I$SchemaName$Schema.hpp&gt;
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$$TableName$Buff;
+	class $SchemaName$$reference BaseClass TableName$PKey;
+	class $SchemaName$$reference BaseClass TableName$HPKey;$iterate Index( each declNonPrimaryIndexKeyClass empty empty )$
+
+	class $SchemaName$$TableName$HBuff$switch HasSuperClassRelation yes declHBuffInheritSuper default declSchemaTableHBuffExtendSchemaHPKey$
+	{
+	public:
+		static const std::string CLASS_NAME;
+	protected:$switch HasDefSchema yes empty default declHBuffMaybeColumns$$switch HasSuperClassRelation no declClassCodeColumnAttr default empty$
+	public:$declHBuffConstructor$$declHBuffClone$$switch HasSuperClassRelation no declColumnGetterSetters default declDataGetterSetters$$declHBuffGetHashCode$$declHBuffComparison$$declHBuffSet$$declToString$
+	};
+}
+$declStdHBuffComparison$
+</GenFile>
+
+	<GenRule GenDef="Table" Name="declHBuffClone">
+		virtual cflib::ICFLibCloneableObj* clone();</GenRule>
+
+	<GenRule GenDef="Table" Name="includeSchemaTableBuffInheritedHBuff">
+#include &lt;$lower reference SuperClassRelation reference ToTable DefSchemaName$/$reference SuperClassRelation reference ToTable DefSchemaName$$reference SuperClassRelation reference ToTable TableName$HBuff.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="extendSchemaTableHBuff"> : public $reference DefSchema SchemaName$$TableName$HBuff</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableHBuffExtendSchemaHPKey"> : public $SchemaName$HPKey, public cflib::ICFLibCloneableObj</GenRule>
+
+	<GenRule GenDef="Table" Name="implStdHBuffHash">
+	template&lt;&gt; struct hash&lt;$CPlusNamespace$::$SchemaName$$TableName$HBuff&gt; {
+		typedef $CPlusNamespace$::$SchemaName$$TableName$HBuff argument_type;
+		typedef size_t result_type;
+		result_type operator()(argument_type const&amp; s) const {
+			return( s.hashCode() );
+		}
+	};
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffSet">
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$HBuff operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff&amp; src );
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$HBuff operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$HBuff&amp; src );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffMaybeColumns"
+		>$switch HasSuperClassRelation yes declHBuffDataAttr default declHBuffColumnAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="MaybeSchemaTableBuffExtendSchemaHPKey"
+		>$switch HasSuperClassRelation yes SchemaTableBuffExtendDefSchemaNameHBuff default SchemaTableBuffExtendSchemaHPKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="ClassMaybeSchemaTableBuffExtendSchemaHPKey"
+		>$switch HasSuperClassRelation yes ClassSchemaTableBuffExtendDefSchemaNameHBuff default ClassSchemaTableBuffExtendSchemaHPKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTableBuffExtendDefSchemaNameHBuff"> : public $CPlusDefNamespace$::$DefSchemaName$$TableName$HBuff</GenRule>
+	<GenRule GenDef="Table" Name="SchemaTableBuffExtendSchemaHPKey"> : public $SchemaName$HPKey</GenRule>
+
+	<GenRule GenDef="Table" Name="ClassSchemaTableBuffExtendDefSchemaNameHBuff">$CPlusDefNamespace$::$DefSchemaName$$TableName$HBuff</GenRule>
+	<GenRule GenDef="Table" Name="ClassSchemaTableBuffExtendSchemaHPKey">$SchemaName$HPKey</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffColumnAttr"
+		>$iterate Columns( each declColumnAttr )$</GenRule>
+	<GenRule GenDef="Table" Name="declHBuffDataAttr"
+		>$iterate DataColumns( each declColumnAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffInheritSuper" > : public $SchemaName$$reference SuperClassRelation reference ToTable TableName$HBuff
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffConstructor">
+		$SchemaName$$TableName$HBuff();
+		$SchemaName$$TableName$HBuff( const $SchemaName$$TableName$HBuff&amp; src );
+		virtual ~$SchemaName$$TableName$HBuff();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffGetHashCode">
+		virtual size_t hashCode() const;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffComparison"
+		>$declHBuffComparisonLessThan$
+$declHBuffComparisonLessOrEqual$
+$declHBuffComparisonEqual$
+$declHBuffComparisonNotEqual$
+$declHBuffComparisonGreaterOrEqual$
+$declHBuffComparisonGreaterThan$</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffNonPrimaryComparisonLessThanIndex"
+		>$switch IsPrimaryIndex yes empty default declHBuffComparisonLessThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffComparisonLessThanIndex">
+		bool operator &lt;( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffComparisonLessThan">$iterate Index( each declHBuffNonPrimaryComparisonLessThanIndex empty empty )$
+		bool operator &lt;( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator &lt;( const $SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+		bool operator &lt;( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &lt;( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffNonPrimaryComparisonLessOrEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declHBuffComparisonLessOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffComparisonLessOrEqualIndex">
+		bool operator &lt;=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffComparisonLessOrEqual">$iterate Index( each declHBuffNonPrimaryComparisonLessOrEqualIndex empty empty )$
+		bool operator &lt;=( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator &lt;=( const $SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+		bool operator &lt;=( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &lt;=( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffNonPrimaryComparisonEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declHBuffComparisonEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffComparisonEqualIndex">
+		bool operator ==( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffComparisonEqual">$iterate Index( each declHBuffNonPrimaryComparisonEqualIndex empty empty )$
+		bool operator ==( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator ==( const $SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+		bool operator ==( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator ==( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffNonPrimaryComparisonNotEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declHBuffComparisonNotEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffComparisonNotEqualIndex">
+		bool operator !=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffComparisonNotEqual">$iterate Index( each declHBuffNonPrimaryComparisonNotEqualIndex empty empty )$
+		bool operator !=( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator !=( const $SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+		bool operator !=( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator !=( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffNonPrimaryComparisonGreaterOrEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declHBuffComparisonGreaterOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffComparisonGreaterOrEqualIndex">
+		bool operator &gt;=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffComparisonGreaterOrEqual">$iterate Index( each declHBuffNonPrimaryComparisonGreaterOrEqualIndex empty empty )$
+		bool operator &gt;=( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator &gt;=( const $SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+		bool operator &gt;=( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &gt;=( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffNonPrimaryComparisonGreaterThanIndex"
+		>$switch IsPrimaryIndex yes empty default declHBuffComparisonGreaterThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declHBuffComparisonGreaterThanIndex">
+		bool operator &gt;( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declHBuffComparisonGreaterThan">$iterate Index( each declHBuffNonPrimaryComparisonGreaterThanIndex empty empty )$
+		bool operator &gt;( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator &gt;( const $SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+		bool operator &gt;( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &gt;( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdHBuffComparison">
+namespace std {
+$declStdHBuffComparisonLessThan$
+$declStdHBuffComparisonLessOrEqual$
+$declStdHBuffComparisonEqual$
+$declStdHBuffComparisonNotEqual$
+$declStdHBuffComparisonGreaterOrEqual$
+$declStdHBuffComparisonGreaterThan$
+$implStdHBuffHash$
+}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffNonPrimaryComparisonLessThanIndex"
+		>$switch IsPrimaryIndex yes empty default declStdHBuffComparisonLessThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffComparisonLessThanIndex">
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdHBuffComparisonLessThan">$iterate Index( each declStdHBuffNonPrimaryComparisonLessThanIndex empty empty )$
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffNonPrimaryComparisonLessOrEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declStdHBuffComparisonLessOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffComparisonLessOrEqualIndex">
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdHBuffComparisonLessOrEqual">$iterate Index( each declStdHBuffNonPrimaryComparisonLessOrEqualIndex empty empty )$
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffNonPrimaryComparisonEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declStdHBuffComparisonEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffComparisonEqualIndex">
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdHBuffComparisonEqual">$iterate Index( each declStdHBuffNonPrimaryComparisonEqualIndex empty empty )$
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffNonPrimaryComparisonNotEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declStdHBuffComparisonNotEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffComparisonNotEqualIndex">
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdHBuffComparisonNotEqual">$iterate Index( each declStdHBuffNonPrimaryComparisonNotEqualIndex empty empty )$
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffNonPrimaryComparisonGreaterOrEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declStdHBuffComparisonGreaterOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffComparisonGreaterOrEqualIndex">
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdHBuffComparisonGreaterOrEqual">$iterate Index( each declStdHBuffNonPrimaryComparisonGreaterOrEqualIndex empty empty )$
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffNonPrimaryComparisonGreaterThanIndex"
+		>$switch IsPrimaryIndex yes empty default declStdHBuffComparisonGreaterThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHBuffComparisonGreaterThanIndex">
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdHBuffComparisonGreaterThan">$iterate Index( each declStdHBuffNonPrimaryComparisonGreaterThanIndex empty empty )$
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$HPKey&amp; rhs );
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+</RuleSet>

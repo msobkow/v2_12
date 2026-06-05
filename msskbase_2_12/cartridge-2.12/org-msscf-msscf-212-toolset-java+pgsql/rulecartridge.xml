@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory Core Expert System Rule Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	Licensed under the Apache License, Version 2.0 (the "License");
+ *	you may not use this file except in compliance with the License.
+ *	You may obtain a copy of the License at
+ *	
+ *		http://www.apache.org/licenses/LICENSE-2.0
+ *	
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS,
+ *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *	See the License for the specific language governing permissions and
+ *	limitations under the License.
+ * -->
+<RuleCartridge
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-cartridge.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-cartridge.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-cartridge.xsd"
+		Name="org-msscf-msscf-212-toolset-java+pgsql"
+		Revision="2.12"
+		Descr="Java 11 PostgreSQL DbIO layer">
+	<Tool Name="java" />
+	<Tool Name="pgsql" />
+	<ToolSet Name="java+pgsql" />
+</RuleCartridge>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="xsd/project-schema-rspn.xsd"
+	Revision="2.12"
+	Descr="Java 11 XML Response Message Schema Definition">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaRspnXsd"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema SchemaName$XMsgRspn/src/main/resources"
+		SubPackageName="xsd"
+		ExpansionClassName="$SchemaName$RspnXsd"
+		ExpansionKeyName="$SchemaName$RspnXsd"
+		ExpansionFileName="$lower SchemaName$-rspn.xsd"
+>$XsdXmlPreamble$&lt;xsd:schema xmlns="$SchemaXMsgRspnNamespace$" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="$SchemaXMsgRspnNamespace$" version="$reference MinorVersion reference ParentMajVer Name$.$reference MinorVersion Name$"&gt;
+$SchemaRspnAnnotation$$DeclRspnNoDataFoundType$$DeclRspnExceptionType$$iterate Types( first CommentDeclRqstAtomType each DeclRqstAtomType empty empty )$$iterate SchemaTables( first CommentDeclRqstTableColTypes each DeclRqstTableColTypes empty empty )$$DeclRspnFileLoadedAttributeTypes$$DeclRspnLoggedInAttributeTypes$$DeclRspnLoggedOutAttributeTypes$$iterate SchemaTables( first CommentDeclRqstIndexType each DeclRqstIndexType empty empty )$$CommentRspnTableRecTypes$$iterate SchemaTables( each DeclTableRootRecType empty empty )$$CommentRspnTableCreatedTypes$$iterate SchemaTables( each DeclRspnTableCreatedType )$$CommentRspnTableDeletedTypes$$iterate SchemaTables( each DeclRspnTableDeletedType )$$CommentRspnTableLockedTypes$$iterate SchemaTables( each DeclRspnTableLockedType )$$CommentRspnTableUpdatedTypes$$iterate SchemaTables( each DeclRspnTableUpdatedType )$$CommentRspnTableReadSingleTypes$$iterate SchemaTables( each DeclRspnTableReadSingleType )$$CommentRspnTableReadListTypes$$iterate SchemaTables( each DeclRspnTableReadListType )$$DeclRspnFileLoadedRecType$$DeclRspnLoggedInRecType$$DeclRspnLoggedOutRecType$$CommentRspnTableServerFuncExecutedTypes$$iterate SchemaTables( each DeclRspnTableFuncExecutedTypes empty empty )$$DeclRspnServerProcExecutedRecType$$JavaXMsgRspnSchemaXsdSpec$$ReferencedJavaXMsgRspnSchemaXsdSpec$$DeclRspnRootDocument$
+&lt;/xsd:schema&gt;
+</GenFile>
+
+<GenRule GenDef="SchemaDef" Name="DeclRspnFileLoadedAttributeTypes">
+&lt;xsd:simpleType name="FileLoadedLogContentType"&gt;
+	&lt;xsd:restriction base="xsd:string"&gt;
+		&lt;xsd:whiteSpace value="preserve"/&gt;
+	&lt;/xsd:restriction&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="DeclRspnLoggedInAttributeTypes">
+&lt;xsd:simpleType name="LoggedInClusterIdType"&gt;
+	&lt;xsd:restriction base="ClusterIdGenType"/&gt;
+&lt;/xsd:simpleType&gt;
+
+&lt;xsd:simpleType name="LoggedInClusterFullDomNameType"&gt;
+	&lt;xsd:restriction base="ClusterFullDomNameType"/&gt;
+&lt;/xsd:simpleType&gt;
+
+&lt;xsd:simpleType name="LoggedInTenantIdType"&gt;
+	&lt;xsd:restriction base="TenantIdGenType"/&gt;
+&lt;/xsd:simpleType&gt;
+
+&lt;xsd:simpleType name="LoggedInTenantNameType"&gt;
+	&lt;xsd:restriction base="TenantTenantNameType"/&gt;
+&lt;/xsd:simpleType&gt;
+
+&lt;xsd:simpleType name="LoggedInSecUserIdType"&gt;
+	&lt;xsd:restriction base="SecUserIdGenType"/&gt;
+&lt;/xsd:simpleType&gt;
+
+&lt;xsd:simpleType name="LoggedInSecUserLoginIdType"&gt;
+	&lt;xsd:restriction base="SecUserLoginIdType"/&gt;
+&lt;/xsd:simpleType&gt;
+
+&lt;xsd:simpleType name="LoggedInSecSessionIdType"&gt;
+	&lt;xsd:restriction base="SecSessionIdGenType"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="DeclRspnFileLoadedRecType">
+&lt;xsd:complexType name="RspnFileLoadedRecType" mixed="true"&gt;
+	&lt;xsd:attribute name="LogContent" type="FileLoadedLogContentType" use="required" /&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="DeclRspnLoggedInRecType">
+&lt;xsd:complexType name="RspnLoggedInRecType" mixed="true"&gt;
+	&lt;xsd:attribute name="ClusterId" type="LoggedInClusterIdType" use="required" /&gt;
+	&lt;xsd:attribute name="ClusterName" type="LoggedInClusterFullDomNameType" /&gt;
+	&lt;xsd:attribute name="TenantId" type="LoggedInTenantIdType" use="required" /&gt;
+	&lt;xsd:attribute name="TenantName" type="LoggedInTenantNameType" use="required" /&gt;
+	&lt;xsd:attribute name="SecUserId" type="LoggedInSecUserIdType" use="required" /&gt;
+	&lt;xsd:attribute name="SecUserName" type="LoggedInSecUserLoginIdType" use="required" /&gt;
+	&lt;xsd:attribute name="SecSessionId" type="LoggedInSecSessionIdType" use="required" /&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="DeclRspnLoggedOutAttributeTypes">
+&lt;xsd:simpleType name="LoggedOutSecSessionIdType"&gt;
+	&lt;xsd:restriction base="SecSessionIdGenType"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="DeclRspnLoggedOutRecType">
+&lt;xsd:complexType name="RspnLoggedOutRecType" mixed="true"&gt;
+	&lt;xsd:attribute name="SecSessionId" type="LoggedOutSecSessionIdType" use="required" /&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="DeclRspnServerProcExecutedRecType">
+&lt;xsd:complexType name="RspnServerProcExecutedRecType" mixed="true"&gt;
+	&lt;xsd:attribute name="DataChanged" type="xsd:boolean" use="required" /&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgRspnSchemaXsdSpec"
+		>$iterate SchemaRefs( each ApplyJavaXMsgRspnSchemaXsdSpec empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgRspnSchemaXsdSpec"
+		>$reference RefSchema JavaXMsgRspnSchemaXsdSpec$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DeclRspnRootDocument">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Root Document
+ *
+ **************************************************************************--&gt;
+
+&lt;xsd:complexType name="$SchemaName$RspnType" mixed="true"&gt;
+	&lt;xsd:sequence&gt;
+		&lt;xsd:choice minOccurs="0" maxOccurs="unbounded"&gt;$DeclCommonElements$$iterate SchemaTables( each DeclObjElement empty empty )$$iterate SchemaTables( each DeclRspnServerFuncElements empty empty )$$JavaXMsgRspnSchemaXsdElementList$
+		&lt;/xsd:choice&gt;
+	&lt;/xsd:sequence&gt;
+&lt;/xsd:complexType&gt;
+
+&lt;xsd:element name="$SchemaName$Rspn" type="$SchemaName$RspnType" /&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DeclRspnNoDataFoundType">
+&lt;xsd:complexType name="Rspn$SchemaName$NoDataFoundType" mixed="true"&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DeclRspnExceptionType">
+&lt;xsd:complexType name="Rspn$SchemaName$ExceptionType" mixed="true"&gt;
+	&lt;xsd:attribute name="Name" type="xsd:string" use="required" /&gt;
+	&lt;xsd:attribute name="Message" type="xsd:string" use="required" /&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DeclCommonElements">
+			&lt;xsd:element name="RspnNoDataFound" type="Rspn$SchemaName$NoDataFoundType" /&gt;
+			&lt;xsd:element name="RspnException" type="Rspn$SchemaName$ExceptionType" /&gt;
+			&lt;xsd:element name="RspnFileLoaded" type="RspnFileLoadedRecType" /&gt;
+			&lt;xsd:element name="RspnLoggedIn" type="RspnLoggedInRecType" /&gt;
+			&lt;xsd:element name="LoggedOut" type="RspnLoggedOutRecType" /&gt;
+			&lt;xsd:element name="RspnServerProcExecuted" type="RspnServerProcExecutedRecType" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclObjElement">
+			&lt;xsd:element name="$TableName$" type="$TableName$RecType" /&gt;
+			&lt;xsd:element name="Rspn$TableName$Created" type="Rspn$TableName$CreatedType" /&gt;
+			&lt;xsd:element name="Rspn$TableName$Locked" type="Rspn$TableName$LockedType" /&gt;
+			&lt;xsd:element name="Rspn$TableName$Updated" type="Rspn$TableName$UpdatedType" /&gt;
+			&lt;xsd:element name="Rspn$TableName$ReadSingle" type="Rspn$TableName$ReadSingleType" /&gt;
+			&lt;xsd:element name="Rspn$TableName$ReadList" type="Rspn$TableName$ReadListType" /&gt;
+			&lt;xsd:element name="Rspn$TableName$Deleted" type="Rspn$TableName$DeletedType" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRspnServerFuncElements"
+		>$iterate ServerMethods( each DeclRspnServerFuncElement empty empty )$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="DeclRspnServerFuncElement"
+		></GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="DeclRspnServerFuncElement">
+			&lt;xsd:element name="Rspn$reference ForTable Name$$Name$Executed" type="Rspn$reference ForTable Name$$Name$ExecutedType" /&gt;</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="DeclRspnServerFuncElement">
+			&lt;xsd:element name="Rspn$reference ForTable Name$$Name$Executed" type="Rspn$reference ForTable Name$$Name$ExecutedType" /&gt;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgRspnNamespace"
+		>uri://$lower reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj reference ParentSDom reference ParentTld Name$.$lower reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj reference ParentSDom Name$/$lower reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference MinorVersion reference ParentMajVer Name$.0.$reference MinorVersion Name$/$lower SchemaName$rspn</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaRspnAnnotation">
+&lt;xsd:annotation&gt;
+	&lt;xsd:documentation xml:lang="en"&gt;
+		$EffectiveProjectName$ response messages for schema $SchemaName$
+	&lt;/xsd:documentation&gt;
+&lt;/xsd:annotation&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CommentRspnTableRecTypes">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Table Response Object Types
+ *
+ **************************************************************************--&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclTableRootRecType"
+		>$switch HasSuperClassRelation yes empty default DeclTableRecType$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclTableRecType">
+&lt;xsd:complexType name="$Name$RecType" mixed="true"&gt;$switch HasSuperClassRelation yes DeclTableRecTypeExtensionBase default DeclTableRecTypeBase$
+&lt;/xsd:complexType&gt;
+$iterate TableSubClasses( each DeclTableRecType empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclTableRecTypeExtensionBase">
+	&lt;xsd:complexContentHandler&gt;
+		&lt;xsd:extension base="$reference SuperClassRelation reference ToTable TableName$RecType"&gt;$iterate Columns( each DeclExtensionColAttribute empty empty )$
+		&lt;/xsd:extension&gt;
+	&lt;/xsd:complexContentHandler&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclTableRecTypeBase">$iterate Columns( each DeclBaseColAttribute empty empty )$
+	&lt;xsd:attribute name="Revision" type="$reference BaseClass TableName$RevisionType" use="required"/&gt;$switch BaseHasAuditColumns yes DeclTableTypeAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CommentRspnTableCreatedTypes">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Table Response Created Types
+ *
+ **************************************************************************--&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRspnTableCreatedType">
+&lt;xsd:complexType name="Rspn$Name$CreatedType" mixed="true"&gt;
+	&lt;xsd:complexContentHandler&gt;
+		&lt;xsd:extension base="$poptop Table TableName$RecType"&gt;
+		&lt;/xsd:extension&gt;
+	&lt;/xsd:complexContentHandler&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CommentRspnTableDeletedTypes">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Table Response Deleted Types
+ *
+ **************************************************************************--&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRspnTableDeletedType">
+&lt;xsd:complexType name="Rspn$Name$DeletedType" mixed="true"&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CommentRspnTableLockedTypes">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Table Response Locked Types
+ *
+ **************************************************************************--&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRspnTableLockedType">
+&lt;xsd:complexType name="Rspn$Name$LockedType" mixed="true"&gt;
+	&lt;xsd:complexContentHandler&gt;
+		&lt;xsd:extension base="$poptop Table TableName$RecType"&gt;
+		&lt;/xsd:extension&gt;
+	&lt;/xsd:complexContentHandler&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CommentRspnTableUpdatedTypes">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Table Response Updated Types
+ *
+ **************************************************************************--&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRspnTableUpdatedType">
+&lt;xsd:complexType name="Rspn$Name$UpdatedType" mixed="true"&gt;
+	&lt;xsd:complexContentHandler&gt;
+		&lt;xsd:extension base="$poptop Table TableName$RecType"&gt;
+		&lt;/xsd:extension&gt;
+	&lt;/xsd:complexContentHandler&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CommentRspnTableReadSingleTypes">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Table Response Read Single Object Types
+ *
+ **************************************************************************--&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRspnTableReadSingleType">
+&lt;xsd:complexType name="Rspn$Name$ReadSingleType" mixed="true"&gt;
+	&lt;xsd:sequence&gt;
+		&lt;xsd:choice minOccurs="0" maxOccurs="1"&gt;$DeclRspnTableReadSubElements$
+		&lt;/xsd:choice&gt;
+	&lt;/xsd:sequence&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRspnTableReadSubElements">
+			&lt;xsd:element name="$TableName$" type="$TableName$RecType" /&gt;$iterate TableSubClasses( each DeclRspnTableReadSubElements empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CommentRspnTableReadListTypes">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Table Response Read List Object Types
+ *
+ **************************************************************************--&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRspnTableReadListType">
+&lt;xsd:complexType name="Rspn$Name$ReadListType" mixed="true"&gt;
+	&lt;xsd:sequence&gt;
+		&lt;xsd:choice minOccurs="0" maxOccurs="unbounded"&gt;$DeclRspnTableReadSubElements$
+		&lt;/xsd:choice&gt;
+	&lt;/xsd:sequence&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CommentRspnTableServerFuncExecutedTypes">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Table Server Func Executed Object Types
+ *
+ **************************************************************************--&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRspnTableFuncExecutedTypes"
+		>$iterate ServerMethods( each DeclRspnTableFuncExecutedType empty empty )$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="DeclRspnTableFuncExecutedType"
+		></GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="DeclRspnTableFuncExecutedType">
+&lt;xsd:complexType name="Rspn$reference ForTable Name$$Name$ExecutedType" mixed="true"&gt;
+	&lt;xsd:sequence&gt;
+		&lt;xsd:choice minOccurs="0" maxOccurs="1"&gt;$reference RetTable DeclRspnTableReadSubElements$
+		&lt;/xsd:choice&gt;
+	&lt;/xsd:sequence&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="DeclRspnTableFuncExecutedType">
+&lt;xsd:complexType name="Rspn$reference ForTable Name$$Name$ExecutedType" mixed="true"&gt;
+	&lt;xsd:sequence&gt;
+		&lt;xsd:choice minOccurs="0" maxOccurs="unbounded"&gt;$reference RetTable DeclRspnTableReadSubElements$
+		&lt;/xsd:choice&gt;
+	&lt;/xsd:sequence&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+</RuleSet>

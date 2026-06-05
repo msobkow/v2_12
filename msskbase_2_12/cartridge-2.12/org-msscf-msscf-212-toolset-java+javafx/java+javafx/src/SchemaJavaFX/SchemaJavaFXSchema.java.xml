@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+javafx"
+	Name="src/SchemaJavaFXSchema.java"
+	Revision="2.12"
+	Descr="Java 11 JavaFX Schema">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaJavaFXSchemaJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$JavaFX/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$JavaFX"
+		ExpansionClassName="$SchemaName$JavaFXSchemaJava"
+		ExpansionKeyName="$SchemaName$JavaFXSchemaJava"
+		ExpansionFileName="$SchemaName$JavaFXSchema.java"
+>// Description: Java 11 JavaFX Schema for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$JavaFX;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import java.security.KeyStore;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.JavaFX.*;
+import org.apache.commons.codec.binary.Base64;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$$iterate SchemaRefs( each importJavaPackageSchemaNameJavaFX empty empty )$
+import $lower JavaPackage$.$SchemaName$SaxLoader.$SchemaName$SaxLoader;
+
+public class $SchemaName$JavaFXSchema
+implements I$SchemaName$JavaFXSchema
+{$implSchemaJavaFXClassBody$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaJavaFXClassBody">
+	protected $SecSchemaName$ClientConfigurationFile clientConfigurationFile = null;
+	protected KeyStore keyStore = null;
+	protected I$SchemaName$SchemaObj schema = null;
+	protected String clusterName = "system";
+	protected I$SecSchemaName$ClusterObj clusterObj = null;
+	protected String tenantName = "system";
+	protected I$SecSchemaName$TenantObj tenantObj = null;
+	protected String secUserName = "system";
+	protected I$SecSchemaName$SecUserObj secUserObj = null;
+	protected I$SecSchemaName$SecSessionObj secSessionObj = null;$iterate SchemaTables( each declSchemaJavaFXSchemaTableFactory empty empty )$
+$implSchemaJavaFXSchemaConstructor$$implSchemaJavaFXGetSetClientConfigurationFile$$implSchemaJavaFXGetSetKeyStore$$implSchemaJavaFXSchemaGetSetSchema$$implSchemaJavaFXSchemaGetSetClusterName$$implSchemaJavaFXSchemaGetSetTenantName$$implSchemaJavaFXSchemaGetSetSecUserName$$implSchemaJavaFXSchemaGetSecSessionObj$$iterate SchemaTables( each implSchemaJavaFXSchemaGetTableFactory empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaJavaFXGetSetKeyStore">
+	public KeyStore getKeyStore() {
+		return( keyStore );
+	}
+
+	public void setKeyStore( KeyStore value ) {
+		keyStore = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaJavaFXGetSetClientConfigurationFile">
+	public $SecSchemaName$ClientConfigurationFile getClientConfigurationFile() {
+		return( clientConfigurationFile );
+	}
+
+	public void setClientConfigurationFile( $SecSchemaName$ClientConfigurationFile value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"setClientConfigurationFile",
+				1,
+				"value" );
+		}
+		clientConfigurationFile = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaJavaFXSchemaConstructor">
+	public $SchemaName$JavaFXSchema() {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaJavaFXSchemaGetSetClusterName">
+	public String getClusterName() {
+		return( clusterName );
+	}
+
+	public void setClusterName( String argClusterName ) {
+		final String S_ProcName = "setClusterName";
+		if( ( argClusterName == null ) || ( argClusterName.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"argClusterName" );
+		}
+		clusterName = argClusterName;
+		clusterObj = null;
+	}
+
+	public I$SecSchemaName$ClusterObj getClusterObj() {
+		if( clusterObj == null ) {
+			if( ( schema != null ) &amp;&amp; schema.isConnected() ) {
+				boolean transactionStarted = schema.beginTransaction();
+				try {
+					clusterObj = schema.getClusterTableObj().readClusterByUDomNameIdx( clusterName );
+					if( transactionStarted ) {
+						schema.commit();
+					}
+				}
+				catch( RuntimeException e ) {
+					if( transactionStarted ) {
+						try {
+							schema.rollback();
+						}
+						catch( Exception e2 ) {
+						}
+					}
+					throw e;
+				}
+			}
+			if( clusterObj == null ) {
+				throw new RuntimeException( "Cluster \"" + clusterName + "\" could not be found" );
+			}
+		}
+		else {
+			throw new RuntimeException( "Cannot resolve Cluster before a connection is established" );
+		}
+		return( clusterObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaJavaFXSchemaGetSetTenantName">
+	public String getTenantName() {
+		return( tenantName );
+	}
+
+	public void setTenantName( String argTenantName ) {
+		final String S_ProcName = "setTenantName";
+		if( ( argTenantName == null ) || ( argTenantName.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"argTenantName" );
+		}
+		tenantName = argTenantName;
+		tenantObj = null;
+	}
+
+	public I$SecSchemaName$TenantObj getTenantObj() {
+		if( tenantObj == null ) {
+			if( ( schema != null ) &amp;&amp; schema.isConnected() ) {
+				boolean transactionStarted = schema.beginTransaction();
+				try {
+					tenantObj = schema.getTenantTableObj().readTenantByUNameIdx( getClusterObj().getRequiredId(), tenantName );
+					if( transactionStarted ) {
+						schema.commit();
+					}
+				}
+				catch( RuntimeException e ) {
+					if( transactionStarted ) {
+						try {
+							schema.rollback();
+						}
+						catch( Exception e2 ) {
+						}
+					}
+					throw e;
+				}
+			}
+			if( tenantObj == null ) {
+				throw new RuntimeException( "Tenant \"" + tenantName + "\" could not be found for Cluster \"" + clusterName + "\"" );
+			}
+		}
+		else {
+			throw new CFLibRuntimeException( "Cannot resolve tenant before a connection is established" );
+		}
+		return( tenantObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaJavaFXSchemaGetSetSecUserName">
+	public String getSecUserName() {
+		return( secUserName );
+	}
+
+	public void setSecUserName( String argSecUserName ) {
+		final String S_ProcName = "setSecUserName";
+		if( ( argSecUserName == null ) || ( argSecUserName.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"argSecUserName" );
+		}
+		secUserName = argSecUserName;
+		secUserObj = null;
+	}
+
+	public I$SecSchemaName$SecUserObj getSecUserObj() {
+		if( secUserObj == null ) {
+			if( ( schema != null ) &amp;&amp; schema.isConnected() ) {
+				boolean transactionStarted = schema.beginTransaction();
+				try {
+					secUserObj = schema.getSecUserTableObj().readSecUserByULoginIdx( secUserName );
+					if( transactionStarted ) {
+						schema.commit();
+					}
+				}
+				catch( RuntimeException e ) {
+					if( transactionStarted ) {
+						try {
+							schema.rollback();
+						}
+						catch( Exception e2 ) {
+						}
+					}
+					throw e;
+				}
+			}
+			if( secUserObj == null ) {
+				throw new RuntimeException( "SecUser \"" + secUserName + "\" could not be found" );
+			}
+		}
+		else {
+			throw new CFLibRuntimeException( "Cannot resolve sec user before a connection is established" );
+		}
+		return( secUserObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaJavaFXSchemaGetSecSessionObj">
+	public I$SecSchemaName$SecSessionObj getSecSessionObj() {
+		if( secSessionObj == null ) {
+			if( ( schema != null ) &amp;&amp; schema.isConnected() ) {
+				boolean transactionStarted = schema.beginTransaction();
+				try {
+					getClusterObj();
+					getTenantObj();
+					getSecUserObj();
+					secSessionObj = schema.getSecSessionTableObj().newInstance();
+					I$SecSchemaName$SecSessionEditObj sessionEdit = secSessionObj.beginEdit();
+					sessionEdit.setRequiredContainerSecUser( secUserObj );
+					sessionEdit.setRequiredStart( Calendar.getInstance() );
+					sessionEdit.setOptionalFinish( null );
+					secSessionObj = sessionEdit.create();
+					sessionEdit = null;
+					if( transactionStarted ) {
+						schema.commit();
+					}
+				}
+				catch( RuntimeException e ) {
+					if( transactionStarted ) {
+						try {
+							schema.rollback();
+						}
+						catch( Exception e2 ) {
+						}
+					}
+					throw e;
+				}
+			}
+		}
+		else {
+			throw new CFLibRuntimeException( "Cannot resolve sec session before a connection is established" );
+		}
+		return( secSessionObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaJavaFXSchemaGetSetSchema">
+	public I$SecSchemaName$SchemaObj getSchema() {
+		return( schema );
+	}
+
+	public void setSchema( I$SecSchemaName$SchemaObj argSchema ) {
+		final String S_ProcName = "setSchema";
+		if( argSchema == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"argSchema" );
+		}
+		if( ! ( argSchema instanceof I$SchemaName$SchemaObj ) ) {
+			throw new CFLibUnsupportedClassException( getClass(),
+				S_ProcName,
+				"argSchema",
+				argSchema,
+				"I$SchemaName$SchemaObj" );
+		}
+		schema = (I$SchemaName$SchemaObj)argSchema;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaJavaFXSchemaTableFactory">
+	protected I$DefSchemaName$JavaFX$TableName$Factory factory$TableName$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaJavaFXSchemaGetTableFactory">
+	public I$DefSchemaName$JavaFX$TableName$Factory get$TableName$Factory() {
+		if( factory$TableName$ == null ) {
+			factory$TableName$ = new $DefSchemaName$JavaFX$TableName$Factory( this );
+		}
+		return( factory$TableName$ );
+	}
+</GenRule>
+
+</RuleSet>

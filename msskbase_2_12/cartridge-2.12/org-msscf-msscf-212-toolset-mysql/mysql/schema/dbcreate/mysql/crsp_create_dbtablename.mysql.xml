@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mysql"
+	Name="schema/dbcreate/mysql/crsp_create_dbtablename.mysql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPCreateDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mysql"
+		ExpansionClassName="$dbadminfilename_CreateSPCreateDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPCreateDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPCreateDbTableName$" >--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+delimiter ////
+create procedure $lower DbSchemaName$.$sp_create_dbtablename$($implMySqlSPStandardArgs$,
+	$implMySqlSPCreateTableArgs$ )
+not deterministic
+modifies sql data
+begin
+	declare permissionFlag boolean;
+	declare isSystemUser boolean;$reference BaseClass iterate GeneratedTableColumns( each decl_GeneratorVar empty empty )$$switch HasChain yes declMySqlSPCreateTableChainPrevVars default empty$$switch TableName SecSession empty default implMySqlSPCreateTableCheckPermissions$$switch HasChain yes implMySqlSPTableLatchContainer default empty$$switch HasChain yes implMySqlSPCreateTableChainSelectPrev default empty$$reference BaseClass iterate GeneratedTableColumns( each invoke_Generator empty empty )$$insertTableHierarchy$$switch BaseHasHistory yes implAudit default empty$$switch HasChain yes implMySqlSPCreateTableUpdatePrev default empty$$switch HasChain yes implMySqlSPTableUnlatchContainer default empty$
+	select
+$implMySqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+end;////
+</GenFile>
+
+	<GenRule GenDef="Table" Name="ChainTableHasSuperClassRelation"
+		>$reference Chain reference Table HasSuperClassRelation$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableUpdatePrev">
+	if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implMySqlSPCreateTableUpdatePrevIfNotNull each empty )$ )
+	then$switch ChainTableHasSuperClassRelation yes implMySqlSPCreateTableUpdateTwoTables default implMySqlSPCreateTableUpdateOneTable$$switch BaseHasHistory yes implMySqlSPCreateTableUpdatePrevAuditUpdated default empty$
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableUpdateOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMySqlSPCreateTableUpdateTableAuditColumns default empty$$reference Chain reference NextRel iterate Columns( each implMySqlSPCreateTableUpdateWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPCreateTableUpdateTableWherePKeyCol each implMySqlSPCreateTableUpdateTableWhereAndPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableUpdateTableAuditColumns">,
+			updatedby = argAuditUserId,
+			updatedat = now()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPCreateTableUpdateWithKey"
+		>$lower reference FromCol DbColumnName$ = arg$reference ToCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPCreateTableUpdateWithCommaKey">,
+			$implMySqlSPCreateTableUpdateWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPCreateTableUpdateTableWherePKeyCol"
+		>$lower reference ToCol DbColumnName$ = prev$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPCreateTableUpdateTableWhereAndPKeyCol">
+			and $implMySqlSPCreateTableUpdateTableWherePKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableUpdateTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMySqlSPCreateTableUpdateTableAuditColumns default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPCreateTableUpdateTableWherePKeyCol each implMySqlSPCreateTableUpdateTableWhereAndPKeyCol )$;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference NextRel iterate Columns( first implMySqlSPCreateTableUpdateWithKey each implMySqlSPCreateTableUpdateWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPCreateTableUpdateTableWherePKeyCol each implMySqlSPCreateTableUpdateTableWhereAndPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPCreateTableUpdatePrevIfNotNull"
+		>prev$Name$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableUpdatePrevAuditUpdated">
+		call $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implMySqlSPCreateTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implMySqlSPCreateTableAuditUpdatedPassArg )$,
+			1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableUpdatePrevAuditPassClassCode">,
+			prevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPCreateTableAuditUpdatedPassArg">,
+			prev$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableChainSelectPrev">
+	select$reference Chain reference NextRel reference ToTable reference BaseClass reference PrimaryKeyIndex iterate Columns( first implMySqlSPCreateTableChainSelectPrevKeyCol each implMySqlSPCreateTableChainSelectCommaPrevKeyCol )$$reference Chain reference Table switch HasClassCode yes implMySqlSPCreateTableChainSelectCommaClassCode default empty$
+	into$reference Chain reference PrevRel reference FromIndex iterate Columns( first implMySqlSPCreateTableChainSelectIntoVar each implMySqlSPCreateTableChainSelectCommaIntoVar )$$reference Chain reference Table switch HasClassCode yes implMySqlSPCreateTableChainSelectCommaIntoClassCode default empty$
+	from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ $lower reference Chain reference Table ClassCode$$reference Chain reference Table switch HasSuperClassRelation yes implMySqlSPCreateTableChainSelectJoinSuper default empty$
+	where$reference Chain reference Table reference ContainerRelation iterate Columns( first implMySqlSPCreateTableChainSelectWhereContainerArg each implMySqlSPCreateTableChainSelectWhereAndContainerArg )$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMySqlSPCreateTableChainSelectWhereAndNextNull )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPCreateTableChainSelectWhereContainerArg">
+		$lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPCreateTableChainSelectWhereAndContainerArg">
+		and $lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPCreateTableChainSelectWhereAndNextNull">
+		and $lower reference Index reference Table ClassCode$.$lower DbColumnName$ is null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableChainSelectJoinSuper">
+		inner join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference SuperClassRelation iterate Columns( first implMySqlSPCreateTableChainSelectJoinSuperOnCol each implMySqlSPCreateTableChainSelectJoinSuperAndOnCol )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implMySqlSPCreateTableChainSelectJoinSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPCreateTableChainSelectJoinSuperOnCol">
+			$lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = $lower reference Relation reference ToTable ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPCreateTableChainSelectJoinSuperAndOnCol">
+			and $lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = $lower reference Relation reference ToTable ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPCreateTableChainSelectPrevKeyCol">
+		$lower reference Index reference Table ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPCreateTableChainSelectCommaPrevKeyCol"
+		>,$implMySqlSPCreateTableChainSelectPrevKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableChainSelectCommaClassCode">,
+		$lower reference BaseClass ClassCode$.classcode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPCreateTableChainSelectIntoVar">
+		prev$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPCreateTableChainSelectCommaIntoVar"
+		>,$implMySqlSPCreateTableChainSelectIntoVar$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableChainSelectCommaIntoClassCode">,
+		prevClassCode</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPCreateTableChainPrevVars">
+	declare subret boolean;$reference Chain reference Table switch HasClassCode yes declMySqlSPCreateTableChainPrevClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declMySqlSPCreateTableChainPrevVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPCreateTableChainPrevClassCode">
+	declare prevClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMySqlSPCreateTableChainPrevVar">
+	declare prev$Name$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implMySqlSPTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPTableLatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision + 1
+	where
+		$popto Relation iterate Columns( first implMySqlSPTableLatchWhereArg each implMySqlSPTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPTableLatchWhereArg"
+		>$lower reference ToCol DbColumnName$ = arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPTableLatchWhereAndArg">
+		and $implMySqlSPTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implMySqlSPTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPTableUnlatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision - 1
+	where
+		$popto Relation iterate Columns( first implMySqlSPTableLatchWhereArg each implMySqlSPTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlSPStandardArgs">
+	argAuditClusterId bigint,
+	argAuditUserId varchar(36),
+	argAuditSessionId varchar(36),
+	secClusterId bigint,
+	secTenantId bigint</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableCheckPermissions"
+		>$switch SecScope None empty System implMySqlSPCreateTableCheckSystem Cluster implMySqlSPCreateTableCheckCluster Tenant implMySqlSPCreateTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableCheckSystem">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into permissionFlag;
+
+		if( permissionFlag = false )
+		then
+			signal sqlstate '45001'
+			set message_text = '$poptop Table sp_create_dbtablename$() Permission denied, not identified as system',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableCheckCluster">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_cluster_user( arg$reference ClusterIdColumn Name$,
+				'Create$TableName$',
+				argAuditUserId ),
+			$lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+		into permissionFlag, isSystemUser;
+
+		if( ( permissionFlag = false ) and ( isSystemUser = false ) )
+		then
+			signal sqlstate '45002'
+			set message_text = '$poptop Table sp_create_dbtablename$() Permission denied, not granted access to current cluster',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableCheckTenant">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_tenant_user( arg$reference TenantIdColumn Name$,
+				'Create$TableName$',
+				argAuditUserId ),
+			$lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+		into permissionFlag, isSystemUser;
+
+		if( ( permissionFlag = false ) and ( isSystemUser = false ) )
+		then
+			signal sqlstate '45003'
+			set message_text = '$poptop Table sp_create_dbtablename$() Permission denied, not granted Create$TableName$ access to current Tenant',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAudit"
+		>$switch BaseHasClassCode yes implAuditWithCC default implAuditNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditNoCC">
+	insert into $lower DbSchemaName$.$DbTableHName$ ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			$lower reference BaseClass ClassCode$.revision,
+			1
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditWithCC">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then insert into $lower DbSchemaName$.$DbTableHName$ ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			classcode,
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.classcode,
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			$lower reference BaseClass ClassCode$.revision,
+			1
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgAuditOneComma">
+			$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgValueComma">
+			$lower reference Column reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedDataColumnNameCommaInh default implAuditInheritedDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnEmitDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnReallyEmitDataColumn">
+			$lower reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedIntoDataColumnNameCommaInh default implAuditInheritedIntoDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedIntoDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitIntoDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedIntoDataColumnReallyEmitDataColumn">
+			$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameInhComma"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameBaseComma"
+		>$iterate Columns( each implAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implAuditInheritedDataColumnNameComma"
+		>$reference Column implAuditInheritedDataColumnNameComma$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitNameComma">
+			$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Value" Name="decl_GeneratorVar"
+		>$switch BaseModelAtomClass
+			UuidGen empty
+			Id16Gen decl_spargTableColSemi
+			Id32Gen decl_spargTableColSemi
+			Id64Gen decl_spargTableColSemi
+			default errorMySqlDeclGeneratorVar$</GenRule>
+
+	<GenRule GenDef="Value" Name="decl_spargTableColSemi">
+	declare $sparg_TableCol$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSelectTableColumns"
+		>$switch HasSuperClassRelation yes implMySqlSelectSuperTable default implMySqlSelectBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSelectSuperTable"
+		>$reference SuperClassRelation reference ToTable implMySqlSelectTableColumns$$iterate Columns( each implMySqlSelectFragCommaDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSelectFragCommaDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implMySqlTableColumnSelectFragCommaColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSelectBaseTable"
+		>$switch IsBaseTable yes implMySqlSelectBaseTableWithCC default implMySqlSelectBaseTableNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSelectBaseTableWithCC"
+>			$lower ClassCode$.ClassCode$switch BaseHasHistory yes implMySqlTableColumnSelectFragCommaAudit default empty$$iterate Columns( each implMySqlTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implMySqlTableColumnSelectFragCommaAudit"
+		>$reference Table implMySqlTableColumnSelectFragCommaAudit$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlTableColumnSelectFragCommaAudit"
+		>,$implMySqlTableColumnSelectFragAudit$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlTableColumnSelectFragAudit">
+			date_format( $lower poptop Table reference BaseClass ClassCode$.createdat, '%Y-%m-%d %H:%i:%S' ) as createdat,
+			$lower poptop Table reference BaseClass ClassCode$.createdby as createdby,
+			date_format( $lower poptop Table reference BaseClass ClassCode$.updatedat, '%Y-%m-%d %H:%i:%S' ) as updatedat,
+			$lower poptop Table reference BaseClass ClassCode$.updatedby as updatedby</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSelectBaseTableNoCC"
+			>$switch BaseHasHistory yes implMySqlSelectBaseTableNoCCHistory default implMySqlSelectBaseTableNoCCNoHistory$</GenRule>
+	<GenRule GenDef="Table" Name="implMySqlSelectBaseTableNoCCHistory"
+		>$implMySqlTableColumnSelectFragAudit$$iterate Columns( each implMySqlTableColumnSelectFragCommaColumn )$</GenRule>
+	<GenRule GenDef="Table" Name="implMySqlSelectBaseTableNoCCNoHistory"
+		>$iterate Columns( first implMySqlTableColumnSelectFragDbName each implMySqlTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableHierarchy"
+		>$switch HasSuperClassRelation yes insertTableSuperHierarchy default insertTableBaseHierarchy$</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableSuperHierarchy"
+		>$reference SuperClassRelation reference ToTable insertTableHierarchy$
+	insert into $lower DbSchemaName$.$DbTableName$(
+		$iterate Columns( first implMySqlSPCreateTableInsertColumn each implMySqlSPCommaCreateTableInsertColumn )$ )
+	values (
+		$iterate Columns( first implMySqlSPCreateTableBindArg each implMySqlSPCommaCreateTableBindArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableBaseHierarchy">
+	insert into $lower DbSchemaName$.$DbTableName$(
+		$switch IsBaseTable yes implMySqlSPCreateTableInsertClassCode default empty$$switch HasAuditColumns yes implMySqlSPCreateTableInsertAuditColumns default empty$$iterate Columns( first implMySqlSPCreateTableInsertColumn each implMySqlSPCommaCreateTableInsertColumn )$$implMySqlSPCreateTableInsertRevision$ )
+	values (
+		$switch IsBaseTable yes implMySqlSPCreateTableBindClassCode default empty$$switch HasAuditColumns yes implMySqlSPCreateTableBindAuditColumns default empty$$iterate Columns( first implMySqlSPCreateTableBindArg each implMySqlSPCommaCreateTableBindArg )$$implMySqlSPCommaCreateTableBindRevision$ );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlSPCreateTableInsertAuditColumns"
+>createdby,
+		createdat,
+		updatedby,
+		updatedat,
+		</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableBindAuditColumns"
+		>argAuditUserId,
+		now(),
+		argAuditUserId,
+		now(),
+		</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPCreateTableGeneratedColumns"
+		>$switch HasSuperClassRelation yes declMySqlSPCreateTableSuperGeneratedColumns default declMySqlSPCreateTableBaseGeneratedColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPCreateTableSuperGeneratedColumns"
+		>$reference SuperClassRelation reference ToTable declMySqlSPCreateTableGeneratedColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPCreateTableBaseGeneratedColumns"
+		>$iterate Columns( each spvar_DeclareGeneratedTableCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="spvar_DeclareGeneratedTableCol"
+		>$switch GenerateId yes spvar_DeclareGeneratedNonUuidTableCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="spvar_DeclareGeneratedNonUuidTableCol"
+		>$switch BaseModelAtomClass
+			UuidGen empty
+			Id16Gen spvar_DeclareTableCol
+			Id32Gen spvar_DeclareTableCol
+			Id64Gen spvar_DeclareTableCol
+			default errorSpVarDeclareGeneratedNonUuidTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableArgs"
+		>$switch HasSuperClassRelation yes implMySqlSPCreateTableSuperArgs default implMySqlSPCreateTableBaseArgs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableSuperArgs"
+		>$reference SuperClassRelation reference ToTable implMySqlSPCreateTableArgs$$iterate Columns( each implMySqlSPCommaCreateTableInsertDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCommaCreateTableInsertDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableBaseArgs"
+		>$implMySqlSPCreateTableArgClassCode$$iterate Columns( each implMySqlSPCreateTableInsertNGColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCreateTableInsertNGColumn"
+		>$switch GenerateId yes implMySqlSPCreateTableForceInsertUuidGenColumn default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCreateTableForceInsertUuidGenColumn"
+		>$switch BaseModelAtomClass
+			UuidGen sparg_CommaTableCol
+			Id16Gen empty
+			Id32Gen empty
+			Id64Gen empty
+			default errorMySqlSPCreateTableForceInsertUuidGenColumn$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="invoke_Generator"
+		>$switch BaseModelAtomClass
+			UuidGen empty
+			Id16Gen reallyInvoke_Generator
+			Id32Gen reallyInvoke_Generator
+			Id64Gen reallyInvoke_Generator
+			default errorInvokeGenerator$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="reallyInvoke_Generator">
+	select $generator_sp_with_args$
+	into arg$Name$;
+</GenRule>
+
+	<GenRule GenDef="TableCol" Name="TableColDataDefHasDispenser"
+		>$reference DataType HasDispenser$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="generator_sp_with_args"
+		>$switch TableColDataDefHasDispenser yes tableid_generator_with_args default schemaid_generator$</GenRule>
+
+	<GenRule GenDef="Object" Name="schemaid_generator"
+		>$lower DbSchemaName$.$sp_next_schemaidgen$()</GenRule>
+
+	<GenRule GenDef="TableCol" Name="tableid_generator_with_args"
+		>$lower DbSchemaName$.$reference DataType sp_next_tableidgen$( $reference IdGenResolverRelation iterate Columns( first dispenserRelationArg each commaDispenserRelationArg )$ )</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="dispenserRelationArg"
+		>arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="commaDispenserRelationArg">,
+		$dispenserRelationArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implMySqlTableColumnSelectFragRevision"
+		>$popto Table implMySqlTableColumnSelectFragRevision$</GenRule>
+	<GenRule GenDef="Table" Name="implMySqlTableColumnSelectFragRevision">,
+			$lower ClassCode$.revision as revision</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragTabTabDbName"
+>		$implMySqlTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplMySqlClassCodeSelectFragDbNameComma"
+		>$switch HasSubClasses yes implMySqlClassCodeSelectFragDbNameComma default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPCreateTableBindClassCode"
+		>argClassCode,
+		</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlIndexColumnWhereAndFragBindVar">
+		and $implMySqlIndexColumnWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlIndexColumnWhereFragBindVar"
+		>$switch IsNullable yes implMySqlIndexColumnWhereFragBindOptVar
+			default implMySqlIndexColumnWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlIndexColumnWhereFragBindOptVar"
+		>$reference Column implMySqlIndexColumnWhereFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlIndexColumnWhereFragBindReqVar"
+		>$reference Column implMySqlIndexColumnWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implMySqlIndexColumnWhereFragBindOptBlobVar
+			BoolDef implMySqlIndexColumnWhereFragBindOptBoolVar
+			EnumDef implMySqlIndexColumnWhereFragBindOptEnumVar
+			Int16Def implMySqlIndexColumnWhereFragBindOptInt16Var
+			Int32Def implMySqlIndexColumnWhereFragBindOptInt32Var
+			Int64Def implMySqlIndexColumnWhereFragBindOptInt64Var
+			UInt16Def implMySqlIndexColumnWhereFragBindOptUInt16Var
+			UInt32Def implMySqlIndexColumnWhereFragBindOptUInt32Var
+			UInt64Def implMySqlIndexColumnWhereFragBindOptUInt64Var
+			Id16Gen implMySqlIndexColumnWhereFragBindOptInt16Var
+			Id32Gen implMySqlIndexColumnWhereFragBindOptInt32Var
+			Id64Gen implMySqlIndexColumnWhereFragBindOptInt64Var
+			FloatDef implMySqlIndexColumnWhereFragBindOptFloatVar
+			DoubleDef implMySqlIndexColumnWhereFragBindOptDoubleVar
+			NumberDef implMySqlIndexColumnWhereFragBindOptNumberVar
+			StringDef implMySqlIndexColumnWhereFragBindOptStringVar
+			TokenDef implMySqlIndexColumnWhereFragBindOptStringVar
+			NmTokenDef implMySqlIndexColumnWhereFragBindOptStringVar
+			NmTokensDef implMySqlIndexColumnWhereFragBindOptStringVar
+			TextDef implMySqlIndexColumnWhereFragBindOptTextVar
+			DateDef implMySqlIndexColumnWhereFragBindOptDateVar
+			TimeDef implMySqlIndexColumnWhereFragBindOptTimeVar
+			TimestampDef implMySqlIndexColumnWhereFragBindOptTimestampVar
+			TZDateDef implMySqlIndexColumnWhereFragBindOptTZDateVar
+			TZTimeDef implMySqlIndexColumnWhereFragBindOptTZTimeVar
+			TZTimestampDef implMySqlIndexColumnWhereFragBindOptTZTimestampVar
+			UuidDef implMySqlIndexColumnWhereFragBindOptUuidVar
+			UuidGen implMySqlIndexColumnWhereFragBindOptUuidVar
+			default empty$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implMySqlIndexColumnWhereFragBindReqBlobVar
+			BoolDef implMySqlIndexColumnWhereFragBindReqBoolVar
+			EnumDef implMySqlIndexColumnWhereFragBindReqEnumVar
+			Int16Def implMySqlIndexColumnWhereFragBindReqInt16Var
+			Int32Def implMySqlIndexColumnWhereFragBindReqInt32Var
+			Int64Def implMySqlIndexColumnWhereFragBindReqInt64Var
+			UInt16Def implMySqlIndexColumnWhereFragBindReqUInt16Var
+			UInt32Def implMySqlIndexColumnWhereFragBindReqUInt32Var
+			UInt64Def implMySqlIndexColumnWhereFragBindReqUInt64Var
+			Id16Gen implMySqlIndexColumnWhereFragBindReqInt16Var
+			Id32Gen implMySqlIndexColumnWhereFragBindReqInt32Var
+			Id64Gen implMySqlIndexColumnWhereFragBindReqInt64Var
+			FloatDef implMySqlIndexColumnWhereFragBindReqFloatVar
+			DoubleDef implMySqlIndexColumnWhereFragBindReqDoubleVar
+			NumberDef implMySqlIndexColumnWhereFragBindReqNumberVar
+			StringDef implMySqlIndexColumnWhereFragBindReqStringVar
+			TokenDef implMySqlIndexColumnWhereFragBindReqStringVar
+			NmTokenDef implMySqlIndexColumnWhereFragBindReqStringVar
+			NmTokensDef implMySqlIndexColumnWhereFragBindReqStringVar
+			TextDef implMySqlIndexColumnWhereFragBindReqTextVar
+			DateDef implMySqlIndexColumnWhereFragBindReqDateVar
+			TimeDef implMySqlIndexColumnWhereFragBindReqTimeVar
+			TimestampDef implMySqlIndexColumnWhereFragBindReqTZTimestampVar
+			TZDateDef implMySqlIndexColumnWhereFragBindReqTZDateVar
+			TZTimeDef implMySqlIndexColumnWhereFragBindReqTZTimeVar
+			TZTimestampDef implMySqlIndexColumnWhereFragBindReqTZTimestampVar
+			UuidDef implMySqlIndexColumnWhereFragBindReqUuidVar
+			UuidGen implMySqlIndexColumnWhereFragBindReqUuidVar
+			default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqBlobVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptBlobVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqBoolVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptBoolVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqEnumVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptEnumVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqInt16Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqInt32Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqInt64Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqUInt16Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptUInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqUInt32Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptUInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqUInt64Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptUInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqFloatVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptFloatVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqDoubleVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptDoubleVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqNumberVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptNumberVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqStringVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptStringVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqTokenVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqNmTokenVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptNmTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqNmTokensVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptNmTokensVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqTextVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptTextVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqDateVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptDateVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqTimeVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqTimestampVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqTZDateVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptTZDateVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqTZTimeVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptTZTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqTZTimestampVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptTZTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindReqUuidVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnWhereFragBindOptUuidVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragCommaColumn">,
+			$implMySqlTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameBlob"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameBool"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameEnum"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameInt16"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameInt32"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameInt64"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameUInt16"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameUInt32"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameUInt64"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameFloat"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameDouble"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameNumber"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameString"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameToken"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameNmToken"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameNmTokens"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameText"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameDate"
+		>date_format( $lower ClassCode$.$lower DbColumnName$, '%Y-%m-%d' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameTime"
+		>date_format( $lower ClassCode$.$lower DbColumnName$, '%H:%i:%S' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameTimestamp"
+		>date_format( $lower ClassCode$.$lower DbColumnName$, '%Y-%m-%d %H:%i:%S' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameTZDate"
+		>date_format( $lower ClassCode$.$lower DbColumnName$, '%Y-%m-%d %H:%i:%S' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameTZTime"
+		>date_format( $lower ClassCode$.$lower DbColumnName$, '%Y-%m-%d %H:%i:%S' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameTZTimestamp"
+		>date_format( $lower ClassCode$.$lower DbColumnName$, '%Y-%m-%d %H:%i:%S' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbNameUuid"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragDbName"
+>$switch BaseModelAtomClass
+			BlobDef implMySqlTableColumnSelectFragDbNameBlob
+			BoolDef implMySqlTableColumnSelectFragDbNameBool
+			EnumDef implMySqlTableColumnSelectFragDbNameEnum
+			Int16Def implMySqlTableColumnSelectFragDbNameInt16
+			Int32Def implMySqlTableColumnSelectFragDbNameInt32
+			Int64Def implMySqlTableColumnSelectFragDbNameInt64
+			UInt16Def implMySqlTableColumnSelectFragDbNameUInt16
+			UInt32Def implMySqlTableColumnSelectFragDbNameUInt32
+			UInt64Def implMySqlTableColumnSelectFragDbNameUInt64
+			Id16Gen implMySqlTableColumnSelectFragDbNameInt16
+			Id32Gen implMySqlTableColumnSelectFragDbNameInt32
+			Id64Gen implMySqlTableColumnSelectFragDbNameInt64
+			FloatDef implMySqlTableColumnSelectFragDbNameFloat
+			DoubleDef implMySqlTableColumnSelectFragDbNameDouble
+			NumberDef implMySqlTableColumnSelectFragDbNameNumber
+			StringDef implMySqlTableColumnSelectFragDbNameString
+			TokenDef implMySqlTableColumnSelectFragDbNameToken
+			NmTokenDef implMySqlTableColumnSelectFragDbNameNmToken
+			NmTokensDef implMySqlTableColumnSelectFragDbNameNmTokens
+			TextDef implMySqlTableColumnSelectFragDbNameText
+			DateDef implMySqlTableColumnSelectFragDbNameDate
+			TimeDef implMySqlTableColumnSelectFragDbNameTime
+			TimestampDef implMySqlTableColumnSelectFragDbNameTimestamp
+			TZDateDef implMySqlTableColumnSelectFragDbNameTZDate
+			TZTimeDef implMySqlTableColumnSelectFragDbNameTZTime
+			TZTimestampDef implMySqlTableColumnSelectFragDbNameTZTimestamp
+			UuidDef implMySqlTableColumnSelectFragDbNameUuid
+			UuidGen implMySqlTableColumnSelectFragDbNameUuid
+			default empty$</GenRule>
+	<GenRule ScopeDef="Table" GenDef="TableCol" Name="implMySqlTableColumnSqlFragDbName"
+>		$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$
+</GenRule>
+	<GenRule ScopeDef="Table" GenDef="Atom" Name="implMySqlTableColumnSqlFragDbName"
+>		$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnOrderBy">
+		$lower reference Column ClassCode$.$lower reference Column DbColumnName$ asc</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnCommaOrderBy"
+		>$implMySqlIndexColumnOrderBy$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlClassCodeSelectFragDbNameComma"
+>		$lower reference BaseClass ClassCode$.classcode,
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlClassCodeMaybeJoinSuperTable"
+		>$switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlClassCodeJoinSuperTable">
+		inner join $lower reference SuperClassRelation reference ToTable DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implMySqlClassCodeJoinSuperTableColumn each implMySqlClassCodeAndJoinSuperTableColumn )$$reference SuperClassRelation reference ToTable implMySqlClassCodeMaybeJoinSuperTable$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlClassCodeJoinSuperTableColumn">
+			$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implMySqlClassCodeAndJoinSuperTableColumn">
+			and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlClassCodeJoinBaseTable">
+		inner join $lower reference BaseClass DbSchemaName$.$reference BaseClass DbTableName$ $lower reference BaseClass ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implMySqlClassCodeJoinBaseTableColumn each implMySqlClassCodeAndJoinBaseTableColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlClassCodeJoinBaseTableColumn">
+			$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implMySqlClassCodeAndJoinBaseTableColumn">
+			and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCommaCreateTableInsertColumn">,
+		$implMySqlSPCreateTableInsertColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCreateTableInsertColumn"
+		>$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCommaCreateTableBindArg">,
+		$implMySqlSPCreateTableBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCreateTableBindArg"
+		>$switch ColumnInChainPrev yes implMySqlSPCreateTableBindPrevArg default implMySqlSPCreateTableMaybeBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCreateTableMaybeBindArg"
+		>$switch ColumnInChainNext yes implMySqlSPCreateTableBindNullArg default implMySqlSPCreateTableReallyBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCreateTableReallyBindArg"
+		>arg$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCreateTableBindPrevArg"
+		>prev$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCreateTableBindNullArg"
+		>null</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlSPCreateTableInsertRevision">,
+		revision</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlSPCommaCreateTableBindRevision">,
+		1</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlSPCreateTableInsertClassCode"
+>classcode,
+		</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlSPCreateTableArgClassCode"
+		>argClassCode varchar(4)</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="sparg_TableCol"
+		>$reference Column sparg_TableCol$</GenRule>
+	<GenRule GenDef="IndexCol" Name="sparg_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="sparg_IndexCol"
+		>$reference Column sparg_TableCol$</GenRule>
+	<GenRule GenDef="IndexCol" Name="sparg_CommaIndexCol">,
+	$sparg_IndexCol$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="sparg_TableCol"
+		>arg$Name$ $reference DataType clause_SPColType$</GenRule>
+	<GenRule GenDef="Atom" Name="sparg_TableCol"
+		>arg$Name$ $clause_SPColType$</GenRule>
+	<GenRule GenDef="Object" Name="sparg_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="clause_SPColType">$reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="clause_SPColType">$reference DataType clause_SPColType$</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="clause_SPColType">blob</GenRule>
+
+	<GenRule GenDef="BoolDef" Name="clause_SPColType">boolean</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="clause_SPColType">smallint</GenRule>
+
+	<GenRule GenDef="Int16Def" Name="clause_SPColType">smallint</GenRule>
+
+	<GenRule GenDef="Int32Def" Name="clause_SPColType">integer</GenRule>
+
+	<GenRule GenDef="Int64Def" Name="clause_SPColType">bigint</GenRule>
+
+	<GenRule GenDef="UInt16Def" Name="clause_SPColType">integer</GenRule>
+
+	<GenRule GenDef="UInt32Def" Name="clause_SPColType">bigint</GenRule>
+
+	<GenRule GenDef="UInt64Def" Name="clause_SPColType">numeric(22,0)</GenRule>
+
+	<GenRule GenDef="FloatDef" Name="clause_SPColType">real</GenRule>
+
+	<GenRule GenDef="DoubleDef" Name="clause_SPColType">double precision</GenRule>
+
+	<GenRule GenDef="NumberDef" Name="clause_SPColType">numeric($Digits$,$Precis$)</GenRule>
+
+	<GenRule GenDef="StringDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="TokenDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="NmTokenDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="NmTokensDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="TextDef" Name="clause_SPColType">text</GenRule>
+
+	<GenRule GenDef="DateDef" Name="clause_SPColType">date</GenRule>
+
+	<GenRule GenDef="TimeDef" Name="clause_SPColType">time</GenRule>
+
+	<GenRule GenDef="TimestampDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="TZDateDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="TZTimeDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="TZTimestampDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="UuidDef" Name="clause_SPColType">varchar(36)</GenRule>
+
+	<GenRule GenDef="UuidGen" Name="clause_SPColType">varchar(36)</GenRule>
+
+	<GenRule GenDef="Object" Name="spvar_DeclareTableCol">
+declare
+	$spvar_TableCol$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="spvar_TableCol"
+		>arg$Name$ $reference DataType clause_SPColType$;</GenRule>
+	<GenRule GenDef="Atom" Name="spvar_TableCol"
+		>arg$Name$ $clause_SPColType$;</GenRule>
+	<GenRule GenDef="Object" Name="spvar_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+</RuleSet>

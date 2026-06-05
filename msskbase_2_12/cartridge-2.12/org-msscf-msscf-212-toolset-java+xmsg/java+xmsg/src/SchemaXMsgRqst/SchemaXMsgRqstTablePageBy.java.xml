@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsg/SchemaXMsgRqstTablePageBy.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Element  for Table">
+
+	<GenFile GenDef="Index" Name="fileSchemaXMsgRqstTablePageByJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgRqst/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgRqst"
+		ExpansionClassName="$SchemaName$XMsgRqst$poptop Table TableName$PageBy$Suffix$Java"
+		ExpansionKeyName="$SchemaName$XMsgRqst$poptop Table TableName$PageBy$Suffix$Java"
+		ExpansionFileName="$SchemaName$XMsgRqst$poptop Table TableName$PageBy$Suffix$.java">
+// Description: Java 11 XML Message SAX Response Delete By Index Element  for $poptop Table TableName$
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgRqst;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.xml.sax.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+import $lower JavaPackage$.$SchemaName$XMsg.*;
+
+/*
+ *	$SchemaName$XMsgRqst$poptop Table TableName$PageBy XML SAX Element  implementation
+ *	for $poptop Table TableName$.
+ */
+public class $SchemaName$XMsgRqst$poptop Table TableName$PageBy$Suffix$
+	extends CFLibXmlCoreElementHandler
+{$implConstructXMsgRqstTablePageBy$$implRqstTablePageByStartElement$$implRqstTablePageByEndElement$}
+</GenFile>
+
+	<GenRule GenDef="Index" Name="implConstructXMsgRqstTablePageBy">
+	public $SchemaName$XMsgRqst$poptop Table TableName$PageBy$Suffix$( $SchemaName$XMsgRqst xmsgRqst ) {
+		super( xmsgRqst );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByStartElement">
+	public void startElement(
+		String		uri,
+		String		localName,
+		String		qName,
+		Attributes	attrs )
+	throws SAXException
+	{
+		$SchemaName$XMsgSchemaMessageFormatter schemaFormatter = null;
+		try {
+			// Common XML Attributes
+			String	attrId = null;$implRqstTablePageByDeclKeyAttrs$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRqstTablePageDeclEmitPriorAttr )$
+			// Attribute Extraction
+			String	attrLocalName;
+			int		numAttrs;
+			int		idxAttr;
+			final String S_ProcName = "startElement";
+			final String S_LocalName = "LocalName";
+
+			assert qName.equals( "Rqst$poptop Table TableName$PageBy$Suffix$" );
+$implRqstTablePageByRetrieveSchemaObj$$implRqstTablePageByExtractAttrs$$implRqstTablePageByCheckRequiredAttrs$$implRqstTablePageByGetContext$$implRqstTablePageByConvertAttributes$$implRqstTablePageByDoPage$
+		}
+		catch( RuntimeException e ) {
+			$SchemaName$XMsgRqst xmsgRqst = (($SchemaName$XMsgRqst)getParser());
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+			String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnException( "\n\t\t\t", e )
+				+	"\n"
+				+	schemaFormatter.formatRspnXmlPostamble();
+			xmsgRqst.resetResponse();
+			xmsgRqst.appendResponse( response );
+			xmsgRqst.setCaughtException( true );
+		}
+		catch( Error e ) {
+			$SchemaName$XMsgRqst xmsgRqst = (($SchemaName$XMsgRqst)getParser());
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+			String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnException( "\n\t\t\t", e )
+				+	"\n"
+				+	schemaFormatter.formatRspnXmlPostamble();
+			xmsgRqst.resetResponse();
+			xmsgRqst.appendResponse( response );
+			xmsgRqst.setCaughtException( true );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePagePassPrior"
+		>natPrior$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePageCommaPassPrior">,
+				$implRqstTablePagePassPrior$</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByDoPage">
+			// Page the objects
+			List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; list = schemaObj.get$poptop Table TableName$TableObj().page$poptop Table TableName$By$Suffix$( $iterate Columns( first implRqstTablePageByPassPageArg each implRqstTablePageByCommaPassPageArg )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRqstTablePageCommaPassPrior )$ );
+			String responseOpening = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RspnListOpenTag();
+			xmsgRqst.appendResponse( responseOpening );
+			Iterator&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; iter = list.iterator();
+			I$poptop Table DefSchemaName$$poptop Table TableName$Obj cur;
+			String subxml;
+			while( iter.hasNext() ) {
+				cur = iter.next();
+				subxml = $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RspnDerivedRec( "\n\t\t", cur.get$TableName$Buff() );
+				xmsgRqst.appendResponse( subxml );
+			}
+			String responseClosing =
+				 	"\n"
+				+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RspnListCloseTag()
+				+	schemaFormatter.formatRspnXmlPostamble();
+			xmsgRqst.appendResponse( responseClosing );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePageByPassPageArg"
+		>nat$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePageByCommaPassPageArg">,
+				$implRqstTablePageByPassPageArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByDeclKeyAttrs"
+		>$iterate Columns( each implRqstTablePageByDeclEmitNonIdKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePageByDeclEmitNonIdKeyAttr"
+		>$switch Name Id empty default implRqstTablePageByDeclEmitKeyAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePageByDeclEmitKeyAttr">
+			String attr$Name$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByEndElement">
+	public void endElement(
+		String		uri,
+		String		localName,
+		String		qName )
+	throws SAXException
+	{
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByRetrieveSchemaObj">
+			$SchemaName$XMsgRqst xmsgRqst = ($SchemaName$XMsgRqst)getParser();
+			if( xmsgRqst == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser()" );
+			}
+
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+
+			I$SchemaName$SchemaObj schemaObj = xmsgRqst.getSchemaObj();
+			if( schemaObj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser().getSchemaObj()" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByExtractAttrs">
+			// Extract Attributes
+			numAttrs = attrs.getLength();
+			for( idxAttr = 0; idxAttr &lt; numAttrs; idxAttr++ ) {
+				attrLocalName = attrs.getLocalName( idxAttr );
+				if( attrLocalName.equals( "Id" ) ) {
+					if( attrId != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrId = attrs.getValue( idxAttr );
+				}$implRqstTablePageByParseKeyAttrs$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRqstTablePageParseEmitPriorAttr )$
+				else if( attrLocalName.equals( "schemaLocation" ) ) {
+					// ignored
+				}
+				else {
+					throw new CFLibUnrecognizedAttributeException( getClass(),
+						S_ProcName,
+						getParser().getLocationInfo(),
+						attrLocalName );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByParseKeyAttrs"
+		>$iterate Columns( each implRqstTablePageByParseEmitKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePageByParseEmitKeyAttr">
+				else if( attrLocalName.equals( "$Name$" ) ) {
+					if( attr$Name$ != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attr$Name$ = attrs.getValue( idxAttr );
+				}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePageParseEmitPriorAttr">
+				else if( attrLocalName.equals( "Prior$Name$" ) ) {
+					if( attrPrior$Name$ != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrPrior$Name$ = attrs.getValue( idxAttr );
+				}</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByCheckRequiredAttrs">
+			// Ensure that required attributes have values$implRqstTablePageByCheckReqKeyBaseAttrs$
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByCheckReqKeyBaseAttrs"
+		>$iterate Columns( each implRqstTablePageByCheckReqMaybeEmitKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePageByCheckReqMaybeEmitKeyAttr"
+		>$switch IsNullable no implCheckReqAnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByGetContext">
+			// Save named attributes to context
+			CFLibXmlCoreContext curContext = getParser().getCurContext();</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByPutNamedAttrs"
+		>$iterate Columns( each implRqstTablePageByPutNamedAnAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePageByPutNamedAnAttr">
+			curContext.putNamedValue( "$Name$", attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByConvertAttributes">
+			// Convert string attributes to native Java types
+			// and apply the converted attributes to the editBuff.
+$implRqstTablePageByConvertKeyAttrs$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRqstTablePageConvertPriorAttr )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implRqstTablePageByConvertKeyAttrs"
+		>$iterate Columns( each implRqstTablePageByConvertColKeyAttrs )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePageByConvertColKeyAttrs"
+		>$reference Column implRqstTablePageByConvertColKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColKeyAttrs">
+			$implJavaAtomType$ nat$Name$;$switch BaseModelAtomClass
+			BlobDef implRqstTablePageByConvertColBlobValue
+			BoolDef implRqstTablePageByConvertColBoolValue
+			EnumDef implRqstTablePageByConvertColEnumValue
+			Int16Def implRqstTablePageByConvertColInt16Value
+			Int32Def implRqstTablePageByConvertColInt32Value
+			Int64Def implRqstTablePageByConvertColInt64Value
+			UInt16Def implRqstTablePageByConvertColUInt16Value
+			UInt32Def implRqstTablePageByConvertColUInt32Value
+			UInt64Def implRqstTablePageByConvertColUInt64Value
+			Id16Gen implRqstTablePageByConvertColInt16Value
+			Id32Gen implRqstTablePageByConvertColInt32Value
+			Id64Gen implRqstTablePageByConvertColInt64Value
+			FloatDef implRqstTablePageByConvertColFloatValue
+			DoubleDef implRqstTablePageByConvertColDoubleValue
+			NumberDef implRqstTablePageByConvertColNumberValue
+			StringDef implRqstTablePageByConvertColStringValue
+			TokenDef implRqstTablePageByConvertColTokenValue
+			NmTokenDef implRqstTablePageByConvertColNmTokenValue
+			NmTokensDef implRqstTablePageByConvertColNmTokensValue
+			TextDef implRqstTablePageByConvertColTextValue
+			DateDef implRqstTablePageByConvertColDateValue
+			TimeDef implRqstTablePageByConvertColTimeValue
+			TimestampDef implRqstTablePageByConvertColTimestampValue
+			TZDateDef implRqstTablePageByConvertColTZDateValue
+			TZTimeDef implRqstTablePageByConvertColTZTimeValue
+			TZTimestampDef implRqstTablePageByConvertColTZTimestampValue
+			UuidGen implRqstTablePageByConvertColUuidValue
+			UuidDef implRqstTablePageByConvertColUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColBlobValue">
+			throw new RuntimeException( S_ProcName + "ERROR: Cannot use a BLOB as a Key attribute!" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColBoolValue"
+		>$switch IsNullable yes implRqstTablePageByConvertColOptBoolValue default implRqstTablePageByConvertColReqBoolValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColReqBoolValue">
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColOptBoolValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() == 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = Boolean.valueOf( true );
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = Boolean.valueOf( false );
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColEnumValue"
+		>$switch IsNullable yes implRqstTablePageByConvertColOptEnumValue default implRqstTablePageByConvertColReqEnumValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColOptEnumValue">
+			nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColReqEnumValue">
+			nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColInt16Value"
+		>$switch IsNullable yes implRqstTablePageByConvertColOptInt16Value default implRqstTablePageByConvertColReqInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColOptInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColReqInt16Value">
+			nat$Name$ = Short.parseShort( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColInt32Value"
+		>$switch IsNullable yes implRqstTablePageByConvertColOptInt32Value default implRqstTablePageByConvertColReqInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColOptInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColReqInt32Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColInt64Value"
+		>$switch IsNullable yes implRqstTablePageByConvertColOptInt64Value default implRqstTablePageByConvertColReqInt64Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColOptInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColReqInt64Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColUInt16Value"
+		>$switch IsNullable yes implRqstTablePageByConvertColOptUInt16Value default implRqstTablePageByConvertColReqUInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColOptUInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColReqUInt16Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColUInt32Value"
+		>$switch IsNullable yes implRqstTablePageByConvertColOptUInt32Value default implRqstTablePageByConvertColReqUInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColOptUInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColReqUInt32Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColUInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = new BigDecimal( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColFloatValue"
+		>$switch IsNullable yes implRqstTablePageByConvertColOptFloatValue default implRqstTablePageByConvertColReqFloatValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColOptFloatValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColReqFloatValue">
+			nat$Name$ = Float.parseFloat( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColDoubleValue"
+		>$switch IsNullable yes implRqstTablePageByConvertColOptDoubleValue default implRqstTablePageByConvertColReqDoubleValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColOptDoubleValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColReqDoubleValue">
+			nat$Name$ = Double.parseDouble( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColNumberValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = new BigDecimal( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColStringValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColNmTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColNmTokensValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColTextValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColTZDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColTZTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColTZTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertColUuidValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTablePageConvertPriorAttr"
+		>$reference Column implRqstTablePageConvertPriorAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageConvertPriorAttr">
+			$implJavaOptAtomType$ natPrior$Name$;$switch BaseModelAtomClass
+			BlobDef implRqstTablePageByConvertPriorOptBlobValue
+			BoolDef implRqstTablePageByConvertPriorOptBoolValue
+			EnumDef implRqstTablePageByConvertPriorOptEnumValue
+			Int16Def implRqstTablePageByConvertPriorOptInt16Value
+			Int32Def implRqstTablePageByConvertPriorOptInt32Value
+			Int64Def implRqstTablePageByConvertPriorOptInt64Value
+			UInt16Def implRqstTablePageByConvertPriorOptUInt16Value
+			UInt32Def implRqstTablePageByConvertPriorOptUInt32Value
+			UInt64Def implRqstTablePageByConvertPriorOptUInt64Value
+			Id16Gen implRqstTablePageByConvertPriorOptInt16Value
+			Id32Gen implRqstTablePageByConvertPriorOptInt32Value
+			Id64Gen implRqstTablePageByConvertPriorOptInt64Value
+			FloatDef implRqstTablePageByConvertPriorOptFloatValue
+			DoubleDef implRqstTablePageByConvertPriorOptDoubleValue
+			NumberDef implRqstTablePageByConvertPriorOptNumberValue
+			StringDef implRqstTablePageByConvertPriorOptStringValue
+			TokenDef implRqstTablePageByConvertPriorOptTokenValue
+			NmTokenDef implRqstTablePageByConvertPriorOptNmTokenValue
+			NmTokensDef implRqstTablePageByConvertPriorOptNmTokensValue
+			TextDef implRqstTablePageByConvertPriorOptTextValue
+			DateDef implRqstTablePageByConvertPriorOptDateValue
+			TimeDef implRqstTablePageByConvertPriorOptTimeValue
+			TimestampDef implRqstTablePageByConvertPriorOptTimestampValue
+			TZDateDef implRqstTablePageByConvertPriorOptTZDateValue
+			TZTimeDef implRqstTablePageByConvertPriorOptTZTimeValue
+			TZTimestampDef implRqstTablePageByConvertPriorOptTZTimestampValue
+			UuidGen implRqstTablePageByConvertPriorOptUuidValue
+			UuidDef implRqstTablePageByConvertPriorOptUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptBlobValue">
+			throw new RuntimeException( S_ProcName + "ERROR: Cannot use a BLOB as a Key attribute!" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptBoolValue">
+			if( ( attrPrior$Name$ == null ) || ( attrPrior$Name$.length() == 0 ) ) {
+				natPrior$Name$ = null;
+			}
+			else if( attrPrior$Name$.equals( "true" ) || attrPrior$Name$.equals( "yes" ) ) {
+				natPrior$Name$ = Boolean.valueOf( true );
+			}
+			else if( attrPrior$Name$.equals( "false" ) || attrPrior$Name$.equals( "no" ) ) {
+				natPrior$Name$ = Boolean.valueOf( false );
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Prior$Name$",
+					attrPrior$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptEnumValue">
+			natPrior$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attrPrior$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptInt16Value">
+			if( ( attrPrior$Name$ == null ) || ( attrPrior$Name$.length() &lt;= 0 ) ) {
+				natPrior$Name$ = null;
+			}
+			else {
+				natPrior$Name$ = Short.valueOf( Short.parseShort( attrPrior$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptInt32Value">
+			if( ( attrPrior$Name$ == null ) || ( attrPrior$Name$.length() &lt;= 0 ) ) {
+				natPrior$Name$ = null;
+			}
+			else {
+				natPrior$Name$ = Integer.valueOf( Integer.parseInt( attrPrior$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptInt64Value">
+			if( ( attrPrior$Name$ == null ) || ( attrPrior$Name$.length() &lt;= 0 ) ) {
+				natPrior$Name$ = null;
+			}
+			else {
+				natPrior$Name$ = Long.valueOf( Long.parseLong( attrPrior$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptUInt16Value">
+			if( ( attrPrior$Name$ == null ) || ( attrPrior$Name$.length() &lt;= 0 ) ) {
+				natPrior$Name$ = null;
+			}
+			else {
+				natPrior$Name$ = Integer.valueOf( Integer.parseInt( attrPrior$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptUInt32Value">
+			if( ( attrPrior$Name$ == null ) || ( attrPrior$Name$.length() &lt;= 0 ) ) {
+				natPrior$Name$ = null;
+			}
+			else {
+				natPrior$Name$ = Long.valueOf( Long.parseLong( attrPrior$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptUInt64Value">
+			if( ( attrPrior$Name$ == null ) || ( attrPrior$Name$.length() &lt;= 0 ) ) {
+				natPrior$Name$ = null;
+			}
+			else {
+				natPrior$Name$ = new BigDecimal( attrPrior$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptFloatValue">
+			if( ( attrPrior$Name$ == null ) || ( attrPrior$Name$.length() &lt;= 0 ) ) {
+				natPrior$Name$ = null;
+			}
+			else {
+				natPrior$Name$ = Float.valueOf( Float.parseFloat( attrPrior$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptDoubleValue">
+			if( ( attrPrior$Name$ == null ) || ( attrPrior$Name$.length() &lt;= 0 ) ) {
+				natPrior$Name$ = null;
+			}
+			else {
+				natPrior$Name$ = Double.valueOf( Double.parseDouble( attrPrior$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptNumberValue">
+			if( ( attrPrior$Name$ == null ) || ( attrPrior$Name$.length() &lt;= 0 ) ) {
+				natPrior$Name$ = null;
+			}
+			else {
+				natPrior$Name$ = new BigDecimal( attrPrior$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptStringValue">
+			natPrior$Name$ = attrPrior$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptTokenValue">
+			natPrior$Name$ = attrPrior$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptNmTokenValue">
+			natPrior$Name$ = attrPrior$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptNmTokensValue">
+			natPrior$Name$ = attrPrior$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptTextValue">
+			natPrior$Name$ = attrPrior$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptDateValue">
+			try {
+				natPrior$Name$ = CFLibXmlUtil.parseDate( attrPrior$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Prior$Name$",
+					attrPrior$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptTimeValue">
+			try {
+				natPrior$Name$ = CFLibXmlUtil.parseTime( attrPrior$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Prior$Name$",
+					attrPrior$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptTimestampValue">
+			try {
+				natPrior$Name$ = CFLibXmlUtil.parseTimestamp( attrPrior$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Prior$Name$",
+					attrPrior$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptTZDateValue">
+			try {
+				natPrior$Name$ = CFLibXmlUtil.parseTZDate( attrPrior$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Prior$Name$",
+					attrPrior$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptTZTimeValue">
+			try {
+				natPrior$Name$ = CFLibXmlUtil.parseTZTime( attrPrior$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Prior$Name$",
+					attrPrior$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptTZTimestampValue">
+			try {
+				natPrior$Name$ = CFLibXmlUtil.parseTZTimestamp( attrPrior$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Prior$Name$",
+					attrPrior$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTablePageByConvertPriorOptUuidValue">
+			if( ( attrPrior$Name$ == null ) || ( attrPrior$Name$.length() &lt;= 0 ) ) {
+				natPrior$Name$ = null;
+			}
+			else {
+				natPrior$Name$ = UUID.fromString( attrPrior$Name$ );
+			}</GenRule>
+
+</RuleSet>

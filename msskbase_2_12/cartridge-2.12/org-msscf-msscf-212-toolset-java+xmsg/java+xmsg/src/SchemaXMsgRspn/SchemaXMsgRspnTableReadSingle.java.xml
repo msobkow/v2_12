@@ -1,0 +1,1240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsg/SchemaXMsgRspnTableReadSingle.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Element  for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaXMsgRspnTableReadSingleJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgRspn/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgRspn"
+		ExpansionClassName="$SchemaName$XMsgRspn$TableName$ReadSingleJava"
+		ExpansionKeyName="$SchemaName$XMsgRspn$TableName$ReadSingleJava"
+		ExpansionFileName="$SchemaName$XMsgRspn$TableName$ReadSingle.java">
+// Description: Java 11 XML Message SAX Response Record Element  for $TableName$
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgRspn;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.xml.sax.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+
+/*
+ *	$SchemaName$XMsgRspn$TableName$ReadSingle XML SAX Element  implementation
+ *	for $TableName$.
+ */
+public class $SchemaName$XMsgRspn$TableName$ReadSingle
+	extends CFLibXmlCoreElementHandler
+{$implConstructXMsgRspnTableReadSingle$$implRspnTableReadSingleStartElement$$implRspnTableReadSingleEndElement$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implConstructXMsgRspnTableReadSingle">
+	public $SchemaName$XMsgRspn$TableName$ReadSingle( $SchemaName$XMsgRspn xmsgRspn ) {
+		super( xmsgRspn );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleStartElement">
+	public void startElement(
+		String		uri,
+		String		localName,
+		String		qName,
+		Attributes	attrs )
+	throws SAXException
+	{
+		try {
+			// Common XML Attributes
+			String	attrId = null;
+			// Attribute Extraction
+			String	attrLocalName;
+			int		numAttrs;
+			int		idxAttr;
+			final String S_ProcName = "startElement";
+			final String S_LocalName = "LocalName";
+
+			assert qName.equals( "Rspn$TableName$ReadSingle" );
+$implRspnTableReadSingleRetrieveSchemaObj$$implRspnTableReadSingleExtractAttrs$$implRspnTableReadSingleGetCurContext$$implRspnTableReadSingleConvertAttributes$
+		}
+		catch( RuntimeException e ) {
+			throw new RuntimeException( "Near " + getParser().getLocationInfo() + ": Caught and rethrew " + e.getClass().getName() + " - " + e.getMessage(),
+				e );
+		}
+		catch( Error e ) {
+			throw new Error( "Near " + getParser().getLocationInfo() + ": Caught and rethrew " + e.getClass().getName() + " - " + e.getMessage(),
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleEndElement">
+	public void endElement(
+		String		uri,
+		String		localName,
+		String		qName )
+	throws SAXException
+	{
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleRetrieveSchemaObj">
+			$SchemaName$XMsgRspn xmsgRspn = ($SchemaName$XMsgRspn)getParser();
+			if( xmsgRspn == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser()" );
+			}
+
+			I$SchemaName$SchemaObj schemaObj = xmsgRspn.getSchemaObj();
+			if( schemaObj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser().getSchemaObj()" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleApplyPKeyAttrs"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRspnTableReadSingleApplyPIndexColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRspnTableReadSingleApplyPIndexColumn">
+			editBuff.getPKey().set$OptionalOrRequired$$Name$( nat$Name$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleCopyAttrs"
+		>$switch HasSuperClassRelation yes implRspnTableReadSingleCopyAttrsSuper default implRspnTableReadSingleCopyAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleCopyAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRspnTableReadSingleCopyAttrs$$iterate Columns( each implRspnTableReadSingleCopyDataAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleCopyAttrsBase">$iterate Columns( each implRspnTableReadSingleCopyDataAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleCopyDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRspnTableReadSingleCopyNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleCopyNonIdAttr"
+		>$switch Name Id empty default implRspnTableReadSingleCopyAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleCopyAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implRspnTableReadSingleCopyAnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleCopyAnAttr">
+						edit$poptop Table TableName$.set$OptionalOrRequired$$Name$( editBuff.get$OptionalOrRequired$$Name$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleApplyAttrs"
+		>$switch HasSuperClassRelation yes implRspnTableReadSingleApplyAttrsSuper default implRspnTableReadSingleApplyAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleApplyAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRspnTableReadSingleApplyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleApplyAttrsBase">
+				// Apply $TableName$ Attributes$iterate Columns( each implRspnTableReadSingleApplyNonIdPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRspnTableReadSingleApplyNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyNonIdPKeyAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRspnTableReadSingleApplyNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyNonIdAttr"
+		>$switch Name Id empty default implRspnTableReadSingleApplyAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implRspnTableReadSingleApplyAnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyAnAttr">
+				edit$poptop Table TableName$.set$OptionalOrRequired$$Name$( $implRspnTableReadSingleApplyAnAttrVar$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRspnTableReadSingleReadByArg"
+		>$switch ColumnInContainerOrNamedLookupRelation no implRspnTableReadSingleReadByEmitArg
+			default implRspnTableReadSingleReadByEmitRefArg$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRspnTableReadSingleReadByEmitArg"
+		>editBuff.$GetterName$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRspnTableReadSingleReadByEmitRefArg"
+		>ref$reference OwnerContainerOrNamedLookupRelationCol reference Relation Suffix$.$reference OwnerContainerOrNamedLookupRelationCol reference ToCol GetterName$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRspnTableReadSingleReqReadByArgCommaNL"
+		>$implRspnTableReadSingleReadByArg$,
+			</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleUseInsertBehaviour">$switch PrimaryKeyIsConstEnum yes implRspnTableReadSingleApplyPKeyAttrs default empty$
+			I$SchemaName$$TableName$Obj orig$TableName$;
+			I$SchemaName$$TableName$EditObj edit$TableName$ = editBuff;
+			orig$TableName$ = (I$SchemaName$$TableName$Obj)edit$TableName$.create();
+			edit$TableName$ = null;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleApplyInsertAttrs"
+		>$switch HasSuperClassRelation yes implRspnTableReadSingleApplyInsertAttrsSuper default implRspnTableReadSingleApplyInsertAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleApplyInsertAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRspnTableReadSingleApplyInsertAttrs$
+			// Apply $TableName$ Attributes$iterate Columns( each implRspnTableReadSingleApplyDataInsertAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleApplyInsertAttrsBase">
+			// Apply $TableName$ Attributes$iterate Columns( each implRspnTableReadSingleApplyDataInsertAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyDataInsertAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRspnTableReadSingleApplyNonIdInsertAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyNonIdInsertAttr"
+		>$switch Name Id empty default implRspnTableReadSingleApplyAnUnhiddenInsertAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyAnUnhiddenInsertAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implRspnTableReadSingleApplyAnInsertAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyAnInsertAttr">
+			edit$poptop Table TableName$.set$OptionalOrRequired$$Name$( $implRspnTableReadSingleApplyAnAttrVar$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyAnAttrVar"
+		>$switch BaseModelAtomClass
+			BlobDef implRspnTableReadSingleApplyNatVar
+			BoolDef implRspnTableReadSingleApplyNatVar
+			EnumDef implRspnTableReadSingleApplyNatVar
+			Id16Gen implRspnTableReadSingleApplyNatVar
+			Id32Gen implRspnTableReadSingleApplyNatVar
+			Id64Gen implRspnTableReadSingleApplyNatVar
+			Int16Def implRspnTableReadSingleApplyNatVar
+			Int32Def implRspnTableReadSingleApplyNatVar
+			Int64Def implRspnTableReadSingleApplyNatVar
+			UInt16Def implRspnTableReadSingleApplyNatVar
+			UInt32Def implRspnTableReadSingleApplyNatVar
+			UInt64Def implRspnTableReadSingleApplyNatVar
+			FloatDef implRspnTableReadSingleApplyNatVar
+			DoubleDef implRspnTableReadSingleApplyNatVar
+			NumberDef implRspnTableReadSingleApplyNatVar
+			DateDef implRspnTableReadSingleApplyNatVar
+			TimeDef implRspnTableReadSingleApplyNatVar
+			TimestampDef implRspnTableReadSingleApplyNatVar
+			TZDateDef implRspnTableReadSingleApplyNatVar
+			TZTimeDef implRspnTableReadSingleApplyNatVar
+			TZTimestampDef implRspnTableReadSingleApplyNatVar
+			UuidGen implRspnTableReadSingleApplyNatVar
+			UuidDef implRspnTableReadSingleApplyNatVar
+			StringDef implRspnTableReadSingleApplyAttrVar
+			TokenDef implRspnTableReadSingleApplyAttrVar
+			NmTokenDef implRspnTableReadSingleApplyAttrVar
+			NmTokensDef implRspnTableReadSingleApplyAttrVar
+			TextDef implRspnTableReadSingleApplyAttrVar
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyNatVar"
+		>nat$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleApplyAttrVar"
+		>attr$Name$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSingleMaybeApplyRelationInsertAttr"
+		>$switch RelationTypeTag
+			Superclass empty
+			Container implRspnTableReadSingleApplyRelationInsertAttr
+			Owner implRspnTableReadSingleApplyRelationInsertAttr
+			default implRspnTableReadSingleApplySingletonRelationInsertAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSingleApplySingletonRelationInsertAttr"
+		>$switch IsToIndexUnique yes implRspnTableReadSingleApplyNamedRelationInsertAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSingleApplyNamedRelationInsertAttr"
+		>$switch ToTableHasLookupIndex yes implRspnTableReadSingleApplyRelationInsertAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSingleApplyRelationInsertAttr">
+		edit$poptop Table Name$.set$OptionalOrRequired$$RelationTypeTag$$Suffix$( ref$Suffix$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleDeclAttrs"
+		>$switch HasSuperClassRelation yes implRspnTableReadSingleDeclAttrsSuper default implRspnTableReadSingleDeclAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleDeclAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRspnTableReadSingleDeclAttrs$
+			// $TableName$ Attributes$iterate Columns( each implRspnTableReadSingleDeclDataAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleDeclAttrsBase">
+			// $TableName$ Attributes$iterate Columns( each implRspnTableReadSingleDeclNonIdAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleDeclDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRspnTableReadSingleDeclNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleDeclNonIdAttr"
+		>$switch Name Id empty default implRspnTableReadSingleDeclAnAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleDeclAnAttr">
+			String	attr$Name$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleExtractAttrs">
+			// Extract Attributes
+			numAttrs = attrs.getLength();
+			for( idxAttr = 0; idxAttr &lt; numAttrs; idxAttr++ ) {
+				attrLocalName = attrs.getLocalName( idxAttr );
+				if( attrLocalName.equals( "Id" ) ) {
+					if( attrId != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrId = attrs.getValue( idxAttr );
+				}
+				else if( attrLocalName.equals( "schemaLocation" ) ) {
+					// ignored
+				}
+				else {
+					throw new CFLibUnrecognizedAttributeException( getClass(),
+						S_ProcName,
+						getParser().getLocationInfo(),
+						attrLocalName );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleParseAttrs"
+		>$switch HasSuperClassRelation yes implRspnTableReadSingleParseAttrsSuper default implRspnTableReadSingleParseAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleParseAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRspnTableReadSingleParseAttrs$$iterate Columns( each implRspnTableReadSingleParseDataAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleParseAttrsBase"
+		>$iterate Columns( each implRspnTableReadSingleParseNonIdAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleParseDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRspnTableReadSingleParseNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleParseNonIdAttr"
+		>$switch Name Id empty default implRspnTableReadSingleParseAnAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleParseAnAttr">
+				else if( attrLocalName.equals( "$Name$" ) ) {
+					if( attr$Name$ != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attr$Name$ = attrs.getValue( idxAttr );
+				}</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSingleMaybeParseRelationAttr"
+		>$switch RelationTypeTag
+			Superclass empty
+			Container empty
+			Owner empty
+			default implRspnTableReadSingleParseSingletonRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSingleParseSingletonRelationAttr"
+		>$switch IsToIndexUnique yes implRspnTableReadSingleParseNamedRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSingleParseNamedRelationAttr"
+		>$switch ToTableHasLookupIndex yes implRspnTableReadSingleParseRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSingleParseRelationAttr">
+				else if( attrLocalName.equals( "$Suffix$" ) ) {
+					if( attr$Suffix$ != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attr$Suffix$ = attrs.getValue( idxAttr );
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleGetCurContext">
+			// Save named attributes to context
+			CFLibXmlCoreContext curContext = getParser().getCurContext();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSinglePutNamedAttrs"
+		>$switch HasSuperClassRelation yes implRspnTableReadSinglePutNamedAttrsSuper default implRspnTableReadSinglePutNamedAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSinglePutNamedAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRspnTableReadSinglePutNamedAttrs$$iterate Columns( each implRspnTableReadSinglePutNamedDataAttr )$$iterate Relation( each implRspnTableReadSingleMaybePutNamedRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSinglePutNamedAttrsBase">$iterate Columns( each implRspnTableReadSinglePutNamedDataAttr )$$iterate Relation( each implRspnTableReadSingleMaybePutNamedRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSinglePutNamedDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRspnTableReadSinglePutNamedNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSinglePutNamedNonIdAttr"
+		>$switch Name Id empty default implRspnTableReadSinglePutNamedAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSinglePutNamedAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implRspnTableReadSinglePutNamedAnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSinglePutNamedAnAttr">
+			curContext.putNamedValue( "$Name$", attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSingleMaybePutNamedRelationAttr"
+		>$switch RelationTypeTag
+			Superclass empty
+			Container empty
+			Owner empty
+			default implRspnTableReadSinglePutNamedSingletonRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSinglePutNamedSingletonRelationAttr"
+		>$switch IsToIndexUnique yes implRspnTableReadSinglePutNamedNamedRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSinglePutNamedNamedRelationAttr"
+		>$switch ToTableHasLookupIndex yes implRspnTableReadSinglePutNamedRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implRspnTableReadSinglePutNamedRelationAttr">
+			curContext.putNamedValue( "$Suffix$", attr$Suffix$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleGetParentContext">
+			// Get the parent context
+			CFLibXmlCoreContext parentContext = curContext.getPrevContext();</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleConvertAttributes">
+			// Convert string attributes to native Java types</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleConvertPKeyAttrs"
+		>$switch HasSuperClassRelation yes implRspnTableReadSingleConvertInhPKeyAttrs default implRspnTableReadSingleConvertBasePKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleConvertInhPKeyAttrs"
+		>$reference SuperclassRelation reference ToTable implRspnTableReadSingleConvertPKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleConvertBasePKeyAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRspnTableReadSingleConvertColPKeyAttrs )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRspnTableReadSingleConvertColPKeyAttrs"
+		>$reference Column implRspnTableReadSingleConvertColPKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColPKeyAttrs">
+		$implJavaAtomType$ nat$Name$;$switch BaseModelAtomClass
+			BlobDef implRspnTableReadSingleConvertColBlobValue
+			BoolDef implRspnTableReadSingleConvertColBoolValue
+			EnumDef implRspnTableReadSingleConvertColEnumValue
+			Int16Def implRspnTableReadSingleConvertColInt16Value
+			Int32Def implRspnTableReadSingleConvertColInt32Value
+			Int64Def implRspnTableReadSingleConvertColInt64Value
+			UInt16Def implRspnTableReadSingleConvertColUInt16Value
+			UInt32Def implRspnTableReadSingleConvertColUInt32Value
+			UInt64Def implRspnTableReadSingleConvertColUInt64Value
+			Id16Gen implRspnTableReadSingleConvertColInt16Value
+			Id32Gen implRspnTableReadSingleConvertColInt32Value
+			Id64Gen implRspnTableReadSingleConvertColInt64Value
+			FloatDef implRspnTableReadSingleConvertColFloatValue
+			DoubleDef implRspnTableReadSingleConvertColDoubleValue
+			NumberDef implRspnTableReadSingleConvertColNumberValue
+			StringDef implRspnTableReadSingleConvertColStringValue
+			TokenDef implRspnTableReadSingleConvertColTokenValue
+			NmTokenDef implRspnTableReadSingleConvertColNmTokenValue
+			NmTokensDef implRspnTableReadSingleConvertColNmTokensValue
+			TextDef implRspnTableReadSingleConvertColTextValue
+			DateDef implRspnTableReadSingleConvertColDateValue
+			TimeDef implRspnTableReadSingleConvertColTimeValue
+			TimestampDef implRspnTableReadSingleConvertColTimestampValue
+			TZDateDef implRspnTableReadSingleConvertColTZDateValue
+			TZTimeDef implRspnTableReadSingleConvertColTZTimeValue
+			TZTimestampDef implRspnTableReadSingleConvertColTZTimestampValue
+			UuidGen implRspnTableReadSingleConvertColUuidValue
+			UuidDef implRspnTableReadSingleConvertColUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColBlobValue">
+			throw new RuntimeException( S_ProcName + "ERROR: Cannot use a BLOB as a PKey attribute!" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColBoolValue"
+		>$switch IsNullable yes implRspnTableReadSingleConvertColOptBoolValue default implRspnTableReadSingleConvertColReqBoolValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColReqBoolValue">
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColOptBoolValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() == 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = Boolean.valueOf( true );
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = Boolean.valueOf( false );
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColEnumValue"
+		>$switch IsNullable yes implRspnTableReadSingleConvertColOptEnumValue default implRspnTableReadSingleConvertColReqEnumValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColOptEnumValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColReqEnumValue">
+			nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColInt16Value"
+		>$switch IsNullable yes implRspnTableReadSingleConvertColOptInt16Value default implRspnTableReadSingleConvertColReqInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColOptInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColReqInt16Value">
+			nat$Name$ = Short.parseShort( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColInt32Value"
+		>$switch IsNullable yes implRspnTableReadSingleConvertColOptInt32Value default implRspnTableReadSingleConvertColReqInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColOptInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColReqInt32Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColInt64Value"
+		>$switch IsNullable yes implRspnTableReadSingleConvertColOptInt64Value default implRspnTableReadSingleConvertColReqInt64Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColOptInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColReqInt64Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColUInt16Value"
+		>$switch IsNullable yes implRspnTableReadSingleConvertColOptUInt16Value default implRspnTableReadSingleConvertColReqUInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColOptUInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColReqUInt16Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColUInt32Value"
+		>$switch IsNullable yes implRspnTableReadSingleConvertColOptUInt32Value default implRspnTableReadSingleConvertColReqUInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColOptUInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColReqUInt32Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColUInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = new BigDecimal( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColFloatValue"
+		>$switch IsNullable yes implRspnTableReadSingleConvertColOptFloatValue default implRspnTableReadSingleConvertColReqFloatValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColOptFloatValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColReqFloatValue">
+			nat$Name$ = Float.parseFloat( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColDoubleValue"
+		>$switch IsNullable yes implRspnTableReadSingleConvertColOptDoubleValue default implRspnTableReadSingleConvertColReqDoubleValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColOptDoubleValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColReqDoubleValue">
+			nat$Name$ = Double.parseDouble( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColNumberValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = new BigDecimal( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColStringValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColNmTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColNmTokensValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColTextValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColTZDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColTZTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColTZTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertColUuidValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleConvertAttrs"
+		>$switch HasSuperClassRelation yes implRspnTableReadSingleConvertAttrsSuper default implRspnTableReadSingleConvertAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleConvertAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRspnTableReadSingleConvertAttrs$$iterate Columns( each implRspnTableReadSingleConvertDataAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRspnTableReadSingleConvertAttrsBase"
+		>$iterate Columns( each implRspnTableReadSingleConvertAnAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRspnTableReadSingleConvertAnAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertAnAttr"
+		>$switch IsNullable yes implRspnTableReadSingleConvertOptAttr default implRspnTableReadSingleConvertReqAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRspnTableReadSingleConvertReqBlob
+			BoolDef implRspnTableReadSingleConvertReqBool
+			EnumDef implRspnTableReadSingleConvertReqEnum
+			Id16Gen implRspnTableReadSingleConvertReqInt16
+			Id32Gen implRspnTableReadSingleConvertReqInt32
+			Id64Gen implRspnTableReadSingleConvertReqInt64
+			Int16Def implRspnTableReadSingleConvertReqInt16
+			Int32Def implRspnTableReadSingleConvertReqInt32
+			Int64Def implRspnTableReadSingleConvertReqInt64
+			UInt16Def implRspnTableReadSingleConvertReqUInt16
+			UInt32Def implRspnTableReadSingleConvertReqUInt32
+			UInt64Def implRspnTableReadSingleConvertReqUInt64
+			FloatDef implRspnTableReadSingleConvertReqFloat
+			DoubleDef implRspnTableReadSingleConvertReqDouble
+			NumberDef implRspnTableReadSingleConvertReqNumber
+			DateDef implRspnTableReadSingleConvertReqDate
+			TimeDef implRspnTableReadSingleConvertReqTime
+			TimestampDef implRspnTableReadSingleConvertReqTimestamp
+			TZDateDef implRspnTableReadSingleConvertReqTZDate
+			TZTimeDef implRspnTableReadSingleConvertReqTZTime
+			TZTimestampDef implRspnTableReadSingleConvertReqTZTimestamp
+			UuidGen implRspnTableReadSingleConvertReqUuid
+			UuidDef implRspnTableReadSingleConvertReqUuid
+			StringDef implRspnTableReadSingleConvertReqString
+			TokenDef implRspnTableReadSingleConvertReqString
+			NmTokenDef implRspnTableReadSingleConvertReqString
+			NmTokensDef implRspnTableReadSingleConvertReqString
+			TextDef implRspnTableReadSingleConvertReqString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRspnTableReadSingleConvertOptBlob
+			BoolDef implRspnTableReadSingleConvertOptBool
+			EnumDef implRspnTableReadSingleConvertOptEnum
+			Id16Gen implRspnTableReadSingleConvertOptInt16
+			Id32Gen implRspnTableReadSingleConvertOptInt32
+			Id64Gen implRspnTableReadSingleConvertOptInt64
+			Int16Def implRspnTableReadSingleConvertOptInt16
+			Int32Def implRspnTableReadSingleConvertOptInt32
+			Int64Def implRspnTableReadSingleConvertOptInt64
+			UInt16Def implRspnTableReadSingleConvertOptUInt16
+			UInt32Def implRspnTableReadSingleConvertOptUInt32
+			UInt64Def implRspnTableReadSingleConvertOptUInt64
+			FloatDef implRspnTableReadSingleConvertOptFloat
+			DoubleDef implRspnTableReadSingleConvertOptDouble
+			NumberDef implRspnTableReadSingleConvertOptNumber
+			DateDef implRspnTableReadSingleConvertOptDate
+			TimeDef implRspnTableReadSingleConvertOptTime
+			TimestampDef implRspnTableReadSingleConvertOptTimestamp
+			TZDateDef implRspnTableReadSingleConvertOptTZDate
+			TZTimeDef implRspnTableReadSingleConvertOptTZTime
+			TZTimestampDef implRspnTableReadSingleConvertOptTZTimestamp
+			UuidGen implRspnTableReadSingleConvertOptUuid
+			UuidDef implRspnTableReadSingleConvertOptUuid
+			StringDef implRspnTableReadSingleConvertOptString
+			TokenDef implRspnTableReadSingleConvertOptString
+			NmTokenDef implRspnTableReadSingleConvertOptString
+			NmTokensDef implRspnTableReadSingleConvertOptString
+			TextDef implRspnTableReadSingleConvertOptString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqBlob">
+			byte[] nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqBool">
+			boolean nat$Name$;
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqInt16">
+			short nat$Name$ = Short.parseShort( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqInt32">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqInt64">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqUInt16">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqUInt32">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqUInt64">
+			BigDecimal nat$Name$ = new BigDecimal( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqFloat">
+			float nat$Name$ = Float.parseFloat( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqDouble">
+			double nat$Name$ = Double.parseDouble( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqNumber">
+			BigDecimal nat$Name$ = new BigDecimal( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqTZDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqTZTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqTZTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqUuid">
+			UUID nat$Name$ = UUID.fromString( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertReqString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptBlob">
+			byte[] nat$Name$;
+			if( attr$Name$ == null ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.length() &lt;= 0 ) {
+				nat$Name$ = new byte[0];
+			}
+			else {
+				nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptBool">
+			Boolean nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptInt16">
+			Short nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptInt32">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptInt64">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptUInt16">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptUInt32">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptUInt64">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= new BigDecimal( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptFloat">
+			Float nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptDouble">
+			Double nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptNumber">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= new BigDecimal( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptTZDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptTZTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptTZTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptUuid">
+			UUID nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnTableReadSingleConvertOptString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+</RuleSet>

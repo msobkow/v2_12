@@ -1,0 +1,1809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsg/SchemaXMsgRqstParser.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Message Parser for Schema">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaXMsgRqstParserJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgRqst/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgRqst"
+		ExpansionClassName="$SchemaName$XMsgRqstJava"
+		ExpansionKeyName="$SchemaName$XMsgRqstJava"
+		ExpansionFileName="$SchemaName$XMsgRqst.java"
+>// Description: Java 11 XML SAX Request Message  for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgRqst;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import org.xml.sax.*;
+import org.apache.commons.codec.binary.Base64;
+
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.Tip.*;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$importJavaPackageSchemaName$$iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$importJavaPackageSchemaNameObj$
+import $lower JavaPackage$.$SchemaName$XMsg.$SchemaName$XMsgSchemaMessageFormatter;$JavaXMsgRqstSchemaImport$$ReferencedJavaXMsgRqstSchemaImport$
+
+public class $SchemaName$XMsgRqst
+	extends CFLibXmlCoreSaxParser
+	implements ContentHandler,
+		ICFTipRequestHandler,
+		ICFTipThrowableFormatter
+{$SchemaNameXMsgRqstBody$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaNameXMsgRqstBody">
+$implSchemaXMsgRqstSchemaConstants$
+	private $SchemaName$XMsgSchemaMessageFormatter schemaMessageFormatter = new $SchemaName$XMsgSchemaMessageFormatter();
+	private I$SchemaName$SchemaObj schemaObj = null;
+	private CFTipEnvelopeHandler envelope = null;
+	private StringBuffer response = new StringBuffer();
+	private boolean caughtException = false;
+	// Constructors
+$implSchemaXMsgRqstConstructor$
+	// Accessors for formatter
+$implSchemaXMsgRqstGetSchemaMessageFormatter$
+	// Accessors for envelope handler
+$implSchemaXMsgRqstEnvelopeAccessors$
+$implSchemaXMsgRqstFormatResponseThrowable$
+	// Accessors for invoker
+$implSchemaXMsgRqstResponseAccessors$$JavaXMsgRqstSchemaBody$$ReferencedJavaXMsgRqstSchemaBody$
+	// Element  instances
+$iterate SchemaTables( each implSchemaXMsgRqstDeclElements )$$implSchemaXMsgRqstDeclRootElement$$implSchemaXMsgRqstDeclDocElement$$implSchemaXMsgRqstDeclFileImportElement$$implSchemaXMsgRqstDeclLogInElement$$implSchemaXMsgRqstDeclLogOutElement$
+	// Schema object accessors
+$implSchemaXMsgRqstImplSchemaObjAccessors$
+	// Element  Resolver Factories
+$iterate SchemaTables( each implSchemaXMsgRqstGetElements )$$implSchemaXMsgRqstGetFileImportElement$$implSchemaXMsgRqstGetLogInElement$$implSchemaXMsgRqstGetLogOutElement$
+	// Root Element  Resolver Factory
+$implSchemaXMsgRqstGetRootElement$
+	// Root Element 
+$implSchemaXMsgRqstRootElement$
+	// Document Element  Resolver Factory
+$implSchemaXMsgRqstGetDocElement$
+	// Document Element 
+$implSchemaXMsgRqstDocElement$
+	// Parse XML string contents
+$implSchemaXMsgRqstParseStringContent$
+	// Parse a URL
+$implSchemaXMsgRqstParseURL$
+	// Parse a file
+$implSchemaXMsgRqstParseFile$</GenRule>
+
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstGetSchemaMessageFormatter">
+	public $SchemaName$XMsgSchemaMessageFormatter getSchemaMessageFormatter() {
+		return( schemaMessageFormatter );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstEnvelopeAccessors">
+	public CFTipEnvelopeHandler getEnvelope() {
+		return( envelope );
+	}
+
+	public void setEnvelope( CFTipEnvelopeHandler value ) {
+		envelope = value;
+		if( envelope != null ) {
+			envelope.setThrowableFormatter( this );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstFormatResponseThrowable">
+	// Satisfy ICFLibThrowableFormatter
+
+	public String formatResponseThrowable( Throwable t ) {
+		String response = schemaMessageFormatter.formatRspnXmlPreamble() + "\\n"
+				+	"\\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnException( "\\n\\t\\t\\t\\t", t )
+				+	"\\n"
+				+	schemaMessageFormatter.formatRspnXmlPostamble();
+		return( response );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgRqstSchemaImport"
+		>$iterate SchemaRefs( each ApplyJavaXMsgRqstSchemaImport empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgRqstSchemaImport"
+		>$reference RefSchema JavaXMsgRqstSchemaImport$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgRqstSchemaBody"
+		>$iterate SchemaRefs( each ApplyJavaXMsgRqstSchemaBody empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgRqstSchemaBody"
+		>$reference RefSchema JavaXMsgRqstSchemaBody$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstResponseAccessors">
+	public String getResponse() {
+		String retval = response.toString();
+		return( retval );
+	}
+
+	public void resetResponse() {
+		response = new StringBuffer();
+		caughtException = false;
+	}
+
+	public void appendResponse( String str ) {
+		response.append( str );
+	}
+
+	public boolean getCaughtException() {
+		return( caughtException );
+	}
+
+	public void setCaughtException( boolean value ) {
+		caughtException = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstParseURL">
+	public void parse( String url ) {
+		final String S_ProcName = "parse";
+		resetResponse();
+		if( schemaObj.isTransactionOpen() ) {
+			try {
+				schemaObj.rollback();
+			}
+			catch( RuntimeException x ) {
+			}
+		}
+		boolean transactionOpened = false;
+		try {
+			transactionOpened = schemaObj.beginTransaction();
+
+			super.parse( url );
+
+			if( caughtException ) {
+				schemaObj.rollback();
+			}
+			else {
+				schemaObj.commit();
+			}
+
+			transactionOpened = false;
+		}
+		catch( CFLibArgumentOverflowException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibArgumentRangeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibArgumentUnderflowException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibCollisionDetectedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibDbException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibDependentsDetectedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibEmptyArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibInvalidArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibMustOverrideException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibNotImplementedYetException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibNotSupportedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibNullArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibPrimaryKeyNotNewException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibStaleCacheDetectedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUniqueIndexViolationException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUnrecognizedAttributeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUnresolvedRelationException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUnsupportedClassException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUsageException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibRuntimeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( RuntimeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				e.getMessage(),
+				e );
+		}
+		catch( Exception e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				e.getMessage(),
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstParseFile">
+	public void parseFile( String url ) {
+		final String S_ProcName = "parseFile";
+		resetResponse();
+		if( schemaObj.isTransactionOpen() ) {
+			try {
+				schemaObj.rollback();
+			}
+			catch( RuntimeException x ) {
+			}
+		}
+		boolean transactionOpened = false;
+		try {
+			transactionOpened = schemaObj.beginTransaction();
+
+			super.parse( url );
+
+			if( caughtException ) {
+				schemaObj.rollback();
+			}
+			else {
+				schemaObj.commit();
+			}
+
+			transactionOpened = false;
+		}
+		catch( CFLibArgumentOverflowException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibArgumentRangeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibArgumentUnderflowException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibCollisionDetectedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibDbException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibDependentsDetectedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibEmptyArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibInvalidArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibMustOverrideException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibNotImplementedYetException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibNotSupportedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibNullArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibPrimaryKeyNotNewException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibStaleCacheDetectedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUniqueIndexViolationException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUnrecognizedAttributeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUnresolvedRelationException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUnsupportedClassException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUsageException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibRuntimeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( RuntimeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				e.getMessage(),
+				e );
+		}
+		catch( Exception e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				e.getMessage(),
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstParseStringContent">
+	public void parseStringContents( String str ) {
+		final String S_ProcName = "parseStringContents";
+		resetResponse();
+		$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+		if( ( auth != null ) &amp;&amp; schemaObj.isTransactionOpen() ) {
+			try {
+				schemaObj.rollback();
+			}
+			catch( RuntimeException x ) {
+			}
+		}
+		boolean transactionOpened = false;
+		try {$implSchemaXMsgRqstParseStringContentMeat$
+		}
+		catch( CFLibArgumentOverflowException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibArgumentRangeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibArgumentUnderflowException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibCollisionDetectedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibDbException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibDependentsDetectedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibEmptyArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibInvalidArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibMustOverrideException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibNotImplementedYetException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibNotSupportedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibNullArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibPrimaryKeyNotNewException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibStaleCacheDetectedException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUniqueIndexViolationException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUnrecognizedAttributeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUnresolvedRelationException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUnsupportedClassException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibUsageException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibArgumentException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( CFLibRuntimeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw e;
+		}
+		catch( RuntimeException e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				e.getMessage(),
+				e );
+		}
+		catch( Exception e ) {
+			if( transactionOpened ) {
+				try {
+					schemaObj.rollback();
+				}
+				catch( RuntimeException x ) {
+				}
+				transactionOpened = false;
+			}
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				e.getMessage(),
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstParseStringContentMeat">
+			if( auth != null ) {
+				transactionOpened = schemaObj.beginTransaction();
+			}
+			else {
+				transactionOpened = false;
+			}
+
+			super.parseStringContents( str );
+
+			// If the request was a logout or login the authorization will have changed
+			auth = schemaObj.getAuthorization();
+			if( auth != null ) {
+				try {
+					if( caughtException ) {
+						schemaObj.rollback();
+					}
+					else {
+						schemaObj.commit();
+					}
+				}
+				catch( RuntimeException e ) {
+				}
+			}
+
+			transactionOpened = false;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstSchemaConstants">
+	// The namespace URI of the supported schema
+	public final static String	SCHEMA_XMLNS = "$SchemaRqstNamespace$";
+
+	// The source for loading the supported schema
+	public final static String	SCHEMA_URI = "/opt/$lower reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference MinorVersion reference ParentMajVer Name$.0.$reference MinorVersion Name$/xsd/$lower EffectiveProjectName$-rqst.xsd";
+	public final static String	SCHEMA_ROOT_URI = "/xsd/$lower EffectiveProjectName$-rqst.xsd";$iterate SchemaRefs( each implSchemaXMsgRqstSchemaConstants empty empty )$
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaXMsgRqstSchemaConstants">
+	public final static String $upper reference RefSchema SchemaName$_XMLNS = "$reference RefSchema SchemaRqstNamespace$";
+	public final static String $upper reference RefSchema SchemaName$_URI = "/opt/$lower reference RefSchema reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference RefSchema reference MinorVersion reference ParentMajVer Name$.0.$reference RefSchema reference MinorVersion Name$/xsd/$lower reference RefSchema SchemaName$-rqst.xsd";
+	public final static String $upper reference RefSchema SchemaName$_ROOT_URI = "/xsd/$lower reference RefSchema SchemaName$-rqst.xsd";
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaXMsgRqstConstructorLoadXSD"></GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaRqstNamespace"
+		>uri://xsd/$lower SchemaName$rqst</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstConstructor"
+		>$implSchemaXMsgRqstConstructorVoid$$implSchemaXMsgRqstConstructorSchemaObj$$implSchemaXMsgRqstConstructorLogger$$implSchemaXMsgRqstConstructorSchemaObjLogger$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstConstructorVoid">
+	public $SchemaName$XMsgRqst() {
+		super();
+		setRootElementHandler( getSaxRqstRoot() );$iterate SchemaRefs( each implSchemaXMsgRqstConstructorLoadXSD empty empty )$
+		}
+		initParser();
+		setSchemaObj( null );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstConstructorSchemaObj">
+	public $SchemaName$XMsgRqst( I$SchemaName$SchemaObj schemaObj ) {
+		super();
+		setRootElementHandler( getSaxRqstRoot() );$iterate SchemaRefs( each implSchemaXMsgRqstConstructorLoadXSD empty empty )$
+		}
+		initParser();
+		setSchemaObj( schemaObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstConstructorLogger">
+	public $SchemaName$XMsgRqst( ICFLibMessageLog logger ) {
+		super( logger );
+		setRootElementHandler( getSaxRqstRoot() );$iterate SchemaRefs( each implSchemaXMsgRqstConstructorLoadXSD empty empty )$
+		}
+		initParser();
+		setSchemaObj( null );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstConstructorSchemaObjLogger">
+	public $SchemaName$XMsgRqst( I$SchemaName$SchemaObj schemaObj, ICFLibMessageLog logger ) {
+		super( logger );
+		setRootElementHandler( getSaxRqstRoot() );$iterate SchemaRefs( each implSchemaXMsgRqstConstructorLoadXSD empty empty )$
+		}
+		initParser();
+		setSchemaObj( schemaObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstImplSchemaObjAccessors">
+	// SchemaObj accessors
+
+	public I$SchemaName$SchemaObj getSchemaObj() {
+		return( schemaObj );
+	}
+
+	public void setSchemaObj( I$SchemaName$SchemaObj value ) {
+		schemaObj = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstDeclFileImportElement">
+	private $SchemaName$XMsgRqstFileImport rqstFileImport = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstDeclLogInElement">
+	private $SchemaName$XMsgRqstLogIn rqstLogIn = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstDeclLogOutElement">
+	private $SchemaName$XMsgRqstLogOut rqstLogOut = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclElements">
+	// $TableName$ Request s
+$implSchemaXMsgRqstDeclRqstCreate$$reference BaseClass reference PrimaryKeyIndex implSchemaXMsgRqstDeclRqstRdByThisPrimaryIndex$$reference BaseClass reference PrimaryKeyIndex implSchemaXMsgRqstDeclRqstLockByThisPrimaryIndex$$implSchemaXMsgRqstDeclRqstUpdate$$reference BaseClass reference PrimaryKeyIndex implSchemaXMsgRqstDeclRqstDelByThisPrimaryIndex$$switch HasChain yes implSchemaXMsgRqstDeclRqstMoveUp default empty$$switch HasChain yes implSchemaXMsgRqstDeclRqstMoveDown default empty$$implSchemaXMsgRqstDeclRqstReadAll$$switch PageData yes implSchemaXMsgRqstDeclRqstPageAll default empty$$implSchemaXMsgRqstDeclRqstRdByIndexes$$switch PageData yes implSchemaXMsgRqstDeclRqstPageByIndexes default empty$$implSchemaXMsgRqstDeclRqstDelByIndexes$$iterate ServerMethods( each implSchemaXMsgRqstDeclRqstServerMethod empty empty )$</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implSchemaXMsgRqstDeclRqstServerMethod">
+	private $SchemaName$XMsgRqst$reference ForTable TableName$$Name$ rqst$reference ForTable TableName$$Name$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstMoveUp">
+	private $SchemaName$XMsgRqst$poptop Table TableName$MoveUp rqst$poptop Table TableName$MoveUp = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstMoveDown">
+	private $SchemaName$XMsgRqst$poptop Table TableName$MoveDown rqst$poptop Table TableName$MoveDown = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstRdByThisPrimaryIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$Read rqst$poptop Table TableName$Read = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstLockByThisPrimaryIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$Lock rqst$poptop Table TableName$Lock = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstCreate">
+	private $SchemaName$XMsgRqst$poptop Table TableName$Create rqst$poptop Table TableName$Create = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstUpdate">
+	private $SchemaName$XMsgRqst$poptop Table TableName$Update rqst$poptop Table TableName$Update = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstDelByThisPrimaryIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$Delete rqst$poptop Table TableName$Delete = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstRdByIndexes"
+		>$switch HasSuperClassRelation yes implSchemaXMsgRqstDeclRqstRdByInhIndexes default implSchemaXMsgRqstDeclRqstRdByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstRdByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implSchemaXMsgRqstDeclRqstRdByIndexes$$iterate Index( each implSchemaXMsgRqstDeclRqstRdByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstRdByBaseIndexes"
+		>$iterate Index( each implSchemaXMsgRqstDeclRqstRdByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstRdByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implSchemaXMsgRqstDeclRqstRdByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstRdByThisIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstDeclRqstRdByThisUniqueIndex
+			default implSchemaXMsgRqstDeclRqstRdByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstRdByInhIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstDeclRqstRdByInhUniqueIndex
+			default implSchemaXMsgRqstDeclRqstRdByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstRdByIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstDeclRqstRdByUniqueIndex
+			default implSchemaXMsgRqstDeclRqstRdByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstRdByThisUniqueIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$ rqst$poptop Table TableName$RdBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstRdByInhUniqueIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$ rqst$poptop Table TableName$RdBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstRdByThisDuplicateIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$ rqst$poptop Table TableName$RdBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstRdByInhDuplicateIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$ rqst$poptop Table TableName$RdBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstPageByIndexes"
+		>$switch HasSuperClassRelation yes implSchemaXMsgRqstDeclRqstPageByInhIndexes default implSchemaXMsgRqstDeclRqstPageByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstPageByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implSchemaXMsgRqstDeclRqstPageByIndexes$$iterate Index( each implSchemaXMsgRqstDeclRqstPageByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstPageByBaseIndexes"
+		>$iterate Index( each implSchemaXMsgRqstDeclRqstPageByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstPageByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default ifduplicate_implSchemaXMsgRqstDeclRqstPageByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="ifduplicate_implSchemaXMsgRqstDeclRqstPageByIndex"
+		>$switch IsUnique yes empty default implSchemaXMsgRqstDeclRqstPageByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstPageByIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$PageBy$Suffix$ rqst$poptop Table TableName$PageBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstReadAll">
+	private $SchemaName$XMsgRqst$TableName$ReadAll rqst$TableName$ReadAll = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstPageAll">
+	private $SchemaName$XMsgRqst$TableName$PageAll rqst$TableName$PageAll = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstDelByIndexes"
+		>$switch HasSuperClassRelation yes implSchemaXMsgRqstDeclRqstDelByInhIndexes default implSchemaXMsgRqstDeclRqstDelByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstDelByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implSchemaXMsgRqstDeclRqstDelByIndexes$$iterate Index( each implSchemaXMsgRqstDeclRqstDelByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstDeclRqstDelByBaseIndexes"
+		>$iterate Index( each implSchemaXMsgRqstDeclRqstDelByThisIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstDelByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implSchemaXMsgRqstDeclRqstDelByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstDelByThisIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstDeclRqstDelByThisUniqueIndex
+			default implSchemaXMsgRqstDeclRqstDelByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstDelByInhIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstDeclRqstDelByInhUniqueIndex
+			default implSchemaXMsgRqstDeclRqstDelByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstDelByIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstDeclRqstDelByUniqueIndex
+			default implSchemaXMsgRqstDeclRqstDelByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstDelByThisUniqueIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$ rqst$poptop Table TableName$DelBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstDelByInhUniqueIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$ rqst$poptop Table TableName$DelBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstDelByThisDuplicateIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$ rqst$poptop Table TableName$DelBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstDeclRqstDelByInhDuplicateIndex">
+	private $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$ rqst$poptop Table TableName$DelBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstDeclRootElement">
+	private $SchemaName$SaxRqstRoot saxRoot = null;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstDeclDocElement">
+	private $SchemaName$SaxRqstDoc saxDoc = null;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstGetFileImportElement">
+	protected $SchemaName$XMsgRqstFileImport getRqstFileImport() {
+		if( rqstFileImport == null ) {
+			rqstFileImport = new $SchemaName$XMsgRqstFileImport( this );
+		}
+		return( rqstFileImport );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstGetLogInElement">
+	protected $SchemaName$XMsgRqstLogIn getRqstLogIn() {
+		if( rqstLogIn == null ) {
+			rqstLogIn = new $SchemaName$XMsgRqstLogIn( this );
+		}
+		return( rqstLogIn );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstGetLogOutElement">
+	protected $SchemaName$XMsgRqstLogOut getRqstLogOut() {
+		if( rqstLogOut == null ) {
+			rqstLogOut = new $SchemaName$XMsgRqstLogOut( this );
+		}
+		return( rqstLogOut );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetElements">
+	// $TableName$ Request  Factories
+$implSchemaXMsgRqstGetRqstCreate$$reference BaseClass reference PrimaryKeyIndex implSchemaXMsgRqstGetRqstRdByThisPrimaryIndex$$reference BaseClass reference PrimaryKeyIndex implSchemaXMsgRqstGetRqstLockByThisPrimaryIndex$$implSchemaXMsgRqstGetRqstUpdate$$reference BaseClass reference PrimaryKeyIndex implSchemaXMsgRqstGetRqstDelByThisPrimaryIndex$$switch HasChain yes implSchemaXMsgRqstGetRqstMoveUp default empty$$switch HasChain yes implSchemaXMsgRqstGetRqstMoveDown default empty$$implSchemaXMsgRqstGetRqstReadAll$$switch PageData yes implSchemaXMsgRqstGetRqstPageAll default empty$$implSchemaXMsgRqstGetRqstRdByIndexes$$switch PageData yes implSchemaXMsgRqstGetRqstPageByIndexes default empty$$implSchemaXMsgRqstGetRqstDelByIndexes$$iterate ServerMethods( each implSchemaXMsgRqstGetRqstServerMethod empty empty )$</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implSchemaXMsgRqstGetRqstServerMethod">
+	protected $SchemaName$XMsgRqst$reference ForTable TableName$$Name$ getRqst$reference ForTable TableName$$Name$() {
+		if( rqst$reference ForTable TableName$$Name$ == null ) {
+			rqst$reference ForTable TableName$$Name$ = new $SchemaName$XMsgRqst$reference ForTable TableName$$Name$( this );
+		}
+		return( rqst$reference ForTable TableName$$Name$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstRdByThisPrimaryIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$Read getRqst$poptop Table TableName$Read() {
+		if( rqst$poptop Table TableName$Read == null ) {
+			rqst$poptop Table TableName$Read = new $SchemaName$XMsgRqst$poptop Table TableName$Read( this );
+		}
+		return( rqst$poptop Table TableName$Read );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstLockByThisPrimaryIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$Lock getRqst$poptop Table TableName$Lock() {
+		if( rqst$poptop Table TableName$Lock == null ) {
+			rqst$poptop Table TableName$Lock = new $SchemaName$XMsgRqst$poptop Table TableName$Lock( this );
+		}
+		return( rqst$poptop Table TableName$Lock );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstCreate">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$Create getRqst$poptop Table TableName$Create() {
+		if( rqst$poptop Table TableName$Create == null ) {
+			rqst$poptop Table TableName$Create = new $SchemaName$XMsgRqst$poptop Table TableName$Create( this );
+		}
+		return( rqst$poptop Table TableName$Create );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstUpdate">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$Update getRqst$poptop Table TableName$Update() {
+		if( rqst$poptop Table TableName$Update == null ) {
+			rqst$poptop Table TableName$Update = new $SchemaName$XMsgRqst$poptop Table TableName$Update( this );
+		}
+		return( rqst$poptop Table TableName$Update );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstDelByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implSchemaXMsgRqstGetRqstDelByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstDelByThisPrimaryIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$Delete getRqst$poptop Table TableName$Delete() {
+		if( rqst$poptop Table TableName$Delete == null ) {
+			rqst$poptop Table TableName$Delete = new $SchemaName$XMsgRqst$poptop Table TableName$Delete( this );
+		}
+		return( rqst$poptop Table TableName$Delete );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstMoveUp">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$MoveUp getRqst$poptop Table TableName$MoveUp() {
+		if( rqst$poptop Table TableName$MoveUp == null ) {
+			rqst$poptop Table TableName$MoveUp = new $SchemaName$XMsgRqst$poptop Table TableName$MoveUp( this );
+		}
+		return( rqst$poptop Table TableName$MoveUp );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstMoveDown">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$MoveDown getRqst$poptop Table TableName$MoveDown() {
+		if( rqst$poptop Table TableName$MoveDown == null ) {
+			rqst$poptop Table TableName$MoveDown = new $SchemaName$XMsgRqst$poptop Table TableName$MoveDown( this );
+		}
+		return( rqst$poptop Table TableName$MoveDown );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstRdByIndexes"
+		>$switch HasSuperClassRelation yes implSchemaXMsgRqstGetRqstRdByInhIndexes default implSchemaXMsgRqstGetRqstRdByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstRdByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implSchemaXMsgRqstGetRqstRdByIndexes$$iterate Index( each implSchemaXMsgRqstGetRqstRdByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstRdByBaseIndexes"
+		>$iterate Index( each implSchemaXMsgRqstGetRqstRdByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstRdByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implSchemaXMsgRqstGetRqstRdByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstRdByThisIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstGetRqstRdByThisUniqueIndex
+			default implSchemaXMsgRqstGetRqstRdByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstRdByInhIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstGetRqstRdByInhUniqueIndex
+			default implSchemaXMsgRqstGetRqstRdByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstRdByIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstGetRqstRdByThisUniqueIndex
+			default implSchemaXMsgRqstGetRqstRdByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstRdByThisUniqueIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$ getRqst$poptop Table TableName$RdBy$Suffix$() {
+		if( rqst$poptop Table TableName$RdBy$Suffix$ == null ) {
+			rqst$poptop Table TableName$RdBy$Suffix$ = new $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$( this );
+		}
+		return( rqst$poptop Table TableName$RdBy$Suffix$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstRdByInhUniqueIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$ getRqst$poptop Table TableName$RdBy$Suffix$() {
+		if( rqst$poptop Table TableName$RdBy$Suffix$ == null ) {
+			rqst$poptop Table TableName$RdBy$Suffix$ = new $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$( this );
+		}
+		return( rqst$poptop Table TableName$RdBy$Suffix$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstRdByThisDuplicateIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$ getRqst$poptop Table TableName$RdBy$Suffix$() {
+		if( rqst$poptop Table TableName$RdBy$Suffix$ == null ) {
+			rqst$poptop Table TableName$RdBy$Suffix$ = new $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$( this );
+		}
+		return( rqst$poptop Table TableName$RdBy$Suffix$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstRdByInhDuplicateIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$ getRqst$poptop Table TableName$RdBy$Suffix$() {
+		if( rqst$poptop Table TableName$RdBy$Suffix$ == null ) {
+			rqst$poptop Table TableName$RdBy$Suffix$ = new $SchemaName$XMsgRqst$poptop Table TableName$RdBy$Suffix$( this );
+		}
+		return( rqst$poptop Table TableName$RdBy$Suffix$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstPageByIndexes"
+		>$switch HasSuperClassRelation yes implSchemaXMsgRqstGetRqstPageByInhIndexes default implSchemaXMsgRqstGetRqstPageByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstPageByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implSchemaXMsgRqstGetRqstPageByIndexes$$iterate Index( each implSchemaXMsgRqstGetRqstPageByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstPageByBaseIndexes"
+		>$iterate Index( each implSchemaXMsgRqstGetRqstPageByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstPageByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default ifduplicate_implSchemaXMsgRqstGetRqstPageByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="ifduplicate_implSchemaXMsgRqstGetRqstPageByThisIndex"
+		>$switch IsUnique yes empty default implSchemaXMsgRqstGetRqstPageByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstPageByIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$PageBy$Suffix$ getRqst$poptop Table TableName$PageBy$Suffix$() {
+		if( rqst$poptop Table TableName$PageBy$Suffix$ == null ) {
+			rqst$poptop Table TableName$PageBy$Suffix$ = new $SchemaName$XMsgRqst$poptop Table TableName$PageBy$Suffix$( this );
+		}
+		return( rqst$poptop Table TableName$PageBy$Suffix$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstReadAll">
+	protected $SchemaName$XMsgRqst$TableName$ReadAll getRqst$TableName$ReadAll() {
+		if( rqst$TableName$ReadAll == null ) {
+			rqst$TableName$ReadAll = new $SchemaName$XMsgRqst$poptop Table TableName$ReadAll( this );
+		}
+		return( rqst$TableName$ReadAll );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstPageAll">
+	protected $SchemaName$XMsgRqst$TableName$PageAll getRqst$TableName$PageAll() {
+		if( rqst$TableName$PageAll == null ) {
+			rqst$TableName$PageAll = new $SchemaName$XMsgRqst$poptop Table TableName$PageAll( this );
+		}
+		return( rqst$TableName$PageAll );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstDelByIndexes"
+		>$switch HasSuperClassRelation yes implSchemaXMsgRqstGetRqstDelByInhIndexes default implSchemaXMsgRqstGetRqstDelByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstDelByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implSchemaXMsgRqstGetRqstDelByIndexes$$iterate Index( each implSchemaXMsgRqstGetRqstDelByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstGetRqstDelByBaseIndexes"
+		>$iterate Index( each implSchemaXMsgRqstGetRqstDelByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstDelByThisIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstGetRqstDelByThisUniqueIndex
+			default implSchemaXMsgRqstGetRqstDelByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstDelByInhIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstGetRqstDelByInhUniqueIndex
+			default implSchemaXMsgRqstGetRqstDelByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstDelByIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstGetRqstDelByThisUniqueIndex
+			default implSchemaXMsgRqstGetRqstDelByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstDelByThisUniqueIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$ getRqst$poptop Table TableName$DelBy$Suffix$() {
+		if( rqst$poptop Table TableName$DelBy$Suffix$ == null ) {
+			rqst$poptop Table TableName$DelBy$Suffix$ = new $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$( this );
+		}
+		return( rqst$poptop Table TableName$DelBy$Suffix$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstDelByInhUniqueIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$ getRqst$poptop Table TableName$DelBy$Suffix$() {
+		if( rqst$poptop Table TableName$DelBy$Suffix$ == null ) {
+			rqst$poptop Table TableName$DelBy$Suffix$ = new $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$( this );
+		}
+		return( rqst$poptop Table TableName$DelBy$Suffix$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstDelByThisDuplicateIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$ getRqst$poptop Table TableName$DelBy$Suffix$() {
+		if( rqst$poptop Table TableName$DelBy$Suffix$ == null ) {
+			rqst$poptop Table TableName$DelBy$Suffix$ = new $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$( this );
+		}
+		return( rqst$poptop Table TableName$DelBy$Suffix$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstGetRqstDelByInhDuplicateIndex">
+	protected $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$ getRqst$poptop Table TableName$DelBy$Suffix$() {
+		if( rqst$poptop Table TableName$DelBy$Suffix$ == null ) {
+			rqst$poptop Table TableName$DelBy$Suffix$ = new $SchemaName$XMsgRqst$poptop Table TableName$DelBy$Suffix$( this );
+		}
+		return( rqst$poptop Table TableName$DelBy$Suffix$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstGetRootElement">
+	protected $SchemaName$SaxRqstRoot getSaxRqstRoot() {
+		if( saxRoot == null ) {
+			saxRoot = new $SchemaName$SaxRqstRoot( this );
+			saxRoot.addElementHandler( "$SchemaName$Rqst", getSaxRqstDoc() );$iterate SchemaRefs( each implSchemaXMsgRqstGetRootElementWireRefSchema empty empty )$
+		}
+		return( saxRoot );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaXMsgRqstGetRootElementWireRefSchema">
+			saxRoot.addElementHandler( "$reference RefSchema SchemaName$Rqst", getSaxRqstDoc() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstGetDocElement">$iterate SchemaTables( each implSchemaXMsgRqstAddTableToDocElement empty empty )$
+	protected $SchemaName$SaxRqstDoc getSaxRqstDoc() {
+		if( saxDoc == null ) {
+			saxDoc = new $SchemaName$SaxRqstDoc( this );
+$iterate SchemaTables( each implSchemaXMsgRqstInvokeAddTableToDocElement empty empty )
+$$implSchemaXMsgRqstInvokeAddFileImportToDocElement$$implSchemaXMsgRqstInvokeAddLogInToDocElement$$implSchemaXMsgRqstInvokeAddLogOutToDocElement$$JavaXMsgRqstSchemaWireParsers$$ReferencedJavaXMsgRqstSchemaWireParsers$		}
+		return( saxDoc );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstInvokeAddFileImportToDocElement">
+			saxDoc.addElementHandler( "RqstFileImport", getRqstFileImport() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstInvokeAddLogInToDocElement">
+			saxDoc.addElementHandler( "RqstLogIn", getRqstLogIn() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstInvokeAddLogOutToDocElement">
+			saxDoc.addElementHandler( "RqstLogOut", getRqstLogOut() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgRqstSchemaWireParsers"
+		>$iterate SchemaRefs( each ApplyJavaXMsgRqstSchemaWireParsers empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgRqstSchemaWireParsers"
+		>$reference RefSchema JavaXMsgRqstSchemaWireParsers$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstInvokeAddTableToDocElement">
+			add$TableName$ToSaxRqstDoc( saxDoc );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstAddTableToDocElement">
+	protected void add$TableName$ToSaxRqstDoc( $SchemaName$SaxRqstDoc saxDoc ) {$implSchemaXMsgRqstWireDocElements$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocElements">
+$implSchemaXMsgRqstWireDocRqstCreate$$reference BaseClass reference PrimaryKeyIndex implSchemaXMsgRqstWireDocRqstRdByThisPrimaryIndex$$reference BaseClass reference PrimaryKeyIndex implSchemaXMsgRqstWireDocRqstLockByThisPrimaryIndex$$implSchemaXMsgRqstWireDocRqstUpdate$$reference BaseClass reference PrimaryKeyIndex implSchemaXMsgRqstWireDocRqstDelByThisPrimaryIndex$$switch HasChain yes implSchemaXMsgRqstWireDocRqstMoveUp default empty$$switch HasChain yes implSchemaXMsgRqstWireDocRqstMoveDown default empty$$implSchemaXMsgRqstWireDocRqstReadAll$$switch PageData yes implSchemaXMsgRqstWireDocRqstPageAll default empty$$implSchemaXMsgRqstWireDocRqstRdByIndexes$$switch PageData yes implSchemaXMsgRqstWireDocRqstPageByIndexes default empty$$implSchemaXMsgRqstWireDocRqstDelByIndexes$$iterate ServerMethods( each implSchemaXMsgRqstWireDocRqstServerMethod empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstRdByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implSchemaXMsgRqstWireDocRqstRdByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstRdByThisPrimaryIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$Read", getRqst$poptop Table TableName$Read() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstLockByThisPrimaryIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$Lock", getRqst$poptop Table TableName$Lock() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstCreate">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$Create", getRqst$poptop Table TableName$Create() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstUpdate">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$Update", getRqst$poptop Table TableName$Update() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstDelByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implSchemaXMsgRqstWireDocRqstDelByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstDelByThisPrimaryIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$Delete", getRqst$poptop Table TableName$Delete() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstMoveUp">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$MoveUp", getRqst$poptop Table TableName$MoveUp() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstMoveDown">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$MoveDown", getRqst$poptop Table TableName$MoveDown() );</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implSchemaXMsgRqstWireDocRqstServerMethod">
+			saxDoc.addElementHandler( "Rqst$reference ForTable TableName$$Name$", getRqst$reference ForTable TableName$$Name$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstRdByIndexes"
+		>$switch HasSuperClassRelation yes implSchemaXMsgRqstWireDocRqstRdByInhIndexes default implSchemaXMsgRqstWireDocRqstRdByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstRdByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implSchemaXMsgRqstWireDocRqstRdByIndexes$$iterate Index( each implSchemaXMsgRqstWireDocRqstRdByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstRdByBaseIndexes"
+		>$iterate Index( each implSchemaXMsgRqstWireDocRqstRdByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstRdByThisIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstWireDocRqstRdByThisUniqueIndex
+			default implSchemaXMsgRqstWireDocRqstRdByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstRdByInhIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstWireDocRqstRdByInhUniqueIndex
+			default implSchemaXMsgRqstWireDocRqstRdByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstRdByIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstWireDocRqstRdByUniqueIndex
+			default implSchemaXMsgRqstWireDocRqstRdByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstRdByThisUniqueIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$RdBy$Suffix$", getRqst$poptop Table TableName$RdBy$Suffix$() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstRdByInhUniqueIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$RdBy$Suffix$", getRqst$poptop Table TableName$RdBy$Suffix$() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstRdByThisDuplicateIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$RdBy$Suffix$", getRqst$poptop Table TableName$RdBy$Suffix$() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstRdByInhDuplicateIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$RdBy$Suffix$", getRqst$poptop Table TableName$RdBy$Suffix$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstPageByIndexes"
+		>$switch HasSuperClassRelation yes implSchemaXMsgRqstWireDocRqstPageByInhIndexes default implSchemaXMsgRqstWireDocRqstPageByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstPageByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implSchemaXMsgRqstWireDocRqstPageByIndexes$$iterate Index( each implSchemaXMsgRqstWireDocRqstPageByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstPageByBaseIndexes"
+		>$iterate Index( each implSchemaXMsgRqstWireDocRqstPageByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstPageByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default ifduplicate_implSchemaXMsgRqstWireDocRqstPageByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="ifduplicate_implSchemaXMsgRqstWireDocRqstPageByIndex"
+		>$switch IsUnique yes empty default implSchemaXMsgRqstWireDocRqstPageByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstPageByIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$PageBy$Suffix$", getRqst$poptop Table TableName$PageBy$Suffix$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstReadAll">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$ReadAll", getRqst$TableName$ReadAll() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstPageAll">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$PageAll", getRqst$TableName$PageAll() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstDelByIndexes"
+		>$switch HasSuperClassRelation yes implSchemaXMsgRqstWireDocRqstDelByInhIndexes default implSchemaXMsgRqstWireDocRqstDelByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstDelByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implSchemaXMsgRqstWireDocRqstDelByIndexes$$iterate Index( each implSchemaXMsgRqstWireDocRqstDelByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRqstWireDocRqstDelByBaseIndexes"
+		>$iterate Index( each implSchemaXMsgRqstWireDocRqstDelByThisNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstDelByThisIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstWireDocRqstDelByThisUniqueIndex
+			default implSchemaXMsgRqstWireDocRqstDelByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstDelByInhIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstWireDocRqstDelByInhUniqueIndex
+			default implSchemaXMsgRqstWireDocRqstDelByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstDelByIndex"
+		>$switch IsUnique
+			yes implSchemaXMsgRqstWireDocRqstDelByUniqueIndex
+			default implSchemaXMsgRqstWireDocRqstDelByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstDelByThisUniqueIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$DelBy$Suffix$", getRqst$poptop Table TableName$DelBy$Suffix$() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstDelByInhUniqueIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$DelBy$Suffix$", getRqst$poptop Table TableName$DelBy$Suffix$() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstDelByThisDuplicateIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$DelBy$Suffix$", getRqst$poptop Table TableName$DelBy$Suffix$() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaXMsgRqstWireDocRqstDelByInhDuplicateIndex">
+			saxDoc.addElementHandler( "Rqst$poptop Table TableName$DelBy$Suffix$", getRqst$poptop Table TableName$DelBy$Suffix$() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstRootElement">
+	/*
+	 *	$SchemaName$SaxRqstRoot XML SAX Root Element  implementation
+	 */
+	public class $SchemaName$SaxRqstRoot
+		extends CFLibXmlCoreElementHandler
+	{$implConstructSaxRqstRoot$$implSaxRqstRootStartElement$$implSaxRqstRootEndElement$	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implConstructSaxRqstRoot">
+		public $SchemaName$SaxRqstRoot( $SchemaName$XMsgRqst xmsgRqst ) {
+			super( xmsgRqst );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRqstRootStartElement">
+		public void startElement(
+			String		uri,
+			String		localName,
+			String		qName,
+			Attributes	attrs )
+		throws SAXException
+		{
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRqstRootEndElement">
+		public void endElement(
+			String		uri,
+			String		localName,
+			String		qName )
+		throws SAXException
+		{
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRqstDocElement">
+	/*
+	 *	$SchemaName$SaxRqstDoc XML SAX Doc Element  implementation
+	 */
+	public class $SchemaName$SaxRqstDoc
+		extends CFLibXmlCoreElementHandler
+	{$implConstructSaxRqstDoc$$implSaxRqstDocStartElement$$implSaxRqstDocEndElement$	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implConstructSaxRqstDoc">
+		public $SchemaName$SaxRqstDoc( $SchemaName$XMsgRqst xmsgRqst ) {
+			super( xmsgRqst );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRqstDocStartElement">
+		public void startElement(
+			String		uri,
+			String		localName,
+			String		qName,
+			Attributes	attrs )
+		throws SAXException
+		{
+			String effSchemaName;
+			if( qName.endsWith( "Rqst" ) ) {
+				effSchemaName = qName.substring( 0, qName.length() - 4 );
+			}
+			else {
+				effSchemaName = "$SchemaName$";
+			}
+			$SchemaName$XMsgRqst xmsgRqst = (($SchemaName$XMsgRqst)getParser());
+			$SchemaName$XMsgSchemaMessageFormatter schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+			schemaFormatter.setMessageNamespace( effSchemaName );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRqstDocEndElement">
+		public void endElement(
+			String		uri,
+			String		localName,
+			String		qName )
+		throws SAXException
+		{
+		}
+</GenRule>
+
+</RuleSet>

@@ -1,0 +1,2702 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ *	MSS Code Factory FreeSwitch Configuration
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ *-->
+<MSSBam
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/mssbam.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/mssbam.xsd http://msscf.org:8088/msscf/2.0.12/xsd/mssbam.xsd"
+		Name="CFFrSw"
+		Revision="2.13"
+		Description="MSS Code Factory Free Switch Configuration"
+		ProjectRoot="org.msscf.msscf.CFFrSw.2.13" >
+	<Tld Name="org" >
+		<TopDomain Name="msscf" >
+			<License Name="MssCFFrSwGPLv3"
+					Description="MSS Code Factory GNU GPL v3+ License for CFFrSw">
+This file is part of MSS Code Factory.
+
+MSS Code Factory is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+MSS Code Factory is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+
+Donations to support MSS Code Factory can be made at
+https://www.paypal.com/paypalme2/MarkSobkow
+
+Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.</License>
+			<TopProject Name="msscf" >
+				<SubProject Name="CFFrSw" >
+					<MajorVersion Name="2" >
+						<MinorVersion Name="13" >
+<SchemaDef Name="CFFrSw"
+		DbName="CFFsw213"
+		Description="MSS Code Factory Free Switch Configuration"
+		DefaultLicense="org.msscf.MssCFFrSwGPLv3"
+		CopyrightHolder="Mark Stephen Sobkow"
+		CopyrightPeriod="2020"
+		AuthorEMail="msobkow@sasktel.net"
+		ProjectURL="http://msscf.org/"
+		PublishURI="https://msscf.sourceforge.io/org-msscf-msscf-CFFrSw-2-13-CFFrSw.xml" >
+
+	<SchemaRef Name="CFSec"
+			RefModelName="org-msscf-msscf-CFSec-2-13-CFSec"
+			IncludeRoot="org.msscf.msscf.CFSec.2.13.CFSec" />
+
+	<SchemaRef Name="CFInt"
+			RefModelName="org-msscf-msscf-CFInt-2-13-CFInt"
+			IncludeRoot="org.msscf.msscf.CFInt.2.13.CFInt" />
+
+	<Id64Gen Name="FSSFConfIdGen"
+			IsNullable="false"
+			DbName="FSSFConfIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1021"
+			BlockSize="1" />
+
+	<Id64Gen Name="FSSFConfPflIdGen"
+			IsNullable="false"
+			DbName="FSSFConfPflIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1022"
+			BlockSize="1" />
+
+	<Id64Gen Name="FSSFDialerIdGen"
+			IsNullable="false"
+			DbName="FSSFDialerIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1023"
+			BlockSize="1" />
+
+	<Id64Gen Name="FSSFDialplanIdGen"
+			IsNullable="false"
+			DbName="FSSFDialplanIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1024"
+			BlockSize="1" />
+
+	<Id64Gen Name="FSSFDirIdGen"
+			IsNullable="false"
+			DbName="FSSFDirIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1025"
+			BlockSize="1" />
+
+	<Id64Gen Name="FSSFExtIdGen"
+			IsNullable="false"
+			DbName="FSSFExtIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1026"
+			BlockSize="1" />
+
+	<Id64Gen Name="FSSFGWayIdGen"
+			IsNullable="false"
+			DbName="FSSFGWayIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1027"
+			BlockSize="1" />
+
+	<Id64Gen Name="FSSFPflAliasIdGen"
+			IsNullable="false"
+			DbName="FSSFPFAliasIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1028"
+			BlockSize="1" />
+
+	<Id64Gen Name="FSSFPflDomIdGen"
+			IsNullable="false"
+			DbName="FSSFPFDomainIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1029"
+			BlockSize="1" />
+
+	<Id64Gen Name="FSSFPflIdGen"
+			IsNullable="false"
+			DbName="FSSFPflIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1030"
+			BlockSize="1" />
+
+	<Id64Gen Name="FSSFVMailIdGen"
+			IsNullable="false"
+			DbName="FSSFVMailIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1031"
+			BlockSize="1" />
+
+	<Id64Gen Name="FSSofiaIdGen"
+			IsNullable="false"
+			DbName="FSSofieaIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1032"
+			BlockSize="1" />
+
+	<Id64Gen Name="PbxCustomerIdGen"
+			IsNullable="false"
+			DbName="PbxCustIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1033"
+			BlockSize="1" />
+
+	<Id64Gen Name="PbxIvrMnuEntIdGen"
+			IsNullable="false"
+			DbName="PbxIvrMnuEntIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1034"
+			BlockSize="1" />
+
+	<Id64Gen Name="PbxIvrMnuIdGen"
+			IsNullable="false"
+			DbName="PbxIvrMnuIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1035"
+			BlockSize="1" />
+
+	<Id64Gen Name="PbxOperatorIdGen"
+			IsNullable="false"
+			DbName="PbxOpIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1036"
+			BlockSize="1" />
+
+	<Table Name="FSSFConf"
+			TableClassCode="a401"
+			DbName="FSSFConf"
+			Label="FS Sofia Conf"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="FSSFConfId"
+				Label="FS Sofia Conf Id"
+				IsNullable="false"
+				DataType="FSSFConfIdGen" />
+		<TableCol Name="FSSofiaId"
+				Label="FS Sofia Id"
+				IsNullable="false"
+				DataType="FSSofiaIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<PrimaryIndex Name="FSSFConfIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSFCfnc_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFConfId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSFConfTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFCfnc_xtenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFConfSofiaIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFCfnc_xsofia"
+				Suffix="SofiaIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFConfNameIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFCfnc_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="FSSFConfPfl"
+			TableClassCode="a402"
+			DbName="FSSFCnfPrf"
+			Label="FS Sofia Conf Pfl"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="ConfPflId"
+				Label="FS Sofia Conf Pfl Id"
+				IsNullable="false"
+				DbName="FSSFCFPflId"
+				DataType="FSSFConfPflIdGen" />
+		<TableCol Name="FSSFConfId"
+				Label="FS Sofia Conf Id"
+				IsNullable="false"
+				DataType="FSSFConfIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<StringCol Name="SoundPrefix"
+				Label="Sound Prefix"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/opt/freeswitch/sounds/en/us/callie" />
+		<StringCol Name="AckSound"
+				Label="ACK Sound"
+				IsNullable="true"
+				MaxLen="511" />
+		<StringCol Name="AloneSound"
+				Label="Alone Sound"
+				IsNullable="true"
+				MaxLen="511"
+				InitValue="conf-alone.wav" />
+		<StringCol Name="BadPinSound"
+				Label="Bad PIN Sound"
+				IsNullable="true"
+				MaxLen="511"
+				InitValue="conf-bad-pin.wav" />
+		<StringCol Name="EnterSound"
+				Label="Enter Sound"
+				IsNullable="true"
+				MaxLen="511"
+				InitValue="conf-welcome.wav" />
+		<StringCol Name="ExitSound"
+				Label="Exit Sound"
+				IsNullable="true"
+				MaxLen="511"
+				InitValue="conf-goodbye.wav" />
+		<StringCol Name="IsLockedSound"
+				Label="Is Locked Sound"
+				IsNullable="true"
+				MaxLen="511"
+				InitValue="conf-is-locked.wav" />
+		<StringCol Name="KickedSound"
+				Label="Kicked Sound"
+				IsNullable="true"
+				MaxLen="511"
+				InitValue="conf-kicked.wav" />
+		<StringCol Name="LockedSound"
+				Label="Locked Sound"
+				IsNullable="true"
+				MaxLen="511"
+				InitValue="conf-locked.wav" />
+		<StringCol Name="MaxMembersSound"
+				Label="Maximum Members Sound"
+				IsNullable="true"
+				MaxLen="511" />
+		<StringCol Name="MOHSound"
+				Label="Message On Hold Sound"
+				IsNullable="true"
+				MaxLen="511" />
+		<StringCol Name="MuteDetectSound"
+				Label="Mute Detect Sound"
+				IsNullable="true"
+				MaxLen="511" />
+		<StringCol Name="MutedSound"
+				Label="Muted Sound"
+				IsNullable="true"
+				MaxLen="511"
+				InitValue="conf-muted.wav" />
+		<StringCol Name="NackSound"
+				Label="NACK Sound"
+				IsNullable="true"
+				MaxLen="511" />
+		<StringCol Name="PerpetualSound"
+				Label="Perpetual Sound"
+				IsNullable="true"
+				MaxLen="511" />
+		<StringCol Name="PinSound"
+				Label="PIN Sound"
+				IsNullable="true"
+				MaxLen="511" />
+		<StringCol Name="Pin"
+				Label="PIN"
+				IsNullable="true"
+				MaxLen="511"
+				InitValue="conf-pin.wav" />
+		<StringCol Name="UnmutedSound"
+				Label="Unmuted Sound"
+				IsNullable="true"
+				MaxLen="511"
+				InitValue="conf-unmuted.wav" />
+		<Int32Col Name="Rate"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="8000" />
+		<StringCol Name="AutoRec"
+				Label="Auto-Rec"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/var/myNFSshare/${conference_name}_$strftime(%Y%m%d-%H%M%S)).wav" />
+		<Int32Col Name="ValInterval"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="20" />
+		<Int32Col Name="EnergyLevel"
+				Label="Energy Level"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="300" />
+		<StringCol Name="MemberFlags"
+				Label="Member Flags"
+				IsNullable="false"
+				MaxLen="255"
+				InitValue="" />
+		<StringCol Name="ConfFlags"
+				Label="Conf Flags"
+				IsNullable="false"
+				MaxLen="255"
+				InitValue="" />
+		<StringCol Name="CallerControls"
+				Label="Caller Controls"
+				IsNullable="false"
+				MaxLen="255"
+				InitValue="" />
+		<StringCol Name="TTSEngine"
+				Label="TTS Engine"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="cepstral" />
+		<StringCol Name="TTSVoice"
+				Label="TTS Voice"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="david" />
+		<Int32Col Name="MaxMembers"
+				Label="Maximum Members"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="20" />
+		<Int32Col Name="ComfortNoise"
+				Label="Comfort Noise"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="1420" />
+		<Int32Col Name="AnnounceCount"
+				Label="Announce Count"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="5" />
+		<StringCol Name="SuppressEvents"
+				Label="Suppress Events"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="" />
+		<StringCol Name="VerboseEvents"
+				Label="Verbose Events"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="" />
+		<StringCol Name="CallerIdName"
+				Label="Caller Id Name"
+				IsNullable="true"
+				MaxLen="64" />
+		<StringCol Name="CallerIdNum"
+				Label="Caller Id Number"
+				IsNullable="true"
+				MaxLen="64" />
+		<PrimaryIndex Name="FSSFConfPflIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSFCFPfl_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ConfPflId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSFConfPflTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFCFPfl_xtent"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFConfPflConfIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFCFPfl_xconf"
+				Suffix="ConfIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFConfId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFConfPflNameIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFCFPfl_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFConfId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="FSSFDialer"
+			TableClassCode="a403"
+			DbName="FSSFDialer"
+			Label="FS Sofia Dialer"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="FSSFDialerId"
+				Label="FS Sofia Dialier Id"
+				IsNullable="false"
+				DataType="FSSFDialerIdGen" />
+		<TableCol Name="FSSofiaId"
+				Label="FS Sofia Id"
+				IsNullable="false"
+				DataType="FSSofiaIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<StringCol Name="Prefix"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="sofia/external/" />
+		<StringCol Name="Suffix"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="@localhost" />
+		<Int32Col Name="Timeout"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="15" />
+		<StringCol Name="ErlangNode"
+				Label="Erlang Node"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="testsrv" />
+		<StringCol Name="LocalPrefix"
+				Label="Local Prefix"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="sofia/external/" />
+		<StringCol Name="LocalSuffix"
+				Label="Local Suffix"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="%localhost" />
+		<Int32Col Name="MessageSeconds"
+				Label="Message Seconds"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="2" />
+		<Int32Col Name="CBackHOffMin"
+				Label="CBack HOff Minutes"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="5" />
+		<StringCol Name="WelcomeMsg"
+				Label="Welcome Message"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/usr/lib/sounds/welcome_to_host-8000.wav" />
+		<StringCol Name="InvalidExtenMsg"
+				Label="Invalid Exten Message"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/usr/lib/sounds/invalid_extension-8000.wav" />
+		<StringCol Name="InvalidPINMsg"
+				Label="Invalid PIN Message"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/usr/lib/sounds/invalid_pin_try_again-8000.wav" />
+		<StringCol Name="InvResCdMsg"
+				Label="Invalid Result Code Message"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/usr/lib/sounds/invalid_result_code-8000.wav" />
+		<StringCol Name="PlsEntResCdMsg"
+				Label="Please Enter Result Code Message"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/usr/lib/sounds/please_enter_result_code-8000.wav" />
+		<StringCol Name="ThankYouMsg"
+				Label="Thank-You Message"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/usr/lib/sounds/thank_you-8000.wav" />
+		<StringCol Name="PlsEntPINMsg"
+				Label="Please Enter PIN Message"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/usr/lib/sounds/welcome_please_enter_pin-8000.wav" />
+		<StringCol Name="SpoolMsgDir"
+				Label="Spool Message Dir"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/var/spool/cffreeswitch" />
+		<StringCol Name="SpoolMsgPrefix"
+				Label="Spool Message Prefix"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="cffreeswitch" />
+		<StringCol Name="SpoolMsgType"
+				Label="Spool Message Type"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="gsm" />
+		<BoolCol Name="RecAllCalls"
+				Label="Rec All Calls"
+				IsNullable="false"
+				InitValue="true" />
+		<StringCol Name="AreaCode"
+				Label="Area Code"
+				IsNullable="false"
+				MaxLen="3"
+				InitValue="306" />
+		<Int32Col Name="ObndLines"
+				Label="Obnd Lines"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="8" />
+		<PrimaryIndex Name="FSSFDialerIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSFDialer_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFDialerId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSFDialerTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFDialer_xtenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFDialerSofiaIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFDialer_xsofia"
+				Suffix="SofiaIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFDialerNameIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFDialer_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="FSSFDialplan"
+			TableClassCode="a404"
+			DbName="FSSFDialplan"
+			Label="FS Sofia Dialplan"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="FSSFDialplanId"
+				Label="FS Sofia Dialplan Id"
+				IsNullable="false"
+				DataType="FSSFDialplanIdGen" />
+		<TableCol Name="FSSofiaId"
+				Label="FS Sofia Id"
+				IsNullable="false"
+				DataType="FSSofiaIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<TextCol Name="DialplanXML"
+				Label="Dialplan XML"
+				IsNullable="false"
+				MaxLen="8000"
+				InitValue="" />
+		<PrimaryIndex Name="FSSFDialplanIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSFDPlan_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFDialplanId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSFDialplanTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFDPlan_xtenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFDialplanSofiaIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFDPlan_xsofia"
+				Suffix="SofiaIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFDialplanNameIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFDPlan_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="FSSFDir"
+			TableClassCode="a405"
+			DbName="FSSFDir"
+			Label="FS Sofia Dir"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="FSSFDirId"
+				Label="FS Sofia Dir Id"
+				IsNullable="false"
+				DataType="FSSFDirIdGen" />
+		<TableCol Name="FSSofiaId"
+				Label="FS Sofia Id"
+				IsNullable="false"
+				DataType="FSSofiaIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<StringCol Name="DialString"
+				Label="Dial String"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="{presence_id=${dialed_user}@${dialed_domain}}${sofia_contact(${dialed_user}@${dialed_domain})}" />
+		<BoolCol Name="RecStereo"
+				Label="Rec Stereo"
+				IsNullable="false"
+				InitValue="true" />
+		<StringCol Name="DefaultGWay"
+				Label="Default GWay"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="$${default_provider}" />
+		<StringCol Name="DefaultAreacode"
+				Label="Default Area Code"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="$${default_areacode}" />
+		<StringCol Name="TransferFallbackExten"
+				Label="Transfer Fallback Exten"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="operator" />
+		<PrimaryIndex Name="FSSFDirIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSFDir_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFDirId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSFDirTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFDir_xtenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFDirSofiaIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFDir_xsofia"
+				Suffix="SofiaIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFDirNameIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFDir_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="FSSFExten"
+			TableClassCode="a406"
+			DbName="FSSFExt"
+			Label="FS Sofia Exten"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="FSSFExtenId"
+				Label="FS Sofia Exten Id"
+				IsNullable="false"
+				DataType="FSSFExtIdGen" />
+		<TableCol Name="FSSFDirId"
+				Label="FS Sofia Dir Id"
+				IsNullable="false"
+				DataType="FSSFDirIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<StringCol Name="Password"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="" />
+		<StringCol Name="TollAllow"
+				Label="Toll Allow"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="domestic,international,local" />
+		<StringCol Name="AccountCode"
+				Label="Account Code"
+				IsNullable="true"
+				MaxLen="64"
+				InitValue="5000" />
+		<StringCol Name="UserContext"
+				Label="User Context"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="default" />
+		<StringCol Name="EffCallerIdName"
+				Label="Eff Caller Id Name"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="Exten 5000" />
+		<StringCol Name="EffCallerIdNum"
+				Label="Eff Caller Id Number"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="5000" />
+		<StringCol Name="ObndCallerIdName"
+				Label="Obnd Caller Id Name"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="$${outbound_caller_name}" />
+		<StringCol Name="ObndCallerIdNum"
+				Label="Obnd Caller Id Number"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="$${outbound_caller_id}" />
+		<StringCol Name="CallGroup"
+				Label="Call Group"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="employee" />
+		<Int32Col Name="VMDiskQuota"
+				Label="Voice Mail Disk Quota"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="0" />
+		<StringCol Name="VMMailTo"
+				Label="Voice Mail Mail To"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="username@localhost" />
+		<StringCol Name="VMNfyMailTo"
+				Label="Voice Mail Nfy Mail To"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="username@localhost" />
+		<StringCol Name="VMPassword"
+				Label="Voice Mail Password"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="5000" />
+		<BoolCol Name="VMEmailAllMsgs"
+				Label="Voice Mail Email All Msgs"
+				IsNullable="false"
+				InitValue="true" />
+		<BoolCol Name="VMNfyEmailAllMsgs"
+				Label="Voice Mail Nfy Email All Msgs"
+				IsNullable="false"
+				InitValue="true" />
+		<BoolCol Name="VMKeepLocalAfterEMail"
+				Label="Voice Mail Keep Local After EMail"
+				IsNullable="false"
+				InitValue="true" />
+		<BoolCol Name="VMAttachFile"
+				Label="Voice Mail Attach File"
+				IsNullable="false"
+				InitValue="true" />
+		<StringCol Name="EMailEMailFrom"
+				Label="EMail EMail From"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="voicemail@localhost" />
+		<StringCol Name="VMMessageExt"
+				Label="Voice Mail Message Exten"
+				IsNullable="false"
+				MaxLen="16"
+				InitValue="wav" />
+		<PrimaryIndex Name="FSSFExtenIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSFExt_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFExtenId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSFExtenTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFExt_xtent"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFExtenDirIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFExt_xdir"
+				Suffix="DirIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFDirId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFExtenNameIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFExt_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFDirId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="FSSFGWay"
+			TableClassCode="a407"
+			DbName="FSSFGWay"
+			Label="FS Sofia GWay"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="FSSFGWayId"
+				Label="FS Sofia GWay Id"
+				IsNullable="false"
+				DataType="FSSFGWayIdGen" />
+		<TableCol Name="FSSofiaId"
+				Label="FS Sofia Id"
+				IsNullable="false"
+				DataType="FSSofiaIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<StringCol Name="Username"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="testsrv" />
+		<StringCol Name="Realm"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="localhost" />
+		<StringCol Name="FromUser"
+				Label="From User"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="testsrv" />
+		<StringCol Name="FromDomain"
+				Label="From Domain"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="testsrv" />
+		<StringCol Name="Password"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="testsrv" />
+		<StringCol Name="Exten"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="testsrv" />
+		<StringCol Name="Proxy"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="testsrv" />
+		<StringCol Name="RegisterProxy"
+				Label="Register Proxy"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="localhost" />
+		<Int32Col Name="ExpireSeconds"
+				Label="Expire Seconds"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="60" />
+		<BoolCol Name="Reg"
+				IsNullable="false"
+				InitValue="false" />
+		<StringCol Name="RegisterTransport"
+				Label="Register Transport"
+				IsNullable="false"
+				MaxLen="16"
+				InitValue="udp" />
+		<Int32Col Name="RetrySeconds"
+				Label="Retry Seconds"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="60" />
+		<BoolCol Name="CallerIdInFrom"
+				Label="Caller Id In From"
+				IsNullable="false"
+				InitValue="false" />
+		<StringCol Name="ContParams"
+				Label="Cont Params"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="tport=tcp" />
+		<Int32Col Name="Ping"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="25" />
+		<PrimaryIndex Name="FSSFGWayIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSFGWay_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFGWayId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSFGWayTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFGWay_xtenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFGWaySofiaIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFGWay_xsofia"
+				Suffix="SofiaIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFGWayNameIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFGWay_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="FSSFPfl"
+			TableClassCode="a408"
+			DbName="FSSFPfl"
+			Label="FS Sofia Pfl"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="FSSFPflId"
+				Label="FS Sofia Pfl Id"
+				IsNullable="false"
+				DataType="FSSFPflIdGen" />
+		<TableCol Name="FSSofiaId"
+				Label="FS Sofia Id"
+				IsNullable="false"
+				DataType="FSSofiaIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<Int16Col Name="Debug"
+				IsNullable="false"
+				MaxValue="10"
+				InitValue="0" />
+		<BoolCol Name="SipTrace"
+				Label="SIP Trace"
+				IsNullable="false"
+				InitValue="false" />
+		<Int16Col Name="SipPort"
+				Label="SIP Port"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="6080" />
+		<StringCol Name="Dialplan"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="XML" />
+		<StringCol Name="Context"
+				IsNullable="false"
+				DbName="safe_context"
+				MaxLen="64"
+				InitValue="public" />
+		<Int32Col Name="DTMFDuration"
+				Label="DTMF Duration"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="100" />
+		<StringCol Name="CodecPrefs"
+				Label="Codec Preferences"
+				IsNullable="false"
+				MaxLen="128"
+				InitValue="PCMU,PCMA,GSM" />
+		<StringCol Name="HoldMusic"
+				Label="Hold Music"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="local_stream://moh" />
+		<StringCol Name="RTPTimerName"
+				Label="RTP Timer Name"
+				IsNullable="false"
+				MaxLen="32"
+				InitValue="soft" />
+		<BoolCol Name="Enable100Rel"
+				Label="Enable 100 Rel"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="ManagePresence"
+				Label="Manage Presence"
+				IsNullable="false"
+				InitValue="false" />
+		<StringCol Name="DbName"
+				Label="Database Name"
+				IsNullable="true"
+				MaxLen="64"
+				InitValue="share_presence" />
+		<StringCol Name="PresenceHosts"
+				Label="Presence Hosts"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="10.77.0.231" />
+		<StringCol Name="FrcRegisterDomain"
+				Label="Frc Register Domain"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="10.77.0.231" />
+		<StringCol Name="FrcRegisterDbDomain"
+				Label="Frc Register Db Domain"
+				IsNullable="true"
+				MaxLen="64" />
+		<BoolCol Name="AggressiveNATDetection"
+				Label="Aggressive NAT Detection"
+				IsNullable="false"
+				InitValue="true" />
+		<StringCol Name="InbdCodecNegotiation"
+				Label="Inbd Codec Negotiation"
+				IsNullable="false"
+				MaxLen="32"
+				InitValue="generous" />
+		<Int16Col Name="NonCETTL"
+				Label="NonCE TTL"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="60" />
+		<BoolCol Name="AuthCalls"
+				Label="Auth Calls"
+				IsNullable="false"
+				InitValue="false" />
+		<Int32Col Name="RtpTimeoutSec"
+				Label="RTP Timeout Sec"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="1800" />
+		<StringCol Name="RtpIP"
+				Label="RTP IP Address"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="10.77.0.231" />
+		<StringCol Name="SipIP"
+				Label="SIP IP Address"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="10.77.0.231" />
+		<StringCol Name="ExtRtpIP"
+				Label="External RTP IP Address"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="10.77.0.231" />
+		<StringCol Name="ExtSipIP"
+				Label="External SIP IP Address"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="10.77.0.231" />
+		<BoolCol Name="Enable3PCC"
+				Label="Enable 3PCC"
+				IsNullable="false"
+				InitValue="false" />
+		<StringCol Name="TlsBindParams"
+				Label="TLS Bind Params"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="transport=tls" />
+		<Int16Col Name="TlsSipPort"
+				Label="TLS SIP Port"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="6081" />
+		<StringCol Name="TlsCertDir"
+				Label="TLS Certificate Dir"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/opt/freeswitch/conf/ssl" />
+		<StringCol Name="TlsVersion"
+				Label="TLS Version"
+				IsNullable="false"
+				MaxLen="16"
+				InitValue="t1sv1" />
+		<BoolCol Name="RtpAutoflushDuringBridge"
+				Label="RTP Auto-Flush During Bridge"
+				IsNullable="false"
+				InitValue="true" />
+		<BoolCol Name="RtpRewriteTimestamp"
+				Label="RTP Rewrite Timestamp"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="PassRFC2833"
+				Label="Pass RFC2833"
+				IsNullable="false"
+				InitValue="false" />
+		<StringCol Name="OdbcDSN"
+				Label="ODBC DSN"
+				IsNullable="true"
+				MaxLen="511" />
+		<BoolCol Name="InbdBypassMedia"
+				Label="Inbd Bypass Media"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="InbdProxyMedia"
+				Label="Inbd Proxy Media"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="InbdLateNegotiation"
+				Label="Inbd Late Negotiation"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="AcceptBlindReg"
+				Label="Accept Blind Registration"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="AcceptBlindAuth"
+				Label="Accept Blind Authentication"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="SuppressCNG"
+				Label="Suppress CNG"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="DisableTranscoding"
+				Label="Disable Transcoding"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="DisableTransfer"
+				Label="Disable Transfer"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="NDLBBrokenAuthHash"
+				Label="NDLB Broken Auth Hash"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="NDLBRcvdInNATRegCont"
+				Label="NDLB Rcvd In NAT Reg Cont"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="InbdRegFrcMatchUsrnm"
+				Label="Inbd Registragtion Frc Match Username"
+				IsNullable="false"
+				DbName="inbndregfrcmusr"
+				InitValue="true" />
+		<BoolCol Name="AuthAllPackets"
+				Label="Auth All Packets"
+				IsNullable="false"
+				InitValue="false" />
+		<StringCol Name="Vad"
+				Label="VAD"
+				IsNullable="false"
+				MaxLen="16"
+				InitValue="both" />
+		<StringCol Name="PflAlias"
+				IsNullable="false"
+				MaxLen="255"
+				InitValue="sip:10.77.0.231:6080" />
+		<Int32Col Name="FrcSubscriptionExpires"
+				Label="Frc Subscription Expires"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="60" />
+		<BoolCol Name="DisableRegister"
+				Label="Disable Register"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="NDLBFrcReport"
+				Label="NDLB Frc Report"
+				IsNullable="false"
+				InitValue="false" />
+		<StringCol Name="ChallengeRealm"
+				Label="Challenge Realm"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="auto_from" />
+		<BoolCol Name="DisableRtpAutoAdjust"
+				Label="Disable RTP Auto-Adjust"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="InbdUseCallIdAsUUID"
+				Label="Inbd Use CallerId As UUID"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="ObndUseUUIDAsCallId"
+				Label="Obnd Use UUID As Caller Id"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="RtpAutofixTiming"
+				Label="RTP Auto-Fix Timing"
+				IsNullable="false"
+				InitValue="true" />
+		<StringCol Name="AutoRtpBugs"
+				Label="Auto RTP Bugs"
+				IsNullable="false"
+				MaxLen="16"
+				InitValue="clear" />
+		<BoolCol Name="DisableSrv"
+				Label="Disable SRV"
+				IsNullable="false"
+				InitValue="true" />
+		<BoolCol Name="DisableNAPtr"
+				Label="Disable NA Pointer"
+				IsNullable="false"
+				InitValue="true" />
+		<Int32Col Name="TimerT1"
+				Label="Timer T1"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="800" />
+		<Int32Col Name="TimerT1X64"
+				Label="Timer T1X64"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="32000" />
+		<Int32Col Name="TimerT2"
+				Label="Timer T2"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="4000" />
+		<Int32Col Name="TimerT4"
+				Label="Timer T4"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="4000" />
+		<PrimaryIndex Name="FSSFPflIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSFPfl_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFPflId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSFPflTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFPfl_xtenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFPflSofiaIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFPfl_xsofia"
+				Suffix="SofiaIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFPflNameIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFPfl_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="FSSFPflAlias"
+			TableClassCode="a409"
+			DbName="FSSFPFAlias"
+			Label="FS Sofia Pfl Alias"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="PflAliasId"
+				Label="FS Sofia Pfl Alias Id"
+				IsNullable="false"
+				DbName="FSSFPFAliasId"
+				DataType="FSSFPflAliasIdGen" />
+		<TableCol Name="FSSFPflId"
+				Label="FS Sofia Pfl Id"
+				IsNullable="false"
+				DataType="FSSFPflIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<PrimaryIndex Name="PflAliasIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSFPFAlias_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="PflAliasId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSFPflAliasTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFPFAlias_xtenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFPflAliasPflIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFPFAlias_xpfile"
+				Suffix="PflIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFPflId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFPflAliasNameIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFPFAls_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFPflId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="FSSFPflDom"
+			TableClassCode="a40a"
+			DbName="FSSFPFDomain"
+			Label="FS Sofia Pfl Domain"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="FSSFPflDomId"
+				Label="FS Sofia Pfl Domain Id"
+				IsNullable="false"
+				DbName="FSSFPFDomId"
+				DataType="FSSFPflDomIdGen" />
+		<TableCol Name="FSSFPflId"
+				Label="FS Sofia Pfl Id"
+				IsNullable="false"
+				DataType="FSSFPflIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<BoolCol Name="DomainAlias"
+				IsNullable="false"
+				InitValue="false" />
+		<BoolCol Name="Parse"
+				IsNullable="false"
+				InitValue="true" />
+		<PrimaryIndex Name="FSSFPflDomIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSFPFDom_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFPflDomId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSFPflDomTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFPFDom_xptenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFPflDomPflIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFPFDom_xpfile"
+				Suffix="PflIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFPflId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFPflDomNameIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFPFDom_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFPflId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="FSSFVMail"
+			TableClassCode="a40b"
+			DbName="FSSFVM"
+			Label="FS Sofia Voicemail"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="FSSFVMailId"
+				Label="FS Sofia Voicemail Id"
+				IsNullable="false"
+				DataType="FSSFVMailIdGen" />
+		<TableCol Name="FSSofiaId"
+				Label="FS Sofia Id"
+				IsNullable="false"
+				DataType="FSSofiaIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<StringCol Name="TemplFile"
+				Label="Templ File"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="voicemail.tpl" />
+		<StringCol Name="NfyTemplFile"
+				Label="Nfy Templ File"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="notify-voicemail.tpl" />
+		<StringCol Name="DateFmt"
+				Label="Date Format"
+				IsNullable="false"
+				MaxLen="255"
+				InitValue="%A, %B %d %Y %I %M %p" />
+		<StringCol Name="EmailFrom"
+				Label="EMail From"
+				IsNullable="false"
+				MaxLen="255"
+				InitValue="%{voicemail_account}@${voicemail_domain}" />
+		<StringCol Name="FileExten"
+				Label="File Exten"
+				IsNullable="false"
+				MaxLen="16"
+				InitValue="wav" />
+		<StringCol Name="TerminatorKey"
+				Label="Terminator Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="#" />
+		<Int16Col Name="MaxLoginTry"
+				Label="Maximum Login Attempts"
+				IsNullable="false"
+				MinValue="0"
+				MaxValue="100"
+				InitValue="3" />
+		<Int32Col Name="DigitTimeout"
+				Label="Digit Timeout"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="10000" />
+		<Int32Col Name="MinRecLen"
+				Label="Minimum Rec Length"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="3" />
+		<Int32Col Name="MaxRecLen"
+				Label="Maximum Rec Length"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="300" />
+		<Int16Col Name="MaxRetries"
+				Label="Maximum Retries"
+				IsNullable="false"
+				MinValue="0"
+				MaxValue="99"
+				InitValue="3" />
+		<StringCol Name="ToneSpec"
+				Label="Tone Specification"
+				IsNullable="false"
+				MaxLen="255"
+				InitValue="%(1000, 0, 640)" />
+		<StringCol Name="CBackDialplan"
+				Label="CBack Dialplan"
+				IsNullable="false"
+				MaxLen="16"
+				InitValue="XML" />
+		<StringCol Name="CBackContext"
+				Label="CBack Context"
+				IsNullable="true"
+				MaxLen="64" />
+		<StringCol Name="PlayNewMsgsKey"
+				Label="Play New Msgs Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="1" />
+		<StringCol Name="PlaySavedMsgsKey"
+				Label="Play Saved Msgs Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="2" />
+		<StringCol Name="LoginKeys"
+				Label="Login Keys"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="0" />
+		<StringCol Name="MainMenuKey"
+				Label="Main Menu Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="0" />
+		<StringCol Name="ConfigMenuKey"
+				Label="Config Menu Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="5" />
+		<StringCol Name="RecGreetingKey"
+				Label="Rec Greeting Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="1" />
+		<StringCol Name="ChooseGreetingKey"
+				Label="Choose Greeting Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="2" />
+		<StringCol Name="ChangePassKey"
+				Label="Change Pass Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="6" />
+		<StringCol Name="RecNameKey"
+				Label="Rec Name Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="3" />
+		<StringCol Name="RecFileKey"
+				Label="Rec File Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="3" />
+		<StringCol Name="ListenFileKey"
+				Label="Listen File Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="1" />
+		<StringCol Name="SaveFileKey"
+				Label="Save File Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="2" />
+		<StringCol Name="DelFileKey"
+				Label="Delete File Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="7" />
+		<StringCol Name="UndelFileKey"
+				Label="Undel File Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="8" />
+		<StringCol Name="EMailKey"
+				Label="EMail Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="4" />
+		<StringCol Name="PauseKey"
+				Label="Pause Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="0" />
+		<StringCol Name="RestartKey"
+				Label="Restart Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="1" />
+		<StringCol Name="FastForwardKey"
+				Label="Fast Forward Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="6" />
+		<StringCol Name="RewindKey"
+				Label="Rewind Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="4" />
+		<StringCol Name="SkipGreetKey"
+				Label="Skip Greeting Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="#" />
+		<Int32Col Name="RecSlncThresh"
+				Label="Rec Slnc Thresh"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="200" />
+		<Int16Col Name="RecSlncHits"
+				Label="Rec Slnc Hits"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="2" />
+		<StringCol Name="WebTemplFile"
+				Label="Web Templ File"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="web-vm.tpl" />
+		<Int32Col Name="RecSampleRate"
+				Label="Rec Sample Rate"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="16000" />
+		<StringCol Name="OperatorExten"
+				Label="Operator Exten"
+				IsNullable="false"
+				MaxLen="255"
+				InitValue="operator XML default" />
+		<StringCol Name="VMainExten"
+				Label="Voicemail Main Exten"
+				IsNullable="false"
+				MaxLen="4"
+				InitValue="900" />
+		<StringCol Name="VMailKey"
+				Label="Voicemail Key"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="*" />
+		<BoolCol Name="AutoPlybkRecings"
+				Label="Auto-Plybk Recings"
+				IsNullable="false"
+				InitValue="false" />
+		<StringCol Name="StorageDir"
+				Label="Storage Dir"
+				IsNullable="false"
+				MaxLen="511"
+				InitValue="/var/voicemail" />
+		<StringCol Name="OdbcDSN"
+				Label="ODBC DSN"
+				IsNullable="true"
+				MaxLen="511" />
+		<StringCol Name="RecComent"
+				Label="Rec Comment"
+				IsNullable="true"
+				MaxLen="511" />
+		<StringCol Name="RecTitle"
+				Label="Rec Title"
+				IsNullable="true"
+				MaxLen="511" />
+		<StringCol Name="RecCopyright"
+				Label="Rec Copyright"
+				IsNullable="true"
+				MaxLen="511" />
+		<PrimaryIndex Name="FSSFVMailIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSFVMail_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSFVMailId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSFVMailTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFVMail_xtenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFVMailSofiaIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFVMail_xsofia"
+				Suffix="SofiaIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+		</Index>
+		<Index Name="FSSFVMailNameIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSFVMail_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="FSSofia"
+			TableClassCode="a40c"
+			DbName="FSSofia"
+			Label="FreeSwitch Sofia"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="FSSofiaId"
+				Label="FS Sofia Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="FSSofiaIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="255"
+				InitValue="" />
+		<Int16Col Name="LogLevel"
+				Label="Log Level"
+				IsNullable="false"
+				MinValue="0"
+				MaxValue="10"
+				InitValue="0" />
+		<BoolCol Name="AutoRestart"
+				Label="Auto Restart"
+				IsNullable="false"
+				InitValue="false" />
+		<Int32Col Name="DebugPresence"
+				Label="Debug Presence"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="0" />
+		<PrimaryIndex Name="FSSofiaIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="FSSofia_pidx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="FSSofiaId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FSSofiaTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="FSSofia_tentidx"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="PbxIvrMnu"
+			TableClassCode="a40d"
+			DbName="PbxIvrMnu"
+			ShortName="IvrMenu"
+			Label="PBX IVR Menu"
+			Description="PbxIvrMnu is a configuration detail of Tenant"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				Label="Tenant Id"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="MenuId"
+				Label="Menu Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="PbxIvrMnuIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="64"
+				InitValue="" />
+		<StringCol Name="GreetLong"
+				Label="Long Greeting"
+				IsNullable="false"
+				MaxLen="2048"
+				InitValue="" />
+		<StringCol Name="GreetShort"
+				Label="Short Greeting"
+				IsNullable="false"
+				MaxLen="2048"
+				InitValue="" />
+		<StringCol Name="InvalidSound"
+				Label="Invalid Sound"
+				IsNullable="false"
+				MaxLen="2048"
+				InitValue="" />
+		<StringCol Name="ExitSound"
+				Label="Exit Sound"
+				IsNullable="false"
+				MaxLen="2048"
+				InitValue="" />
+		<Int32Col Name="Timeout"
+				IsNullable="false"
+				InitValue="30000" />
+		<Int32Col Name="InterDigitTimeout"
+				Label="Inter-Digit Timeout"
+				IsNullable="false"
+				InitValue="5000" />
+		<Int32Col Name="MaxFailures"
+				Label="Maximum Failures"
+				IsNullable="false"
+				InitValue="3" />
+		<Int32Col Name="MaxTimeouts"
+				Label="Maximum Timeouts"
+				IsNullable="false"
+				InitValue="3" />
+		<Int32Col Name="DigitLen"
+				Label="Digit Length"
+				IsNullable="false"
+				InitValue="1" />
+		<PrimaryIndex Name="PbxIvrMnuIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="PbxIvrM_pidx"
+				Suffix="MenuIdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="MenuId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="PbxIvrMnuTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="PbxIvrM_xtenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="PbxIvrMnuUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="PbxIvrM_xuname"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="PbxIvrMnuEnt"
+			TableClassCode="a40e"
+			DbName="PbxIvrNtr"
+			ShortName="IvrEntry"
+			Label="PBX IVR Menu Entry"
+			Description="PbxIvrMnuEntries are details of PbxIvrMnu"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				Label="Tenant Id"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="MenuEntryId"
+				Label="Menu Entry Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="PbxIvrMnuEntIdGen" />
+		<TableCol Name="MenuId"
+				Label="Menu Id"
+				IsNullable="false"
+				DataType="PbxIvrMnuIdGen" />
+		<StringCol Name="Digits"
+				IsNullable="false"
+				MaxLen="1"
+				InitValue="" />
+		<StringCol Name="EntryType"
+				Label="Entry Type"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="" />
+		<StringCol Name="Param"
+				IsNullable="false"
+				MaxLen="2048"
+				InitValue="" />
+		<PrimaryIndex Name="PbxIvrMnuEntIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="PbxIvrE_pidx"
+				Suffix="EntryIdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="MenuEntryId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="PbxIvrMnuEntTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="PbxIvrE_xtent"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="PbxIvrMnuEntMenuIdIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="PbxIvrE_xmnu"
+				Suffix="MenuIdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="MenuId" IsAscending="true" />
+		</Index>
+		<Index Name="OperatorStateUDigitsIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="PbxIvrE_udig"
+				Suffix="UDigitsIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="MenuId" IsAscending="true" />
+			<IndexCol Name="Digits" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<TableAddendum FromTable="FSSFConf">
+		<Relation Name="FSSFConfTenant"
+				RelationType="Owner"
+				DbName="fssfconf_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSFConfTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSFConfSofia"
+				RelationType="Container"
+				DbName="fssfconf_sofia"
+				Label="Sofia"
+				Suffix="Sofia"
+				FromIndex="FSSFConfSofiaIdx"
+				ToIndex="FSSofia.FSSofiaIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+		<Relation Name="FSSFConfPfls"
+				RelationType="Components"
+				DbName="fssfconf_pfl"
+				Label="Pfl"
+				Suffix="Pfl"
+				FromIndex="FSSFConfIdIdx"
+				ToIndex="FSSFConfPfl.FSSFConfPflConfIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSFConfId" ToCol="FSSFConfId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFConfPfl">
+		<Relation Name="FSSFConfPflTenant"
+				RelationType="Owner"
+				DbName="fssfconfpfl_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSFConfPflTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSFConfPflConf"
+				RelationType="Container"
+				DbName="fssfconfpfl_conf"
+				Label="Conf"
+				Suffix="Conf"
+				FromIndex="FSSFConfPflConfIdx"
+				ToIndex="FSSFConf.FSSFConfIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSFConfId" ToCol="FSSFConfId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFDialer">
+		<Relation Name="FSSFDialerTenant"
+				RelationType="Owner"
+				DbName="fssfdial_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSFDialerTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSFDialerSofia"
+				RelationType="Container"
+				DbName="fssfdial_sofia"
+				Label="Sofia"
+				Suffix="Sofia"
+				FromIndex="FSSFDialerSofiaIdx"
+				ToIndex="FSSofia.FSSofiaIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFDialplan">
+		<Relation Name="FSSFDialplanTenant"
+				RelationType="Owner"
+				DbName="fssfdplan_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSFDialplanTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSFDialplanSofia"
+				RelationType="Container"
+				DbName="fssfdplan_sofia"
+				Label="Sofia"
+				Suffix="Sofia"
+				FromIndex="FSSFDialplanSofiaIdx"
+				ToIndex="FSSofia.FSSofiaIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFDir">
+		<Relation Name="FSSFDirTenant"
+				RelationType="Owner"
+				DbName="fssfdir_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSFDirTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSFDirSofia"
+				RelationType="Container"
+				DbName="fssfdir_sofia"
+				Label="Sofia"
+				Suffix="Sofia"
+				FromIndex="FSSFDirSofiaIdx"
+				ToIndex="FSSofia.FSSofiaIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+		<Relation Name="FSSFDirExtens"
+				RelationType="Components"
+				DbName="fssfdir_exten"
+				Label="Exten"
+				Suffix="Exten"
+				FromIndex="FSSFDirIdIdx"
+				ToIndex="FSSFExten.FSSFExtenDirIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSFDirId" ToCol="FSSFDirId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFExten">
+		<Relation Name="FSSFExtenTenant"
+				RelationType="Owner"
+				DbName="fssfexten_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSFExtenTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSFExtenDir"
+				RelationType="Container"
+				DbName="fssfexten_dir"
+				Label="Dir"
+				Suffix="Dir"
+				FromIndex="FSSFExtenDirIdx"
+				ToIndex="FSSFDir.FSSFDirIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSFDirId" ToCol="FSSFDirId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFGWay">
+		<Relation Name="FSSFGWayTenant"
+				RelationType="Owner"
+				DbName="fssfgway_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSFGWayTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSFGWaySofia"
+				RelationType="Container"
+				DbName="fssfgway_sofia"
+				Label="Sofia"
+				Suffix="Sofia"
+				FromIndex="FSSFGWaySofiaIdx"
+				ToIndex="FSSofia.FSSofiaIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFPfl">
+		<Relation Name="FSSFPflTenant"
+				RelationType="Owner"
+				DbName="fssfpfl_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSFPflTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSFPflSofia"
+				RelationType="Container"
+				DbName="fssfpfl_sofia"
+				Label="Sofia"
+				Suffix="Sofia"
+				FromIndex="FSSFPflSofiaIdx"
+				ToIndex="FSSofia.FSSofiaIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+		<Relation Name="FSSFPflDoms"
+				RelationType="Components"
+				DbName="fssfpfl_doms"
+				Label="Domain"
+				Suffix="Domain"
+				FromIndex="FSSFPflIdIdx"
+				ToIndex="FSSFPflDom.FSSFPflDomPflIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSFPflId" ToCol="FSSFPflId" />
+		</Relation>
+		<Relation Name="FSSFPflAliases"
+				RelationType="Components"
+				DbName="fssfpfl_alias"
+				Label="Alias"
+				Suffix="Alias"
+				FromIndex="FSSFPflIdIdx"
+				ToIndex="FSSFPflAlias.FSSFPflAliasPflIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSFPflId" ToCol="FSSFPflId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFPflAlias">
+		<Relation Name="FSSFPflAliasTenant"
+				RelationType="Owner"
+				DbName="fssfpflals_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSFPflAliasTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSFPflAliasPfl"
+				RelationType="Container"
+				DbName="fssfpflals_pfile"
+				Label="Pfl"
+				Suffix="Pfl"
+				FromIndex="FSSFPflAliasPflIdx"
+				ToIndex="FSSFPfl.FSSFPflIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSFPflId" ToCol="FSSFPflId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFPflDom">
+		<Relation Name="FSSFPflDomTenant"
+				RelationType="Owner"
+				DbName="fssfpfldom_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSFPflDomTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSFPflDomPfl"
+				RelationType="Container"
+				DbName="fssfpfldom_pfile"
+				Label="Pfl"
+				Suffix="Pfl"
+				FromIndex="FSSFPflDomPflIdx"
+				ToIndex="FSSFPfl.FSSFPflIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSFPflId" ToCol="FSSFPflId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFVMail">
+		<Relation Name="FSSFVMailTenant"
+				RelationType="Owner"
+				DbName="fssfvmail_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSFVMailTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSFVMailSofia"
+				RelationType="Container"
+				DbName="fssfvmail_sofia"
+				Label="Sofia"
+				Suffix="Sofia"
+				FromIndex="FSSFVMailSofiaIdx"
+				ToIndex="FSSofia.FSSofiaIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSofia">
+		<Relation Name="Tenant"
+				RelationType="Container"
+				DbName="fssofia_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="FSSofiaTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="FSSofiaConf"
+				RelationType="Components"
+				DbName="fssofia_conf"
+				Label="Conf"
+				Suffix="Conf"
+				FromIndex="FSSofiaIdIdx"
+				ToIndex="FSSFConf.FSSFConfSofiaIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+		<Relation Name="FSSofiaDialer"
+				RelationType="Components"
+				DbName="fssofia_dialer"
+				Label="Dialer"
+				Suffix="Dialer"
+				FromIndex="FSSofiaIdIdx"
+				ToIndex="FSSFDialer.FSSFDialerSofiaIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+		<Relation Name="FSSofiaDialplan"
+				RelationType="Components"
+				DbName="fssofia_dplan"
+				Label="Dialplan"
+				Suffix="Dialplan"
+				FromIndex="FSSofiaIdIdx"
+				ToIndex="FSSFDialplan.FSSFDialplanSofiaIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+		<Relation Name="FSSofiaDir"
+				RelationType="Components"
+				DbName="fssofia_dir"
+				Label="Dir"
+				Suffix="Dir"
+				FromIndex="FSSofiaIdIdx"
+				ToIndex="FSSFDir.FSSFDirSofiaIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+		<Relation Name="FSSofiaGWay"
+				RelationType="Components"
+				DbName="fssofia_gw"
+				Label="GWay"
+				Suffix="GWay"
+				FromIndex="FSSofiaIdIdx"
+				ToIndex="FSSFGWay.FSSFGWaySofiaIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+		<Relation Name="FSSofiaPfl"
+				RelationType="Components"
+				DbName="fssofia_pfile"
+				Label="Pfl"
+				Suffix="Pfl"
+				FromIndex="FSSofiaIdIdx"
+				ToIndex="FSSFPfl.FSSFPflSofiaIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+		<Relation Name="FSSofiaVMail"
+				RelationType="Components"
+				DbName="fssofia_vmail"
+				Label="Voicemail"
+				Suffix="VMail"
+				FromIndex="FSSofiaIdIdx"
+				ToIndex="FSSFVMail.FSSFVMailSofiaIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="FSSofiaId" ToCol="FSSofiaId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="PbxIvrMnu">
+		<Relation Name="PbxIvrMnuTenant"
+				RelationType="Container"
+				DbName="pbxivrmen_tennat"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="PbxIvrMnuTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="Entry"
+				RelationType="Components"
+				DbName="pbxivrmen_entry"
+				Label="Entry"
+				Suffix="Entry"
+				FromIndex="PbxIvrMnuIdIdx"
+				ToIndex="PbxIvrMnuEnt.PbxIvrMnuEntMenuIdIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="MenuId" ToCol="MenuId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="PbxIvrMnuEnt">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="pbxivrmnuent_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="PbxIvrMnuEntTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="Menu"
+				RelationType="Container"
+				DbName="pbxivrmnuent_menu"
+				Label="Menu"
+				Suffix="Menu"
+				FromIndex="PbxIvrMnuEntMenuIdIdx"
+				ToIndex="PbxIvrMnu.PbxIvrMnuIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="MenuId" ToCol="MenuId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tenant">
+		<Relation Name="TenantFSSofia"
+				RelationType="Components"
+				DbName="tenant_fssofia"
+				Label="FreeSwitch Sofia configuration"
+				Suffix="FSSofia"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSofia.FSSofiaTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantFSSFDialer"
+				RelationType="Components"
+				DbName="tenant_fssfdial"
+				Label="FreeSwitch Sofia Dialer configuration"
+				Suffix="FSSFDialer"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSFDialer.FSSFDialerTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantFSSFDialplan"
+				RelationType="Components"
+				DbName="tenant_fssfdplan"
+				Label="FreeSwitch Sofia Dial Plan configuration"
+				Suffix="FSSFDialplan"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSFDialplan.FSSFDialplanTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantFSSFPfl"
+				RelationType="Components"
+				DbName="tenant_fssfpfile"
+				Label="FreeSwitch Sofia Pfl configuration"
+				Suffix="FSSFPfl"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSFPfl.FSSFPflTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantFSSFPflDom"
+				RelationType="Components"
+				DbName="tenant_fssfpfiledom"
+				Label="FreeSwitch Sofia Pfl Domain configuration"
+				Suffix="FSSFPflDom"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSFPflDom.FSSFPflDomTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantFSSFPflAlias"
+				RelationType="Components"
+				DbName="tenan_fssfpflals"
+				Label="FreeSwitch Sofia Pfl Alias configuration"
+				Suffix="FSSFPflAls"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSFPflAlias.FSSFPflAliasTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantFSSFGWay"
+				RelationType="Components"
+				DbName="tenant_fssfgw"
+				Label="FreeSwitch Sofia GWay configuration"
+				Suffix="FSSFGWay"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSFGWay.FSSFGWayTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantFSSFConf"
+				RelationType="Components"
+				DbName="tenant_fssfconf"
+				Label="FreeSwitch Sofia Conf configuration"
+				Suffix="FSSFConf"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSFConf.FSSFConfTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantFSSFConfPfl"
+				RelationType="Components"
+				DbName="tenant_fssfconfpfile"
+				Label="FreeSwitch Sofia Conf Pfl configuration"
+				Suffix="FSSFConfPF"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSFConfPfl.FSSFConfPflTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantFSSFDir"
+				RelationType="Components"
+				DbName="tenant_fssfdir"
+				Label="FreeSwitch Sofia Dir configuration"
+				Suffix="FSSFDir"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSFDir.FSSFDirTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantFSSFExten"
+				RelationType="Components"
+				DbName="tenant_fssfexten"
+				Label="FreeSwitch Sofia Exten configuration"
+				Suffix="FSSFExten"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSFExten.FSSFExtenTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantFSSFVMail"
+				RelationType="Components"
+				DbName="tenant_fssfvmail"
+				Label="FreeSwitch Sofia Voice Mail configuration"
+				Suffix="FSSFVMail"
+				FromIndex="TenantIdIdx"
+				ToIndex="FSSFVMail.FSSFVMailTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantPbxIvrMnu"
+				RelationType="Components"
+				DbName="tenant_pbxivrmnu"
+				Label="PBX IVR Menu"
+				Suffix="PbxIvrMnu"
+				FromIndex="TenantIdIdx"
+				ToIndex="PbxIvrMnu.PbxIvrMnuTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantPbxIvrMnuEnt"
+				RelationType="Components"
+				DbName="tenant_pbxivrmnuent"
+				Label="PBX IVR Menu Entry"
+				Suffix="PbxIvrMnuEnt"
+				FromIndex="TenantIdIdx"
+				ToIndex="PbxIvrMnuEnt.PbxIvrMnuEntTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFConf">
+		<DelDep Name="DelConfPfls" DelDepChain="FSSFConfPfls" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFDir">
+		<DelDep Name="DelExtens" DelDepChain="FSSFDirExtens" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSFPfl">
+		<DelDep Name="DelDomains" DelDepChain="FSSFPflDoms" />
+		<DelDep Name="DelAliases" DelDepChain="FSSFPflAliases" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="FSSofia">
+		<DelDep Name="DelConfs" DelDepChain="FSSofiaConf" />
+		<DelDep Name="DelDialers" DelDepChain="FSSofiaDialer" />
+		<DelDep Name="DelDialplans" DelDepChain="FSSofiaDialplan" />
+		<DelDep Name="DelDirectories" DelDepChain="FSSofiaDir" />
+		<DelDep Name="DelGWays" DelDepChain="FSSofiaGWay" />
+		<DelDep Name="DelPfls" DelDepChain="FSSofiaPfl" />
+		<DelDep Name="DelVMails" DelDepChain="FSSofiaVMail" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="PbxIvrMnu">
+		<DelDep Name="DelEntries" DelDepChain="Entry" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tenant">
+		<DelDep Name="DelFSSofia" DelDepChain="TenantFSSofia" />
+		<DelDep Name="DelFSSFDialer" DelDepChain="TenantFSSFDialer" />
+		<DelDep Name="DelFSSFDialplan" DelDepChain="TenantFSSFDialplan" />
+		<DelDep Name="DelFSSFPfl" DelDepChain="TenantFSSFPfl" />
+		<DelDep Name="DelFSSFPflDom" DelDepChain="TenantFSSFPflDom" />
+		<DelDep Name="DelFSSFPflAlias" DelDepChain="TenantFSSFPflAlias" />
+		<DelDep Name="DelFSSFGWay" DelDepChain="TenantFSSFGWay" />
+		<DelDep Name="DelFSSFConf" DelDepChain="TenantFSSFConf" />
+		<DelDep Name="DelFSSFConfPfl" DelDepChain="TenantFSSFConfPfl" />
+		<DelDep Name="DelFSSFDir" DelDepChain="TenantFSSFDir" />
+		<DelDep Name="DelFSSFExten" DelDepChain="TenantFSSFExten" />
+		<DelDep Name="DelFSSFVMail" DelDepChain="TenantFSSFVMail" />
+		<DelDep Name="DelPbxIvrMnu" DelDepChain="TenantPbxIvrMnu" />
+		<DelDep Name="DelPbxIvrMnuEnt" DelDepChain="TenantPbxIvrMnuEnt" />
+	</TableAddendum>
+</SchemaDef>
+						</MinorVersion>
+					</MajorVersion>
+				</SubProject>
+			</TopProject>
+		</TopDomain>
+	</Tld>
+</MSSBam>

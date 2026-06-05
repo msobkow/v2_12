@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/SchemaObj/SchemaSchemaObj.java"
+	Revision="2.12"
+	Descr="Java 11 Schema Object implementation">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSchemaObjJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema SchemaName$Obj"
+		ExpansionClassName="$SchemaName$SchemaObjJava"
+		ExpansionKeyName="$SchemaName$SchemaObjJava"
+		ExpansionFileName="$SchemaName$SchemaObj.java"
+>// Description: Java 11 Schema Object implementation for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower SubProjectPackageName$.$SchemaName$Obj;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$importJavaPackageSchemaName$$JavaSchemaObjImport$$ReferencedJavaSchemaObjImport$$implSchemaObjClassBody$</GenFile>
+
+<GenRule GenDef="SchemaDef" Name="implSchemaObjClassBody">
+public class $SchemaName$SchemaObj
+	implements I$SchemaName$SchemaObj
+{$declSchemaObjStaticMembers$$declSchemaObjMembers$
+	public $SchemaName$SchemaObj() {
+$iterate SchemaTables( each initSchemaSchemaObjConstructorTableObjMember empty empty )$		}
+$implSchemaObjGetSetSecCluster$$implSchemaObjGetSetSecTenant$$implSchemaObjGetSetSecUser$$implSchemaObjGetSetSecSession$$implSchemaSchemaObjGetSetDbSchemaNameMethods$$implSchemaSchemaObjReleasePreparedStatements$$implSchemaSchemaObjMethods$$iterate SchemaTables( each implSchemaSchemaObjTableObjAccessors empty empty )$$JavaSchemaObjImplementation$$ReferencedJavaSchemaObjImplementation$}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaObjStaticMembers">
+	public static String SCHEMA_NAME = "$SchemaName$";
+	public static String SCHEMA_DBNAME = "$lower DbSchemaName$";</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaObjMembers">
+	protected $SecSchemaName$Authorization authorization = null;
+	protected I$SecSchemaName$Schema backingStore = null;
+	protected String secClusterName = "system";
+	protected String secTenantName = "system";
+	protected String secUserName = "system";
+	protected I$SecSchemaName$ClusterObj secCluster = null;
+	protected long secClusterId = 0L;
+	protected I$SecSchemaName$TenantObj secTenant = null;
+	protected long secTenantId = 0L;
+	protected I$SecSchemaName$SecUserObj secUser = null;
+	protected UUID secSessionUserId = null;
+	protected I$SecSchemaName$SecSessionObj secSession = null;
+	protected UUID secSessionSessionId = null;
+	protected String schemaDbName = SCHEMA_DBNAME;
+	protected String lowerDbSchemaName = SCHEMA_DBNAME.toLowerCase();
+$iterate SchemaTables( each declSchemaSchemaObjTableObjMember empty empty )$$JavaSchemaObjMembers$$ReferencedJavaSchemaObjMembers$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaSchemaObjImplementation"
+		></GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaSchemaObjImplementation"
+		></GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaSchemaObjMembers"
+		></GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaSchemaObjMembers"
+		></GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaObjReleasePreparedStatements">
+	/**
+	 *	Release any prepared statements acquired by this connection.
+	 *	&lt;p&gt;
+	 *	Resets the prepared statements so they can acquire the new value of
+	 *	&lt;tt&gt;setDbSchemaName()&lt;/tt&gt;.
+	 */
+	public void releasePreparedStatements() {
+	}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaObjGetSetDbSchemaNameMethods"
+		>$implSchemaSchemaObjGetSetDbSchemaNameGetMethods$$implSchemaSchemaObjGetSetDbSchemaNameSetMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaObjGetSetDbSchemaNameGetMethods">
+	/**
+	 *	When you first connect to a database, you can opt to specify a database
+	 *	schema name to be used by the session.  The implementation code must always
+	 *	be dynamically based on the invocation of &lt;tt&gt;String getDbSchemaName()&lt;/tt&gt;
+	 *	at runtime.
+	 *	&lt;p&gt;
+	 *	The initial value is defined by the implementing schema model which has inherited
+	 *	the expression of the current schema model being expanded.  That is, it is specified
+	 *	in the DbSchemaName attribute of a SchemaDef instance.
+	 */
+	public String getDbSchemaName() {
+		return( schemaDbName );
+	}
+
+	/**
+	 *	PostgreSQL coerces database schema names to lowercase for consistency.
+	 */
+	public String getLowerDbSchemaName() {
+		return( lowerDbSchemaName );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaObjGetSetDbSchemaNameSetMethods">
+	/**
+	 *	The database is expected to override this implementation and invoke the
+	 *	&lt;tt&gt;super.setDbSchemaName( String argDbSchemaName )&lt;/tt&gt; early
+	 *	on in the implementation of the cust body.  You should let the exceptions
+	 *	which can be thrown by this implementation pass unimpeded.
+	 *	&lt;pg&gt;
+	 *	When you set the database schema name, the database-specific implementation
+	 *	of this method does a "commit; use database"-type sequence to change
+	 *	to the target database.  This should be specified globally for all
+	 *	database connections in a given cluster, so that all of
+	 *	the application implementation clients are using the same database instance
+	 *	regardless of what's been provided by the cust client implementation,
+	 *	be it as a Java application or a web interface written using JEE.
+	 */
+	public void setDbSchemaName( String argDbSchemaName ) {
+		final String S_ProcName = "setDbSchemaName";
+
+		rollback();
+
+		if( ( argDbSchemaName == null ) || ( argDbSchemaName.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"argDbSchemaName" );
+		}
+
+		if( backingStore != null ) {
+			backingStore.setDbSchemaName( argDbSchemaName );
+		}
+
+		schemaDbName = argDbSchemaName;
+		lowerDbSchemaName = schemaDbName.toLowerCase();
+
+		releasePreparedStatements();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaObjGetSetSecCluster">
+	public void setSecClusterName( String value ) {
+		if( ( value == null ) || ( value.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"setClusterName",
+				1,
+				"value" );
+		}
+		secClusterName = value;
+		secCluster = null;
+	}
+
+	public String getSecClusterName() {
+		return( secClusterName );
+	}
+
+	public I$SecSchemaName$ClusterObj getSecCluster() {
+		if( secCluster == null ) {
+			if( authorization != null ) {
+				secCluster = getClusterTableObj().readClusterByIdIdx( authorization.getSecClusterId() );
+			}
+			else {
+				secCluster = getClusterTableObj().readClusterByUDomNameIdx( secClusterName );
+				if( ( secCluster == null ) &amp;&amp; ( secClusterId &gt; 0 ) ) {
+					secCluster = getClusterTableObj().readClusterByIdIdx( secClusterId );
+				}
+			}
+			if( secCluster != null ) {
+				secClusterName = secCluster.getRequiredFullDomName();
+				secClusterId = secCluster.getRequiredId();
+				if( authorization != null ) {
+					authorization.setSecCluster( secCluster );
+				}
+			}
+		}
+		return( secCluster );
+	}
+
+	public void setSecCluster( I$SecSchemaName$ClusterObj value ) {
+		secCluster = value;
+		if( secCluster == null ) {
+			return;
+		}
+		secClusterId = secCluster.getRequiredId();
+		secClusterName = secCluster.getRequiredFullDomName();
+		if( authorization != null ) {
+			authorization.setSecCluster( secCluster );
+		}
+	}
+
+	public long getSecClusterId() {
+		return( secClusterId );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaObjGetSetSecTenant">
+	public void setSecTenantName( String value ) {
+		if( ( value == null ) || ( value.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"setTenantName",
+				1,
+				"value" );
+		}
+		secTenantName = value;
+		secTenant = null;
+	}
+
+	public String getSecTenantName() {
+		return( secTenantName );
+	}
+
+	public I$SecSchemaName$TenantObj getSecTenant() {
+		if( secTenant == null ) {
+			if( authorization != null ) {
+				secTenant = getTenantTableObj().readTenantByIdIdx( authorization.getSecTenantId() );
+			}
+			else {
+				secTenant = getTenantTableObj().readTenantByUNameIdx( getSecCluster().getRequiredId(), secTenantName );
+				if( ( secTenant == null ) &amp;&amp; ( secTenantId &gt; 0 ) ) {
+					secTenant = getTenantTableObj().readTenantByIdIdx( secTenantId );
+				}
+			}
+			if( secTenant != null ) {
+				secTenantName = secTenant.getRequiredTenantName();
+				secTenantId = secTenant.getRequiredId();
+				if( authorization != null ) {
+					authorization.setSecTenant( secTenant );
+				}
+			}
+		}
+		return( secTenant );
+	}
+
+	public void setSecTenant( I$SecSchemaName$TenantObj value ) {
+		secTenant = value;
+		if( secTenant == null ) {
+			return;
+		}
+		secTenantId = secTenant.getRequiredId();
+		secTenantName = secTenant.getRequiredTenantName();
+		if( authorization != null ) {
+			authorization.setSecTenant( secTenant );
+		}
+	}
+
+	public long getSecTenantId() {
+		return( secTenantId );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaObjGetSetSecUser">
+	public void setSecUserName( String value ) {
+		if( ( value == null ) || ( value.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"setUserName",
+				1,
+				"value" );
+		}
+		secUserName = value;
+		secUser = null;
+	}
+
+	public String getSecUserName() {
+		return( secUserName );
+	}
+
+	public I$SecSchemaName$SecUserObj getSecUser() {
+		if( secUser == null ) {
+			if( authorization != null ) {
+				secUser = getSecUserTableObj().readSecUserByIdIdx( authorization.getSecUserId() );
+			}
+			else {
+				secUser = getSecUserTableObj().readSecUserByULoginIdx( secUserName );
+				if( ( secUser == null ) &amp;&amp; ( secSessionUserId != null ) ) {
+					secUser = getSecUserTableObj().readSecUserByIdIdx( secSessionUserId );
+				}
+			}
+			if( secUser != null ) {
+				secUserName = secUser.getRequiredLoginId();
+				secSessionUserId = secUser.getRequiredSecUserId();
+			}
+		}
+		return( secUser );
+	}
+
+	public void setSecUser( I$SecSchemaName$SecUserObj value ) {
+		secUser = value;
+		if( secUser != null ) {
+			secUserName = secUser.getRequiredLoginId();
+			secSessionUserId = secUser.getRequiredSecUserId();
+		}
+	}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaObjGetSetSecSession">
+	public I$SecSchemaName$SecSessionObj getSecSession() {
+		if( secSession == null ) {
+			if( authorization != null ) {
+				secSession = getSecSessionTableObj().readSecSessionByIdIdx( authorization.getSecSessionId() );
+			}
+			else if( secSessionSessionId != null ) {
+				secSession = getSecSessionTableObj().readSecSessionByIdIdx( secSessionSessionId );
+			}
+			if( secSession != null ) {
+				secSessionSessionId = secSession.getRequiredSecSessionId();
+				secSessionUserId = secSession.getRequiredSecUserId();
+			}
+		}
+		return( secSession );
+	}
+
+	public void setSecSession( I$SecSchemaName$SecSessionObj value ) {
+		secSession = value;
+		if( secSession == null ) {
+			return;
+		}
+		secSessionSessionId = secSession.getRequiredSecSessionId();
+		secSessionUserId = secSession.getRequiredSecUserId();
+		if( authorization != null ) {
+			authorization.setSecSession( secSession );
+		}
+	}
+
+	public void setSecSessionId( UUID value ) {
+		secSessionSessionId = value;
+	}
+
+	public UUID getSecSessionSessionId() {
+		return( secSessionSessionId );
+	}
+
+	public UUID getSecSessionUserId() {
+		return( secSessionUserId );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaObjMethods">
+	public $SecSchemaName$Authorization getAuthorization() {
+		return( authorization );
+	}
+
+	public void setAuthorization( $SecSchemaName$Authorization value ) {
+		authorization = value;
+	}
+
+	public I$SecSchemaName$Schema getBackingStore() {
+		return( backingStore );
+	}
+
+	public void setBackingStore( I$SecSchemaName$Schema value ) {
+		backingStore = value;
+	}
+
+	public String getSchemaName() {
+		return( SCHEMA_NAME );
+	}
+
+	public boolean isConnected() {
+		if( backingStore == null ) {
+			return( false );
+		}
+		else {
+			return( backingStore.isConnected() );
+		}
+	}
+
+	public boolean connect() {
+		return( backingStore.connect() );
+	}
+
+	public boolean connect( String username, String password ) {
+		return( backingStore.connect( username, password ) );
+	}
+
+	public boolean connect( String clusterName, String tenantName, String secUserName, String password ) {
+		final String S_ProcName = "connect-full";$implSchemaSchemaConnectAuthUserPWCheckArgs$
+		if( ! backingStore.connect( secUserName, password, clusterName, tenantName ) ) {
+			authorization = null;
+			return( false );
+		}
+		if( authorization != null ) {
+			// The login was established as an XMsg client, which automatically sets the Authorization
+			// information based on the return message.  You only need to do the remaining SecSession
+			// and authorization creation if you're using a direct client-server model instead of
+			// an XMsg client-server model.
+			setSecClusterName( clusterName );
+			setSecTenantName( tenantName );
+			setSecUserName( secUserName );
+			return( true );
+		}
+
+		if( clusterName.equals( "system" )
+		 &amp;&amp; tenantName.equals( "system" )
+		 &amp;&amp; secUserName.equals( "system" ) )
+		{
+			if( secCluster == null ) {
+				secCluster = getClusterTableObj().newInstance();
+				I$SecSchemaName$ClusterEditObj editCluster = secCluster.getEdit();
+				if( editCluster == null ) {
+					editCluster = secCluster.beginEdit();
+					editCluster.setRequiredDescription( "system" );
+					editCluster.setRequiredFullDomName( "system" );
+					secCluster = editCluster.create();
+					editCluster = null;
+				}
+			}
+			if( secTenant == null ) {
+				secTenant = getTenantTableObj().newInstance();
+				I$SecSchemaName$TenantEditObj editTenant = secTenant.getEdit();
+				if( editTenant == null ) {
+					editTenant = secTenant.beginEdit();
+					editTenant.setRequiredContainerCluster( secCluster);
+					editTenant.setRequiredTenantName( "system" );
+					secTenant = editTenant.create();
+					editTenant = null;
+				}
+			}
+			if( secUser == null ) {
+				secUser = getSecUserTableObj().newInstance();
+				I$SecSchemaName$SecUserEditObj editSecUser = secUser.getEdit();
+				if( editSecUser == null ) {
+					editSecUser = secUser.beginEdit();
+					editSecUser.setRequiredEMailAddress( "system" );
+					editSecUser.setRequiredLoginId( "system" );
+					secUser = editSecUser.create();
+					editSecUser = null;
+				}
+			}
+			setSecClusterName( clusterName );
+			setSecTenantName( tenantName );
+			setSecUserName( secUserName );
+			secCluster = null;
+			secTenant = null;
+			secUser = null;
+			secSession = null;
+			I$SecSchemaName$ClusterObj cluster = getSecCluster();
+			I$SecSchemaName$TenantObj tenant = getSecTenant();
+			I$SecSchemaName$SecUserObj user = getSecUser();
+			I$SecSchemaName$SecSessionObj session;
+			if( ( cluster != null ) &amp;&amp; ( tenant != null ) &amp;&amp; ( user != null ) ) {
+				session = getSecSessionTableObj().newInstance();
+				I$SecSchemaName$SecSessionEditObj sessionEdit = session.beginEdit();
+				sessionEdit.setRequiredContainerSecUser( user );
+				sessionEdit.setRequiredStart( Calendar.getInstance() );
+				sessionEdit.setOptionalFinish( null );
+				session = sessionEdit.create();
+				sessionEdit = null;
+				setSecSession( session );
+			}
+			else {
+				session = null;
+			}
+			if( ( cluster == null ) || ( tenant == null ) || ( user == null ) || ( session == null ) ) {
+				disconnect( false );
+				authorization = null;
+				throw new CFLibRuntimeException( getClass(),
+					S_ProcName,
+					"Could not resolve cluster name, tenant name, user name, or session.  Login cancelled" );
+			}
+			if( authorization == null ) {
+				authorization = new $SecSchemaName$Authorization();
+			}
+			authorization.setSecCluster( cluster );
+			authorization.setSecTenant( tenant );
+			authorization.setSecSession( session );
+			return( true );
+		}
+		setSecClusterName( clusterName );
+		setSecTenantName( tenantName );
+		setSecUserName( secUserName );
+		boolean transactionStarted = beginTransaction();
+		secCluster = null;
+		secTenant = null;
+		secUser = null;
+		secSession = null;
+		I$SecSchemaName$ClusterObj cluster = getSecCluster();
+		I$SecSchemaName$TenantObj tenant = getSecTenant();
+		I$SecSchemaName$SecUserObj user = getSecUser();
+		I$SecSchemaName$SecSessionObj session;
+		if( ( cluster != null ) &amp;&amp; ( tenant != null ) &amp;&amp; ( user != null ) ) {
+			session = getSecSessionTableObj().newInstance();
+			I$SecSchemaName$SecSessionEditObj sessionEdit = session.beginEdit();
+			sessionEdit.setRequiredContainerSecUser( user );
+			sessionEdit.setRequiredStart( Calendar.getInstance() );
+			sessionEdit.setOptionalFinish( null );
+			session = sessionEdit.create();
+			sessionEdit = null;
+			setSecSession( session );
+		}
+		else {
+			session = null;
+		}
+		if( transactionStarted ) {
+			commit();
+		}
+		if( ( cluster == null ) || ( tenant == null ) || ( user == null ) || ( session == null ) ) {
+			disconnect( false );
+			authorization = null;
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Could not resolve cluster name, tenant name, user name, or session.  Login cancelled" );
+		}
+		if( authorization == null ) {
+			authorization = new $SecSchemaName$Authorization();
+		}
+		authorization.setSecCluster( cluster );
+		authorization.setSecTenant( tenant );
+		authorization.setSecSession( session );
+		return( true );
+	}
+$implSchemaSchemaObjMethodsPart8$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaConnectAuthUserPWCheckArgs">
+		if( ( clusterName == null ) || ( clusterName.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"clusterName" );
+		}
+		if( ( tenantName == null ) || ( tenantName.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"tenantName" );
+		}
+		if( ( secUserName == null ) || ( secUserName.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				3,
+				"secUserName" );
+		}
+		if( ( password == null ) || ( password.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				5,
+				"password" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaObjMethodsPart8">
+	public void disconnect( boolean doCommit ) {
+		backingStore.disconnect( doCommit );
+	}
+
+	public void logout() {
+		if( authorization == null ) {
+			if( isConnected() ) {
+				disconnect( false );
+			}
+			return;
+		}
+		if( isConnected() ) {
+			try {
+				boolean transactionStarted = beginTransaction();
+				if( ! transactionStarted ) {
+					rollback();
+					transactionStarted = beginTransaction();
+					if( ! transactionStarted ) {
+						setAuthorization( null );
+						return;
+					}
+				}
+				UUID secSessionId = authorization.getSecSessionId();
+				if( secSessionId != null ) {
+					I$SecSchemaName$SecSessionObj secSession = getSecSessionTableObj().readSecSessionByIdIdx( secSessionId );
+					if( secSession != null ) {
+						if( secSession.getOptionalFinish() == null ) {
+							I$SecSchemaName$SecSessionEditObj editSecSession = secSession.beginEdit();
+							editSecSession.setOptionalFinish( Calendar.getInstance() );
+							editSecSession.update();
+							editSecSession = null;
+						}
+					}
+				}
+				commit();
+			}
+			finally {
+				setAuthorization( null );
+				try {
+					disconnect( false );
+				}
+				catch( RuntimeException e ) {
+				}
+			}
+		}
+	}
+
+	public void minimizeMemory() {$iterate SchemaTables( each implInvokeTableMinimizeMemory empty empty )$
+	}
+
+	public boolean isTransactionOpen() {
+		boolean txnOpen = backingStore.isTransactionOpen();
+		return( txnOpen );
+	}
+
+	public boolean beginTransaction() {
+		boolean txnInitiated = backingStore.beginTransaction();
+		return( txnInitiated );
+	}
+
+	public void commit() {
+		backingStore.commit();
+	}
+
+	public void rollback() {
+		backingStore.rollback();
+	}</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaSchemaObjTableObjMember"
+>	protected I$SchemaName$$TableName$TableObj $leadlower TableName$TableObj;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSchemaObjTableObjAccessors">
+	public I$SchemaName$$TableName$TableObj get$TableName$TableObj() {
+		return( $leadlower TableName$TableObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="initSchemaSchemaObjConstructorTableObjMember"
+>		$leadlower TableName$TableObj = new $SchemaName$$TableName$TableObj( this );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implInvokeTableMinimizeMemory">
+		if( $leadlower TableName$TableObj != null ) {
+			$leadlower TableName$TableObj.minimizeMemory();
+		}</GenRule>
+
+</RuleSet>

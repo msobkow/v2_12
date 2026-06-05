@@ -1,0 +1,1180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsg/SchemaXMsgRqstTableRead.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Element  for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaXMsgRqstTableReadJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgRqst/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgRqst"
+		ExpansionClassName="$SchemaName$XMsgRqst$TableName$ReadJava"
+		ExpansionKeyName="$SchemaName$XMsgRqst$TableName$ReadJava"
+		ExpansionFileName="$SchemaName$XMsgRqst$TableName$Read.java">
+// Description: Java 11 XML Message SAX Response Record Element  for $TableName$
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgRqst;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.xml.sax.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+import $lower JavaPackage$.$SchemaName$XMsg.*;
+
+/*
+ *	$SchemaName$XMsgRqst$TableName$Read XML SAX Element  implementation
+ *	for $TableName$.
+ */
+public class $SchemaName$XMsgRqst$TableName$Read
+	extends CFLibXmlCoreElementHandler
+{$implConstructXMsgRqstTableRead$$implRqstTableReadStartElement$$implRqstTableReadEndElement$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implConstructXMsgRqstTableRead">
+	public $SchemaName$XMsgRqst$TableName$Read( $SchemaName$XMsgRqst xmsgRqst ) {
+		super( xmsgRqst );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadStartElement">
+	public void startElement(
+		String		uri,
+		String		localName,
+		String		qName,
+		Attributes	attrs )
+	throws SAXException
+	{
+		$SchemaName$XMsgSchemaMessageFormatter schemaFormatter = null;
+		try {
+			// Common XML Attributes
+			String	attrId = null;$implRqstTableReadDeclPKeyAttrs$
+			// Attribute Extraction
+			String	attrLocalName;
+			int		numAttrs;
+			int		idxAttr;
+			final String S_ProcName = "startElement";
+			final String S_LocalName = "LocalName";
+
+			assert qName.equals( "Rqst$TableName$Read" );
+$implRqstTableReadRetrieveSchemaObj$$implRqstTableReadConsPKey$$implRqstTableReadExtractAttrs$$implRqstTableReadCheckRequiredAttrs$$implRqstTableReadGetContext$$implRqstTableReadConvertAttributes$$implRqstTableReadDoRead$
+		}
+		catch( RuntimeException e ) {
+			$SchemaName$XMsgRqst xmsgRqst = (($SchemaName$XMsgRqst)getParser());
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+			String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnException( "\n\t\t\t", e )
+				+	"\n"
+				+	schemaFormatter.formatRspnXmlPostamble();
+			xmsgRqst.resetResponse();
+			xmsgRqst.appendResponse( response );
+			xmsgRqst.setCaughtException( true );
+		}
+		catch( Error e ) {
+			$SchemaName$XMsgRqst xmsgRqst = (($SchemaName$XMsgRqst)getParser());
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+			String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnException( "\n\t\t\t", e )
+				+	"\n"
+				+	schemaFormatter.formatRspnXmlPostamble();
+			xmsgRqst.resetResponse();
+			xmsgRqst.appendResponse( response );
+			xmsgRqst.setCaughtException( true );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadDoRead">
+			// Read the object and prepare the XML response
+			I$SchemaName$$TableName$Obj read = ((I$SchemaName$$TableName$Obj)schemaObj.get$TableName$TableObj().read$TableName$( pkey, true ));
+			if( read != null ) {
+				String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+					+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RspnSingleOpenTag()
+					+	$SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RspnDerivedRec( "\n\t\t", read.get$TableName$Buff() ) + "\n"
+					+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RspnSingleCloseTag()
+					+	schemaFormatter.formatRspnXmlPostamble();
+				xmsgRqst.appendResponse( response );
+			}
+			else {
+				String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+					+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnNoDataFound() + "\n"
+					+	schemaFormatter.formatRspnXmlPostamble();
+				xmsgRqst.appendResponse( response );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadDeclPKeyAttrs">
+			// Primary Key Attributes for Constant Enum support$switch HasSuperClassRelation yes implRqstTableReadDeclPKeyInhAttrs default implRqstTableReadDeclPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadDeclPKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableReadDeclNonIdPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadDeclPKeyInhAttrs"
+		>$reference SuperClassRelation reference ToTable implRqstTableReadDeclPKeyDecisionAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadDeclPKeyDecisionAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableReadDeclPKeyInhAttrs default implRqstTableReadDeclPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableReadDeclNonIdPKeyAttr"
+		>$switch Name Id empty default implRqstTableReadDeclEmitPKeyAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableReadDeclEmitPKeyAttr">
+			String attr$Name$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadConsPKey">
+			// Instantiate a PKey buffer for the parsed information
+			$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey pkey = ((I$SchemaName$Schema)schemaObj.getBackingStore()).getFactory$reference BaseClass TableName$().newPKey();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadEndElement">
+	public void endElement(
+		String		uri,
+		String		localName,
+		String		qName )
+	throws SAXException
+	{
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadRetrieveSchemaObj">
+			$SchemaName$XMsgRqst xmsgRqst = ($SchemaName$XMsgRqst)getParser();
+			if( xmsgRqst == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser()" );
+			}
+
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+
+			I$SchemaName$SchemaObj schemaObj = xmsgRqst.getSchemaObj();
+			if( schemaObj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser().getSchemaObj()" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadApplyPKeyAttrs"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRqstTableReadApplyPIndexColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableReadApplyPIndexColumn">
+			pkey.set$OptionalOrRequired$$Name$( nat$Name$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadApplyInsertAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableReadApplyInsertAttrsSuper default implRqstTableReadApplyInsertAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadApplyInsertAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRqstTableReadApplyInsertAttrs$
+			// Apply $TableName$ Attributes$iterate Columns( each implRqstTableReadApplyDataInsertAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadApplyInsertAttrsBase">
+			// Apply $TableName$ Attributes$iterate Columns( each implRqstTableReadApplyDataInsertAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadApplyDataInsertAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRqstTableReadApplyNonIdInsertAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadApplyNonIdInsertAttr"
+		>$switch Name Id empty default implRqstTableReadApplyAnUnhiddenInsertAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadApplyAnUnhiddenInsertAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implRqstTableReadApplyAnInsertAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadApplyAnInsertAttr">
+			edit$poptop Table TableName$.set$OptionalOrRequired$$Name$( $implRqstTableReadApplyAnAttrVar$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadApplyAnAttrVar"
+		>$switch BaseModelAtomClass
+			BlobDef implRqstTableReadApplyNatVar
+			BoolDef implRqstTableReadApplyNatVar
+			EnumDef implRqstTableReadApplyNatVar
+			Id16Gen implRqstTableReadApplyNatVar
+			Id32Gen implRqstTableReadApplyNatVar
+			Id64Gen implRqstTableReadApplyNatVar
+			Int16Def implRqstTableReadApplyNatVar
+			Int32Def implRqstTableReadApplyNatVar
+			Int64Def implRqstTableReadApplyNatVar
+			UInt16Def implRqstTableReadApplyNatVar
+			UInt32Def implRqstTableReadApplyNatVar
+			UInt64Def implRqstTableReadApplyNatVar
+			FloatDef implRqstTableReadApplyNatVar
+			DoubleDef implRqstTableReadApplyNatVar
+			NumberDef implRqstTableReadApplyNatVar
+			DateDef implRqstTableReadApplyNatVar
+			TimeDef implRqstTableReadApplyNatVar
+			TimestampDef implRqstTableReadApplyNatVar
+			TZDateDef implRqstTableReadApplyNatVar
+			TZTimeDef implRqstTableReadApplyNatVar
+			TZTimestampDef implRqstTableReadApplyNatVar
+			UuidGen implRqstTableReadApplyNatVar
+			UuidDef implRqstTableReadApplyNatVar
+			StringDef implRqstTableReadApplyAttrVar
+			TokenDef implRqstTableReadApplyAttrVar
+			NmTokenDef implRqstTableReadApplyAttrVar
+			NmTokensDef implRqstTableReadApplyAttrVar
+			TextDef implRqstTableReadApplyAttrVar
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadApplyNatVar"
+		>nat$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadApplyAttrVar"
+		>attr$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadExtractAttrs">
+			// Extract Attributes
+			numAttrs = attrs.getLength();
+			for( idxAttr = 0; idxAttr &lt; numAttrs; idxAttr++ ) {
+				attrLocalName = attrs.getLocalName( idxAttr );
+				if( attrLocalName.equals( "Id" ) ) {
+					if( attrId != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrId = attrs.getValue( idxAttr );
+				}$implRqstTableReadParsePKeyAttrs$
+				else if( attrLocalName.equals( "schemaLocation" ) ) {
+					// ignored
+				}
+				else {
+					throw new CFLibUnrecognizedAttributeException( getClass(),
+						S_ProcName,
+						getParser().getLocationInfo(),
+						attrLocalName );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadParsePKeyAttrs"
+		>$reference BaseClass implRqstTableReadParsePKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadParsePKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableReadParseEmitNonIdPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableReadParseEmitNonIdPKeyAttr"
+		>$switch Name Id empty default implRqstTableReadParseEmitPKeyAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableReadParseEmitPKeyAttr">
+				else if( attrLocalName.equals( "$Name$" ) ) {
+					if( attr$Name$ != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attr$Name$ = attrs.getValue( idxAttr );
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadCheckRequiredAttrs">
+			// Ensure that required attributes have values$implRqstTableReadCheckReqPKeyAttrs$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadCheckReqPKeyAttrs"
+		>$reference BaseClass implRqstTableReadCheckReqPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadCheckReqPKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableReadCheckReqMaybeEmitPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableReadCheckReqMaybeEmitPKeyAttr"
+		>$switch IsNullable no implRqstTableReadCheckReqEmitPKeyAttr default empty$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableReadCheckReqEmitPKeyAttr">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$" );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadGetContext">
+			// Get current context
+			CFLibXmlCoreContext curContext = getParser().getCurContext();</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadPutNamedAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableReadPutNamedAttrsSuper default implRqstTableReadPutNamedAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadPutNamedAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRqstTableReadPutNamedAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadPutNamedAttrsBase">$reference PrimaryKeyIndex iterate Columns( each implRqstTableReadPutNamedAnAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableReadPutNamedAnAttr">
+			curContext.putNamedValue( "$Name$", attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadConvertAttributes">
+			// Convert string attributes to native Java types
+			// and apply the converted attributes to the editBuff.
+$implRqstTableReadConvertPKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadConvertPKeyAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableReadConvertInhPKeyAttrs default implRqstTableReadConvertBasePKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadConvertInhPKeyAttrs"
+		>$reference SuperClassRelation reference ToTable implRqstTableReadConvertPKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadConvertBasePKeyAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableReadConvertColPKeyAttrs )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableReadConvertColPKeyAttrs"
+		>$reference Column implRqstTableReadConvertColPKeyAttrs$
+			pkey.set$OptionalOrRequired$$Name$( nat$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColPKeyAttrs">
+			$implJavaAtomType$ nat$Name$;$switch BaseModelAtomClass
+			BlobDef implRqstTableReadConvertColBlobValue
+			BoolDef implRqstTableReadConvertColBoolValue
+			EnumDef implRqstTableReadConvertColEnumValue
+			Int16Def implRqstTableReadConvertColInt16Value
+			Int32Def implRqstTableReadConvertColInt32Value
+			Int64Def implRqstTableReadConvertColInt64Value
+			UInt16Def implRqstTableReadConvertColUInt16Value
+			UInt32Def implRqstTableReadConvertColUInt32Value
+			UInt64Def implRqstTableReadConvertColUInt64Value
+			Id16Gen implRqstTableReadConvertColInt16Value
+			Id32Gen implRqstTableReadConvertColInt32Value
+			Id64Gen implRqstTableReadConvertColInt64Value
+			FloatDef implRqstTableReadConvertColFloatValue
+			DoubleDef implRqstTableReadConvertColDoubleValue
+			NumberDef implRqstTableReadConvertColNumberValue
+			StringDef implRqstTableReadConvertColStringValue
+			TokenDef implRqstTableReadConvertColTokenValue
+			NmTokenDef implRqstTableReadConvertColNmTokenValue
+			NmTokensDef implRqstTableReadConvertColNmTokensValue
+			TextDef implRqstTableReadConvertColTextValue
+			DateDef implRqstTableReadConvertColDateValue
+			TimeDef implRqstTableReadConvertColTimeValue
+			TimestampDef implRqstTableReadConvertColTimestampValue
+			TZDateDef implRqstTableReadConvertColTZDateValue
+			TZTimeDef implRqstTableReadConvertColTZTimeValue
+			TZTimestampDef implRqstTableReadConvertColTZTimestampValue
+			UuidGen implRqstTableReadConvertColUuidValue
+			UuidDef implRqstTableReadConvertColUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$
+			pkey.set$OptionalOrRequired$$Name$( nat$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColBlobValue">
+			throw new RuntimeException( S_ProcName + "ERROR: Cannot use a BLOB as a PKey attribute!" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColBoolValue"
+		>$switch IsNullable yes implRqstTableReadConvertColOptBoolValue default implRqstTableReadConvertColReqBoolValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColReqBoolValue">
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColOptBoolValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() == 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = Boolean.valueOf( true );
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = Boolean.valueOf( false );
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColEnumValue"
+		>$switch IsNullable yes implRqstTableReadConvertColOptEnumValue default implRqstTableReadConvertColReqEnumValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColOptEnumValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColReqEnumValue">
+			nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColInt16Value"
+		>$switch IsNullable yes implRqstTableReadConvertColOptInt16Value default implRqstTableReadConvertColReqInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColOptInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColReqInt16Value">
+			nat$Name$ = Short.parseShort( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColInt32Value"
+		>$switch IsNullable yes implRqstTableReadConvertColOptInt32Value default implRqstTableReadConvertColReqInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColOptInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColReqInt32Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColInt64Value"
+		>$switch IsNullable yes implRqstTableReadConvertColOptInt64Value default implRqstTableReadConvertColReqInt64Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColOptInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColReqInt64Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColUInt16Value"
+		>$switch IsNullable yes implRqstTableReadConvertColOptUInt16Value default implRqstTableReadConvertColReqUInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColOptUInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColReqUInt16Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColUInt32Value"
+		>$switch IsNullable yes implRqstTableReadConvertColOptUInt32Value default implRqstTableReadConvertColReqUInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColOptUInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColReqUInt32Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColUInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = new BigDecimal( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColFloatValue"
+		>$switch IsNullable yes implRqstTableReadConvertColOptFloatValue default implRqstTableReadConvertColReqFloatValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColOptFloatValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColReqFloatValue">
+			nat$Name$ = Float.parseFloat( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColDoubleValue"
+		>$switch IsNullable yes implRqstTableReadConvertColOptDoubleValue default implRqstTableReadConvertColReqDoubleValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColOptDoubleValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColReqDoubleValue">
+			nat$Name$ = Double.parseDouble( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColNumberValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = new BigDecimal( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColStringValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColNmTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColNmTokensValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColTextValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColTZDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColTZTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColTZTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertColUuidValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}</GenRule>
+
+
+	<GenRule GenDef="Table" Name="implRqstTableReadConvertNatId">
+			Integer natId;
+			if( ( attrId != null ) &amp;&amp; ( attrId.length() &gt; 0 ) ) {
+				natId = Integer.valueOf( Integer.parseInt( attrId ) );
+			}
+			else {
+				natId = null;
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadConvertAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableReadConvertAttrsSuper default implRqstTableReadConvertAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadConvertAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRqstTableReadConvertAttrs$$iterate Columns( each implRqstTableReadConvertDataAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableReadConvertAttrsBase">$iterate Columns( each implRqstTableReadConvertDataAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRqstTableReadConvertNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertNonIdAttr"
+		>$switch Name Id empty default implRqstTableReadConvertAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implRqstTableReadConvertAnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertAnAttr"
+		>$switch IsNullable yes implRqstTableReadConvertOptAttr default implRqstTableReadConvertReqAttr$		pkey.set$OptionalOrRequired$$Name$( nat$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRqstTableReadConvertReqBlob
+			BoolDef implRqstTableReadConvertReqBool
+			EnumDef implRqstTableReadConvertReqEnum
+			Id16Gen implRqstTableReadConvertReqInt16
+			Id32Gen implRqstTableReadConvertReqInt32
+			Id64Gen implRqstTableReadConvertReqInt64
+			Int16Def implRqstTableReadConvertReqInt16
+			Int32Def implRqstTableReadConvertReqInt32
+			Int64Def implRqstTableReadConvertReqInt64
+			UInt16Def implRqstTableReadConvertReqUInt16
+			UInt32Def implRqstTableReadConvertReqUInt32
+			UInt64Def implRqstTableReadConvertReqUInt64
+			FloatDef implRqstTableReadConvertReqFloat
+			DoubleDef implRqstTableReadConvertReqDouble
+			NumberDef implRqstTableReadConvertReqNumber
+			DateDef implRqstTableReadConvertReqDate
+			TimeDef implRqstTableReadConvertReqTime
+			TimestampDef implRqstTableReadConvertReqTimestamp
+			TZDateDef implRqstTableReadConvertReqTZDate
+			TZTimeDef implRqstTableReadConvertReqTZTime
+			TZTimestampDef implRqstTableReadConvertReqTZTimestamp
+			UuidGen implRqstTableReadConvertReqUuid
+			UuidDef implRqstTableReadConvertReqUuid
+			StringDef implRqstTableReadConvertReqString
+			TokenDef implRqstTableReadConvertReqString
+			NmTokenDef implRqstTableReadConvertReqString
+			NmTokensDef implRqstTableReadConvertReqString
+			TextDef implRqstTableReadConvertReqString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRqstTableReadConvertOptBlob
+			BoolDef implRqstTableReadConvertOptBool
+			EnumDef implRqstTableReadConvertOptEnum
+			Id16Gen implRqstTableReadConvertOptInt16
+			Id32Gen implRqstTableReadConvertOptInt32
+			Id64Gen implRqstTableReadConvertOptInt64
+			Int16Def implRqstTableReadConvertOptInt16
+			Int32Def implRqstTableReadConvertOptInt32
+			Int64Def implRqstTableReadConvertOptInt64
+			UInt16Def implRqstTableReadConvertOptUInt16
+			UInt32Def implRqstTableReadConvertOptUInt32
+			UInt64Def implRqstTableReadConvertOptUInt64
+			FloatDef implRqstTableReadConvertOptFloat
+			DoubleDef implRqstTableReadConvertOptDouble
+			NumberDef implRqstTableReadConvertOptNumber
+			DateDef implRqstTableReadConvertOptDate
+			TimeDef implRqstTableReadConvertOptTime
+			TimestampDef implRqstTableReadConvertOptTimestamp
+			TZDateDef implRqstTableReadConvertOptTZDate
+			TZTimeDef implRqstTableReadConvertOptTZTime
+			TZTimestampDef implRqstTableReadConvertOptTZTimestamp
+			UuidGen implRqstTableReadConvertOptUuid
+			UuidDef implRqstTableReadConvertOptUuid
+			StringDef implRqstTableReadConvertOptString
+			TokenDef implRqstTableReadConvertOptString
+			NmTokenDef implRqstTableReadConvertOptString
+			NmTokensDef implRqstTableReadConvertOptString
+			TextDef implRqstTableReadConvertOptString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqBlob">
+			byte[] nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqBool">
+			boolean nat$Name$;
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqInt16">
+			short nat$Name$ = Short.parseShort( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqInt32">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqInt64">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqUInt16">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqUInt32">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqUInt64">
+			BigDecimal nat$Name$ = new BigDecimal( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqFloat">
+			float nat$Name$ = Float.parseFloat( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqDouble">
+			double nat$Name$ = Double.parseDouble( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqNumber">
+			BigDecimal nat$Name$ = new BigDecimal( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqTZDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqTZTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqTZTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqUuid">
+			UUID nat$Name$ = UUID.fromString( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertReqString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptBlob">
+			byte[] nat$Name$;
+			if( attr$Name$ == null ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.length() &lt;= 0 ) {
+				nat$Name$ = new byte[0];
+			}
+			else {
+				nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptBool">
+			Boolean nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptInt16">
+			Short nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptInt32">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptInt64">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptUInt16">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptUInt32">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptUInt64">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= new BigDecimal( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptFloat">
+			Float nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptDouble">
+			Double nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptNumber">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= new BigDecimal( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptTZDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptTZTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptTZTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptUuid">
+			UUID nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableReadConvertOptString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+</RuleSet>

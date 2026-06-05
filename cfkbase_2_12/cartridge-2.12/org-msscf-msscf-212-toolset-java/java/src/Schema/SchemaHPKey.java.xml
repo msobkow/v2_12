@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/Schema/SchemaHPKey.java"
+	Revision="2.12"
+	Descr="Java 11 implementation of a generic $SchemaName$ history primary key base object.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaHPKeyJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$HPKeyJava"
+		ExpansionKeyName="$SchemaName$HPKeyJava"
+		ExpansionFileName="$SchemaName$HPKey.java"
+>// Description: Java 11 implementation of a generic $SchemaName$ history primary key base object.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$;
+
+import java.lang.reflect.*;
+import java.io.*;
+import java.math.*;
+import java.net.*;
+import java.rmi.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$
+import org.apache.commons.codec.binary.Base64;
+
+/*
+ *	$SchemaName$HPKey History Primary Key base object
+ */
+public class $SchemaName$HPKey$iterate SchemaRefs( first SchemaHPKeyExtendBaseDef each empty empty SchemaHPKeyImplementsComparable )$
+{$iterate SchemaRefs( first SchemaHPKeyExtendBaseDefBody each empty empty SchemaHPKeyImplBaseDefBody )$}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="SchemaHPKeyExtendBaseDefBody">
+	public $poptop SchemaDef SchemaName$HPKey() {
+		super();
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="SchemaHPKeyImplBaseDefBody">
+	protected long auditClusterId;
+	protected Calendar auditStamp;
+	protected short auditActionId;
+	protected int requiredRevision;
+	protected UUID auditSessionId;$poptop SchemaDef implHPKeyConstructor$$poptop SchemaDef implAuditClusterIdGetterSetter$$poptop SchemaDef implAuditStampGetterSetter$$poptop SchemaDef implAuditActionIdGetterSetter$$poptop SchemaDef implRevisionGetterSetter$$poptop SchemaDef implAuditSessionIdGetterSetter$$poptop SchemaDef implHPKeyEquals$$poptop SchemaDef implHPKeyGetHashCode$$poptop SchemaDef implHPKeyCompareTo$$poptop SchemaDef implHPKeyToString$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="SchemaHPKeyExtendBaseDef">
+	extends $reference RefSchema SchemaName$HPKey</GenRule>
+
+	<GenRule GenDef="Object" Name="SchemaHPKeyImplementsComparable">
+	implements Comparable&lt;Object&gt;,
+		Serializable</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implHPKeyConstructor">
+	public $SchemaName$HPKey() {
+		auditClusterId = 0L;
+		auditStamp = null;
+		auditActionId = 0;
+		requiredRevision = 1;
+		auditSessionId = null;
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditClusterIdGetterSetter">
+	public long getAuditClusterId() {
+		return( auditClusterId );
+	}
+
+	public void setAuditClusterId( long value ) {
+		auditClusterId = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditStampGetterSetter">
+	public Calendar getAuditStamp() {
+		return( auditStamp );
+	}
+
+	public void setAuditStamp( Calendar value ) {
+		auditStamp = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditActionIdGetterSetter">
+	public short getAuditActionId() {
+		return( auditActionId );
+	}
+
+	public void setAuditActionId( short value ) {
+		auditActionId = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditSessionIdGetterSetter">
+	public UUID getAuditSessionId() {
+		return( auditSessionId );
+	}
+
+	public void setAuditSessionId( UUID value ) {
+		auditSessionId = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implHPKeyGetHashCode">
+	public int hashCode() {
+		int hashCode = 0;
+		hashCode = hashCode + (int)( auditClusterId &amp; 0x7fffffff );
+		if( auditStamp != null ) {
+			hashCode = hashCode + auditStamp.hashCode();
+		}
+		hashCode = hashCode + auditActionId;
+		hashCode = hashCode + requiredRevision;
+		if( auditSessionId != null ) {
+			hashCode = hashCode + auditSessionId.hashCode();
+		}
+		return( hashCode &amp; 0x7fffffff );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implHPKeyCompareTo">
+	public int compareTo( Object obj ) {
+		if( obj == null ) {
+			return( -1 );
+		}
+		else if( obj instanceof $SchemaName$HPKey ) {
+			$SchemaName$HPKey rhs = ($SchemaName$HPKey)obj;$implHPKeyCompareToAuditClusterId$$implHPKeyCompareToAuditStamp$$implHPKeyCompareToAuditActionId$$implHPKeyCompareToRequiredRevision$$implHPKeyCompareToAuditSessionId$
+			return( 0 );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				"compareTo",
+				"obj",
+				obj,
+				"$SchemaName$HPKey" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implHPKeyCompareToAuditClusterId">
+			{
+				long lhsAuditClusterId = getAuditClusterId();
+				long rhsAuditClusterId = rhs.getAuditClusterId();
+				if( lhsAuditClusterId &lt; rhsAuditClusterId ) {
+					return( -1 );
+				}
+				else if( lhsAuditClusterId &gt; rhsAuditClusterId ) {
+					return( 1 );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Object" Name="implHPKeyCompareToAuditStamp">
+			{
+				Calendar lhsAuditStamp = getAuditStamp();
+				Calendar rhsAuditStamp = rhs.getAuditStamp();
+				if( lhsAuditStamp == null ) {
+					if( rhsAuditStamp != null ) {
+						return( -1 );
+					}
+				}
+				else if( rhsAuditStamp == null ) {
+					return( 1 );
+				}
+				else {
+					int cmpstat = lhsAuditStamp.compareTo( rhsAuditStamp );
+					if( cmpstat != 0 ) {
+						return( cmpstat );
+					}
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Object" Name="implHPKeyCompareToAuditActionId">
+			{
+				short lhsAuditActionId = getAuditActionId();
+				short rhsAuditActionId = rhs.getAuditActionId();
+				if( lhsAuditActionId &lt; rhsAuditActionId ) {
+					return( -1 );
+				}
+				else if( lhsAuditActionId &gt; rhsAuditActionId ) {
+					return( 1 );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Object" Name="implHPKeyCompareToRequiredRevision">
+			{
+				int lhsRequiredRevision = getRequiredRevision();
+				int rhsRequiredRevision = rhs.getRequiredRevision();
+				if( lhsRequiredRevision &lt; rhsRequiredRevision ) {
+					return( -1 );
+				}
+				else if( lhsRequiredRevision &gt; rhsRequiredRevision ) {
+					return( 1 );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Object" Name="implHPKeyCompareToAuditSessionId">
+			{
+				UUID lhsAuditSessionId = getAuditSessionId();
+				UUID rhsAuditSessionId = rhs.getAuditSessionId();
+				if( lhsAuditSessionId == null ) {
+					if( rhsAuditSessionId != null ) {
+						return( -1 );
+					}
+				}
+				else if( rhsAuditSessionId == null ) {
+					return( 1 );
+				}
+				else {
+					int cmpstat = lhsAuditSessionId.compareTo( rhsAuditSessionId );
+					if( cmpstat != 0 ) {
+						return( cmpstat );
+					}
+				}
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implHPKeyEquals">
+	public boolean equals( Object obj ) {
+		if( obj == null ) {
+			return( false );
+		}
+		else if( obj instanceof $SchemaName$HPKey ) {
+			$SchemaName$HPKey rhs = ($SchemaName$HPKey)obj;$implHPKeyEqualsAuditClusterId$$implHPKeyEqualsAuditStamp$$implHPKeyEqualsAuditActionId$$implHPKeyEqualsRequiredRevision$$implHPKeyEqualsAuditSessionId$
+			return( true );
+		}
+		else {
+			return( false );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implHPKeyToString">
+	public String toString() {
+		String ret = "&lt;$SchemaName$HPKey"
+			+ " RequiredRevision=\\"" + Integer.toString( getRequiredRevision() ) + "\\""
+			+ "/&gt;";
+		return( ret );
+	}
+</GenRule>
+
+</RuleSet>

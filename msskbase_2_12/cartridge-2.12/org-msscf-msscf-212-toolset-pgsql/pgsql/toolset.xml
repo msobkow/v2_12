@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<ToolSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-toolset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-toolset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-toolset.xsd"
+	Name="pgsql"
+	Revision="2.12"
+	Descr="PostgreSQL rule sets">
+	<RuleSet Name="FileHeaders" />
+	<RuleSet Name="DefinePgSqlAdminFiles" />
+	<RuleSet Name="schema/dbcreate/pgsql/readme.txt" />
+	<RuleSet Name="schema/dbcreate/pgsql/CommandParse" />
+	<RuleSet Name="schema/dbcreate/pgsql/crdatabase_schema.bash" />
+	<RuleSet Name="schema/dbcreate/pgsql/crdatabase_schema.bat" />
+	<RuleSet Name="schema/dbcreate/pgsql/crdb_schema.bash" />
+	<RuleSet Name="schema/dbcreate/pgsql/crdb_schema.bat" />
+	<RuleSet Name="schema/dbcreate/pgsql/crtbl_schema.bash" />
+	<RuleSet Name="schema/dbcreate/pgsql/crtbl_schema.bat" />
+	<RuleSet Name="schema/dbcreate/pgsql/crseq_schema.bash" />
+	<RuleSet Name="schema/dbcreate/pgsql/crseq_schema.bat" />
+	<RuleSet Name="schema/dbcreate/pgsql/cridx_schema.bash" />
+	<RuleSet Name="schema/dbcreate/pgsql/cridx_schema.bat" />
+	<RuleSet Name="schema/dbcreate/pgsql/cridx_schema_h.bash" />
+	<RuleSet Name="schema/dbcreate/pgsql/cridx_schema_h.bat" />
+	<RuleSet Name="schema/dbcreate/pgsql/crrel_schema.bash" />
+	<RuleSet Name="schema/dbcreate/pgsql/crrel_schema.bat" />
+	<RuleSet Name="schema/dbcreate/pgsql/reorg_schema.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crtbl_table.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crtbl_table_h.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/cridx_index.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/cridx_h_index.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crrel_table.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crtbl_table_idg16.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crtbl_table_idg32.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crtbl_table_idg64.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crrel_table_idg16.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crrel_table_idg32.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crrel_table_idg64.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crseq_schema_idg16.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crseq_schema_idg32.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crseq_schema_idg64.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crtypes_schema.bash" />
+	<RuleSet Name="schema/dbcreate/pgsql/crtypes_schema.bat" />
+	<RuleSet Name="schema/dbcreate/pgsql/crtype_dbschemanameccrec.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crtype_dbtablenamerec.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crprocs_schema.bash" />
+	<RuleSet Name="schema/dbcreate/pgsql/crprocs_schema.bat" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_bootstrap.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_is_system_user.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_is_cluster_user.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_is_tenant_user.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_next_schemaidgen.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_next_tableidgen.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_audit_dbtablename.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_create_dbtablename.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_lock_dbtablename.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_read_dbtablename.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_read_dbtablename_all.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_read_dbtablename_by_suffix.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_read_dbtablename_cc.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_read_dbtablename_cc_all.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_read_dbtablename_cc_by_suffix.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_page_dbtablename_all.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_page_dbtablename_by_suffix.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_update_dbtablename.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_delete_dbtablename.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_delete_dbtablename_by_suffix.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_moveup_dbtablename.pgsql" />
+	<RuleSet Name="schema/dbcreate/pgsql/crsp_movedown_dbtablename.pgsql" />
+</ToolSet>

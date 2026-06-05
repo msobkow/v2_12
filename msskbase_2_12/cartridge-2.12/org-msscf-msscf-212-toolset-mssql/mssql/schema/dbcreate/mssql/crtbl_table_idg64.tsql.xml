@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mssql"
+	Name="schema/dbcreate/mssql/crtbl_table_idg64.tsql"
+	Revision="2.12"
+	Descr="Microsoft SQL Server Developer Edition Create Table Id64Gen Table T-SQL Script">
+
+	<GenFile ScopeDef="Table" GenDef="Id64Gen" Name="dbadminfile_CreateTableIdg64Table"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mssql"
+		ExpansionClassName="crtbl_$lower DbTableName$_idg64"
+		ExpansionKeyName="crtbl_$lower DbTableName$_idg64"
+		ExpansionFileName="$dbadminfilename_CreateTableIdg64Table$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+use $lower DbSchemaName$
+go
+
+CREATE TABLE $lower DbSchemaName$..$DbTableName$_idg64 ($reference Dispenser reference PrimaryKeyIndex iterate Columns( each clause_CreateIdgColComma )$
+	slice_id	SMALLINT$clause_NotNull$,
+	next_id	$clause_ColType$$clause_NotNull$ )$RunSqlStmt$
+ALTER TABLE $lower DbSchemaName$..$DbTableName$_idg64
+	ADD CONSTRAINT pk_$lower DbTableName$_idg64 PRIMARY KEY ($reference Dispenser reference PrimaryKeyIndex iterate Columns( each clause_PKeyColComma )$ slice_id )$RunSqlStmt$
+quit
+</GenFile>
+
+</RuleSet>

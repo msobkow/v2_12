@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CFSec
+		xmlns="uri://cfsec/cfsecloader"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="uri://cfsec/cfsecloader file:/usr/share/xsd/cfsec-structured.xsd" >
+	<Cluster FullDomName="system" Description="system">
+		<Tenant TenantName="tenant">
+			<TSecGroup Name="TenantAdmin" IsVisible="true" >
+				<TSecGroupMember User="system" />
+			</TSecGroup>
+			<TSecGroup Name="CFIntAdmin" IsVisible="true" >
+				<TSecGroupInclude SubGroup="TenantAdmin" />
+			</TSecGroup>
+			<TSecGroup Name="CFIntReader" IsVisible="true" >
+				<TSecGroupInclude SubGroup="CFIntAdmin" />
+			</TSecGroup>
+			<TSecGroup Name="CFIntCreator" IsVisible="true" >
+				<TSecGroupInclude SubGroup="CFIntAdmin" />
+			</TSecGroup>
+			<TSecGroup Name="CFIntUpdater" IsVisible="true" >
+				<TSecGroupInclude SubGroup="CFIntAdmin" />
+			</TSecGroup>
+			<TSecGroup Name="CFIntDeleter" IsVisible="true" >
+				<TSecGroupInclude SubGroup="CFIntAdmin" />
+			</TSecGroup>
+			<TSecGroup Name="CFSecAdmin" IsVisible="true" >
+				<TSecGroupInclude SubGroup="TenantAdmin" />
+			</TSecGroup>
+			<TSecGroup Name="CFSecReader" IsVisible="true" >
+				<TSecGroupInclude SubGroup="CFSecAdmin" />
+			</TSecGroup>
+			<TSecGroup Name="CFSecCreator" IsVisible="true" >
+				<TSecGroupInclude SubGroup="CFSecAdmin" />
+			</TSecGroup>
+			<TSecGroup Name="CFSecUpdater" IsVisible="true" >
+				<TSecGroupInclude SubGroup="CFSecAdmin" />
+			</TSecGroup>
+			<TSecGroup Name="CFSecDeleter" IsVisible="true" >
+				<TSecGroupInclude SubGroup="CFSecAdmin" />
+			</TSecGroup>
+			<TSecGroup Name="ReadLicense" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntReader" />
+			</TSecGroup>
+			<TSecGroup Name="CreateLicense" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntCreator" />
+			</TSecGroup>
+			<TSecGroup Name="UpdateLicense" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntUpdater" />
+			</TSecGroup>
+			<TSecGroup Name="DeleteLicense" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntDeleter" />
+			</TSecGroup>
+			<TSecGroup Name="ReadMajorVersion" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntReader" />
+			</TSecGroup>
+			<TSecGroup Name="CreateMajorVersion" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntCreator" />
+			</TSecGroup>
+			<TSecGroup Name="UpdateMajorVersion" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntUpdater" />
+			</TSecGroup>
+			<TSecGroup Name="DeleteMajorVersion" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntDeleter" />
+			</TSecGroup>
+			<TSecGroup Name="ReadMinorVersion" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntReader" />
+			</TSecGroup>
+			<TSecGroup Name="CreateMinorVersion" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntCreator" />
+			</TSecGroup>
+			<TSecGroup Name="UpdateMinorVersion" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntUpdater" />
+			</TSecGroup>
+			<TSecGroup Name="DeleteMinorVersion" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntDeleter" />
+			</TSecGroup>
+			<TSecGroup Name="ReadSubProject" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntReader" />
+			</TSecGroup>
+			<TSecGroup Name="CreateSubProject" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntCreator" />
+			</TSecGroup>
+			<TSecGroup Name="UpdateSubProject" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntUpdater" />
+			</TSecGroup>
+			<TSecGroup Name="DeleteSubProject" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntDeleter" />
+			</TSecGroup>
+			<TSecGroup Name="ReadTSecGroup" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecReader" />
+			</TSecGroup>
+			<TSecGroup Name="CreateTSecGroup" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecCreator" />
+			</TSecGroup>
+			<TSecGroup Name="UpdateTSecGroup" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecUpdater" />
+			</TSecGroup>
+			<TSecGroup Name="DeleteTSecGroup" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecDeleter" />
+			</TSecGroup>
+			<TSecGroup Name="ReadTSecGrpInc" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecReader" />
+			</TSecGroup>
+			<TSecGroup Name="CreateTSecGrpInc" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecCreator" />
+			</TSecGroup>
+			<TSecGroup Name="UpdateTSecGrpInc" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecUpdater" />
+			</TSecGroup>
+			<TSecGroup Name="DeleteTSecGrpInc" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecDeleter" />
+			</TSecGroup>
+			<TSecGroup Name="ReadTSecGrpMemb" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecReader" />
+			</TSecGroup>
+			<TSecGroup Name="CreateTSecGrpMemb" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecCreator" />
+			</TSecGroup>
+			<TSecGroup Name="UpdateTSecGrpMemb" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecUpdater" />
+			</TSecGroup>
+			<TSecGroup Name="DeleteTSecGrpMemb" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFSecDeleter" />
+			</TSecGroup>
+			<TSecGroup Name="ReadTld" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntReader" />
+			</TSecGroup>
+			<TSecGroup Name="CreateTld" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntCreator" />
+			</TSecGroup>
+			<TSecGroup Name="UpdateTld" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntUpdater" />
+			</TSecGroup>
+			<TSecGroup Name="DeleteTld" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntDeleter" />
+			</TSecGroup>
+			<TSecGroup Name="ReadTopDomain" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntReader" />
+			</TSecGroup>
+			<TSecGroup Name="CreateTopDomain" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntCreator" />
+			</TSecGroup>
+			<TSecGroup Name="UpdateTopDomain" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntUpdater" />
+			</TSecGroup>
+			<TSecGroup Name="DeleteTopDomain" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntDeleter" />
+			</TSecGroup>
+			<TSecGroup Name="ReadTopProject" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntReader" />
+			</TSecGroup>
+			<TSecGroup Name="CreateTopProject" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntCreator" />
+			</TSecGroup>
+			<TSecGroup Name="UpdateTopProject" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntUpdater" />
+			</TSecGroup>
+			<TSecGroup Name="DeleteTopProject" IsVisible="false" >
+				<TSecGroupInclude SubGroup="CFIntDeleter" />
+			</TSecGroup>
+		</Tenant>
+	</Cluster>
+</CFSec>

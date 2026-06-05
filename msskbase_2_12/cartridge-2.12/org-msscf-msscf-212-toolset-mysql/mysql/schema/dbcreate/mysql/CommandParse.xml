@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mysql"
+	Name="schema/dbcreate/mysql/CommandParse"
+	Revision="2.12"
+	Descr="null">
+
+	<GenRule GenDef="Object" Name="parseMySqlArgs">
+#
+#	Initialize locals
+#
+mysqlpwd=""
+mysqluser=""
+logfilename=""
+parmerrors=""
+TK_DUALCASE_IN_CASE_STATEMENTS=true
+
+#
+#	Parse the command line options
+#
+while [ -n "$$1" ]
+do
+	case "$$1" in
+
+		-L)
+			shift
+			logfilename=$$1
+			shift
+			;;
+
+		-P)
+			shift
+			mysqlpwd=$$1
+			shift
+			;;
+
+		-U)
+			shift
+			mysqluser=$$1
+			shift
+			;;
+
+		*)
+			echo &gt;&amp;2 "ERROR: Option $$1 not recognized."
+			shift
+			parmerrors="Y"
+			;;
+	esac
+done
+</GenRule>
+
+	<GenRule GenDef="Object" Name="validateMySqlArgs">
+#
+#	Validate parameters
+#
+
+if [ "$$mysqluser" = "" ]; then
+	echo &gt;&amp;2 "ERROR: MySQL user must be specified with '-U username'"
+	parmerrors="Y"
+fi
+
+if [ "$$mysqlpwd" = "" ]; then
+	echo &gt;&amp;2 "ERROR: Password must be specified with '-P password'"
+	parmerrors="Y"
+fi
+
+if [ "$$parmerrors" != "" ]; then
+	echo &gt;&amp;2 "ABORT: Cannot continue"
+	exit 1
+fi
+
+if [ "$$logfilename" = "" ]; then
+	logfilename=`date +'$GenFileBaseName$-%Y%m%d_%Hh%M.log'`
+	echo "" &gt;$$logfilename
+fi
+</GenRule>
+
+
+	<GenRule GenDef="Object" Name="parseMySqlArgsBat">
+REM
+REM	Initialize locals
+REM
+
+SET mysqlpwd=""
+SET mysqluser=""
+SET logfilename=$GenFileBaseName$.log
+SET TK_DUALCASE_IN_CASE_STATEMENTS=true
+
+IF NOT "%1" == "" SET mysqluser=%1
+IF NOT "%2" == "" SET mysqlpwd=%2
+IF NOT "%3" == "" SET logfilename=%3
+</GenRule>
+
+	<GenRule GenDef="Object" Name="validateMySqlArgsBat">
+REM
+REM	Validate parameters
+REM
+
+IF "%mysqluser%" == "" (
+	ECHO ERROR: MySQL DBA login not specified as argument 1
+	PAUSE
+	EXIT
+)
+
+IF "%mysqlpwd%" == "" (
+	ECHO ERROR: Password must be specified as argument 2 &gt;&amp;2
+	PAUSE
+	EXIT
+)
+</GenRule>
+
+</RuleSet>

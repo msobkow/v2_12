@@ -1,0 +1,7 @@
+1,$s,file:../bin/xsd/cfgenkb-2.12-ruleset.xsd,file:/usr/share/msobkow/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd,g
+1,$s,file:../bin/xsd/cfgenkb-2.12-toolset.xsd,file:/usr/share/msobkow/2.0.12/xsd/cfgenkb-2.12-toolset.xsd,g
+1,$s,file:../bin/xsd/cfgenkb-2.12-cartridge.xsd,file:/usr/share/msobkow/2.0.12/xsd/cfgenkb-2.12-cartridge.xsd,g
+1,$s:"2.11":"2.12":g
+w
+q
+

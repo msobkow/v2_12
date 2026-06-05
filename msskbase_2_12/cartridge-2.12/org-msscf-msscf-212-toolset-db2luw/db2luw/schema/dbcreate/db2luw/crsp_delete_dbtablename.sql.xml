@@ -1,0 +1,1211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crsp_delete_dbtablename.sql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPDeleteDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="$dbadminfilename_CreateSPDeleteDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPDeleteDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPDeleteDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create or replace procedure $sp_delete_dbtablename$($implDb2LUWSPStandardArgs$,	\\
+	$reference PrimaryKeyIndex iterate Columns( first sparg_TableCol each sparg_CommaTableCol )$$sparg_Revision$ )	\\
+dynamic result sets 1	\\
+language sql	\\
+begin$declSPOldVars$	\\
+	declare subret boolean;$switch HasChain yes declDb2LUWSPDeleteTableContainerVars default empty$$switch HasChain yes declDb2LUWSPDeleteTableChainLinkVars default empty$$switch SecScope None empty System implDb2LUWSPDeleteTableDeclPermFlag Cluster implDb2LUWSPDeleteTableDeclPermFlag Tenant implDb2LUWSPDeleteTableDeclPermFlag default error$	\\
+	declare retcursor cursor with return to client for	\\
+		select 1 from sysibm.sysdummy1;	\\
+	begin$switch HasChain yes implDb2LUWSPDeleteTableFetchContainerKeys default empty$$switch HasChain yes implDb2LUWSPDeleteTableLatchContainer default empty$$implDb2LUWLockTables$$switch SecScope None empty System implDb2LUWSPDeleteTableCheckSystem Cluster implDb2LUWSPDeleteTableCheckCluster Tenant implDb2LUWSPDeleteTableCheckTenant default error$	\\
+$switch HasChain yes implDb2LUWSPDeleteTableChainSelectLinks default empty$$switch HasChain yes implDb2LUWSPDeleteTableUpdatePrev default empty$$switch HasChain yes implDb2LUWSPDeleteTableUpdateNext default empty$$implDb2LUWSPDeleteTableClearDeps$$implDb2LUWSPDeleteTableClearSubObjectRefs$$switch HasDelDeps no empty default implDb2LUWDeleteDelDeps$$switch BaseHasHistory yes implDb2LUWDeleteLogAudit default empty$$implDb2LUWDeleteHierarchy$$switch HasChain yes implDb2LUWSPDeleteTableUnlatchContainer default empty$	\\
+		open retcursor;	\\
+	end;	\\
+end
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUpdatePrev">	\\
+		if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implDb2LUWSPDeleteTableUpdatePrevIfNotNull each empty )$ )	\\
+		then$switch ChainTableHasSuperClassRelation yes implDb2LUWSPDeleteTableUpdatePrevTwoTables default implDb2LUWSPDeleteTableUpdatePrevOneTable$$switch BaseHasHistory yes implDb2LUWSPDeleteTableUpdatePrevAuditUpdated default empty$	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUpdatePrevOneTable">	\\
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+			set	\\
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implDb2LUWSPDeleteTableUpdateTableAuditColumns default empty$$reference Chain reference NextRel iterate Columns( each implDb2LUWSPDeleteTableUpdatePrevWithCommaKey )$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPDeleteTableUpdateTableWherePrevPKeyCol each implDb2LUWSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUpdateTableAuditColumns">,	\\
+				updatedby = argAuditUserId,	\\
+				updatedat = current timestamp</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableUpdatePrevWithKey"
+		>$reference FromCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableUpdatePrevWithCommaKey">,	\\
+				$implDb2LUWSPDeleteTableUpdatePrevWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableUpdateTableWherePrevPKeyCol"
+		>$reference ToCol DbColumnName$ = varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableUpdateTableWhereAndPrevPKeyCol">	\\
+				and $implDb2LUWSPDeleteTableUpdateTableWherePrevPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUpdatePrevTwoTables">	\\
+			update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$	\\
+			set	\\
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implDb2LUWSPDeleteTableUpdateTableAuditColumns default empty$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPDeleteTableUpdateTableWherePrevPKeyCol each implDb2LUWSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;	\\
+	\\
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+			set	\\
+				$reference Chain reference NextRel iterate Columns( first implDb2LUWSPDeleteTableUpdatePrevWithKey each implDb2LUWSPDeleteTableUpdatePrevWithCommaKey )$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPDeleteTableUpdateTableWherePrevPKeyCol each implDb2LUWSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableUpdatePrevIfNotNull"
+		>varprev$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUpdatePrevAuditUpdated">	\\
+			call sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,	\\
+				argAuditUserId,	\\
+				argAuditSessionId,	\\
+				secClusterId,	\\
+				secTenantId$reference Chain reference Table switch HasClassCode yes implDb2LUWSPDeleteTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implDb2LUWSPDeleteTableAuditUpdatedPrevPassArg )$,	\\
+				1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUpdatePrevAuditPassClassCode">,	\\
+				varprevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableAuditUpdatedPrevPassArg">,	\\
+				varprev$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUpdateNext">	\\
+		if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implDb2LUWSPDeleteTableUpdateNextIfNotNull each empty )$ )	\\
+		then$switch ChainTableHasSuperClassRelation yes implDb2LUWSPDeleteTableUpdateNextTwoTables default implDb2LUWSPDeleteTableUpdateNextOneTable$$switch BaseHasHistory yes implDb2LUWSPDeleteTableUpdateNextAuditUpdated default empty$	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUpdateNextOneTable">	\\
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+			set	\\
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implDb2LUWSPDeleteTableUpdateTableAuditColumns default empty$$reference Chain reference PrevRel iterate Columns( each implDb2LUWSPDeleteTableUpdateNextWithCommaKey )$	\\
+			where	\\
+				$reference Chain reference NextRel iterate Columns( first implDb2LUWSPDeleteTableUpdateTableWhereNextPKeyCol each implDb2LUWSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableUpdateNextWithKey"
+		>$reference FromCol DbColumnName$ = varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableUpdateNextWithCommaKey">,	\\
+				$implDb2LUWSPDeleteTableUpdateNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableUpdateTableWhereNextPKeyCol"
+		>$reference ToCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableUpdateTableWhereAndNextPKeyCol">	\\
+				and $implDb2LUWSPDeleteTableUpdateTableWhereNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUpdateNextTwoTables">	\\
+			update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$	\\
+			set	\\
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implDb2LUWSPDeleteTableUpdateTableAuditColumns default empty$	\\
+			where	\\
+				$reference Chain reference NextRel iterate Columns( first implDb2LUWSPDeleteTableUpdateTableWhereNextPKeyCol each implDb2LUWSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;	\\
+	\\
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+			set	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPDeleteTableUpdateNextWithKey each implDb2LUWSPDeleteTableUpdateNextWithCommaKey )$	\\
+			where	\\
+				$reference Chain reference NextRel iterate Columns( first implDb2LUWSPDeleteTableUpdateTableWhereNextPKeyCol each implDb2LUWSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableUpdateNextIfNotNull"
+		>varnext$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUpdateNextAuditUpdated">	\\
+			call sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,	\\
+				argAuditUserId,	\\
+				argAuditSessionId,	\\
+				secClusterId,	\\
+				secTenantId$reference Chain reference Table switch HasClassCode yes implDb2LUWSPDeleteTableUpdateNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implDb2LUWSPDeleteTableAuditUpdatedNextPassArg )$,	\\
+				1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUpdateNextAuditPassClassCode">,	\\
+				varnextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableAuditUpdatedNextPassArg">,	\\
+				varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPDeleteTableChainLinkVars"
+		>$switch HasClassCode yes declDb2LUWSPDeleteTableChainLinkClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declDb2LUWSPDeleteTableChainPrevVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declDb2LUWSPDeleteTableChainNextVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPDeleteTableChainLinkClassCode">	\\
+	declare varprevClassCode varchar(4);	\\
+	declare varnextClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declDb2LUWSPDeleteTableChainPrevVar">	\\
+	declare varprev$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declDb2LUWSPDeleteTableChainNextVar">	\\
+	declare varnext$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectLinks"
+		>$reference Chain reference Table implDb2LUWSPDeleteTableChainSelectChainLinks$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectChainLinks">	\\
+		select$switch HasClassCode yes implDb2LUWSPDeleteTableChainSelectPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implDb2LUWSPDeleteTableChainSelectPrevKeyComma )$$switch HasClassCode yes implDb2LUWSPDeleteTableChainSelectNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implDb2LUWSPDeleteTableChainSelectNextKeyComma last implDb2LUWSPDeleteTableChainSelectNextKey )$$implDb2LUWSPDeleteTableChainSelectChainLinksInto$$implDb2LUWSPDeleteTableChainSelectChainLinksFromWhere$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectChainLinksInto">	\\
+		into$switch HasClassCode yes implDb2LUWSPDeleteTableChainSelectIntoPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implDb2LUWSPDeleteTableChainSelectIntoPrevKeyComma )$$switch HasClassCode yes implDb2LUWSPDeleteTableChainSelectIntoNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implDb2LUWSPDeleteTableChainSelectIntoNextKeyComma last implDb2LUWSPDeleteTableChainSelectIntoNextKey )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectChainLinksFromWhere">	\\
+		from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ $lower reference Chain reference Table ClassCode$$reference Chain reference Table switch HasSuperClassRelation yes implDb2LUWSPDeleteTableChainSelectInnerJoinSuper default empty$$implDb2LUWSPDeleteTableChainSelectOuterJoinLinkTables$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteTableChainSelectWherePKey each implDb2LUWSPDeleteTableChainSelectWhereAndPKey )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectInnerJoinSuper">	\\
+			inner join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implDb2LUWSPDeleteTableChainSelectOnKeySuper each implDb2LUWSPDeleteTableChainSelectOnKeyAndSuper )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableChainSelectOnKeySuper"
+		>$lower popto Relation reference FromTable ClassCode$.$reference FromCol DbColumnName$ = $lower popto Relation reference ToTable ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableChainSelectOnKeyAndSuper">	\\
+				and $implDb2LUWSPDeleteTableChainSelectOnKeySuper$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableChainSelectWherePKey"
+		>$lower poptop Table reference Chain reference Table ClassCode$.$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableChainSelectWhereAndPKey">	\\
+			and $implDb2LUWSPDeleteTableChainSelectWherePKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectOuterJoinLinkTables">	\\
+			left outer join $lower DbSchemaName$.$DbTableName$ prv$lower ClassCode$ on	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPDeleteTableChainSelectOJPrevKey each implDb2LUWSPDeleteTableChainSelectOJAndPrevKey )$$switch HasSuperClassRelation yes implDb2LUWSPDeleteTableChainSelectOuterJoinPrevSuper default empty$	\\
+			left outer join $lower DbSchemaName$.$DbTableName$ nxt$lower ClassCode$ on	\\
+				$reference Chain reference NextRel iterate Columns( first implDb2LUWSPDeleteTableChainSelectOJNextKey each implDb2LUWSPDeleteTableChainSelectOJAndNextKey )$$switch HasSuperClassRelation yes implDb2LUWSPDeleteTableChainSelectOuterJoinNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectOuterJoinPrevSuper">	\\
+			left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ prv$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implDb2LUWSPDeleteTableChainSelectOuterJoinPrevSuperKey each implDb2LUWSPDeleteTableChainSelectOuterJoinPrevSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implDb2LUWSPDeleteTableChainSelectOuterJoinPrevSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableChainSelectOuterJoinPrevSuperKey"
+		>prv$lower popto Relation reference FromTable ClassCode$.$reference FromCol DbColumnName$ = prv$lower popto Relation reference ToTable ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableChainSelectOuterJoinPrevSuperAndKey">	\\
+				and $implDb2LUWSPDeleteTableChainSelectOuterJoinPrevSuperKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectOuterJoinNextSuper">	\\
+			left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ nxt$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implDb2LUWSPDeleteTableChainSelectOuterJoinNextSuperKey each implDb2LUWSPDeleteTableChainSelectOuterJoinNextSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implDb2LUWSPDeleteTableChainSelectOuterJoinNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableChainSelectOuterJoinNextSuperKey"
+		>nxt$lower popto Relation reference FromTable ClassCode$.$reference FromCol DbColumnName$ = nxt$lower popto Relation reference ToTable ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableChainSelectOuterJoinNextSuperAndKey">	\\
+				and $implDb2LUWSPDeleteTableChainSelectOuterJoinNextSuperKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableChainSelectOJPrevKey"
+		>prv$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableChainSelectOJAndPrevKey">	\\
+				and $implDb2LUWSPDeleteTableChainSelectOJPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableChainSelectOJNextKey"
+		>nxt$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableChainSelectOJAndNextKey">	\\
+				and $implDb2LUWSPDeleteTableChainSelectOJNextKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectPrevClassCodeComma">	\\
+			prv$lower reference BaseClass ClassCode$.classcode as prvclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableChainSelectPrevKeyComma">	\\
+			$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as prv$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectNextClassCodeComma">	\\
+			nxt$lower reference Chain reference Table reference BaseClass ClassCode$.classcode as nxtclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableChainSelectNextKey">	\\
+			$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as nxt$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableChainSelectNextKeyComma"
+		>$implDb2LUWSPDeleteTableChainSelectNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectIntoPrevClassCodeComma">	\\
+			varprevClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableChainSelectIntoPrevKeyComma">	\\
+			varprev$StripPrevNextColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableChainSelectIntoNextClassCodeComma">	\\
+			varnextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableChainSelectIntoNextKey">	\\
+			varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableChainSelectIntoNextKeyComma"
+		>$implDb2LUWSPDeleteTableChainSelectIntoNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableFetchContainerKeys">	\\
+		select$reference ContainerRelation iterate Columns( first implDb2LUWSPDeleteTableFetchContainerKeysColName each implDb2LUWSPDeleteTableFetchContainerKeysCommaColName )$	\\
+		into$reference ContainerRelation iterate Columns( first implDb2LUWSPDeleteTableFetchContainerKeysIntoVar each implDb2LUWSPDeleteTableFetchContainerKeysCommaIntoVar )$	\\
+		from $lower DbSchemaName$.$reference ContainerRelation reference FromTable DbTableName$	\\
+		where$reference ContainerRelation reference FromTable reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteTableFetchContainerKeysPassPKey each implDb2LUWSPDeleteTableFetchContainerKeysAndPassPKey )$;	\\
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableFetchContainerKeysColName">	\\
+			$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableFetchContainerKeysCommaColName"
+		>,$implDb2LUWSPDeleteTableFetchContainerKeysColName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableFetchContainerKeysIntoVar">	\\
+			var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableFetchContainerKeysCommaIntoVar"
+		>,$implDb2LUWSPDeleteTableFetchContainerKeysIntoVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableFetchContainerKeysPassPKey">	\\
+			$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableFetchContainerKeysAndPassPKey">	\\
+			and $DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPDeleteTableContainerVars"
+		>$reference ContainerRelation iterate Columns( each declDb2LUWSPDeleteTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="declDb2LUWSPDeleteTableContainerVar">	\\
+	declare var$reference FromCol Name$ $reference FromCol clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implDb2LUWSPDeleteTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableLatchBase">	\\
+		update $lower DbSchemaName$.$DbTableName$	\\
+		set revision = revision + 1	\\
+		where	\\
+			$popto Relation iterate Columns( first implDb2LUWSPDeleteTableLatchWhereArg each implDb2LUWSPDeleteTableLatchWhereAndArg )$;	\\
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableLatchWhereArg"
+		>$reference ToCol DbColumnName$ = var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableLatchWhereAndArg">	\\
+		and $implDb2LUWSPDeleteTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implDb2LUWSPDeleteTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableUnlatchBase">	\\
+		update $lower DbSchemaName$.$DbTableName$	\\
+		set revision = revision - 1	\\
+		where	\\
+			$popto Relation iterate Columns( first implDb2LUWSPDeleteTableLatchWhereArg each implDb2LUWSPDeleteTableLatchWhereAndArg )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableClearDeps"
+		>$switch HasSuperClassRelation yes implDb2LUWSPDeleteTableInhClearDeps default implDb2LUWSPDeleteTableBaseClearDeps$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableInhClearDeps"
+		>$reference SuperClassRelation reference ToTable implDb2LUWSPDeleteTableClearDeps$$iterate ReverseClearDeps( each implDb2LUWSPDeleteTableClearDep empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableBaseClearDeps"
+		>$iterate ReverseClearDeps( each implDb2LUWSPDeleteTableClearDep empty empty )$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implDb2LUWSPDeleteTableClearDep">	\\
+		for cur as	\\
+			select$switch HasClearSubDep yes implDb2LUWSPDeleteSelectClearDepSubDeleteColumns default implDb2LUWSPDeleteSelectClearDepMyDeleteColumns$	\\
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$$switch HasClearSubDep yes implDb2LUWSPDeleteClearDepSubJoin default empty$	\\
+			where	\\
+				$poptop Table reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteClearDepWhereFragBindVar each implDb2LUWSPDeleteClearDepWhereAndFragBindVar )$	\\
+		do$switch HasClearSubDep yes implDb2LUWSPDeleteClearDepSubBody default implDb2LUWSPDeleteClearDepMyBody$	\\
+		end for;	\\
+</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implDb2LUWSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep switch HasClearSubDep yes implDb2LUWSPDeleteSelectClearDepSubDeleteColumns default implDb2LUWSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implDb2LUWSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteSelectClearDepColumn each implDb2LUWSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteSelectClearDepColumn">	\\
+				$lower popto Table ClassCode$.$lower reference Column DbColumnName$ as cur$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteSelectCommaClearDepColumn">,	\\
+				$lower popto Table ClassCode$.$lower reference Column DbColumnName$ as cur$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implDb2LUWSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep switch HasClearSubDep yes implDb2LUWSPDeleteSelectClearDepSubDeleteColumns default implDb2LUWSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implDb2LUWSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteSelectClearDepColumn each implDb2LUWSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implDb2LUWSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep implDb2LUWSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implDb2LUWSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteSelectClearDepColumn each implDb2LUWSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="ClearSubDep3" Name="implDb2LUWSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteSelectClearDepColumn each implDb2LUWSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteClearDepWhereFragBindVar"
+		>$poptop Table lower ClassCode$.$lower reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteClearDepWhereAndFragBindVar">	\\
+				and $poptop Table lower ClassCode$.$lower reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implDb2LUWSPDeleteClearDepSubJoin">	\\
+				inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implDb2LUWSPDeleteClearDepJoinRelCol each implDb2LUWSPDeleteClearDepJoinAndRelCol )$$reference ClearSubDep implDb2LUWSPDeleteClearDepJoin$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteClearDepJoinRelCol">	\\
+					$popto Relation reference FromTable lower ClassCode$.$lower reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteClearDepJoinAndRelCol">	\\
+					and $popto Relation reference FromTable lower ClassCode$.$lower reference FromCol DbColumnName$ = $lower popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implDb2LUWSPDeleteClearDepJoin"
+		>$switch HasClearSubDep yes implDb2LUWSPDeleteClearDepSubJoin default empty$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implDb2LUWSPDeleteClearDepSubJoin">	\\
+				inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implDb2LUWSPDeleteClearDepJoinRelCol each implDb2LUWSPDeleteClearDepJoinAndRelCol )$$reference ClearSubDep implDb2LUWSPDeleteClearDepJoin$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implDb2LUWSPDeleteClearDepJoin"
+		>$switch HasClearSubDep yes implDb2LUWSPDeleteClearDepSubJoin default empty$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implDb2LUWSPDeleteClearDepSubJoin">	\\
+				inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implDb2LUWSPDeleteClearDepJoinRelCol each implDb2LUWSPDeleteClearDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implDb2LUWSPDeleteClearDepSubBody"
+		>$reference ClearSubDep switch HasClearSubDep yes implDb2LUWSPDeleteClearDepSubBody default implDb2LUWSPDeleteClearDepMyBody$</GenRule>
+
+	<GenRule GenDef="ClearDep" Name="implDb2LUWSPDeleteClearDepMyBody">	\\
+			update $lower poptop Table DbSchemaName$.$reference Relation reference FromTable lower DbTableName$	\\
+			set$reference Relation reference FromIndex iterate Columns( first implDb2LUWSPDeleteClearNLCol each implDb2LUWSPDeleteClearCommaNLCol )$	\\
+			where	\\
+				$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implSPDeleteClearDepPassCurArg each implSPDeleteClearDepPassAndCurArg )$;	\\
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteClearNLCol">	\\
+				$lower DbColumnName$ = null</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteClearCommaNLCol"
+		>,$implDb2LUWSPDeleteClearNLCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteClearDepPassCurArg"
+		>$lower DbColumnName$ = cur$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteClearDepPassAndCurArg">	\\
+				and $implSPDeleteClearDepPassCurArg$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implDb2LUWSPDeleteClearDepSubBody"
+		>$reference ClearSubDep switch HasClearSubDep yes implDb2LUWSPDeleteClearDepSubBody default implDb2LUWSPDeleteClearDepMyBody$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implDb2LUWSPDeleteClearDepSubBody"
+		>$reference ClearSubDep implDb2LUWSPDeleteClearDepMyBody$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableClearSubObjectRefs"
+		>$switch HasSuperClassRelation yes implDb2LUWSPDeleteTableClearInhSubObjectRefs default implDb2LUWSPDeleteTableClearBaseSubObjectRefs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableClearInhSubObjectRefs"
+		>$reference SuperClassRelation reference ToTable implDb2LUWSPDeleteTableClearSubObjectRefs$$switch HasSubObjectLookup yes implDb2LUWSPDeleteTableClearSubObjectLookups default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableClearBaseSubObjectRefs"
+		>$switch HasSubObjectLookup yes implDb2LUWSPDeleteTableClearSubObjectLookups default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableClearSubObjectLookups">	\\
+		update $lower DbSchemaName$.$lower DbTableName$	\\
+		set	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteTableClearSubObjectLookupsSetPKeyCol each empty )$$iterate Relation( each implDb2LUWSPDeleteTableClearSubObjectLookupCols empty empty )$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWLockWhereFragBindVar each implDb2LUWLockWhereAndFragBindVar )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implDb2LUWSPDeleteTableClearSubObjectLookupCols"
+		>$switch IsSubObjectLookup yes implDb2LUWSPDeleteTableReallyClearSubObjectLookupCols default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implDb2LUWSPDeleteTableReallyClearSubObjectLookupCols"
+		>$iterate Columns( each implDb2LUWSPDeleteTableClearSubObjectFromCol )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteTableClearSubObjectFromCol">,	\\
+			$lower reference FromCol DbColumnName$ = null</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteTableClearSubObjectLookupsSetPKeyCol"
+		>$lower DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableDeclPermFlag">	\\
+	declare permissionFlag integer;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableCheckSystem">	\\
+		set( permissionFlag ) = ( sp_is_system_user( argAuditUserId ) );	\\
+		if( permissionFlag = 0 )	\\
+		then	\\
+			call raise_application_error( -20001, 'Permission denied -- only system user can delete $TableName$ records' );	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableCheckCluster">	\\
+		if( old$reference ClusterIdColumn Name$ != secClusterId )	\\
+		then	\\
+			set( permissionFlag ) = ( sp_is_system_user( argAuditUserId ) );	\\
+			if( permissionFlag = 0 )	\\
+			then	\\
+				call raise_application_error( -20002, 'Permission denied -- Data is not owned by logged in cluster' );	\\
+			end if;	\\
+		end if;	\\
+	\\
+		set( permissionFlag ) = ( sp_is_cluster_user( old$reference ClusterIdColumn Name$,	\\
+				'Delete$Name$',	\\
+				argAuditUserId ) );	\\
+		if( permissionFlag = 0 )	\\
+		then	\\
+			call raise_application_error( -20002, 'Permission denied -- User not found in cluster SecGroup for Delete$TableName$' );	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPDeleteTableCheckTenant">	\\
+		if( old$reference TenantIdColumn Name$ != secTenantId )	\\
+		then	\\
+			set( permissionFlag ) = ( sp_is_system_user( argAuditUserId ) );	\\
+			if( permissionFlag = 0 )	\\
+			then	\\
+				call raise_application_error( -20003, 'Permission denied -- Data is not owned by logged in tenant' );	\\
+			end if;	\\
+		end if;	\\
+	\\
+		set( permissionFlag ) = ( sp_is_tenant_user( old$reference TenantIdColumn Name$,	\\
+				'Delete$Name$',	\\
+				argAuditUserId ) );	\\
+		if( permissionFlag = 0 )	\\
+		then	\\
+			call raise_application_error( -20003, 'Permission denied -- User not found in tenant TSecGroup for Delete$TableName$' );	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWDeleteLogAudit"
+		>$switch BaseHasClassCode yes implCreateAuditThreeWithCC default implCreateAuditThreeNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditThreeNoCC">	\\
+		insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$	\\
+			auditclusterid,	\\
+			auditsessionid,	\\
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$	\\
+			revision,	\\
+			auditaction )	\\
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$	\\
+			argAuditClusterId,	\\
+			argAuditSessionId,	\\
+			current timestamp,$implAuditInheritedDataColumnNameComma$	\\
+			$lower reference BaseClass ClassCode$.revision + 1,	\\
+			2	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditThreeWithCC">	\\
+		if( oldClassCode = '$poptop Table ClassCode$' )	\\
+		then	\\
+			insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$	\\
+				classcode,	\\
+				auditclusterid,	\\
+				auditsessionid,	\\
+				auditstamp,$implAuditInheritedIntoDataColumnNameComma$	\\
+				revision,	\\
+				auditaction )	\\
+			select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$	\\
+				$lower reference BaseClass ClassCode$.classcode,	\\
+				argAuditClusterId,	\\
+				argAuditSessionId,	\\
+				current timestamp,$implAuditInheritedDataColumnNameComma$	\\
+				$lower reference BaseClass ClassCode$.revision + 1,	\\
+				2	\\
+			from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+			where	\\
+				$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$;	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWDeleteDelDeps"
+		>$iterate ReverseDelDeps( each implDb2LUWDeleteDelDep empty empty )$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implDb2LUWDeleteDelDep">	\\
+		for cur as	\\
+			select$switch HasDelSubDep yes implDb2LUWSPDeleteSelectDelDepSubDeleteColumns default implDb2LUWSPDeleteSelectDelDepMyDeleteColumns$	\\
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$$switch HasDelSubDep yes implDb2LUWSPDeleteDelDepSubJoin default implDb2LUWSPDeleteDelDepMyJoin$	\\
+			where	\\
+				$poptop Table reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteDelDepWhereFragBindVar each implDb2LUWSPDeleteDelDepWhereAndFragBindVar )$	\\
+		do$switch HasDelSubDep yes implDb2LUWSPDeleteDelDepSubBody default implDb2LUWSPDeleteDelDepMyBody$	\\
+		end for;	\\
+</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implDb2LUWSPDeleteDelDepSubBody"
+		>$reference DelSubDep switch HasDelSubDep yes implDb2LUWSPDeleteDelDepSubBody default implDb2LUWSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="DelDep" Name="implDb2LUWSPDeleteDelDepMyBody">	\\
+			call sp_delete_$reference Relation reference ToTable lower DbTableName$_by_$lower reference Relation reference ToTable reference PrimaryKeyIndex Suffix$( argAuditClusterId,	\\
+					argAuditUserId,	\\
+					argAuditSessionId,	\\
+					secClusterId,	\\
+					secTenantId$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( each implSPDeleteDelDepCommaPassCurArg )$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteDelDepCommaPassCurArg">,	\\
+					$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implDb2LUWSPDeleteDelDepSubBody"
+		>$reference DelSubDep switch HasDelSubDep yes implDb2LUWSPDeleteDelDepSubBody default implDb2LUWSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implDb2LUWSPDeleteDelDepSubBody"
+		>$reference DelSubDep implDb2LUWSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteDelDepWhereFragBindVar"
+		>$poptop Table lower ClassCode$.$lower reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteDelDepWhereAndFragBindVar">	\\
+				and $poptop Table lower ClassCode$.$lower reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implDb2LUWSPDeleteDelDepSubJoin">	\\
+				inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implDb2LUWSPDeleteDelDepJoinRelCol each implDb2LUWSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implDb2LUWSPDeleteDelDepJoin$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implDb2LUWSPDeleteDelDepMyJoin">	\\
+				inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implDb2LUWSPDeleteDelDepJoinRelCol each implDb2LUWSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteDelDepJoinRelCol">	\\
+					$popto Relation reference FromTable lower ClassCode$.$lower reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPDeleteDelDepJoinAndRelCol">	\\
+					and $popto Relation reference FromTable lower ClassCode$.$lower reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implDb2LUWSPDeleteDelDepJoin"
+		>$switch HasDelSubDep yes implDb2LUWSPDeleteDelDepSubJoin default implDb2LUWSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implDb2LUWSPDeleteDelDepSubJoin">	\\
+				inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implDb2LUWSPDeleteDelDepJoinRelCol each implDb2LUWSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implDb2LUWSPDeleteDelDepJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implDb2LUWSPDeleteDelDepMyJoin">	\\
+				inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implDb2LUWSPDeleteDelDepJoinRelCol each implDb2LUWSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implDb2LUWSPDeleteDelDepJoin"
+		>$switch HasDelSubDep yes implDb2LUWSPDeleteDelDepSubJoin default implDb2LUWSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implDb2LUWSPDeleteDelDepSubJoin">	\\
+				inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implDb2LUWSPDeleteDelDepJoinRelCol each implDb2LUWSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implDb2LUWSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implDb2LUWSPDeleteDelDepMyJoin">	\\
+				inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implDb2LUWSPDeleteDelDepJoinRelCol each implDb2LUWSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implDb2LUWSPDeleteDelDepMyJoin">	\\
+				inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implDb2LUWSPDeleteDelDepJoinRelCol each implDb2LUWSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implDb2LUWSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep switch HasDelSubDep yes implDb2LUWSPDeleteSelectDelDepSubDeleteColumns default implDb2LUWSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implDb2LUWSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteSelectDelDepColumn each implDb2LUWSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteSelectDelDepColumn">	\\
+				$lower popto Table ClassCode$.$lower reference Column DbColumnName$ as $lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPDeleteSelectCommaDelDepColumn">,	\\
+				$lower popto Table ClassCode$.$lower reference Column DbColumnName$ as $lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implDb2LUWSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep switch HasDelSubDep yes implDb2LUWSPDeleteSelectDelDepSubDeleteColumns default implDb2LUWSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implDb2LUWSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteSelectDelDepColumn each implDb2LUWSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implDb2LUWSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep implDb2LUWSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implDb2LUWSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteSelectDelDepColumn each implDb2LUWSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implDb2LUWSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPDeleteSelectDelDepColumn each implDb2LUWSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSPOldVars"
+		>$switch HasSuperClassRelation yes declSPOldInhVars default declSPOldBaseVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSPOldInhVars"
+		>$reference SuperClassRelation reference ToTable declSPOldVars$$iterate Columns( each declSPOldDataVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSPOldBaseVars"
+		>$switch HasSubClasses yes declSPOldClassCode default empty$$iterate Columns( each declSPOldVar )$	\\
+	declare oldRevision int;</GenRule>
+
+	<GenRule GenDef="Value" Name="declSPOldDataVar"
+		>$switch ColumnInPrimaryIndex yes empty default declSPOldVar$</GenRule>
+
+	<GenRule GenDef="Value" Name="declSPOldVar">	\\
+	declare old$Name$ $clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="declSPOldClassCode">	\\
+	declare oldClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPIntoOldVars"
+		>$switch HasSuperClassRelation yes implSPIntoOldInhVars default implSPIntoOldBaseVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPIntoOldInhVars"
+		>$reference SuperClassRelation reference ToTable implSPIntoOldVars$$iterate Columns( each implSPIntoOldDataVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPIntoOldBaseVars"
+		>$switch HasSubClasses yes implSPIntoOldClassCode default implSPIntoOldNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPIntoOldClassCode">	\\
+		oldClassCode$iterate Columns( each implSPCommaIntoOldVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPIntoOldNoCC"
+		>$iterate Columns( first implSPIntoOldVar each implSPCommaIntoOldVar )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSPIntoOldDataVar"
+		>$switch ColumnInPrimaryIndex yes empty default implSPCommaIntoOldVar$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSPIntoOldVar"
+		>old$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSPCommaIntoOldVar">,	\\
+			$implSPIntoOldVar$</GenRule>
+
+<GenRule GenDef="Table" Name="implDb2LUWDeleteHierarchy">	\\
+		delete from $lower DbSchemaName$.$DbTableName$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnDeleteFragBindDelVar each implDb2LUWIndexColumnDeleteAndFragBindDelVar )$;$switch HasSuperClassRelation yes implDb2LUWDeleteSuper default empty$	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWDeleteSuper"
+		>$reference SuperClassRelation reference ToTable implDb2LUWDeleteHierarchy$</GenRule>
+
+	<GenRule GenDef="Object" Name="sparg_Revision">,	\\
+	in argRevision int</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteAndFragBindVar">	\\
+			and $implDb2LUWIndexColumnDeleteFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnDeleteFragBindVar"
+		>$switch IsNullable yes implDb2LUWIndexColumnDeleteFragBindOptVar
+			default implDb2LUWIndexColumnDeleteFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnDeleteFragBindOptVar"
+		>$reference Column implDb2LUWIndexColumnDeleteFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnDeleteFragBindReqVar"
+		>$reference Column implDb2LUWIndexColumnDeleteFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implDb2LUWIndexColumnDeleteFragBindOptBlobVar
+			BoolDef implDb2LUWIndexColumnDeleteFragBindOptBoolVar
+			EnumDef implDb2LUWIndexColumnDeleteFragBindOptEnumVar
+			Int16Def implDb2LUWIndexColumnDeleteFragBindOptInt16Var
+			Int32Def implDb2LUWIndexColumnDeleteFragBindOptInt32Var
+			Int64Def implDb2LUWIndexColumnDeleteFragBindOptInt64Var
+			UInt16Def implDb2LUWIndexColumnDeleteFragBindOptUInt16Var
+			UInt32Def implDb2LUWIndexColumnDeleteFragBindOptUInt32Var
+			UInt64Def implDb2LUWIndexColumnDeleteFragBindOptUInt64Var
+			Id16Gen implDb2LUWIndexColumnDeleteFragBindOptInt16Var
+			Id32Gen implDb2LUWIndexColumnDeleteFragBindOptInt32Var
+			Id64Gen implDb2LUWIndexColumnDeleteFragBindOptInt64Var
+			FloatDef implDb2LUWIndexColumnDeleteFragBindOptFloatVar
+			DoubleDef implDb2LUWIndexColumnDeleteFragBindOptDoubleVar
+			NumberDef implDb2LUWIndexColumnDeleteFragBindOptNumberVar
+			StringDef implDb2LUWIndexColumnDeleteFragBindOptStringVar
+			TokenDef implDb2LUWIndexColumnDeleteFragBindOptStringVar
+			NmTokenDef implDb2LUWIndexColumnDeleteFragBindOptStringVar
+			NmTokensDef implDb2LUWIndexColumnDeleteFragBindOptStringVar
+			TextDef implDb2LUWIndexColumnDeleteFragBindOptTextVar
+			DateDef implDb2LUWIndexColumnDeleteFragBindOptDateVar
+			TimeDef implDb2LUWIndexColumnDeleteFragBindOptTimeVar
+			TimestampDef implDb2LUWIndexColumnDeleteFragBindOptTimestampVar
+			TZDateDef implDb2LUWIndexColumnDeleteFragBindOptTZDateVar
+			TZTimeDef implDb2LUWIndexColumnDeleteFragBindOptTZTimeVar
+			TZTimestampDef implDb2LUWIndexColumnDeleteFragBindOptTZTimestampVar
+			UuidDef implDb2LUWIndexColumnDeleteFragBindOptUuidVar
+			UuidGen implDb2LUWIndexColumnDeleteFragBindOptUuidVar
+			default error$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implDb2LUWIndexColumnDeleteFragBindReqBlobVar
+			BoolDef implDb2LUWIndexColumnDeleteFragBindReqBoolVar
+			EnumDef implDb2LUWIndexColumnDeleteFragBindReqEnumVar
+			Int16Def implDb2LUWIndexColumnDeleteFragBindReqInt16Var
+			Int32Def implDb2LUWIndexColumnDeleteFragBindReqInt32Var
+			Int64Def implDb2LUWIndexColumnDeleteFragBindReqInt64Var
+			UInt16Def implDb2LUWIndexColumnDeleteFragBindReqUInt16Var
+			UInt32Def implDb2LUWIndexColumnDeleteFragBindReqUInt32Var
+			UInt64Def implDb2LUWIndexColumnDeleteFragBindReqUInt64Var
+			Id16Gen implDb2LUWIndexColumnDeleteFragBindReqInt16Var
+			Id32Gen implDb2LUWIndexColumnDeleteFragBindReqInt32Var
+			Id64Gen implDb2LUWIndexColumnDeleteFragBindReqInt64Var
+			FloatDef implDb2LUWIndexColumnDeleteFragBindReqFloatVar
+			DoubleDef implDb2LUWIndexColumnDeleteFragBindReqDoubleVar
+			NumberDef implDb2LUWIndexColumnDeleteFragBindReqNumberVar
+			StringDef implDb2LUWIndexColumnDeleteFragBindReqStringVar
+			TokenDef implDb2LUWIndexColumnDeleteFragBindReqStringVar
+			NmTokenDef implDb2LUWIndexColumnDeleteFragBindReqStringVar
+			NmTokensDef implDb2LUWIndexColumnDeleteFragBindReqStringVar
+			TextDef implDb2LUWIndexColumnDeleteFragBindReqTextVar
+			DateDef implDb2LUWIndexColumnDeleteFragBindReqDateVar
+			TimeDef implDb2LUWIndexColumnDeleteFragBindReqTimeVar
+			TimestampDef implDb2LUWIndexColumnDeleteFragBindReqTimestampVar
+			TZDateDef implDb2LUWIndexColumnDeleteFragBindReqTZDateVar
+			TZTimeDef implDb2LUWIndexColumnDeleteFragBindReqTZTimeVar
+			TZTimestampDef implDb2LUWIndexColumnDeleteFragBindReqTZTimestampVar
+			UuidDef implDb2LUWIndexColumnDeleteFragBindReqUuidVar
+			UuidGen implDb2LUWIndexColumnDeleteFragBindReqUuidVar
+			default error$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqBlobVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptBlobVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqBoolVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptBoolVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqEnumVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptEnumVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqInt16Var"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqInt32Var"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqInt64Var"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqUInt16Var"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptUInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqUInt32Var"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptUInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqUInt64Var"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptUInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqFloatVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptFloatVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqDoubleVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptDoubleVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqNumberVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptNumberVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqStringVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptStringVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTokenVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqNmTokenVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptNmTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqNmTokensVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptNmTokensVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTextVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTextVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqDateVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptDateVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTimeVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTimestampVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTZDateVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTZDateVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTZTimeVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTZTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTZTimestampVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTZTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqUuidVar"
+		>$lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptUuidVar"
+		>( ( ( arg$Name$ is null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower popto Table ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteAndFragBindDelVar">	\\
+			and $implDb2LUWIndexColumnDeleteFragBindDelVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnDeleteFragBindDelVar"
+		>$switch IsNullable yes implDb2LUWIndexColumnDeleteFragBindOptDelVar
+			default implDb2LUWIndexColumnDeleteFragBindReqDelVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnDeleteFragBindOptDelVar"
+		>$reference Column implDb2LUWIndexColumnDeleteFragBindOptDelVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnDeleteFragBindReqDelVar"
+		>$reference Column implDb2LUWIndexColumnDeleteFragBindReqDelVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptDelVar"
+		>$switch BaseModelAtomClass
+			BlobDef implDb2LUWIndexColumnDeleteFragBindOptBlobDelVar
+			BoolDef implDb2LUWIndexColumnDeleteFragBindOptBoolDelVar
+			EnumDef implDb2LUWIndexColumnDeleteFragBindOptEnumDelVar
+			Int16Def implDb2LUWIndexColumnDeleteFragBindOptInt16DelVar
+			Int32Def implDb2LUWIndexColumnDeleteFragBindOptInt32DelVar
+			Int64Def implDb2LUWIndexColumnDeleteFragBindOptInt64DelVar
+			UInt16Def implDb2LUWIndexColumnDeleteFragBindOptUInt16DelVar
+			UInt32Def implDb2LUWIndexColumnDeleteFragBindOptUInt32DelVar
+			UInt64Def implDb2LUWIndexColumnDeleteFragBindOptUInt64DelVar
+			Id16Gen implDb2LUWIndexColumnDeleteFragBindOptInt16DelVar
+			Id32Gen implDb2LUWIndexColumnDeleteFragBindOptInt32DelVar
+			Id64Gen implDb2LUWIndexColumnDeleteFragBindOptInt64DelVar
+			FloatDef implDb2LUWIndexColumnDeleteFragBindOptFloatDelVar
+			DoubleDef implDb2LUWIndexColumnDeleteFragBindOptDoubleDelVar
+			NumberDef implDb2LUWIndexColumnDeleteFragBindOptNumberDelVar
+			StringDef implDb2LUWIndexColumnDeleteFragBindOptStringDelVar
+			TokenDef implDb2LUWIndexColumnDeleteFragBindOptStringDelVar
+			NmTokenDef implDb2LUWIndexColumnDeleteFragBindOptStringDelVar
+			NmTokensDef implDb2LUWIndexColumnDeleteFragBindOptStringDelVar
+			TextDef implDb2LUWIndexColumnDeleteFragBindOptTextDelVar
+			DateDef implDb2LUWIndexColumnDeleteFragBindOptDateDelVar
+			TimeDef implDb2LUWIndexColumnDeleteFragBindOptTimeDelVar
+			TimestampDef implDb2LUWIndexColumnDeleteFragBindOptTimestampDelVar
+			TZDateDef implDb2LUWIndexColumnDeleteFragBindOptTZDateDelVar
+			TZTimeDef implDb2LUWIndexColumnDeleteFragBindOptTZTimeDelVar
+			TZTimestampDef implDb2LUWIndexColumnDeleteFragBindOptTZTimestampDelVar
+			UuidDef implDb2LUWIndexColumnDeleteFragBindOptUuidDelVar
+			UuidGen implDb2LUWIndexColumnDeleteFragBindOptUuidDelVar
+			default error$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqDelVar"
+		>$switch BaseModelAtomClass
+			BlobDef implDb2LUWIndexColumnDeleteFragBindReqBlobDelVar
+			BoolDef implDb2LUWIndexColumnDeleteFragBindReqBoolDelVar
+			EnumDef implDb2LUWIndexColumnDeleteFragBindReqEnumDelVar
+			Int16Def implDb2LUWIndexColumnDeleteFragBindReqInt16DelVar
+			Int32Def implDb2LUWIndexColumnDeleteFragBindReqInt32DelVar
+			Int64Def implDb2LUWIndexColumnDeleteFragBindReqInt64DelVar
+			UInt16Def implDb2LUWIndexColumnDeleteFragBindReqUInt16DelVar
+			UInt32Def implDb2LUWIndexColumnDeleteFragBindReqUInt32DelVar
+			UInt64Def implDb2LUWIndexColumnDeleteFragBindReqUInt64DelVar
+			Id16Gen implDb2LUWIndexColumnDeleteFragBindReqInt16DelVar
+			Id32Gen implDb2LUWIndexColumnDeleteFragBindReqInt32DelVar
+			Id64Gen implDb2LUWIndexColumnDeleteFragBindReqInt64DelVar
+			FloatDef implDb2LUWIndexColumnDeleteFragBindReqFloatDelVar
+			DoubleDef implDb2LUWIndexColumnDeleteFragBindReqDoubleDelVar
+			NumberDef implDb2LUWIndexColumnDeleteFragBindReqNumberDelVar
+			StringDef implDb2LUWIndexColumnDeleteFragBindReqStringDelVar
+			TokenDef implDb2LUWIndexColumnDeleteFragBindReqStringDelVar
+			NmTokenDef implDb2LUWIndexColumnDeleteFragBindReqStringDelVar
+			NmTokensDef implDb2LUWIndexColumnDeleteFragBindReqStringDelVar
+			TextDef implDb2LUWIndexColumnDeleteFragBindReqTextDelVar
+			DateDef implDb2LUWIndexColumnDeleteFragBindReqDateDelVar
+			TimeDef implDb2LUWIndexColumnDeleteFragBindReqTimeDelVar
+			TimestampDef implDb2LUWIndexColumnDeleteFragBindReqTimestampDelVar
+			TZDateDef implDb2LUWIndexColumnDeleteFragBindReqTZDateDelVar
+			TZTimeDef implDb2LUWIndexColumnDeleteFragBindReqTZTimeDelVar
+			TZTimestampDef implDb2LUWIndexColumnDeleteFragBindReqTZTimestampDelVar
+			UuidDef implDb2LUWIndexColumnDeleteFragBindReqUuidDelVar
+			UuidGen implDb2LUWIndexColumnDeleteFragBindReqUuidDelVar
+			default error$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqBlobDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptBlobDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqBoolDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptBoolDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqEnumDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptEnumDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqInt16DelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptInt16DelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqInt32DelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptInt32DelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqInt64DelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptInt64DelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqUInt16DelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptUInt16DelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqUInt32DelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptUInt32DelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqUInt64DelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptUInt64DelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqFloatDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptFloatDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqDoubleDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptDoubleDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqNumberDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptNumberDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqStringDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptStringDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTokenDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTokenDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqNmTokenDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptNmTokenDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqNmTokensDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptNmTokensDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTextDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTextDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqDateDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptDateDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTimeDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTimeDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTimestampDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTimestampDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTZDateDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTZDateDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTZTimeDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTZTimeDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqTZTimestampDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptTZTimestampDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindReqUuidDelVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnDeleteFragBindOptUuidDelVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+</RuleSet>

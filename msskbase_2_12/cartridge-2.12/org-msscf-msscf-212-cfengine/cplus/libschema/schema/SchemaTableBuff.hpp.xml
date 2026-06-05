@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schema/SchemaTableBuff.hpp"
+	Revision="2.12"
+	Descr="C++18 specification of a $TableName$ buffer object.">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableBuffHpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$$TableName$BuffHpp"
+		ExpansionKeyName="$SchemaName$$TableName$BuffHpp"
+		ExpansionFileName="$SchemaName$$TableName$Buff.hpp"
+>#pragma once
+
+// Description: C++18 specification for a $TableName$ buffer object.
+
+$MssSourceLicense$
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+$switch HasSuperClassRelation yes includeSchemaTableBuffInheritedBuff default empty$
+#include &lt;$lower SchemaName$/I$SchemaName$Schema.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$$reference BaseClass TableName$PKey;$iterate Index( each declNonPrimaryIndexKeyClass empty empty )$
+
+	class $SchemaName$$TableName$Buff$extendSchemaTableBuffSuperBuff$
+	{
+	public:$declBuffStaticClassCode$$switch HasSuperClassRelation yes declBuffNonPrimaryColNames default declBuffColNames$$switch HasSuperClassRelation no declBuffOptAuditColumns default empty$$switch HasSuperClassRelation yes empty default declSValue$$declSchemaTableBuffColumns$$declSchemaTableBuffMinValues$$declSchemaTableBuffMaxValues$$declSchemaTableBuffMaxLens$
+	protected:$declEitherBuffDataOrColumnAttr$$switch HasSuperClassRelation no declRevisionAttr default empty$
+	public:$switch HasSuperClassRelation yes declSchemaTableBuffInhConstruct default declSchemaTableBuffBaseConstruct$
+		virtual const std::string&amp; getClassName() const;
+		virtual cflib::ICFLibCloneableObj* clone();$declGetClassCode$$declBuffImplementsClassCode$$switch HasSuperClassRelation no declColumnOptAuditGetterSetters default empty$$switch HasSuperClassRelation no declColumnGetterSetters default declDataGetterSetters$$switch HasSuperClassRelation no declRevisionGetterSetter default empty$$declGetHashCode$$declBuffComparison$$declBuffSet$$declToString$	};
+}
+$declStdBuffComparison$
+</GenFile>
+
+	<GenRule GenDef="Table" Name="declBuffNonPrimaryColNames"
+		>$iterate Columns( each declBuffNonPrimaryColName empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffColNames"
+		>$iterate Columns( each declBuffColName empty empty )$</GenRule>
+
+	<GenRule GenDef="Atom" Name="declBuffNonPrimaryColName"
+		>$switch ColumnInPrimaryIndex yes empty default declBuffColName$</GenRule>
+	<GenRule GenDef="TableCol" Name="declBuffNonPrimaryColName"
+		>$switch ColumnInPrimaryIndex yes empty default declBuffColName$</GenRule>
+
+	<GenRule GenDef="Atom" Name="declBuffColName">
+		static const std::string COLNAME_$upper Name$;</GenRule>
+	<GenRule GenDef="TableCol" Name="declBuffColName">
+		static const std::string COLNAME_$upper Name$;</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffImplementsClassCode">
+		virtual bool implementsClassCode( const classcode_t argClassCode );</GenRule>
+
+	<GenRule GenDef="Table" Name="includeSchemaTableBuffInheritedBuff">
+#include &lt;$lower reference SuperClassRelation reference ToTable DefSchemaName$/$reference SuperClassRelation reference ToTable DefSchemaName$$reference SuperClassRelation reference ToTable TableName$Buff.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="implStdBuffHash">
+	template&lt;&gt; struct hash&lt;$CPlusNamespace$::$SchemaName$$TableName$Buff&gt; {
+		typedef $CPlusNamespace$::$SchemaName$$TableName$Buff argument_type;
+		typedef size_t result_type;
+		result_type operator()(argument_type const&amp; s) const {
+			return( s.hashCode() );
+		}
+	};
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffSet">
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff&amp; src );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSValue">
+		static const std::string S_VALUE;
+		static const std::string S_VALUE_LENGTH;</GenRule>
+
+	<GenRule GenDef="Index" Name="declNonPrimaryIndexKeyClass"
+		>$switch IsPrimaryIndex yes empty default declIndexKeyClass$</GenRule>
+
+	<GenRule GenDef="Index" Name="declIndexKeyClass">
+	class $SchemaName$$TableName$By$Suffix$Key;</GenRule>
+
+	<GenRule GenDef="Table" Name="declEitherBuffDataOrColumnAttr"
+		>$switch HasSuperClassRelation yes declBuffDataAttr default declBuffColumnAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableBuffMinValues"
+		>$iterate Columns( each maybeDeclMinValue empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableBuffMaxValues"
+		>$iterate Columns( each maybeDeclMaxValue empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableBuffMaxLens"
+		>$iterate Columns( each maybeDeclMaxLen empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableBuffColumns"
+		>$iterate Columns( each maybeDeclInitValue empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="extendSchemaTableBuff"> : public $reference DefSchema SchemaName$$TableName$Buff</GenRule>
+
+	<GenRule GenDef="Table" Name="ClassSchemaTableBuff">$lower reference DefSchema SchemaName$::$reference DefSchema SchemaName$$TableName$Buff</GenRule>
+
+	<GenRule GenDef="Table" Name="extendSchemaTableBuffSuperBuff"
+		>$switch HasSuperClassRelation yes declBuffInheritSuper default declBuffInheritCloneable$</GenRule>
+
+	<GenRule GenDef="Table" Name="ClassSchemaTableBuffSuperBuff"
+		>$switch HasSuperClassRelation yes ClassBuffInheritSuper default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffOptAuditColumns"
+		>$switch BaseHasAuditColumns yes declBuffDeclInitAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffDeclInitAuditColumns">
+		static const char* S_INIT_CREATEDBY;
+		static const char* S_INIT_UPDATEDBY;</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeDeclInitValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef declInitValueIfSpecified
+			EnumDef declInitValueIfNotNullable
+			Id16Gen declInitValue
+			Id32Gen declInitValue 
+			Id64Gen declInitValue
+			Int16Def declInitValue
+			Int32Def declInitValue
+			Int64Def declInitValue
+			UInt16Def declInitValue
+			UInt32Def declInitValue
+			UInt64Def declInitValue
+			FloatDef declInitValueIfSpecified
+			DoubleDef declInitValueIfSpecified
+			NumberDef declInitValue
+			DateDef declInitValueIfSpecified
+			TimeDef declInitValueIfSpecified
+			TimestampDef declInitValueIfSpecified
+			TZDateDef declInitValueIfSpecified
+			TZTimeDef declInitValueIfSpecified
+			TZTimestampDef declInitValueIfSpecified
+			UuidGen empty
+			UuidDef empty
+			StringDef declInitValueIfSpecified
+			TokenDef declInitValueIfSpecified
+			NmTokenDef declInitValueIfSpecified
+			NmTokensDef declInitValueIfSpecified
+			TextDef declInitValueIfSpecified
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declInitValueIfNotNullable"
+		>$switch IsNullable no declInitValue default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="declInitValueIfSpecified"
+		>$switch HasInitValue yes declInitValue default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeDeclMinValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef empty
+			EnumDef declMinValue
+			Id16Gen declMinValueIfSpecified
+			Id32Gen declMinValueIfSpecified
+			Id64Gen declMinValueIfSpecified
+			Int16Def declMinValueIfSpecified
+			Int32Def declMinValueIfSpecified
+			Int64Def declMinValueIfSpecified
+			UInt16Def declMinValueIfSpecified
+			UInt32Def declMinValueIfSpecified
+			UInt64Def declMinValueIfSpecified
+			FloatDef declMinValueIfSpecified
+			DoubleDef declMinValueIfSpecified
+			NumberDef declMinValueIfSpecified
+			DateDef declMinValueIfSpecified
+			TimeDef empty
+			TimestampDef declMinValueIfSpecified
+			TZDateDef declMinValueIfSpecified
+			TZTimeDef empty
+			TZTimestampDef declMinValueIfSpecified
+			UuidGen empty
+			UuidDef empty
+			StringDef empty
+			TokenDef empty
+			NmTokenDef empty
+			NmTokensDef empty
+			TextDef empty
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declMinValueIfSpecified"
+		>$switch HasMinValue yes declMinValue default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeDeclMaxValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef empty
+			EnumDef declMaxValue
+			Id16Gen declMaxValueIfSpecified
+			Id32Gen declMaxValueIfSpecified 
+			Id64Gen declMaxValueIfSpecified
+			Int16Def declMaxValueIfSpecified
+			Int32Def declMaxValueIfSpecified
+			Int64Def declMaxValueIfSpecified
+			UInt16Def declMaxValueIfSpecified
+			UInt32Def declMaxValueIfSpecified
+			UInt64Def declMaxValueIfSpecified
+			FloatDef declMaxValueIfSpecified
+			DoubleDef declMaxValueIfSpecified
+			NumberDef declMaxValueIfSpecified
+			DateDef declMaxValueIfSpecified
+			TimeDef empty
+			TimestampDef declMaxValueIfSpecified
+			TZDateDef declMaxValueIfSpecified
+			TZTimeDef empty
+			TZTimestampDef declMaxValueIfSpecified
+			UuidGen empty
+			UuidDef empty
+			StringDef empty
+			TokenDef empty
+			NmTokenDef empty
+			NmTokensDef empty
+			TextDef empty
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeDeclMaxLen"
+		>$switch BaseModelAtomClass
+			BlobDef declMaxLen
+			BoolDef empty
+			EnumDef empty
+			Id16Gen empty
+			Id32Gen empty
+			Id64Gen empty
+			Int16Def empty
+			Int32Def empty
+			Int64Def empty
+			UInt16Def empty
+			UInt32Def empty
+			UInt64Def empty
+			FloatDef empty
+			DoubleDef empty
+			NumberDef empty
+			DateDef empty
+			TimeDef empty
+			TimestampDef empty
+			TZDateDef empty
+			TZTimeDef empty
+			TZTimestampDef empty
+			UuidGen empty
+			UuidDef empty
+			StringDef declMaxLen
+			TokenDef declMaxLen
+			NmTokenDef declMaxLen
+			NmTokensDef declMaxLen
+			TextDef declMaxLen
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declMaxValueIfSpecified"
+		>$switch HasMaxValue yes declMaxValue default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffStaticClassCode">
+		static const std::string GENDEFNAME;
+		static const classcode_t CLASS_CODE;
+		static const std::string CLASS_NAME;</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffColumnAttr"
+		>$switch HasSuperClassRelation no declBuffOptAuditColumnAttr default empty$$iterate Columns( each declColumnAttr )$</GenRule>
+	<GenRule GenDef="Table" Name="declBuffDataAttr"
+		>$iterate DataColumns( each declColumnAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffOptAuditColumnAttr"
+		>$switch BaseHasAuditColumns yes declBuffAuditColumnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffAuditColumnAttr">
+		uuid_t createdByUserId;
+		std::chrono::system_clock::time_point createdAt;
+		uuid_t updatedByUserId;
+		std::chrono::system_clock::time_point updatedAt;</GenRule>
+
+	<GenRule GenDef="Table" Name="declColumnOptAuditGetterSetters"
+		>$switch BaseHasAuditColumns yes declColumnAuditGetterSetters default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declColumnAuditGetterSetters">
+		virtual const uuid_ptr_t getCreatedByUserId() const;
+		virtual void setCreatedByUserId( const uuid_ptr_t value );
+		virtual const std::chrono::system_clock::time_point&amp; getCreatedAt() const;
+		virtual void setCreatedAt( const std::chrono::system_clock::time_point&amp; value );
+		virtual const uuid_ptr_t getUpdatedByUserId() const;
+		virtual void setUpdatedByUserId( const uuid_ptr_t value );
+		virtual const std::chrono::system_clock::time_point&amp; getUpdatedAt() const;
+		virtual void setUpdatedAt( const std::chrono::system_clock::time_point&amp; value );</GenRule>
+
+	<GenRule GenDef="Table" Name="declColumnGetterSetters"
+		>$iterate Columns( each declColumnGetterSetter empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDataGetterSetters"
+		>$iterate DataColumns( each declColumnGetterSetter empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffInheritCloneable"> : public cflib::ICFLibCloneableObj</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffInheritSuper"> : public $SchemaName$$reference SuperClassRelation reference ToTable TableName$Buff</GenRule>
+
+	<GenRule GenDef="Table" Name="ClassBuffInheritSuper">$SchemaName$$reference SuperClassRelation reference ToTable TableName$Buff</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableBuffBaseConstruct">
+		$poptop SchemaDef SchemaName$$TableName$Buff();
+
+		$poptop SchemaDef SchemaName$$TableName$Buff( const $poptop SchemaDef SchemaName$$TableName$Buff&amp; src );
+
+		virtual ~$poptop SchemaDef SchemaName$$TableName$Buff();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffInitAuditColumnAttr">
+			for( int i = 0; i &lt; 16; i++ ) {
+				createdByUserId[i] = 0;
+			}
+			createdAt = cflib::CFLib::getUTCGregorianCalendarInstance();
+			for( int i = 0; i &lt; 16; i++ ) {
+				updatedByUserId[i] = 0;
+			}
+			updatedAt = cflib::CFLib::getUTCGregorianCalendarInstance();</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffOptDestructAuditColumns"
+		>$switch BaseHasAuditColumns yes declBuffOptDestructDeleteAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffOptDestructDeleteAuditColumns">
+			for( int i = 0; i &lt; 16; i++ ) {
+				createdByUserId[i] = 0;
+			}
+			for( int i = 0; i &lt; 16; i++ ) {
+				updatedByUserId[i] = 0;
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableBuffInhConstruct">
+		$poptop SchemaDef SchemaName$$TableName$Buff();
+		$poptop SchemaDef SchemaName$$TableName$Buff( const $poptop SchemaDef SchemaName$$TableName$Buff&amp; src );
+		virtual ~$poptop SchemaDef SchemaName$$TableName$Buff();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffComparison"
+		>$declBuffComparisonLessThan$
+$declBuffComparisonLessOrEqual$
+$declBuffComparisonEqual$
+$declBuffComparisonNotEqual$
+$declBuffComparisonGreaterOrEqual$
+$declBuffComparisonGreaterThan$</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffNonPrimaryComparisonLessThanIndex"
+		>$switch IsPrimaryIndex yes empty default declBuffComparisonLessThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffComparisonLessThanIndex">
+		bool operator &lt;( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffComparisonLessThan">$iterate Index( each declBuffNonPrimaryComparisonLessThanIndex empty empty )$
+		bool operator &lt;( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator &lt;( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffNonPrimaryComparisonLessOrEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declBuffComparisonLessOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffComparisonLessOrEqualIndex">
+		bool operator &lt;=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffComparisonLessOrEqual">$iterate Index( each declBuffNonPrimaryComparisonLessOrEqualIndex empty empty )$
+		bool operator &lt;=( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator &lt;=( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffNonPrimaryComparisonEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declBuffComparisonEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffComparisonEqualIndex">
+		bool operator ==( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffComparisonEqual">$iterate Index( each declBuffNonPrimaryComparisonEqualIndex empty empty )$
+		bool operator ==( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator ==( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffNonPrimaryComparisonNotEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declBuffComparisonNotEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffComparisonNotEqualIndex">
+		bool operator !=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffComparisonNotEqual">$iterate Index( each declBuffNonPrimaryComparisonNotEqualIndex empty empty )$
+		bool operator !=( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator !=( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffNonPrimaryComparisonGreaterOrEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declBuffComparisonGreaterOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffComparisonGreaterOrEqualIndex">
+		bool operator &gt;=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffComparisonGreaterOrEqual">$iterate Index( each declBuffNonPrimaryComparisonGreaterOrEqualIndex empty empty )$
+		bool operator &gt;=( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator &gt;=( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffNonPrimaryComparisonGreaterThanIndex"
+		>$switch IsPrimaryIndex yes empty default declBuffComparisonGreaterThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declBuffComparisonGreaterThanIndex">
+		bool operator &gt;( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declBuffComparisonGreaterThan">$iterate Index( each declBuffNonPrimaryComparisonGreaterThanIndex empty empty )$
+		bool operator &gt;( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+		bool operator &gt;( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdBuffComparison">
+namespace std {
+$declStdBuffComparisonLessThan$
+$declStdBuffComparisonLessOrEqual$
+$declStdBuffComparisonEqual$
+$declStdBuffComparisonNotEqual$
+$declStdBuffComparisonGreaterOrEqual$
+$declStdBuffComparisonGreaterThan$
+$implStdBuffHash$
+}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffNonPrimaryComparisonLessThanIndex"
+		>$switch IsPrimaryIndex yes empty default declStdBuffComparisonLessThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffComparisonLessThanIndex">
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdBuffComparisonLessThan">$iterate Index( each declStdBuffNonPrimaryComparisonLessThanIndex empty empty )$
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffNonPrimaryComparisonLessOrEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declStdBuffComparisonLessOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffComparisonLessOrEqualIndex">
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdBuffComparisonLessOrEqual">$iterate Index( each declStdBuffNonPrimaryComparisonLessOrEqualIndex empty empty )$
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffNonPrimaryComparisonEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declStdBuffComparisonEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffComparisonEqualIndex">
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdBuffComparisonEqual">$iterate Index( each declStdBuffNonPrimaryComparisonEqualIndex empty empty )$
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffNonPrimaryComparisonNotEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declStdBuffComparisonNotEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffComparisonNotEqualIndex">
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdBuffComparisonNotEqual">$iterate Index( each declStdBuffNonPrimaryComparisonNotEqualIndex empty empty )$
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffNonPrimaryComparisonGreaterOrEqualIndex"
+		>$switch IsPrimaryIndex yes empty default declStdBuffComparisonGreaterOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffComparisonGreaterOrEqualIndex">
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdBuffComparisonGreaterOrEqual">$iterate Index( each declStdBuffNonPrimaryComparisonGreaterOrEqualIndex empty empty )$
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffNonPrimaryComparisonGreaterThanIndex"
+		>$switch IsPrimaryIndex yes empty default declStdBuffComparisonGreaterThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdBuffComparisonGreaterThanIndex">
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declStdBuffComparisonGreaterThan">$iterate Index( each declStdBuffNonPrimaryComparisonGreaterThanIndex empty empty )$
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs );
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+</RuleSet>

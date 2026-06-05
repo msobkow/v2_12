@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus+saxloader"
+	Name="InstallSchemaSaxLoader-wsl.bash"
+	Revision="2.12"
+	Descr="C++18 InstallSchemaSaxLoader-wsl.bash">
+
+	<GenFile GenDef="SchemaDef" Name="fileInstallSchemaSaxLoaderWslBash"
+		GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName=""
+		SubPackageName=""
+		ExpansionClassName="Install$SchemaName$SaxLoaderWslBash"
+		ExpansionKeyName="Install$SchemaName$SaxLoader-wsl.bash"
+		ExpansionFileName="Install$SchemaName$SaxLoader-wsl.bash"
+>#!/bin/bash
+$MssBashScriptLicense$
+MAJOR_VERSION=$reference MinorVersion reference ParentMajVer Name$
+MINOR_VERSION=$reference MinorVersion Name$
+pushd lib$lower SchemaName$saxloader
+	sudo make install
+	sudo chmod 755 /usr/include/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$
+	sudo chmod 755 /usr/include/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$${MAJOR_VERSION}.0.$${MINOR_VERSION}
+	sudo chmod 755 /usr/include/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$${MAJOR_VERSION}.0.$${MINOR_VERSION}/$lower SchemaName$saxloader
+	sudo sh -c "cd /usr/include/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$${MAJOR_VERSION}.0.$${MINOR_VERSION}/$lower SchemaName$saxloader &amp;&amp; chmod 644 *.hpp"
+	#sudo chmod 755 /usr/bin/*$lower SchemaName$*saxloader
+	sudo chmod 755 /usr/lib/*$lower SchemaName$saxloader.la
+	sudo chmod 755 /usr/lib/*$lower SchemaName$saxloader.so*
+	sudo chmod 755 /opt/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$
+	sudo chmod 755 /opt/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$${MAJOR_VERSION}.0.$${MINOR_VERSION}
+	sudo chmod 755 /opt/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$${MAJOR_VERSION}.0.$${MINOR_VERSION}/xsd
+	sudo chmod 644 /opt/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$${MAJOR_VERSION}.0.$${MINOR_VERSION}/xsd/*$lower SchemaName$*.xsd
+	sudo ldconfig
+popd
+</GenFile>
+
+</RuleSet>

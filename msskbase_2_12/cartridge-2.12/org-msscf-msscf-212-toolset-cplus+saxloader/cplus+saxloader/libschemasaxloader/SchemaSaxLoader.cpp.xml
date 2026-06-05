@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus+saxloader"
+	Name="libschemaxml/SchemaSaxLoader.cpp"
+	Revision="2.12"
+	Descr="C++18 XML SAX Parser implementation for Schema">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSaxLoaderCPlus"
+		GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$reference ManufacturingSchema lower PackageName$saxloader"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$SaxLoaderCPlus"
+		ExpansionKeyName="$SchemaName$SaxLoaderCPlus"
+		ExpansionFileName="$SchemaName$SaxLoader.cpp"
+>// Description: C++18 XML SAX Parser implementation for $SchemaName$.
+
+$MssSourceLicense$
+#include &lt;fstream&gt;
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;$iterate SchemaRefs( each includeSchemaSaxLoaderHpp empty empty )$
+#include &lt;$lower SchemaName$saxloader/$SchemaName$SaxLoader.hpp&gt;$iterate SchemaTables( each includeSchemaSaxLoaderTableHandlerHpp empty empty )$
+
+using namespace std;
+
+namespace $CPlusNamespace$ {
+$implSchemaSaxLoaderRootElementHandler$
+$implSchemaSaxLoaderDocElementHandler$
+	const std::string $SchemaName$SaxLoader::CLASS_NAME( "$SchemaName$SaxLoader" );
+	const std::string $SchemaName$SaxLoader::SCHEMA_XMLNS( "$SchemaLoaderNamespace$" );
+	const std::string $SchemaName$SaxLoader::SCHEMA_URI( "/opt/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$poptop SchemaDef reference MinorVersion reference ParentMajVer Name$.0.$poptop SchemaDef reference MinorVersion Name$/xsd/$lower SchemaName$-structured.xsd" );
+	bool $SchemaName$SaxLoader::grammarLoaded = false;
+$implSchemaSaxLoaderConstructor$$implSchemaSaxLoaderInitParser$$implSchemaSaxLoaderUseCluster$$implSchemaSaxLoaderUseTenant$$implSchemaSaxLoaderImplSchemaObjAccessors$$implSchemaSaxLoaderVerifyGrammarInstallation$$iterate SchemaTables( each implSchemaSaxLoaderGetElementHandler )$$implSchemaSaxLoaderGetRootElementHandler$$implSchemaSaxLoaderGetDocElementHandler$$iterate SchemaTables( each implSchemaSaxLoaderImplLoaderBehaviour empty empty )$$implSchemaSaxLoaderParseFile$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderInitParser">
+	void $SchemaName$SaxLoader::initParser() {
+		if( saxXmlReader != NULL ) {
+			return;
+		}
+		cflib::CFLibXmlCoreSaxParser::initParser();$iterate SchemaRefs( each implSchemaSaxLoaderInitParserLoadGrammar empty empty )$
+		loadGrammar( SCHEMA_URI );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSaxLoaderInitParserLoadGrammar">
+		loadGrammar( $reference RefSchema CPlusNamespace$::$reference RefSchema SchemaName$SaxLoader::SCHEMA_URI );</GenRule>
+
+	<GenRule GenDef="Table" Name="includeSchemaSaxLoaderTableHandlerHpp">
+#include &lt;$lower poptop SchemaDef SchemaName$saxloader/$poptop SchemaDef SchemaName$SaxLoader$TableName$Handler.hpp&gt;$includeSchemaSaxLoaderXmlElementNameHpps$</GenRule>
+
+	<GenRule GenDef="Table" Name="includeSchemaSaxLoaderXmlElementNameHpps"
+		>$switch HasSuperClassRelation yes includeSchemaSaxLoaderXmlElementNameSuperHpps default includeSchemaSaxLoaderXmlElementNameBaseHpps$</GenRule>
+
+	<GenRule GenDef="Table" Name="includeSchemaSaxLoaderXmlElementNameSuperHpps"
+		>$reference SuperClassRelation reference ToTable includeSchemaSaxLoaderXmlElementNameHpps$$iterate Columns( each includeSchemaSaxLoaderXmlElementNameMaybeEmitColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="includeSchemaSaxLoaderXmlElementNameBaseHpps"
+		>$iterate Columns( each includeSchemaSaxLoaderXmlElementNameMaybeEmitColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="includeSchemaSaxLoaderXmlElementNameMaybeEmitColumn"
+		>$switch BaseModelAtomClass TextDef includeSchemaSaxLoaderXmlElementNameMaybeEmitTextColumn default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="includeSchemaSaxLoaderXmlElementNameMaybeEmitTextColumn"
+		>$switch HasXmlElementName no empty default includeSchemaSaxLoaderXmlElementNameIfNotEmpty$</GenRule>
+
+	<GenRule GenDef="Value" Name="includeSchemaSaxLoaderXmlElementNameIfNotEmpty"
+		>$switch XmlElementName empty empty default includeSchemaSaxLoaderXmlElementNameClearToNull$</GenRule>
+
+	<GenRule GenDef="Value" Name="includeSchemaSaxLoaderXmlElementNameClearToNull">
+#include &lt;$lower poptop SchemaDef SchemaName$saxloader/$poptop SchemaDef SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler.hpp&gt;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="initSchemaSaxLoaderUseCluster">
+		useCluster = NULL;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderUseCluster">
+	$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* $SchemaName$SaxLoader::getUseCluster() const {
+		return( useCluster );
+	}
+
+	void $SchemaName$SaxLoader::setUseCluster( $CPlusSecNamespace$::I$SecSchemaName$ClusterObj* value ) {
+		useCluster = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="initSchemaSaxLoaderUseTenant">
+		useTenant = NULL;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderUseTenant">
+	$CPlusSecNamespace$::I$SecSchemaName$TenantObj* $SchemaName$SaxLoader::getUseTenant() {
+		return( useTenant );
+	}
+
+	void $SchemaName$SaxLoader::setUseTenant( $CPlusSecNamespace$::I$SecSchemaName$TenantObj* value ) {
+		useTenant = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderParseFile">
+	void $SchemaName$SaxLoader::parseFile( const std::string&amp; url ) {
+		parse( url.data() );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderVerifyGrammarInstallation">
+	void $SchemaName$SaxLoader::verifyGrammarInstallation() {
+		static const std::string S_ProcName( "verifyGrammarInstallation" );
+		static const std::string S_MsgMustInstallXsdFirst( "The XSD file " + SCHEMA_URI + " must be installed first" );
+		if( grammarLoaded ) {
+			return;
+		}$iterate SchemaRefs( each implSchemaSaxLoaderVerifyInheritedGrammarInstallation empty empty )$
+		std::ifstream xsdfile( SCHEMA_URI.data() );
+		if( ! xsdfile ) {
+			throw cflib::CFLibUsageException( CLASS_NAME,
+				S_ProcName,
+				S_MsgMustInstallXsdFirst );
+		}
+		grammarLoaded = true;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSaxLoaderVerifyInheritedGrammarInstallation">
+		$reference RefSchema CPlusNamespace$::$reference RefSchema SchemaName$SaxLoader::verifyGrammarInstallation();</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderConstructor">
+	$SchemaName$SaxLoader::$SchemaName$SaxLoader()
+	: cflib::CFLibXmlCoreSaxParser()
+	{
+		schemaObj = NULL;
+		saxRootHandler = NULL;
+		saxDocHandler = NULL;$iterate SchemaTables( each implSchemaSaxLoaderConstructElementHandler empty empty )$$initSchemaSaxLoaderUseCluster$$initSchemaSaxLoaderUseTenant$
+		setRootElementHandler( getSaxRootHandler() );
+		verifyGrammarInstallation();
+		initParser();
+	}
+$implSchemaSaxLoaderConstructorLogger$
+	$SchemaName$SaxLoader::~$SchemaName$SaxLoader() {$iterate SchemaTables( each implSchemaSaxLoaderDestructElementHandler empty empty )$
+		if( saxDocHandler != NULL ) {
+			delete saxDocHandler;
+			saxDocHandler = NULL;
+		}
+		if( saxRootHandler != NULL ) {
+			delete saxRootHandler;
+			saxRootHandler = NULL;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderConstructElementHandler">
+		$leadlower TableName$Handler = NULL;$implSchemaSaxLoaderConstructXmlElementNameHandlers$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderConstructXmlElementNameHandlers"
+		>$switch HasSuperClassRelation yes implSchemaSaxLoaderConstructXmlElementNameSuperHandlers default implSchemaSaxLoaderConstructXmlElementNameBaseHandlers$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderConstructXmlElementNameSuperHandlers"
+		>$reference SuperClassRelation reference ToTable implSchemaSaxLoaderConstructXmlElementNameHandlers$$iterate Columns( each implSchemaSaxLoaderConstructXmlElementNameMaybeEmitColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderConstructXmlElementNameBaseHandlers"
+		>$iterate Columns( each implSchemaSaxLoaderConstructXmlElementNameMaybeEmitColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderConstructXmlElementNameMaybeEmitColumn"
+		>$switch BaseModelAtomClass TextDef implSchemaSaxLoaderConstructXmlElementNameMaybeEmitTextColumn default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderConstructXmlElementNameMaybeEmitTextColumn"
+		>$switch HasXmlElementName no empty default implSchemaSaxLoaderConstructXmlElementNameIfNotEmpty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderConstructXmlElementNameIfNotEmpty"
+		>$switch XmlElementName empty empty default implSchemaSaxLoaderConstructXmlElementNameClearToNull$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderConstructXmlElementNameClearToNull">
+		$leadlower poptop Table TableName$$XmlElementName$Handler = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderDestructElementHandler">$implSchemaSaxLoaderDestructXmlElementNameHandlers$
+		if( $leadlower TableName$Handler != NULL ) {
+			delete $leadlower TableName$Handler;
+			$leadlower TableName$Handler = NULL;
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderDestructXmlElementNameHandlers"
+		>$switch HasSuperClassRelation yes implSchemaSaxLoaderDestructXmlElementNameSuperHandlers default implSchemaSaxLoaderDestructXmlElementNameBaseHandlers$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderDestructXmlElementNameSuperHandlers"
+		>$reference SuperClassRelation reference ToTable implSchemaSaxLoaderDestructXmlElementNameHandlers$$iterate Columns( each implSchemaSaxLoaderDestructXmlElementNameMaybeEmitColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderDestructXmlElementNameBaseHandlers"
+		>$iterate Columns( each implSchemaSaxLoaderDestructXmlElementNameMaybeEmitColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderDestructXmlElementNameMaybeEmitColumn"
+		>$switch BaseModelAtomClass TextDef implSchemaSaxLoaderDestructXmlElementNameMaybeEmitTextColumn default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderDestructXmlElementNameMaybeEmitTextColumn"
+		>$switch HasXmlElementName no empty default implSchemaSaxLoaderDestructXmlElementNameIfNotEmpty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderDestructXmlElementNameIfNotEmpty"
+		>$switch XmlElementName empty empty default implSchemaSaxLoaderDestructXmlElementNameClearToNull$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderDestructXmlElementNameClearToNull">
+		if( $leadlower poptop Table TableName$$XmlElementName$Handler != NULL ) {
+			delete $leadlower poptop Table TableName$$XmlElementName$Handler;
+			$leadlower poptop Table TableName$$XmlElementName$Handler = NULL;
+		}</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSaxLoaderConstructorLoadXSD">
+			file = new File( $upper reference RefSchema SchemaName$_URI );
+			if( file.exists() ) {
+				try {
+					input = new FileInputStream( file );
+				}
+				catch( Exception e ) {
+					input = NULL;
+				}
+				if( input != NULL ) {
+					addToGrammarPool( $upper reference RefSchema SchemaName$_URI, input );
+				}
+			}
+			else {
+				input = CLASS_NAME.getResourceAsStream( $upper reference RefSchema SchemaName$_ROOT_URI );
+				if( input != NULL ) {
+					addToGrammarPool( $upper reference RefSchema SchemaName$_ROOT_URI, input );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderConstructorLogger">
+	$SchemaName$SaxLoader::$SchemaName$SaxLoader( cflib::ICFLibMessageLog* logger )
+	: cflib::CFLibXmlCoreSaxParser( logger )
+	{
+		saxRootHandler = NULL;
+		saxDocHandler = NULL;$iterate SchemaTables( each implSchemaSaxLoaderConstructElementHandler empty empty )$$initSchemaSaxLoaderUseCluster$$initSchemaSaxLoaderUseTenant$
+		setRootElementHandler( getSaxRootHandler() );
+		verifyGrammarInstallation();
+		initParser();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderImplSchemaObjAccessors">
+	// SchemaObj accessors
+
+	$CPlusNamespace$::I$SchemaName$SchemaObj* $SchemaName$SaxLoader::getSchemaObj() const {
+		return( schemaObj );
+	}
+
+	void $SchemaName$SaxLoader::setSchemaObj( $CPlusNamespace$::I$SchemaName$SchemaObj* value ) {
+		schemaObj = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderImplLoaderBehaviour">
+	const $poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$SaxLoader::LoaderBehaviourEnum $poptop SchemaDef SchemaName$SaxLoader::get$TableName$LoaderBehaviour() const {
+		return( $leadlower TableName$LoaderBehaviour );
+	}
+
+	void $poptop SchemaDef SchemaName$SaxLoader::set$TableName$LoaderBehaviour( const $poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$SaxLoader::LoaderBehaviourEnum value ) {
+		$leadlower TableName$LoaderBehaviour = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderGetElementHandler">
+	$CPlusNamespace$::$SchemaName$SaxLoader$TableName$Handler* $poptop SchemaDef SchemaName$SaxLoader::get$TableName$Handler() {
+		if( $leadlower TableName$Handler == NULL ) {
+			$leadlower TableName$Handler = new $CPlusNamespace$::$SchemaName$SaxLoader$TableName$Handler( this );$implComponentWireElementHandler$
+		}
+		return( $leadlower TableName$Handler );
+	}
+$implSchemaSaxLoaderGetXmlElementNameHandlers$</GenRule>
+
+	<GenRule GenDef="Table" Name="implComponentWireElementHandler"
+		>$switch HasSuperClassRelation yes implComponentWireInhElementHandler default implComponentWireBaseElementHandler$</GenRule>
+
+	<GenRule GenDef="Table" Name="implComponentWireInhElementHandler"
+		>$reference SuperClassRelation reference ToTable implComponentWireElementHandler$$iterate Columns( each implComponentWireColXmlElementNameMaybeEmitColumn empty empty )$$iterate Relation( each implComponentWireElementHandler empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implComponentWireBaseElementHandler"
+		>$iterate Columns( each implComponentWireColXmlElementNameMaybeEmitColumn empty empty )$$iterate Relation( each implComponentWireElementHandler empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implComponentWireColXmlElementNameMaybeEmitColumn"
+		>$switch BaseModelAtomClass TextDef implComponentWireColXmlElementNameMaybeEmitTextColumn default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implComponentWireColXmlElementNameMaybeEmitTextColumn"
+		>$switch HasXmlElementName no empty default implComponentWireColXmlElementNameIfNotEmpty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implComponentWireColXmlElementNameIfNotEmpty"
+		>$switch XmlElementName empty empty default implComponentWireColXmlElementNameWireTheHandler$</GenRule>
+
+	<GenRule GenDef="Value" Name="implComponentWireColXmlElementNameWireTheHandler">
+			$leadlower poptop Table TableName$Handler-&gt;addElementHandler( "$XmlElementName$", get$poptop Table TableName$$XmlElementName$Handler() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderGetXmlElementNameHandlers"
+		>$switch HasSuperClassRelation yes implSchemaSaxLoaderGetXmlElementNameSuperHandlers default implSchemaSaxLoaderGetXmlElementNameBaseHandlers$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderGetXmlElementNameSuperHandlers"
+		>$reference SuperClassRelation reference ToTable implSchemaSaxLoaderGetXmlElementNameHandlers$$iterate Columns( each implSchemaSaxLoaderGetXmlElementNameMaybeEmitColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderGetXmlElementNameBaseHandlers"
+		>$iterate Columns( each implSchemaSaxLoaderGetXmlElementNameMaybeEmitColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderGetXmlElementNameMaybeEmitColumn"
+		>$switch BaseModelAtomClass TextDef implSchemaSaxLoaderGetXmlElementNameMaybeEmitTextColumn default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderGetXmlElementNameMaybeEmitTextColumn"
+		>$switch HasXmlElementName no empty default implSchemaSaxLoaderGetXmlElementNameIfNotEmpty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderGetXmlElementNameIfNotEmpty"
+		>$switch XmlElementName empty empty default implSchemaSaxLoaderGetXmlElementNameGetElementHandler$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderGetXmlElementNameGetElementHandler">
+	$poptop Table CPlusNamespace$::$poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler* $poptop SchemaDef SchemaName$SaxLoader::get$poptop Table TableName$$XmlElementName$Handler() {
+		if( $leadlower poptop Table TableName$$XmlElementName$Handler == NULL ) {
+			$leadlower poptop Table TableName$$XmlElementName$Handler = new $poptop Table CPlusNamespace$::$poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler( this );
+		}
+		return( $leadlower poptop Table TableName$$XmlElementName$Handler );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderGetRootElementHandler">
+	$CPlusNamespace$::$SchemaName$SaxRootHandler* $SchemaName$SaxLoader::getSaxRootHandler() {
+		const static std::string S_SchemaName( "$SchemaName$" );$iterate SchemaRefs( each implSchemaSaxLoaderGetRootElementHandlerStrRefSchema empty empty )$
+		if( saxRootHandler == NULL ) {
+			saxRootHandler = new $CPlusNamespace$::$SchemaName$SaxRootHandler( this );
+			saxRootHandler-&gt;addElementHandler( S_SchemaName, getSaxDocHandler() );$iterate SchemaRefs( each implSchemaSaxLoaderGetRootElementHandlerWireRefSchema empty empty )$
+		}
+		return( saxRootHandler );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSaxLoaderGetRootElementHandlerStrRefSchema">
+		const static std::string S_$reference RefSchema SchemaName$( "$reference RefSchema SchemaName$" );</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSaxLoaderGetRootElementHandlerWireRefSchema">
+			saxRootHandler-&gt;addElementHandler( S_$reference RefSchema SchemaName$, getSaxDocHandler() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderGetDocElementHandler">
+	$CPlusNamespace$::$SchemaName$SaxDocHandler* $SchemaName$SaxLoader::getSaxDocHandler() {
+		if( saxDocHandler == NULL ) {
+			saxDocHandler = new $SchemaName$SaxDocHandler( this );$iterate SchemaTables( each implDocElementHandlerWireDocBuffElement empty empty )$
+		}
+		return( saxDocHandler );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDocElementHandlerWireDocBuffElement"
+		>$switch HasContainer yes empty default implDocElementHandlerMaybeAttachElementHandler$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDocElementHandlerMaybeAttachElementHandler"
+		>$switch IsInstantiable yes implDocElementHandlerAttachElementHandler default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDocElementHandlerAttachElementHandler">
+			saxDocHandler-&gt;addElementHandler( $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::GENDEFNAME, get$TableName$Handler() );</GenRule>
+
+	<GenRule GenDef="Relation" Name="implComponentWireElementHandler"
+		>$switch RelationTypeTag Components implComponentWireElementHandlerMaybe default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implComponentWireElementHandlerMaybe"
+		>$switch IsXsdContainer yes implComponentAttachElementHandlers default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implComponentAttachElementHandlers"
+		>$iterate ComponentCandidates( each implComponentAttachElementHandler empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implComponentAttachElementHandler">
+			$leadlower poptop Table TableName$Handler-&gt;addElementHandler( $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::GENDEFNAME, get$TableName$Handler() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderRootElementHandler"
+		>$implConstructSaxRootHandler$$implSaxRootHandlerStartElement$$implSaxRootHandlerEndElement$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implConstructSaxRootHandler">
+	$SchemaName$SaxRootHandler::$SchemaName$SaxRootHandler( $CPlusNamespace$::$SchemaName$SaxLoader* saxLoader )
+	: cflib::CFLibXmlCoreElementHandler( saxLoader )
+	{
+	}
+
+	$SchemaName$SaxRootHandler::~$SchemaName$SaxRootHandler() {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRootHandlerStartElement">
+	/**
+	 * Receive notification of the beginning of an element.
+	 *
+	 * &lt;p&gt;The Parser will invoke this method at the beginning of every
+	 * element in the XML document; there will be a corresponding
+	 * endElement() event for every startElement() event (even when the
+	 * element is empty). All of the element's content will be
+	 * reported, in order, before the corresponding endElement()
+	 * event.&lt;/p&gt;
+	 *
+	 * &lt;p&gt;Note that the attribute list provided will
+	 * contain only attributes with explicit values (specified or
+	 * defaulted): \#IMPLIED attributes will be omitted.&lt;/p&gt;
+	 *
+	 * @param uri The URI of the associated namespace for this element
+	 * @param localname The local part of the element name
+	 * @param qname The QName of this element
+	 * @param attrs The attributes attached to the element, if any.
+	 * @exception SAXException Any SAX exception, possibly
+	 *			wrapping another exception.
+	 * @see #endElement
+	 * @see Attributes#Attributes
+	 */
+	void $SchemaName$SaxRootHandler::startElement (
+		const XMLCh* const uri,
+		const XMLCh* const localname,
+		const XMLCh* const qname,
+		const xercesc::Attributes&amp; attrs )
+	{
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRootHandlerEndElement">
+	/**
+	 * Receive notification of the end of an element.
+	 *
+	 * &lt;p&gt;The SAX parser will invoke this method at the end of every
+	 * element in the XML document; there will be a corresponding
+	 * startElement() event for every endElement() event (even when the
+	 * element is empty).&lt;/p&gt;
+	 *
+	 * @param uri The URI of the associated namespace for this element
+	 * @param localname The local part of the element name
+	 * @param qname The QName of this element
+	 * @exception SAXException Any SAX exception, possibly
+	 *			wrapping another exception.
+	 */
+	void $SchemaName$SaxRootHandler::endElement (
+		const XMLCh* const uri,
+		const XMLCh* const localname,
+		const XMLCh* const qname )
+	{
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderDocElementHandler"
+		>$implConstructSaxDocHandler$$implSaxDocHandlerStartElement$$implSaxDocHandlerEndElement$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implConstructSaxDocHandler">
+	$SchemaName$SaxDocHandler::$SchemaName$SaxDocHandler( $CPlusNamespace$::$SchemaName$SaxLoader* saxLoader )
+	: cflib::CFLibXmlCoreElementHandler( saxLoader )
+	{
+	}
+
+	$SchemaName$SaxDocHandler::~$SchemaName$SaxDocHandler() {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxDocHandlerStartElement">
+	/**
+	 * Receive notification of the beginning of an element.
+	 *
+	 * &lt;p&gt;The Parser will invoke this method at the beginning of every
+	 * element in the XML document; there will be a corresponding
+	 * endElement() event for every startElement() event (even when the
+	 * element is empty). All of the element's content will be
+	 * reported, in order, before the corresponding endElement()
+	 * event.&lt;/p&gt;
+	 *
+	 * &lt;p&gt;Note that the attribute list provided will
+	 * contain only attributes with explicit values (specified or
+	 * defaulted): \#IMPLIED attributes will be omitted.&lt;/p&gt;
+	 *
+	 * @param uri The URI of the associated namespace for this element
+	 * @param localname The local part of the element name
+	 * @param qname The QName of this element
+	 * @param attrs The attributes attached to the element, if any.
+	 * @exception SAXException Any SAX exception, possibly
+	 *			wrapping another exception.
+	 * @see #endElement
+	 * @see Attributes#Attributes
+	 */
+	void $SchemaName$SaxDocHandler::startElement (
+		const XMLCh* const uri,
+		const XMLCh* const localname,
+		const XMLCh* const qname,
+		const xercesc::Attributes&amp; attrs )
+	{
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxDocHandlerEndElement">
+	/**
+	 * Receive notification of the end of an element.
+	 *
+	 * &lt;p&gt;The SAX parser will invoke this method at the end of every
+	 * element in the XML document; there will be a corresponding
+	 * startElement() event for every endElement() event (even when the
+	 * element is empty).&lt;/p&gt;
+	 *
+	 * @param uri The URI of the associated namespace for this element
+	 * @param localname The local part of the element name
+	 * @param qname The QName of this element
+	 * @exception SAXException Any SAX exception, possibly
+	 *			wrapping another exception.
+	 */
+	void $SchemaName$SaxDocHandler::endElement (
+		const XMLCh* const uri,
+		const XMLCh* const localname,
+		const XMLCh* const qname )
+	{
+	}
+</GenRule>
+
+</RuleSet>

@@ -1,0 +1,1203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsg/SchemaXMsgRqstTableMoveUp.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Element  for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaXMsgRqstTableMoveUpJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgRqst/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgRqst"
+		ExpansionClassName="$SchemaName$XMsgRqst$TableName$MoveUpJava"
+		ExpansionKeyName="$SchemaName$XMsgRqst$TableName$MoveUpJava"
+		ExpansionFileName="$SchemaName$XMsgRqst$TableName$MoveUp.java">
+// Description: Java 11 XML Message SAX Response Record Element  for $TableName$
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgRqst;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.xml.sax.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+import $lower JavaPackage$.$SchemaName$XMsg.*;
+
+/*
+ *	$SchemaName$XMsgRqst$TableName$MoveUp XML SAX Element  implementation
+ *	for $TableName$.
+ */
+public class $SchemaName$XMsgRqst$TableName$MoveUp
+	extends CFLibXmlCoreElementHandler
+{$implConstructXMsgRqstTableMoveUp$$implRqstTableMoveUpStartElement$$implRqstTableMoveUpEndElement$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implConstructXMsgRqstTableMoveUp">
+	public $SchemaName$XMsgRqst$TableName$MoveUp( $SchemaName$XMsgRqst xmsgRqst ) {
+		super( xmsgRqst );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpStartElement">
+	public void startElement(
+		String		uri,
+		String		localName,
+		String		qName,
+		Attributes	attrs )
+	throws SAXException
+	{
+		$SchemaName$XMsgSchemaMessageFormatter schemaFormatter = null;
+		try {
+			// Common XML Attributes
+			String	attrId = null;
+			String	attrRevision = null;$implRqstTableMoveUpDeclPKeyAttrs$
+			// Attribute Extraction
+			String	attrLocalName;
+			int		numAttrs;
+			int		idxAttr;
+			final String S_ProcName = "startElement";
+			final String S_LocalName = "LocalName";
+
+			assert qName.equals( "Rqst$TableName$MoveUp" );
+$implRqstTableMoveUpRetrieveSchemaObj$$implRqstTableMoveUpConsPKey$$implRqstTableMoveUpExtractAttrs$$implRqstTableMoveUpCheckRequiredAttrs$$implRqstTableMoveUpGetContext$$implRqstTableMoveUpConvertAttributes$$implRqstTableMoveUpDoMoveUp$
+		}
+		catch( RuntimeException e ) {
+			$SchemaName$XMsgRqst xmsgRqst = (($SchemaName$XMsgRqst)getParser());
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+			String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnException( "\n\t\t\t", e )
+				+	"\n"
+				+	schemaFormatter.formatRspnXmlPostamble();
+			xmsgRqst.resetResponse();
+			xmsgRqst.appendResponse( response );
+			xmsgRqst.setCaughtException( true );
+		}
+		catch( Error e ) {
+			$SchemaName$XMsgRqst xmsgRqst = (($SchemaName$XMsgRqst)getParser());
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+			String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnException( "\n\t\t\t", e )
+				+	"\n"
+				+	schemaFormatter.formatRspnXmlPostamble();
+			xmsgRqst.resetResponse();
+			xmsgRqst.appendResponse( response );
+			xmsgRqst.setCaughtException( true );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpDoMoveUp">
+			// MoveUp the object
+			I$DefSchemaName$$TableName$Obj read = schemaObj.get$TableName$TableObj().read$TableName$( pkey );
+			if( read != null ) {
+				if( read.get$TableName$Buff().getRequiredRevision() &gt; natRevision ) {
+					throw new CFLibCollisionDetectedException( getClass(),
+						S_ProcName,
+						"Collision detected preparing to move $TableName$ up" );
+				}
+				else {
+					I$SchemaName$$TableName$Obj moved = (I$SchemaName$$TableName$Obj)read.moveUp();
+					String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+						+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RspnUpdated( "\n\t\t\t", moved.get$TableName$Buff() )
+						+	"\n"
+						+	schemaFormatter.formatRspnXmlPostamble();
+					(($SchemaName$XMsgRqst)getParser()).appendResponse( response );
+				}
+			}
+			else {
+				String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+					+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnNoDataFound() +	"\n"
+					+	schemaFormatter.formatRspnXmlPostamble();
+				(($SchemaName$XMsgRqst)getParser()).appendResponse( response );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpDeclPKeyAttrs">
+			// Primary Key Attributes for Constant Enum support$switch HasSuperClassRelation yes implRqstTableMoveUpDeclPKeyInhAttrs default implRqstTableMoveUpDeclPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpDeclPKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableMoveUpDeclNonIdPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpDeclPKeyInhAttrs"
+		>$reference SuperClassRelation reference ToTable implRqstTableMoveUpDeclPKeyDecisionAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpDeclPKeyDecisionAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableMoveUpDeclPKeyInhAttrs default implRqstTableMoveUpDeclPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableMoveUpDeclNonIdPKeyAttr"
+		>$switch Name Id empty default implRqstTableMoveUpDeclEmitPKeyAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableMoveUpDeclEmitPKeyAttr">
+			String attr$Name$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpConsPKey">
+			// Instantiate a PKey buffer for the parsed information
+			$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey pkey = ((I$SchemaName$Schema)schemaObj.getBackingStore()).getFactory$reference BaseClass TableName$().newPKey();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpEndElement">
+	public void endElement(
+		String		uri,
+		String		localName,
+		String		qName )
+	throws SAXException
+	{
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpRetrieveSchemaObj">
+			$SchemaName$XMsgRqst xmsgRqst = ($SchemaName$XMsgRqst)getParser();
+			if( xmsgRqst == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser()" );
+			}
+
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+
+			I$SchemaName$SchemaObj schemaObj = xmsgRqst.getSchemaObj();
+			if( schemaObj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser().getSchemaObj()" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpApplyPKeyAttrs"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRqstTableMoveUpApplyPIndexColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableMoveUpApplyPIndexColumn">
+			pkey.set$OptionalOrRequired$$Name$( nat$Name$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpApplyInsertAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableMoveUpApplyInsertAttrsSuper default implRqstTableMoveUpApplyInsertAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpApplyInsertAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRqstTableMoveUpApplyInsertAttrs$
+			// Apply $TableName$ Attributes$iterate Columns( each implRqstTableMoveUpApplyDataInsertAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpApplyInsertAttrsBase">
+			// Apply $TableName$ Attributes$iterate Columns( each implRqstTableMoveUpApplyDataInsertAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpApplyDataInsertAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRqstTableMoveUpApplyNonIdInsertAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpApplyNonIdInsertAttr"
+		>$switch Name Id empty default implRqstTableMoveUpApplyAnUnhiddenInsertAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpApplyAnUnhiddenInsertAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implRqstTableMoveUpApplyAnInsertAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpApplyAnInsertAttr">
+			edit$poptop Table TableName$.set$OptionalOrRequired$$Name$( $implRqstTableMoveUpApplyAnAttrVar$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpApplyAnAttrVar"
+		>$switch BaseModelAtomClass
+			BlobDef implRqstTableMoveUpApplyNatVar
+			BoolDef implRqstTableMoveUpApplyNatVar
+			EnumDef implRqstTableMoveUpApplyNatVar
+			Id16Gen implRqstTableMoveUpApplyNatVar
+			Id32Gen implRqstTableMoveUpApplyNatVar
+			Id64Gen implRqstTableMoveUpApplyNatVar
+			Int16Def implRqstTableMoveUpApplyNatVar
+			Int32Def implRqstTableMoveUpApplyNatVar
+			Int64Def implRqstTableMoveUpApplyNatVar
+			UInt16Def implRqstTableMoveUpApplyNatVar
+			UInt32Def implRqstTableMoveUpApplyNatVar
+			UInt64Def implRqstTableMoveUpApplyNatVar
+			FloatDef implRqstTableMoveUpApplyNatVar
+			DoubleDef implRqstTableMoveUpApplyNatVar
+			NumberDef implRqstTableMoveUpApplyNatVar
+			DateDef implRqstTableMoveUpApplyNatVar
+			TimeDef implRqstTableMoveUpApplyNatVar
+			TimestampDef implRqstTableMoveUpApplyNatVar
+			TZDateDef implRqstTableMoveUpApplyNatVar
+			TZTimeDef implRqstTableMoveUpApplyNatVar
+			TZTimestampDef implRqstTableMoveUpApplyNatVar
+			UuidGen implRqstTableMoveUpApplyNatVar
+			UuidDef implRqstTableMoveUpApplyNatVar
+			StringDef implRqstTableMoveUpApplyAttrVar
+			TokenDef implRqstTableMoveUpApplyAttrVar
+			NmTokenDef implRqstTableMoveUpApplyAttrVar
+			NmTokensDef implRqstTableMoveUpApplyAttrVar
+			TextDef implRqstTableMoveUpApplyAttrVar
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpApplyNatVar"
+		>nat$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpApplyAttrVar"
+		>attr$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpExtractAttrs">
+			// Extract Attributes
+			numAttrs = attrs.getLength();
+			for( idxAttr = 0; idxAttr &lt; numAttrs; idxAttr++ ) {
+				attrLocalName = attrs.getLocalName( idxAttr );
+				if( attrLocalName.equals( "Id" ) ) {
+					if( attrId != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrId = attrs.getValue( idxAttr );
+				}
+				else if( attrLocalName.equals( "Revision" ) ) {
+					if( attrRevision != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrRevision = attrs.getValue( idxAttr );
+				}$implRqstTableMoveUpParsePKeyAttrs$
+				else if( attrLocalName.equals( "schemaLocation" ) ) {
+					// ignored
+				}
+				else {
+					throw new CFLibUnrecognizedAttributeException( getClass(),
+						S_ProcName,
+						getParser().getLocationInfo(),
+						attrLocalName );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpParsePKeyAttrs"
+		>$reference BaseClass implRqstTableMoveUpParsePKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpParsePKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableMoveUpParseEmitNonIdPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableMoveUpParseEmitNonIdPKeyAttr"
+		>$switch Name Id empty default implRqstTableMoveUpParseEmitPKeyAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableMoveUpParseEmitPKeyAttr">
+				else if( attrLocalName.equals( "$Name$" ) ) {
+					if( attr$Name$ != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attr$Name$ = attrs.getValue( idxAttr );
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpCheckRequiredAttrs">
+			// Ensure that required attributes have values$implRqstTableMoveUpCheckReqPKeyAttrs$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpCheckReqPKeyAttrs"
+		>$reference BaseClass implRqstTableMoveUpCheckReqPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpCheckReqPKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableMoveUpCheckReqMaybeEmitPKeyAttr )$$implRqstTableMoveUpCheckReqRevisionAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpCheckReqRevisionAttr">
+			if( ( attrRevision == null ) || ( attrRevision.length() &lt;= 0 ) ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Revision" );
+			}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableMoveUpCheckReqMaybeEmitPKeyAttr"
+		>$switch IsNullable no implRqstTableMoveUpCheckReqEmitPKeyAttr default empty$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableMoveUpCheckReqEmitPKeyAttr">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$" );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpGetContext">
+			// Get current context
+			CFLibXmlCoreContext curContext = getParser().getCurContext();</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpPutNamedAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableMoveUpPutNamedAttrsSuper default implRqstTableMoveUpPutNamedAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpPutNamedAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRqstTableMoveUpPutNamedAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpPutNamedAttrsBase">$reference PrimaryKeyIndex iterate Columns( each implRqstTableMoveUpPutNamedAnAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableMoveUpPutNamedAnAttr">
+			curContext.putNamedValue( "$Name$", attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpConvertAttributes">
+			// Convert string attributes to native Java types
+			// and apply the converted attributes to the editBuff.
+$implRqstTableMoveUpConvertPKeyAttrs$$implRqstTableMoveUpConvertRevisionAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpConvertRevisionAttr">
+			int natRevision = Integer.parseInt( attrRevision );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpConvertPKeyAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableMoveUpConvertInhPKeyAttrs default implRqstTableMoveUpConvertBasePKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpConvertInhPKeyAttrs"
+		>$reference SuperClassRelation reference ToTable implRqstTableMoveUpConvertPKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpConvertBasePKeyAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableMoveUpConvertColPKeyAttrs )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableMoveUpConvertColPKeyAttrs"
+		>$reference Column implRqstTableMoveUpConvertColPKeyAttrs$
+			pkey.set$OptionalOrRequired$$Name$( nat$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColPKeyAttrs">
+			$implJavaAtomType$ nat$Name$;$switch BaseModelAtomClass
+			BlobDef implRqstTableMoveUpConvertColBlobValue
+			BoolDef implRqstTableMoveUpConvertColBoolValue
+			EnumDef implRqstTableMoveUpConvertColEnumValue
+			Int16Def implRqstTableMoveUpConvertColInt16Value
+			Int32Def implRqstTableMoveUpConvertColInt32Value
+			Int64Def implRqstTableMoveUpConvertColInt64Value
+			UInt16Def implRqstTableMoveUpConvertColUInt16Value
+			UInt32Def implRqstTableMoveUpConvertColUInt32Value
+			UInt64Def implRqstTableMoveUpConvertColUInt64Value
+			Id16Gen implRqstTableMoveUpConvertColInt16Value
+			Id32Gen implRqstTableMoveUpConvertColInt32Value
+			Id64Gen implRqstTableMoveUpConvertColInt64Value
+			FloatDef implRqstTableMoveUpConvertColFloatValue
+			DoubleDef implRqstTableMoveUpConvertColDoubleValue
+			NumberDef implRqstTableMoveUpConvertColNumberValue
+			StringDef implRqstTableMoveUpConvertColStringValue
+			TokenDef implRqstTableMoveUpConvertColTokenValue
+			NmTokenDef implRqstTableMoveUpConvertColNmTokenValue
+			NmTokensDef implRqstTableMoveUpConvertColNmTokensValue
+			TextDef implRqstTableMoveUpConvertColTextValue
+			DateDef implRqstTableMoveUpConvertColDateValue
+			TimeDef implRqstTableMoveUpConvertColTimeValue
+			TimestampDef implRqstTableMoveUpConvertColTimestampValue
+			TZDateDef implRqstTableMoveUpConvertColTZDateValue
+			TZTimeDef implRqstTableMoveUpConvertColTZTimeValue
+			TZTimestampDef implRqstTableMoveUpConvertColTZTimestampValue
+			UuidGen implRqstTableMoveUpConvertColUuidValue
+			UuidDef implRqstTableMoveUpConvertColUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$
+			pkey.set$OptionalOrRequired$$Name$( nat$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColBlobValue">
+			throw new RuntimeException( S_ProcName + "ERROR: Cannot use a BLOB as a PKey attribute!" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColBoolValue"
+		>$switch IsNullable yes implRqstTableMoveUpConvertColOptBoolValue default implRqstTableMoveUpConvertColReqBoolValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColReqBoolValue">
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColOptBoolValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() == 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = Boolean.valueOf( true );
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = Boolean.valueOf( false );
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColEnumValue"
+		>$switch IsNullable yes implRqstTableMoveUpConvertColOptEnumValue default implRqstTableMoveUpConvertColReqEnumValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColOptEnumValue">
+			nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColReqEnumValue">
+			nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColInt16Value"
+		>$switch IsNullable yes implRqstTableMoveUpConvertColOptInt16Value default implRqstTableMoveUpConvertColReqInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColOptInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColReqInt16Value">
+			nat$Name$ = Short.parseShort( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColInt32Value"
+		>$switch IsNullable yes implRqstTableMoveUpConvertColOptInt32Value default implRqstTableMoveUpConvertColReqInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColOptInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColReqInt32Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColInt64Value"
+		>$switch IsNullable yes implRqstTableMoveUpConvertColOptInt64Value default implRqstTableMoveUpConvertColReqInt64Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColOptInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColReqInt64Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColUInt16Value"
+		>$switch IsNullable yes implRqstTableMoveUpConvertColOptUInt16Value default implRqstTableMoveUpConvertColReqUInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColOptUInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColReqUInt16Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColUInt32Value"
+		>$switch IsNullable yes implRqstTableMoveUpConvertColOptUInt32Value default implRqstTableMoveUpConvertColReqUInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColOptUInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColReqUInt32Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColUInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = new BigDecimal( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColFloatValue"
+		>$switch IsNullable yes implRqstTableMoveUpConvertColOptFloatValue default implRqstTableMoveUpConvertColReqFloatValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColOptFloatValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColReqFloatValue">
+			nat$Name$ = Float.parseFloat( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColDoubleValue"
+		>$switch IsNullable yes implRqstTableMoveUpConvertColOptDoubleValue default implRqstTableMoveUpConvertColReqDoubleValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColOptDoubleValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColReqDoubleValue">
+			nat$Name$ = Double.parseDouble( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColNumberValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = new BigDecimal( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColStringValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColNmTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColNmTokensValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColTextValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColTZDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColTZTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColTZTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertColUuidValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}</GenRule>
+
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpConvertNatId">
+			Integer natId;
+			if( ( attrId != null ) &amp;&amp; ( attrId.length() &gt; 0 ) ) {
+				natId = Integer.valueOf( Integer.parseInt( attrId ) );
+			}
+			else {
+				natId = null;
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpConvertAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableMoveUpConvertAttrsSuper default implRqstTableMoveUpConvertAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpConvertAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRqstTableMoveUpConvertAttrs$$iterate Columns( each implRqstTableMoveUpConvertDataAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableMoveUpConvertAttrsBase">$iterate Columns( each implRqstTableMoveUpConvertDataAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRqstTableMoveUpConvertNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertNonIdAttr"
+		>$switch Name Id empty default implRqstTableMoveUpConvertAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implRqstTableMoveUpConvertAnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertAnAttr"
+		>$switch IsNullable yes implRqstTableMoveUpConvertOptAttr default implRqstTableMoveUpConvertReqAttr$		pkey.set$OptionalOrRequired$$Name$( nat$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRqstTableMoveUpConvertReqBlob
+			BoolDef implRqstTableMoveUpConvertReqBool
+			EnumDef implRqstTableMoveUpConvertReqEnum
+			Id16Gen implRqstTableMoveUpConvertReqInt16
+			Id32Gen implRqstTableMoveUpConvertReqInt32
+			Id64Gen implRqstTableMoveUpConvertReqInt64
+			Int16Def implRqstTableMoveUpConvertReqInt16
+			Int32Def implRqstTableMoveUpConvertReqInt32
+			Int64Def implRqstTableMoveUpConvertReqInt64
+			UInt16Def implRqstTableMoveUpConvertReqUInt16
+			UInt32Def implRqstTableMoveUpConvertReqUInt32
+			UInt64Def implRqstTableMoveUpConvertReqUInt64
+			FloatDef implRqstTableMoveUpConvertReqFloat
+			DoubleDef implRqstTableMoveUpConvertReqDouble
+			NumberDef implRqstTableMoveUpConvertReqNumber
+			DateDef implRqstTableMoveUpConvertReqDate
+			TimeDef implRqstTableMoveUpConvertReqTime
+			TimestampDef implRqstTableMoveUpConvertReqTimestamp
+			TZDateDef implRqstTableMoveUpConvertReqTZDate
+			TZTimeDef implRqstTableMoveUpConvertReqTZTime
+			TZTimestampDef implRqstTableMoveUpConvertReqTZTimestamp
+			UuidGen implRqstTableMoveUpConvertReqUuid
+			UuidDef implRqstTableMoveUpConvertReqUuid
+			StringDef implRqstTableMoveUpConvertReqString
+			TokenDef implRqstTableMoveUpConvertReqString
+			NmTokenDef implRqstTableMoveUpConvertReqString
+			NmTokensDef implRqstTableMoveUpConvertReqString
+			TextDef implRqstTableMoveUpConvertReqString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRqstTableMoveUpConvertOptBlob
+			BoolDef implRqstTableMoveUpConvertOptBool
+			EnumDef implRqstTableMoveUpConvertOptEnum
+			Id16Gen implRqstTableMoveUpConvertOptInt16
+			Id32Gen implRqstTableMoveUpConvertOptInt32
+			Id64Gen implRqstTableMoveUpConvertOptInt64
+			Int16Def implRqstTableMoveUpConvertOptInt16
+			Int32Def implRqstTableMoveUpConvertOptInt32
+			Int64Def implRqstTableMoveUpConvertOptInt64
+			UInt16Def implRqstTableMoveUpConvertOptUInt16
+			UInt32Def implRqstTableMoveUpConvertOptUInt32
+			UInt64Def implRqstTableMoveUpConvertOptUInt64
+			FloatDef implRqstTableMoveUpConvertOptFloat
+			DoubleDef implRqstTableMoveUpConvertOptDouble
+			NumberDef implRqstTableMoveUpConvertOptNumber
+			DateDef implRqstTableMoveUpConvertOptDate
+			TimeDef implRqstTableMoveUpConvertOptTime
+			TimestampDef implRqstTableMoveUpConvertOptTimestamp
+			TZDateDef implRqstTableMoveUpConvertOptTZDate
+			TZTimeDef implRqstTableMoveUpConvertOptTZTime
+			TZTimestampDef implRqstTableMoveUpConvertOptTZTimestamp
+			UuidGen implRqstTableMoveUpConvertOptUuid
+			UuidDef implRqstTableMoveUpConvertOptUuid
+			StringDef implRqstTableMoveUpConvertOptString
+			TokenDef implRqstTableMoveUpConvertOptString
+			NmTokenDef implRqstTableMoveUpConvertOptString
+			NmTokensDef implRqstTableMoveUpConvertOptString
+			TextDef implRqstTableMoveUpConvertOptString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqBlob">
+			byte[] nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqBool">
+			boolean nat$Name$;
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqInt16">
+			short nat$Name$ = Short.parseShort( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqInt32">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqInt64">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqUInt16">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqUInt32">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqUInt64">
+			BigDecimal nat$Name$ = new BigDecimal( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqFloat">
+			float nat$Name$ = Float.parseFloat( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqDouble">
+			double nat$Name$ = Double.parseDouble( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqNumber">
+			BigDecimal nat$Name$ = new BigDecimal( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqTZDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqTZTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqTZTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqUuid">
+			UUID nat$Name$ = UUID.fromString( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertReqString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptBlob">
+			byte[] nat$Name$;
+			if( attr$Name$ == null ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.length() &lt;= 0 ) {
+				nat$Name$ = new byte[0];
+			}
+			else {
+				nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptBool">
+			Boolean nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptInt16">
+			Short nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptInt32">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptInt64">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptUInt16">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptUInt32">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptUInt64">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= new BigDecimal( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptFloat">
+			Float nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptDouble">
+			Double nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptNumber">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= new BigDecimal( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptTZDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptTZTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptTZTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptUuid">
+			UUID nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableMoveUpConvertOptString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+</RuleSet>

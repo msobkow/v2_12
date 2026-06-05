@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/crsp_create_dbtablename.plsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPCreateDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="$dbadminfilename_CreateSPCreateDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPCreateDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPCreateDbTableName$" >--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+alter session set plsql_warnings = 'ENABLE:ALL';
+/
+
+create or replace procedure $lower DbSchemaName$.$sp_create_dbtablename$(
+	$implOracleSPCreateTableArgs$ ) authid definer
+is
+	permissionDenied exception;$switch BaseHasHistory yes declOracleSPTableUseStamp default declOracleSPTableUseStampIfAudited$
+	permissionFlag integer;$declOracleSPCreateTableGeneratedColumns$$switch HasChain yes declOracleSPCreateTableChainPrevVars default empty$
+begin$switch BaseHasHistory yes implOracleSPTableInitStamp default implOracleSPTableInitStampIfAudited$$switch TableName SecSession empty default implOracleSPCreateTableCheckPermissions$$switch HasChain yes implOracleSPTableLatchContainer default empty$$switch HasChain yes implOracleSPCreateTableChainSelectPrev default empty$$reference BaseClass iterate GeneratedTableColumns( each invoke_Generator empty empty )$$insertTableHierarchy$$switch BaseHasHistory yes implAudit default empty$$switch HasChain yes implOracleSPCreateTableUpdatePrev default empty$$switch HasChain yes implOracleSPTableUnlatchContainer default empty$
+	open retCursor for select
+$implOracleSelectTableColumns$,
+		$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$.$DbTableName$ $lower ClassCode$$switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$;
+end $sp_create_dbtablename$;
+/
+
+show errors procedure $lower DbSchemaName$.$sp_create_dbtablename$;
+</GenFile>
+
+	<GenRule GenDef="Table" Name="declOracleSPTableUseStampIfAudited"
+		>$switch HasAuditColumns yes declOracleSPTableUseAuditStamp default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPTableUseStamp">
+	use_stamp $lower DbSchemaName$.$DbTableName$_h.auditstamp%type;</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPTableUseAuditStamp">
+	use_stamp $lower DbSchemaName$.$DbTableName$.createdat%type;</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPTableInitStampIfAudited"
+		>$switch HasAuditColumns yes implOracleSPTableInitStamp default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPTableInitStamp">
+	use_stamp := systimestamp;</GenRule>
+
+	<GenRule GenDef="Table" Name="ChainTableHasSuperClassRelation"
+		>$reference Chain reference Table HasSuperClassRelation$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableUpdatePrev">
+	if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implOracleSPCreateTableUpdatePrevIfNotNull each empty )$ )
+	then$switch ChainTableHasSuperClassRelation yes implOracleSPCreateTableUpdateTwoTables default implOracleSPCreateTableUpdateOneTable$$switch BaseHasHistory yes implOracleSPCreateTableUpdatePrevAuditUpdated default empty$
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableUpdateOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implOracleSPCreateTableUpdateTableAuditColumns default empty$$reference Chain reference NextRel iterate Columns( each implOracleSPCreateTableUpdateWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPCreateTableUpdateTableWherePKeyCol each implOracleSPCreateTableUpdateTableWhereAndPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableUpdateTableAuditColumns">,
+			updatedby = argAuditUserId,
+			updatedat = use_stamp</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPCreateTableUpdateWithKey"
+		>$reference FromCol DbColumnName$ = arg$reference ToCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPCreateTableUpdateWithCommaKey">,
+			$implOracleSPCreateTableUpdateWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPCreateTableUpdateTableWherePKeyCol"
+		>$reference ToCol DbColumnName$ = prev$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPCreateTableUpdateTableWhereAndPKeyCol">
+			and $implOracleSPCreateTableUpdateTableWherePKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableUpdateTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implOracleSPCreateTableUpdateTableAuditColumns default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPCreateTableUpdateTableWherePKeyCol each implOracleSPCreateTableUpdateTableWhereAndPKeyCol )$;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference NextRel iterate Columns( first implOracleSPCreateTableUpdateWithKey each implOracleSPCreateTableUpdateWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPCreateTableUpdateTableWherePKeyCol each implOracleSPCreateTableUpdateTableWhereAndPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPCreateTableUpdatePrevIfNotNull"
+		>prev$DbColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableUpdatePrevAuditUpdated">
+		$lower poptop Table DbSchemaName$.aud_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implOracleSPCreateTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implOracleSPCreateTableAuditUpdatedPassArg )$,
+			1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableUpdatePrevAuditPassClassCode">,
+			prevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPCreateTableAuditUpdatedPassArg">,
+			prev$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableChainSelectPrev">
+	begin
+		select$reference Chain reference NextRel reference ToTable reference BaseClass reference PrimaryKeyIndex iterate Columns( first implOracleSPCreateTableChainSelectPrevKeyCol each implOracleSPCreateTableChainSelectCommaPrevKeyCol )$$reference Chain reference Table switch HasClassCode yes implOracleSPCreateTableChainSelectCommaClassCode default empty$
+		into$reference Chain reference PrevRel reference FromIndex iterate Columns( first implOracleSPCreateTableChainSelectIntoVar each implOracleSPCreateTableChainSelectCommaIntoVar )$$reference Chain reference Table switch HasClassCode yes implOracleSPCreateTableChainSelectCommaIntoClassCode default empty$
+		from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ $lower reference Chain reference Table ClassCode$$reference Chain reference Table switch HasSuperClassRelation yes implOracleSPCreateTableChainSelectJoinSuper default empty$
+		where$reference Chain reference Table reference ContainerRelation iterate Columns( first implOracleSPCreateTableChainSelectWhereContainerArg each implOracleSPCreateTableChainSelectWhereAndContainerArg )$$reference Chain reference NextRel reference FromIndex iterate Columns( each implOracleSPCreateTableChainSelectWhereAndNextNull )$;
+	exception
+		when NO_DATA_FOUND then$switch HasClassCode yes implOracleSPCreateTableChainSelectAssignClassCodeNull default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implOracleSPCreateTableChainSelectAssignNull )$
+	end;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableChainSelectAssignClassCodeNull">
+			prevClassCode := null;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPCreateTableChainSelectAssignNull">
+			prev$DbColumnName$ := null;</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPCreateTableChainSelectWhereContainerArg">
+			$lower reference Relation reference FromTable ClassCode$.$reference FromCol DbColumnName$ = arg$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPCreateTableChainSelectWhereAndContainerArg">
+			and $lower reference Relation reference FromTable ClassCode$.$reference FromCol DbColumnName$ = arg$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPCreateTableChainSelectWhereAndNextNull">
+			and $lower reference Index reference Table ClassCode$.$DbColumnName$ is null</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableChainSelectJoinSuper">
+			inner join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference SuperClassRelation iterate Columns( first implOracleSPCreateTableChainSelectJoinSuperOnCol each implOracleSPCreateTableChainSelectJoinSuperAndOnCol )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implOracleSPCreateTableChainSelectJoinSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPCreateTableChainSelectJoinSuperOnCol">
+				$lower reference Relation reference FromTable ClassCode$.$reference FromCol DbColumnName$ = $lower reference Relation reference ToTable ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPCreateTableChainSelectJoinSuperAndOnCol">
+				and $lower reference Relation reference FromTable ClassCode$.$reference FromCol DbColumnName$ = $lower reference Relation reference ToTable ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPCreateTableChainSelectPrevKeyCol">
+			$lower reference Index reference Table ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPCreateTableChainSelectCommaPrevKeyCol"
+		>,$implOracleSPCreateTableChainSelectPrevKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableChainSelectCommaClassCode">,
+			$lower reference BaseClass ClassCode$.classcode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPCreateTableChainSelectIntoVar">
+			prev$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPCreateTableChainSelectCommaIntoVar"
+		>,$implOracleSPCreateTableChainSelectIntoVar$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableChainSelectCommaIntoClassCode">,
+			prevClassCode</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPCreateTableChainPrevVars"
+		>$reference Chain reference Table switch HasClassCode yes declOracleSPCreateTableChainPrevClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declOracleSPCreateTableChainPrevVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPCreateTableChainPrevClassCode">
+	prevClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declOracleSPCreateTableChainPrevVar">
+	prev$DbColumnName$ $reference Column clause_SPVarType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implOracleSPTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPTableLatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision + 1
+	where
+		$popto Relation iterate Columns( first implOracleSPTableLatchWhereArg each implOracleSPTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPTableLatchWhereArg"
+		>$reference ToCol DbColumnName$ = arg$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPTableLatchWhereAndArg">
+		and $implOracleSPTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implOracleSPTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPTableUnlatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision - 1
+	where
+		$popto Relation iterate Columns( first implOracleSPTableLatchWhereArg each implOracleSPTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleSPStandardArgs">
+	argAuditClusterId numeric,
+	argAuditUserId varchar,
+	argAuditSessionId varchar,
+	secClusterId numeric,
+	secTenantId numeric</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableCheckPermissions"
+		>$switch SecScope None empty System implOracleSPCreateTableCheckSystem Cluster implOracleSPCreateTableCheckCluster Tenant implOracleSPCreateTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableCheckSystem">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		permissionFlag := $lower DbSchemaName$.sp_is_system_user( argAuditUserId );
+		if( permissionFlag = 0 )
+		then
+			raise permissionDenied;
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableCheckCluster">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		permissionFlag := $lower DbSchemaName$.sp_is_cluster_user( arg$reference ClusterIdColumn DbColumnName$,
+			'Create$TableName$',
+			argAuditUserId );
+		if( permissionFlag = 0 )
+		then
+			raise permissionDenied;
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableCheckTenant">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		permissionFlag := $lower DbSchemaName$.sp_is_tenant_user( arg$reference TenantIdColumn DbColumnName$,
+			'Create$TableName$',
+			argAuditUserId );
+		if( permissionFlag = 0 )
+		then
+			raise permissionDenied;
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAudit"
+		>$switch BaseHasClassCode yes implAuditWithCC default implAuditNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditNoCC">
+	insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			revision,
+			auditclusterid,
+			auditsessionid,$implAuditInheritedIntoDataColumnNameComma$
+			auditaction,
+			auditstamp )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.revision as revision,
+			argAuditClusterId,
+			argAuditSessionId,$implAuditInheritedDataColumnNameComma$
+			0,
+			use_stamp
+		from $lower DbSchemaName$.$DbTableName$ $lower ClassCode$$switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditWithCC">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			classcode,
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.classcode,
+			argAuditClusterId,
+			argAuditSessionId,
+			use_stamp,$implAuditInheritedDataColumnNameComma$
+			$lower reference BaseClass ClassCode$.revision,
+			0
+		from $lower DbSchemaName$.$DbTableName$ $lower ClassCode$$switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgAuditOneComma">
+			$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgValueComma">
+			$lower reference Column reference Table ClassCode$.$DbColumnName$ as $DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgAuditParmComma">
+			arg$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgParmComma">
+			arg$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedDataColumnNameCommaInh default implAuditInheritedDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnEmitDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnReallyEmitDataColumn">
+			$lower reference Table ClassCode$.$DbColumnName$ as $DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedIntoDataColumnNameCommaInh default implAuditInheritedIntoDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedIntoDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitIntoDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedIntoDataColumnReallyEmitDataColumn">
+			$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameInhComma"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameBaseComma"
+		>$iterate Columns( each implAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implAuditInheritedDataColumnNameComma"
+		>$reference Column implAuditInheritedDataColumnNameComma$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitNameComma">
+			$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnArgComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedDataColumnArgCommaInh default implAuditInheritedDataColumnArgCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnArgCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnArgComma$$iterate Columns( each implAuditInheritedDataColumnEmitArgColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnArgCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitArgColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitArgColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnReallyEmitArgColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnReallyEmitArgColumn">
+			arg$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnArgComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedIntoDataColumnArgCommaInh default implAuditInheritedIntoDataColumnArgCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnArgCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedIntoDataColumnArgComma$$iterate Columns( each implAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnArgCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitIntoArgColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitIntoArgColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedIntoDataColumnReallyEmitArgColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedIntoDataColumnReallyEmitArgColumn">
+			arg$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnArgInhComma"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnArgComma$$iterate Columns( each implAuditInheritedDataColumnArgComma )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnArgBaseComma"
+		>$iterate Columns( each implAuditInheritedDataColumnArgComma )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implAuditInheritedDataColumnArgComma"
+		>$reference Column implAuditInheritedDataColumnArgComma$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implAuditInheritedDataColumnArgComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitArgComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implAuditInheritedDataColumnArgComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitArgComma$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitArgComma">
+			arg$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectTableColumns"
+		>$switch HasSuperClassRelation yes implOracleSelectSuperTable default implOracleSelectBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectSuperTable"
+		>$reference SuperClassRelation reference ToTable implOracleSelectTableColumns$$iterate Columns( each implOracleSelectFragCommaDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSelectFragCommaDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implOracleTableColumnSelectFragCommaColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectBaseTable"
+		>$switch IsBaseTable yes implOracleSelectBaseTableWithCC default implOracleSelectBaseTableNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectBaseTableWithCC"
+>			$lower ClassCode$.ClassCode$switch HasAuditColumns yes implOracleTableColumnSelectCommaAuditColumns default empty$$iterate Columns( each implOracleTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleTableColumnSelectCommaAuditColumns">,
+			$lower ClassCode$.createdby,
+			to_char( $lower ClassCode$.createdat, 'YYYY-MM-DD HH24:MI:SS' ) as createdat,
+			$lower ClassCode$.updatedby,
+			to_char( $lower ClassCode$.updatedat, 'YYYY-MM-DD HH24:MI:SS' ) as updatedat</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectBaseTableNoCC"
+		>$switch HasAuditColumns yes implOracleSelectBaseTableNoCCWithAudit default implOracleSelectBaseTableNoCCNoAudit$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectBaseTableNoCCWithAudit"
+>			$lower ClassCode$.createdby,
+			to_char( $lower ClassCode$.createdat, 'YYYY-MM-DD HH24:MI:SS' ) as createdat,
+			$lower ClassCode$.updatedby,
+			to_char( $lower ClassCode$.updatedat, 'YYYY-MM-DD HH24:MI:SS' ) as updatedat$iterate Columns( each implOracleTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectBaseTableNoCCNoAudit"
+>			$iterate Columns( first implOracleTableColumnSelectFragDbColumnName each implOracleTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableHierarchy"
+		>$switch HasSuperClassRelation yes insertTableSuperHierarchy default insertTableBaseHierarchy$</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableSuperHierarchy"
+		>$reference SuperClassRelation reference ToTable insertTableHierarchy$
+	insert into $lower DbSchemaName$.$lower DbTableName$(
+		$iterate Columns( first implOracleSPCreateTableInsertColumn each implOracleSPCommaCreateTableInsertColumn )$ )
+	values (
+		$iterate Columns( first implOracleSPCreateTableBindArg each implOracleSPCommaCreateTableBindArg )$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableBaseHierarchy">
+	insert into $lower DbSchemaName$.$lower DbTableName$(
+		$switch IsBaseTable yes implOracleSPCreateTableInsertClassCode default empty$$switch HasAuditColumns yes implOracleSPCreateTableInsertAuditColumns default empty$$iterate Columns( first implOracleSPCreateTableInsertColumn each implOracleSPCommaCreateTableInsertColumn )$$implOracleSPCreateTableInsertRevision$ )
+	values (
+		$switch IsBaseTable yes implOracleSPCreateTableBindClassCode default empty$$switch HasAuditColumns yes implOracleSPCreateTableBindAuditColumns default empty$$iterate Columns( first implOracleSPCreateTableBindArg each implOracleSPCommaCreateTableBindArg )$$implOracleSPCommaCreateTableBindRevision$ );</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleSPCreateTableInsertAuditColumns"
+>createdby,
+		createdat,
+		updatedby,
+		updatedat,
+		</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableBindAuditColumns"
+		>argAuditUserId,
+		use_stamp,
+		argAuditUserId,
+		use_stamp,
+		</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPCreateTableGeneratedColumns"
+		>$switch HasSuperClassRelation yes declOracleSPCreateTableSuperGeneratedColumns default declOracleSPCreateTableBaseGeneratedColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPCreateTableSuperGeneratedColumns"
+		>$reference SuperClassRelation reference ToTable declOracleSPCreateTableGeneratedColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPCreateTableBaseGeneratedColumns"
+		>$iterate Columns( each spvar_DeclareGeneratedTableCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="spvar_DeclareGeneratedTableCol"
+		>$switch GenerateId yes spvar_DeclareGeneratedNonUuidTableCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="spvar_DeclareGeneratedNonUuidTableCol"
+		>$switch BaseModelAtomClass
+			UuidGen empty
+			Id16Gen spvar_DeclareTableCol
+			Id32Gen spvar_DeclareTableCol
+			Id64Gen spvar_DeclareTableCol
+			default errorSpVarDeclareGeneratedNonUuidTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableArgs"
+		>$switch HasSuperClassRelation yes implOracleSPCreateTableSuperArgs default implOracleSPCreateTableBaseArgs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableSuperArgs"
+		>$reference SuperClassRelation reference ToTable implOracleSPCreateTableArgs$$iterate Columns( each implOracleSPCommaCreateTableInsertDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCommaCreateTableInsertDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableBaseArgs"
+		>$implOracleSPArgOutCursor$,$implOracleSPStandardArgs$$implOracleSPCreateTableArgClassCode$$iterate Columns( each implOracleSPCreateTableInsertNGColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCreateTableInsertNGColumn"
+		>$switch GenerateId yes implOracleSPCreateTableForceInsertUuidGenColumn default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCreateTableForceInsertUuidGenColumn"
+		>$switch BaseModelAtomClass
+			UuidGen sparg_CommaTableCol
+			Id16Gen empty
+			Id32Gen empty
+			Id64Gen empty
+			default errorOracleSPCreateTableForceInsertUuidGenColumn$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="invoke_Generator"
+		>$switch BaseModelAtomClass
+			UuidGen empty
+			Id16Gen reallyInvoke_Generator
+			Id32Gen reallyInvoke_Generator
+			Id64Gen reallyInvoke_Generator
+			default errorInvokeGenerator$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="reallyInvoke_Generator">
+	arg$DbColumnName$ := $generator_sp_with_args$;</GenRule>
+
+	<GenRule GenDef="TableCol" Name="TableColDataDefHasDispenser"
+		>$reference DataType HasDispenser$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="generator_sp_with_args"
+		>$switch TableColDataDefHasDispenser yes tableid_generator_with_args default schemaid_generator$</GenRule>
+
+	<GenRule GenDef="Object" Name="schemaid_generator"
+		>$lower DbSchemaName$.$sp_next_schemaidgen$()</GenRule>
+
+	<GenRule GenDef="TableCol" Name="tableid_generator_with_args"
+		>$lower DbSchemaName$.$reference DataType sp_next_tableidgen$( $reference IdGenResolverRelation iterate Columns( first dispenserRelationArg each commaDispenserRelationArg )$ )</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="dispenserRelationArg"
+		>arg$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="commaDispenserRelationArg">,
+		$dispenserRelationArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implOracleTableColumnSelectFragRevision"
+		>$popto Table implOracleTableColumnSelectFragRevision$</GenRule>
+	<GenRule GenDef="Table" Name="implOracleTableColumnSelectFragRevision">,
+			$lower ClassCode$.revision as revision</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragTabTabTabDbColumnName"
+>			$implOracleTableColumnSelectFragDbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplOracleClassCodeSelectFragDbColumnNameComma"
+		>$switch HasSubClasses yes implOracleClassCodeSelectFragDbColumnNameComma default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPCreateTableBindClassCode"
+		>argClassCode,
+		</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleIndexColumnWhereAndFragBindVar">
+			and $implOracleIndexColumnWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleIndexColumnWhereFragBindVar"
+		>$switch IsNullable yes implOracleIndexColumnWhereFragBindOptVar default implOracleIndexColumnWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleIndexColumnWhereFragBindReqVar"
+		>$popto Table lower ClassCode$.$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleIndexColumnWhereFragBindOptVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $popto Table lower ClassCode$.$DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $popto Table lower ClassCode$.$DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleIndexColumnUsingCommaVar">,
+		$implOracleIndexColumnUsingVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleIndexColumnUsingVar"
+		>arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragCommaColumn">,
+			$implOracleTableColumnSelectFragDbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameBlob"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameBool"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameEnum"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameInt16"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameInt32"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameInt64"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameUInt16"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameUInt32"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameUInt64"
+		>to_char( $lower ClassCode$.$DbColumnName$ ) as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameFloat"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameDouble"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameNumber"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameString"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameToken"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameNmToken"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameNmTokens"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameText"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameDate"
+		>to_char( $lower ClassCode$.$DbColumnName$, 'YYYY-MM-DD' ) as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameTime"
+		>to_char( $lower ClassCode$.$DbColumnName$, 'HH24:MI:SS' ) as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameTimestamp"
+		>to_char( $lower ClassCode$.$DbColumnName$, 'YYYY-MM-DD HH24:MI:SS' ) as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameTZDate"
+		>to_char( $lower ClassCode$.$DbColumnName$, 'YYYY-MM-DD HH24:MI:SS' ) as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameTZTime"
+		>to_char( $lower ClassCode$.$DbColumnName$, 'YYYY-MM-DD HH24:MI:SS' ) as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameTZTimestamp"
+		>to_char( $lower ClassCode$.$DbColumnName$, 'YYYY-MM-DD HH24:MI:SS' ) as $DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnNameUuid"
+		>$lower ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragDbColumnName"
+>$switch BaseModelAtomClass
+			BlobDef implOracleTableColumnSelectFragDbColumnNameBlob
+			BoolDef implOracleTableColumnSelectFragDbColumnNameBool
+			EnumDef implOracleTableColumnSelectFragDbColumnNameEnum
+			Int16Def implOracleTableColumnSelectFragDbColumnNameInt16
+			Int32Def implOracleTableColumnSelectFragDbColumnNameInt32
+			Int64Def implOracleTableColumnSelectFragDbColumnNameInt64
+			UInt16Def implOracleTableColumnSelectFragDbColumnNameUInt16
+			UInt32Def implOracleTableColumnSelectFragDbColumnNameUInt32
+			UInt64Def implOracleTableColumnSelectFragDbColumnNameUInt64
+			Id16Gen implOracleTableColumnSelectFragDbColumnNameInt16
+			Id32Gen implOracleTableColumnSelectFragDbColumnNameInt32
+			Id64Gen implOracleTableColumnSelectFragDbColumnNameInt64
+			FloatDef implOracleTableColumnSelectFragDbColumnNameFloat
+			DoubleDef implOracleTableColumnSelectFragDbColumnNameDouble
+			NumberDef implOracleTableColumnSelectFragDbColumnNameNumber
+			StringDef implOracleTableColumnSelectFragDbColumnNameString
+			TokenDef implOracleTableColumnSelectFragDbColumnNameToken
+			NmTokenDef implOracleTableColumnSelectFragDbColumnNameNmToken
+			NmTokensDef implOracleTableColumnSelectFragDbColumnNameNmTokens
+			TextDef implOracleTableColumnSelectFragDbColumnNameText
+			DateDef implOracleTableColumnSelectFragDbColumnNameDate
+			TimeDef implOracleTableColumnSelectFragDbColumnNameTime
+			TimestampDef implOracleTableColumnSelectFragDbColumnNameTimestamp
+			TZDateDef implOracleTableColumnSelectFragDbColumnNameTZDate
+			TZTimeDef implOracleTableColumnSelectFragDbColumnNameTZTime
+			TZTimestampDef implOracleTableColumnSelectFragDbColumnNameTZTimestamp
+			UuidDef implOracleTableColumnSelectFragDbColumnNameUuid
+			UuidGen implOracleTableColumnSelectFragDbColumnNameUuid
+			default empty$</GenRule>
+	<GenRule ScopeDef="Table" GenDef="TableCol" Name="implOracleTableColumnSqlFragDbColumnName"
+>		$lower ClassCode$.$DbColumnName$ as $DbColumnName$
+</GenRule>
+	<GenRule ScopeDef="Table" GenDef="Atom" Name="implOracleTableColumnSqlFragDbColumnName"
+>		$lower ClassCode$.$DbColumnName$ as $DbColumnName$
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnOrderBy">
+		$lower reference Column ClassCode$.$reference Column DbColumnName$ asc</GenRule>
+	<GenRule GenDef="Object" Name="implOracleIndexColumnCommaOrderBy"
+		>$implOracleIndexColumnOrderBy$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleClassCodeSelectFragDbColumnNameComma"
+>		$lower reference BaseClass ClassCode$.classcode,
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleClassCodeMaybeJoinSuperTable"
+		>$switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleClassCodeJoinSuperTable">
+		inner join $lower reference SuperClassRelation reference ToTable DbSchemaName$.$lower reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implOracleClassCodeJoinSuperTableColumn each implOracleClassCodeAndJoinSuperTableColumn )$$reference SuperClassRelation reference ToTable implOracleClassCodeMaybeJoinSuperTable$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleClassCodeJoinSuperTableColumn">
+			$lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implOracleClassCodeAndJoinSuperTableColumn">
+			and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleClassCodeJoinBaseTable">
+		inner join $lower reference BaseClass DbSchemaName$.$lower reference BaseClass DbTableName$ $lower reference BaseClass ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implOracleClassCodeJoinBaseTableColumn each implOracleClassCodeAndJoinBaseTableColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleClassCodeJoinBaseTableColumn">
+			$lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implOracleClassCodeAndJoinBaseTableColumn">
+			and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCommaCreateTableInsertColumn">,
+		$implOracleSPCreateTableInsertColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCreateTableInsertColumn"
+		>$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCommaCreateTableBindArg">,
+		$implOracleSPCreateTableBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCreateTableBindArg"
+		>$switch ColumnInChainPrev yes implOracleSPCreateTableBindPrevArg default implOracleSPCreateTableMaybeBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCreateTableMaybeBindArg"
+		>$switch ColumnInChainNext yes implOracleSPCreateTableBindNullArg default implOracleSPCreateTableReallyBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCreateTableReallyBindArg"
+		>arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCreateTableBindPrevArg"
+		>prev$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCreateTableBindNullArg"
+		>null</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleSPCreateTableInsertRevision">,
+		revision</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleSPCommaCreateTableBindRevision">,
+		1</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleSPCreateTableInsertClassCode"
+>classcode,
+		</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleSPCreateTableArgClassCode">,
+	argClassCode varchar2</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleSPArgOutCursor"
+		>retCursor out sys_refcursor</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="sparg_TableCol"
+		>$reference Column sparg_TableCol$</GenRule>
+	<GenRule GenDef="IndexCol" Name="sparg_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="sparg_IndexCol"
+		>$reference Column sparg_TableCol$</GenRule>
+	<GenRule GenDef="IndexCol" Name="sparg_CommaIndexCol">,
+	$sparg_IndexCol$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="sparg_TableCol"
+		>arg$DbColumnName$ $reference DataType clause_SPColType$</GenRule>
+	<GenRule GenDef="Atom" Name="sparg_TableCol"
+		>arg$DbColumnName$ $clause_SPColType$</GenRule>
+	<GenRule GenDef="Object" Name="sparg_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="clause_SPColType">$reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="clause_SPColType">$reference DataType clause_SPColType$</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="clause_SPColType">blob</GenRule>
+
+	<GenRule GenDef="BoolDef" Name="clause_SPColType">char</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="clause_SPColType">smallint</GenRule>
+
+	<GenRule GenDef="Int16Def" Name="clause_SPColType">smallint</GenRule>
+
+	<GenRule GenDef="Int32Def" Name="clause_SPColType">integer</GenRule>
+
+	<GenRule GenDef="Int64Def" Name="clause_SPColType">numeric</GenRule>
+
+	<GenRule GenDef="UInt16Def" Name="clause_SPColType">integer</GenRule>
+
+	<GenRule GenDef="UInt32Def" Name="clause_SPColType">numeric</GenRule>
+
+	<GenRule GenDef="UInt64Def" Name="clause_SPColType">numeric</GenRule>
+
+	<GenRule GenDef="FloatDef" Name="clause_SPColType">real</GenRule>
+
+	<GenRule GenDef="DoubleDef" Name="clause_SPColType">double precision</GenRule>
+
+	<GenRule GenDef="NumberDef" Name="clause_SPColType">numeric</GenRule>
+
+	<GenRule GenDef="StringDef" Name="clause_SPColType">varchar2</GenRule>
+
+	<GenRule GenDef="TokenDef" Name="clause_SPColType">varchar2</GenRule>
+
+	<GenRule GenDef="NmTokenDef" Name="clause_SPColType">varchar2</GenRule>
+
+	<GenRule GenDef="NmTokensDef" Name="clause_SPColType">varchar2</GenRule>
+
+	<GenRule GenDef="TextDef" Name="clause_SPColType">clob</GenRule>
+
+	<GenRule GenDef="DateDef" Name="clause_SPColType">date</GenRule>
+
+	<GenRule GenDef="TimeDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="TimestampDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="TZDateDef" Name="clause_SPColType">timestamp with time zone</GenRule>
+
+	<GenRule GenDef="TZTimeDef" Name="clause_SPColType">timestamp with time zone</GenRule>
+
+	<GenRule GenDef="TZTimestampDef" Name="clause_SPColType">timestamp with time zone</GenRule>
+
+	<GenRule GenDef="UuidDef" Name="clause_SPColType">varchar2</GenRule>
+
+	<GenRule GenDef="UuidGen" Name="clause_SPColType">varchar2</GenRule>
+
+	<GenRule GenDef="Object" Name="spvar_DeclareTableCol">
+	$spvar_TableCol$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="spvar_TableCol"
+		>arg$DbColumnName$ $reference DataType clause_SPColType$;</GenRule>
+	<GenRule GenDef="Atom" Name="spvar_TableCol"
+		>arg$DbColumnName$ $clause_SPColType$;</GenRule>
+	<GenRule GenDef="Object" Name="spvar_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+</RuleSet>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mssql"
+	Name="schema/dbcreate/mssql/crsp_read_dbtablename.tsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPReadDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mssql"
+		ExpansionClassName="$dbadminfilename_CreateSPReadDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPReadDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPReadDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+use $lower DbSchemaName$
+go
+
+create proc $sp_read_dbtablename$$implMSSqlSPStandardArgs$$reference BaseClass reference PrimaryKeyIndex iterate Columns( each sparg_CommaTableCol )$
+as$switch SecScope None empty System empty Cluster implMSSqlSPTableReallyDeclPermFlag Tenant implMSSqlSPTableReallyDeclPermFlag default error$
+begin$switch TableName Cluster empty Tenant empty SecUser empty default implMSSqlSPReadEnforceSec$$switch SecScope None implMSSqlSPReadTableByPKeyRetSelectNormal System implMSSqlSPReadTableByPKeyRetSelectNormal Cluster implMSSqlSPReadTableByPKeyRetSelectRestrictCluster Tenant implMSSqlSPReadTableByPKeyRetSelectRestrictTenant default error$
+end
+go
+
+quit
+</GenFile>
+
+	<GenRule GenDef="Object" Name="implMSSqlSPTableReallyDeclPermFlag">
+	declare @rc int
+	declare @permissionFlag int
+	declare @isSystemUser int</GenRule>
+
+	<GenRule GenDef="Index" Name="implMSSqlSPReadTableCheckPermissions"
+		>$poptop Table implMSSqlSPReadTableCheckPermissions$</GenRule>
+
+	<GenRule GenDef="Index" Name="implMSSqlSPReadTableCheckCluster"
+		>$poptop Table implMSSqlSPReadTableCheckCluster$</GenRule>
+
+	<GenRule GenDef="Index" Name="implMSSqlSPReadTableCheckTenant"
+		>$poptop Table implMSSqlSPReadTableCheckTenant$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableCheckPermissions"
+		>$switch SecScope None empty System empty Cluster implMSSqlSPReadTableCheckCluster Tenant implMSSqlSPReadTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableCheckCluster">
+	exec sp_is_cluster_user @permissionFlag output, @secClusterId, 'Read$TableName$', @argAuditUserId
+	if( @permissionFlag = 0 )
+	begin
+		raiserror( 'Permission denied -- User not found in cluster SecGroup for Read$TableName$',
+			15,
+			1 )
+	end
+	exec sp_is_system_user @isSystemUser output, @argAuditUserId
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableCheckTenant">
+	exec sp_is_tenant_user @permissionFlag output, @secTenantId, 'Read$TableName$', @argAuditUserId
+	if( @permissionFlag = 0 )
+	begin
+		raiserror( 'Permission denied -- User not found in tenant TSecGroup for Read$TableName$',
+			15,
+			1 )
+	end
+	exec sp_is_system_user @isSystemUser output, @argAuditUserId
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableByPKeyRetSelectNormal">
+	select
+$poptop Table implMSSqlSelectTableColumns$,
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision
+	from $poptop Table lower DbSchemaName$..$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$$restrictReadByPKeyQuery$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictReadByPKeyQuery"
+		>$switch TableInClassHierarchy yes restrictReadByPKeyCCQuery default restrictReadByPKeyNoCCQuery$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictReadByPKeyCCQuery">
+		where
+			$reference BaseClass lower ClassCode$.classcode = '$poptop Table ClassCode$'$reference BaseClass reference PrimaryKeyIndex iterate Columns( each restrictReadByIndexQueryAndIndexCol )$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictReadByPKeyNoCCQuery">
+		where
+			$reference BaseClass reference PrimaryKeyIndex iterate Columns( first restrictReadByIndexQueryIndexCol each restrictReadByIndexQueryAndIndexCol )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableByPKeyRetSelectRestrictCluster">
+	if( @isSystemUser = 1 )
+	begin
+		select$poptop Table implMSSqlSelectTableColumns$,
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$..$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$$restrictReadByPKeyQuery$
+	end
+	else begin
+		select$poptop Table implMSSqlSelectTableColumns$,
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$..$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$$restrictReadByPKeyQuery$$implMSSqlSPReadTableRetSelectAndRestrictCluster$
+	end</GenRule>
+
+	<GenRule GenDef="Object" Name="restrictReadSec"
+		>$switch SecScope None empty System empty Cluster implMSSqlSPReadTableRetSelectAndRestrictCluster Tenant implMSSqlSPReadTableRetSelectAndRestrictTenant default error$</GenRule>
+
+	<GenRule GenDef="Index" Name="implMSSqlSPReadTableRetSelectAndRestrictCluster"
+		>$poptop Table implMSSqlSPReadTableRetSelectAndRestrictCluster$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableRetSelectAndRestrictCluster">
+			and $lower reference ClusterIdColumn reference Table ClassCode$.$lower reference ClusterIdColumn DbColumnName$ = @secClusterId</GenRule>
+
+	<GenRule GenDef="Index" Name="implMSSqlSPReadTableRetSelectWhereRestrictCluster"
+		>$poptop Table implMSSqlSPReadTableRetSelectWhereRestrictCluster$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableRetSelectWhereRestrictCluster">
+		where
+			$lower reference ClusterIdColumn reference Table ClassCode$.$lower reference ClusterIdColumn DbColumnName$ = @secClusterId</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableByPKeyRetSelectRestrictTenant">
+	if( @isSystemUser = 1 )
+	begin
+		select$poptop Table implMSSqlSelectTableColumns$,
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$..$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$$restrictReadByPKeyQuery$
+	end
+	else begin
+		select$poptop Table implMSSqlSelectTableColumns$,
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$..$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$$restrictReadByPKeyQuery$$implMSSqlSPReadTableRetSelectAndRestrictTenant$
+	end</GenRule>
+
+	<GenRule GenDef="Index" Name="implMSSqlSPReadTableRetSelectAndRestrictTenant"
+		>$poptop Table implMSSqlSPReadTableRetSelectAndRestrictTenant$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableRetSelectAndRestrictTenant">
+			and $lower reference TenantIdColumn reference Table ClassCode$.$lower reference TenantIdColumn DbColumnName$ = @secTenantId</GenRule>
+
+	<GenRule GenDef="Index" Name="implMSSqlSPReadTableRetSelectWhereRestrictTenant"
+		>$poptop Table implMSSqlSPReadTableRetSelectWhereRestrictTenant$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableRetSelectWhereRestrictTenant">
+		where
+			$lower reference TenantIdColumn reference Table ClassCode$.$lower reference TenantIdColumn DbColumnName$ = @secTenantId</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadEnforceSec"
+		>$switch SecScope None empty System empty Cluster implMSSqlSPReadTableCheckCluster Tenant implMSSqlSPReadTableCheckTenant default error$</GenRule>
+
+</RuleSet>

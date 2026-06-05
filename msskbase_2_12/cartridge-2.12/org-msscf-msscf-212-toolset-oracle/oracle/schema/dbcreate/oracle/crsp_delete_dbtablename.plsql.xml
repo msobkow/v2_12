@@ -1,0 +1,894 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/crsp_delete_dbtablename.plsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPDeleteDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="$dbadminfilename_CreateSPDeleteDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPDeleteDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPDeleteDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+alter session set plsql_warnings = 'ENABLE:ALL';
+/
+
+create or replace procedure $lower DbSchemaName$.$sp_delete_dbtablename$($implOracleSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaIndexCol )$$sparg_Revision$ ) authid definer
+is$switch BaseHasHistory yes declOracleSPTableUseStamp default declOracleSPTableUseStampIfAudited$$switch HasChain yes declOracleSPDeleteTableContainerVars default empty$$switch HasChain yes declOracleSPDeleteTableChainLinkVars default empty$$declSPOldVars$$declOracleSPDeleteTableClearDepsCursor$$declOracleDeleteDelDepsCursor$$switch SecScope None empty System implOracleSPDeleteTableDeclPermFlag Cluster implOracleSPDeleteTableDeclPermFlag Tenant implOracleSPDeleteTableDeclPermFlag default error$
+	dataCollision exception;
+	dataUpdateFailed exception;
+begin$implOracleSPDeleteTableBody$
+end $sp_delete_dbtablename$;
+/
+
+show errors procedure $lower DbSchemaName$.$sp_delete_dbtablename$;
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableBody"
+		>$switch BaseHasHistory yes implOracleSPTableInitStamp default implOracleSPTableInitStampIfAudited$$switch HasChain yes implOracleSPDeleteTableFetchContainerKeys default empty$$switch HasChain yes implOracleSPDeleteTableLatchContainer default empty$$implOracleLockTables$$switch SecScope None empty System implOracleSPDeleteTableCheckSystem Cluster implOracleSPDeleteTableCheckCluster Tenant implOracleSPDeleteTableCheckTenant default error$$switch HasChain yes implOracleSPDeleteTableChainSelectChainLinks default empty$$switch HasChain yes implOracleSPDeleteTableUpdatePrev default empty$$switch HasChain yes implOracleSPDeleteTableUpdateNext default empty$$switch BaseHasHistory yes implOracleDeleteLogAudit default empty$$implOracleSPDeleteTableClearDeps$$implOracleSPDeleteTableClearSubObjectRefs$$switch HasDelDeps no empty default implOracleDeleteDelDeps$$implOracleDeleteHierarchy$$switch HasChain yes implOracleSPDeleteTableUnlatchContainer default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUpdatePrev">
+	if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implOracleSPDeleteTableUpdatePrevIfNotNull each empty )$ )
+	then$switch ChainTableHasSuperClassRelation yes implOracleSPDeleteTableUpdatePrevTwoTables default implOracleSPDeleteTableUpdatePrevOneTable$$switch BaseHasHistory yes implOracleSPDeleteTableUpdatePrevAuditUpdated default empty$
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUpdatePrevOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implOracleSPDeleteTableUpdateTableAuditColumns default empty$$reference Chain reference NextRel iterate Columns( each implOracleSPDeleteTableUpdatePrevWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPDeleteTableUpdateTableWherePrevPKeyCol each implOracleSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUpdateTableAuditColumns">,
+			updatedby = argAuditUserId,
+			updatedat = use_stamp</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableUpdatePrevWithKey"
+		>$reference FromCol DbColumnName$ = next$reference FromCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableUpdatePrevWithCommaKey">,
+			$implOracleSPDeleteTableUpdatePrevWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableUpdateTableWherePrevPKeyCol"
+		>$reference ToCol DbColumnName$ = prev$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableUpdateTableWhereAndPrevPKeyCol">
+			and $implOracleSPDeleteTableUpdateTableWherePrevPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUpdatePrevTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implOracleSPDeleteTableUpdateTableAuditColumns default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPDeleteTableUpdateTableWherePrevPKeyCol each implOracleSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference NextRel iterate Columns( first implOracleSPDeleteTableUpdatePrevWithKey each implOracleSPDeleteTableUpdatePrevWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPDeleteTableUpdateTableWherePrevPKeyCol each implOracleSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableUpdatePrevIfNotNull"
+		>prev$Name$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUpdatePrevAuditUpdated">
+		$lower poptop Table DbSchemaName$.aud_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implOracleSPDeleteTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implOracleSPDeleteTableAuditUpdatedPrevPassArg )$,
+			1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUpdatePrevAuditPassClassCode">,
+			prevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableAuditUpdatedPrevPassArg">,
+			prev$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUpdateNext">
+	if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implOracleSPDeleteTableUpdateNextIfNotNull each empty )$ )
+	then$switch ChainTableHasSuperClassRelation yes implOracleSPDeleteTableUpdateNextTwoTables default implOracleSPDeleteTableUpdateNextOneTable$$switch BaseHasHistory yes implOracleSPDeleteTableUpdateNextAuditUpdated default empty$
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUpdateNextOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implOracleSPDeleteTableUpdateTableAuditColumns default empty$$reference Chain reference PrevRel iterate Columns( each implOracleSPDeleteTableUpdateNextWithCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implOracleSPDeleteTableUpdateTableWhereNextPKeyCol each implOracleSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableUpdateNextWithKey"
+		>$reference FromCol DbColumnName$ = prev$reference FromCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableUpdateNextWithCommaKey">,
+			$implOracleSPDeleteTableUpdateNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableUpdateTableWhereNextPKeyCol"
+		>$reference ToCol DbColumnName$ = next$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableUpdateTableWhereAndNextPKeyCol">
+			and $implOracleSPDeleteTableUpdateTableWhereNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUpdateNextTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implOracleSPDeleteTableUpdateTableAuditColumns default empty$
+		where
+			$reference Chain reference NextRel iterate Columns( first implOracleSPDeleteTableUpdateTableWhereNextPKeyCol each implOracleSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPDeleteTableUpdateNextWithKey each implOracleSPDeleteTableUpdateNextWithCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implOracleSPDeleteTableUpdateTableWhereNextPKeyCol each implOracleSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableUpdateNextIfNotNull"
+		>next$Name$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUpdateNextAuditUpdated">
+		$lower poptop Table DbSchemaName$.aud_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implOracleSPDeleteTableUpdateNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implOracleSPDeleteTableAuditUpdatedNextPassArg )$,
+			1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUpdateNextAuditPassClassCode">,
+			nextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableAuditUpdatedNextPassArg">,
+			next$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPDeleteTableChainLinkVars"
+		>$switch HasClassCode yes declOracleSPDeleteTableChainLinkClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declOracleSPDeleteTableChainPrevVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declOracleSPDeleteTableChainNextVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPDeleteTableChainLinkClassCode">
+	prevClassCode varchar(4);
+	nextClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declOracleSPDeleteTableChainPrevVar">
+	prev$Name$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declOracleSPDeleteTableChainNextVar">
+	next$Name$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableChainSelectLinks"
+		>$reference Chain reference Table implOracleSPDeleteTableChainSelectChainLinks$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableChainSelectChainLinks">
+	select$switch HasClassCode yes implOracleSPDeleteTableChainSelectPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implOracleSPDeleteTableChainSelectPrevKeyComma )$$switch HasClassCode yes implOracleSPDeleteTableChainSelectNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implOracleSPDeleteTableChainSelectNextKeyComma last implOracleSPDeleteTableChainSelectNextKey )$
+	into$switch HasClassCode yes implOracleSPDeleteTableChainSelectIntoPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implOracleSPDeleteTableChainSelectIntoPrevKeyComma )$$switch HasClassCode yes implOracleSPDeleteTableChainSelectIntoNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implOracleSPDeleteTableChainSelectIntoNextKeyComma last implOracleSPDeleteTableChainSelectIntoNextKey )$
+	from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ myself$switch HasClassCode yes implOracleSPDeleteTableChainSelectOuterJoinLinkBases default empty$
+	where
+		$reference BaseClass reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteTableChainSelectWherePKey each implOracleSPDeleteTableChainSelectWhereAndPKey )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableChainSelectWherePKey"
+		>myself.$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableChainSelectWhereAndPKey">
+		and $implOracleSPDeleteTableChainSelectWherePKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableChainSelectOuterJoinLinkBases">
+		left outer join $lower DbSchemaName$.$reference BaseClass DbTableName$ prv$lower reference BaseClass ClassCode$ on
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPDeleteTableChainSelectOJPrevKey each implOracleSPDeleteTableChainSelectOJAndPrevKey )$
+		left outer join $lower DbSchemaName$.$reference BaseClass DbTableName$ nxt$lower reference BaseClass ClassCode$ on
+			$reference Chain reference NextRel iterate Columns( first implOracleSPDeleteTableChainSelectOJNextKey each implOracleSPDeleteTableChainSelectOJAndNextKey )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableChainSelectOJPrevKey"
+		>prv$lower popto Table reference BaseClass ClassCode$.$reference ToCol DbColumnName$ = myself.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableChainSelectOJAndPrevKey">
+			and $implOracleSPDeleteTableChainSelectOJPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableChainSelectOJNextKey"
+		>nxt$lower popto Table reference BaseClass ClassCode$.$reference ToCol DbColumnName$ = myself.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableChainSelectOJAndNextKey">
+			and $implOracleSPDeleteTableChainSelectOJNextKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableChainSelectPrevClassCodeComma">
+		prv$lower reference BaseClass ClassCode$.classcode as prvclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableChainSelectPrevKeyComma">
+		myself.$DbColumnName$ as prv$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableChainSelectNextClassCodeComma">
+		nxt$lower reference BaseClass ClassCode$.classcode as nxtclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableChainSelectNextKey">
+		myself.$DbColumnName$ as nxt$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableChainSelectNextKeyComma"
+		>$implOracleSPDeleteTableChainSelectNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableChainSelectIntoPrevClassCodeComma">
+		prevClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableChainSelectIntoPrevKeyComma">
+		prev$Name$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableChainSelectIntoNextClassCodeComma">
+		nextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableChainSelectIntoNextKey">
+		next$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableChainSelectIntoNextKeyComma"
+		>$implOracleSPDeleteTableChainSelectIntoNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableFetchContainerKeys">
+	select$reference ContainerRelation iterate Columns( first implOracleSPDeleteTableFetchContainerKeysColName each implOracleSPDeleteTableFetchContainerKeysCommaColName )$
+	into$reference ContainerRelation iterate Columns( first implOracleSPDeleteTableFetchContainerKeysIntoVar each implOracleSPDeleteTableFetchContainerKeysCommaIntoVar )$
+	from $lower DbSchemaName$.$reference ContainerRelation reference FromTable DbTableName$
+	where$reference ContainerRelation reference FromTable reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteTableFetchContainerKeysPassPKey each implOracleSPDeleteTableFetchContainerKeysAndPassPKey )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableFetchContainerKeysColName">
+		$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableFetchContainerKeysCommaColName"
+		>,$implOracleSPDeleteTableFetchContainerKeysColName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableFetchContainerKeysIntoVar">
+		var$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableFetchContainerKeysCommaIntoVar"
+		>,$implOracleSPDeleteTableFetchContainerKeysIntoVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableFetchContainerKeysPassPKey">
+		$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableFetchContainerKeysAndPassPKey">
+		and $DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPDeleteTableContainerVars"
+		>$reference ContainerRelation iterate Columns( each declOracleSPDeleteTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="declOracleSPDeleteTableContainerVar">
+	var$reference FromCol DbColumnName$ $reference FromCol clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implOracleSPDeleteTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableLatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision + 1
+	where
+		$popto Relation iterate Columns( first implOracleSPDeleteTableLatchWhereArg each implOracleSPDeleteTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableLatchWhereArg"
+		>$reference ToCol DbColumnName$ = var$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableLatchWhereAndArg">
+		and $implOracleSPDeleteTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implOracleSPDeleteTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableUnlatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision - 1
+	where
+		$popto Relation iterate Columns( first implOracleSPDeleteTableLatchWhereArg each implOracleSPDeleteTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPDeleteTableClearDepsCursor"
+		>$switch HasSuperClassRelation yes declOracleSPDeleteTableInhClearDepsCursor default declOracleSPDeleteTableBaseClearDepsCursor$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPDeleteTableInhClearDepsCursor"
+		>$reference SuperClassRelation reference ToTable declOracleSPDeleteTableClearDepsCursor$$iterate ReverseClearDeps( each declOracleSPDeleteTableClearDepCursor empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPDeleteTableBaseClearDepsCursor"
+		>$iterate ReverseClearDeps( each declOracleSPDeleteTableClearDepCursor empty empty )$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="declOracleSPDeleteTableClearDepCursor">
+	cursor curs$Name$ is
+		select$switch HasClearSubDep yes implOracleSPDeleteSelectClearDepSubDeleteColumns default implOracleSPDeleteSelectClearDepMyDeleteColumns$
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$$switch HasClearSubDep yes implOracleSPDeleteClearDepSubJoin default empty$
+		where
+			$poptop Table reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteClearDepWhereFragBindVar each implOracleSPDeleteClearDepWhereAndFragBindVar )$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableClearDeps"
+		>$switch HasSuperClassRelation yes implOracleSPDeleteTableInhClearDeps default implOracleSPDeleteTableBaseClearDeps$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableInhClearDeps"
+		>$reference SuperClassRelation reference ToTable implOracleSPDeleteTableClearDeps$$iterate ReverseClearDeps( each implOracleSPDeleteTableClearDep empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableBaseClearDeps"
+		>$iterate ReverseClearDeps( each implOracleSPDeleteTableClearDep empty empty )$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implOracleSPDeleteTableClearDep">
+	for cur in curs$Name$
+	loop$switch HasClearSubDep yes implOracleSPDeleteClearDepSubBody default implOracleSPDeleteClearDepMyBody$
+	end loop;
+</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implOracleSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep switch HasClearSubDep yes implOracleSPDeleteSelectClearDepSubDeleteColumns default implOracleSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implOracleSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteSelectClearDepColumn each implOracleSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteSelectClearDepColumn">
+			$lower popto Table ClassCode$.$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteSelectCommaClearDepColumn">,
+			$lower popto Table ClassCode$.$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implOracleSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep switch HasClearSubDep yes implOracleSPDeleteSelectClearDepSubDeleteColumns default implOracleSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implOracleSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteSelectClearDepColumn each implOracleSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implOracleSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep implOracleSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implOracleSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteSelectClearDepColumn each implOracleSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="ClearSubDep3" Name="implOracleSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteSelectClearDepColumn each implOracleSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteClearDepWhereFragBindVar"
+		>$poptop Table lower ClassCode$.$reference Column DbColumnName$ = arg$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteClearDepWhereAndFragBindVar">
+			and $poptop Table lower ClassCode$.$reference Column DbColumnName$ = arg$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implOracleSPDeleteClearDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implOracleSPDeleteClearDepJoinRelCol each implOracleSPDeleteClearDepJoinAndRelCol )$$reference ClearSubDep implOracleSPDeleteClearDepJoin$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteClearDepJoinRelCol">
+				$popto Relation reference FromTable lower ClassCode$.$reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteClearDepJoinAndRelCol">
+				and $popto Relation reference FromTable lower ClassCode$.$reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implOracleSPDeleteClearDepJoin"
+		>$switch HasClearSubDep yes implOracleSPDeleteClearDepSubJoin default empty$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implOracleSPDeleteClearDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implOracleSPDeleteClearDepJoinRelCol each implOracleSPDeleteClearDepJoinAndRelCol )$$reference ClearSubDep implOracleSPDeleteClearDepJoin$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implOracleSPDeleteClearDepJoin"
+		>$switch HasClearSubDep yes implOracleSPDeleteClearDepSubJoin default empty$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implOracleSPDeleteClearDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implOracleSPDeleteClearDepJoinRelCol each implOracleSPDeleteClearDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implOracleSPDeleteClearDepSubBody"
+		>$reference ClearSubDep switch HasClearSubDep yes implOracleSPDeleteClearDepSubBody default implOracleSPDeleteClearDepMyBody$</GenRule>
+
+	<GenRule GenDef="ClearDep" Name="implOracleSPDeleteClearDepMyBody">
+		update $lower poptop Table DbSchemaName$.$reference Relation reference FromTable lower DbTableName$
+		set$reference Relation reference FromIndex iterate Columns( first implOracleSPDeleteClearNLCol each implOracleSPDeleteClearCommaNLCol )$
+		where
+			$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implSPDeleteClearDepPassCurArg each implSPDeleteClearDepPassAndCurArg )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteClearNLCol">
+			$DbColumnName$ = null</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteClearCommaNLCol"
+		>,$implOracleSPDeleteClearNLCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteClearDepPassCurArg"
+		>$DbColumnName$ = cur.$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteClearDepPassAndCurArg">
+			and $implSPDeleteClearDepPassCurArg$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implOracleSPDeleteClearDepSubBody"
+		>$reference ClearSubDep switch HasClearSubDep yes implOracleSPDeleteClearDepSubBody default implOracleSPDeleteClearDepMyBody$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implOracleSPDeleteClearDepSubBody"
+		>$reference ClearSubDep implOracleSPDeleteClearDepMyBody$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableClearSubObjectRefs"
+		>$switch HasSuperClassRelation yes implOracleSPDeleteTableClearInhSubObjectRefs default implOracleSPDeleteTableClearBaseSubObjectRefs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableClearInhSubObjectRefs"
+		>$reference SuperClassRelation reference ToTable implOracleSPDeleteTableClearSubObjectRefs$$switch HasSubObjectLookup yes implOracleSPDeleteTableClearSubObjectLookups default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableClearBaseSubObjectRefs"
+		>$switch HasSubObjectLookup yes implOracleSPDeleteTableClearSubObjectLookups default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableClearSubObjectLookups">
+	update $lower DbSchemaName$.$DbTableName$
+	set
+		$reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteTableClearSubObjectLookupsSetPKeyCol each empty )$$iterate Relation( each implOracleSPDeleteTableClearSubObjectLookupCols empty empty )$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implOracleLockWhereFragBindVar each implOracleLockWhereAndFragBindVar )$;
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implOracleSPDeleteTableClearSubObjectLookupCols"
+		>$switch IsSubObjectLookup yes implOracleSPDeleteTableReallyClearSubObjectLookupCols default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implOracleSPDeleteTableReallyClearSubObjectLookupCols"
+		>$iterate Columns( each implOracleSPDeleteTableClearSubObjectFromCol )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteTableClearSubObjectFromCol">,
+		$reference FromCol DbColumnName$ = null</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteTableClearSubObjectLookupsSetPKeyCol"
+		>$DbColumnName$ = arg$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableDeclPermFlag">
+	permissionFlag integer;
+	permissionDenied exception;</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableCheckSystem">
+	permissionFlag := $lower DbSchemaName$.sp_is_system_user( argAuditUserId );
+	if( permissionFlag = 0 )
+	then
+		raise permissionDenied;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableCheckCluster">
+	if( old$reference ClusterIdColumn DbColumnName$ != secClusterId )
+	then
+		permissionFlag := $lower DbSchemaName$.sp_is_system_user( argAuditUserId );
+		if( permissionFlag = 0 )
+		then
+			raise permissionDenied;
+		end if;
+	end if;
+
+	permissionFlag := $lower DbSchemaName$.sp_is_cluster_user( old$reference ClusterIdColumn DbColumnName$,
+		'Delete$Name$',
+		argAuditUserId );
+	if( permissionFlag = 0 )
+	then
+		raise permissionDenied;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPDeleteTableCheckTenant">
+	if( old$reference TenantIdColumn DbColumnName$ != secTenantId )
+	then
+		permissionFlag := $lower DbSchemaName$.sp_is_system_user( argAuditUserId );
+		if( permissionFlag = 0 )
+		then
+			raise permissionDenied;
+		end if;
+	end if;
+
+	permissionFlag := $lower DbSchemaName$.sp_is_tenant_user( old$reference TenantIdColumn DbColumnName$,
+		'Delete$Name$',
+		argAuditUserId );
+	if( permissionFlag = 0 )
+	then
+		raise permissionDenied;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleDeleteLogAudit"
+		>$switch BaseHasClassCode yes implCreateAuditThreeWithCC default implCreateAuditThreeNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditThreeNoCC">
+	insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			revision,
+			auditclusterid,
+			auditsessionid,$implAuditInheritedIntoDataColumnNameComma$
+			auditaction,
+			auditstamp )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			argRevision + 1 as revision,
+			argAuditClusterId,
+			argAuditSessionId,$implAuditInheritedDataColumnNameComma$
+			2,
+			use_stamp
+		from $lower DbSchemaName$.$DbTableName$ $lower ClassCode$$switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditThreeWithCC">
+	if( oldClassCode = '$poptop Table ClassCode$' )
+	then
+		insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			classcode,
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.classcode,
+			argAuditClusterId,
+			argAuditSessionId,
+			use_stamp,$implAuditInheritedDataColumnNameComma$
+			argRevision + 1,
+			2
+		from $lower DbSchemaName$.$DbTableName$ $lower ClassCode$$switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$;
+	end if;
+</GenRule>
+
+
+<GenRule GenDef="Table" Name="implOracleDeleteHierarchy">
+	delete from $lower DbSchemaName$.$DbTableName$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implOracleIndexColumnDeleteFragBindVar each implOracleIndexColumnDeleteAndFragBindVar )$;
+
+	if sql%rowcount != 1 then
+		raise dataUpdateFailed;
+	end if;$switch HasSuperClassRelation yes implOracleDeleteSuper default empty$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleDeleteSuper"
+		>$reference SuperClassRelation reference ToTable implOracleDeleteHierarchy$</GenRule>
+
+	<GenRule GenDef="Object" Name="sparg_Revision">,
+	argRevision int</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteAndFragBindVar">
+		and $implOracleIndexColumnDeleteFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleIndexColumnDeleteFragBindVar"
+		>$switch IsNullable yes implOracleIndexColumnDeleteFragBindOptVar
+			default implOracleIndexColumnDeleteFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleIndexColumnDeleteFragBindOptVar"
+		>$reference Column implOracleIndexColumnDeleteFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleIndexColumnDeleteFragBindReqVar"
+		>$reference Column implOracleIndexColumnDeleteFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implOracleIndexColumnDeleteFragBindOptBlobVar
+			BoolDef implOracleIndexColumnDeleteFragBindOptBoolVar
+			EnumDef implOracleIndexColumnDeleteFragBindOptEnumVar
+			Int16Def implOracleIndexColumnDeleteFragBindOptInt16Var
+			Int32Def implOracleIndexColumnDeleteFragBindOptInt32Var
+			Int64Def implOracleIndexColumnDeleteFragBindOptInt64Var
+			UInt16Def implOracleIndexColumnDeleteFragBindOptUInt16Var
+			UInt32Def implOracleIndexColumnDeleteFragBindOptUInt32Var
+			UInt64Def implOracleIndexColumnDeleteFragBindOptUInt64Var
+			Id16Gen implOracleIndexColumnDeleteFragBindOptInt16Var
+			Id32Gen implOracleIndexColumnDeleteFragBindOptInt32Var
+			Id64Gen implOracleIndexColumnDeleteFragBindOptInt64Var
+			FloatDef implOracleIndexColumnDeleteFragBindOptFloatVar
+			DoubleDef implOracleIndexColumnDeleteFragBindOptDoubleVar
+			NumberDef implOracleIndexColumnDeleteFragBindOptNumberVar
+			StringDef implOracleIndexColumnDeleteFragBindOptStringVar
+			TokenDef implOracleIndexColumnDeleteFragBindOptStringVar
+			NmTokenDef implOracleIndexColumnDeleteFragBindOptStringVar
+			NmTokensDef implOracleIndexColumnDeleteFragBindOptStringVar
+			TextDef implOracleIndexColumnDeleteFragBindOptTextVar
+			DateDef implOracleIndexColumnDeleteFragBindOptDateVar
+			TimeDef implOracleIndexColumnDeleteFragBindOptTimeVar
+			TimestampDef implOracleIndexColumnDeleteFragBindOptTimestampVar
+			TZDateDef implOracleIndexColumnDeleteFragBindOptTZDateVar
+			TZTimeDef implOracleIndexColumnDeleteFragBindOptTZTimeVar
+			TZTimestampDef implOracleIndexColumnDeleteFragBindOptTZTimestampVar
+			UuidDef implOracleIndexColumnDeleteFragBindOptUuidVar
+			UuidGen implOracleIndexColumnDeleteFragBindOptUuidVar
+			default error$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implOracleIndexColumnDeleteFragBindReqBlobVar
+			BoolDef implOracleIndexColumnDeleteFragBindReqBoolVar
+			EnumDef implOracleIndexColumnDeleteFragBindReqEnumVar
+			Int16Def implOracleIndexColumnDeleteFragBindReqInt16Var
+			Int32Def implOracleIndexColumnDeleteFragBindReqInt32Var
+			Int64Def implOracleIndexColumnDeleteFragBindReqInt64Var
+			UInt16Def implOracleIndexColumnDeleteFragBindReqUInt16Var
+			UInt32Def implOracleIndexColumnDeleteFragBindReqUInt32Var
+			UInt64Def implOracleIndexColumnDeleteFragBindReqUInt64Var
+			Id16Gen implOracleIndexColumnDeleteFragBindReqInt16Var
+			Id32Gen implOracleIndexColumnDeleteFragBindReqInt32Var
+			Id64Gen implOracleIndexColumnDeleteFragBindReqInt64Var
+			FloatDef implOracleIndexColumnDeleteFragBindReqFloatVar
+			DoubleDef implOracleIndexColumnDeleteFragBindReqDoubleVar
+			NumberDef implOracleIndexColumnDeleteFragBindReqNumberVar
+			StringDef implOracleIndexColumnDeleteFragBindReqStringVar
+			TokenDef implOracleIndexColumnDeleteFragBindReqStringVar
+			NmTokenDef implOracleIndexColumnDeleteFragBindReqStringVar
+			NmTokensDef implOracleIndexColumnDeleteFragBindReqStringVar
+			TextDef implOracleIndexColumnDeleteFragBindReqTextVar
+			DateDef implOracleIndexColumnDeleteFragBindReqDateVar
+			TimeDef implOracleIndexColumnDeleteFragBindReqTimeVar
+			TimestampDef implOracleIndexColumnDeleteFragBindReqTimestampVar
+			TZDateDef implOracleIndexColumnDeleteFragBindReqTZDateVar
+			TZTimeDef implOracleIndexColumnDeleteFragBindReqTZTimeVar
+			TZTimestampDef implOracleIndexColumnDeleteFragBindReqTZTimestampVar
+			UuidDef implOracleIndexColumnDeleteFragBindReqUuidVar
+			UuidGen implOracleIndexColumnDeleteFragBindReqUuidVar
+			default error$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqBlobVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptBlobVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqBoolVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptBoolVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqEnumVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptEnumVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqInt16Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptInt16Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqInt32Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptInt32Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqInt64Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptInt64Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqUInt16Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptUInt16Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqUInt32Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptUInt32Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqUInt64Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptUInt64Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqFloatVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptFloatVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqDoubleVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptDoubleVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqNumberVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptNumberVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqStringVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptStringVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqTokenVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptTokenVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqNmTokenVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptNmTokenVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqNmTokensVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptNmTokensVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqTextVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptTextVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqDateVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptDateVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqTimeVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptTimeVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqTimestampVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptTimestampVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqTZDateVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptTZDateVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqTZTimeVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptTZTimeVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqTZTimestampVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptTZTimestampVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindReqUuidVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleIndexColumnDeleteFragBindOptUuidVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleDeleteDelDepsCursor"
+		>$iterate ReverseDelDeps( each declOracleDeleteDelDepCursor empty empty )$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="declOracleDeleteDelDepCursor">
+	cursor curs$Name$ is
+		select$switch HasDelSubDep yes implOracleSPDeleteSelectDelDepSubDeleteColumns default implOracleSPDeleteSelectDelDepMyDeleteColumns$
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$$switch HasDelSubDep yes implOracleSPDeleteDelDepSubJoin default implOracleSPDeleteDelDepMyJoin$
+		where
+			$poptop Table reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteDelDepWhereFragBindVar each implOracleSPDeleteDelDepWhereAndFragBindVar )$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleDeleteDelDeps"
+		>$iterate ReverseDelDeps( each implOracleDeleteDelDep empty empty )$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implOracleDeleteDelDep">
+	for cur in curs$Name$
+	loop$switch HasDelSubDep yes implOracleSPDeleteDelDepSubBody default implOracleSPDeleteDelDepMyBody$
+	end loop;</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implOracleSPDeleteDelDepSubBody"
+		>$reference DelSubDep switch HasDelSubDep yes implOracleSPDeleteDelDepSubBody default implOracleSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="DelDep" Name="implOracleSPDeleteDelDepMyBody">
+		$lower poptop Table DbSchemaName$.dl_$reference Relation reference ToTable lower DbTableName$by$lower reference Relation reference ToTable reference PrimaryKeyIndex Suffix$( argAuditClusterId,
+				argAuditUserId,
+				argAuditSessionId,
+				secClusterId,
+				secTenantId$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( each implSPDeleteDelDepCommaPassCurArg )$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteDelDepCommaPassCurArg">,
+				cur.$DbColumnName$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implOracleSPDeleteDelDepSubBody"
+		>$reference DelSubDep switch HasDelSubDep yes implOracleSPDeleteDelDepSubBody default implOracleSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implOracleSPDeleteDelDepSubBody"
+		>$reference DelSubDep implOracleSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteDelDepWhereFragBindVar"
+		>$poptop Table lower ClassCode$.$reference Column DbColumnName$ = arg$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteDelDepWhereAndFragBindVar">
+			and $poptop Table lower ClassCode$.$reference Column DbColumnName$ = arg$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implOracleSPDeleteDelDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implOracleSPDeleteDelDepJoinRelCol each implOracleSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implOracleSPDeleteDelDepJoin$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implOracleSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implOracleSPDeleteDelDepJoinRelCol each implOracleSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteDelDepJoinRelCol">
+				$popto Relation reference FromTable lower ClassCode$.$reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPDeleteDelDepJoinAndRelCol">
+				and $popto Relation reference FromTable lower ClassCode$.$reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implOracleSPDeleteDelDepJoin"
+		>$switch HasDelSubDep yes implOracleSPDeleteDelDepSubJoin default implOracleSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implOracleSPDeleteDelDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implOracleSPDeleteDelDepJoinRelCol each implOracleSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implOracleSPDeleteDelDepJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implOracleSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implOracleSPDeleteDelDepJoinRelCol each implOracleSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implOracleSPDeleteDelDepJoin"
+		>$switch HasDelSubDep yes implOracleSPDeleteDelDepSubJoin default implOracleSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implOracleSPDeleteDelDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implOracleSPDeleteDelDepJoinRelCol each implOracleSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implOracleSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implOracleSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implOracleSPDeleteDelDepJoinRelCol each implOracleSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implOracleSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implOracleSPDeleteDelDepJoinRelCol each implOracleSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implOracleSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep switch HasDelSubDep yes implOracleSPDeleteSelectDelDepSubDeleteColumns default implOracleSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implOracleSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteSelectDelDepColumn each implOracleSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteSelectDelDepColumn">
+			$lower popto Table ClassCode$.$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPDeleteSelectCommaDelDepColumn">,
+			$lower popto Table ClassCode$.$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implOracleSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep switch HasDelSubDep yes implOracleSPDeleteSelectDelDepSubDeleteColumns default implOracleSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implOracleSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteSelectDelDepColumn each implOracleSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implOracleSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep implOracleSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implOracleSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteSelectDelDepColumn each implOracleSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implOracleSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implOracleSPDeleteSelectDelDepColumn each implOracleSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+</RuleSet>

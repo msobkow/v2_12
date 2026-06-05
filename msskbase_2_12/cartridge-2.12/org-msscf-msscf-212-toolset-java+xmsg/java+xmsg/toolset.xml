@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<ToolSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-toolset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-toolset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-toolset.xsd"
+	Name="java+xmsg"
+	Revision="2.12"
+	Descr="Java 11 implementing XML Message Parsers">
+	<RuleSet Name="Top" />
+	<RuleSet Name="ProjectGitIgnore" />
+	<RuleSet Name="ClientProjectGitIgnore" />
+	<RuleSet Name="RqstProjectGitIgnore" />
+	<RuleSet Name="RspnProjectGitIgnore" />
+	<RuleSet Name="xsd/schema-rqst.xsd" />
+	<RuleSet Name="xsd/schema-rspn.xsd" />
+	<RuleSet Name="src/SchemaXMsg/SchemaXMsgSchemaMessageFormatter.java" />
+	<RuleSet Name="src/SchemaXMsg/SchemaXMsgTableMessageFormatter.java" />
+	<RuleSet Name="src/SchemaXMsgClnt/SchemaXMsgClntSchema.java" />
+	<RuleSet Name="src/SchemaXMsgClnt/SchemaXMsgClntHttpSchema.java" />
+	<RuleSet Name="src/SchemaXMsgClnt/SchemaXMsgClntTable.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstParser.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstFileImport.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstLogIn.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstLogOut.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTableCreate.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTableRead.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTableReadAll.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTableRdBy.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTablePageAll.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTablePageBy.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTableLock.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTableUpdate.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTableDelete.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTableDelBy.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTableMoveUp.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTableMoveDown.java" />
+	<RuleSet Name="src/SchemaXMsgRqst/SchemaXMsgRqstTableServerMethod.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnParser.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnNoDataFound.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnException.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnFileLoaded.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnLoggedOut.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnLoggedIn.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnServerProcExecuted.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnTableRec.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnTableReadSingle.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnTableReadList.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnTableCreated.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnTableLocked.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnTableUpdated.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnTableDeleted.java" />
+	<RuleSet Name="src/SchemaXMsgRspn/SchemaXMsgRspnTableServerMethodExecuted.java" />
+</ToolSet>

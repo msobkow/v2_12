@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/Schema/SchemaRamTableIdGen.java"
+	Revision="2.12"
+	Descr="Java 11 implementation of a $TableName$ RAM Id Generator object.">
+
+	<GenFile GenDef="Id16Gen" Name="fileSchemaRamTableId16GenJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema SchemaName$Ram/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$Ram"
+		ExpansionClassName="$SchemaName$Ram$popto Table TableName$Id16GenJava"
+		ExpansionKeyName="$SchemaName$Ram$popto Table TableName$Id16GenJava"
+		ExpansionFileName="$SchemaName$Ram$popto Table TableName$Id16Gen.java"
+>// Description: Java 11 implementation of a $popto Table TableName$ 16-bit RAM Id Generator object.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$Ram;
+
+import java.lang.reflect.*;
+import java.io.*;
+import java.math.*;
+import java.net.*;
+import java.rmi.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$importJavaPackageSchemaName$
+
+/*
+ *	$SchemaName$Ram$popto Table TableName$Id16Gen RAM 16-bit Id Generator for $popto Table TableName$
+ */
+public class $SchemaName$Ram$popto Table TableName$Id16Gen
+	implements Comparable&lt;Object&gt;,
+		Serializable
+{$popto Table reference BaseClass reference PrimaryKeyIndex iterate Columns(
+	each implColumnAttr )$
+	protected short sliceId = 0;
+	protected short nextId = 1;$popto Table reference BaseClass reference PrimaryKeyIndex implTableId16GenConstructor$
+	public short getNextId() {
+		short retNext = (short)(nextId ++);
+		return( retNext );
+	}$popto Table reference BaseClass reference PrimaryKeyIndex
+		iterate Columns(
+			each implColumnGetterSetter )
+$$implTableSliceIdGetterSetter$$popto Table reference PrimaryKeyIndex implTableId16GenEquals$$popto Table reference BaseClass reference PrimaryKeyIndex implTableIdGenGetHashCode$$popto Table reference BaseClass reference PrimaryKeyIndex implTableId16GenCompareTo$$popto Table reference BaseClass reference PrimaryKeyIndex implTableId16GenToString$
+	}
+</GenFile>
+
+	<GenRule GenDef="Index" Name="implTableId16GenToString">
+	public String toString() {
+		String ret = "&lt;$SchemaName$$popto Table TableName$Id16Gen"$iterate Columns( each implToStringEmitXmlAttr )$
+			+ ", SliceId=\"" + Short.toString( getRequiredSliceId() ) + "\""
+			+ ", NextId=\"" + Short.toString( nextId ) + "\"/&gt;";
+		return( ret );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableId16GenEquals">
+	public boolean equals( Object obj ) {
+		if( obj == null ) {
+			return( false );
+		}
+		else if( obj instanceof $SchemaName$Ram$popto Table TableName$Id16Gen ) {
+			$SchemaName$Ram$TableName$Id16Gen rhs = ($SchemaName$Ram$popto Table TableName$Id16Gen)obj;$iterate Columns( each implEqualsCmpAttr)$
+			if( getRequiredSliceId() != rhs.getRequiredSliceId() ) {
+				return( false );
+			}
+			return( true );
+		}
+		else {
+			return( false );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableIdGenGetHashCode">
+	public int hashCode() {
+		int hashCode = 0;$iterate Columns( each implGetHashCodeAttr )$
+		hashCode = ( hashCode * 0x10000 ) + getRequiredSliceId();
+		return( hashCode &amp; 0x7fffffff );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implTableSliceIdGetterSetter">
+	public short getRequiredSliceId() {
+		return( sliceId );
+	}
+
+	public void setRequiredSliceId( short value ) {
+		sliceId = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableId16GenConstructor">
+	public $SchemaName$Ram$TableName$Id16Gen() {$iterate Columns( each implConstructorInitAttr )$
+		sliceId = 0;
+		nextId = (short)1;
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableId16GenCompareTo">
+	public int compareTo( Object obj ) {
+		if( obj == null ) {
+			return( -1 );
+		}
+		else if( obj instanceof $SchemaName$Ram$popto Table TableName$Id16Gen ) {
+			$SchemaName$Ram$TableName$Id16Gen rhs = ($SchemaName$Ram$popto Table TableName$Id16Gen)obj;$iterate Columns( each implCompareToAttr )$
+			{
+				short lhsSliceId = getRequiredSliceId();
+				short rhsSliceId = rhs.getRequiredSliceId();
+				if( lhsSliceId &lt; rhsSliceId ) {
+					return( -1 );
+				}
+				else if( lhsSliceId &gt; rhsSliceId ) {
+					return( 1 );
+				}
+			}
+			return( 0 );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				"compareTo",
+				"obj",
+				obj,
+				"$SchemaName$$popto Table TableName$Id16Gen" );
+		}
+	}
+</GenRule>
+
+	<GenFile GenDef="Id32Gen" Name="fileSchemaRamTableId32GenJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema SchemaName$Ram/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$Ram"
+		ExpansionClassName="$SchemaName$Ram$popto Table TableName$Id32GenJava"
+		ExpansionKeyName="$SchemaName$Ram$popto Table TableName$Id32GenJava"
+		ExpansionFileName="$SchemaName$Ram$popto Table TableName$Id32Gen.java"
+>// Description: Java 11 implementation of a $popto Table TableName$ 32-bit RAM Id Generator object.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$Ram;
+
+import java.lang.reflect.*;
+import java.io.*;
+import java.math.*;
+import java.net.*;
+import java.rmi.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$
+
+/*
+ *	$SchemaName$Ram$popto Table TableName$Id32Gen RAM 32-bit Id Generator for $popto Table TableName$
+ */
+public class $SchemaName$Ram$popto Table TableName$Id32Gen
+	implements Comparable&lt;Object&gt;,
+		Serializable
+{
+$popto Table reference BaseClass reference PrimaryKeyIndex iterate Columns(
+	each implColumnAttr )
+$
+	protected short sliceId = 0;
+	protected int nextId = 1;
+$popto Table reference BaseClass reference PrimaryKeyIndex implTableId32GenConstructor$
+	public int getNextId() {
+		int retNext = nextId ++;
+		return( retNext );
+	}
+$popto Table reference BaseClass reference PrimaryKeyIndex
+		iterate Columns(
+			each implColumnGetterSetter )
+$$implTableSliceIdGetterSetter$$popto Table reference PrimaryKeyIndex implTableId32GenEquals$$popto Table reference BaseClass reference PrimaryKeyIndex implTableIdGenGetHashCode$$popto Table reference BaseClass reference PrimaryKeyIndex implTableId32GenCompareTo$$popto Table reference BaseClass reference PrimaryKeyIndex implTableId32GenToString$}
+</GenFile>
+
+	<GenRule GenDef="Index" Name="implTableId32GenEquals">
+	public boolean equals( Object obj ) {
+		if( obj == null ) {
+			return( false );
+		}
+		else if( obj instanceof $SchemaName$Ram$popto Table TableName$Id32Gen ) {
+			$SchemaName$Ram$popto Table TableName$Id32Gen rhs = ($SchemaName$Ram$popto Table TableName$Id32Gen)obj;$iterate Columns( each implEqualsCmpAttr)$
+			if( getRequiredSliceId() != rhs.getRequiredSliceId() ) {
+				return( false );
+			}
+			return( true );
+		}
+		else {
+			return( false );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableId32GenToString">
+	public String toString() {
+		String ret = "&lt;$SchemaName$$popto Table TableName$Id32Gen"$iterate Columns( each implToStringEmitXmlAttr )$
+			+ ", SliceId=\"" + Short.toString( getRequiredSliceId() ) + "\""
+			+ ", NextId=\"" + Integer.toString( nextId ) + "\"/&gt;";
+		return( ret );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableId32GenConstructor">
+	public $SchemaName$Ram$popto Table TableName$Id32Gen() {$iterate Columns( each implConstructorInitAttr )$
+		sliceId = 0;
+		nextId = 1;
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableId32GenCompareTo">
+	public int compareTo( Object obj ) {
+		if( obj == null ) {
+			return( -1 );
+		}
+		else if( obj instanceof $SchemaName$Ram$popto Table TableName$Id32Gen ) {
+			$SchemaName$Ram$popto Table TableName$Id32Gen rhs = ($SchemaName$Ram$popto Table TableName$Id32Gen)obj;$iterate Columns( each implCompareToAttr )$
+			{
+				short lhsSliceId = getRequiredSliceId();
+				short rhsSliceId = rhs.getRequiredSliceId();
+				if( lhsSliceId &lt; rhsSliceId ) {
+					return( -1 );
+				}
+				else if( lhsSliceId &gt; rhsSliceId ) {
+					return( 1 );
+				}
+			}
+			return( 0 );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				"compareTo",
+				"obj",
+				obj,
+				"$SchemaName$$popto Table TableName$Id32Gen" );
+		}
+	}
+</GenRule>
+
+	<GenFile GenDef="Id64Gen" Name="fileSchemaRamTableId64GenJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema SchemaName$Ram/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$Ram"
+		ExpansionClassName="$SchemaName$Ram$popto Table TableName$Id64GenJava"
+		ExpansionKeyName="$SchemaName$Ram$popto Table TableName$Id64GenJava"
+		ExpansionFileName="$SchemaName$Ram$popto Table TableName$Id64Gen.java"
+>// Description: Java 11 implementation of a $popto Table TableName$ 64-bit RAM Id Generator object.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$Ram;
+
+import java.lang.reflect.*;
+import java.io.*;
+import java.math.*;
+import java.net.*;
+import java.rmi.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$importJavaPackageSchemaName$
+
+/*
+ *	$SchemaName$Ram$popto Table TableName$Id64Gen RAM 64-bit Id Generator for $popto Table TableName$
+ */
+public class $SchemaName$Ram$popto Table TableName$Id64Gen
+	implements Comparable&lt;Object&gt;,
+		Serializable
+{
+$popto Table reference BaseClass reference PrimaryKeyIndex iterate Columns(
+	each implColumnAttr )
+$
+	protected short sliceId = 0;
+	protected long nextId = 1L;
+$popto Table reference BaseClass reference PrimaryKeyIndex implTableId64GenConstructor$
+	public long getNextId() {
+		long retNext = nextId ++;
+		return( retNext );
+	}
+$popto Table reference BaseClass reference PrimaryKeyIndex
+		iterate Columns(
+			each implColumnGetterSetter )
+$$implTableSliceIdGetterSetter$$popto Table reference PrimaryKeyIndex implTableId64GenEquals$$popto Table reference BaseClass reference PrimaryKeyIndex implTableIdGenGetHashCode$$popto Table reference BaseClass reference PrimaryKeyIndex implTableId64GenCompareTo$$popto Table reference BaseClass reference PrimaryKeyIndex implTableId64GenToString$}
+</GenFile>
+
+	<GenRule GenDef="Index" Name="implTableId64GenEquals">
+	public boolean equals( Object obj ) {
+		if( obj == null ) {
+			return( false );
+		}
+		else if( obj instanceof $SchemaName$Ram$popto Table TableName$Id64Gen ) {
+			$SchemaName$Ram$popto Table TableName$Id64Gen rhs = ($SchemaName$Ram$popto Table TableName$Id64Gen)obj;$iterate Columns( each implEqualsCmpAttr)$
+			if( getRequiredSliceId() != rhs.getRequiredSliceId() ) {
+				return( false );
+			}
+			return( true );
+		}
+		else {
+			return( false );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableId64GenToString">
+	public String toString() {
+		String ret = "&lt;$SchemaName$$popto Table TableName$Id64Gen"$iterate Columns( each implToStringEmitXmlAttr )$
+			+ ", SliceId=\"" + Short.toString( getRequiredSliceId() ) + "\""
+			+ ", NextId=\"" + Long.toString( nextId ) + "\"/&gt;";
+		return( ret );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableId64GenConstructor">
+	public $SchemaName$Ram$popto Table TableName$Id64Gen() {$iterate Columns( each implConstructorInitAttr )$
+		sliceId = 0;
+		nextId = 1L;
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableId64GenCompareTo">
+	public int compareTo( Object obj ) {
+		if( obj == null ) {
+			return( -1 );
+		}
+		else if( obj instanceof $SchemaName$Ram$popto Table TableName$Id64Gen ) {
+			$SchemaName$Ram$popto Table TableName$Id64Gen rhs = ($SchemaName$Ram$popto Table TableName$Id64Gen)obj;$iterate Columns( each implCompareToAttr )$
+			{
+				short lhsSliceId = getRequiredSliceId();
+				short rhsSliceId = rhs.getRequiredSliceId();
+				if( lhsSliceId &lt; rhsSliceId ) {
+					return( -1 );
+				}
+				else if( lhsSliceId &gt; rhsSliceId ) {
+					return( 1 );
+				}
+			}
+			return( 0 );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				"compareTo",
+				"obj",
+				obj,
+				"$SchemaName$$popto Table TableName$Id64Gen" );
+		}
+	}
+</GenRule>
+
+</RuleSet>

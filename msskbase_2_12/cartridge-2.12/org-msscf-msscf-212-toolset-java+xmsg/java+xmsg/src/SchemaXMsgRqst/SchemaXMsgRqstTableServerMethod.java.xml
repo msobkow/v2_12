@@ -1,0 +1,1168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsg/SchemaXMsgRqstTableServerMethod.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Element  for Table">
+
+	<GenFile GenDef="ServerMethod" Name="fileSchemaXMsgRqstTableServerMethodJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgRqst/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgRqst"
+		ExpansionClassName="$SchemaName$XMsgRqst$reference ForTable TableName$$Name$Java"
+		ExpansionKeyName="$SchemaName$XMsgRqst$reference ForTable TableName$$Name$Java"
+		ExpansionFileName="$SchemaName$XMsgRqst$reference ForTable TableName$$Name$.java">
+// Description: Java 11 XML Message SAX Response Record Element  for $reference ForTable TableName$
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgRqst;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.xml.sax.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+import $lower JavaPackage$.$SchemaName$XMsg.*;
+
+/*
+ *	$SchemaName$XMsgRqst$reference ForTable TableName$$Name$ XML SAX Element  implementation
+ *	for $TableName$.
+ */
+public class $SchemaName$XMsgRqst$reference ForTable TableName$$Name$
+	extends CFLibXmlCoreElementHandler
+{$implConstructXMsgRqstTableServerMethod$$implRqstTableServerMethodStartElement$$implRqstTableServerMethodEndElement$}
+</GenFile>
+
+	<GenRule GenDef="ServerMethod" Name="implConstructXMsgRqstTableServerMethod">
+	public $SchemaName$XMsgRqst$reference ForTable TableName$$Name$( $SchemaName$XMsgRqst xmsgRqst ) {
+		super( xmsgRqst );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodStartElement">
+	public void startElement(
+		String		uri,
+		String		localName,
+		String		qName,
+		Attributes	attrs )
+	throws SAXException
+	{
+		$SchemaName$XMsgSchemaMessageFormatter schemaFormatter = null;
+		try {
+			// Common XML Attributes
+			String	attrId = null;$implRqstTableServerMethodDeclAttrs$
+			// Attribute Extraction
+			String	attrLocalName;
+			int		numAttrs;
+			int		idxAttr;
+			final String S_ProcName = "startElement";
+			final String S_LocalName = "LocalName";
+
+			assert qName.equals( "Rqst$reference ForTable TableName$$Name$" );
+$implRqstTableServerMethodRetrieveSchemaObj$$implRqstTableServerMethodExtractAttrs$$implRqstTableServerMethodCheckRequiredAttrs$$implRqstTableServerMethodGetContext$$implRqstTableServerMethodConvertAttributes$$switch IsInstanceMethod yes implRqstTableServerMethodResolveObj default empty$$implRqstTableServerMethodDoServerMethod$
+		}
+		catch( RuntimeException e ) {
+			$SchemaName$XMsgRqst xmsgRqst = (($SchemaName$XMsgRqst)getParser());
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+			String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnException( "\n\t\t\t", e )
+				+	"\n"
+				+	schemaFormatter.formatRspnXmlPostamble();
+			xmsgRqst.resetResponse();
+			xmsgRqst.appendResponse( response );
+			xmsgRqst.setCaughtException( true );
+		}
+		catch( Error e ) {
+			$SchemaName$XMsgRqst xmsgRqst = (($SchemaName$XMsgRqst)getParser());
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+			String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnException( "\n\t\t\t", e )
+				+	"\n"
+				+	schemaFormatter.formatRspnXmlPostamble();
+			xmsgRqst.resetResponse();
+			xmsgRqst.appendResponse( response );
+			xmsgRqst.setCaughtException( true );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodDeclAttrs"
+		>$switch IsInstanceMethod yes implRqstTableServerMethodDeclPKeyAttrs default empty$$iterate Params( each implRqstTableServerMethodDeclParamAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodDeclPKeyAttrs"
+		>$reference ForTable reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRqstTableServerMethodDeclPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableServerMethodDeclPKeyAttr">
+			String attrObj$Name$ = null;</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodDeclParamAttr">
+			String attr$Name$ = null;</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodResolveObj">
+			I$reference ForTable DefSchemaName$$reference ForTable TableName$Obj obj = schemaObj.get$reference ForTable TableName$TableObj().read$reference ForTable TableName$By$reference ForTable reference BaseClass reference PrimaryKeyIndex Suffix$( $reference ForTable reference BaseClass reference PrimaryKeyIndex iterate Columns( first implRqstTableServerMethodPassPKeyArg each implRqstTableServerMethodPassCommaPKeyArg )$,
+				true );
+			if( obj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"obj" );
+			}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableServerMethodPassPKeyArg"
+		>natObj$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableServerMethodPassCommaPKeyArg">,
+				$implRqstTableServerMethodPassPKeyArg$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implRqstTableServerMethodDoServerMethod">
+			boolean dataChanged = schemaObj.get$reference ForTable TableName$TableObj().$leadlower Name$($switch IsInstanceMethod yes implRqstTableServerMethodPassObjAndParams default implRqstTableServerMethodPassParams$);
+			String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + schemaFormatter.formatRspnServerProcExecuted( null, dataChanged )
+				+	"\n"
+				+	schemaFormatter.formatRspnXmlPostamble();
+			(($SchemaName$XMsgRqst)getParser()).appendResponse( response );</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implRqstTableServerMethodDoServerMethod">
+			I$reference RetTable DefSchemaName$$reference RetTable TableName$Obj read = schemaObj.get$reference ForTable TableName$TableObj().$leadlower Name$($switch IsInstanceMethod yes implRqstTableServerMethodPassObjAndParams default implRqstTableServerMethodPassParams$);
+			if( read != null ) {
+				String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+					+	"\t" + $SchemaName$XMsg$reference ForTable TableName$MessageFormatter.format$reference ForTable TableName$Rspn$Name$ExecutedOpenTag()
+					+	$SchemaName$XMsg$reference RetTable TableName$MessageFormatter.format$reference RetTable TableName$RspnDerivedRec( "\n\t\t", read.get$reference RetTable TableName$Buff() ) + "\n"
+					+	"\t" + $SchemaName$XMsg$reference ForTable TableName$MessageFormatter.format$reference ForTable TableName$Rspn$Name$ExecutedCloseTag()
+					+	schemaFormatter.formatRspnXmlPostamble();
+				(($SchemaName$XMsgRqst)getParser()).appendResponse( response );
+			}
+			else {
+				String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+					+	"\t" + $SchemaName$XMsg$reference ForTable TableName$MessageFormatter.format$reference ForTable TableName$Rspn$Name$ExecutedOpenTag()
+					+	"\t" + $SchemaName$XMsg$reference ForTable TableName$MessageFormatter.format$reference ForTable TableName$Rspn$Name$ExecutedCloseTag()
+					+	schemaFormatter.formatRspnXmlPostamble();
+				(($SchemaName$XMsgRqst)getParser()).appendResponse( response );
+			}</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implRqstTableServerMethodDoServerMethod">
+			List&lt;I$reference RetTable DefSchemaName$$reference RetTable TableName$Obj&gt; list = schemaObj.get$reference ForTable TableName$TableObj().$leadlower Name$($switch IsInstanceMethod yes implRqstTableServerMethodPassObjAndParams default implRqstTableServerMethodPassParams$);
+			String responseOpening = schemaFormatter.formatRspnXmlPreamble() + "\n"
+					+	"\t" + $SchemaName$XMsg$reference ForTable TableName$MessageFormatter.format$reference ForTable TableName$Rspn$Name$ExecutedOpenTag();
+			xmsgRqst.appendResponse( responseOpening );
+			Iterator&lt;I$reference RetTable DefSchemaName$$reference RetTable TableName$Obj&gt; iter = list.iterator();
+			I$reference RetTable DefSchemaName$$reference RetTable TableName$Obj cur;
+			String subxml;
+			while( iter.hasNext() ) {
+				cur = iter.next();
+				subxml = $SchemaName$XMsg$reference RetTable TableName$MessageFormatter.format$reference RetTable TableName$RspnDerivedRec( "\n\t\t", cur.get$reference RetTable TableName$Buff() );
+				xmsgRqst.appendResponse( subxml );
+			}
+			String responseClosing =
+					"\n"
+				+	"\t" + $SchemaName$XMsg$reference ForTable TableName$MessageFormatter.format$reference ForTable TableName$Rspn$Name$ExecutedCloseTag()
+				+	schemaFormatter.formatRspnXmlPostamble();
+			(($SchemaName$XMsgRqst)getParser()).appendResponse( responseClosing );</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodPassObjAndParams"
+		> obj$iterate Params( each implRqstTableServerMethodPassCommaParam empty empty )$ </GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodPassParams"
+		>$iterate Params( first implRqstTableServerMethodPassParam each implRqstTableServerMethodPassCommaParam empty empty )$ </GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodPassParam"
+		> nat$Name$</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodPassCommaParam">,
+				nat$Name$</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodEndElement">
+	public void endElement(
+		String		uri,
+		String		localName,
+		String		qName )
+	throws SAXException
+	{
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodRetrieveSchemaObj">
+			$SchemaName$XMsgRqst xmsgRqst = ($SchemaName$XMsgRqst)getParser();
+			if( xmsgRqst == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser()" );
+			}
+
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+
+			I$SchemaName$SchemaObj schemaObj = xmsgRqst.getSchemaObj();
+			if( schemaObj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser().getSchemaObj()" );
+			}
+</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodExtractAttrs">
+			// Extract Attributes
+			numAttrs = attrs.getLength();
+			for( idxAttr = 0; idxAttr &lt; numAttrs; idxAttr++ ) {
+				attrLocalName = attrs.getLocalName( idxAttr );
+				if( attrLocalName.equals( "Id" ) ) {
+					if( attrId != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrId = attrs.getValue( idxAttr );
+				}
+				else if( attrLocalName.equals( "schemaLocation" ) ) {
+					// ignored
+				}$switch IsInstanceMethod yes implRqstTableServerMethodParsePKeyAttrs default empty$$iterate Params( each implRqstTableServerMethodParseParamAttr empty empty )$
+				else {
+					throw new CFLibUnrecognizedAttributeException( getClass(),
+						S_ProcName,
+						getParser().getLocationInfo(),
+						attrLocalName );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodParsePKeyAttrs"
+		>$reference ForTable reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRqstTableServerMethodParsePKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableServerMethodParsePKeyAttr">
+				else if( attrLocalName.equals( "Obj$Name$" ) ) {
+					if( attrObj$Name$ != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrObj$Name$ = attrs.getValue( idxAttr );
+				}</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodParseParamAttr">
+				else if( attrLocalName.equals( "$Name$" ) ) {
+					if( attr$Name$ != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attr$Name$ = attrs.getValue( idxAttr );
+				}</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodCheckRequiredAttrs">
+			// Ensure that required attributes have values$implRqstTableServerMethodCheckReqAttrs$
+</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodCheckReqAttrs"
+		>$switch IsInstanceMethod yes implRqstTableServerMethodCheckReqPKeyAttrs default empty$$iterate Params( each implRqstTableServerMethodCheckReqParamAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodCheckReqPKeyAttrs"
+		>$reference ForTable reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRqstTableServerMethodCheckReqPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableServerMethodCheckReqPKeyAttr"
+		>$reference Column implRqstTableServerMethodCheckReqPKeyAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodCheckReqPKeyAttr"
+		>$switch IsNullable no implRqstTableServerMethodReallyCheckReqPKeyAttr default empty$</GenRule>
+
+	<GenRule GenDef="Param" Name="BaseModelAtomClass"
+		>$reference Type BaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodReallyCheckReqPKeyAttr"
+		>$switch BaseModelAtomClass
+			StringDef implRqstTableServerMethodReallyCheckReqPKeyStringAttr
+			TextDef implRqstTableServerMethodReallyCheckReqPKeyStringAttr
+			NmTokenDef implRqstTableServerMethodReallyCheckReqPKeyStringAttr
+			NmTokensDef implRqstTableServerMethodReallyCheckReqPKeyStringAttr
+			TokenDef implRqstTableServerMethodReallyCheckReqPKeyStringAttr
+			default implRqstTableServerMethodReallyCheckReqPKeyValueAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodReallyCheckReqPKeyStringAttr">
+			if( attrObj$Name$ == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Obj$Name$" );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodReallyCheckReqPKeyValueAttr">
+			if( ( attrObj$Name$ == null ) || ( attrObj$Name$.length() &lt;= 0 ) ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Obj$Name$" );
+			}</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodCheckReqParamAttr"
+		>$switch IsNullable no implRqstTableServerMethodReallyCheckReqParamAttr default empty$</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodReallyCheckReqParamAttr"
+		>$switch BaseModelAtomClass
+			StringDef implRqstTableServerMethodReallyCheckReqParamStringAttr
+			TextDef implRqstTableServerMethodReallyCheckReqParamStringAttr
+			NmTokenDef implRqstTableServerMethodReallyCheckReqParamStringAttr
+			NmTokensDef implRqstTableServerMethodReallyCheckReqParamStringAttr
+			TokenDef implRqstTableServerMethodReallyCheckReqParamStringAttr
+			default implRqstTableServerMethodReallyCheckReqParamValueAttr$</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodReallyCheckReqParamStringAttr">
+			if( attr$Name$ == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$" );
+			}</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodReallyCheckReqParamValueAttr">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$" );
+			}</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodGetContext">
+			// Save named attributes to context
+			CFLibXmlCoreContext curContext = getParser().getCurContext();
+</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodConvertAttributes">
+			// Convert string attributes to native Java types
+			// and apply the converted attributes to the editBuff.$switch IsInstanceMethod yes implRqstTableServerMethodConvertPKeyAttrs default empty$$iterate Params( each implRqstTableServerMethodConvertParamAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implRqstTableServerMethodConvertPKeyAttrs"
+		>$reference ForTable reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRqstTableServerMethodConvertPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableServerMethodConvertPKeyAttr"
+		>$reference Column implRqstTableServerMethodConvertPKeyAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyAttr">
+		$implJavaAtomType$ natObj$Name$;$switch BaseModelAtomClass
+			BlobDef implRqstTableServerMethodConvertPKeyBlobValue
+			BoolDef implRqstTableServerMethodConvertPKeyBoolValue
+			EnumDef implRqstTableServerMethodConvertPKeyEnumValue
+			Int16Def implRqstTableServerMethodConvertPKeyInt16Value
+			Int32Def implRqstTableServerMethodConvertPKeyInt32Value
+			Int64Def implRqstTableServerMethodConvertPKeyInt64Value
+			UInt16Def implRqstTableServerMethodConvertPKeyUInt16Value
+			UInt32Def implRqstTableServerMethodConvertPKeyUInt32Value
+			UInt64Def implRqstTableServerMethodConvertPKeyUInt64Value
+			Id16Gen implRqstTableServerMethodConvertPKeyInt16Value
+			Id32Gen implRqstTableServerMethodConvertPKeyInt32Value
+			Id64Gen implRqstTableServerMethodConvertPKeyInt64Value
+			FloatDef implRqstTableServerMethodConvertPKeyFloatValue
+			DoubleDef implRqstTableServerMethodConvertPKeyDoubleValue
+			NumberDef implRqstTableServerMethodConvertPKeyNumberValue
+			StringDef implRqstTableServerMethodConvertPKeyStringValue
+			TokenDef implRqstTableServerMethodConvertPKeyTokenValue
+			NmTokenDef implRqstTableServerMethodConvertPKeyNmTokenValue
+			NmTokensDef implRqstTableServerMethodConvertPKeyNmTokensValue
+			TextDef implRqstTableServerMethodConvertPKeyTextValue
+			DateDef implRqstTableServerMethodConvertPKeyDateValue
+			TimeDef implRqstTableServerMethodConvertPKeyTimeValue
+			TimestampDef implRqstTableServerMethodConvertPKeyTimestampValue
+			TZDateDef implRqstTableServerMethodConvertPKeyTZDateValue
+			TZTimeDef implRqstTableServerMethodConvertPKeyTZTimeValue
+			TZTimestampDef implRqstTableServerMethodConvertPKeyTZTimestampValue
+			UuidGen implRqstTableServerMethodConvertPKeyUuidValue
+			UuidDef implRqstTableServerMethodConvertPKeyUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyBlobValue">
+			throw new RuntimeException( S_ProcName + "ERROR: Cannot use a BLOB as a PKey attribute!" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyBoolValue"
+		>$switch IsNullable yes implRqstTableServerMethodConvertPKeyOptBoolValue default implRqstTableServerMethodConvertPKeyReqBoolValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyReqBoolValue">
+			if( attrObj$Name$.equals( "true" ) || attrObj$Name$.equals( "yes" ) ) {
+				natObj$Name$ = true;
+			}
+			else if( attrObj$Name$.equals( "false" ) || attrObj$Name$.equals( "no" ) ) {
+				natObj$Name$ = false;
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attrObj$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyOptBoolValue">
+			if( ( attrObj$Name$ == null ) || ( attrObj$Name$.length() == 0 ) ) {
+				natObj$Name$ = null;
+			}
+			else if( attrObj$Name$.equals( "true" ) || attrObj$Name$.equals( "yes" ) ) {
+				natObj$Name$ = Boolean.valueOf( true );
+			}
+			else if( attrObj$Name$.equals( "false" ) || attrObj$Name$.equals( "no" ) ) {
+				natObj$Name$ = Boolean.valueOf( false );
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attrObj$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyEnumValue"
+		>$switch IsNullable yes implRqstTableServerMethodConvertPKeyOptEnumValue default implRqstTableServerMethodConvertPKeyReqEnumValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyOptEnumValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				natObj$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attrObj$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyReqEnumValue">
+			natObj$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attrObj$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyInt16Value"
+		>$switch IsNullable yes implRqstTableServerMethodConvertPKeyOptInt16Value default implRqstTableServerMethodConvertPKeyReqInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyOptInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				natObj$Name$ = Short.valueOf( Short.parseShort( attrObj$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyReqInt16Value">
+			natObj$Name$ = Short.parseShort( attrObj$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyInt32Value"
+		>$switch IsNullable yes implRqstTableServerMethodConvertPKeyOptInt32Value default implRqstTableServerMethodConvertPKeyReqInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyOptInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				natObj$Name$ = Integer.valueOf( Integer.parseInt( attrObj$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyReqInt32Value">
+			natObj$Name$ = Integer.parseInt( attrObj$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyInt64Value"
+		>$switch IsNullable yes implRqstTableServerMethodConvertPKeyOptInt64Value default implRqstTableServerMethodConvertPKeyReqInt64Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyOptInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				natObj$Name$ = Long.valueOf( Long.parseLong( attrObj$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyReqInt64Value">
+			natObj$Name$ = Long.parseLong( attrObj$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyUInt16Value"
+		>$switch IsNullable yes implRqstTableServerMethodConvertPKeyOptUInt16Value default implRqstTableServerMethodConvertPKeyReqUInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyOptUInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				natObj$Name$ = Integer.valueOf( Integer.parseInt( attrObj$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyReqUInt16Value">
+			natObj$Name$ = Integer.parseInt( attrObj$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyUInt32Value"
+		>$switch IsNullable yes implRqstTableServerMethodConvertPKeyOptUInt32Value default implRqstTableServerMethodConvertPKeyReqUInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyOptUInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				natObj$Name$ = Long.valueOf( Long.parseLong( attrObj$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyReqUInt32Value">
+			natObj$Name$ = Long.parseLong( attrObj$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyUInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				natObj$Name$ = new BigDecimal( attrObj$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyFloatValue"
+		>$switch IsNullable yes implRqstTableServerMethodConvertPKeyOptFloatValue default implRqstTableServerMethodConvertPKeyReqFloatValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyOptFloatValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				natObj$Name$ = Float.valueOf( Float.parseFloat( attrObj$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyReqFloatValue">
+			natObj$Name$ = Float.parseFloat( attrObj$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyDoubleValue"
+		>$switch IsNullable yes implRqstTableServerMethodConvertPKeyOptDoubleValue default implRqstTableServerMethodConvertPKeyReqDoubleValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyOptDoubleValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				natObj$Name$ = Double.valueOf( Double.parseDouble( attrObj$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyReqDoubleValue">
+			natObj$Name$ = Double.parseDouble( attrObj$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyNumberValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				natObj$Name$ = new BigDecimal( attrObj$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyStringValue">
+			natObj$Name$ = attrObj$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyTokenValue">
+			natObj$Name$ = attrObj$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyNmTokenValue">
+			natObj$Name$ = attrObj$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyNmTokensValue">
+			natObj$Name$ = attrObj$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyTextValue">
+			natObj$Name$ = attrObj$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyDateValue">
+			try {
+				natObj$Name$ = CFLibXmlUtil.parseDate( attrObj$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attrObj$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyTimeValue">
+			try {
+				natObj$Name$ = CFLibXmlUtil.parseTime( attrObj$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attrObj$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyTimestampValue">
+			try {
+				natObj$Name$ = CFLibXmlUtil.parseTimestamp( attrObj$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attrObj$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyTZDateValue">
+			try {
+				natObj$Name$ = CFLibXmlUtil.parseTZDate( attrObj$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attrObj$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyTZTimeValue">
+			try {
+				natObj$Name$ = CFLibXmlUtil.parseTZTime( attrObj$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attrObj$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyTZTimestampValue">
+			try {
+				natObj$Name$ = CFLibXmlUtil.parseTZTimestamp( attrObj$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attrObj$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableServerMethodConvertPKeyUuidValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				natObj$Name$ = UUID.fromString( attrObj$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertParamAttr"
+		>$switch IsNullable yes implRqstTableServerMethodConvertOptAttr default implRqstTableServerMethodConvertReqAttr$
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRqstTableServerMethodConvertReqBlob
+			BoolDef implRqstTableServerMethodConvertReqBool
+			EnumDef implRqstTableServerMethodConvertReqEnum
+			Id16Gen implRqstTableServerMethodConvertReqInt16
+			Id32Gen implRqstTableServerMethodConvertReqInt32
+			Id64Gen implRqstTableServerMethodConvertReqInt64
+			Int16Def implRqstTableServerMethodConvertReqInt16
+			Int32Def implRqstTableServerMethodConvertReqInt32
+			Int64Def implRqstTableServerMethodConvertReqInt64
+			UInt16Def implRqstTableServerMethodConvertReqUInt16
+			UInt32Def implRqstTableServerMethodConvertReqUInt32
+			UInt64Def implRqstTableServerMethodConvertReqUInt64
+			FloatDef implRqstTableServerMethodConvertReqFloat
+			DoubleDef implRqstTableServerMethodConvertReqDouble
+			NumberDef implRqstTableServerMethodConvertReqNumber
+			DateDef implRqstTableServerMethodConvertReqDate
+			TimeDef implRqstTableServerMethodConvertReqTime
+			TimestampDef implRqstTableServerMethodConvertReqTimestamp
+			TZDateDef implRqstTableServerMethodConvertReqTZDate
+			TZTimeDef implRqstTableServerMethodConvertReqTZTime
+			TZTimestampDef implRqstTableServerMethodConvertReqTZTimestamp
+			UuidGen implRqstTableServerMethodConvertReqUuid
+			UuidDef implRqstTableServerMethodConvertReqUuid
+			StringDef implRqstTableServerMethodConvertReqString
+			TokenDef implRqstTableServerMethodConvertReqString
+			NmTokenDef implRqstTableServerMethodConvertReqString
+			NmTokensDef implRqstTableServerMethodConvertReqString
+			TextDef implRqstTableServerMethodConvertReqString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRqstTableServerMethodConvertOptBlob
+			BoolDef implRqstTableServerMethodConvertOptBool
+			EnumDef implRqstTableServerMethodConvertOptEnum
+			Id16Gen implRqstTableServerMethodConvertOptInt16
+			Id32Gen implRqstTableServerMethodConvertOptInt32
+			Id64Gen implRqstTableServerMethodConvertOptInt64
+			Int16Def implRqstTableServerMethodConvertOptInt16
+			Int32Def implRqstTableServerMethodConvertOptInt32
+			Int64Def implRqstTableServerMethodConvertOptInt64
+			UInt16Def implRqstTableServerMethodConvertOptUInt16
+			UInt32Def implRqstTableServerMethodConvertOptUInt32
+			UInt64Def implRqstTableServerMethodConvertOptUInt64
+			FloatDef implRqstTableServerMethodConvertOptFloat
+			DoubleDef implRqstTableServerMethodConvertOptDouble
+			NumberDef implRqstTableServerMethodConvertOptNumber
+			DateDef implRqstTableServerMethodConvertOptDate
+			TimeDef implRqstTableServerMethodConvertOptTime
+			TimestampDef implRqstTableServerMethodConvertOptTimestamp
+			TZDateDef implRqstTableServerMethodConvertOptTZDate
+			TZTimeDef implRqstTableServerMethodConvertOptTZTime
+			TZTimestampDef implRqstTableServerMethodConvertOptTZTimestamp
+			UuidGen implRqstTableServerMethodConvertOptUuid
+			UuidDef implRqstTableServerMethodConvertOptUuid
+			StringDef implRqstTableServerMethodConvertOptString
+			TokenDef implRqstTableServerMethodConvertOptString
+			NmTokenDef implRqstTableServerMethodConvertOptString
+			NmTokensDef implRqstTableServerMethodConvertOptString
+			TextDef implRqstTableServerMethodConvertOptString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqBlob">
+			byte[] nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqBool">
+			boolean nat$Name$;
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqInt16">
+			short nat$Name$ = Short.parseShort( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqInt32">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqInt64">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqUInt16">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqUInt32">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqUInt64">
+			BigDecimal nat$Name$ = new BigDecimal( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqFloat">
+			float nat$Name$ = Float.parseFloat( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqDouble">
+			double nat$Name$ = Double.parseDouble( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqNumber">
+			BigDecimal nat$Name$ = new BigDecimal( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqTZDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqTZTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqTZTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqUuid">
+			UUID nat$Name$ = UUID.fromString( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertReqString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptBlob">
+			byte[] nat$Name$;
+			if( attr$Name$ == null ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.length() &lt;= 0 ) {
+				nat$Name$ = new byte[0];
+			}
+			else {
+				nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptBool">
+			Boolean nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptInt16">
+			Short nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptInt32">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptInt64">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptUInt16">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptUInt32">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptUInt64">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= new BigDecimal( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptFloat">
+			Float nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptDouble">
+			Double nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptNumber">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= new BigDecimal( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptTZDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptTZTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptTZTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptUuid">
+			UUID nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implRqstTableServerMethodConvertOptString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+</RuleSet>

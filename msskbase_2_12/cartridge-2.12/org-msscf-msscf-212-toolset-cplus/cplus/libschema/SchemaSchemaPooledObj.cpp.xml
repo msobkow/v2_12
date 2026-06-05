@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/SchemaSchemaPooledObj.cpp"
+	Revision="2.12"
+	Descr="C++18 Schema Pooled Object implementation">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSchemaPooledObjCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$SchemaPooledObjCpp"
+		ExpansionKeyName="$SchemaName$SchemaPooledObjCpp"
+		ExpansionFileName="$SchemaName$SchemaPooledObj.cpp"
+>// Description: C++18 Schema Pooled Object implementation for $SchemaName$.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+#include &lt;$lower SchemaName$obj/$SchemaName$SchemaObj.hpp&gt;
+#include &lt;$lower SchemaName$obj/$SchemaName$SchemaPooledObj.hpp&gt;
+$iterate Tables( each includeHierarchyRootSchemaTableIObjs empty empty )$
+$iterate Tables( each includeHierarchyRootSchemaTableITableObjs empty empty )$
+
+namespace $CPlusNamespace$ {
+
+	const std::string $SchemaName$SchemaPooledObj::CLASS_NAME( "$SchemaName$SchemaPooledObj" );
+
+	$SchemaName$SchemaPooledObj::$SchemaName$SchemaPooledObj()
+	: $CPlusNamespace$::$SchemaName$SchemaObj()
+	{
+	}
+
+	$SchemaName$SchemaPooledObj::~$SchemaName$SchemaPooledObj() {
+	}
+$implSchemaPooledObjCnxAccessors$$implSchemaPooledObjLogout$
+}
+
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaPooledObjCnxAccessors">
+	bool $SchemaName$SchemaPooledObj::isConnected() {
+		if( backingStore == NULL ) {
+			return( false );
+		}
+		else {
+			return( true );
+		}
+	}
+
+	void $SchemaName$SchemaPooledObj::disconnect( bool doCommit ) {
+		static const std::string S_ProcName( "disconnect" );
+		static const std::string S_Message( "Schema objects over pooled storage cannot be explicitly disconnected" );
+		throw cflib::CFLibUsageException( CLASS_NAME,
+			S_ProcName,
+			S_Message );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaPooledObjLogout">
+	void $SchemaName$SchemaPooledObj::logout() {
+		if( ( authorization == NULL ) || ( backingStore == NULL ) ) {
+			return;
+		}
+		try {
+			bool transactionStarted = beginTransaction();
+			if( ! transactionStarted ) {
+				rollback();
+				transactionStarted = beginTransaction();
+				if( ! transactionStarted ) {
+					setAuthorization( NULL );
+					return;
+				}
+			}
+			const uuid_ptr_t secSessionId = authorization-&gt;getSecSessionId();
+			if( ( secSessionId[0] != 0 )
+				|| ( secSessionId[1] != 0 )
+				|| ( secSessionId[2] != 0 )
+				|| ( secSessionId[3] != 0 )
+				|| ( secSessionId[4] != 0 )
+				|| ( secSessionId[5] != 0 )
+				|| ( secSessionId[6] != 0 )
+				|| ( secSessionId[7] != 0 )
+				|| ( secSessionId[8] != 0 )
+				|| ( secSessionId[9] != 0 )
+				|| ( secSessionId[10] != 0 )
+				|| ( secSessionId[11] != 0 )
+				|| ( secSessionId[12] != 0 )
+				|| ( secSessionId[13] != 0 )
+				|| ( secSessionId[14] != 0 )
+				|| ( secSessionId[15] != 0 ) )
+			{
+				$CPlusSecNamespace$::I$SecSchemaName$SecSessionObj* secSession = getSecSessionTableObj()-&gt;readSecSessionByIdIdx( secSessionId );
+				if( secSession != NULL ) {
+					if( secSession-&gt;isOptionalFinishNull() ) {
+						$CPlusSecNamespace$::I$SecSchemaName$SecSessionEditObj* editSecSession = secSession-&gt;beginEdit();
+						std::chrono::system_clock::time_point timestamp = cflib::CFLib::getUTCTimestampInstance();
+						editSecSession-&gt;setOptionalFinishValue( timestamp );
+						editSecSession-&gt;update();
+						editSecSession = NULL;
+					}
+				}
+			}
+			commit();
+		}
+		catch( xercesc::SAXNotRecognizedException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( xercesc::SAXNotSupportedException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( xercesc::SAXParseException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( xercesc::SAXException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibArgumentOverflowException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibArgumentRangeException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibArgumentUnderflowException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibCollisionDetectedException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibDbException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibDependentsDetectedException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibEmptyArgumentException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibInvalidArgumentException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibMathException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibMustOverrideException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibNotImplementedYetException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibNotSupportedException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibNullArgumentException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibPrimaryKeyNotNewException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibStaleCacheDetectedException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibSubroutineException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibUniqueIndexViolationException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibUnrecognizedAttributeException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibUnresolvedRelationException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibUnsupportedClassException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibUsageException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibArgumentException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( cflib::CFLibRuntimeException x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+		catch( std::exception x ) {
+			setAuthorization( NULL );
+			minimizeMemory();
+			throw x;
+		}
+	}
+</GenRule>
+
+</RuleSet>

@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CFInt
+		xmlns="uri://cfint/cfintloader"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="uri://cfint/cfintloader file:../bin/xsd/cfint-structured.xsd" >
+	<MimeType Name="application/activemessage" />
+	<MimeType Name="application/andrew-inset" FileTypes="ez" />
+	<MimeType Name="application/annodex" FileTypes="anx" />
+	<MimeType Name="application/applefile" />
+	<MimeType Name="application/atom+xml" FileTypes="atom" />
+	<MimeType Name="application/atomcat+xml" FileTypes="atomcat" />
+	<MimeType Name="application/atomicmail" />
+	<MimeType Name="application/atomserv+xml" FileTypes="atomsrv" />
+	<MimeType Name="application/batch-SMTP" />
+	<MimeType Name="application/bbolin" FileTypes="lin" />
+	<MimeType Name="application/beep+xml" />
+	<MimeType Name="application/cals-1840" />
+	<MimeType Name="application/commonground" />
+	<MimeType Name="application/cu-seeme" FileTypes="cu" />
+	<MimeType Name="application/cybercash" />
+	<MimeType Name="application/davmount+xml" FileTypes="davmount" />
+	<MimeType Name="application/dca-rft" />
+	<MimeType Name="application/dec-dx" />
+	<MimeType Name="application/dicom" FileTypes="dcm" />
+	<MimeType Name="application/docbook+xml" />
+	<MimeType Name="application/dsptype" FileTypes="tsp" />
+	<MimeType Name="application/dvcs" />
+	<MimeType Name="application/ecmascript" FileTypes="es" />
+	<MimeType Name="application/edi-consent" />
+	<MimeType Name="application/edi-x12" />
+	<MimeType Name="application/edifact" />
+	<MimeType Name="application/eshop" />
+	<MimeType Name="application/font-sfnt" FileTypes="otf ttf" />
+	<MimeType Name="application/font-tdpfr" FileTypes="pfr" />
+	<MimeType Name="application/font-woff" FileTypes="woff" />
+	<MimeType Name="application/futuresplash" FileTypes="spl" />
+	<MimeType Name="application/ghostview" />
+	<MimeType Name="application/gzip" FileTypes="gz" />
+	<MimeType Name="application/hta" FileTypes="hta" />
+	<MimeType Name="application/http" />
+	<MimeType Name="application/hyperstudio" />
+	<MimeType Name="application/iges" />
+	<MimeType Name="application/index" />
+	<MimeType Name="application/index.cmd" />
+	<MimeType Name="application/index.obj" />
+	<MimeType Name="application/index.response" />
+	<MimeType Name="application/index.vnd" />
+	<MimeType Name="application/iotp" />
+	<MimeType Name="application/ipp" />
+	<MimeType Name="application/isup" />
+	<MimeType Name="application/java-archive" FileTypes="jar" />
+	<MimeType Name="application/java-serialized-object" FileTypes="ser" />
+	<MimeType Name="application/java-vm" FileTypes="class" />
+	<MimeType Name="application/javascript" FileTypes="js" />
+	<MimeType Name="application/json" FileTypes="json" />
+	<MimeType Name="application/m3g" FileTypes="m3g" />
+	<MimeType Name="application/mac-binhex40" FileTypes="hqx" />
+	<MimeType Name="application/mac-compactpro" FileTypes="cpt" />
+	<MimeType Name="application/macwriteii" />
+	<MimeType Name="application/marc" />
+	<MimeType Name="application/mathematica" FileTypes="nb nbp" />
+	<MimeType Name="application/mbox" FileTypes="mbox" />
+	<MimeType Name="application/ms-tnef" />
+	<MimeType Name="application/msaccess" FileTypes="mdb" />
+	<MimeType Name="application/msword" FileTypes="doc dot" />
+	<MimeType Name="application/mxf" FileTypes="mxf" />
+	<MimeType Name="application/news-message-id" />
+	<MimeType Name="application/news-transmission" />
+	<MimeType Name="application/ocsp-request" />
+	<MimeType Name="application/ocsp-response" />
+	<MimeType Name="application/octet-stream" FileTypes="bin" />
+	<MimeType Name="application/oda" FileTypes="oda" />
+	<MimeType Name="application/oebps-package+xml" FileTypes="opf" />
+	<MimeType Name="application/ogg" FileTypes="ogx" />
+	<MimeType Name="application/onenote" FileTypes="one onetoc2 onetmp onepkg" />
+	<MimeType Name="application/parityfec" />
+	<MimeType Name="application/pdf" FileTypes="pdf" />
+	<MimeType Name="application/pgp-encrypted" FileTypes="pgp" />
+	<MimeType Name="application/pgp-keys" FileTypes="key" />
+	<MimeType Name="application/pgp-signature" FileTypes="sig" />
+	<MimeType Name="application/pics-rules" FileTypes="prf" />
+	<MimeType Name="application/pkcs10" />
+	<MimeType Name="application/pkcs7-mime" />
+	<MimeType Name="application/pkcs7-signature" />
+	<MimeType Name="application/pkix-cert" />
+	<MimeType Name="application/pkix-crl" />
+	<MimeType Name="application/pkixcmp" />
+	<MimeType Name="application/postscript" FileTypes="ps ai eps epsi epsf eps2 eps3" />
+	<MimeType Name="application/prs.alvestrand.titrax-sheet" />
+	<MimeType Name="application/prs.cww" />
+	<MimeType Name="application/prs.nprend" />
+	<MimeType Name="application/qsig" />
+	<MimeType Name="application/rar" FileTypes="rar" />
+	<MimeType Name="application/rdf+xml" FileTypes="rdf" />
+	<MimeType Name="application/remote-printing" />
+	<MimeType Name="application/riscos" />
+	<MimeType Name="application/rtf" FileTypes="rtf" />
+	<MimeType Name="application/sdp" />
+	<MimeType Name="application/set-payment" />
+	<MimeType Name="application/set-payment-initiation" />
+	<MimeType Name="application/set-registration" />
+	<MimeType Name="application/set-registration-initiation" />
+	<MimeType Name="application/sgml" />
+	<MimeType Name="application/sgml-open-catalog" />
+	<MimeType Name="application/sieve" />
+	<MimeType Name="application/sla" FileTypes="stl" />
+	<MimeType Name="application/slate" />
+	<MimeType Name="application/smil+xml" FileTypes="smi smil" />
+	<MimeType Name="application/timestamp-query" />
+	<MimeType Name="application/timestamp-reply" />
+	<MimeType Name="application/vemmi" />
+	<MimeType Name="application/whoispp-query" />
+	<MimeType Name="application/whoispp-response" />
+	<MimeType Name="application/wita" />
+	<MimeType Name="application/x400-bp" />
+	<MimeType Name="application/xhtml+xml" FileTypes="xhtml xht" />
+	<MimeType Name="application/xml" FileTypes="xml xsd" />
+	<MimeType Name="application/xml-dtd" />
+	<MimeType Name="application/xml-external-parsed-entity" />
+	<MimeType Name="application/xslt+xml" FileTypes="xsl xslt" />
+	<MimeType Name="application/xspf+xml" FileTypes="xspf" />
+	<MimeType Name="application/zip" FileTypes="zip" />
+	<MimeType Name="application/vnd.3M.Post-it-Notes" />
+	<MimeType Name="application/vnd.accpac.simply.aso" />
+	<MimeType Name="application/vnd.accpac.simply.imp" />
+	<MimeType Name="application/vnd.acucobol" />
+	<MimeType Name="application/vnd.aether.imp" />
+	<MimeType Name="application/vnd.android.package-archive" FileTypes="apk" />
+	<MimeType Name="application/vnd.anser-web-certificate-issue-initiation" />
+	<MimeType Name="application/vnd.anser-web-funds-transfer-initiation" />
+	<MimeType Name="application/vnd.audiograph" />
+	<MimeType Name="application/vnd.bmi" />
+	<MimeType Name="application/vnd.businessobjects" />
+	<MimeType Name="application/vnd.canon-cpdl" />
+	<MimeType Name="application/vnd.canon-lips" />
+	<MimeType Name="application/vnd.cinderella" FileTypes="cdy" />
+	<MimeType Name="application/vnd.claymore" />
+	<MimeType Name="application/vnd.commerce-battelle" />
+	<MimeType Name="application/vnd.commonspace" />
+	<MimeType Name="application/vnd.comsocaller" />
+	<MimeType Name="application/vnd.contact.cmsg" />
+	<MimeType Name="application/vnd.cosmocaller" />
+	<MimeType Name="application/vnd.ctc-posml" />
+	<MimeType Name="application/vnd.cups-postscript" />
+	<MimeType Name="application/vnd.cups-raster" />
+	<MimeType Name="application/vnd.cups-raw" />
+	<MimeType Name="application/vnd.cybank" />
+	<MimeType Name="application/vnd.debian.binary-package" FileTypes="deb ddeb udeb" />
+	<MimeType Name="application/vnd.dna" />
+	<MimeType Name="application/vnd.dpgraph" />
+	<MimeType Name="application/vnd.dxr" />
+	<MimeType Name="application/vnd.ecdis-update" />
+	<MimeType Name="application/vnd.ecowin.chart" />
+	<MimeType Name="application/vnd.ecowin.filerequest" />
+	<MimeType Name="application/vnd.ecowin.fileupdate" />
+	<MimeType Name="application/vnd.ecowin.series" />
+	<MimeType Name="application/vnd.ecowin.seriesrequest" />
+	<MimeType Name="application/vnd.ecowin.seriesupdate" />
+	<MimeType Name="application/vnd.enliven" />
+	<MimeType Name="application/vnd.epson.esf" />
+	<MimeType Name="application/vnd.epson.msf" />
+	<MimeType Name="application/vnd.epson.quickanime" />
+	<MimeType Name="application/vnd.epson.salt" />
+	<MimeType Name="application/vnd.epson.ssf" />
+	<MimeType Name="application/vnd.ericsson.quickcall" />
+	<MimeType Name="application/vnd.eudora.data" />
+	<MimeType Name="application/vnd.fdf" />
+	<MimeType Name="application/vnd.ffsns" />
+	<MimeType Name="application/vnd.flographit" />
+	<MimeType Name="application/vnd.font-fontforge-sfd" FileTypes="sfd" />
+	<MimeType Name="application/vnd.framemaker" />
+	<MimeType Name="application/vnd.fsc.weblaunch" />
+	<MimeType Name="application/vnd.fujitsu.oasys" />
+	<MimeType Name="application/vnd.fujitsu.oasys2" />
+	<MimeType Name="application/vnd.fujitsu.oasys3" />
+	<MimeType Name="application/vnd.fujitsu.oasysgp" />
+	<MimeType Name="application/vnd.fujitsu.oasysprs" />
+	<MimeType Name="application/vnd.fujixerox.ddd" />
+	<MimeType Name="application/vnd.fujixerox.docuworks" />
+	<MimeType Name="application/vnd.fujixerox.docuworks.binder" />
+	<MimeType Name="application/vnd.fut-misnet" />
+	<MimeType Name="application/vnd.google-earth.kml+xml" FileTypes="kml" />
+	<MimeType Name="application/vnd.google-earth.kmz" FileTypes="kmz" />
+	<MimeType Name="application/vnd.grafeq" />
+	<MimeType Name="application/vnd.groove-account" />
+	<MimeType Name="application/vnd.groove-identity-message" />
+	<MimeType Name="application/vnd.groove-injector" />
+	<MimeType Name="application/vnd.groove-tool-message" />
+	<MimeType Name="application/vnd.groove-tool-template" />
+	<MimeType Name="application/vnd.groove-vcard" />
+	<MimeType Name="application/vnd.hhe.lesson-player" />
+	<MimeType Name="application/vnd.hp-HPGL" />
+	<MimeType Name="application/vnd.hp-PCL" />
+	<MimeType Name="application/vnd.hp-PCLXL" />
+	<MimeType Name="application/vnd.hp-hpid" />
+	<MimeType Name="application/vnd.hp-hps" />
+	<MimeType Name="application/vnd.httphone" />
+	<MimeType Name="application/vnd.hzn-3d-crossword" />
+	<MimeType Name="application/vnd.ibm.MiniPay" />
+	<MimeType Name="application/vnd.ibm.afplinedata" />
+	<MimeType Name="application/vnd.ibm.modcap" />
+	<MimeType Name="application/vnd.informix-visionary" />
+	<MimeType Name="application/vnd.intercon.formnet" />
+	<MimeType Name="application/vnd.intertrust.digibox" />
+	<MimeType Name="application/vnd.intertrust.nncp" />
+	<MimeType Name="application/vnd.intu.qbo" />
+	<MimeType Name="application/vnd.intu.qfx" />
+	<MimeType Name="application/vnd.irepository.package+xml" />
+	<MimeType Name="application/vnd.is-xpr" />
+	<MimeType Name="application/vnd.japannet-directory-service" />
+	<MimeType Name="application/vnd.japannet-jpnstore-wakeup" />
+	<MimeType Name="application/vnd.japannet-payment-wakeup" />
+	<MimeType Name="application/vnd.japannet-registration" />
+	<MimeType Name="application/vnd.japannet-registration-wakeup" />
+	<MimeType Name="application/vnd.japannet-setstore-wakeup" />
+	<MimeType Name="application/vnd.japannet-verification" />
+	<MimeType Name="application/vnd.japannet-verification-wakeup" />
+	<MimeType Name="application/vnd.koan" />
+	<MimeType Name="application/vnd.lotus-1-2-3" />
+	<MimeType Name="application/vnd.lotus-approach" />
+	<MimeType Name="application/vnd.lotus-freelance" />
+	<MimeType Name="application/vnd.lotus-notes" />
+	<MimeType Name="application/vnd.lotus-organizer" />
+	<MimeType Name="application/vnd.lotus-screencam" />
+	<MimeType Name="application/vnd.lotus-wordpro" />
+	<MimeType Name="application/vnd.mcd" />
+	<MimeType Name="application/vnd.mediastation.cdkey" />
+	<MimeType Name="application/vnd.meridian-slingshot" />
+	<MimeType Name="application/vnd.mif" />
+	<MimeType Name="application/vnd.minisoft-hp3000-save" />
+	<MimeType Name="application/vnd.mitsubishi.misty-guard.trustweb" />
+	<MimeType Name="application/vnd.mobius.daf" />
+	<MimeType Name="application/vnd.mobius.dis" />
+	<MimeType Name="application/vnd.mobius.msl" />
+	<MimeType Name="application/vnd.mobius.plc" />
+	<MimeType Name="application/vnd.mobius.txf" />
+	<MimeType Name="application/vnd.motorola.flexsuite" />
+	<MimeType Name="application/vnd.motorola.flexsuite.adsi" />
+	<MimeType Name="application/vnd.motorola.flexsuite.fis" />
+	<MimeType Name="application/vnd.motorola.flexsuite.gotap" />
+	<MimeType Name="application/vnd.motorola.flexsuite.kmr" />
+	<MimeType Name="application/vnd.motorola.flexsuite.ttc" />
+	<MimeType Name="application/vnd.motorola.flexsuite.wem" />
+	<MimeType Name="application/vnd.mozilla.xul+xml" FileTypes="xul" />
+	<MimeType Name="application/vnd.ms-artgalry" />
+	<MimeType Name="application/vnd.ms-asf" />
+	<MimeType Name="application/vnd.ms-excel" FileTypes="xls xlb xlt" />
+	<MimeType Name="application/vnd.ms-excel.addin.macroEnabled.12" FileTypes="xlam" />
+	<MimeType Name="application/vnd.ms-excel.sheet.binary.macroEnabled.12" FileTypes="xlsb" />
+	<MimeType Name="application/vnd.ms-excel.sheet.macroEnabled.12" FileTypes="xlsm" />
+	<MimeType Name="application/vnd.ms-excel.template.macroEnabled.12" FileTypes="xltm" />
+	<MimeType Name="application/vnd.ms-fontobject" FileTypes="eot" />
+	<MimeType Name="application/vnd.ms-lrm" />
+	<MimeType Name="application/vnd.ms-officetheme" FileTypes="thmx" />
+	<MimeType Name="application/vnd.ms-pki.seccat" FileTypes="cat" />
+	<MimeType Name="application/vnd.ms-powerpoint" FileTypes="ppt pps" />
+	<MimeType Name="application/vnd.ms-powerpoint.addin.macroEnabled.12" FileTypes="ppam" />
+	<MimeType Name="application/vnd.ms-powerpoint.presentation.macroEnabled.12" FileTypes="pptm" />
+	<MimeType Name="application/vnd.ms-powerpoint.slide.macroEnabled.12" FileTypes="sldm" />
+	<MimeType Name="application/vnd.ms-powerpoint.slideshow.macroEnabled.12" FileTypes="ppsm" />
+	<MimeType Name="application/vnd.ms-powerpoint.template.macroEnabled.12" FileTypes="potm" />
+	<MimeType Name="application/vnd.ms-project" />
+	<MimeType Name="application/vnd.ms-tnef" />
+	<MimeType Name="application/vnd.ms-word.document.macroEnabled.12" FileTypes="docm" />
+	<MimeType Name="application/vnd.ms-word.template.macroEnabled.12" FileTypes="dotm" />
+	<MimeType Name="application/vnd.ms-works" />
+	<MimeType Name="application/vnd.mseq" />
+	<MimeType Name="application/vnd.msign" />
+	<MimeType Name="application/vnd.music-niff" />
+	<MimeType Name="application/vnd.musician" />
+	<MimeType Name="application/vnd.netfpx" />
+	<MimeType Name="application/vnd.noblenet-directory" />
+	<MimeType Name="application/vnd.noblenet-sealer" />
+	<MimeType Name="application/vnd.noblenet-web" />
+	<MimeType Name="application/vnd.novadigm.EDM" />
+	<MimeType Name="application/vnd.novadigm.EDX" />
+	<MimeType Name="application/vnd.novadigm.EXT" />
+	<MimeType Name="application/vnd.oasis.opendocument.chart" FileTypes="odc" />
+	<MimeType Name="application/vnd.oasis.opendocument.database" FileTypes="odb" />
+	<MimeType Name="application/vnd.oasis.opendocument.formula" FileTypes="odf" />
+	<MimeType Name="application/vnd.oasis.opendocument.graphics" FileTypes="odg" />
+	<MimeType Name="application/vnd.oasis.opendocument.graphics-template" FileTypes="otg" />
+	<MimeType Name="application/vnd.oasis.opendocument.image" FileTypes="odi" />
+	<MimeType Name="application/vnd.oasis.opendocument.presentation" FileTypes="odp" />
+	<MimeType Name="application/vnd.oasis.opendocument.presentation-template" FileTypes="otp" />
+	<MimeType Name="application/vnd.oasis.opendocument.spreadsheet" FileTypes="ods" />
+	<MimeType Name="application/vnd.oasis.opendocument.spreadsheet-template" FileTypes="ots" />
+	<MimeType Name="application/vnd.oasis.opendocument.text" FileTypes="odt" />
+	<MimeType Name="application/vnd.oasis.opendocument.text-master" FileTypes="odm" />
+	<MimeType Name="application/vnd.oasis.opendocument.text-template" FileTypes="ott" />
+	<MimeType Name="application/vnd.oasis.opendocument.text-web" FileTypes="oth" />
+	<MimeType Name="application/vnd.openxmlformats-officedocument.presentationml.presentation" FileTypes="pptx" />
+	<MimeType Name="application/vnd.openxmlformats-officedocument.presentationml.slide" FileTypes="sldx" />
+	<MimeType Name="application/vnd.openxmlformats-officedocument.presentationml.slideshow" FileTypes="ppsx" />
+	<MimeType Name="application/vnd.openxmlformats-officedocument.presentationml.template" FileTypes="potx" />
+	<MimeType Name="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" FileTypes="xlsx" />
+	<MimeType Name="application/vnd.openxmlformats-officedocument.spreadsheetml.template" FileTypes="xltx" />
+	<MimeType Name="application/vnd.openxmlformats-officedocument.wordprocessingml.document" FileTypes="docx" />
+	<MimeType Name="application/vnd.openxmlformats-officedocument.wordprocessingml.template" FileTypes="dotx" />
+	<MimeType Name="application/vnd.osa.netdeploy" />
+	<MimeType Name="application/vnd.palm" />
+	<MimeType Name="application/vnd.pg.format" />
+	<MimeType Name="application/vnd.pg.osasli" />
+	<MimeType Name="application/vnd.powerbuilder6" />
+	<MimeType Name="application/vnd.powerbuilder6-s" />
+	<MimeType Name="application/vnd.powerbuilder7" />
+	<MimeType Name="application/vnd.powerbuilder7-s" />
+	<MimeType Name="application/vnd.powerbuilder75" />
+	<MimeType Name="application/vnd.powerbuilder75-s" />
+	<MimeType Name="application/vnd.previewsystems.box" />
+	<MimeType Name="application/vnd.publishare-delta-tree" />
+	<MimeType Name="application/vnd.pvi.ptid1" />
+	<MimeType Name="application/vnd.pwg-xhtml-print+xml" />
+	<MimeType Name="application/vnd.rapid" />
+	<MimeType Name="application/vnd.rim.cod" FileTypes="cod" />
+	<MimeType Name="application/vnd.s3sms" />
+	<MimeType Name="application/vnd.seemail" />
+	<MimeType Name="application/vnd.shana.informed.formdata" />
+	<MimeType Name="application/vnd.shana.informed.formtemplate" />
+	<MimeType Name="application/vnd.shana.informed.interchange" />
+	<MimeType Name="application/vnd.shana.informed.package" />
+	<MimeType Name="application/vnd.smaf" FileTypes="mmf" />
+	<MimeType Name="application/vnd.sss-cod" />
+	<MimeType Name="application/vnd.sss-dtf" />
+	<MimeType Name="application/vnd.sss-ntf" />
+	<MimeType Name="application/vnd.stardivision.calc" FileTypes="sdc" />
+	<MimeType Name="application/vnd.stardivision.chart" FileTypes="sds" />
+	<MimeType Name="application/vnd.stardivision.draw" FileTypes="sda" />
+	<MimeType Name="application/vnd.stardivision.impress" FileTypes="sdd" />
+	<MimeType Name="application/vnd.stardivision.math" FileTypes="sdf" />
+	<MimeType Name="application/vnd.stardivision.writer" FileTypes="sdw" />
+	<MimeType Name="application/vnd.stardivision.writer-global" FileTypes="sgl" />
+	<MimeType Name="application/vnd.street-stream" />
+	<MimeType Name="application/vnd.sun.xml.calc" FileTypes="sxc" />
+	<MimeType Name="application/vnd.sun.xml.calc.template" FileTypes="stc" />
+	<MimeType Name="application/vnd.sun.xml.draw" FileTypes="sxd" />
+	<MimeType Name="application/vnd.sun.xml.draw.template" FileTypes="std" />
+	<MimeType Name="application/vnd.sun.xml.impress" FileTypes="sxi" />
+	<MimeType Name="application/vnd.sun.xml.impress.template" FileTypes="sti" />
+	<MimeType Name="application/vnd.sun.xml.math" FileTypes="sxm" />
+	<MimeType Name="application/vnd.sun.xml.writer" FileTypes="sxw" />
+	<MimeType Name="application/vnd.sun.xml.writer.global" FileTypes="sxg" />
+	<MimeType Name="application/vnd.sun.xml.writer.template" FileTypes="stw" />
+	<MimeType Name="application/vnd.svd" />
+	<MimeType Name="application/vnd.swiftview-ics" />
+	<MimeType Name="application/vnd.symbian.install" FileTypes="sis" />
+	<MimeType Name="application/vnd.tcpdump.pcap" FileTypes="cap pcap" />
+	<MimeType Name="application/vnd.triscape.mxs" />
+	<MimeType Name="application/vnd.trueapp" />
+	<MimeType Name="application/vnd.truedoc" />
+	<MimeType Name="application/vnd.tve-trigger" />
+	<MimeType Name="application/vnd.ufdl" />
+	<MimeType Name="application/vnd.uplanet.alert" />
+	<MimeType Name="application/vnd.uplanet.alert-wbxml" />
+	<MimeType Name="application/vnd.uplanet.bearer-choice" />
+	<MimeType Name="application/vnd.uplanet.bearer-choice-wbxml" />
+	<MimeType Name="application/vnd.uplanet.cacheop" />
+	<MimeType Name="application/vnd.uplanet.cacheop-wbxml" />
+	<MimeType Name="application/vnd.uplanet.channel" />
+	<MimeType Name="application/vnd.uplanet.channel-wbxml" />
+	<MimeType Name="application/vnd.uplanet.list" />
+	<MimeType Name="application/vnd.uplanet.list-wbxml" />
+	<MimeType Name="application/vnd.uplanet.listcmd" />
+	<MimeType Name="application/vnd.uplanet.listcmd-wbxml" />
+	<MimeType Name="application/vnd.uplanet.signal" />
+	<MimeType Name="application/vnd.vcx" />
+	<MimeType Name="application/vnd.vectorworks" />
+	<MimeType Name="application/vnd.vidsoft.vidconference" />
+	<MimeType Name="application/vnd.visio" FileTypes="vsd vst vsw vss" />
+	<MimeType Name="application/vnd.vividence.scriptfile" />
+	<MimeType Name="application/vnd.wap.sic" />
+	<MimeType Name="application/vnd.wap.slc" />
+	<MimeType Name="application/vnd.wap.wbxml" FileTypes="wbxml" />
+	<MimeType Name="application/vnd.wap.wmlc" FileTypes="wmlc" />
+	<MimeType Name="application/vnd.wap.wmlscriptc" FileTypes="wmlsc" />
+	<MimeType Name="application/vnd.webturbo" />
+	<MimeType Name="application/vnd.wordperfect" FileTypes="wpd" />
+	<MimeType Name="application/vnd.wordperfect5.1" FileTypes="wp5" />
+	<MimeType Name="application/vnd.wrq-hp3000-labelled" />
+	<MimeType Name="application/vnd.wt.stf" />
+	<MimeType Name="application/vnd.xara" />
+	<MimeType Name="application/vnd.xfdl" />
+	<MimeType Name="application/vnd.yellowriver-cust-menu" />
+	<MimeType Name="application/zlib" />
+	<MimeType Name="application/x-123" FileTypes="wk" />
+	<MimeType Name="application/x-7z-compressed" FileTypes="7z" />
+	<MimeType Name="application/x-abiword" FileTypes="abw" />
+	<MimeType Name="application/x-apple-diskimage" FileTypes="dmg" />
+	<MimeType Name="application/x-bcpio" FileTypes="bcpio" />
+	<MimeType Name="application/x-bittorrent" FileTypes="torrent" />
+	<MimeType Name="application/x-cab" FileTypes="cab" />
+	<MimeType Name="application/x-cbr" FileTypes="cbr" />
+	<MimeType Name="application/x-cbz" FileTypes="cbz" />
+	<MimeType Name="application/x-cdf" FileTypes="cdf cda" />
+	<MimeType Name="application/x-cdlink" FileTypes="vcd" />
+	<MimeType Name="application/x-chess-pgn" FileTypes="pgn" />
+	<MimeType Name="application/x-comsol" FileTypes="mph" />
+	<MimeType Name="application/x-core" />
+	<MimeType Name="application/x-cpio" FileTypes="cpio" />
+	<MimeType Name="application/x-csh" FileTypes="csh" />
+	<MimeType Name="application/x-debian-package" FileTypes="deb udeb" />
+	<MimeType Name="application/x-director" FileTypes="dcr dir dxr" />
+	<MimeType Name="application/x-dms" FileTypes="dms" />
+	<MimeType Name="application/x-doom" FileTypes="wad" />
+	<MimeType Name="application/x-dvi" FileTypes="dvi" />
+	<MimeType Name="application/x-executable" />
+	<MimeType Name="application/x-font" FileTypes="pfa pfb gsf" />
+	<MimeType Name="application/x-font-pcf" FileTypes="pcf pcf.Z" />
+	<MimeType Name="application/x-freemind" FileTypes="mm" />
+	<MimeType Name="application/x-futuresplash" FileTypes="spl" />
+	<MimeType Name="application/x-ganttproject" FileTypes="gan" />
+	<MimeType Name="application/x-gnumeric" FileTypes="gnumeric" />
+	<MimeType Name="application/x-go-sgf" FileTypes="sgf" />
+	<MimeType Name="application/x-graphing-calculator" FileTypes="gcf" />
+	<MimeType Name="application/x-gtar" FileTypes="gtar" />
+	<MimeType Name="application/x-gtar-compressed" FileTypes="tgz taz" />
+	<MimeType Name="application/x-hdf" FileTypes="hdf" />
+	<MimeType Name="application/x-hwp" FileTypes="hwp" />
+	<MimeType Name="application/x-ica" FileTypes="ica" />
+	<MimeType Name="application/x-info" FileTypes="info" />
+	<MimeType Name="application/x-int-signup" FileTypes="ins isp" />
+	<MimeType Name="application/x-iphone" FileTypes="iii" />
+	<MimeType Name="application/x-iso9660-image" FileTypes="iso" />
+	<MimeType Name="application/x-jam" FileTypes="jam" />
+	<MimeType Name="application/x-java-applet" />
+	<MimeType Name="application/x-java-bean" />
+	<MimeType Name="application/x-java-jnlp-file" FileTypes="jnlp" />
+	<MimeType Name="application/x-jmol" FileTypes="jmz" />
+	<MimeType Name="application/x-kchart" FileTypes="chrt" />
+	<MimeType Name="application/x-kdelnk" />
+	<MimeType Name="application/x-killustrator" FileTypes="kil" />
+	<MimeType Name="application/x-koan" FileTypes="skp skd skt skm" />
+	<MimeType Name="application/x-kpresenter" FileTypes="kpr kpt" />
+	<MimeType Name="application/x-kspread" FileTypes="ksp" />
+	<MimeType Name="application/x-kword" FileTypes="kwd kwt" />
+	<MimeType Name="application/x-latex" FileTypes="latex" />
+	<MimeType Name="application/x-lha" FileTypes="lha" />
+	<MimeType Name="application/x-lyx" FileTypes="lyx" />
+	<MimeType Name="application/x-lzh" FileTypes="lzh" />
+	<MimeType Name="application/x-lzx" FileTypes="lzx" />
+	<MimeType Name="application/x-maker" FileTypes="frm maker frame fm fb book fbdoc" />
+	<MimeType Name="application/x-mif" FileTypes="mif" />
+	<MimeType Name="application/x-mpegURL" FileTypes="m3u8" />
+	<MimeType Name="application/x-ms-wmd" FileTypes="wmd" />
+	<MimeType Name="application/x-ms-wmz" FileTypes="wmz" />
+	<MimeType Name="application/x-msdos-program" FileTypes="com exe bat dll" />
+	<MimeType Name="application/x-msi" FileTypes="msi" />
+	<MimeType Name="application/x-netcdf" FileTypes="nc" />
+	<MimeType Name="application/x-ns-proxy-autoconfig" FileTypes="pac" />
+	<MimeType Name="application/x-nwc" FileTypes="nwc" />
+	<MimeType Name="application/x-object" FileTypes="o" />
+	<MimeType Name="application/x-oz-application" FileTypes="oza" />
+	<MimeType Name="application/x-pkcs7-certreqresp" FileTypes="p7r" />
+	<MimeType Name="application/x-pkcs7-crl" FileTypes="crl" />
+	<MimeType Name="application/x-python-code" FileTypes="pyc pyo" />
+	<MimeType Name="application/x-qgis" FileTypes="qgs shp shx" />
+	<MimeType Name="application/x-quicktimeplayer" FileTypes="qtl" />
+	<MimeType Name="application/x-rdp" FileTypes="rdp" />
+	<MimeType Name="application/x-redhat-package-manager" FileTypes="rpm" />
+	<MimeType Name="application/x-rss+xml" FileTypes="rss" />
+	<MimeType Name="application/x-ruby" FileTypes="rb" />
+	<MimeType Name="application/x-rx" />
+	<MimeType Name="application/x-scilab" FileTypes="sci sce" />
+	<MimeType Name="application/x-scilab-xcos" FileTypes="xcos" />
+	<MimeType Name="application/x-sh" FileTypes="sh" />
+	<MimeType Name="application/x-shar" FileTypes="shar" />
+	<MimeType Name="application/x-shellscript" />
+	<MimeType Name="application/x-shockwave-flash" FileTypes="swf swfl" />
+	<MimeType Name="application/x-silverlight" FileTypes="scr" />
+	<MimeType Name="application/x-sql" FileTypes="sql" />
+	<MimeType Name="application/x-stuffit" FileTypes="sit sitx" />
+	<MimeType Name="application/x-sv4cpio" FileTypes="sv4cpio" />
+	<MimeType Name="application/x-sv4crc" FileTypes="sv4crc" />
+	<MimeType Name="application/x-tar" FileTypes="tar" />
+	<MimeType Name="application/x-tcl" FileTypes="tcl" />
+	<MimeType Name="application/x-tex-gf" FileTypes="gf" />
+	<MimeType Name="application/x-tex-pk" FileTypes="pk" />
+	<MimeType Name="application/x-texinfo" FileTypes="texinfo texi" />
+	<MimeType Name="application/x-trash" FileTypes="~ % bak old sik" />
+	<MimeType Name="application/x-troff" FileTypes="t tr roff" />
+	<MimeType Name="application/x-troff-man" FileTypes="man" />
+	<MimeType Name="application/x-troff-me" FileTypes="me" />
+	<MimeType Name="application/x-troff-ms" FileTypes="ms" />
+	<MimeType Name="application/x-ustar" FileTypes="ustar" />
+	<MimeType Name="application/x-videolan" />
+	<MimeType Name="application/x-wais-source" FileTypes="src" />
+	<MimeType Name="application/x-wingz" FileTypes="wz" />
+	<MimeType Name="application/x-x509-ca-cert" FileTypes="crt" />
+	<MimeType Name="application/x-xcf" FileTypes="xcf" />
+	<MimeType Name="application/x-xfig" FileTypes="fig" />
+	<MimeType Name="application/x-xpinstall" FileTypes="xpi" />
+	<MimeType Name="application/x-xz" FileTypes="xz" />
+	<MimeType Name="audio/32kadpcm" />
+	<MimeType Name="audio/3gpp" />
+	<MimeType Name="audio/amr" FileTypes="amr" />
+	<MimeType Name="audio/amr-wb" FileTypes="awb" />
+	<MimeType Name="audio/annodex" FileTypes="axa" />
+	<MimeType Name="audio/basic" FileTypes="au snd" />
+	<MimeType Name="audio/csound" FileTypes="csd orc sco" />
+	<MimeType Name="audio/flac" FileTypes="flac" />
+	<MimeType Name="audio/g.722.1" />
+	<MimeType Name="audio/l16" />
+	<MimeType Name="audio/midi" FileTypes="mid midi kar" />
+	<MimeType Name="audio/mp4a-latm" />
+	<MimeType Name="audio/mpa-robust" />
+	<MimeType Name="audio/mpeg" FileTypes="mpga mpega mp2 mp3 m4a" />
+	<MimeType Name="audio/mpegurl" FileTypes="m3u" />
+	<MimeType Name="audio/ogg" FileTypes="oga ogg opus spx" />
+	<MimeType Name="audio/parityfec" />
+	<MimeType Name="audio/prs.sid" FileTypes="sid" />
+	<MimeType Name="audio/telephone-event" />
+	<MimeType Name="audio/tone" />
+	<MimeType Name="audio/vnd.cisco.nse" />
+	<MimeType Name="audio/vnd.cns.anp1" />
+	<MimeType Name="audio/vnd.cns.inf1" />
+	<MimeType Name="audio/vnd.digital-winds" />
+	<MimeType Name="audio/vnd.everad.plj" />
+	<MimeType Name="audio/vnd.lucent.voice" />
+	<MimeType Name="audio/vnd.nortel.vbk" />
+	<MimeType Name="audio/vnd.nuera.ecelp4800" />
+	<MimeType Name="audio/vnd.nuera.ecelp7470" />
+	<MimeType Name="audio/vnd.nuera.ecelp9600" />
+	<MimeType Name="audio/vnd.octel.sbc" />
+	<MimeType Name="audio/vnd.qcelp" />
+	<MimeType Name="audio/vnd.rhetorex.32kadpcm" />
+	<MimeType Name="audio/vnd.vmx.cvsd" />
+	<MimeType Name="audio/x-aiff" FileTypes="aif aiff aifc" />
+	<MimeType Name="audio/x-gsm" FileTypes="gsm" />
+	<MimeType Name="audio/x-mpegurl" FileTypes="m3u" />
+	<MimeType Name="audio/x-ms-wma" FileTypes="wma" />
+	<MimeType Name="audio/x-ms-wax" FileTypes="wax" />
+	<MimeType Name="audio/x-pn-realaudio-plugin" />
+	<MimeType Name="audio/x-pn-realaudio" FileTypes="ra rm ram" />
+	<MimeType Name="audio/x-realaudio" FileTypes="ra" />
+	<MimeType Name="audio/x-scpls" FileTypes="pls" />
+	<MimeType Name="audio/x-sd2" FileTypes="sd2" />
+	<MimeType Name="audio/x-wav" FileTypes="wav" />
+	<MimeType Name="chemical/x-alchemy" FileTypes="alc" />
+	<MimeType Name="chemical/x-cache" FileTypes="cac cache" />
+	<MimeType Name="chemical/x-cache-csf" FileTypes="csf" />
+	<MimeType Name="chemical/x-cactvs-binary" FileTypes="cbin cascii ctab" />
+	<MimeType Name="chemical/x-cdx" FileTypes="cdx" />
+	<MimeType Name="chemical/x-cerius" FileTypes="cer" />
+	<MimeType Name="chemical/x-chem3d" FileTypes="c3d" />
+	<MimeType Name="chemical/x-chemdraw" FileTypes="chm" />
+	<MimeType Name="chemical/x-cif" FileTypes="cif" />
+	<MimeType Name="chemical/x-cmdf" FileTypes="cmdf" />
+	<MimeType Name="chemical/x-cml" FileTypes="cml" />
+	<MimeType Name="chemical/x-compass" FileTypes="cpa" />
+	<MimeType Name="chemical/x-crossfire" FileTypes="bsd" />
+	<MimeType Name="chemical/x-csml" FileTypes="csml csm" />
+	<MimeType Name="chemical/x-ctx" FileTypes="ctx" />
+	<MimeType Name="chemical/x-cxf" FileTypes="cxf cef" />
+	<MimeType Name="chemical/x-embl-dl-nucleotide" FileTypes="emb embl" />
+	<MimeType Name="chemical/x-galactic-spc" FileTypes="spc" />
+	<MimeType Name="chemical/x-gamess-input" FileTypes="inp gam gamin" />
+	<MimeType Name="chemical/x-gaussian-checkpoint" FileTypes="fch fchk" />
+	<MimeType Name="chemical/x-gaussian-cube" FileTypes="cub" />
+	<MimeType Name="chemical/x-gaussian-input" FileTypes="gau gjc gjf" />
+	<MimeType Name="chemical/x-gaussian-log" FileTypes="gal" />
+	<MimeType Name="chemical/x-gcg8-sequence" FileTypes="gcg" />
+	<MimeType Name="chemical/x-genbank" FileTypes="gen" />
+	<MimeType Name="chemical/x-hin" FileTypes="hin" />
+	<MimeType Name="chemical/x-isostar" FileTypes="istr ist" />
+	<MimeType Name="chemical/x-jcamp-dx" FileTypes="jdx dx" />
+	<MimeType Name="chemical/x-kinemage" FileTypes="kin" />
+	<MimeType Name="chemical/x-macmolecule" FileTypes="mcm" />
+	<MimeType Name="chemical/x-macromodel-input" FileTypes="mmd mmod" />
+	<MimeType Name="chemical/x-mdl-molfile" FileTypes="mol" />
+	<MimeType Name="chemical/x-mdl-rdfile" FileTypes="rd" />
+	<MimeType Name="chemical/x-mdl-rxnfile" FileTypes="rxn" />
+	<MimeType Name="chemical/x-mdl-sdfile" FileTypes="sd sdf" />
+	<MimeType Name="chemical/x-mdl-tgf" FileTypes="tgf" />
+	<MimeType Name="chemical/x-mmcif" FileTypes="mcif" />
+	<MimeType Name="chemical/x-mol2" FileTypes="mol2" />
+	<MimeType Name="chemical/x-molconn-Z" FileTypes="b" />
+	<MimeType Name="chemical/x-mopac-graph" FileTypes="gpt" />
+	<MimeType Name="chemical/x-mopac-input" FileTypes="mop mopcrt mpc zmt" />
+	<MimeType Name="chemical/x-mopac-out" FileTypes="moo" />
+	<MimeType Name="chemical/x-mopac-vib" FileTypes="mvb" />
+	<MimeType Name="chemical/x-ncbi-asn1" FileTypes="asn" />
+	<MimeType Name="chemical/x-ncbi-asn1-ascii" FileTypes="prt ent" />
+	<MimeType Name="chemical/x-ncbi-asn1-binary" FileTypes="val aso" />
+	<MimeType Name="chemical/x-ncbi-asn1-spec" FileTypes="asn" />
+	<MimeType Name="chemical/x-pdb" FileTypes="pdb ent" />
+	<MimeType Name="chemical/x-rosdal" FileTypes="ros" />
+	<MimeType Name="chemical/x-swissprot" FileTypes="sw" />
+	<MimeType Name="chemical/x-vamas-iso14976" FileTypes="vms" />
+	<MimeType Name="chemical/x-vmd" FileTypes="vmd" />
+	<MimeType Name="chemical/x-xtel" FileTypes="xtel" />
+	<MimeType Name="chemical/x-xyz" FileTypes="xyz" />
+	<MimeType Name="image/cgm" />
+	<MimeType Name="image/g3fax" />
+	<MimeType Name="image/gif" FileTypes="gif" />
+	<MimeType Name="image/ief" FileTypes="ief" />
+	<MimeType Name="image/jp2" FileTypes="jp2 jpg2" />
+	<MimeType Name="image/jpeg" FileTypes="jpeg jpg jpe" />
+	<MimeType Name="image/jpm" FileTypes="jpm" />
+	<MimeType Name="image/jpx" FileTypes="jpx jpf" />
+	<MimeType Name="image/naplps" />
+	<MimeType Name="image/pcx" FileTypes="pcx" />
+	<MimeType Name="image/png" FileTypes="png" />
+	<MimeType Name="image/prs.btif" />
+	<MimeType Name="image/prs.pti" />
+	<MimeType Name="image/svg+xml" FileTypes="svg svgz" />
+	<MimeType Name="image/tiff" FileTypes="tiff tif" />
+	<MimeType Name="image/vnd.cns.inf2" />
+	<MimeType Name="image/vnd.djvu" FileTypes="djvu djv" />
+	<MimeType Name="image/vnd.dwg" />
+	<MimeType Name="image/vnd.dxf" />
+	<MimeType Name="image/vnd.fastbidsheet" />
+	<MimeType Name="image/vnd.fpx" />
+	<MimeType Name="image/vnd.fst" />
+	<MimeType Name="image/vnd.fujixerox.edmics-mmr" />
+	<MimeType Name="image/vnd.fujixerox.edmics-rlc" />
+	<MimeType Name="image/vnd.microsoft.icon" FileTypes="ico" />
+	<MimeType Name="image/vnd.mix" />
+	<MimeType Name="image/vnd.net-fpx" />
+	<MimeType Name="image/vnd.svf" />
+	<MimeType Name="image/vnd.wap.wbmp" FileTypes="wbmp" />
+	<MimeType Name="image/vnd.xiff" />
+	<MimeType Name="image/x-canon-cr2" FileTypes="cr2" />
+	<MimeType Name="image/x-canon-crw" FileTypes="crw" />
+	<MimeType Name="image/x-cmu-raster" FileTypes="ras" />
+	<MimeType Name="image/x-coreldraw" FileTypes="cdr" />
+	<MimeType Name="image/x-coreldrawpattern" FileTypes="pat" />
+	<MimeType Name="image/x-coreldrawtemplate" FileTypes="cdt" />
+	<MimeType Name="image/x-corelphotopaint" FileTypes="cpt" />
+	<MimeType Name="image/x-epson-erf" FileTypes="erf" />
+	<MimeType Name="image/x-icon" />
+	<MimeType Name="image/x-jg" FileTypes="art" />
+	<MimeType Name="image/x-jng" FileTypes="jng" />
+	<MimeType Name="image/x-ms-bmp" FileTypes="bmp" />
+	<MimeType Name="image/x-nikon-nef" FileTypes="nef" />
+	<MimeType Name="image/x-olympus-orf" FileTypes="orf" />
+	<MimeType Name="image/x-photoshop" FileTypes="psd" />
+	<MimeType Name="image/x-portable-anymap" FileTypes="pnm" />
+	<MimeType Name="image/x-portable-bitmap" FileTypes="pbm" />
+	<MimeType Name="image/x-portable-graymap" FileTypes="pgm" />
+	<MimeType Name="image/x-portable-pixmap" FileTypes="ppm" />
+	<MimeType Name="image/x-rgb" FileTypes="rgb" />
+	<MimeType Name="image/x-xbitmap" FileTypes="xbm" />
+	<MimeType Name="image/x-xpixmap" FileTypes="xpm" />
+	<MimeType Name="image/x-xwindowdump" FileTypes="xwd" />
+	<MimeType Name="inode/chardevice" />
+	<MimeType Name="inode/blockdevice" />
+	<MimeType Name="inode/directory-locked" />
+	<MimeType Name="inode/directory" />
+	<MimeType Name="inode/fifo" />
+	<MimeType Name="inode/socket" />
+	<MimeType Name="message/delivery-status" />
+	<MimeType Name="message/disposition-notification" />
+	<MimeType Name="message/external-body" />
+	<MimeType Name="message/http" />
+	<MimeType Name="message/s-http" />
+	<MimeType Name="message/news" />
+	<MimeType Name="message/partial" />
+	<MimeType Name="message/rfc822" FileTypes="eml" />
+	<MimeType Name="model/iges" FileTypes="igs iges" />
+	<MimeType Name="model/mesh" FileTypes="msh mesh silo" />
+	<MimeType Name="model/vnd.dwf" />
+	<MimeType Name="model/vnd.flatland.3dml" />
+	<MimeType Name="model/vnd.gdl" />
+	<MimeType Name="model/vnd.gs-gdl" />
+	<MimeType Name="model/vnd.gtw" />
+	<MimeType Name="model/vnd.mts" />
+	<MimeType Name="model/vnd.vtu" />
+	<MimeType Name="model/vrml" FileTypes="wrl vrml" />
+	<MimeType Name="model/x3d+vrml" FileTypes="x3dv" />
+	<MimeType Name="model/x3d+xml" FileTypes="x3d" />
+	<MimeType Name="model/x3d+binary" FileTypes="x3db" />
+	<MimeType Name="multipart/alternative" />
+	<MimeType Name="multipart/appledouble" />
+	<MimeType Name="multipart/byteranges" />
+	<MimeType Name="multipart/digest" />
+	<MimeType Name="multipart/encrypted" />
+	<MimeType Name="multipart/form-data" />
+	<MimeType Name="multipart/header-set" />
+	<MimeType Name="multipart/mixed" />
+	<MimeType Name="multipart/parallel" />
+	<MimeType Name="multipart/related" />
+	<MimeType Name="multipart/report" />
+	<MimeType Name="multipart/signed" />
+	<MimeType Name="multipart/voice-message" />
+	<MimeType Name="text/cache-manifest" FileTypes="appcache" />
+	<MimeType Name="text/calendar" FileTypes="ics icz" />
+	<MimeType Name="text/css" FileTypes="css" />
+	<MimeType Name="text/csv" FileTypes="csv" />
+	<MimeType Name="text/directory" />
+	<MimeType Name="text/english" />
+	<MimeType Name="text/enriched" />
+	<MimeType Name="text/h323" FileTypes="323" />
+	<MimeType Name="text/html" FileTypes="html htm shtml" />
+	<MimeType Name="text/iuls" FileTypes="uls" />
+	<MimeType Name="text/mathml" FileTypes="mml" />
+	<MimeType Name="text/parityfec" />
+	<MimeType Name="text/plain" FileTypes="asc txt text pot brf srt" />
+	<MimeType Name="text/prs.lines.tag" />
+	<MimeType Name="text/rfc822-headers" />
+	<MimeType Name="text/richtext" FileTypes="rtx" />
+	<MimeType Name="text/rtf" />
+	<MimeType Name="text/scriptlet" FileTypes="sct wsc" />
+	<MimeType Name="text/t140" />
+	<MimeType Name="text/texmacs" FileTypes="tm" />
+	<MimeType Name="text/tab-separated-values" FileTypes="tsv" />
+	<MimeType Name="text/turtle" FileTypes="ttl" />
+	<MimeType Name="text/uri-list" />
+	<MimeType Name="text/vcard" FileTypes="vcf vcard" />
+	<MimeType Name="text/vnd.abc" />
+	<MimeType Name="text/vnd.curl" />
+	<MimeType Name="text/vnd.debian.copyright" />
+	<MimeType Name="text/vnd.DMClientScript" />
+	<MimeType Name="text/vnd.flatland.3dml" />
+	<MimeType Name="text/vnd.fly" />
+	<MimeType Name="text/vnd.fmi.flexstor" />
+	<MimeType Name="text/vnd.in3d.3dml" />
+	<MimeType Name="text/vnd.in3d.spot" />
+	<MimeType Name="text/vnd.IPTC.NewsML" />
+	<MimeType Name="text/vnd.IPTC.NITF" />
+	<MimeType Name="text/vnd.latex-z" />
+	<MimeType Name="text/vnd.motorola.reflex" />
+	<MimeType Name="text/vnd.ms-mediapackage" />
+	<MimeType Name="text/vnd.sun.j2me.app-descriptor" FileTypes="jad" />
+	<MimeType Name="text/vnd.wap.si" />
+	<MimeType Name="text/vnd.wap.sl" />
+	<MimeType Name="text/vnd.wap.wml" FileTypes="wml" />
+	<MimeType Name="text/vnd.wap.wmlscript" FileTypes="wmls" />
+	<MimeType Name="text/x-bibtex" FileTypes="bib" />
+	<MimeType Name="text/x-boo" FileTypes="boo" />
+	<MimeType Name="text/x-c++hdr" FileTypes="h++ hpp hxx hh" />
+	<MimeType Name="text/x-c++src" FileTypes="c++ cpp cxx cc" />
+	<MimeType Name="text/x-chdr" FileTypes="h" />
+	<MimeType Name="text/x-component" FileTypes="htc" />
+	<MimeType Name="text/x-crontab" />
+	<MimeType Name="text/x-csh" FileTypes="csh" />
+	<MimeType Name="text/x-csrc" FileTypes="c" />
+	<MimeType Name="text/x-dsrc" FileTypes="d" />
+	<MimeType Name="text/x-diff" FileTypes="diff patch" />
+	<MimeType Name="text/x-haskell" FileTypes="hs" />
+	<MimeType Name="text/x-java" FileTypes="java" />
+	<MimeType Name="text/x-lilypond" FileTypes="ly" />
+	<MimeType Name="text/x-literate-haskell" FileTypes="lhs" />
+	<MimeType Name="text/x-makefile" />
+	<MimeType Name="text/x-moc" FileTypes="moc" />
+	<MimeType Name="text/x-pascal" FileTypes="p pas" />
+	<MimeType Name="text/x-pcs-gcd" FileTypes="gcd" />
+	<MimeType Name="text/x-perl" FileTypes="pl pm" />
+	<MimeType Name="text/x-python" FileTypes="py" />
+	<MimeType Name="text/x-scala" FileTypes="scala" />
+	<MimeType Name="text/x-server-parsed-html" />
+	<MimeType Name="text/x-setext" FileTypes="etx" />
+	<MimeType Name="text/x-sfv" FileTypes="sfv" />
+	<MimeType Name="text/x-sh" FileTypes="sh" />
+	<MimeType Name="text/x-tcl" FileTypes="tcl tk" />
+	<MimeType Name="text/x-tex" FileTypes="tex ltx sty cls" />
+	<MimeType Name="text/x-vcalendar" FileTypes="vcs" />
+	<MimeType Name="video/3gpp" FileTypes="3gp" />
+	<MimeType Name="video/annodex" FileTypes="axv" />
+	<MimeType Name="video/dl" FileTypes="dl" />
+	<MimeType Name="video/dv" FileTypes="dif dv" />
+	<MimeType Name="video/fli" FileTypes="fli" />
+	<MimeType Name="video/gl" FileTypes="gl" />
+	<MimeType Name="video/mpeg" FileTypes="mpeg mpg mpe" />
+	<MimeType Name="video/MP2T" FileTypes="ts" />
+	<MimeType Name="video/mp4" FileTypes="mp4" />
+	<MimeType Name="video/quicktime" FileTypes="qt mov" />
+	<MimeType Name="video/mp4v-es" />
+	<MimeType Name="video/ogg" FileTypes="ogv" />
+	<MimeType Name="video/parityfec" />
+	<MimeType Name="video/pointer" />
+	<MimeType Name="video/webm" FileTypes="webm" />
+	<MimeType Name="video/vnd.fvt" />
+	<MimeType Name="video/vnd.motorola.video" />
+	<MimeType Name="video/vnd.motorola.videop" />
+	<MimeType Name="video/vnd.mpegurl" FileTypes="mxu" />
+	<MimeType Name="video/vnd.mts" />
+	<MimeType Name="video/vnd.nokia.interleaved-multimedia" />
+	<MimeType Name="video/vnd.vivo" />
+	<MimeType Name="video/x-flv" FileTypes="flv" />
+	<MimeType Name="video/x-la-asf" FileTypes="lsf lsx" />
+	<MimeType Name="video/x-mng" FileTypes="mng" />
+	<MimeType Name="video/x-ms-asf" FileTypes="asf asx" />
+	<MimeType Name="video/x-ms-wm" FileTypes="wm" />
+	<MimeType Name="video/x-ms-wmv" FileTypes="wmv" />
+	<MimeType Name="video/x-ms-wmx" FileTypes="wmx" />
+	<MimeType Name="video/x-ms-wvx" FileTypes="wvx" />
+	<MimeType Name="video/x-msvideo" FileTypes="avi" />
+	<MimeType Name="video/x-sgi-movie" FileTypes="movie" />
+	<MimeType Name="video/x-matroska" FileTypes="mpv mkv" />
+	<MimeType Name="x-conference/x-cooltalk" FileTypes="ice" />
+	<MimeType Name="x-epoc/x-sisx-app" FileTypes="sisx" />
+	<MimeType Name="x-world/x-vrml" FileTypes="vrm vrml wrl" />
+</CFInt>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/crsp_next_schemaidgen.plsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Id16Gen" Name="dbadminfile_CreateSPNextSchemaIdGen"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="$dbadminfilename_CreateSPNextSchemaIdGen$"
+		ExpansionKeyName="$dbadminfilename_CreateSPNextSchemaIdGen$"
+		ExpansionFileName="$dbadminfilename_CreateSPNextSchemaIdGen$" >--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+alter session set plsql_warnings = 'ENABLE:ALL';
+/
+
+create or replace function $lower DbSchemaName$.$sp_next_schemaidgen$
+return smallint authid definer
+is
+	NextId smallint;
+begin
+	select cast( $lower DbSchemaName$.$lower DbColumnName$.nextval as smallint )
+	into NextId
+	from dual;
+
+	return NextId;
+end $sp_next_schemaidgen$;
+/
+
+show errors function $lower DbSchemaName$.$sp_next_schemaidgen$;
+</GenFile>
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Id32Gen" Name="dbadminfile_CreateSPNextSchemaIdGen"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="$dbadminfilename_CreateSPNextSchemaIdGen$"
+		ExpansionKeyName="$dbadminfilename_CreateSPNextSchemaIdGen$"
+		ExpansionFileName="$dbadminfilename_CreateSPNextSchemaIdGen$" >--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+alter session set plsql_warnings = 'ENABLE:ALL';
+/
+
+create or replace function $lower DbSchemaName$.$sp_next_schemaidgen$
+return int authid definer
+is
+	NextId int;
+begin
+	select cast( $lower DbSchemaName$.$lower DbColumnName$.nextval as int )
+	into NextId
+	from dual;
+
+	return NextId;
+end $sp_next_schemaidgen$;
+/
+
+show errors function $lower DbSchemaName$.$sp_next_schemaidgen$;
+</GenFile>
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Id64Gen" Name="dbadminfile_CreateSPNextSchemaIdGen"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="$dbadminfilename_CreateSPNextSchemaIdGen$"
+		ExpansionKeyName="$dbadminfilename_CreateSPNextSchemaIdGen$"
+		ExpansionFileName="$dbadminfilename_CreateSPNextSchemaIdGen$" >--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+alter session set plsql_warnings = 'ENABLE:ALL';
+/
+
+create or replace function $lower DbSchemaName$.$sp_next_schemaidgen$
+return numeric authid definer
+is
+	NextId numeric(22,0);
+begin
+	select $lower DbSchemaName$.$lower DbColumnName$.nextval
+	into NextId
+	from dual;
+
+	return NextId;
+end $sp_next_schemaidgen$;
+/
+
+show errors function $lower DbSchemaName$.$sp_next_schemaidgen$;
+</GenFile>
+
+</RuleSet>

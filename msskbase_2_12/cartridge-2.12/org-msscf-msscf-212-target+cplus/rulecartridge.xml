@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleCartridge
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-cartridge.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-cartridge.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-cartridge.xsd"
+		Name="org-msscf-msscf-212-target+cplus"
+		Revision="2.12"
+		Descr="MSS Code Factory Application in C++18">
+	<Tool Name="any" />
+	<Tool Name="ram" />
+	<Tool Name="pgsql" />
+	<Tool Name="saxloader" />
+	<Tool Name="xmsg" />
+	<Tool Name="http" />
+	<Tool Name="cplus" />
+	<Tool Name="loader" />
+	<UseCartridge Name="org-msscf-msscf-212-toolset-any" />
+	<UseCartridge Name="org-msscf-msscf-212-toolset-pgsql" />
+	<UseCartridge Name="org-msscf-msscf-212-toolset-ram" />
+	<UseCartridge Name="org-msscf-msscf-212-toolset-http" />
+	<UseCartridge Name="org-msscf-msscf-212-toolset-loader" />
+	<UseCartridge Name="org-msscf-msscf-212-toolset-cplus" />
+	<UseCartridge Name="org-msscf-msscf-212-toolset-cplus+saxloader" />
+	<UseCartridge Name="org-msscf-msscf-212-toolset-cplus+ram" />
+	<UseCartridge Name="org-msscf-msscf-212-toolset-cplus+ram+loader" />
+	<!--UseCartridge Name="org-msscf-msscf-212-toolset-cplus+pgsql" /-->
+	<ToolSet Name="any" />
+	<ToolSet Name="ram" />
+	<ToolSet Name="saxloader" />
+	<ToolSet Name="http" />
+	<ToolSet Name="loader" />
+	<ToolSet Name="pgsql" />
+	<ToolSet Name="cplus" />
+	<ToolSet Name="cplus+saxloader" />
+	<ToolSet Name="cplus+ram" />
+	<ToolSet Name="cplus+ram+loader" />
+	<!--ToolSet Name="cplus+pgsql" /-->
+</RuleCartridge>

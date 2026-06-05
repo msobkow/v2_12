@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schemaobj/SchemaTableObj.hpp"
+	Revision="2.12"
+	Descr="C++18 Table Object specification">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableObjHpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$obj"
+		ExpansionClassName="$SchemaName$$TableName$TableObjHpp"
+		ExpansionKeyName="$SchemaName$$TableName$TableObjHpp"
+		ExpansionFileName="$SchemaName$$TableName$TableObj.hpp"
+>#pragma once
+
+// Description: C++18 Table Object specification for $SchemaName$.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+
+namespace $CPlusNamespace$ {
+	class I$SchemaName$SchemaObj;$poptop SchemaDef iterate SchemaTables( each declForwardIObjTableObjs empty empty )$
+}
+$include SchemaTableObjMoreHeaders$
+namespace $CPlusNamespace$ {
+$declSchemaTableObjClassBody$
+}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="include SchemaTableObjMoreHeaders">$maybeIncludeITableObjInheritSuperClass$$maybeIncludeTableObjInheritSuperClass$
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$Obj.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$EditObj.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$TableObj.hpp&gt;$iterate TableRefs( each alsoIncludeISchemaTableTableObj empty empty )$$iterate TableRefs( each alsoIncludeSchemaTableTableObj empty empty )$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="alsoIncludeSchemaTableTableObj">
+#include &lt;$lower reference SchemaDef SchemaName$obj/$reference SchemaDef SchemaName$$TableName$Obj.hpp&gt;
+#include &lt;$lower reference SchemaDef SchemaName$obj/$reference SchemaDef SchemaName$$TableName$EditObj.hpp&gt;
+#include &lt;$lower reference SchemaDef SchemaName$obj/$reference SchemaDef SchemaName$$TableName$TableObj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="alsoIncludeTableObjInheritSuperClass">$reference SuperClassRelation reference ToTable maybeIncludeTableObjInheritSuperClass$
+#include &lt;$lower reference SuperClassRelation reference ToTable SchemaName$obj/$reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$Obj.hpp&gt;
+#include &lt;$lower reference SuperClassRelation reference ToTable SchemaName$obj/$reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$EditObj.hpp&gt;
+#include &lt;$lower reference SuperClassRelation reference ToTable SchemaName$obj/$reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$TableObj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeIncludeTableObjInheritSuperClass"
+		>$switch HasSuperClassRelation yes alsoIncludeTableObjInheritSuperClass default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPageByIndex"
+		>$switch HasSuperClassRelation yes declPageByInhIndex default declPageByBaseIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPageBySubIndex"
+		>$switch HasSuperClassRelation yes declPageByInhIndex default empty$$iterate Index( each declPageByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declPageByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default ifdup_declPageByIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPageByInhIndex"
+		>$reference SuperClassRelation reference ToTable declPageBySubIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPageByBaseIndex"
+		>$iterate Index( each declPageByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="ifdup_declPageByIndex"
+		>$switch IsUnique
+			yes empty
+			default declTableObjPageObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjPageObjByIndex"
+		>$switch IsUnique yes empty default declTableObjPageObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjPageObjByDuplicateIndex">
+		virtual std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; page$TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaOptPriorArg )$ );
+</GenRule>
+
+<GenRule GenDef="Table" Name="declSchemaTableObjClassBody">
+	class $SchemaName$$TableName$TableObj
+	: public virtual I$SchemaName$$TableName$TableObj$iterate TableRefs( each extendCommaISchemaTableTableObj empty empty )$
+	{
+	protected:
+		$poptop SchemaDef CPlusNamespace$::I$poptop SchemaDef SchemaName$SchemaObj* schema;
+		std::map&lt;$reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey, $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;* members;
+		std::map&lt;$reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey, $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;* all$TableName$;$declTableObjIndexMapByIndexes$
+
+	public:
+		static const std::string CLASS_NAME;
+		static const std::string TABLE_NAME;
+		static const std::string TABLE_DBNAME;
+
+		$SchemaName$$TableName$TableObj();
+		$SchemaName$$TableName$TableObj( $reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$SchemaObj* argSchema );
+		virtual ~$SchemaName$$TableName$TableObj();$declSchemaTableObjMethods$$declNewInstance$$declNewEditInstance$$switch IsBaseTable yes declConstructByClassCode default empty$$declRealizeObj$$declTableObjDeepDisposeObj$$declCreateObj$$declReadObjByPKey$$declLockObjByPKey$$declReadAllObj$$switch PageData yes declTableObjPageAllObj default empty$$declTableObjReadByIndexes$$declReadCachedObjByPKey$$declTableObjReadCachedByIndexes$$switch HasLookupIndex yes declTableObjReadByLookupIndex default empty$$switch HasLookupIndex yes declTableObjReadCachedByLookupIndex default empty$$switch PageData yes declPageByIndex default empty$$declUpdateObj$$declDeleteObj$$declTableObjDeleteByIndexes$$switch HasChain yes declTableObjMoveUp default empty$$switch HasChain yes declTableObjMoveDown default empty$$iterate ServerMethods( each declCPlusTableObjServerMethod empty empty )$$declTableObjReallyDetachFromIndexesObj$$CPlusTableObjInterface$
+	};
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeepDisposeObj"
+		>$switch HasSuperClassRelation yes declTableObjInhDeepDisposeObj default declTableObjBaseDeepDisposeObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjInhDeepDisposeObj"
+		>$reference SuperClassRelation reference ToTable declTableObjDeepDisposeObj$$iterate Index( each declTableObjDeepDisposeByNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjBaseDeepDisposeObj"
+		>$iterate Index( each declTableObjDeepDisposeByIndex empty empty )$$declTableObjReallyDeepDispose$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeepDisposeByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjDeepDisposeByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeepDisposeByIndex">
+		virtual void deepDisposeBy$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReallyDeepDispose">
+		virtual void reallyDeepDispose$poptop Table TableName$( $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* Obj );</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjPageAllObj">
+		virtual std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; pageAll$poptop Table TableName$($reference BaseClass reference PrimaryKeyIndex iterate Columns( first declOptPriorArg each declCommaOptPriorArg )$ );
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="passCommaOptPriorArg">,
+				prior$Name$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declCPlusTableObjServerMethod"
+		>$switch IsInstanceMethod yes declCPlusTableObjInstServerProc default declCPlusTableObjClassServerProc$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declCPlusTableObjClassServerProc">
+		virtual bool $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declCPlusTableObjInstServerProc">
+		virtual bool $leadlower Name$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj$iterate Params( each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declCPlusTableObjServerMethod"
+		>$switch IsInstanceMethod yes declCPlusTableObjInstServerObjFunc default declCPlusTableObjClassServerObjFunc$</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declCPlusTableObjClassServerObjFunc">
+		virtual $reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj* $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declCPlusTableObjInstServerObjFunc">
+		virtual $reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj* $leadlower Name$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj$iterate Params( each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declCPlusTableObjServerMethod"
+		>$switch IsInstanceMethod yes declCPlusTableObjInstServerListFunc default declCPlusTableObjClassServerListFunc$</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declCPlusTableObjClassServerListFunc">
+		virtual std::vector&lt;$reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj*&gt; $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declCPlusTableObjInstServerListFunc">
+		virtual std::vector&lt;$reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj*&gt; $leadlower Name$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj$iterate Params( each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="Param" Name="passServerMethodParam">,
+				$leadlower Name$</GenRule>
+
+	<GenRule GenDef="Param" Name="declServerMethodParamNoComma"> $declCPlusAtomType$ $leadlower Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declGetTableObjQualifyingClassCode">
+		virtual const classcode_t* getObjQualifyingClassCode();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableObjMethods">
+		virtual $reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$SchemaObj* getSchema();
+		virtual void setSchema( $reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$SchemaObj* value );
+		virtual const std::string getTableName();
+		virtual const std::string getTableDbName();$declGetTableObjQualifyingClassCode$
+		virtual void minimizeMemory();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjIndexMapByIndexes"
+		>$switch HasSuperClassRelation yes declTableObjIndexMapByInhIndexes default empty$$iterate Index( each declTableObjIndexMapByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjIndexMapBySubIndexes"
+		>$switch HasSuperClassRelation yes declTableObjIndexMapByInhIndexes default empty$$iterate Index( each declTableObjIndexMapByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjIndexMapByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjIndexMapByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjIndexMapByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declTableObjIndexMapBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByThisIndex"
+		>$switch IsUnique
+			yes declTableObjIndexMapByThisUniqueIndex
+			default declTableObjIndexMapByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByInhIndex"
+		>$switch IsUnique
+			yes declTableObjIndexMapByInhUniqueIndex
+			default declTableObjIndexMapByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByIndex"
+		>$switch IsUnique
+			yes declTableObjIndexMapByUniqueIndex
+			default declTableObjIndexMapByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByThisUniqueIndex">
+		std::map&lt; $reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key,
+			$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* indexBy$Suffix$;</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByInhUniqueIndex">
+		std::map&lt; $reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key,
+			$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* indexBy$Suffix$;</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByThisDuplicateIndex">
+		std::map&lt; $reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key,
+			std::map&lt;$poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;*&gt;* indexBy$Suffix$;</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByInhDuplicateIndex">
+		std::map&lt; $reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key,
+			std::map&lt;$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;*&gt;* indexBy$Suffix$;</GenRule>
+
+	<GenRule GenDef="Table" Name="declNewInstance">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* newInstance();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declNewEditInstance">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* newEditInstance( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* orig );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declConstructByClassCode">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* constructByClassCode( const classcode_t argClassCode );
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="ToTableHasSubClasses"
+		>$reference ToTable HasSubClasses$</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTableObjPKeyType"
+		>$switch HasSuperClassRelation yes SchemaTableObjBasePKeyT default SchemaTableObjPKeyT$</GenRule>
+	<GenRule GenDef="Table" Name="SchemaTableObjBasePKeyT"
+		>$reference BaseClass SchemaTableObjPKeyT$</GenRule>
+	<GenRule GenDef="Table" Name="SchemaTableObjPKeyT"
+		>$SchemaName$$TableName$PKey</GenRule>
+
+	<GenRule GenDef="Table" Name="declRealizeObjReplaceBuff">
+				keepObj-&gt;setBuff( Obj-&gt;getBuff() );</GenRule>
+
+	<GenRule GenDef="Table" Name="declRealizeObj">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* realize$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjIndexAddToIndexes"
+		>$switch HasSuperClassRelation yes declTableObjIndexAddToInhIndexes default empty$$iterate Index( each declTableObjIndexAddToThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjIndexAddToSubIndexes"
+		>$switch HasSuperClassRelation yes declTableObjIndexAddToInhIndexes default empty$$iterate Index( each declTableObjIndexAddToInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexAddToThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjIndexAddToThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexAddToInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjIndexAddToInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjIndexAddToInhIndexes"
+		>$reference SuperClassRelation reference ToTable declTableObjIndexAddToSubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexAddToThisIndex"
+		>$switch IsUnique
+			yes declTableObjIndexAddToThisUniqueIndex
+			default declTableObjIndexAddToThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexAddToInhIndex"
+		>$switch IsUnique
+			yes declTableObjIndexAddToInhUniqueIndex
+			default declTableObjIndexAddToInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexAddToIndex"
+		>$switch IsUnique
+			yes declTableObjIndexAddToUniqueIndex
+			default declTableObjIndexAddToDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declCreateObj">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* create$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* Obj );
+</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declCopyDataColumnFromObj"
+		>$switch ColumnInPrimaryIndex
+			yes empty
+			default declCopyColumnFromObj$</GenRule>
+	<GenRule GenDef="Atom" Name="declCopyDataColumnFromObj"
+		>$switch ColumnInPrimaryIndex
+			yes empty
+			default declCopyColumnFromObj$</GenRule>
+	<GenRule GenDef="IndexCol" Name="declCopyDataColumnFromObj"
+		>$reference Column declCopyDataColumnFromObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadAllObj">
+		virtual std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; readAll$poptop Table TableName$( bool forceRead = false );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadObjByPKey">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* read$TableName$( $CPlusDefNamespace$::$DefSchemaName$$reference BaseClass TableName$PKey* pkey, bool forceRead = false );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declLockObjByPKey">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* lock$TableName$( $CPlusDefNamespace$::$DefSchemaName$$reference BaseClass TableName$PKey* pkey );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadByIndexes"
+		>$declTableObjReadByPrimaryIndex$$switch HasSuperClassRelation yes declTableObjReadByInhIndexes default empty$$iterate Index( each declTableObjReadByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex declTableObjReadByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadBySubIndexes"
+		>$switch HasSuperClassRelation yes declTableObjReadByInhIndexes default empty$$iterate Index( each declTableObjReadByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjReadByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjReadByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declTableObjReadBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByThisIndex"
+		>$switch IsUnique
+			yes declTableObjReadByThisUniqueIndex
+			default declTableObjReadByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByInhIndex"
+		>$switch IsUnique
+			yes declTableObjReadByInhUniqueIndex
+			default declTableObjReadByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByIndex"
+		>$switch IsUnique
+			yes declTableObjReadByUniqueIndex
+			default declTableObjReadByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadByLookupIndex">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* read$TableName$ByLookup$reference LookupIndex Suffix$( $reference LookupIndex iterate Columns( first declReqColumnArg each declCommaReqColumnArg last empty lone empty )$$reference LookupIndex iterate Columns( lone declColumnArg each empty last declCommaColumnArg )$, bool forceRead = false );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByThisUniqueIndex">
+		virtual $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$, bool forceRead = false );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByInhUniqueIndex"
+		>$declTableObjReadByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByInhDuplicateIndex"
+		>$declTableObjReadByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByThisDuplicateIndex">
+		virtual std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+			bool forceRead = false );
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declReadObjByIndexPassArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declReadObjByIndexCommaPassArg">,
+					$declReadObjByIndexPassArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadObjByDuplicateIndex">
+		virtual std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+			bool forceRead = false );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjMoveUp">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* moveUp$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjMoveDown">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* moveDown$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declUpdateObj">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* update$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declDeleteObj">
+		virtual void delete$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeleteByIndexes"
+		>$declTableObjDeleteByPrimaryIndex$$switch HasSuperClassRelation yes declTableObjDeleteByInhIndexes default empty$$iterate Index( each declTableObjDeleteByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeleteByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex declTableObjDeleteByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeleteBySubIndexes"
+		>$switch HasSuperClassRelation yes declTableObjDeleteByInhIndexes default empty$$iterate Index( each declTableObjDeleteByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjDeleteByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjDeleteByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeleteByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declTableObjDeleteBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByThisIndex"
+		>$switch IsUnique
+			yes declTableObjDeleteByThisUniqueIndex
+			default declTableObjDeleteByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByInhIndex"
+		>$switch IsUnique
+			yes declTableObjDeleteByInhUniqueIndex
+			default declTableObjDeleteByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByIndex"
+		>$switch IsUnique
+			yes declTableObjDeleteByUniqueIndex
+			default declTableObjDeleteByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByThisUniqueIndex">
+		virtual void delete$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByInhUniqueIndex"
+		>$declTableObjDeleteByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByThisDuplicateIndex">
+		virtual void delete$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByInhDuplicateIndex"
+		>$declTableObjDeleteByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declDeleteObjByIndexPassArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="Index" Name="declDeleteObjByDuplicateIndex">
+		virtual void delete$TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReallyDetachFromIndexesObj">
+		virtual void reallyDetachFromIndexes$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadCachedObjByPKey">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* readCached$TableName$( $CPlusDefNamespace$::$DefSchemaName$$reference BaseClass TableName$PKey* pkey );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadCachedByIndexes"
+		>$switch HasSuperClassRelation yes declTableObjReadCachedByInhIndexes default declTableObjReadCachedByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadCachedByBaseIndexes"
+		>$declTableObjReadCachedByPrimaryIndex$$iterate Index( each declTableObjReadCachedByNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadCachedByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declTableObjReadCachedByIndexes$$iterate Index( each declTableObjReadCachedByNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadCachedByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex declTableObjReadCachedByUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjReadCachedByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByIndex"
+		>$switch IsUnique
+			yes declTableObjReadCachedByUniqueIndex
+			default declTableObjReadCachedByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadCachedByLookupIndex">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* readCached$TableName$ByLookup$reference LookupIndex Suffix$( $reference LookupIndex iterate Columns( first declReqColumnArg each declCommaReqColumnArg last empty lone empty )$$reference LookupIndex iterate Columns( lone declColumnArg each empty last declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByUniqueIndex">
+		virtual $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByDuplicateIndex">
+		virtual std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declReadCachedObjByIndexPassArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declReadCachedObjByIndexCommaPassArg">,
+					$declReadCachedObjByIndexPassArg$</GenRule>
+
+</RuleSet>

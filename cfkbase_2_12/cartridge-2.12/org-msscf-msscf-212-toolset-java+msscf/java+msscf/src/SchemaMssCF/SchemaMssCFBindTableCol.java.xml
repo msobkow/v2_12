@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+msscf"
+	Name="src/SchemaMssCF/SchemaMssCFBindTableCol.java"
+	Revision="2.12"
+	Descr="Java 11 SchemaMssCFBindTableCol">
+
+	<GenFile GenDef="Value" Name="fileSchemaMssCFBindTableColJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$MssCF/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$MssCF"
+		ExpansionClassName="$SchemaName$MssCFBind$TableName$$Name$Java"
+		ExpansionKeyName="$SchemaName$MssCFBind$TableName$$Name$Java"
+		ExpansionFileName="$SchemaName$MssCFBind$TableName$$Name$.java">
+// Description: Java 11 MssCF Binding for $TableName$ Column $Name$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$MssCF;
+
+import java.math.*;
+import java.sql.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cfcore.MssCF.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef importJavaPackageSchemaNameObj$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$
+import org.apache.commons.codec.binary.Base64;
+
+/**
+ *	$SchemaName$MssCFBind$TableName$$Name$ binds $TableName$.$ColumnName$
+ *	as an instance of MssCFGenBindObj.
+ */
+public class $SchemaName$MssCFBind$TableName$$Name$
+	extends MssCFGenBindObj
+{
+	private static final long serialVersionUID = 1L;
+
+	public $SchemaName$MssCFBind$TableName$$Name$() {
+		super();
+	}
+
+	public $SchemaName$MssCFBind$TableName$$Name$( MssCFEngine argEngine ) {
+		super( argEngine,
+			"any",
+			null,
+			"$TableName$",
+			"$Name$" );
+	}$implCFBindTableColGetValueObject$$implCFBindTableColExpandBody$
+}
+</GenFile>
+
+	<GenRule GenDef="Value" Name="implCFBindTableColGetValueObject">
+	public Object getValueObject( MssCFGenContext genContext ) {
+		final String S_ProcName = "$SchemaName$MssCFBind$TableName$$Name$.getValueObject() ";
+
+		if( genContext == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"expandBody",
+				1,
+				"genContext" );
+		}
+
+		ICFLibAnyObj genDef = genContext.getGenDef();
+		if( genDef == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"expandBody",
+				1,
+				"genContext.getGenDef()" );
+		}
+
+		$implJavaAtomType$ $leadlower Name$;
+		if( genDef instanceof I$SchemaName$$TableName$Obj ) {
+			$leadlower Name$ = ((I$SchemaName$$TableName$Obj)genDef).get$OptionalOrRequired$$Name$();
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				"expandBody",
+				"genContext.getGenDef()",
+				genDef,
+				"I$SchemaName$$TableName$Obj" );
+		}
+
+		return( $leadlower Name$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implCFBindTableColExpandBody">
+	public String expandBody( MssCFGenContext genContext ) {
+		final String S_ProcName = "$SchemaName$MssCFBind$TableName$$Name$.expandBody() ";
+
+		if( genContext == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"expandBody",
+				1,
+				"genContext" );
+		}
+
+		ICFLibAnyObj genDef = genContext.getGenDef();
+		if( genDef == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"expandBody",
+				1,
+				"genContext.getGenDef()" );
+		}
+
+		String ret;
+
+		if( genDef instanceof I$SchemaName$$TableName$Obj ) {
+			$implJavaAtomType$ $leadlower Name$ = ((I$SchemaName$$TableName$Obj)genDef).get$OptionalOrRequired$$Name$();$implInitRet$
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				"expandBody",
+				"genContext.getGenDef()",
+				genDef,
+				"I$SchemaName$$TableName$Obj" );
+		}
+
+		return( ret );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implInitRet"
+		>$switch IsNullable yes implOptInitRet default implReqInitRet$</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqInitRet"
+		>$switch BaseModelAtomClass
+			BlobDef implReqBlobInitRet
+			BoolDef implReqBoolInitRet
+			EnumDef implReqEnumInitRet
+			Int16Def implReqInt16InitRet
+			Int32Def implReqInt32InitRet
+			Int64Def implReqInt64InitRet
+			UInt16Def implReqUInt16InitRet
+			UInt32Def implReqUInt32InitRet
+			UInt64Def implReqUInt64InitRet
+			FloatDef implReqFloatInitRet
+			DoubleDef implReqDoubleInitRet
+			NumberDef implReqNumberInitRet
+			DateDef implReqDateInitRet
+			TimeDef implReqTimeInitRet
+			TimestampDef implReqTimestampInitRet
+			TZDateDef implReqTZDateInitRet
+			TZTimeDef implReqTZTimeInitRet
+			TZTimestampDef implReqTZTimestampInitRet
+			UuidDef implReqUuidInitRet
+			UuidGen implReqUuidInitRet
+			StringDef implReqStringInitRet
+			TokenDef implReqTokenInitRet
+			NmTokenDef implReqNmTokenInitRet
+			NmTokensDef implReqNmTokensInitRet
+			TextDef implReqTextInitRet
+			Id16Gen implReqInt16InitRet
+			Id32Gen implReqInt32InitRet
+			Id64Gen implReqInt64InitRet
+			default error$</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqBlobInitRet">
+			if( $leadlower Name$ == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					"expandBody",
+					0,
+					"Value" );
+			}
+			ret = new String( Base64.encodeBase64( $leadlower Name$ ) );</GenRule>
+	<GenRule GenDef="Value" Name="implReqBoolInitRet">
+			if( $leadlower Name$ ) {
+				ret = "yes";
+			}
+			else {
+				ret = "no";
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implReqEnumInitRet">
+			ret = $leadlower Name$.toString();</GenRule>
+	<GenRule GenDef="Value" Name="implReqInt16InitRet">
+			ret = Short.toString( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqInt32InitRet">
+			ret = Integer.toString( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqInt64InitRet">
+			ret = Long.toString( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqUInt16InitRet">
+			ret = Integer.toString( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqUInt32InitRet">
+			ret = Long.toString( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqUInt64InitRet">
+			if( $leadlower Name$ == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					"expandBody",
+					0,
+					"Value" );
+			}
+			ret = $leadlower Name$.toString();</GenRule>
+	<GenRule GenDef="Value" Name="implReqFloatInitRet">
+			ret = Float.toString( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqDoubleInitRet">
+			ret = Double.toString( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqNumberInitRet">
+			if( $leadlower Name$ == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					"expandBody",
+					0,
+					"Value" );
+			}
+			ret = $leadlower Name$.toString();</GenRule>
+	<GenRule GenDef="Value" Name="implReqDateInitRet">
+			ret = CFLibXmlUtil.formatDate( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqTimeInitRet">
+			ret = CFLibXmlUtil.formatTime( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqTimestampInitRet">
+			ret = CFLibXmlUtil.formatTimestamp( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqTZDateInitRet">
+			ret = CFLibXmlUtil.formatTZDate( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqTZTimeInitRet">
+			ret = CFLibXmlUtil.formatTZTime( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqTZTimestampInitRet">
+			ret = CFLibXmlUtil.formatTZTimestamp( $leadlower Name$ );</GenRule>
+	<GenRule GenDef="Value" Name="implReqUuidInitRet">
+			if( $leadlower Name$ == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					"expandBody",
+					0,
+					"Value" );
+			}
+			ret = $leadlower Name$.toString();</GenRule>
+	<GenRule GenDef="Value" Name="implReqStringInitRet">
+			ret = $leadlower Name$;</GenRule>
+	<GenRule GenDef="Value" Name="implReqTokenInitRet">
+			ret = $leadlower Name$;</GenRule>
+	<GenRule GenDef="Value" Name="implReqNmTokenInitRet">
+			ret = $leadlower Name$;</GenRule>
+	<GenRule GenDef="Value" Name="implReqNmTokensInitRet">
+			ret = $leadlower Name$;</GenRule>
+	<GenRule GenDef="Value" Name="implReqTextInitRet">
+			ret = $leadlower Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptInitRet"
+		>$switch BaseModelAtomClass
+			BlobDef implOptBlobInitRet
+			BoolDef implOptBoolInitRet
+			EnumDef implOptEnumInitRet
+			Int16Def implOptInt16InitRet
+			Int32Def implOptInt32InitRet
+			Int64Def implOptInt64InitRet
+			UInt16Def implOptUInt16InitRet
+			UInt32Def implOptUInt32InitRet
+			UInt64Def implOptUInt64InitRet
+			FloatDef implOptFloatInitRet
+			DoubleDef implOptDoubleInitRet
+			NumberDef implOptNumberInitRet
+			DateDef implOptDateInitRet
+			TimeDef implOptTimeInitRet
+			TimestampDef implOptTimestampInitRet
+			TZDateDef implOptTZDateInitRet
+			TZTimeDef implOptTZTimeInitRet
+			TZTimestampDef implOptTZTimestampInitRet
+			UuidDef implOptUuidInitRet
+			UuidGen implOptUuidInitRet
+			StringDef implOptStringInitRet
+			TokenDef implOptTokenInitRet
+			NmTokenDef implOptNmTokenInitRet
+			NmTokensDef implOptNmTokensInitRet
+			TextDef implOptTextInitRet
+			Id16Gen implOptInt16InitRet
+			Id32Gen implOptInt32InitRet
+			Id64Gen implOptInt64InitRet
+			default error$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptBlobInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = new String( Base64.encodeBase64( $leadlower Name$ ) );
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptBoolInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else if( $leadlower Name$.booleanValue() ) {
+				ret = "yes";
+			}
+			else {
+				ret = "no";
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptEnumInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = $leadlower Name$.toString();
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptInt16InitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = $leadlower Name$.toString();
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptInt32InitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = $leadlower Name$.toString();
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptInt64InitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = $leadlower Name$.toString();
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptUInt16InitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = $leadlower Name$.toString();
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptUInt32InitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = $leadlower Name$.toString();
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptUInt64InitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = $leadlower Name$.toString();
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptFloatInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = $leadlower Name$.toString();
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptDoubleInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = $leadlower Name$.toString();
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptNumberInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = $leadlower Name$.toString();
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptDateInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = CFLibXmlUtil.formatDate( $leadlower Name$ );
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptTimeInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = CFLibXmlUtil.formatTime( $leadlower Name$ );
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptTimestampInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = CFLibXmlUtil.formatTimestamp( $leadlower Name$ );
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptTZDateInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = CFLibXmlUtil.formatTZDate( $leadlower Name$ );
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptTZTimeInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = CFLibXmlUtil.formatTZTime( $leadlower Name$ );
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptTZTimestampInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = CFLibXmlUtil.formatTZTimestamp( $leadlower Name$ );
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptUuidInitRet">
+			if( $leadlower Name$ == null ) {
+				ret = null;
+			}
+			else {
+				ret = $leadlower Name$.toString();
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implOptStringInitRet">
+			ret = $leadlower Name$;</GenRule>
+	<GenRule GenDef="Value" Name="implOptTokenInitRet">
+			ret = $leadlower Name$;</GenRule>
+	<GenRule GenDef="Value" Name="implOptNmTokenInitRet">
+			ret = $leadlower Name$;</GenRule>
+	<GenRule GenDef="Value" Name="implOptNmTokensInitRet">
+			ret = $leadlower Name$;</GenRule>
+	<GenRule GenDef="Value" Name="implOptTextInitRet">
+			ret = $leadlower Name$;</GenRule>
+
+</RuleSet>

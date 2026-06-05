@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schema/SchemaConfigurationFile.hpp"
+	Revision="2.12"
+	Descr="C++18 configuration file implementation for a schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaConfigurationFileCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$ConfigurationFileCpp"
+		ExpansionKeyName="$SchemaName$ConfigurationFileCpp"
+		ExpansionFileName="$SchemaName$ConfigurationFile.cpp"
+>// Description: C++18 configuration file implementation for a $SchemaName$ schema.
+
+$MssSourceLicense$
+
+#include &lt;fstream&gt;
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+#include &lt;$lower SchemaName$/$SchemaName$ConfigurationFile.hpp&gt;
+
+namespace $CPlusNamespace$ {
+$iterate SchemaRefs( first implConfigurationFileExtendDefBaseBody each empty empty implConfigurationFileImplDefBaseBody )$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="implConfigurationFileExtendDefBaseBody">
+	$poptop SchemaDef SchemaName$ConfigurationFile::$poptop SchemaDef SchemaName$ConfigurationFile()
+	: $CPlusSecNamespace$::$SecSchemaName$ConfigurationFile()
+	{
+	}
+
+	$poptop SchemaDef SchemaName$ConfigurationFile::~$poptop SchemaDef SchemaName$ConfigurationFile() {
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implConfigurationFileImplDefBaseBody">
+	const std::string $poptop SchemaDef SchemaName$ConfigurationFile::CLASS_NAME( "$poptop SchemaDef SchemaName$ConfigurationFile" );
+	const std::string $poptop SchemaDef SchemaName$ConfigurationFile::S_DBSERVER( "DbServer" );
+	const std::string $poptop SchemaDef SchemaName$ConfigurationFile::S_DBPORT( "DbPort" );
+	const std::string $poptop SchemaDef SchemaName$ConfigurationFile::S_DBDATABASE( "DbDatabase" );
+	const std::string $poptop SchemaDef SchemaName$ConfigurationFile::S_DBUSERNAME( "DbUserName" );
+	const std::string $poptop SchemaDef SchemaName$ConfigurationFile::S_DBPASSWORD( "DbPassword" );
+
+	$poptop SchemaDef SchemaName$ConfigurationFile::$poptop SchemaDef SchemaName$ConfigurationFile() {
+		fileName = NULL;
+		dbServer = NULL;
+		dbPort = -1;
+		dbDatabase = NULL;
+		dbUserName = NULL;
+		dbPassword = NULL;
+	}
+
+	$poptop SchemaDef SchemaName$ConfigurationFile::~$poptop SchemaDef SchemaName$ConfigurationFile() {
+		if( fileName != NULL ) {
+			delete fileName;
+			fileName = NULL;
+		}
+		if( dbServer != NULL ) {
+			delete dbServer;
+			dbServer = NULL;
+		}
+		if( dbDatabase != NULL ) {
+			delete dbDatabase;
+			dbDatabase = NULL;
+		}
+		if( dbUserName != NULL ) {
+			delete dbUserName;
+			dbUserName = NULL;
+		}
+		if( dbPassword != NULL ) {
+			delete dbPassword;
+			dbPassword = NULL;
+		}
+	}
+
+	std::string* $poptop SchemaDef SchemaName$ConfigurationFile::getFileName() const {
+		return( fileName );
+	}
+
+	void $poptop SchemaDef SchemaName$ConfigurationFile::setFileName( const std::string&amp; value ) {
+		if( fileName != NULL ) {
+			delete fileName;
+			fileName = NULL;
+		}
+		fileName = new std::string( value );
+	}
+
+	std::string* $poptop SchemaDef SchemaName$ConfigurationFile::getDbServer() const {
+		return( dbServer );
+	}
+
+	void $poptop SchemaDef SchemaName$ConfigurationFile::setDbServer( const std::string&amp; value ) {
+		if( dbServer != NULL ) {
+			delete dbServer;
+			dbServer = NULL;
+		}
+
+		dbServer = new std::string( value );
+	}
+
+	int32_t $poptop SchemaDef SchemaName$ConfigurationFile::getDbPort() const {
+		return( dbPort );
+	}
+
+	void $poptop SchemaDef SchemaName$ConfigurationFile::setDbPort( int32_t value ) {
+		dbPort = value;
+	}
+
+	std::string* $poptop SchemaDef SchemaName$ConfigurationFile::getDbDatabase() const {
+		return( dbDatabase );
+	}
+
+	void $poptop SchemaDef SchemaName$ConfigurationFile::setDbDatabase( const std::string&amp; value ) {
+		if( dbDatabase != NULL ) {
+			delete dbDatabase;
+			dbDatabase = NULL;
+		}
+		dbDatabase = new std::string( value );
+	}
+
+	std::string* $poptop SchemaDef SchemaName$ConfigurationFile::getDbUserName() const {
+		return( dbUserName );
+	}
+
+	void $poptop SchemaDef SchemaName$ConfigurationFile::setDbUserName( const std::string&amp; value ) {
+		if( dbUserName != NULL ) {
+			delete dbUserName;
+			dbUserName = NULL;
+		}
+		dbUserName = new std::string( value );
+	}
+
+	std::string* $poptop SchemaDef SchemaName$ConfigurationFile::getDbPassword() const {
+		return( dbPassword );
+	}
+
+	void $poptop SchemaDef SchemaName$ConfigurationFile::setDbPassword( const std::string&amp; value ) {
+		if( dbPassword != NULL ) {
+			delete dbPassword;
+			dbPassword = NULL;
+		}
+		dbPassword = new std::string( value );
+	}
+
+	bool $poptop SchemaDef SchemaName$ConfigurationFile::load() {
+		static const std::string S_ProcName( "load" );
+		static const std::string S_FileName( "FileName" );
+		static const std::string S_UnrecognizedTag( "Attribute tag not recognized" );
+		static const std::string S_MissingTags( "One or more tags are missing" );
+
+		if( ( fileName == NULL ) || ( fileName-&gt;length() &lt;= 0 ) ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_FileName );
+		}
+
+		std::basic_ifstream&lt;char&gt; file;
+		file.open( *fileName, std::_Ios_Openmode::_S_in );
+		if( ! file.is_open() ) {
+			return( false );
+		}
+
+		std::string line;
+		std::string::size_type posEquals;
+		std::string tag;
+		std::string value;
+		int32_t* iValue;
+
+		while( getline( file, line ) ) {
+			if( line.length() &gt; 0 ) {
+				if( line.at( 0 ) != '#' ) {
+					posEquals = line.find( '=' );
+					if( posEquals &lt;= 0 ) {
+						return( false );
+					}
+					tag = line.substr( 0, posEquals - 1 );
+					value = line.substr( posEquals + 1 );
+					if( tag == S_DBSERVER ) {
+						setDbServer( value );
+					}
+					else if( tag == S_DBPORT ) {
+						iValue = cflib::CFLibXmlUtil::parseInt32( value );
+						if( iValue != NULL ) {
+							setDbPort( *iValue );
+							delete iValue;
+							iValue = NULL;
+						}
+					}
+					else if( tag == S_DBDATABASE ) {
+						setDbDatabase( value );
+					}
+					else if( tag == S_DBUSERNAME ) {
+						setDbUserName( value );
+					}
+					else if( tag == S_DBPASSWORD ) {
+						setDbPassword( value );
+					}
+					else {
+						file.close();
+						throw cflib::CFLibRuntimeException( CLASS_NAME,
+							S_ProcName,
+							S_UnrecognizedTag );
+					}
+				}
+			}
+		}
+
+		file.close();
+
+		if( ( dbServer == NULL ) || ( dbPort &lt;= 0 ) || ( dbDatabase == NULL ) || ( dbUserName == NULL ) || ( dbPassword == NULL ) ) {
+			throw cflib::CFLibRuntimeException( CLASS_NAME,
+				S_ProcName,
+				S_MissingTags );
+		}
+
+		return( true );
+	}
+
+	bool $poptop SchemaDef SchemaName$ConfigurationFile::save() const {
+		static const std::string S_ProcName( "save" );
+		static const std::string S_FileName( "FileName" );
+		static const std::string S_Equal( "=" );
+		static const std::string S_Newline( "\n" );
+		static const std::string S_MissingAttributes( "One or more attributes have not been set" );
+
+		if( ( fileName == NULL ) || ( fileName-&gt;length() &lt;= 0 ) ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_FileName );
+		}
+
+		if( ( dbServer == NULL ) || ( dbPort &lt;= 0 ) || ( dbDatabase == NULL ) || ( dbUserName == NULL ) || ( dbPassword == NULL ) ) {
+			throw cflib::CFLibRuntimeException( CLASS_NAME,
+				S_ProcName,
+				S_MissingAttributes );
+		}
+
+		std::basic_ofstream&lt;char&gt; file;
+		file.open( *fileName, std::_Ios_Openmode::_S_trunc );
+		if( ! file.is_open() ) {
+			return( false );
+		}
+
+		std::string line;
+		std::chrono::system_clock::time_point timestamp = cflib::CFLib::getUTCTimestampInstance();
+
+		line.append( "# " );
+		line.append( cflib::CFLibXmlUtil::formatTimestamp( timestamp ) );
+		line.append( S_Newline );
+		file.write( line.data(), line.length() );
+
+		line.clear();
+		line.append( S_DBPORT );
+		line.append( S_Equal );
+		line.append( cflib::CFLibXmlUtil::formatInt32( dbPort ) );
+		line.append( S_Newline );
+		file.write( line.data(), line.length() );
+
+		line.clear();
+		line.append( S_DBPASSWORD );
+		line.append( S_Equal );
+		line.append( *dbPassword );
+		line.append( S_Newline );
+		file.write( line.data(), line.length() );
+
+		line.clear();
+		line.append( S_DBSERVER );
+		line.append( S_Equal );
+		line.append( *dbServer );
+		line.append( S_Newline );
+		file.write( line.data(), line.length() );
+
+		line.clear();
+		line.append( S_DBUSERNAME );
+		line.append( S_Equal );
+		line.append( *dbUserName );
+		line.append( S_Newline );
+		file.write( line.data(), line.length() );
+
+		line.clear();
+		line.append( S_DBDATABASE );
+		line.append( S_Equal );
+		line.append( *dbDatabase );
+		line.append( S_Newline );
+		file.write( line.data(), line.length() );
+
+		file.close();
+
+		return( true );
+	}
+</GenRule>
+
+</RuleSet>

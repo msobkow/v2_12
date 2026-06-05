@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mssql"
+	Name="schema/dbcreate/mssql/crsp_movedown_dbtablename.tsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPMoveDownDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mssql"
+		ExpansionClassName="$dbadminfilename_CreateSPMoveDownDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPMoveDownDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPMoveDownDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+use $lower DbSchemaName$
+go
+
+create proc $sp_movedown_dbtablename$$implMSSqlSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaTableCol )$,
+	@argRevision int
+as$reference Chain reference Table declMSSqlSPMoveDownTableContainerVars$$reference Chain reference Table declMSSqlSPMoveDownTableChainLinkVars$$declSPOldVars$$switch SecScope None empty System implMSSqlSPMoveDownTableDeclPermFlag Cluster implMSSqlSPMoveDownTableDeclPermFlag Tenant implMSSqlSPMoveDownTableDeclPermFlag default error$
+begin$implMSSqlSPMoveDownBody$
+	select$implMSSqlSelectTableColumns$,
+		$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$..$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMSSqlIndexColumnWhereFragBindVar each implMSSqlIndexColumnWhereAndFragBindVar )$
+end
+go
+
+quit
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownBody"
+		>$reference Chain reference Table implMSSqlSPMoveDownTableFetchContainerKeys$$reference Chain reference Table implMSSqlSPMoveDownTableLatchContainer$$implMSSqlLockTables$$implMSSqlSPMoveDownDbTablenameValidateRevision$$switch SecScope None empty System implMSSqlSPMoveDownTableCheckSystem Cluster implMSSqlSPMoveDownTableCheckCluster Tenant implMSSqlSPMoveDownTableCheckTenant default error$$reference Chain reference Table implMSSqlSPMoveDownTableChainSelectChainLinks$$reference Chain reference Table implMSSqlSPMoveDownTableIfNextBegin$$reference Chain reference Table implMSSqlSPMoveDownTableUpdatePrev$$reference Chain reference Table implMSSqlSPMoveDownTableUpdateNext$$reference Chain reference Table implMSSqlSPMoveDownTableUpdateThis$$reference Chain reference Table implMSSqlSPMoveDownTableUpdateGNext$$reference Chain reference Table implMSSqlSPMoveDownTableIfNextEnd$$reference Chain reference Table implMSSqlSPMoveDownTableUnlatchContainer$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownDbTablenameValidateRevision">
+	if @argRevision != @oldRevision
+	begin
+		raiserror( '$sp_movedown_dbtablename$() Data collision detected', 15, 1 )
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableIfNextBegin">
+	if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implMSSqlSPMoveDownTableUpdateNextIfNotNull each empty )$ )
+	begin</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableIfNextEnd">
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateTableAuditColumns3">,
+			updatedby = @argAuditUserId,
+			updatedat = sysdatetime()</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateTableAuditColumns4">,
+				updatedby = @argAuditUserId,
+				updatedat = sysdatetime()</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdatePrev">
+		if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implMSSqlSPMoveDownTableUpdatePrevIfNotNull each empty )$ )
+		begin$switch ChainTableHasSuperClassRelation yes implMSSqlSPMoveDownTableUpdatePrevTwoTables default implMSSqlSPMoveDownTableUpdatePrevOneTable$$switch BaseHasHistory yes implMSSqlSPMoveDownTableUpdatePrevAuditUpdated default empty$
+		end</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdatePrevOneTable">
+			update $lower DbSchemaName$..$reference Chain reference Table DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMSSqlSPMoveDownTableUpdateTableAuditColumns4 default empty$$reference Chain reference NextRel iterate Columns( each implMSSqlSPMoveDownTableUpdatePrevWithNextCommaKey )$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWherePrevPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$
+
+			if @@rowcount != 1
+			begin
+				raiserror( '$sp_movedown_dbtablename$() Expected to affect one previous row', 15, 1 )
+			end
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdatePrevWithNextKey"
+		>$lower reference FromCol DbColumnName$ = @varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdatePrevWithNextCommaKey">,
+				$implMSSqlSPMoveDownTableUpdatePrevWithNextKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateTableWherePrevPKeyCol"
+		>$lower reference ToCol DbColumnName$ = @varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol">
+				and $implMSSqlSPMoveDownTableUpdateTableWherePrevPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdatePrevTwoTables">
+			update $lower DbSchemaName$..$reference Chain reference Table reference BaseClass DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMSSqlSPMoveDownTableUpdateTableAuditColumns4 default empty$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWherePrevPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$
+
+			if @@rowcount != 1
+			begin
+				raiserror( '$sp_movedown_dbtablename$() Expected to affect one previous base row', 15, 1 )
+			end
+
+			update $lower DbSchemaName$..$reference Chain reference Table DbTableName$
+			set
+				$reference Chain reference NextRel iterate Columns( first implMSSqlSPMoveDownTableUpdatePrevWithNextKey each implMSSqlSPMoveDownTableUpdatePrevWithNextCommaKey )$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWherePrevPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$
+
+			if @@rowcount != 1
+			begin
+				raiserror( '$sp_movedown_dbtablename$() Expected to affect one previous chain row', 15, 1 )
+			end
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableUpdatePrevIfNotNull"
+		>@varprev$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdatePrevAuditUpdated">
+			exec sp_audit_$reference Chain reference Table lower DbTableName$ @argAuditClusterId,
+				@argAuditUserId,
+				@argAuditSessionId,
+				@secClusterId,
+				@secTenantId$reference Chain reference Table switch HasClassCode yes implMSSqlSPMoveDownTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implMSSqlSPMoveDownTableAuditUpdatedPrevPassArg )$,
+				1</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdatePrevAuditPassClassCode">,
+				@varprevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableAuditUpdatedPrevPassArg">,
+				@varprev$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateNext">
+$switch ChainTableHasSuperClassRelation yes implMSSqlSPMoveDownTableUpdateNextTwoTables default implMSSqlSPMoveDownTableUpdateNextOneTable$$switch BaseHasHistory yes implMSSqlSPMoveDownTableUpdateNextAuditUpdated default empty$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateNextOneTable">
+		update $lower DbSchemaName$..$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMSSqlSPMoveDownTableUpdateTableAuditColumns3 default empty$$reference Chain reference PrevRel iterate Columns( each implMSSqlSPMoveDownTableUpdateNextWithPrevCommaKey )$$reference Chain reference NextRel iterate Columns( each implMSSqlSPMoveDownTableUpdateNextWithThisCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWhereNextPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$
+
+		if @@rowcount != 1
+		begin
+			raiserror( '$sp_movedown_dbtablename$() Expected to affect one next row', 15, 1 )
+		end
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateNextWithThisKey"
+		>$lower reference FromCol DbColumnName$ = @arg$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateNextWithThisCommaKey">,
+			$implMSSqlSPMoveDownTableUpdateNextWithThisKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateNextWithPrevKey"
+		>$lower reference FromCol DbColumnName$ = @varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateNextWithPrevCommaKey">,
+			$implMSSqlSPMoveDownTableUpdateNextWithPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateTableWhereNextPKeyCol"
+		>$lower reference ToCol DbColumnName$ = @varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol">
+			and $implMSSqlSPMoveDownTableUpdateTableWhereNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateNextTwoTables">
+		update $lower DbSchemaName$..$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMSSqlSPMoveDownTableUpdateTableAuditColumns3 default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWhereNextPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$
+
+		if @@rowcount != 1
+		begin
+			raiserror( '$sp_movedown_dbtablename$() Expected to affect one next base row', 15, 1 )
+		end
+
+		update $lower DbSchemaName$..$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference PrevRel iterate Columns( first implMSSqlSPMoveDownTableUpdateNextWithPrevKey each implMSSqlSPMoveDownTableUpdateNextWithPrevCommaKey )$$reference Chain reference NextRel iterate Columns( each implMSSqlSPMoveDownTableUpdateNextWithThisCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWhereNextPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$
+
+		if @@rowcount != 1
+		begin
+			raiserror( '$sp_movedown_dbtablename$() Expected to affect one next chain row', 15, 1 )
+		end
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableUpdateNextIfNotNull"
+		>@varnext$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateNextAuditUpdated">
+		exec sp_audit_$reference Chain reference Table lower DbTableName$ @argAuditClusterId,
+			@argAuditUserId,
+			@argAuditSessionId,
+			@secClusterId,
+			@secTenantId$reference Chain reference Table switch HasClassCode yes implMSSqlSPMoveDownTableUpdateNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMSSqlSPMoveDownTableAuditUpdatedNextPassArg )$,
+			1</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateNextAuditPassClassCode">,
+			@varnextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableAuditUpdatedNextPassArg">,
+			@varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateThisOneTable">
+		update $lower DbSchemaName$..$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMSSqlSPMoveDownTableUpdateTableAuditColumns3 default empty$$reference Chain reference PrevRel iterate Columns( each implMSSqlSPMoveDownTableUpdateThisPrevWithCommaKey )$$reference Chain reference NextRel iterate Columns( each implMSSqlSPMoveDownTableUpdateThisNextWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWhereThisPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$
+
+		if @@rowcount != 1
+		begin
+			raiserror( '$sp_movedown_dbtablename$() Expected to affect one obj row', 15, 1 )
+		end
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateThisPrevWithKey"
+		>$lower reference FromCol DbColumnName$ = @varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateThisPrevWithCommaKey">,
+			$implMSSqlSPMoveDownTableUpdateThisPrevWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateThisNextWithKey"
+		>$lower reference FromCol DbColumnName$ = @gnext$reference ToCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateThisNextWithCommaKey">,
+			$implMSSqlSPMoveDownTableUpdateThisNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateTableWhereThisPKeyCol"
+		>$lower reference ToCol DbColumnName$ = @arg$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol">
+			and $implMSSqlSPMoveDownTableUpdateTableWhereThisPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateThisTwoTables">
+		update $lower DbSchemaName$..$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMSSqlSPMoveDownTableUpdateTableAuditColumns3 default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWhereThisPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$
+
+		if @@rowcount != 1
+		begin
+			raiserror( '$sp_movedown_dbtablename$() Expected to affect one obj base row', 15, 1 )
+		end
+
+		update $lower DbSchemaName$..$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference PrevRel iterate Columns( first implMSSqlSPMoveDownTableUpdateThisPrevWithKey each implMSSqlSPMoveDownTableUpdateThisPrevWithCommaKey )$$reference Chain reference NextRel iterate Columns( each implMSSqlSPMoveDownTableUpdateThisNextWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWhereThisPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$
+
+		if @@rowcount != 1
+		begin
+			raiserror( '$sp_movedown_dbtablename$() Expected to affect one obj chain row', 15, 1 )
+		end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateThisAuditUpdated">
+		exec sp_audit_$reference Chain reference Table lower DbTableName$ @argAuditClusterId,
+			@argAuditUserId,
+			@argAuditSessionId,
+			@secClusterId,
+			@secTenantId$reference Chain reference Table switch HasClassCode yes implMSSqlSPMoveDownTableUpdateThisAuditPassClassCode default empty$$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMSSqlSPMoveDownTableAuditUpdatedThisPassArg )$,
+			1</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateThisAuditPassClassCode">,
+			@oldClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableAuditUpdatedThisPassArg">,
+			@arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateGNext">
+		if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implMSSqlSPMoveDownTableUpdateGNextIfNotNull each empty )$ )
+		begin$switch ChainTableHasSuperClassRelation yes implMSSqlSPMoveDownTableUpdateGNextTwoTables default implMSSqlSPMoveDownTableUpdateGNextOneTable$$switch BaseHasHistory yes implMSSqlSPMoveDownTableUpdateGNextAuditUpdated default empty$
+		end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateGNextOneTable">
+			update $lower DbSchemaName$..$reference Chain reference Table DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMSSqlSPMoveDownTableUpdateTableAuditColumns4 default empty$$reference Chain reference PrevRel iterate Columns( each implMSSqlSPMoveDownTableUpdateGNextWithCommaKey )$
+			where
+				$reference Chain reference NextRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWhereGNextPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$
+
+			if @@rowcount != 1
+			begin
+				raiserror( '$sp_movedown_dbtablename$() Expected to affect one grandnext row', 15, 1 )
+			end
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateGNextWithKey"
+		>$lower reference FromCol DbColumnName$ = @arg$reference ToCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateGNextWithCommaKey">,
+				$implMSSqlSPMoveDownTableUpdateGNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateTableWhereGNextPKeyCol"
+		>$lower reference ToCol DbColumnName$ = @gnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol">
+				and $implMSSqlSPMoveDownTableUpdateTableWhereGNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateGNextTwoTables">
+			update $lower DbSchemaName$..$reference Chain reference Table reference BaseClass DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMSSqlSPMoveDownTableUpdateTableAuditColumns4 default empty$
+			where
+				$reference Chain reference NextRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWhereGNextPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$
+
+			if @@rowcount != 1
+			begin
+				raiserror( '$sp_movedown_dbtablename$() Expected to affect one grandnext base row', 15, 1 )
+			end
+
+			update $lower DbSchemaName$..$reference Chain reference Table DbTableName$
+			set
+				$reference Chain reference PrevRel iterate Columns( first implMSSqlSPMoveDownTableUpdateGNextWithKey each implMSSqlSPMoveDownTableUpdateGNextWithCommaKey )$
+			where
+				$reference Chain reference NextRel iterate Columns( first implMSSqlSPMoveDownTableUpdateTableWhereGNextPKeyCol each implMSSqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$
+
+			if @@rowcount != 1
+			begin
+				raiserror( '$sp_movedown_dbtablename$() Expected to affect one grandnext chain row', 15, 1 )
+			end
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableUpdateGNextIfNotNull"
+		>@gnext$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateGNextAuditUpdated">
+			exec sp_audit_$reference Chain reference Table lower DbTableName$ @argAuditClusterId,
+				@argAuditUserId,
+				@argAuditSessionId,
+				@secClusterId,
+				@secTenantId$reference Chain reference Table switch HasClassCode yes implMSSqlSPMoveDownTableUpdateGNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMSSqlSPMoveDownTableAuditUpdatedGNextPassArg )$,
+				1</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateGNextAuditPassClassCode">,
+				@gnextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableAuditUpdatedGNextPassArg">,
+				@gnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUpdateThis">$switch ChainTableHasSuperClassRelation yes implMSSqlSPMoveDownTableUpdateThisTwoTables default implMSSqlSPMoveDownTableUpdateThisOneTable$$switch BaseHasHistory yes implMSSqlSPMoveDownTableUpdateThisAuditUpdated default empty$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declMSSqlSPMoveDownTableChainLinkVars"
+		>$switch HasClassCode yes declMSSqlSPMoveDownTableChainLinkClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declMSSqlSPMoveDownTableChainPrevVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declMSSqlSPMoveDownTableChainNextVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declMSSqlSPMoveDownTableChainGNextVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMSSqlSPMoveDownTableChainLinkClassCode">
+	declare @varprevClassCode varchar(4)
+	declare @varnextClassCode varchar(4)
+	declare @gnextClassCode varchar(4)</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMSSqlSPMoveDownTableChainGNextVar">
+	declare @gnext$StripPrevNextColumnName$ $reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMSSqlSPMoveDownTableChainPrevVar">
+	declare @varprev$StripPrevNextColumnName$ $reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMSSqlSPMoveDownTableChainNextVar">
+	declare @varnext$StripPrevNextColumnName$ $reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectLinks"
+		>$reference Chain reference Table implMSSqlSPMoveDownTableChainSelectChainLinks$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectChainLinks">
+	select$switch HasClassCode yes implMSSqlSPMoveDownTableChainSelectPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implMSSqlSPMoveDownTableChainSelectPrevKeyComma )$$switch HasClassCode yes implMSSqlSPMoveDownTableChainSelectNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMSSqlSPMoveDownTableChainSelectNextKeyComma )$$switch HasClassCode yes implMSSqlSPMoveDownTableChainSelectGNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMSSqlSPMoveDownTableChainSelectGNextKeyComma last implMSSqlSPMoveDownTableChainSelectGNextKey )$$implMSSqlSPMoveDownTableChainSelectChainLinksFromWhere$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectChainLinksFromWhere">
+	from $lower DbSchemaName$..$reference Chain reference Table DbTableName$ $lower reference Chain reference Table ClassCode$$reference Chain reference Table switch HasSuperClassRelation yes implMSSqlSPMoveDownTableChainSelectInnerJoinSuper default empty$$implMSSqlSPMoveDownTableChainSelectOuterJoinLinkTables$
+	where
+		$reference Chain reference Table reference PrimaryKeyIndex iterate Columns( first implMSSqlSPMoveDownTableChainSelectWherePKey each implMSSqlSPMoveDownTableChainSelectWhereAndPKey )$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectInnerJoinSuper">
+		inner join $lower DbSchemaName$..$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implMSSqlSPMoveDownTableChainSelectOnKeySuper each implMSSqlSPMoveDownTableChainSelectOnKeyAndSuper )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOnKeySuper"
+		>$lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$ = $lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOnKeyAndSuper">
+			and $implMSSqlSPMoveDownTableChainSelectOnKeySuper$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectWherePKey"
+		>$lower poptop Table reference Chain reference Table ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectWhereAndPKey">
+		and $implMSSqlSPMoveDownTableChainSelectWherePKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectOuterJoinLinkTables">
+		left outer join $lower DbSchemaName$..$DbTableName$ prv$lower ClassCode$ on
+			$reference Chain reference PrevRel iterate Columns( first implMSSqlSPMoveDownTableChainSelectOJPrevKey each implMSSqlSPMoveDownTableChainSelectOJAndPrevKey )$$switch HasSuperClassRelation yes implMSSqlSPMoveDownTableChainSelectOuterJoinPrevSuper default empty$
+		left outer join $lower DbSchemaName$..$DbTableName$ nxt$lower ClassCode$ on
+			$reference Chain reference NextRel iterate Columns( first implMSSqlSPMoveDownTableChainSelectOJNextKey each implMSSqlSPMoveDownTableChainSelectOJAndNextKey )$$switch HasSuperClassRelation yes implMSSqlSPMoveDownTableChainSelectOuterJoinNextSuper default empty$$switch HasClassCode yes implMSSqlSPMoveDownTableChainSelectOuterJoinGNextTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectOuterJoinGNextTable">
+		left outer join $lower DbSchemaName$..$DbTableName$ gnxt$lower ClassCode$ on
+			$reference Chain reference NextRel iterate Columns( first implMSSqlSPMoveDownTableChainSelectOJGNextKey each implMSSqlSPMoveDownTableChainSelectOJAndGNextKey )$$switch HasSuperClassRelation yes implMSSqlSPMoveDownTableChainSelectOuterJoinGNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectOuterJoinGNextSuper">
+		left outer join $lower DbSchemaName$..$reference SuperClassRelation reference ToTable DbTableName$ gnxt$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implMSSqlSPMoveDownTableChainSelectOuterJoinGNextSuperKey each implMSSqlSPMoveDownTableChainSelectOuterJoinGNextSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implMSSqlSPMoveDownTableChainSelectOuterJoinGNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOuterJoinGNextSuperKey"
+		>gnxt$lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$ = gnxt$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOuterJoinGNextSuperAndKey">
+			and $implMSSqlSPMoveDownTableChainSelectOuterJoinGNextSuperKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectOuterJoinPrevSuper">
+		left outer join $lower DbSchemaName$..$reference SuperClassRelation reference ToTable DbTableName$ prv$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implMSSqlSPMoveDownTableChainSelectOuterJoinPrevSuperKey each implMSSqlSPMoveDownTableChainSelectOuterJoinPrevSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implMSSqlSPMoveDownTableChainSelectOuterJoinPrevSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOuterJoinPrevSuperKey"
+		>prv$lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$ = prv$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOuterJoinPrevSuperAndKey">
+			and $implMSSqlSPMoveDownTableChainSelectOuterJoinPrevSuperKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectOuterJoinNextSuper">
+		left outer join $lower DbSchemaName$..$reference SuperClassRelation reference ToTable DbTableName$ nxt$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implMSSqlSPMoveDownTableChainSelectOuterJoinNextSuperKey each implMSSqlSPMoveDownTableChainSelectOuterJoinNextSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implMSSqlSPMoveDownTableChainSelectOuterJoinNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOuterJoinNextSuperKey"
+		>nxt$lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$ = nxt$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOuterJoinNextSuperAndKey">
+			and $implMSSqlSPMoveDownTableChainSelectOuterJoinNextSuperKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOJGNextKey"
+		>gnxt$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$ = nxt$lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOJAndGNextKey">
+			and $implMSSqlSPMoveDownTableChainSelectOJGNextKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOJPrevKey"
+		>prv$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOJAndPrevKey">
+			and $implMSSqlSPMoveDownTableChainSelectOJPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOJNextKey"
+		>nxt$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableChainSelectOJAndNextKey">
+			and $implMSSqlSPMoveDownTableChainSelectOJNextKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectGNextClassCodeComma">
+		@gnextClassCode = gnxt$lower reference BaseClass ClassCode$.classcode,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectPrevClassCodeComma">
+		@varprevClassCode = prv$lower reference BaseClass ClassCode$.classcode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectGNextKeyComma">
+		@gnext$StripPrevNextColumnName$ = nxt$lower popto Table reference Chain reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectGNextKey">
+		@gnext$StripPrevNextColumnName$ = nxt$lower popto Table reference Chain reference Table ClassCode$.$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectPrevKeyComma">
+		@varprev$StripPrevNextColumnName$ = $lower popto Table reference Chain reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectNextClassCodeComma">
+		@varnextClassCode = nxt$lower reference Chain reference Table reference BaseClass ClassCode$.classcode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectNextKey">
+		@varnext$StripPrevNextColumnName$ = $lower popto Table reference Chain reference Table ClassCode$.$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectNextKeyComma"
+		>$implMSSqlSPMoveDownTableChainSelectNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectIntoGNextClassCodeComma">
+		@gnextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectIntoGNextKeyComma">
+		@gnext$StripPrevNextColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectIntoGNextKey">
+		@gnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectIntoPrevClassCodeComma">
+		@varprevClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectIntoPrevKeyComma">
+		@varprev$StripPrevNextColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableChainSelectIntoNextClassCodeComma">
+		@varnextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectIntoNextKey">
+		@varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableChainSelectIntoNextKeyComma"
+		>$implMSSqlSPMoveDownTableChainSelectIntoNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableFetchContainerKeys">
+	select$reference ContainerRelation iterate Columns( first implMSSqlSPMoveDownTableFetchContainerKeysColName each implMSSqlSPMoveDownTableFetchContainerKeysCommaColName )$
+	from $lower DbSchemaName$..$reference ContainerRelation reference FromTable DbTableName$
+	where$reference ContainerRelation reference FromTable reference PrimaryKeyIndex iterate Columns( first implMSSqlSPMoveDownTableFetchContainerKeysPassPKey each implMSSqlSPMoveDownTableFetchContainerKeysAndPassPKey )$
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableFetchContainerKeysColName">
+		@var$Name$ = $lower reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableFetchContainerKeysCommaColName"
+		>,$implMSSqlSPMoveDownTableFetchContainerKeysColName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableFetchContainerKeysPassPKey">
+		$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPMoveDownTableFetchContainerKeysAndPassPKey">
+		and $lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMSSqlSPMoveDownTableContainerVars"
+		>$switch DoesContainerRelationNarrow yes declMSSqlSPMoveDownTableChaseContainerVars default declMSSqlSPMoveDownTableActualContainerVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMSSqlSPMoveDownTableChaseContainerVars"
+		>$reference ContainerRelation reference Narrowed declMSSqlSPMoveDownTableContainerVars$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declMSSqlSPMoveDownTableContainerVars"
+		>$switch HasNarrowed yes declMSSqlSPMoveDownTableChaseContainerVars default declMSSqlSPMoveDownTableActualContainerVars$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declMSSqlSPMoveDownTableActualContainerVars"
+		>$iterate Columns( each declMSSqlSPMoveDownTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declMSSqlSPMoveDownTableChaseContainerVars"
+		>$reference Narrowed declMSSqlSPMoveDownTableContainerVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMSSqlSPMoveDownTableActualContainerVars"
+		>$reference ContainerRelation iterate Columns( each declMSSqlSPMoveDownTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="declMSSqlSPMoveDownTableContainerVar">
+	declare @var$reference FromCol Name$ $reference FromCol clause_SPColType$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implMSSqlSPMoveDownTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableLatchBase">
+	update $lower DbSchemaName$..$DbTableName$
+	set revision = revision + 1
+	where
+		$popto Relation iterate Columns( first implMSSqlSPMoveDownTableLatchWhereArg each implMSSqlSPMoveDownTableLatchWhereAndArg )$
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableLatchWhereArg"
+		>$lower reference ToCol DbColumnName$ = @var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPMoveDownTableLatchWhereAndArg">
+		and $implMSSqlSPMoveDownTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implMSSqlSPMoveDownTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableUnlatchBase">
+	update $lower DbSchemaName$..$DbTableName$
+	set revision = revision - 1
+	where
+		$popto Relation iterate Columns( first implMSSqlSPMoveDownTableLatchWhereArg each implMSSqlSPMoveDownTableLatchWhereAndArg )$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableArgSecClusterId">,
+	@secClusterId</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableArgSecTenantId">,
+	@secTenantId</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableDeclPermFlag">
+	declare @permissionFlag int</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableCheckSystem">
+	exec sp_is_system_user @permissionFlag output, @argAuditUserId
+	if( @permissionFlag = 0 )
+	begin
+		raiserror( 'Permission denied -- only system user can movedown $TableName$ records', 15, 1 )
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableCheckCluster">
+	if( @old$reference ClusterIdColumn Name$ != @secClusterId )
+	begin
+		exec sp_is_system_user @permissionFlag output, @argAuditUserId
+		if( @permissionFlag = 0 )
+		begin
+			raiserror( 'Permission denied -- Data is not owned by logged in cluster', 15, 1 )
+		end
+	end
+
+	exec sp_is_cluster_user @permissionFlag output, @old$reference ClusterIdColumn Name$, 'Update$Name$', @argAuditUserId
+	if( @permissionFlag = 0 )
+	begin
+		raiserror( 'Permission denied -- User not found in cluster SecGroup for Update$TableName$', 15, 1 )
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPMoveDownTableCheckTenant">
+	if( @old$reference TenantIdColumn Name$ != @secTenantId )
+	begin
+		exec sp_is_system_user @permissionFlag output, @argAuditUserId
+		if( @permissionFlag = 0 )
+		begin
+			raiserror( 'Permission denied -- Data is not owned by logged in tenant', 15, 1 )
+		end
+	end
+
+	exec sp_is_tenant_user @permissionFlag output, @old$reference TenantIdColumn Name$, 'Update$Name$', @argAuditUserId
+	if( @permissionFlag = 0 )
+	begin
+		raiserror( 'Permission denied -- User not found in tenant TSecGroup for Update$TableName$', 15, 1 )
+	end
+</GenRule>
+
+</RuleSet>

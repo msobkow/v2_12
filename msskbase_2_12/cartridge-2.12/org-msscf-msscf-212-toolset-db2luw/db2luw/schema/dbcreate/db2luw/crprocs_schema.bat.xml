@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crprocs_schema.bat"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile GenDef="SchemaDef" Name="dbadminfile_CreateAllStoredProcsBat"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="crprocs_$lower SchemaName$Bat"
+		ExpansionKeyName="crprocs_$lower SchemaName$Bat"
+		ExpansionFileName="$dbadminfilename_CreateAllStoredProcsBat$">@echo off
+REM
+REM	@(#) $GenPackageDir$/$GenFileName$
+$MssBatScriptLicense$
+$invoke_CreateSPIsSystemUserBat$$invoke_CreateSPIsClusterUserBat$$invoke_CreateSPIsTenantUserBat$$iterate Id16Generators( each invoke_CreateSPNextSchemaIdGenBat empty empty )$$iterate Id32Generators( each invoke_CreateSPNextSchemaIdGenBat empty empty )$$iterate Id64Generators( each invoke_CreateSPNextSchemaIdGenBat empty empty )$$iterate SchemaTables( each invoke_CreateTableIdGensBat )$$invoke_CreateSPBootstrapBat$$iterate SchemaTables( each invoke_CreateAuditProcsBat empty empty )$$iterate SchemaTables( each invoke_CreateStoredProcsBat empty empty )$$iterate SchemaTables( each invoke_CreateDeleteStubBat empty empty )$$iterate SchemaTables( each invoke_CreateDeleteBySuffixBat empty empty )$$iterate SchemaTables( each invoke_CreateDeleteBat empty empty )$
+</GenFile>
+
+	<GenRule GenDef="Table" Name="invoke_CreateAuditProcsBat"
+		>$switch ThisHasChain yes reallyinvoke_CreateSPAuditDbTableNameBat default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyinvoke_CreateSPAuditDbTableNameBat"
+		>echo #	Running $dbadminfilename_CreateSPAuditDbTableName$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPAuditDbTableName$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateDeleteBat"
+		>$invoke_CreateSPDeleteDbTableNameBat$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateDeleteStubBat"
+		>$invoke_CreateSPDeleteDbTableNameStubBat$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateDeleteBySuffixBat"
+		>$invoke_CreateSPDeleteDbTableNameBySuffixBat$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateSPDeleteDbTableNameBySuffixBat"
+		>$switch HasSuperClassRelation yes invoke_CreateSPDeleteDbTableNameByInhSuffixBat default invoke_CreateSPDeleteDbTableNameByBaseSuffixBat$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateSPDeleteDbTableNameByInhSuffixBat"
+		>$reference SuperClassRelation reference ToTable invoke_CreateSPDeleteDbTableNameBySuffixBat$$iterate Index( each invoke_CreateSPDeleteDbTableNameByNonPrimarySuffixBat empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="invoke_CreateSPDeleteDbTableNameByNonPrimarySuffixBat"
+		>$switch IsPrimaryIndex yes empty default invoke_CreateSPDeleteDbTableNameBySuffixBat$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateSPDeleteDbTableNameByBaseSuffixBat"
+		>$iterate Index( each invoke_CreateSPDeleteDbTableNameBySuffixBat )$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateTableIdGensBat"
+		>$iterate DispensedId16Generators( each invoke_CreateSPNextTableIdGenBat empty empty )$$iterate DispensedId32Generators( each invoke_CreateSPNextTableIdGenBat empty empty )$$iterate DispensedId64Generators( each invoke_CreateSPNextTableIdGenBat empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateStoredProcsBat"
+		>$maybe_invoke_CreateSPCreateDbTableNameBat$$invoke_CreateSPLockDbTableNameBat$$invoke_CreateSPReadDbTableNameBat$$maybe_invoke_CreateSPReadDbTableNameCCBat$$invoke_CreateSPReadDbTableNameAllBat$$switch PageData yes invoke_CreateSPPageDbTableNameAllBat default empty$$maybe_invoke_CreateSPReadDbTableNameCCAllBat$$invoke_SPReadByIndexesBat$$maybe_invoke_CreateSPUpdateDbTableNameBat$$switch HasChain yes invoke_CreateSPMoveUpDbTableNameBat default empty$$switch HasChain yes invoke_CreateSPMoveDownDbTableNameBat default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateSPMoveUpDbTableNameBat"
+		>echo "#	Running $dbadminfilename_CreateSPMoveUpDbTableName$ ..."
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPMoveUpDbTableName$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateSPMoveDownDbTableNameBat"
+		>echo "#	Running $dbadminfilename_CreateSPMoveDownDbTableName$ ..."
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPMoveDownDbTableName$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="maybe_invoke_CreateSPCreateDbTableNameBat"
+		>$invoke_CreateSPCreateDbTableNameBat$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybe_invoke_CreateSPUpdateDbTableNameBat"
+		>$invoke_CreateSPUpdateDbTableNameBat$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybe_invoke_CreateSPReadDbTableNameCCBat"
+		>$switch HasSubClasses yes invoke_CreateSPReadDbTableNameCCBat default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybe_invoke_CreateSPReadDbTableNameCCAllBat"
+		>$switch HasSubClasses yes invoke_CreateSPReadDbTableNameCCAllBat default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_SPReadByIndexesBat"
+		>$switch HasSuperClassRelation yes invoke_SPReadByInhIndexesBat default invoke_SPReadByBaseIndexesBat$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_SPReadByInhIndexesBat"
+		>$reference SuperClassRelation reference ToTable invoke_SPReadByIndexesBat$$iterate Index( each maybe_invoke_CreateSPReadDbTableNameBySuffixBat )$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_SPReadByBaseIndexesBat"
+		>$iterate Index( each invoke_non_nullable_ReadBySuffixProcsBat )$</GenRule>
+
+	<GenRule GenDef="Index" Name="invoke_non_primary_nullable_ReadBySuffixProcsBat"
+		>$switch IsPrimaryIndex yes empty default invoke_non_nullable_ReadBySuffixProcsBat$</GenRule>
+
+	<GenRule GenDef="Index" Name="invoke_non_nullable_ReadBySuffixProcsBat"
+		>$invoke_non_nullable_CreateSPReadDbTableNameBySuffixBat$$invoke_non_nullable_CreateSPReadDbTableNameCCBySuffixBat$$switch PageData yes maybe_CreateSPPageDbTableNameBySuffix default empty$</GenRule>
+
+	<GenRule GenDef="Index" Name="maybe_CreateSPPageDbTableNameBySuffix"
+		>$switch IsUnique yes empty default invoke_CreateSPPageDbTableNameBySuffix$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="invoke_CreateSPBootstrapBat"
+>echo #	Running $dbadminfilename_CreateSPBootstrap$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPBootstrap$
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="invoke_CreateSPIsSystemUserBat"
+>echo #	Running $dbadminfilename_CreateSPIsSystemUser$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPIsSystemUser$
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="invoke_CreateSPIsClusterUserBat"
+>echo #	Running $dbadminfilename_CreateSPIsClusterUser$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPIsClusterUser$
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="invoke_CreateSPIsTenantUserBat"
+>echo #	Running $dbadminfilename_CreateSPIsTenantUser$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPIsTenantUser$
+</GenRule>
+
+	<GenRule GenDef="Id16Gen" Name="invoke_CreateSPNextSchemaIdGenBat"
+>echo #	Running $dbadminfilename_CreateSPNextSchemaIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPNextSchemaIdGen$
+
+echo #	Running $dbadminfilename_CreateSFNextSchemaIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSFNextSchemaIdGen$
+</GenRule>
+
+	<GenRule GenDef="Id32Gen" Name="invoke_CreateSPNextSchemaIdGenBat"
+>echo #	Running $dbadminfilename_CreateSPNextSchemaIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPNextSchemaIdGen$
+
+echo #	Running $dbadminfilename_CreateSFNextSchemaIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSFNextSchemaIdGen$
+</GenRule>
+	<GenRule GenDef="Id64Gen" Name="invoke_CreateSPNextSchemaIdGenBat"
+>echo #	Running $dbadminfilename_CreateSPNextSchemaIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPNextSchemaIdGen$
+
+echo #	Running $dbadminfilename_CreateSFNextSchemaIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSFNextSchemaIdGen$
+</GenRule>
+
+	<GenRule GenDef="Id16Gen" Name="invoke_CreateSPNextTableIdGenBat"
+>echo #	Running $dbadminfilename_CreateSPNextTableIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPNextTableIdGen$
+
+echo #	Running $dbadminfilename_CreateSFNextTableIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSFNextTableIdGen$
+</GenRule>
+	<GenRule GenDef="Id32Gen" Name="invoke_CreateSPNextTableIdGenBat"
+>echo #	Running $dbadminfilename_CreateSPNextTableIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPNextTableIdGen$
+
+echo #	Running $dbadminfilename_CreateSFNextTableIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSFNextTableIdGen$
+</GenRule>
+	<GenRule GenDef="Id64Gen" Name="invoke_CreateSPNextTableIdGenBat"
+>echo #	Running $dbadminfilename_CreateSPNextTableIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPNextTableIdGen$
+
+echo #	Running $dbadminfilename_CreateSFNextTableIdGen$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSFNextTableIdGen$
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="maybe_invoke_CreateSPReadDbTableNameBySuffixBat">$switch IsPrimaryIndex no invoke_non_nullable_CreateSPReadDbTableNameBySuffixBat default empty$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="invoke_non_nullable_CreateSPReadDbTableNameBySuffixBat">$invoke_CreateSPReadDbTableNameBySuffixBat$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="invoke_non_nullable_CreateSPReadDbTableNameCCBySuffixBat">$maybe_invoke_CreateSPReadDbTableNameCCBySuffixBat$</GenRule>
+
+	<GenRule GenDef="Index" Name="maybe_invoke_CreateSPReadDbTableNameCCBySuffixBat"
+		>$switch TopHasSubClasses yes invoke_CreateSPReadDbTableNameCCBySuffixBat default empty$</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPCreateDbTableNameBat"
+		>echo #	Running $dbadminfilename_CreateSPCreateDbTableName$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPCreateDbTableName$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPLockDbTableNameBat"
+		>echo #	Running $dbadminfilename_CreateSPLockDbTableName$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPLockDbTableName$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPReadDbTableNameBat"
+		>echo #	Running $dbadminfilename_CreateSPReadDbTableName$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPReadDbTableName$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPReadDbTableNameAllBat"
+		>echo #	Running $dbadminfilename_CreateSPReadDbTableNameAll$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPReadDbTableNameAll$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPPageDbTableNameAllBat"
+		>echo #	Running $dbadminfilename_CreateSPPageDbTableNameAll$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPPageDbTableNameAll$
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="invoke_CreateSPReadDbTableNameBySuffixBat"
+		>echo #	Running $dbadminfilename_CreateSPReadDbTableNameBySuffix$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPReadDbTableNameBySuffix$
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="invoke_CreateSPPageDbTableNameBySuffixBat"
+		>echo #	Running $dbadminfilename_CreateSPPageDbTableNameBySuffix$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPPageDbTableNameBySuffix$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPReadDbTableNameCCBat"
+		>echo #	Running $dbadminfilename_CreateSPReadDbTableNameCC$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPReadDbTableNameCC$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPReadDbTableNameCCAllBat"
+		>echo #	Running $dbadminfilename_CreateSPReadDbTableNameCCAll$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPReadDbTableNameCCAll$
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="invoke_CreateSPReadDbTableNameCCBySuffixBat"
+		>echo #	Running $dbadminfilename_CreateSPReadDbTableNameCCBySuffix$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPReadDbTableNameCCBySuffix$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPUpdateDbTableNameBat"
+		>echo #	Running $dbadminfilename_CreateSPUpdateDbTableName$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPUpdateDbTableName$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPDeleteDbTableNameBat"
+		>echo #	Running $dbadminfilename_CreateSPDeleteDbTableName$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPDeleteDbTableName$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPDeleteDbTableNameStubBat"
+		>echo #	Running $dbadminfilename_CreateSPDeleteDbTableNameStub$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPDeleteDbTableNameStub$
+</GenRule>
+
+	<GenRule GenDef="Index" Name="invoke_CreateSPDeleteDbTableNameBySuffixBat"
+		>echo #	Running $dbadminfilename_CreateSPDeleteDbTableNameBySuffix$ ...
+$BeginCallSqlScriptBat$$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$
+</GenRule>
+
+</RuleSet>

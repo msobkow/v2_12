@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/Schema/SchemaTableDefaultFactory.java"
+	Revision="2.12"
+	Descr="Java 11 Default Factory implementation for $TableName$">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableDefaultFactoryJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$$TableName$DefaultFactoryJava"
+		ExpansionKeyName="$SchemaName$$TableName$DefaultFactoryJava"
+		ExpansionFileName="$SchemaName$$TableName$DefaultFactory.java">
+// Description: Java 11 Default Factory implementation for $TableName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$;
+
+import java.lang.reflect.*;
+import java.net.*;
+import java.rmi.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$
+
+	/*
+	 *	$SchemaName$$TableName$Factory implementation for $TableName$
+	 */
+public class $SchemaName$$TableName$DefaultFactory$switch HasDefSchema yes extendSchemaTableDefaultFactory default empty$
+	implements I$SchemaName$$TableName$Factory
+{$switch HasDefSchema yes implDefaultFactoryInhConstruct default implDefaultFactoryConstruct$$implDefaultFactoryMethods$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implDefaultFactoryMethods"
+		>$switch HasSuperClassRelation no implNewPKey default empty$$switch HasSuperClassRelation no implNewHPKey default empty$$iterate Index( each implNewNonPrimaryIndexKey )$$implNewBuff$$implNewHBuff$</GenRule>
+
+	<GenRule GenDef="Table" Name="extendSchemaTableDefaultFactory">
+	extends $reference DefSchema SchemaName$$TableName$DefaultFactory</GenRule>
+
+	<GenRule GenDef="Table" Name="implDefaultFactoryConstruct">
+	public $poptop SchemaDef SchemaName$$TableName$DefaultFactory() {
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDefaultFactoryInhConstruct">
+	public $poptop SchemaDef SchemaName$$TableName$DefaultFactory() {
+		super();
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implNewNonPrimaryIndexKey"
+		>$switch IsPrimaryIndex yes empty default implNewIndexKey$</GenRule>
+
+	<GenRule GenDef="Index" Name="implNewIndexKey">
+	public $DefSchemaName$$TableName$By$Suffix$Key new$Suffix$Key() {
+		$DefSchemaName$$TableName$By$Suffix$Key key =
+			new $DefSchemaName$$TableName$By$Suffix$Key();
+		return( key );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implNewPKey">
+	public $DefSchemaName$$reference BaseClass TableName$PKey newPKey() {
+		$DefSchemaName$$reference BaseClass TableName$PKey pkey =
+			new $DefSchemaName$$reference BaseClass TableName$PKey();
+		return( pkey );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implNewHPKey">
+	public $DefSchemaName$$reference BaseClass TableName$HPKey newHPKey() {
+		$DefSchemaName$$reference BaseClass TableName$HPKey hpkey =
+			new $DefSchemaName$$reference BaseClass TableName$HPKey();
+		return( hpkey );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implNewBuff">
+	public $DefSchemaName$$TableName$Buff newBuff() {
+		$DefSchemaName$$TableName$Buff buff =
+			new $DefSchemaName$$TableName$Buff();
+		return( buff );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implNewHBuff">
+	public $DefSchemaName$$TableName$HBuff newHBuff() {
+		$DefSchemaName$$TableName$HBuff hbuff =
+			new $DefSchemaName$$TableName$HBuff();
+		return( hbuff );
+	}
+</GenRule>
+
+</RuleSet>

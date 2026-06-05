@@ -1,0 +1,1083 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/Obj.cpp"
+	Revision="2.12"
+	Descr="C++18 base object instance implementation">
+
+	<GenFile GenDef="Table" Name="fileObjCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$$TableName$ObjCpp"
+		ExpansionKeyName="$SchemaName$$TableName$ObjCpp"
+		ExpansionFileName="$SchemaName$$TableName$Obj.cpp"
+>// Description: C++18 base object instance implementation for $SchemaName$ $TableName$.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;$maybeIncludeIObjInheritSuperClass$$maybeIncludeObjInheritSuperClass$
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+#include &lt;$lower SchemaName$obj/$SchemaName$$TableName$Obj.hpp&gt;$CPlusObjInclude$
+
+namespace $CPlusNamespace$ {
+
+	const std::string $SchemaName$$TableName$Obj::CLASS_NAME( "$SchemaName$$TableName$Obj" );
+	const classcode_t $SchemaName$$TableName$Obj::CLASS_CODE = 0x$ClassCode$L;
+$implSchemaTableObjAllTheMethods$$CPlusObjImplementation$
+}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implObjGetRequiredRevision">
+	int32_t $poptop Table SchemaName$$poptop Table TableName$Obj::getRequiredRevision() const {
+		return( buff-&gt;getRequiredRevision() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="includeObjCPlusISchemaTableObjHpp">
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$Obj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeObjCPlusISchemaTableEditObjHpp">
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$EditObj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeObjCPlusISchemaTableTableObjHpp">
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$TableObj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implCPlusObjServerMethod"
+		>$switch IsInstanceMethod yes implCPlusObjInstServerProc default empty$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implCPlusObjInstServerProc">
+	bool $poptop Table SchemaName$$poptop Table TableName$Obj::$leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		bool retval = dynamic_cast&lt;$CPlusNamespace$::I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$TableName$TableObj()-&gt;$leadlower Name$( this$iterate Params( each passServerMethodParam empty empty )$ );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implCPlusObjServerMethod"
+		>$switch IsInstanceMethod yes implCPlusObjInstServerObjFunc default empty$</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implCPlusObjInstServerObjFunc">
+	$CPlusDefNamespace$::I$DefSchemaName$$reference RetTable Name$Obj* $poptop Table SchemaName$$poptop Table TableName$Obj::$leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		$CPlusDefNamespace$::I$DefSchemaName$$reference RetTable Name$Obj* retval = dynamic_cast&lt;$CPlusNamespace$::I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$TableName$TableObj()-&gt;$leadlower Name$( this$iterate Params( each passServerMethodParam empty empty )$ );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implCPlusObjServerMethod"
+		>$switch IsInstanceMethod yes implCPlusObjInstServerListFunc default empty$</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implCPlusObjInstServerListFunc">
+	std::vector&lt;$CPlusDefNamespace$::I$DefSchemaName$$reference RetTable Name$Obj*&gt; $poptop Table SchemaName$$poptop Table TableName$Obj::$leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		std::vector&lt;$CPlusDefNamespace$::I$DefSchemaName$$reference RetTable Name$Obj*&gt; retval = dynamic_cast&lt;$CPlusNamespace$::I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$TableName$TableObj()-&gt;$leadlower Name$( this$iterate Params( each passServerMethodParam empty empty )$ );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjGetAuditColumns">
+	$CPlusSecNamespace$::I$SecSchemaName$SecUserObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getCreatedBy() {
+		if( createdBy == NULL ) {
+			createdBy = dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;getSecUserTableObj()-&gt;readSecUserByIdIdx( get$TableName$Buff()-&gt;getCreatedByUserId() );
+		}
+		return( createdBy );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $poptop Table SchemaName$$poptop Table TableName$Obj::getCreatedAt() {
+		return( get$TableName$Buff()-&gt;getCreatedAt() );
+	}
+
+	$CPlusSecNamespace$::I$SecSchemaName$SecUserObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getUpdatedBy() {
+		if( updatedBy == NULL ) {
+			updatedBy = dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;getSecUserTableObj()-&gt;readSecUserByIdIdx( get$TableName$Buff()-&gt;getUpdatedByUserId() );
+		}
+		return( updatedBy );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $poptop Table SchemaName$$poptop Table TableName$Obj::getUpdatedAt() {
+		return( get$TableName$Buff()-&gt;getUpdatedAt() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableObjDataColumnAccessors"
+		>$iterate DataColumns( each implObjColumnAccessors empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableObjBaseColumnAccessors"
+		>$iterate Columns( each implObjColumnAccessors empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableObjAllTheMethods">$switch HasSuperClassRelation no implObjGetRequiredRevision default empty$$switch HasSuperClassRelation yes implSchemaTableObjDataColumnAccessors default implSchemaTableObjBaseColumnAccessors$
+$iterate Relation( each implObjRelationAccessors empty empty )$
+	$poptop Table SchemaName$$poptop Table TableName$Obj::$SchemaName$$TableName$Obj()
+	: I$SchemaName$$TableName$Obj()$iterate TableRefs( each implObjConstructorAlsoConstructRefInterface empty empty )$$switch HasSuperClassRelation yes implObjConstructorInvokeSuper default empty$
+	{$switch HasSuperClassRelation no implObjConstructorClearSchema default empty$$switch HasSuperClassRelation no implObjConstructorInitIsNew default empty$$switch HasSuperClassRelation no implObjConstructorInitEdit default empty$
+	}
+
+	$poptop Table SchemaName$$poptop Table TableName$Obj::$SchemaName$$TableName$Obj( $CPlusDefNamespace$::I$DefSchemaName$SchemaObj* argSchema )
+	: I$SchemaName$$TableName$Obj()$iterate TableRefs( each implObjConstructorAlsoConstructRefInterface empty empty )$$switch HasSuperClassRelation yes implObjSchemaConstructorInvokeSuperSchema default empty$
+	{$switch HasSuperClassRelation no implObjConstructorInitSchema default empty$$switch HasSuperClassRelation no implObjConstructorInitIsNew default empty$$switch HasSuperClassRelation no implObjConstructorInitEdit default empty$
+	}
+
+	$poptop Table SchemaName$$poptop Table TableName$Obj::~$SchemaName$$TableName$Obj() {$switch HasSuperClassRelation no implObjConstructorClearSchema default empty$$switch HasSuperClassRelation no implObjDestructorDeleteBaseMembers default empty$
+	}
+$implSchemaObjMethods$$iterate ServerMethods( each implCPlusObjServerMethod empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjDestructorDeleteBaseMembers">
+		if( edit != NULL ) {
+			delete edit;
+			edit = NULL;
+		}
+		if( buff != NULL ) {
+			delete buff;
+			buff = NULL;
+		}
+		if( pKey != NULL ) {
+			delete pKey;
+			pKey = NULL;
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorAlsoConstructRefInterface">,
+	  I$SchemaName$$TableName$Obj()</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorInvokeSuper"
+		>$reference SuperClassRelation reference ToTable implObjConstructorReallyInvokeSuper$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorReallyInvokeSuper">,
+	  $SchemaName$$TableName$Obj()</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjSchemaConstructorInvokeSuperSchema"
+		>$reference SuperClassRelation reference ToTable implObjSchemaConstructorReallyInvokeSuperSchema$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjSchemaConstructorReallyInvokeSuperSchema">,
+	  $SchemaName$$TableName$Obj( argSchema )</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaObjMethods"
+		>$implObjTableGetBuff$$implGetClassCode$$implGetObjName$$implGetGenDefName$$maybeImplGetScope$$implGetObjQualifier$$implGetQualNamedObject$$implGetNamedObject$$implGetObjQualifiedName$$implGetObjFullName$$implObjRealize$$implObjRead$$switch HasChain yes implObjMoveUp default empty$$switch HasChain yes implObjMoveDown default empty$$switch HasSuperClassRelation no implObjTableAccessors default empty$$switch HasSuperClassRelation no implObjSchemaAccessors default empty$$switch HasSuperClassRelation no implObjPKeyAccessors default empty$$switch HasSuperClassRelation no implObjIsNewAccessors default empty$$implObjBeginEdit$$switch HasSuperClassRelation no implObjEndEdit default empty$$switch HasSuperClassRelation no implObjEditAccessors default empty$$implObjEditAsAccessors$$switch HasSuperClassRelation no maybeImplObjGetAuditColumns default empty$$switch HasSuperClassRelation no implObjCopyPKeyToBuff default empty$$switch HasSuperClassRelation no implObjCopyBuffToPKey default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplObjGetAuditColumns"
+		>$switch BaseHasAuditColumns yes implObjGetAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetClassCode">
+	const std::string&amp; $poptop Table SchemaName$$poptop Table TableName$Obj::getClassName() const {
+		return( CLASS_NAME );
+	}
+
+	const classcode_t $poptop Table SchemaName$$poptop Table TableName$Obj::getClassCode() const {
+		return( CLASS_CODE );
+	}
+
+	bool $poptop Table SchemaName$$poptop Table TableName$Obj::implementsClassCode( const classcode_t value ) const {
+		if( value == $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::CLASS_CODE ) {
+			return( true );
+		}$switch HasSuperClassRelation yes implObjImplementsClassCodeCheckSuper default implObjImplementsClassCodeElseFalse$
+	}
+
+	std::string $poptop Table SchemaName$$poptop Table TableName$Obj::toString() {
+		static const std::string S_Space( " " );
+		static const std::string S_Preamble( "&lt;$SchemaName$$TableName$Obj" );
+		static const std::string S_Postamble( "/&gt;" );
+		static const std::string S_Revision( "Revision" );$switch BaseHasAuditColumns yes implToStringAuditColumnNames default empty$$implObjToStringColumnNames$
+		std::string ret( S_Preamble );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredInt32( &amp;S_Space, S_Revision, $poptop Table SchemaName$$poptop Table reference BaseClass TableName$Obj::getRequiredRevision() ) );$switch BaseHasAuditColumns yes implObjToStringFormatAuditColumns default empty$$implObjToStringEmitXmlAttr$
+		ret.append( S_Postamble );
+		return( ret );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjImplementsClassCodeCheckSuper">
+		else {
+			return( $reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$Obj::implementsClassCode( value ) );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjImplementsClassCodeElseFalse">
+		else {
+			return( false );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjToStringColumnNames"
+		>$switch HasSuperClassRelation yes implObjToStringSuperColumnNames default implObjToStringBaseColumnNames$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjToStringSuperColumnNames"
+		>$reference SuperClassRelation reference ToTable implObjToStringColumnNames$$iterate DataColumns( each implObjToStringColumnName empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjToStringBaseColumnNames"
+		>$iterate Columns( each implObjToStringColumnName empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implObjToStringColumnName">
+		static const std::string S_$Name$( "$Name$" );</GenRule>
+
+	<GenRule GenDef="Table" Name="implToStringAuditColumnNames">
+		static const std::string S_CreatedBy( "CreatedBy" );
+		static const std::string S_CreatedAt( "CreatedAt" );
+		static const std::string S_UpdatedBy( "UpdatedBy" );
+		static const std::string S_UpdatedAt( "UpdatedAt" );</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjToStringFormatAuditColumns">
+		ret.append( cflib::CFLibXmlUtil::formatRequiredXmlString( &amp;S_Space, S_CreatedBy, $poptop Table SchemaName$$poptop Table reference BaseClass TableName$Obj::getCreatedBy()-&gt;toString() ) );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredTZTimestamp( &amp;S_Space, S_CreatedAt, $poptop Table SchemaName$$poptop Table reference BaseClass TableName$Obj::getCreatedAt() ) );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredXmlString( &amp;S_Space, S_UpdatedBy, $poptop Table SchemaName$$poptop Table reference BaseClass TableName$Obj::getUpdatedBy()-&gt;toString() ) );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredTZTimestamp( &amp;S_Space, S_UpdatedAt, $poptop Table SchemaName$$poptop Table reference BaseClass TableName$Obj::getUpdatedAt() ) );</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjToStringEmitXmlAttr"
+		>$switch HasSuperClassRelation yes implObjToStringEmitSuperXmlAttr default implObjToStringEmitBaseXmlAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjToStringEmitBaseXmlAttr"
+		>$iterate Columns( each implObjToStringEmitXmlAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjToStringEmitSuperXmlAttr"
+		>$reference SuperClassRelation reference ToTable implObjToStringEmitXmlAttr$$iterate Columns( each implObjToStringEmitXmlDataAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implObjToStringEmitXmlDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implObjToStringEmitXmlAttr$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjToStringEmitXmlAttr"
+	>$switch IsNullable yes implObjToStringEmitOptXmlAttr default implObjToStringEmitReqXmlAttr$</GenRule>
+	<GenRule GenDef="Atom" Name="implObjToStringEmitXmlAttr"
+	>$switch IsNullable yes implObjToStringEmitOptXmlAttr default implObjToStringEmitReqXmlAttr$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjToStringEmitReqXmlAttr">
+		ret.append( cflib::CFLibXmlUtil::$CFLibXmlUtilFormatRequired$( &amp;S_Space, S_$Name$, $poptop Table SchemaName$$reference Table TableName$Obj::get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() ) );</GenRule>
+	<GenRule GenDef="Atom" Name="implObjToStringEmitReqXmlAttr">
+		ret.append( cflib::CFLibXmlUtil::$CFLibXmlUtilFormatRequired$( &amp;S_Space, S_$Name$, $poptop Table SchemaName$$reference Table TableName$Obj::get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() ) );</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjToStringEmitOptXmlAttr">
+		if( ! $poptop Table SchemaName$$reference Table TableName$Obj::is$implColumnAttrOptionality$$Name$Null() ) {
+			ret.append( cflib::CFLibXmlUtil::$CFLibXmlUtilFormatRequired$( &amp;S_Space, S_$Name$, $poptop Table SchemaName$$reference Table TableName$Obj::get$implColumnAttrOptionality$$Name$Value() ) );
+		}</GenRule>
+	<GenRule GenDef="Atom" Name="implObjToStringEmitOptXmlAttr">
+		if( ! $poptop Table SchemaName$$reference Table TableName$Obj::is$implColumnAttrOptionality$$Name$Null() ) {
+			ret.append( cflib::CFLibXmlUtil::$CFLibXmlUtilFormatRequired$( &amp;S_Space, S_$Name$, $poptop Table SchemaName$$reference Table TableName$Obj::get$implColumnAttrOptionality$$Name$Value() ) );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetGenDefName">
+	const std::string $poptop Table SchemaName$$poptop Table TableName$Obj::getGenDefName() {
+		return( $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::GENDEFNAME );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetQualNamedObject">
+	cflib::ICFLibAnyObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getNamedObject( const classcode_t* qualifyingClass, const std::string&amp; objName ) {
+		cflib::ICFLibAnyObj* topContainer = getObjQualifier( qualifyingClass );
+		if( topContainer == NULL ) {
+			return( NULL );
+		}
+		cflib::ICFLibAnyObj* namedObject = topContainer-&gt;getNamedObject( objName );
+		return( namedObject );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObject">
+	cflib::ICFLibAnyObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getNamedObject( const std::string&amp; objName ) {
+		std::string nextName;
+		std::string remainingName;
+		cflib::ICFLibAnyObj* subObj = NULL;
+		cflib::ICFLibAnyObj* retObj;
+		int32_t nextDot = objName.find( '.' );
+		if( nextDot &gt;= 0 ) {
+			nextName = objName.substr( 0, nextDot );
+			remainingName = objName.substr( nextDot + 1 );
+		}
+		else {
+			nextName.clear();
+			nextName.append( objName );
+			remainingName.clear();
+		}$switch TableName Tenant implGetNamedObjectOnlyProbeTldComponent default implGetNamedObjectProbeXsdComponents$
+		if( remainingName.length() &lt;= 0 ) {
+			retObj = subObj;
+		}
+		else if( subObj == NULL ) {
+			retObj = NULL;
+		}
+		else {
+			retObj = subObj-&gt;getNamedObject( remainingName );
+		}
+		return( retObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectOnlyProbeTldComponent"
+		>$iterate Relation( each implGetNamedObjectOnlyProbeTldComponent empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectOnlyProbeTldComponent"
+		>$switch RelationTypeTag Components implGetNamedObjectOnlyProbeXsdTldComponent default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectOnlyProbeXsdTldComponent"
+		>$switch IsXsdContainer yes implGetNamedObjectDoProbeXsdTldComponent default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectDoProbeXsdTldComponent"
+		>$switch ToTableHasLookupIndex yes implGetNamedObjectProbeXsdTldComponentByName default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="ToTableName"
+		>$reference ToTable TableName$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectProbeXsdTldComponentByName"
+		>$switch ToTableName Tld implGetNamedObjectProbeXsdComponentByName default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectProbeXsdComponents"
+		>$switch HasSuperClassRelation yes implGetNamedObjectProbeSuperXsdComponents default implGetNamedObjectProbeBaseXsdComponents$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectProbeSuperXsdComponents"
+		>$reference SuperClassRelation reference ToTable implGetNamedObjectProbeXsdComponents$$iterate Relation( each implGetNamedObjectProbeComponent empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectProbeBaseXsdComponents"
+		>$iterate Relation( each implGetNamedObjectProbeComponent empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectProbeComponent"
+		>$switch RelationTypeTag Components implGetNamedObjectOnlyProbeXsdComponent default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectOnlyProbeXsdComponent"
+		>$switch IsXsdContainer yes implGetNamedObjectDoProbeXsdComponent default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectDoProbeXsdComponent"
+		>$switch ToTableHasLookupIndex yes implGetNamedObjectProbeXsdComponentByName default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectProbeXsdComponentByName">
+		if( subObj == NULL ) {
+			subObj = dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$reference ToTable TableName$TableObj()-&gt;read$reference ToTable TableName$ByLookup$reference ToTable reference LookupIndex Suffix$( $poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( first implGetNamedObjectReadByArg each implCommaGetNamedObjectReadByArg empty empty )$,
+				nextName,
+				false );
+		}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implGetNamedObjectReadByArg"
+		>get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implCommaGetNamedObjectReadByArg">,
+			$implGetNamedObjectReadByArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetObjQualifier">
+	cflib::ICFLibAnyObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getObjQualifier( const classcode_t* qualifyingClass ) {
+		cflib::ICFLibAnyObj* container = this;
+		if( qualifyingClass != NULL ) {
+			while( container != NULL ) {
+				if( container-&gt;getClassCode() == $CPlusSecNamespace$::$SecSchemaName$ClusterBuff::CLASS_CODE ) {
+					break;
+				}
+				else if( container-&gt;getClassCode() == $CPlusSecNamespace$::$SecSchemaName$TenantBuff::CLASS_CODE ) {
+					break;
+				}
+				else if( container-&gt;implementsClassCode( *qualifyingClass ) ) {
+					break;
+				}
+				container = container-&gt;getObjScope();
+			}
+		}
+		else {
+			while( container != NULL ) {
+				if( container-&gt;getClassCode() == $CPlusSecNamespace$::$SecSchemaName$ClusterBuff::CLASS_CODE ) {
+					break;
+				}
+				else if( container-&gt;getClassCode() == $CPlusSecNamespace$::$SecSchemaName$TenantBuff::CLASS_CODE ) {
+					break;
+				}
+				container = container-&gt;getObjScope();
+			}
+		}
+		return( container );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetObjQualifiedName">
+	std::string $poptop Table SchemaName$$poptop Table TableName$Obj::getObjQualifiedName() {
+		const static std::string S_Dot( "." );
+		std::string qualName( getObjName() );
+		cflib::ICFLibAnyObj* container = getObjScope();
+		std::string containerName;
+		std::string buildName;
+		while( container != NULL ) {
+			if( container-&gt;getClassCode() == $CPlusSecNamespace$::$SecSchemaName$ClusterBuff::CLASS_CODE ) {
+				container = NULL;
+			}
+			else if( container-&gt;getClassCode() == $CPlusSecNamespace$::$SecSchemaName$TenantBuff::CLASS_CODE ) {
+				container = NULL;
+			}$switch HasQualTable yes implGetObjQualifiedNameCheckQualTable default empty$
+			else {
+				containerName = container-&gt;getObjName();
+				buildName.clear();
+				buildName.append( containerName );
+				buildName.append( S_Dot );
+				buildName.append( qualName );
+				qualName.clear();
+				qualName.append( buildName );
+				container = container-&gt;getObjScope();
+			}
+		}
+		return( qualName );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetObjQualifiedNameCheckQualTable">
+			else if( container-&gt;implementsClassCode( $reference QualTable CPlusDefNamespace$::$reference QualTable DefSchemaName$$reference QualTable Name$Buff::CLASS_CODE ) ) {
+				container = NULL;
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplGetObjFullName"
+		>$switch HasSuperClassRelation no implGetObjFullName default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetObjFullName">
+	std::string $poptop Table SchemaName$$poptop Table TableName$Obj::getObjFullName() {
+		const static std::string S_Dot( "." );
+		std::string fullName = getObjName();
+		cflib::ICFLibAnyObj* container = getObjScope();
+		std::string containerName;
+		std::string buildName;
+		while( container != NULL ) {
+			if( container-&gt;getClassCode() == $CPlusSecNamespace$::$SecSchemaName$ClusterBuff::CLASS_CODE ) {
+				container = NULL;
+			}
+			else if( container-&gt;getClassCode() == $CPlusSecNamespace$::$SecSchemaName$TenantBuff::CLASS_CODE ) {
+				container = NULL;
+			}
+			else {
+				containerName = container-&gt;getObjName();
+				buildName.clear();
+				buildName.append( containerName );
+				buildName.append( S_Dot );
+				buildName.append( fullName );
+				fullName.clear();
+				fullName.append( buildName );
+				container = container-&gt;getObjScope();
+			}
+		}
+		return( fullName );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetObjName">
+	std::string $poptop Table SchemaName$$poptop Table TableName$Obj::getObjName() {
+		std::string objName( CLASS_NAME );$reference ObjNameColumn implGetObjNameCalcName$
+		return( objName );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcName"
+		>$switch IsNullable yes implGetObjNameCalcOptName default implGetObjNameCalcReqName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcReqName"
+		>$switch BaseModelAtomClass
+			BlobDef ErrorUnsupportedBaseModelAtomClass
+			BoolDef implGetObjNameCalcBoolReqName
+			EnumDef implGetObjNameCalcInt16ReqName
+			Int16Def implGetObjNameCalcInt16ReqName
+			Int32Def implGetObjNameCalcInt32ReqName
+			Int64Def implGetObjNameCalcInt64ReqName
+			UInt16Def implGetObjNameCalcUInt16ReqName
+			UInt32Def implGetObjNameCalcUInt32ReqName
+			UInt64Def implGetObjNameCalcUInt64ReqName
+			Id16Gen implGetObjNameCalcInt16ReqName
+			Id32Gen implGetObjNameCalcInt32ReqName
+			Id64Gen implGetObjNameCalcInt64ReqName
+			FloatDef ErrorUnsupportedBaseModelAtomClass
+			DoubleDef ErrorUnsupportedBaseModelAtomClass
+			NumberDef ErrorUnsupportedBaseModelAtomClass
+			StringDef implGetObjNameCalcStringReqName
+			TokenDef implGetObjNameCalcStringReqName
+			NmTokenDef implGetObjNameCalcStringReqName
+			NmTokensDef ErrorUnsupportedBaseModelAtomClass
+			TextDef ErrorUnsupportedBaseModelAtomClass
+			DateDef ErrorUnsupportedBaseModelAtomClass
+			TimeDef ErrorUnsupportedBaseModelAtomClass
+			TimestampDef ErrorUnsupportedBaseModelAtomClass
+			TZDateDef ErrorUnsupportedBaseModelAtomClass
+			TZTimeDef ErrorUnsupportedBaseModelAtomClass
+			TZTimestampDef ErrorUnsupportedBaseModelAtomClass
+			UuidGen implGetObjNameCalcUuidReqName
+			UuidDef implGetObjNameCalcUuidReqName
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcOptName"
+		>$switch BaseModelAtomClass
+			BlobDef ErrorUnsupportedBaseModelAtomClass
+			BoolDef implGetObjNameCalcBoolOptName
+			EnumDef implGetObjNameCalcInt16OptName
+			Int16Def implGetObjNameCalcInt16OptName
+			Int32Def implGetObjNameCalcInt32OptName
+			Int64Def implGetObjNameCalcInt64OptName
+			UInt16Def implGetObjNameCalcUInt16OptName
+			UInt32Def implGetObjNameCalcUInt32OptName
+			UInt64Def implGetObjNameCalcUInt64OptName
+			Id16Gen implGetObjNameCalcInt16OptName
+			Id32Gen implGetObjNameCalcInt32OptName
+			Id64Gen implGetObjNameCalcInt64OptName
+			FloatDef ErrorUnsupportedBaseModelAtomClass
+			DoubleDef ErrorUnsupportedBaseModelAtomClass
+			NumberDef ErrorUnsupportedBaseModelAtomClass
+			StringDef implGetObjNameCalcStringOptName
+			TokenDef implGetObjNameCalcStringOptName
+			NmTokenDef implGetObjNameCalcStringOptName
+			NmTokensDef ErrorUnsupportedBaseModelAtomClass
+			TextDef ErrorUnsupportedBaseModelAtomClass
+			DateDef ErrorUnsupportedBaseModelAtomClass
+			TimeDef ErrorUnsupportedBaseModelAtomClass
+			TimestampDef ErrorUnsupportedBaseModelAtomClass
+			TZDateDef ErrorUnsupportedBaseModelAtomClass
+			TZTimeDef ErrorUnsupportedBaseModelAtomClass
+			TZTimestampDef ErrorUnsupportedBaseModelAtomClass
+			UuidGen implGetObjNameCalcUuidOptName
+			UuidDef implGetObjNameCalcUuidOptName
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcBoolReqName">
+		if( get$OptionalOrRequired$$Name$() ) {
+			objName.clear();
+			objName.append( cflib::CFLib::S_TRUE );
+		}
+		else {
+			objName.clear();
+			objName.append( cflib::CFLib::S_FALSE );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcBoolOptName">
+		if( is$OptionalOrRequired$$Name$Null() ) {
+			objName.clear();
+		}
+		else if( get$OptionalOrRequired$$Name$Value() ) {
+			objName.clear();
+			objName.append( cflib::CFLib::S_TRUE );
+		}
+		else {
+			objName.clear();
+			objName.append( cflib::CFLib::S_FALSE );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcStringReqName">
+		objName.clear();
+		objName.append( get$OptionalOrRequired$$Name$() );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcStringOptName">
+		objName.clear();
+		if( ! is$OptionalOrRequired$$Name$Null() ) {
+			objName.append( get$OptionalOrRequired$$Name$Value() );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt16ReqName">
+		int16_t val = get$OptionalOrRequired$$Name$();
+		objName = cflib::CFLibXmlUtil::formatInt16( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt16OptName">
+		objName.clear();
+		if( ! is$OptionalOrRequired$$Name$Null() ) {
+			int16_t val = get$OptionalOrRequired$$Name$Value();
+			objName = cflib::CFLibXmlUtil::formatInt16( val );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt32ReqName">
+		int32_t val = get$OptionalOrRequired$$Name$();
+		objName = cflib::CFLibXmlUtil::formatInt32( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt32OptName">
+		objName.clear();
+		if( ! is$OptionalOrRequired$$Name$Null() ) {
+			int32_t val = get$OptionalOrRequired$$Name$Value();
+			objName = cflib::CFLibXmlUtil::formatInt32( val );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt64ReqName">
+		int64_t val = get$OptionalOrRequired$$Name$();
+		objName = cflib::CFLibXmlUtil::formatInt64( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt64OptName">
+		objName.clear();
+		if( ! is$OptionalOrRequired$$Name$Null() ) {
+			int64_t val = get$OptionalOrRequired$$Name$Value();
+			objName = cflib::CFLibXmlUtil::formatInt64( val );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt16ReqName">
+		uint16_t val = get$OptionalOrRequired$$Name$();
+		objName = cflib::CFLibXmlUtil::formatUInt16( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt16OptName">
+		objName.clear();
+		if( ! is$OptionalOrRequired$$Name$Null() ) {
+			uint16_t val = get$OptionalOrRequired$$Name$Value();
+			objName = cflib::CFLibXmlUtil::formatUInt16( val );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt32ReqName">
+		uint32_t val = get$OptionalOrRequired$$Name$();
+		objName = cflib::CFLibXmlUtil::formatUInt32( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt32OptName">
+		objName.clear();
+		if( ! is$OptionalOrRequired$$Name$Null() ) {
+			uint32_t* val = get$OptionalOrRequired$$Name$Value();
+			objName = cflib::CFLibXmlUtil::formatUInt32( val );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt64ReqName">
+		uint64_t val = get$OptionalOrRequired$$Name$();
+		objName = cflib::CFLibXmlUtil::formatUInt64( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt64OptName">
+		objName.clear();
+		if( ! is$OptionalOrRequired$$Name$Null() ) {
+			uint64_t val = get$OptionalOrRequired$$Name$Value();
+			objName = cflib::CFLibXmlUtil::formatUInt64( val );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUuidReqName">
+		const uuid_ptr_t val = get$OptionalOrRequired$$Name$();
+		objName = cflib::CFLibXmlUtil::formatUuid( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUuidOptName">
+		objName.clear();
+		if( ! is$OptionalOrRequired$$Name$Null() ) {
+			const uuid_ptr_t val = get$OptionalOrRequired$$Name$Value();
+			objName = cflib::CFLibXmlUtil::formatUuid( val );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplGetScope"
+		>$switch ContainerStyle
+			Single implGetScopeViaSingleContainer
+			Multiple implGetScopeViaMultipleContainer
+			default maybeImplGetScopeNull$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplGetScopeNull"
+		>$switch HasSuperClassRelation no implGetScopeNull default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetScopeNull">
+	cflib::ICFLibAnyObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getScope() {
+		return( NULL );
+	}
+
+	cflib::ICFLibAnyObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getObjScope() {
+		return( NULL );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetScopeViaSingleContainer">
+	cflib::ICFLibAnyObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getScope() {$iterate ContainerRelations( first implGetScopeViaSingleContainerBody each empty empty empty )$
+	}
+
+	cflib::ICFLibAnyObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getObjScope() {$iterate ContainerRelations( first implGetScopeViaSingleContainerBody each empty empty empty )$
+	}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetScopeViaSingleContainerBody">
+		$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj* scope = get$OptionalOrRequired$$RelationTypeTag$$Suffix$();
+		return( scope );</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetScopeViaMultipleContainer">
+	cflib::ICFLibAnyObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getObjScope() {$iterate ContainerRelations( first implGetScopeViaMultipleContainerBody each empty empty empty )$
+	}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetScopeViaMultipleContainerBody"
+		>$switch HasNarrowed yes implReallyGetScopeViaMultipleContainerBody default implReallyGetScopeViaSimpleContainerBody$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyGetScopeViaSimpleContainerBody">
+	$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj* scope = get$OptionalOrRequired$$RelationTypeTag$$Suffix$();
+	return( scope );</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyGetScopeViaMultipleContainerBody">
+		$reference Narrowed reference ToTable CPlusDefNamespace$::I$reference Narrowed reference ToTable DefSchemaName$$reference Narrowed reference ToTable TableName$Obj* scope = get$reference Narrowed OptionalOrRequired$$reference Narrowed RelationTypeTag$$reference Narrowed Suffix$();
+		if( scope == NULL ) {
+			$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj* simpleScope = get$OptionalOrRequired$$RelationTypeTag$$Suffix$();
+			return( simpleScope );
+		}
+		return( scope );</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorInitEdit">
+		edit = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjBeginEdit">
+	$reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$$reference BaseClass TableName$EditObj* $poptop Table SchemaName$$poptop Table TableName$Obj::beginEdit() {
+		static const std::string S_ProcName( "beginEdit" );
+		static const std::string S_EditAlreadyOpen( "An edit is already open" );
+		if( edit != NULL ) {
+			throw cflib::CFLibUsageException( CLASS_NAME, S_ProcName, S_EditAlreadyOpen );
+		}
+		if( ! getIsNew() ) {
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* lockobj = dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$TableName$TableObj()-&gt;lock$TableName$( getPKey() );
+			lockobj-&gt;realize();
+		}
+		edit = dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$TableName$TableObj()-&gt;newEditInstance( this );
+		return( dynamic_cast&lt;$reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$$reference BaseClass TableName$EditObj*&gt;( edit ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjEndEdit">
+	void $poptop Table SchemaName$$poptop Table TableName$Obj::endEdit() {
+		if( edit != NULL ) {
+			delete edit;
+			edit = NULL;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjEditAccessors">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getEdit() {
+		return( edit );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjEditAsAccessors">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* $poptop Table SchemaName$$poptop Table TableName$Obj::get$TableName$Edit() {
+		return( dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj*&gt;( edit ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorInitIsNew">
+		pKey = NULL;
+		buff = NULL;
+		isNew = true;</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorClearSchema">
+		schema = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorInitSchema">
+		schema = argSchema;</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjIsNewAccessors">
+	bool $poptop Table SchemaName$$poptop Table TableName$Obj::getIsNew() {
+		return( isNew );
+	}
+
+	void $poptop Table SchemaName$$poptop Table TableName$Obj::setIsNew( bool value ) {
+		isNew = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjSchemaAccessors">
+	$CPlusDefNamespace$::I$DefSchemaName$SchemaObj* $poptop Table SchemaName$$poptop Table TableName$Obj::getSchema() {
+		return( schema );
+	}
+
+	void $poptop Table SchemaName$$poptop Table TableName$Obj::setSchema( $CPlusDefNamespace$::I$DefSchemaName$SchemaObj* value ) {
+		schema = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjTableAccessors">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$TableObj* $poptop Table SchemaName$$poptop Table TableName$Obj::get$TableName$Table() {
+		return( dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$TableName$TableObj() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjRelationAccessors"
+		>$switch RelationToIndexIsUnique yes maybeImplObjRelationSingletonAccessors default maybeImplObjRelationCollectionAccessors$</GenRule>
+
+	<GenRule GenDef="Relation" Name="maybeImplObjRelationSingletonAccessors"
+		>$switch RelationTypeTag Superclass empty default implObjRelationSingletonAccessors$</GenRule>
+
+	<GenRule GenDef="Relation" Name="maybeImplObjRelationCollectionAccessors"
+		>$switch RelationTypeTag Superclass empty default implObjRelationCollectionAccessors$</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjRelationCPlusOptional">?</GenRule>
+
+	<GenRule GenDef="Relation" Name="implToIndexSuffix"
+		>$reference ToIndex Suffix$</GenRule>
+		<!--$reference ToIndex implToIndexSuffix$</GenRule -->
+	<GenRule GenDef="Index" Name="implToIndexSuffix"
+		>$Suffix$</GenRule>
+		<!-->$switch IsPrimaryIndex yes implToIndexBasePrimarySuffix default Suffix$</GenRule-->
+	<GenRule GenDef="Index" Name="implToIndexBasePrimarySuffix"
+		>$reference BaseClass reference PrimaryKeyIndex Suffix$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjRelationSingletonAccessors">
+	$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$Obj::get$OptionalOrRequired$$RelationTypeTag$$Suffix$( bool forceRead ) {
+		$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj* retobj = NULL;
+		bool anyMissing = false;
+$iterate Columns( each implObjRelationAccessorCheckIfColumnProvided empty empty )
+$		if( ! anyMissing ) {
+			retobj = dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$reference ToTable TableName$TableObj()-&gt;read$reference ToTable TableName$By$implToIndexSuffix$( $iterate Columns( first implObjRelationAccessorsPassArg each implObjRelationAccessorsCommaPassArg empty empty )$, forceRead );
+		}
+		return( retobj );
+	}
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationSingletonAccessorsSetBuffAttr"
+>				$leadlower reference FromCol reference Table TableName$Buff-&gt;set$reference FromCol switch IsNullable yes declOptional default declRequired$$reference FromCol Name$$reference FromCol switch IsNullable yes declIObjColumnValue default empty$( value-&gt;get$reference ToCol switch IsNullable yes declOptional default declRequired$$reference ToCol Name$$reference ToCol switch IsNullable yes declIObjColumnValue default empty$() );
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationSingletonAccessorsSetBuffOptionalAttrNull"
+		>$switch FromColDefIsNullable yes implObjRelationSingletonAccessorsSetBuffAttrNull default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationSingletonAccessorsSetBuffAttrNull"
+>				$leadlower reference FromCol reference Table TableName$Buff-&gt;set$reference FromCol switch IsNullable yes declOptional default declRequired$$reference FromCol Name$$reference FromCol switch IsNullable yes declObjColumnNull default empty$();
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsPassArg"
+		>$switch ToColIsNullable yes implObjRelationAccessorsPassReferenceArg default implObjRelationAccessorsPassActualArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsPassActualArg"
+		>$reference FromCol switch ColumnInPrimaryIndex yes implObjRelationAccessorsPKey default implObjRelationAccessorsBuff$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$$reference FromCol switch IsNullable yes declIObjColumnValue default empty$()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsPassReferenceArg"
+		>$reference FromCol switch ColumnInPrimaryIndex yes implObjRelationAccessorsPKey default implObjRelationAccessorsBuff$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$Reference()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsToColIsNullable"
+		>$reference ToCol IsNullable$</GenRule>
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsFromColIsNullable"
+		>$reference FromCol IsNullable$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsCommaPassArg">,
+					$implObjRelationAccessorsPassArg$</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjRelationAccessorsPKey">getPKey()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsBuff">get$reference Relation reference FromTable TableName$Buff()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjRelationAccessorsBuff">get$reference Index reference Table TableName$Buff()</GenRule>
+
+	<GenRule GenDef="Value" Name="implObjRelationAccessorsBuff">get$reference Table TableName$Buff()</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjRelationAccessorInitDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implObjRelationAccessorInitDataAttrValue$</GenRule>
+	<GenRule GenDef="Object" Name="implObjRelationAccessorInitDataAttrValue"
+>				data-&gt;set$switch IsNullable yes declOptional default declRequired$$Name$$switch IsNullable yes declIObjColumnValue default empty$( get$TableName$Buff()-&gt;get$switch IsNullable yes declOptional default declRequired$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjRelationAccessorInitPKeyAttr"
+>				pkey-&gt;set$switch IsNullable yes declOptional default declRequired$$Name$$switch IsNullable yes declIObjColumnValue default empty$( get$TableName$Buff()-&gt;get$switch IsNullable yes declOptional default declRequired$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorCheckIfColumnProvided"
+		>$switch implObjRelationAccessorsToColIsNullable yes empty default implObjRelationAccessorCheckIfReqColProvided$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorCheckIfReqColProvided"
+		>$switch IsNullable yes implObjRelationAccessorCheckIfNullableNull default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjRelationAccessorCheckIfNullableNull"
+>			if( get$TableName$Buff()-&gt;is$switch IsNullable yes declOptional default declRequired$$Name$Null() ) {
+				anyMissing = true;
+			}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjRelationCollectionAccessors">
+	std::vector&lt;$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj*&gt; $poptop Table SchemaName$$poptop Table TableName$Obj::get$OptionalOrRequired$$RelationTypeTag$$Suffix$( bool forceRead ) {
+		std::vector&lt;$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj*&gt; retval;
+		retval = dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$reference ToTable TableName$TableObj()-&gt;read$reference ToTable TableName$By$reference ToIndex Suffix$( $iterate Columns( first implObjRelationAccessorsPassArg each implObjRelationAccessorsCommaPassArg empty empty )$,
+			forceRead );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjColumnAccessors"
+		>$switch ColumnInPrimaryIndex yes implObjColumnBaseROPKeyAccessor default implObjColumnDataAccessor$</GenRule>
+	<GenRule GenDef="Atom" Name="implObjColumnAccessors"
+		>$switch ColumnInPrimaryIndex yes implObjColumnBaseROPKeyAccessor default implObjColumnDataAccessor$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjColumnDataAccessor"
+		>$switch ColumnInContainerOrNamedLookupRelation yes implObjColumnRODataAccessor default implObjColumnRWDataAccessor$</GenRule>
+	<GenRule GenDef="Atom" Name="implObjColumnDataAccessor"
+		>$switch ColumnInContainerOrNamedLookupRelation yes implObjColumnRODataAccessor default implObjColumnRWDataAccessor$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjColumnBaseROPKeyAccessor"
+		>$switch HasSuperClassRelation no implObjColumnROPKeyAccessor default empty$</GenRule>
+	<GenRule GenDef="Atom" Name="implObjColumnBaseROPKeyAccessor"
+		>$switch HasSuperClassRelation no implObjColumnROPKeyAccessor default empty$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjColumnROAccessor"
+		>$switch ColumnInPrimaryIndex yes implObjColumnROPKeyAccessor default implObjColumnRODataAccessor$</GenRule>
+	<GenRule GenDef="Atom" Name="implObjColumnROAccessor"
+		>$switch ColumnInPrimaryIndex yes implObjColumnROPKeyAccessor default implObjColumnRODataAccessor$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjColumnROPKeyAccessor">$switch IsNullable yes implObjColumnROPKeyAccessorIsNull default empty$
+	$declConstReqAtomType$ $poptop Table SchemaName$$poptop Table TableName$Obj::get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() {
+		return( getPKey()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );
+	}
+
+	$declConstReferenceAtomType$ $poptop Table SchemaName$$poptop Table TableName$Obj::get$implColumnAttrOptionality$$Name$Reference() {
+		return( getPKey()-&gt;get$implColumnAttrOptionality$$Name$Reference() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implObjColumnROPKeyAccessorIsNull">
+	bool $poptop Table SchemaName$$poptop Table TableName$Obj::is$implColumnAttrOptionality$$Name$Null() {
+		return( getPKey()-&gt;is$implColumnAttrOptionality$$Name$Null() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implObjColumnRODataAccessorIsNull">
+	bool $poptop Table SchemaName$$poptop Table TableName$Obj::is$implColumnAttrOptionality$$Name$Null() {
+		return( get$TableName$Buff()-&gt;is$implColumnAttrOptionality$$Name$Null() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Atom" Name="implObjColumnROPKeyAccessor">$switch IsNullable yes implObjColumnROPKeyAccessorIsNull default empty$
+	$declConstReqAtomType$ $poptop Table SchemaName$$poptop Table TableName$Obj::get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() {
+		return( getPKey()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );
+	}
+
+	$declConstReferenceAtomType$ $poptop Table SchemaName$$poptop Table TableName$Obj::get$implColumnAttrOptionality$$Name$Reference() {
+		return( getPKey()-&gt;get$implColumnAttrOptionality$$Name$Reference() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjColumnRODataAccessor">$switch IsNullable yes implObjColumnRODataAccessorIsNull default empty$
+	$declConstReqAtomType$ $poptop Table SchemaName$$poptop Table TableName$Obj::get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() {
+		return( get$TableName$Buff()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );
+	}
+
+	$declConstReferenceAtomType$ $poptop Table SchemaName$$poptop Table TableName$Obj::get$implColumnAttrOptionality$$Name$Reference() {
+		return( get$TableName$Buff()-&gt;get$implColumnAttrOptionality$$Name$Reference() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjColumnRWDataAccessor">$switch IsNullable yes implObjColumnRODataAccessorIsNull default empty$
+	$declConstReqAtomType$ $poptop Table SchemaName$$poptop Table TableName$Obj::get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() {
+		return( get$TableName$Buff()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );
+	}
+
+	$declConstReferenceAtomType$ $poptop Table SchemaName$$poptop Table TableName$Obj::get$implColumnAttrOptionality$$Name$Reference() {
+		return( get$TableName$Buff()-&gt;get$implColumnAttrOptionality$$Name$Reference() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjExtendSuperClassImplements">
+	: $reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$Obj</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjPKeyAccessors">
+	$reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey* $poptop Table SchemaName$$poptop Table TableName$Obj::getPKey() {
+		if( pKey == NULL ) {
+			pKey = new $reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey();
+		}
+		return( pKey );
+	}
+
+	void $poptop Table SchemaName$$poptop Table TableName$Obj::setPKey( $reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey* value ) {
+		if( ( pKey != NULL ) &amp;&amp; ( pKey != value ) ) {
+			delete pKey;
+			pKey = NULL;
+		}
+		if( value != NULL ) {
+			pKey = new $reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey();
+			*pKey = *value;
+			copyPKeyToBuff();
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjRealize">
+	$reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$Obj::realize() {
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* retobj = dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$TableName$TableObj()-&gt;realize$TableName$(
+			($CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*)this );
+		return( dynamic_cast&lt;$reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj*&gt;( retobj ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjRead">
+	$reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$Obj::read( bool forceRead ) {
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* retobj = dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$TableName$TableObj()-&gt;read$TableName$By$reference BaseClass reference PrimaryKeyIndex Suffix$( $reference PrimaryKeyIndex iterate Columns( first implObjReadPassPKeyArg each implObjReadCommaPassPKeyArg )$, forceRead );
+		return( dynamic_cast&lt;$reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj*&gt;( retobj ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjMoveUp">
+	$reference Chain reference Table CPlusDefNamespace$::I$reference BaseClass DefSchemaName$$reference Chain reference Table TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$Obj::moveUp() {
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* retobj = dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$TableName$TableObj()-&gt;moveUp$TableName$( this );
+		return( dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$reference Chain reference Table TableName$Obj*&gt;( retobj ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjMoveDown">
+	$reference Chain reference Table CPlusDefNamespace$::I$reference BaseClass DefSchemaName$$reference Chain reference Table TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$Obj::moveDown() {
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* retobj = dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;get$TableName$TableObj()-&gt;moveDown$TableName$( this );
+		return( dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$reference Chain reference Table TableName$Obj*&gt;( retobj ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjReadPassPKeyArg"
+		>get$TableName$Buff()-&gt;get$OptionalOrRequired$$Name$()</GenRule>
+	<GenRule GenDef="IndexCol" Name="implObjReadCommaPassPKeyArg">,
+		$implObjReadPassPKeyArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjCopyPKeyToBuff">
+	void $poptop Table SchemaName$$poptop Table TableName$Obj::copyPKeyToBuff() {
+		$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey* tablePKey = getPKey();
+		$poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff* tableBuff = get$TableName$Buff();
+		if( tableBuff != NULL ) {$reference PrimaryKeyIndex iterate Columns( each implObjCopyPKeyAttrToBuff empty empty )$
+		}
+		if( edit != NULL ) {
+			edit-&gt;copyPKeyToBuff();
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjCopyBuffToPKey">
+	void $SchemaName$$TableName$Obj::copyBuffToPKey() {
+		$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey* tablePKey = getPKey();
+		$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff* tableBuff = get$TableName$Buff();$reference PrimaryKeyIndex iterate Columns( each implObjCopyBuffAttrToPKey empty empty )$
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjCopyPKeyAttrToBuff">
+			tableBuff-&gt;set$implColumnAttrOptionality$$Name$( tablePKey-&gt;get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjCopyBuffAttrToPKey">
+		tablePKey-&gt;set$implColumnAttrOptionality$$Name$( tableBuff-&gt;get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjTableGetBuff">
+	$reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$Buff* $poptop Table SchemaName$$poptop Table TableName$Obj::getBuff() {
+		if( buff == NULL ) {
+			if( isNew ) {
+				buff = new $reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$TableName$Buff();
+				copyBuffToPKey();
+			}
+			else {
+				// Read the data buff via the backing store
+				buff = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;readDerivedBy$reference BaseClass reference PrimaryKeyIndex Suffix$( dynamic_cast&lt;I$SchemaName$SchemaObj*&gt;( getSchema() )-&gt;getAuthorization()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implObjTableDataAccessorsCommaPassArg empty empty )$ );
+			}
+		}
+		return( buff );
+	}
+
+	void $poptop Table SchemaName$$poptop Table TableName$Obj::setBuff( $reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$Buff* value ) {
+		if( ( buff != NULL ) &amp;&amp; ( buff != value ) ) {
+			delete buff;
+			buff = NULL;
+		}
+		buff = value;
+		if( buff != NULL ) {
+			copyBuffToPKey();
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="ColumnInPrimaryIndex">$reference Column ColumnInPrimaryIndex$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjTableDataAccessorsCommaPassArg">,
+						$switch ColumnInPrimaryIndex yes implObjTableDataAccessorsPKey default implObjTableDataAccessorsData$-&gt;get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjTableDataAccessorsPKey">getPKey()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjTableDataAccessorsBuff">$leadlower reference Table TableName$Buff</GenRule>
+
+</RuleSet>

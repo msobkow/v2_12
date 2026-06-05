@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="schema/dbcreate/pgsql/crsp_create_dbtablename.pgsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPCreateDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="pgsql"
+		ExpansionClassName="$dbadminfilename_CreateSPCreateDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPCreateDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPCreateDbTableName$" >--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create or replace function $lower DbSchemaName$.$sp_create_dbtablename$($implPgSqlSPStandardArgs$,
+	$implPgSqlSPCreateTableArgs$ )
+returns setof $lower DbSchemaName$.$type_dbtablename_rec$ as $$$$
+declare
+	permissionFlag boolean;$declPgSqlSPCreateTableGeneratedColumns$$switch HasChain yes declPgSqlSPCreateTableChainPrevVars default empty$
+begin$switch TableName SecSession empty default implPgSqlSPCreateTableCheckPermissions$$switch HasChain yes implPgSqlSPTableLatchContainer default empty$$switch HasChain yes implPgSqlSPCreateTableChainSelectPrev default empty$$reference BaseClass iterate GeneratedTableColumns( each invoke_Generator empty empty )$$insertTableHierarchy$$switch BaseHasHistory yes implAudit default empty$$switch HasChain yes implPgSqlSPCreateTableUpdatePrev default empty$$switch HasChain yes implPgSqlSPTableUnlatchContainer default empty$
+	return query select
+$implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+	where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;
+
+	return;
+end;
+$$$$ language plpgsql;
+</GenFile>
+
+	<GenRule GenDef="Table" Name="ChainTableHasSuperClassRelation"
+		>$reference Chain reference Table HasSuperClassRelation$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableUpdatePrev">
+	if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implPgSqlSPCreateTableUpdatePrevIfNotNull each empty )$ )
+	then$switch ChainTableHasSuperClassRelation yes implPgSqlSPCreateTableUpdateTwoTables default implPgSqlSPCreateTableUpdateOneTable$$switch BaseHasHistory yes implPgSqlSPCreateTableUpdatePrevAuditUpdated default empty$
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableUpdateOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implPgSqlSPCreateTableUpdateTableAuditColumns default empty$$reference Chain reference NextRel iterate Columns( each implPgSqlSPCreateTableUpdateWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPCreateTableUpdateTableWherePKeyCol each implPgSqlSPCreateTableUpdateTableWhereAndPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableUpdateTableAuditColumns">,
+			updatedby = argAuditUserId,
+			updatedat = now()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPCreateTableUpdateWithKey"
+		>$reference FromCol DbColumnName$ = arg$reference ToCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPCreateTableUpdateWithCommaKey">,
+			$implPgSqlSPCreateTableUpdateWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPCreateTableUpdateTableWherePKeyCol"
+		>$reference ToCol DbColumnName$ = prev$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPCreateTableUpdateTableWhereAndPKeyCol">
+			and $implPgSqlSPCreateTableUpdateTableWherePKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableUpdateTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implPgSqlSPCreateTableUpdateTableAuditColumns default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPCreateTableUpdateTableWherePKeyCol each implPgSqlSPCreateTableUpdateTableWhereAndPKeyCol )$;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference NextRel iterate Columns( first implPgSqlSPCreateTableUpdateWithKey each implPgSqlSPCreateTableUpdateWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPCreateTableUpdateTableWherePKeyCol each implPgSqlSPCreateTableUpdateTableWhereAndPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPCreateTableUpdatePrevIfNotNull"
+		>prev$Name$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableUpdatePrevAuditUpdated">
+		select $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implPgSqlSPCreateTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implPgSqlSPCreateTableAuditUpdatedPassArg )$,
+			1 )
+		into subret;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableUpdatePrevAuditPassClassCode">,
+			prevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPCreateTableAuditUpdatedPassArg">,
+			prev$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableChainSelectPrev">
+	select$reference Chain reference NextRel reference ToTable reference BaseClass reference PrimaryKeyIndex iterate Columns( first implPgSqlSPCreateTableChainSelectPrevKeyCol each implPgSqlSPCreateTableChainSelectCommaPrevKeyCol )$$reference Chain reference Table switch HasClassCode yes implPgSqlSPCreateTableChainSelectCommaClassCode default empty$
+	into$reference Chain reference PrevRel reference FromIndex iterate Columns( first implPgSqlSPCreateTableChainSelectIntoVar each implPgSqlSPCreateTableChainSelectCommaIntoVar )$$reference Chain reference Table switch HasClassCode yes implPgSqlSPCreateTableChainSelectCommaIntoClassCode default empty$
+	from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ $lower reference Chain reference Table ClassCode$$reference Chain reference Table switch HasSuperClassRelation yes implPgSqlSPCreateTableChainSelectJoinSuper default empty$
+	where$reference Chain reference Table reference ContainerRelation iterate Columns( first implPgSqlSPCreateTableChainSelectWhereContainerArg each implPgSqlSPCreateTableChainSelectWhereAndContainerArg )$$reference Chain reference NextRel reference FromIndex iterate Columns( each implPgSqlSPCreateTableChainSelectWhereAndNextNull )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPCreateTableChainSelectWhereContainerArg">
+		$lower reference Relation reference FromTable ClassCode$.$reference FromCol DbColumnName$ = arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPCreateTableChainSelectWhereAndContainerArg">
+		and $lower reference Relation reference FromTable ClassCode$.$reference FromCol DbColumnName$ = arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPCreateTableChainSelectWhereAndNextNull">
+		and $lower reference Index reference Table ClassCode$.$DbColumnName$ is null</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableChainSelectJoinSuper">
+		inner join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference SuperClassRelation iterate Columns( first implPgSqlSPCreateTableChainSelectJoinSuperOnCol each implPgSqlSPCreateTableChainSelectJoinSuperAndOnCol )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implPgSqlSPCreateTableChainSelectJoinSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPCreateTableChainSelectJoinSuperOnCol">
+			$lower reference Relation reference FromTable ClassCode$.$reference FromCol DbColumnName$ = $lower reference Relation reference ToTable ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPCreateTableChainSelectJoinSuperAndOnCol">
+			and $lower reference Relation reference FromTable ClassCode$.$reference FromCol DbColumnName$ = $lower reference Relation reference ToTable ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPCreateTableChainSelectPrevKeyCol">
+		$lower reference Index reference Table ClassCode$.$DbColumnName$ as $DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPCreateTableChainSelectCommaPrevKeyCol"
+		>,$implPgSqlSPCreateTableChainSelectPrevKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableChainSelectCommaClassCode">,
+		$lower reference BaseClass ClassCode$.classcode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPCreateTableChainSelectIntoVar">
+		prev$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPCreateTableChainSelectCommaIntoVar"
+		>,$implPgSqlSPCreateTableChainSelectIntoVar$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableChainSelectCommaIntoClassCode">,
+		prevClassCode</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPCreateTableChainPrevVars">
+	subret boolean;$reference Chain reference Table switch HasClassCode yes declPgSqlSPCreateTableChainPrevClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declPgSqlSPCreateTableChainPrevVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPCreateTableChainPrevClassCode">
+	prevClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declPgSqlSPCreateTableChainPrevVar">
+	prev$Name$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implPgSqlSPTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPTableLatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision + 1
+	where
+		$popto Relation iterate Columns( first implPgSqlSPTableLatchWhereArg each implPgSqlSPTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPTableLatchWhereArg"
+		>$reference ToCol DbColumnName$ = arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPTableLatchWhereAndArg">
+		and $implPgSqlSPTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implPgSqlSPTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPTableUnlatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision - 1
+	where
+		$popto Relation iterate Columns( first implPgSqlSPTableLatchWhereArg each implPgSqlSPTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlSPStandardArgs">
+	argAuditClusterId bigint,
+	argAuditUserId varchar(36),
+	argAuditSessionId varchar(36),
+	secClusterId bigint,
+	secTenantId bigint</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableCheckPermissions"
+		>$switch SecScope None empty System implPgSqlSPCreateTableCheckSystem Cluster implPgSqlSPCreateTableCheckCluster Tenant implPgSqlSPCreateTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableCheckSystem">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into permissionFlag;
+		if( permissionFlag = false )
+		then
+			raise exception 'Permission denied -- only system user can create $TableName$ records';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableCheckCluster">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_cluster_user( arg$reference ClusterIdColumn Name$,
+			'Create$TableName$',
+			argAuditUserId )
+		into permissionFlag;
+		if( permissionFlag = false )
+		then
+			raise exception 'Permission denied -- User not found in cluster SecGroup for Create$TableName$';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableCheckTenant">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_tenant_user( arg$reference TenantIdColumn Name$,
+			'Create$TableName$',
+			argAuditUserId )
+		into permissionFlag;
+		if( permissionFlag = false )
+		then
+			raise exception 'Permission denied -- User not found in tenant TSecGroup for Create$TableName$';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAudit"
+		>$switch BaseHasClassCode yes implAuditWithCC default implAuditNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditNoCC"
+>	insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			$lower reference BaseClass ClassCode$.revision,
+			0
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditWithCC">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			classcode,
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.classcode,
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			$lower reference BaseClass ClassCode$.revision,
+			0
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgAuditOneComma">
+			$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgValueComma">
+			$lower reference Column reference Table ClassCode$.$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedDataColumnNameCommaInh default implAuditInheritedDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnEmitDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnReallyEmitDataColumn">
+			$lower reference Table ClassCode$.$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedIntoDataColumnNameCommaInh default implAuditInheritedIntoDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedIntoDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitIntoDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedIntoDataColumnReallyEmitDataColumn">
+			$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameInhComma"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameBaseComma"
+		>$iterate Columns( each implAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implAuditInheritedDataColumnNameComma"
+		>$reference Column implAuditInheritedDataColumnNameComma$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitNameComma">
+			$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectTableColumns"
+		>$switch HasSuperClassRelation yes implPgSqlSelectSuperTable default implPgSqlSelectBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectSuperTable"
+		>$reference SuperClassRelation reference ToTable implPgSqlSelectTableColumns$$iterate Columns( each implPgSqlSelectFragCommaDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSelectFragCommaDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implPgSqlTableColumnSelectFragCommaColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectBaseTable"
+		>$switch IsBaseTable yes implPgSqlSelectBaseTableWithCC default implPgSqlSelectBaseTableNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectBaseTableWithCC"
+>			$lower ClassCode$.ClassCode$switch HasAuditColumns yes implPgSqlTableColumnSelectCommaAuditColumns default empty$$iterate Columns( each implPgSqlTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlTableColumnSelectCommaAuditColumns">,
+			$lower ClassCode$.createdby,
+			to_char( $lower ClassCode$.createdat, 'YYYY-MM-DD HH24:MI:SS' ) as createdat,
+			$lower ClassCode$.updatedby,
+			to_char( $lower ClassCode$.updatedat, 'YYYY-MM-DD HH24:MI:SS' ) as updatedat</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectBaseTableNoCC"
+		>$switch HasAuditColumns yes implPgSqlSelectBaseTableNoCCWithAudit default implPgSqlSelectBaseTableNoCCNoAudit$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectBaseTableNoCCWithAudit"
+>			$lower ClassCode$.createdby,
+			to_char( $lower ClassCode$.createdat, 'YYYY-MM-DD HH24:MI:SS' ) as createdat,
+			$lower ClassCode$.updatedby,
+			to_char( $lower ClassCode$.updatedat, 'YYYY-MM-DD HH24:MI:SS' ) as updatedat$iterate Columns( each implPgSqlTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectBaseTableNoCCNoAudit"
+>			$iterate Columns( first implPgSqlTableColumnSelectFragDbName each implPgSqlTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableHierarchy"
+		>$switch HasSuperClassRelation yes insertTableSuperHierarchy default insertTableBaseHierarchy$</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableSuperHierarchy"
+		>$reference SuperClassRelation reference ToTable insertTableHierarchy$
+	insert into $lower DbSchemaName$.$lower DbTableName$(
+		$iterate Columns( first implPgSqlSPCreateTableInsertColumn each implPgSqlSPCommaCreateTableInsertColumn )$ )
+	values (
+		$iterate Columns( first implPgSqlSPCreateTableBindArg each implPgSqlSPCommaCreateTableBindArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableBaseHierarchy">
+	insert into $lower DbSchemaName$.$lower DbTableName$(
+		$switch IsBaseTable yes implPgSqlSPCreateTableInsertClassCode default empty$$switch HasAuditColumns yes implPgSqlSPCreateTableInsertAuditColumns default empty$$iterate Columns( first implPgSqlSPCreateTableInsertColumn each implPgSqlSPCommaCreateTableInsertColumn )$$implPgSqlSPCreateTableInsertRevision$ )
+	values (
+		$switch IsBaseTable yes implPgSqlSPCreateTableBindClassCode default empty$$switch HasAuditColumns yes implPgSqlSPCreateTableBindAuditColumns default empty$$iterate Columns( first implPgSqlSPCreateTableBindArg each implPgSqlSPCommaCreateTableBindArg )$$implPgSqlSPCommaCreateTableBindRevision$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPCreateTableGeneratedColumns"
+		>$switch HasSuperClassRelation yes declPgSqlSPCreateTableSuperGeneratedColumns default declPgSqlSPCreateTableBaseGeneratedColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPCreateTableSuperGeneratedColumns"
+		>$reference SuperClassRelation reference ToTable declPgSqlSPCreateTableGeneratedColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPCreateTableBaseGeneratedColumns"
+		>$iterate Columns( each spvar_DeclareGeneratedTableCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="spvar_DeclareGeneratedTableCol"
+		>$switch GenerateId yes spvar_DeclareGeneratedNonUuidTableCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="spvar_DeclareGeneratedNonUuidTableCol"
+		>$switch BaseModelAtomClass
+			UuidGen empty
+			Id16Gen spvar_DeclareTableCol
+			Id32Gen spvar_DeclareTableCol
+			Id64Gen spvar_DeclareTableCol
+			default errorSpVarDeclareGeneratedNonUuidTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableArgs"
+		>$switch HasSuperClassRelation yes implPgSqlSPCreateTableSuperArgs default implPgSqlSPCreateTableBaseArgs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableSuperArgs"
+		>$reference SuperClassRelation reference ToTable implPgSqlSPCreateTableArgs$$iterate Columns( each implPgSqlSPCommaCreateTableInsertDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCommaCreateTableInsertDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableBaseArgs"
+		>$implPgSqlSPCreateTableArgClassCode$$iterate Columns( each implPgSqlSPCreateTableInsertNGColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCreateTableInsertNGColumn"
+		>$switch GenerateId yes implPgSqlSPCreateTableForceInsertUuidGenColumn default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCreateTableForceInsertUuidGenColumn"
+		>$switch BaseModelAtomClass
+			UuidGen sparg_CommaTableCol
+			Id16Gen empty
+			Id32Gen empty
+			Id64Gen empty
+			default errorPgSqlSPCreateTableForceInsertUuidGenColumn$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="invoke_Generator"
+		>$switch BaseModelAtomClass
+			UuidGen empty
+			Id16Gen reallyInvoke_Generator
+			Id32Gen reallyInvoke_Generator
+			Id64Gen reallyInvoke_Generator
+			default errorInvokeGenerator$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="reallyInvoke_Generator">
+	select $generator_sp_with_args$
+	into arg$Name$;
+</GenRule>
+
+	<GenRule GenDef="TableCol" Name="TableColDataDefHasDispenser"
+		>$reference DataType HasDispenser$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="generator_sp_with_args"
+		>$switch TableColDataDefHasDispenser yes tableid_generator_with_args default schemaid_generator$</GenRule>
+
+	<GenRule GenDef="Object" Name="schemaid_generator"
+		>$lower DbSchemaName$.$sp_next_schemaidgen$()</GenRule>
+
+	<GenRule GenDef="TableCol" Name="tableid_generator_with_args"
+		>$lower DbSchemaName$.$reference DataType sp_next_tableidgen$( $reference IdGenResolverRelation iterate Columns( first dispenserRelationArg each commaDispenserRelationArg )$ )</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="dispenserRelationArg"
+		>arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="commaDispenserRelationArg">,
+		$dispenserRelationArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implPgSqlTableColumnSelectFragRevision"
+		>$popto Table implPgSqlTableColumnSelectFragRevision$</GenRule>
+	<GenRule GenDef="Table" Name="implPgSqlTableColumnSelectFragRevision">,
+		$lower ClassCode$.revision as revision</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragTabTabDbName"
+>		$implPgSqlTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplPgSqlClassCodeSelectFragDbNameComma"
+		>$switch HasSubClasses yes implPgSqlClassCodeSelectFragDbNameComma default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableBindClassCode"
+		>argClassCode,
+		</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPCreateTableBindAuditColumns"
+		>argAuditUserId,
+		now(),
+		argAuditUserId,
+		now(),
+		</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlIndexColumnWhereAndFragBindVar">
+			and $implPgSqlIndexColumnWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlIndexColumnWhereFragBindVar"
+		>$switch IsNullable yes implPgSqlIndexColumnWhereFragBindOptVar
+			default implPgSqlIndexColumnWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlIndexColumnWhereFragBindOptVar"
+		>$reference Column implPgSqlIndexColumnWhereFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlIndexColumnWhereFragBindReqVar"
+		>$reference Column implPgSqlIndexColumnWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implPgSqlIndexColumnWhereFragBindOptBlobVar
+			BoolDef implPgSqlIndexColumnWhereFragBindOptBoolVar
+			EnumDef implPgSqlIndexColumnWhereFragBindOptEnumVar
+			Int16Def implPgSqlIndexColumnWhereFragBindOptInt16Var
+			Int32Def implPgSqlIndexColumnWhereFragBindOptInt32Var
+			Int64Def implPgSqlIndexColumnWhereFragBindOptInt64Var
+			UInt16Def implPgSqlIndexColumnWhereFragBindOptUInt16Var
+			UInt32Def implPgSqlIndexColumnWhereFragBindOptUInt32Var
+			UInt64Def implPgSqlIndexColumnWhereFragBindOptUInt64Var
+			Id16Gen implPgSqlIndexColumnWhereFragBindOptInt16Var
+			Id32Gen implPgSqlIndexColumnWhereFragBindOptInt32Var
+			Id64Gen implPgSqlIndexColumnWhereFragBindOptInt64Var
+			FloatDef implPgSqlIndexColumnWhereFragBindOptFloatVar
+			DoubleDef implPgSqlIndexColumnWhereFragBindOptDoubleVar
+			NumberDef implPgSqlIndexColumnWhereFragBindOptNumberVar
+			StringDef implPgSqlIndexColumnWhereFragBindOptStringVar
+			TokenDef implPgSqlIndexColumnWhereFragBindOptStringVar
+			NmTokenDef implPgSqlIndexColumnWhereFragBindOptStringVar
+			NmTokensDef implPgSqlIndexColumnWhereFragBindOptStringVar
+			TextDef implPgSqlIndexColumnWhereFragBindOptTextVar
+			DateDef implPgSqlIndexColumnWhereFragBindOptDateVar
+			TimeDef implPgSqlIndexColumnWhereFragBindOptTimeVar
+			TimestampDef implPgSqlIndexColumnWhereFragBindOptTimestampVar
+			TZDateDef implPgSqlIndexColumnWhereFragBindOptTZDateVar
+			TZTimeDef implPgSqlIndexColumnWhereFragBindOptTZTimeVar
+			TZTimestampDef implPgSqlIndexColumnWhereFragBindOptTZTimestampVar
+			UuidDef implPgSqlIndexColumnWhereFragBindOptUuidVar
+			UuidGen implPgSqlIndexColumnWhereFragBindOptUuidVar
+			default empty$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implPgSqlIndexColumnWhereFragBindReqBlobVar
+			BoolDef implPgSqlIndexColumnWhereFragBindReqBoolVar
+			EnumDef implPgSqlIndexColumnWhereFragBindReqEnumVar
+			Int16Def implPgSqlIndexColumnWhereFragBindReqInt16Var
+			Int32Def implPgSqlIndexColumnWhereFragBindReqInt32Var
+			Int64Def implPgSqlIndexColumnWhereFragBindReqInt64Var
+			UInt16Def implPgSqlIndexColumnWhereFragBindReqUInt16Var
+			UInt32Def implPgSqlIndexColumnWhereFragBindReqUInt32Var
+			UInt64Def implPgSqlIndexColumnWhereFragBindReqUInt64Var
+			Id16Gen implPgSqlIndexColumnWhereFragBindReqInt16Var
+			Id32Gen implPgSqlIndexColumnWhereFragBindReqInt32Var
+			Id64Gen implPgSqlIndexColumnWhereFragBindReqInt64Var
+			FloatDef implPgSqlIndexColumnWhereFragBindReqFloatVar
+			DoubleDef implPgSqlIndexColumnWhereFragBindReqDoubleVar
+			NumberDef implPgSqlIndexColumnWhereFragBindReqNumberVar
+			StringDef implPgSqlIndexColumnWhereFragBindReqStringVar
+			TokenDef implPgSqlIndexColumnWhereFragBindReqStringVar
+			NmTokenDef implPgSqlIndexColumnWhereFragBindReqStringVar
+			NmTokensDef implPgSqlIndexColumnWhereFragBindReqStringVar
+			TextDef implPgSqlIndexColumnWhereFragBindReqTextVar
+			DateDef implPgSqlIndexColumnWhereFragBindReqDateVar
+			TimeDef implPgSqlIndexColumnWhereFragBindReqTimeVar
+			TimestampDef implPgSqlIndexColumnWhereFragBindReqTZTimestampVar
+			TZDateDef implPgSqlIndexColumnWhereFragBindReqTZDateVar
+			TZTimeDef implPgSqlIndexColumnWhereFragBindReqTZTimeVar
+			TZTimestampDef implPgSqlIndexColumnWhereFragBindReqTZTimestampVar
+			UuidDef implPgSqlIndexColumnWhereFragBindReqUuidVar
+			UuidGen implPgSqlIndexColumnWhereFragBindReqUuidVar
+			default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqBlobVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptBlobVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqBoolVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptBoolVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqEnumVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptEnumVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqInt16Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqInt32Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqInt64Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqUInt16Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptUInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqUInt32Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptUInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqUInt64Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptUInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqFloatVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptFloatVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqDoubleVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptDoubleVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqNumberVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptNumberVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqStringVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptStringVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqTokenVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqNmTokenVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptNmTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqNmTokensVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptNmTokensVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqTextVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptTextVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqDateVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptDateVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqTimeVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqTimestampVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqTZDateVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptTZDateVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqTZTimeVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptTZTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqTZTimestampVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptTZTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindReqUuidVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnWhereFragBindOptUuidVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragCommaColumn">,
+			$implPgSqlTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameBlob"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameBool"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameEnum"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameInt16"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameInt32"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameInt64"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameUInt16"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameUInt32"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameUInt64"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'FM99999999999999999990' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameFloat"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameDouble"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameNumber"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'SFM99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999.99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameString"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameToken"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameNmToken"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameNmTokens"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameText"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameDate"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'YYYY-MM-DD' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameTime"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'HH24:MI:SS' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameTimestamp"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'YYYY-MM-DD HH24:MI:SS' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameTZDate"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'YYYY-MM-DD HH24:MI:SS' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameTZTime"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'YYYY-MM-DD HH24:MI:SS' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameTZTimestamp"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'YYYY-MM-DD HH24:MI:SS' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbNameUuid"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDbName"
+>$switch BaseModelAtomClass
+			BlobDef implPgSqlTableColumnSelectFragDbNameBlob
+			BoolDef implPgSqlTableColumnSelectFragDbNameBool
+			EnumDef implPgSqlTableColumnSelectFragDbNameEnum
+			Int16Def implPgSqlTableColumnSelectFragDbNameInt16
+			Int32Def implPgSqlTableColumnSelectFragDbNameInt32
+			Int64Def implPgSqlTableColumnSelectFragDbNameInt64
+			UInt16Def implPgSqlTableColumnSelectFragDbNameUInt16
+			UInt32Def implPgSqlTableColumnSelectFragDbNameUInt32
+			UInt64Def implPgSqlTableColumnSelectFragDbNameUInt64
+			Id16Gen implPgSqlTableColumnSelectFragDbNameInt16
+			Id32Gen implPgSqlTableColumnSelectFragDbNameInt32
+			Id64Gen implPgSqlTableColumnSelectFragDbNameInt64
+			FloatDef implPgSqlTableColumnSelectFragDbNameFloat
+			DoubleDef implPgSqlTableColumnSelectFragDbNameDouble
+			NumberDef implPgSqlTableColumnSelectFragDbNameNumber
+			StringDef implPgSqlTableColumnSelectFragDbNameString
+			TokenDef implPgSqlTableColumnSelectFragDbNameToken
+			NmTokenDef implPgSqlTableColumnSelectFragDbNameNmToken
+			NmTokensDef implPgSqlTableColumnSelectFragDbNameNmTokens
+			TextDef implPgSqlTableColumnSelectFragDbNameText
+			DateDef implPgSqlTableColumnSelectFragDbNameDate
+			TimeDef implPgSqlTableColumnSelectFragDbNameTime
+			TimestampDef implPgSqlTableColumnSelectFragDbNameTimestamp
+			TZDateDef implPgSqlTableColumnSelectFragDbNameTZDate
+			TZTimeDef implPgSqlTableColumnSelectFragDbNameTZTime
+			TZTimestampDef implPgSqlTableColumnSelectFragDbNameTZTimestamp
+			UuidDef implPgSqlTableColumnSelectFragDbNameUuid
+			UuidGen implPgSqlTableColumnSelectFragDbNameUuid
+			default empty$</GenRule>
+	<GenRule ScopeDef="Table" GenDef="TableCol" Name="implPgSqlTableColumnSqlFragDbName"
+>		$lower ClassCode$.$lower DbColumnName$ as $lower DbTableName$
+</GenRule>
+	<GenRule ScopeDef="Table" GenDef="Atom" Name="implPgSqlTableColumnSqlFragDbName"
+>		$lower ClassCode$.$lower DbColumnName$ as $lower DbTableName$
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnOrderBy">
+		$lower reference Column ClassCode$.$lower reference Column DbColumnName$ asc</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnCommaOrderBy"
+		>$implPgSqlIndexColumnOrderBy$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlClassCodeSelectFragDbNameComma"
+>		$lower reference BaseClass ClassCode$.classcode,
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlClassCodeMaybeJoinSuperTable"
+		>$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlClassCodeJoinSuperTable">
+		inner join $lower reference SuperClassRelation reference ToTable DbSchemaName$.$lower reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implPgSqlClassCodeJoinSuperTableColumn each implPgSqlClassCodeAndJoinSuperTableColumn )$$reference SuperClassRelation reference ToTable implPgSqlClassCodeMaybeJoinSuperTable$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeJoinSuperTableColumn">
+			$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeAndJoinSuperTableColumn">
+			and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlClassCodeJoinBaseTable">
+		inner join $lower reference BaseClass DbSchemaName$.$lower reference BaseClass DbTableName$ $lower reference BaseClass ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implPgSqlClassCodeJoinBaseTableColumn each implPgSqlClassCodeAndJoinBaseTableColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeJoinBaseTableColumn">
+			$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeAndJoinBaseTableColumn">
+			and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCommaCreateTableInsertColumn">,
+		$implPgSqlSPCreateTableInsertColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCreateTableInsertColumn"
+		>$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCommaCreateTableBindArg">,
+		$implPgSqlSPCreateTableBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCreateTableBindArg"
+		>$switch ColumnInChainPrev yes implPgSqlSPCreateTableBindPrevArg default implPgSqlSPCreateTableMaybeBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCreateTableMaybeBindArg"
+		>$switch ColumnInChainNext yes implPgSqlSPCreateTableBindNullArg default implPgSqlSPCreateTableReallyBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCreateTableReallyBindArg"
+		>arg$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCreateTableBindPrevArg"
+		>prev$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCreateTableBindNullArg"
+		>null</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlSPCreateTableInsertRevision">,
+		revision</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlSPCommaCreateTableBindRevision">,
+		1</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlSPCreateTableInsertClassCode"
+>classcode,
+		</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlSPCreateTableInsertAuditColumns"
+>createdby,
+		createdat,
+		updatedby,
+		updatedat,
+		</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlSPCreateTableArgClassCode"
+		>argClassCode varchar(4)</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="sparg_TableCol"
+		>$reference Column sparg_TableCol$</GenRule>
+	<GenRule GenDef="IndexCol" Name="sparg_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="sparg_IndexCol"
+		>$reference Column sparg_TableCol$</GenRule>
+	<GenRule GenDef="IndexCol" Name="sparg_CommaIndexCol">,
+	$sparg_IndexCol$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="sparg_TableCol"
+		>arg$Name$ $reference DataType clause_SPColType$</GenRule>
+	<GenRule GenDef="Atom" Name="sparg_TableCol"
+		>arg$Name$ $clause_SPColType$</GenRule>
+	<GenRule GenDef="Object" Name="sparg_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="clause_SPColType">$reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="clause_SPColType">$reference DataType clause_ColType$</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="clause_SPColType">bytea</GenRule>
+
+	<GenRule GenDef="BoolDef" Name="clause_SPColType">boolean</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="clause_SPColType">smallint</GenRule>
+
+	<GenRule GenDef="Int16Def" Name="clause_SPColType">smallint</GenRule>
+
+	<GenRule GenDef="Int32Def" Name="clause_SPColType">integer</GenRule>
+
+	<GenRule GenDef="Int64Def" Name="clause_SPColType">bigint</GenRule>
+
+	<GenRule GenDef="UInt16Def" Name="clause_SPColType">integer</GenRule>
+
+	<GenRule GenDef="UInt32Def" Name="clause_SPColType">bigint</GenRule>
+
+	<GenRule GenDef="UInt64Def" Name="clause_SPColType">numeric(22,0)</GenRule>
+
+	<!--
+	 *		When binding floats via JDBC, PostgreSQL treats them as doubles.
+	 *		I had tried to cast to real, but that caused errors, so
+	 *		the only solution I can think of is to "hack" the argument type,
+	 *		and let PostgreSQL do the implicit cast during the inserts and updates.
+	 *-->
+
+	<GenRule GenDef="FloatDef" Name="clause_SPColType">double precision</GenRule>
+
+	<GenRule GenDef="DoubleDef" Name="clause_SPColType">double precision</GenRule>
+
+	<GenRule GenDef="NumberDef" Name="clause_SPColType">numeric($Digits$,$Precis$)</GenRule>
+
+	<GenRule GenDef="StringDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="TokenDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="NmTokenDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="NmTokensDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="TextDef" Name="clause_SPColType">text</GenRule>
+
+	<GenRule GenDef="DateDef" Name="clause_SPColType">date</GenRule>
+
+	<GenRule GenDef="TimeDef" Name="clause_SPColType">time</GenRule>
+
+	<GenRule GenDef="TimestampDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="TZDateDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="TZTimeDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="TZTimestampDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="UuidDef" Name="clause_SPColType">varchar(36)</GenRule>
+
+	<GenRule GenDef="UuidGen" Name="clause_SPColType">varchar(36)</GenRule>
+
+	<GenRule GenDef="Object" Name="spvar_DeclareTableCol">
+	$spvar_TableCol$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="spvar_TableCol"
+		>arg$Name$ $reference DataType clause_ColType$;</GenRule>
+	<GenRule GenDef="Atom" Name="spvar_TableCol"
+		>arg$Name$ $clause_ColType$;</GenRule>
+	<GenRule GenDef="Object" Name="spvar_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+</RuleSet>

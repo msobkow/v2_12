@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mssql"
+	Name="schema/dbcreate/mssql/readme.txt"
+	Revision="2.12"
+	Descr="Microsoft SQL Server Developer Edition Readme.txt File">
+
+	<GenFile GenDef="SchemaDef" Name="dbadminfile_ReadmeTxt"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mssql"
+		ExpansionClassName="readme"
+		ExpansionKeyName="readme"
+		ExpansionFileName="readme.txt">$ScriptLicense$
+$ReadmePartOne$
+$ReadmePartTwo$
+$ReadmePartThree$
+$ReadmePartFour$</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="ReadmePartOne">
+You will find a number of script files in this directory,
+all of which are intended to be executed using tsql
+to install a $DbSchemaName$ database.
+
+Each of the *.bash scripts accepts the following arguments
+unless otherwise noted:
+
+	-S server	The name of the mssql server to use.
+	-U username	The login name for the server.
+	-P password	The password for logging in.
+	-D database	The name of the database to contain the schema.
+	-L logfile	Where to write the log messages.
+
+All tables and indices are created in the default container for
+the user name and database.
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReadmePartTwo">
+Database Creation Scripts
+-------------------------
+
+crtypes_$lower DbSchemaName$.tsql
+	Creates the OmxClassCode type if it has not already been created, and the
+	user data types with their associated rules for the schema.  The types should
+	be created before the database, as MSSql will copy the data types from the
+	model to each of the databases created.
+
+crdatabase_$lower DbSchemaName$.tsql
+	Creates the database "$lower DbSchemaName$" and the database owner
+	login "$lower DbSchemaName$dba".  The initial password for the database
+	owner is "$lower DbSchemaName$pwd" and should not be changed until after
+	the remaining schema creation scripts have been executed.
+
+	Creating the database itself takes roughly two hours on my C300 Linux system.
+
+		drop database $lower DbSchemaName$
+		go
+
+		exec sp_droplogin $lower DbSchemaName$dba
+		go
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReadmePartThree">
+crdb_$lower DbSchemaName$.ksh
+	The master script for creating the user data types, tables, indexes, and
+	constraints for the database.
+
+cridg_$lower DbSchemaName$.tsql
+	Creates the database id generator objects.
+
+crtbl_$lower DbSchemaName$.ksh
+	Creates the database tables.
+
+cridx_$lower DbSchemaName$.tsql
+	Creates the database table indexes.
+
+crrel_$lower DbSchemaName$.tsql
+	Creates the relationships between the tables.
+
+$iterate SchemaTables( each dbadminnamelist_CreateTable empty empty )$	The individual table creation scripts called by crtbl_$lower DbSchemaName$.tsql.
+
+$iterate SchemaTables( each dbadminnamelist_SchemaTableIndexes empty empty )$	The individual table index creation scripts called by cridx_$lower DbSchemaName$.tsql.
+
+$iterate Id16Generators( each dbadminnamelist_SPNextSchemaIdGen empty empty )$$iterate Id32Generators( each dbadminnamelist_SPNextSchemaIdGen empty empty )$$iterate Id64Generators( each dbadminnamelist_SPNextSchemaIdGen empty empty )$	The stored procedures for getting the next schema id from the generators.
+
+$iterate SchemaTables( each dbadminnamelist_SPNextTableIdGen )$	The stored procedures for getting the next table-dispenssed id from the generators.
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReadmePartFour">
+Database Drop Scripts
+---------------------
+
+drdb_$lower DbSchemaName$.tsql
+	Drops the id generators, tables, indexes and constraints
+	of the database.
+
+dridg_$lower DbSchemaName$.tsql
+	Drops the database id generator objects.
+
+drtbl_$lower DbSchemaName$.tsql
+	Drops the database tables.
+
+dridx_$lower DbSchemaName$.tsql
+	Drops the database table indexes.
+
+drrel_$lower DbSchemaName$.tsql
+	Drops the relationships between the tables.
+</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminnamelist_SPNextTableIdGen"
+		>$iterate DispensedId16Generators( each dbadminnamelist_SPNextTableIdGen empty empty )$$iterate DispensedId32Generators( each dbadminnamelist_SPNextTableIdGen empty empty )$$iterate DispensedId64Generators( each dbadminnamelist_SPNextTableIdGen empty empty )$</GenRule>
+
+	<GenRule GenDef="Id16Gen" Name="dbadminnamelist_SPNextSchemaIdGen"
+		>$dbadminfilename_CreateSPNextSchemaIdGen$
+</GenRule>
+	<GenRule GenDef="Id32Gen" Name="dbadminnamelist_SPNextSchemaIdGen"
+		>$dbadminfilename_CreateSPNextSchemaIdGen$
+</GenRule>
+	<GenRule GenDef="Id64Gen" Name="dbadminnamelist_SPNextSchemaIdGen"
+		>$dbadminfilename_CreateSPNextSchemaIdGen$
+</GenRule>
+
+	<GenRule GenDef="Id16Gen" Name="dbadminnamelist_SPNextTableIdGen"
+		>$dbadminfilename_CreateSPNextTableIdGen$
+</GenRule>
+	<GenRule GenDef="Id32Gen" Name="dbadminnamelist_SPNextTableIdGen"
+		>$dbadminfilename_CreateSPNextTableIdGen$
+</GenRule>
+	<GenRule GenDef="Id64Gen" Name="dbadminnamelist_SPNextTableIdGen"
+		>$dbadminfilename_CreateSPNextTableIdGen$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="dbadminnamelist_CreateTable">$dbadminfilename_CreateTable$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="dbadminnamelist_SchemaTableIndexes">$iterate Index( each dbadminnamelist_MaybeCreateMappedIndex )$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="dbadminnamelist_MaybeCreateMappedIndex">$switch IsPrimaryIndex no dbadminnamelist_CreateMappedIndex default empty$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="dbadminnamelist_CreateMappedIndex">$switch IsDbMapped yes dbadminnamelist_CreateIndex default empty$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="dbadminnamelist_CreateIndex">$dbadminfilename_CreateIndex$
+</GenRule>
+
+</RuleSet>

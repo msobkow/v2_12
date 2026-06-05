@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/SchemaRam/SchemaRamSchema.java"
+	Revision="2.12"
+	Descr="Java 11 implementation of an in-memory $SchemaName$ schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaRamSchemaJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema SchemaName$Ram"
+		ExpansionClassName="$SchemaName$RamSchemaJava"
+		ExpansionKeyName="$SchemaName$RamSchemaJava"
+		ExpansionFileName="$SchemaName$RamSchema.java"
+>// Description: Java 11 implementation of an in-memory RAM $SchemaName$ schema.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower SubProjectPackageName$.$SchemaName$Ram;
+
+import java.lang.reflect.*;
+import java.net.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$importJavaPackageSchemaName$$importJavaPackageSchemaNameObj$
+
+public class $SchemaName$RamSchema
+	extends $SchemaName$Schema
+	implements I$SchemaName$Schema
+{
+$iterate Id16Generators( each declRamNextIdGen empty empty )$$iterate Id32Generators( each declRamNextIdGen empty empty )$$iterate Id64Generators( each declRamNextIdGen empty empty )$
+$implSchemaRamConstructor$$implRamSchemaConnectionMethods$$implRamSchemaNewSchema$$iterate Id16Generators( each implRamNextIdGen empty empty)$$iterate Id32Generators( each implRamNextIdGen empty empty)$$iterate Id64Generators( each implRamNextIdGen empty empty)$$iterate UuidGenerators( each implRamNextIdGen empty empty )$$implRamSchemaReleasePreparedStatements$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implRamSchemaReleasePreparedStatements">
+	public void releasePreparedStatements() {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRamSchemaConnectionMethods">
+	protected boolean sessConnected = false;
+
+	public boolean isConnected() {
+		return( sessConnected );
+	}
+
+	public boolean connect() {
+		if( sessConnected ) {
+			return( false );
+		}
+		else {
+			sessConnected = true;
+			tranOpen = false;
+			return( true );
+		}
+	}
+
+	public boolean connect( String username, String password ) {
+		final String S_ProcName = "connect";
+		if( ( username == null ) || ( username.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"username" );
+		}
+		if( password == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"password" );
+		}
+		if( ! username.equals( "system" ) ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Only 'system' is authorized to use a RAM database" );
+		}
+		if( sessConnected ) {
+			return( false );
+		}
+		else {
+			sessConnected = true;
+			tranOpen = false;
+			return( true );
+		}
+	}
+
+	public boolean connect( String loginId, String password, String clusterName, String tenantName ) {
+		final String S_ProcName = "connect";
+		if( ( loginId == null ) || ( loginId.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"loginId" );
+		}
+		if( password == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"password" );
+		}
+		if( clusterName == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				3,
+				"clusterName" );
+		}
+		if( tenantName == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				4,
+				"tenantName" );
+		}
+		if( ! loginId.equals( "system" ) ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Only 'system' is authorized to use a RAM database" );
+		}
+		if( ! clusterName.equals( "system" ) ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Only the 'system' Cluster is authorized to use a RAM database" );
+		}
+		if( ! tenantName.equals( "system" ) ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Only the 'system' Tenant is authorized to use a RAM database" );
+		}
+		if( sessConnected ) {
+			return( false );
+		}
+		else {
+			sessConnected = true;
+			tranOpen = false;
+			return( true );
+		}
+	}
+
+	public void disconnect( boolean doCommit ) {
+		tranOpen = false;
+		sessConnected = false;
+	}
+
+	//	Transactions are not supported, so pretend there is always one open
+
+	protected boolean tranOpen = false;
+
+	public boolean isTransactionOpen() {
+		return( tranOpen );
+	}
+
+	public boolean beginTransaction() {
+		if( tranOpen ) {
+			return( false );
+		}
+		tranOpen = true;
+		return( true );
+	}
+
+	public void commit() {
+		tranOpen = false;
+	}
+
+	public void rollback() {
+		tranOpen = false;
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="declRamNextIdGen"
+>		protected short next$Name$Value = 1;
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="declRamNextIdGen"
+>		protected int next$Name$Value = 1;
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="declRamNextIdGen"
+>		protected long next$Name$Value = 1;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaRamConstructTable">
+		table$TableName$ = new $SchemaName$Ram$TableName$Table( this );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaRamConstructor">
+	public $SchemaName$RamSchema() {
+		super();$iterate SchemaTables( each implSchemaRamConstructTable )$
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="implRamNextIdGen">
+	public short next$Name$() {
+		short next = next$Name$Value++;
+		return( next );
+	}
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="implRamNextIdGen">
+	public int next$Name$() {
+		int next = next$Name$Value++;
+		return( next );
+	}
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="implRamNextIdGen">
+	public long next$Name$() {
+		long next = next$Name$Value++;
+		return( next );
+	}
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidGen" Name="implRamNextIdGen">
+	public UUID next$Name$() {
+		UUID next = UUID.randomUUID();
+		return( next );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRamSchemaNewSchema">
+	public I$SchemaName$Schema newSchema() {
+		throw new CFLibMustOverrideException( getClass(), "newSchema" );
+	}
+</GenRule>
+
+</RuleSet>

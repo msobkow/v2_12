@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mysql"
+	Name="schema/dbcreate/mysql/crtbl_table_h.mysql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateTableH"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mysql"
+		ExpansionClassName="crtbl_$lower DbTableName$_h"
+		ExpansionKeyName="crtbl_$lower DbTableName$_h"
+		ExpansionFileName="$dbadminfilename_CreateTableH$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+CREATE TABLE $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each clause_HCreateColComma )$$clause_CreateColRevisionComma$$clause_CreateColSessionIdComma$$poptop Table switch BaseHasClassCode yes dbadminfile_implTableHClassCodeColComma default empty$$dbadminfile_CreateTableHInheritedCols$$dbadminfile_CreateTableHAuditCodeComma$$dbadminfile_CreateTableHAuditStamp$ )
+	ENGINE=InnoDB$RunSqlStmt$$switch HasPrimaryKey yes clause_HPrimaryKey default empty$</GenFile>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="clause_HPrimaryKey">$reference PrimaryKeyIndex clause_CreateHPrimaryIndex$$reference PrimaryKeyIndex clause_HPrimaryKey$</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Index" Name="clause_CreateHPrimaryIndex">
+CREATE$clause_Unique$ INDEX $DbHIndexName$ ON $lower DbSchemaName$.$DbTableHName$ (	\\
+	auditclusterid,	\\
+	auditstamp,$iterate Columns( each clause_PrimaryIndexColComma )$,	\\
+	auditaction,
+	revision )$RunSqlStmt$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="clause_CreateHPrimaryIndex">
+CREATE$clause_Unique$ INDEX $DbHIndexName$ ON $lower DbSchemaName$.$DbTableHName$ (	\\
+	auditclusterid,	\\
+	auditstamp,$iterate Columns( each clause_PrimaryIndexColComma last clause_PrimaryIndexCol )$,	\\
+	auditaction,
+	revision )$RunSqlStmt$</GenRule>
+
+	<GenRule GenDef="Index" Name="clause_HPrimaryKey">
+ALTER TABLE $lower DbSchemaName$.$DbTableHName$$ContSqlStmt$	ADD CONSTRAINT pk_$lower DbIndexName$_h PRIMARY KEY (	\\
+	auditclusterid,	\\
+	auditstamp,$iterate Columns( each clause_PKeyColComma )$	\\
+	auditaction,
+	revision )$RunSqlStmt$</GenRule>
+
+	<GenRule ScopeDef="Index" GenDef="IndexCol" Name="clause_HPKeyColComma">$clause_HPKeyCol$,</GenRule>
+
+	<GenRule ScopeDef="Index" GenDef="IndexCol" Name="clause_HPKeyCol"> $lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Atom" Name="clause_HCreateColComma">$clause_HCreateCol$,</GenRule>
+
+	<GenRule GenDef="TableCol" Name="clause_HCreateColComma">$clause_HCreateCol$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="clause_HCreateColComma">$reference Column clause_HCreateCol$,</GenRule>
+
+	<GenRule GenDef="Atom" Name="clause_HCreateCol">
+	$lower DbColumnName$	$clause_ColType$$switch IsNullable yes clause_Null default clause_NotNull$$optclause_HRangeConstraint$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="clause_HCreateCol">
+	$lower DbColumnName$	$reference DataType clause_ColType$$switch IsNullable yes clause_Null default clause_NotNull$$optclause_HRangeConstraint$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="TableCol" Name="optclause_HRangeConstraint">$switch BaseModelAtomClass
+	BlobDef empty
+	BoolDef bool_HRangeConstraint
+	EnumDef int16_HRangeConstraint
+	Int16Def int16_HRangeConstraint
+	Int32Def int32_HRangeConstraint
+	Int64Def int64_HRangeConstraint
+	UInt16Def uint16_HRangeConstraint
+	UInt32Def uint32_HRangeConstraint
+	UInt64Def uint64_HRangeConstraint
+	Id16Gen int16_HRangeConstraint
+	Id32Gen int32_HRangeConstraint
+	Id64Gen int64_HRangeConstraint
+	FloatDef float_HRangeConstraint
+	DoubleDef double_HRangeConstraint
+	NumberDef empty
+	StringDef empty
+	TokenDef empty
+	NmTokenDef empty
+	NmTokensDef empty
+	TextDef empty
+	DateDef empty
+	TimeDef empty
+	TimestampDef empty
+	TZDateDef empty
+	TZTimeDef empty
+	TZTimestampDef empty
+	UuidDef empty
+	UuidGen empty
+	default error$</GenRule>
+
+	<GenRule GenDef="Object" Name="HDbCheckConstraintName">chk_$lower popto Table DbTableName$_h_$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="HDbCheckConstraintName">chk_$lower popto Table DbTableName$_h_$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="BoolDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Object" Name="bool_HRangeConstraint"></GenRule>
+	<GenRule GenDef="EnumDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Int16Def" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Object" Name="int16_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Int32Def" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Object" Name="int32_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Int64Def" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Object" Name="int64_HRangeConstraint"></GenRule>
+	<GenRule GenDef="UInt16Def" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Object" Name="uint16_HRangeConstraint"></GenRule>
+	<GenRule GenDef="UInt32Def" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Object" Name="uint32_HRangeConstraint"></GenRule>
+	<GenRule GenDef="UInt64Def" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Object" Name="uint64_HRangeConstraint"></GenRule>
+	<GenRule GenDef="FloatDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Object" Name="float_HRangeConstraint"></GenRule>
+	<GenRule GenDef="DoubleDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Object" Name="double_HRangeConstraint"></GenRule>
+	<GenRule GenDef="NumberDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Object" Name="number_HRangeConstraint"></GenRule>
+	<GenRule GenDef="StringDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="TokenDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="NmTokenDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="NmTokensDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="TextDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="DateDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="Object" Name="date_HRangeConstraint"></GenRule>
+	<GenRule GenDef="TimeDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="TimestampDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="TZDateDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="TZTimeDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="UuidDef" Name="optclause_HRangeConstraint"></GenRule>
+	<GenRule GenDef="UuidGen" Name="optclause_HRangeConstraint"></GenRule>
+
+	<GenRule GenDef="Table" Name="clause_CreateColRevisionComma"
+		>$clause_CreateColRevision$,</GenRule>
+
+	<GenRule GenDef="Table" Name="clause_CreateColRevision">
+	revision INTEGER NOT NULL</GenRule>
+
+	<GenRule GenDef="Table" Name="clause_CreateColSessionIdComma"
+		>$clause_CreateColSessionId$,</GenRule>
+
+	<GenRule GenDef="Table" Name="clause_CreateColSessionId">
+	auditclusterid	BIGINT NOT NULL,
+		CONSTRAINT chk_$lower poptop Table DbTableName$_h_auditcluster
+			FOREIGN KEY ( auditclusterid )
+			REFERENCES $lower DbSchemaName$.clus( id ),
+	auditsessionid	VARCHAR(36) NOT NULL,
+		CONSTRAINT chk_$lower poptop Table DbTableName$_h_auditsession
+			FOREIGN KEY ( auditsessionid )
+			REFERENCES $lower DbSchemaName$.SecSess( secsessionid )</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_CreateTableHAuditCodeComma"
+		>$dbadminfile_CreateTableHAuditCode$,</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_CreateTableHAuditCode">
+	auditaction	SMALLINT NOT NULL</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_CreateTableHAuditStamp">
+	auditstamp	DATETIME NOT NULL</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_CreateTableHInheritedCols"
+		>$switch HasSuperClassRelation yes dbadminfile_TableHInhCols default dbadminfile_TableHBaseCols$</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_TableHInhCols"
+		>$reference SuperClassRelation reference ToTable dbadminfile_CreateTableHInheritedCols$$dbadminfile_TableHBaseCols$</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_TableHBaseCols"
+		>$iterate Columns( each clause_CreateColNonPKColComma )$</GenRule>
+
+	<GenRule GenDef="Atom" Name="clause_CreateColNonPKColComma"
+		>$switch ColumnInPrimaryIndex yes empty default clause_CreateColComma$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="clause_CreateColNonPKColComma"
+		>$switch ColumnInPrimaryIndex yes empty default clause_CreateColComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="clause_CreateColNonPKColComma"
+		>$switch ColumnInPrimaryIndex yes empty default clause_CreateColComma$</GenRule>
+
+	<GenRule GenDef="Table" Name="clause_PrimaryHKey">$reference PrimaryKeyIndex clause_CreatePrimaryHIndex$$reference PrimaryKeyIndex clause_PrimaryHKey$</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Index" Name="clause_CreatePrimaryHIndex">
+CREATE UNIQUE INDEX $DbHIndexName$ ON $lower DbSchemaName$.$DbTableName$_h ($iterate Columns( each clause_PrimaryIndexColComma  )$
+	revision )$RunSqlStmt$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="clause_CreatePrimaryHIndex">
+CREATE UNIQUE INDEX $DbHIndexName$ ON $lower DbSchemaName$.$DbTableName$_h ($iterate Columns( each clause_PrimaryIndexColComma )$
+	revision )$RunSqlStmt$</GenRule>
+
+	<GenRule GenDef="Index" Name="clause_PrimaryHKey">
+ALTER TABLE $lower DbSchemaName$.$DbTableName$_h
+	ADD CONSTRAINT pk_$lower DbIndexName$_h PRIMARY KEY ($iterate Columns( each clause_PKeyHColComma empty empty after clause_CreatePKeyHColRevision )$ )$RunSqlStmt$</GenRule>
+
+	<GenRule ScopeDef="Index" GenDef="IndexCol" Name="clause_PKeyHColComma">$clause_PKeyHCol$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="clause_PKeyHCol">$clause_PKeyCol$</GenRule>
+
+	<GenRule GenDef="Object" Name="clause_CreatePKeyHColRevision"> revision</GenRule> 
+</RuleSet>

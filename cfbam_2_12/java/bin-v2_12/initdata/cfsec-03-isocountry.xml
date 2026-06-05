@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CFSec
+		xmlns="uri://cfsec/cfsecloader"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="uri://cfsec/cfsecloader file:../bin/xsd/cfsec-structured.xsd" >
+	<ISOCountry ISOCode="ad" Name="Andorra" />
+	<ISOCountry ISOCode="ae" Name="United Arab Emirates" />
+	<ISOCountry ISOCode="af" Name="Afghanistan" />
+	<ISOCountry ISOCode="ag" Name="Antigua and Barbuda" />
+	<ISOCountry ISOCode="ai" Name="Anguilla" />
+	<ISOCountry ISOCode="al" Name="Albania" />
+	<ISOCountry ISOCode="am" Name="Armenia" />
+	<ISOCountry ISOCode="an" Name="Netherlands Antilles" />
+	<ISOCountry ISOCode="ao" Name="Angola" />
+	<ISOCountry ISOCode="aq" Name="Antarctica" />
+	<ISOCountry ISOCode="ar" Name="Argentina" />
+	<ISOCountry ISOCode="as" Name="American Samoa" />
+	<ISOCountry ISOCode="at" Name="Austria" />
+	<ISOCountry ISOCode="au" Name="Australia" />
+	<ISOCountry ISOCode="aw" Name="Aruba" />
+	<ISOCountry ISOCode="ax" Name="Aaland Islands" />
+	<ISOCountry ISOCode="az" Name="Azerbaijan" />
+	<ISOCountry ISOCode="ba" Name="Bosnia and Herzegowina" />
+	<ISOCountry ISOCode="bb" Name="Barbados" />
+	<ISOCountry ISOCode="bd" Name="Bangladesh" />
+	<ISOCountry ISOCode="be" Name="Belgium" />
+	<ISOCountry ISOCode="bf" Name="Burkina Faso" />
+	<ISOCountry ISOCode="bg" Name="Bulgaria" />
+	<ISOCountry ISOCode="bh" Name="Bahrain" />
+	<ISOCountry ISOCode="bi" Name="Burundi" />
+	<ISOCountry ISOCode="bj" Name="Benin" />
+	<ISOCountry ISOCode="bm" Name="Bermuda" />
+	<ISOCountry ISOCode="bn" Name="Brunei Darussalam" />
+	<ISOCountry ISOCode="bo" Name="Bolivia" />
+	<ISOCountry ISOCode="br" Name="Brazil" />
+	<ISOCountry ISOCode="bs" Name="Bahamas" />
+	<ISOCountry ISOCode="bt" Name="Bhutan" />
+	<ISOCountry ISOCode="bv" Name="Bouvet Island" />
+	<ISOCountry ISOCode="bw" Name="Botswana" />
+	<ISOCountry ISOCode="by" Name="Belarus" />
+	<ISOCountry ISOCode="bz" Name="Belize" />
+	<ISOCountry ISOCode="ca" Name="Canada" />
+	<ISOCountry ISOCode="cc" Name="Cocos (Keeling) Islands" />
+	<ISOCountry ISOCode="cd" Name="Congo, Democratic Republic of (was Zaire)" />
+	<ISOCountry ISOCode="cf" Name="Central African Republic" />
+	<ISOCountry ISOCode="cg" Name="Congo, Republic of" />
+	<ISOCountry ISOCode="ch" Name="Switzerland" />
+	<ISOCountry ISOCode="ci" Name="Cote D&#39;ivoire" />
+	<ISOCountry ISOCode="ck" Name="Cook Islands" />
+	<ISOCountry ISOCode="cl" Name="Chile" />
+	<ISOCountry ISOCode="cm" Name="Cameroon" />
+	<ISOCountry ISOCode="cn" Name="China" />
+	<ISOCountry ISOCode="co" Name="Colombia" />
+	<ISOCountry ISOCode="cr" Name="Costa Rica" />
+	<ISOCountry ISOCode="cs" Name="Serbia and Montenegro" />
+	<ISOCountry ISOCode="cu" Name="Cuba " />
+	<ISOCountry ISOCode="cv" Name="Cape Verde" />
+	<ISOCountry ISOCode="cx" Name="Christmas Island" />
+	<ISOCountry ISOCode="cy" Name="Cyprus" />
+	<ISOCountry ISOCode="cz" Name="Czech Republic" />
+	<ISOCountry ISOCode="de" Name="Germany" />
+	<ISOCountry ISOCode="dj" Name="Djibouti" />
+	<ISOCountry ISOCode="dk" Name="Denmark" />
+	<ISOCountry ISOCode="dm" Name="Dominica" />
+	<ISOCountry ISOCode="do" Name="Dominican Republic" />
+	<ISOCountry ISOCode="dz" Name="Algeria" />
+	<ISOCountry ISOCode="ec" Name="Ecuador" />
+	<ISOCountry ISOCode="ee" Name="Estonia" />
+	<ISOCountry ISOCode="eg" Name="Egypt" />
+	<ISOCountry ISOCode="eh" Name="Western Sahara" />
+	<ISOCountry ISOCode="er" Name="Eritrea" />
+	<ISOCountry ISOCode="es" Name="Spain" />
+	<ISOCountry ISOCode="et" Name="Ethiopia" />
+	<ISOCountry ISOCode="fi" Name="Finland" />
+	<ISOCountry ISOCode="fj" Name="Fiji " />
+	<ISOCountry ISOCode="fk" Name="Falkland Islands (Malvinas)" />
+	<ISOCountry ISOCode="fm" Name="Micronesia, Federated States of" />
+	<ISOCountry ISOCode="fo" Name="Faroe Islands" />
+	<ISOCountry ISOCode="fr" Name="France" />
+	<ISOCountry ISOCode="ga" Name="Gabon" />
+	<ISOCountry ISOCode="gb" Name="United Kingdom" />
+	<ISOCountry ISOCode="gd" Name="Grenada" />
+	<ISOCountry ISOCode="ge" Name="Georgia" />
+	<ISOCountry ISOCode="gf" Name="French Guiana" />
+	<ISOCountry ISOCode="gh" Name="Ghana" />
+	<ISOCountry ISOCode="gi" Name="Gibraltar" />
+	<ISOCountry ISOCode="gl" Name="Greenland" />
+	<ISOCountry ISOCode="gm" Name="Gambia" />
+	<ISOCountry ISOCode="gn" Name="Guinea" />
+	<ISOCountry ISOCode="gp" Name="Guadeloupe" />
+	<ISOCountry ISOCode="gq" Name="Equatorial Guinea" />
+	<ISOCountry ISOCode="gr" Name="Greece" />
+	<ISOCountry ISOCode="gs" Name="South Georgia and The South Sandwich Islands" />
+	<ISOCountry ISOCode="gt" Name="Guatemala" />
+	<ISOCountry ISOCode="gu" Name="Guam " />
+	<ISOCountry ISOCode="gw" Name="Guinea-Bissau" />
+	<ISOCountry ISOCode="gy" Name="Guyana" />
+	<ISOCountry ISOCode="hk" Name="Hong Kong" />
+	<ISOCountry ISOCode="hm" Name="Heard and Mc Donald Islands" />
+	<ISOCountry ISOCode="hn" Name="Honduras" />
+	<ISOCountry ISOCode="hr" Name="Croatia (local Name: Hrvatska)" />
+	<ISOCountry ISOCode="ht" Name="Haiti" />
+	<ISOCountry ISOCode="hu" Name="Hungary" />
+	<ISOCountry ISOCode="id" Name="Indonesia" />
+	<ISOCountry ISOCode="ie" Name="Ireland" />
+	<ISOCountry ISOCode="il" Name="Israel" />
+	<ISOCountry ISOCode="in" Name="India" />
+	<ISOCountry ISOCode="io" Name="British Indian Ocean Territory" />
+	<ISOCountry ISOCode="iq" Name="Iraq " />
+	<ISOCountry ISOCode="ir" Name="Iran (Islamic Republic of)" />
+	<ISOCountry ISOCode="is" Name="Iceland" />
+	<ISOCountry ISOCode="it" Name="Italy" />
+	<ISOCountry ISOCode="jm" Name="Jamaica" />
+	<ISOCountry ISOCode="jo" Name="Jordan" />
+	<ISOCountry ISOCode="jp" Name="Japan" />
+	<ISOCountry ISOCode="ke" Name="Kenya" />
+	<ISOCountry ISOCode="kg" Name="Kyrgyzstan" />
+	<ISOCountry ISOCode="kh" Name="Cambodia" />
+	<ISOCountry ISOCode="ki" Name="Kiribati" />
+	<ISOCountry ISOCode="km" Name="Comoros" />
+	<ISOCountry ISOCode="kn" Name="Saint Kitts and Nevis" />
+	<ISOCountry ISOCode="kp" Name="Korea, Democratic People&#39;s Republic of" />
+	<ISOCountry ISOCode="kr" Name="Korea, Republic of" />
+	<ISOCountry ISOCode="kw" Name="Kuwait" />
+	<ISOCountry ISOCode="ky" Name="Cayman Islands" />
+	<ISOCountry ISOCode="kz" Name="Kazakhstan" />
+	<ISOCountry ISOCode="la" Name="Lao People&#39;s Democratic Republic" />
+	<ISOCountry ISOCode="lb" Name="Lebanon" />
+	<ISOCountry ISOCode="lc" Name="Saint Lucia" />
+	<ISOCountry ISOCode="li" Name="Liechtenstein" />
+	<ISOCountry ISOCode="lk" Name="Sri Lanka" />
+	<ISOCountry ISOCode="lr" Name="Liberia" />
+	<ISOCountry ISOCode="ls" Name="Lesotho" />
+	<ISOCountry ISOCode="lt" Name="Lithuania" />
+	<ISOCountry ISOCode="lu" Name="Luxembourg" />
+	<ISOCountry ISOCode="lv" Name="Latvia" />
+	<ISOCountry ISOCode="ly" Name="Libyan Arab Jamahiriya" />
+	<ISOCountry ISOCode="ma" Name="Morocco" />
+	<ISOCountry ISOCode="mc" Name="Monaco" />
+	<ISOCountry ISOCode="md" Name="Moldova, Republic of" />
+	<ISOCountry ISOCode="mg" Name="Madagascar" />
+	<ISOCountry ISOCode="mh" Name="Marshall Islands" />
+	<ISOCountry ISOCode="mk" Name="Macedonia, The Former Yugoslav Republic of" />
+	<ISOCountry ISOCode="ml" Name="Mali " />
+	<ISOCountry ISOCode="mm" Name="Myanmar" />
+	<ISOCountry ISOCode="mn" Name="Mongolia" />
+	<ISOCountry ISOCode="mo" Name="Macau" />
+	<ISOCountry ISOCode="mp" Name="Northern Mariana Islands" />
+	<ISOCountry ISOCode="mq" Name="Martinique" />
+	<ISOCountry ISOCode="mr" Name="Mauritania" />
+	<ISOCountry ISOCode="ms" Name="Montserrat" />
+	<ISOCountry ISOCode="mt" Name="Malta" />
+	<ISOCountry ISOCode="mu" Name="Mauritius" />
+	<ISOCountry ISOCode="mv" Name="Maldives" />
+	<ISOCountry ISOCode="mw" Name="Malawi" />
+	<ISOCountry ISOCode="mx" Name="Mexico" />
+	<ISOCountry ISOCode="my" Name="Malaysia" />
+	<ISOCountry ISOCode="mz" Name="Mozambique" />
+	<ISOCountry ISOCode="na" Name="Namibia" />
+	<ISOCountry ISOCode="nc" Name="New Caledonia" />
+	<ISOCountry ISOCode="ne" Name="Niger" />
+	<ISOCountry ISOCode="nf" Name="Norfolk Island" />
+	<ISOCountry ISOCode="ng" Name="Nigeria" />
+	<ISOCountry ISOCode="ni" Name="Nicaragua" />
+	<ISOCountry ISOCode="nl" Name="Netherlands" />
+	<ISOCountry ISOCode="no" Name="Norway" />
+	<ISOCountry ISOCode="np" Name="Nepal" />
+	<ISOCountry ISOCode="nr" Name="Nauru" />
+	<ISOCountry ISOCode="nu" Name="Niue " />
+	<ISOCountry ISOCode="nz" Name="New Zealand" />
+	<ISOCountry ISOCode="om" Name="Oman " />
+	<ISOCountry ISOCode="pa" Name="Panama" />
+	<ISOCountry ISOCode="pe" Name="Peru " />
+	<ISOCountry ISOCode="pf" Name="French Polynesia" />
+	<ISOCountry ISOCode="pg" Name="Papua New Guinea" />
+	<ISOCountry ISOCode="ph" Name="Philippines" />
+	<ISOCountry ISOCode="pk" Name="Pakistan" />
+	<ISOCountry ISOCode="pl" Name="Poland" />
+	<ISOCountry ISOCode="pm" Name="Saint Pierre and Miquelon" />
+	<ISOCountry ISOCode="pn" Name="Pitcairn" />
+	<ISOCountry ISOCode="pr" Name="Puerto Rico" />
+	<ISOCountry ISOCode="ps" Name="Palestinian Territory, Occupied" />
+	<ISOCountry ISOCode="pt" Name="Portugal" />
+	<ISOCountry ISOCode="pw" Name="Palau" />
+	<ISOCountry ISOCode="py" Name="Paraguay" />
+	<ISOCountry ISOCode="qa" Name="Qatar" />
+	<ISOCountry ISOCode="re" Name="Reunion" />
+	<ISOCountry ISOCode="ro" Name="Romania" />
+	<ISOCountry ISOCode="ru" Name="Russian Federation" />
+	<ISOCountry ISOCode="rw" Name="Rwanda" />
+	<ISOCountry ISOCode="sa" Name="Saudi Arabia" />
+	<ISOCountry ISOCode="sb" Name="Solomon Islands" />
+	<ISOCountry ISOCode="sc" Name="Seychelles" />
+	<ISOCountry ISOCode="sd" Name="Sudan" />
+	<ISOCountry ISOCode="se" Name="Sweden" />
+	<ISOCountry ISOCode="sg" Name="Singapore" />
+	<ISOCountry ISOCode="sh" Name="Saint Helena" />
+	<ISOCountry ISOCode="si" Name="Slovenia" />
+	<ISOCountry ISOCode="sj" Name="Svalbard and Jan Mayen Islands" />
+	<ISOCountry ISOCode="sk" Name="Slovakia" />
+	<ISOCountry ISOCode="sl" Name="Sierra Leone" />
+	<ISOCountry ISOCode="sm" Name="San Marino" />
+	<ISOCountry ISOCode="sn" Name="Senegal" />
+	<ISOCountry ISOCode="so" Name="Somalia" />
+	<ISOCountry ISOCode="sr" Name="Suriname" />
+	<ISOCountry ISOCode="st" Name="Sao Tome and Principe" />
+	<ISOCountry ISOCode="sv" Name="El Salvador" />
+	<ISOCountry ISOCode="sy" Name="Syrian Arab Republic" />
+	<ISOCountry ISOCode="sz" Name="Swaziland" />
+	<ISOCountry ISOCode="tc" Name="Turks and Caicos Islands" />
+	<ISOCountry ISOCode="td" Name="Chad " />
+	<ISOCountry ISOCode="tf" Name="French Southern Territories" />
+	<ISOCountry ISOCode="tg" Name="Togo " />
+	<ISOCountry ISOCode="th" Name="Thailand" />
+	<ISOCountry ISOCode="tj" Name="Tajikistan" />
+	<ISOCountry ISOCode="tk" Name="Tokelau" />
+	<ISOCountry ISOCode="tl" Name="Timor-Leste" />
+	<ISOCountry ISOCode="tm" Name="Turkmenistan" />
+	<ISOCountry ISOCode="tn" Name="Tunisia" />
+	<ISOCountry ISOCode="to" Name="Tonga" />
+	<ISOCountry ISOCode="tr" Name="Turkey" />
+	<ISOCountry ISOCode="tt" Name="Trinidad and Tobago" />
+	<ISOCountry ISOCode="tv" Name="Tuvalu" />
+	<ISOCountry ISOCode="tw" Name="Taiwan" />
+	<ISOCountry ISOCode="tz" Name="Tanzania, United Republic of" />
+	<ISOCountry ISOCode="ua" Name="Ukraine" />
+	<ISOCountry ISOCode="ug" Name="Uganda" />
+	<ISOCountry ISOCode="um" Name="United States Minor Outlying Islands" />
+	<ISOCountry ISOCode="us" Name="United States" />
+	<ISOCountry ISOCode="uy" Name="Uruguay" />
+	<ISOCountry ISOCode="uz" Name="Uzbekistan" />
+	<ISOCountry ISOCode="va" Name="Vatican City State (Holy See)" />
+	<ISOCountry ISOCode="vc" Name="Saint Vincent and The Grenadines" />
+	<ISOCountry ISOCode="ve" Name="Venezuela" />
+	<ISOCountry ISOCode="vg" Name="Virgin Islands (British)" />
+	<ISOCountry ISOCode="vi" Name="Virgin Islands (U.S.)" />
+	<ISOCountry ISOCode="vn" Name="Viet Nam" />
+	<ISOCountry ISOCode="vu" Name="Vanuatu" />
+	<ISOCountry ISOCode="wf" Name="Wallis and Futuna Islands" />
+	<ISOCountry ISOCode="ws" Name="Samoa" />
+	<ISOCountry ISOCode="ye" Name="Yemen" />
+	<ISOCountry ISOCode="yt" Name="Mayotte" />
+	<ISOCountry ISOCode="za" Name="South Africa" />
+	<ISOCountry ISOCode="zm" Name="Zambia" />
+	<ISOCountry ISOCode="zw" Name="Zimbabwe" />
+</CFSec>

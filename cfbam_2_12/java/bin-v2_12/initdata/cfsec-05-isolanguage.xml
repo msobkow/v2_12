@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CFSec
+		xmlns="uri://cfsec/cfsecloader"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="uri://cfsec/cfsecloader file:../bin/xsd/cfsec-structured.xsd" >
+	<ISOLanguage ISO6392Code="aar" ISO6391Code="aa" EnglishName="Afar" />
+	<ISOLanguage ISO6392Code="abk" ISO6391Code="ab" EnglishName="Abkhazian" />
+	<ISOLanguage ISO6392Code="ace" EnglishName="Achinese" />
+	<ISOLanguage ISO6392Code="ach" EnglishName="Acoli" />
+	<ISOLanguage ISO6392Code="ada" EnglishName="Adangme" />
+	<ISOLanguage ISO6392Code="ady" EnglishName="Adyghe; Adygei" />
+	<ISOLanguage ISO6392Code="afa" EnglishName="Afro-Asiatic languages" />
+	<ISOLanguage ISO6392Code="afh" EnglishName="Afrihili" />
+	<ISOLanguage ISO6392Code="afr" ISO6391Code="af" EnglishName="Afrikaans" />
+	<ISOLanguage ISO6392Code="ain" EnglishName="Ainu" />
+	<ISOLanguage ISO6392Code="aka" ISO6391Code="ak" EnglishName="Akan" />
+	<ISOLanguage ISO6392Code="akk" EnglishName="Akkadian" />
+	<ISOLanguage ISO6392Code="alb" ISO6391Code="sq" EnglishName="Albanian" />
+	<ISOLanguage ISO6392Code="ale" EnglishName="Aleut" />
+	<ISOLanguage ISO6392Code="alg" EnglishName="Algonquian languages" />
+	<ISOLanguage ISO6392Code="alt" EnglishName="Southern Altai" />
+	<ISOLanguage ISO6392Code="amh" ISO6391Code="am" EnglishName="Amharic" />
+	<ISOLanguage ISO6392Code="ang" EnglishName="English, Old (ca.450-1100)" />
+	<ISOLanguage ISO6392Code="anp" EnglishName="Angika" />
+	<ISOLanguage ISO6392Code="apa" EnglishName="Apache languages" />
+	<ISOLanguage ISO6392Code="ara" ISO6391Code="ar" EnglishName="Arabic" />
+	<ISOLanguage ISO6392Code="arc" EnglishName="Official Aramaic (700-300 BCE); Imperial Aramaic (700-300 BCE)" />
+	<ISOLanguage ISO6392Code="arg" ISO6391Code="an" EnglishName="Aragonese" />
+	<ISOLanguage ISO6392Code="arm" ISO6391Code="hy" EnglishName="Armenian" />
+	<ISOLanguage ISO6392Code="arn" EnglishName="Mapudungun; Mapuche" />
+	<ISOLanguage ISO6392Code="arp" EnglishName="Arapaho" />
+	<ISOLanguage ISO6392Code="art" EnglishName="Artificial languages" />
+	<ISOLanguage ISO6392Code="arw" EnglishName="Arawak" />
+	<ISOLanguage ISO6392Code="asm" ISO6391Code="as" EnglishName="Assamese" />
+	<ISOLanguage ISO6392Code="ast" EnglishName="Asturian; Bable; Leonese; Asturleonese" />
+	<ISOLanguage ISO6392Code="ath" EnglishName="Athapascan languages" />
+	<ISOLanguage ISO6392Code="aus" EnglishName="Australian languages" />
+	<ISOLanguage ISO6392Code="ava" ISO6391Code="av" EnglishName="Avaric" />
+	<ISOLanguage ISO6392Code="ave" ISO6391Code="ae" EnglishName="Avestan" />
+	<ISOLanguage ISO6392Code="awa" EnglishName="Awadhi" />
+	<ISOLanguage ISO6392Code="aym" ISO6391Code="ay" EnglishName="Aymara" />
+	<ISOLanguage ISO6392Code="aze" ISO6391Code="az" EnglishName="Azerbaijani" />
+	<ISOLanguage ISO6392Code="bad" EnglishName="Banda languages" />
+	<ISOLanguage ISO6392Code="bai" EnglishName="Bamileke languages" />
+	<ISOLanguage ISO6392Code="bak" ISO6391Code="ba" EnglishName="Bashkir" />
+	<ISOLanguage ISO6392Code="bal" EnglishName="Baluchi" />
+	<ISOLanguage ISO6392Code="bam" ISO6391Code="bm" EnglishName="Bambara" />
+	<ISOLanguage ISO6392Code="ban" EnglishName="Balinese" />
+	<ISOLanguage ISO6392Code="baq" ISO6391Code="eu" EnglishName="Basque" />
+	<ISOLanguage ISO6392Code="bas" EnglishName="Basa" />
+	<ISOLanguage ISO6392Code="bat" EnglishName="Baltic languages" />
+	<ISOLanguage ISO6392Code="bej" EnglishName="Beja; Bedawiyet" />
+	<ISOLanguage ISO6392Code="bel" ISO6391Code="be" EnglishName="Belarusian" />
+	<ISOLanguage ISO6392Code="bem" EnglishName="Bemba" />
+	<ISOLanguage ISO6392Code="ben" ISO6391Code="bn" EnglishName="Bengali" />
+	<ISOLanguage ISO6392Code="ber" EnglishName="Berber languages" />
+	<ISOLanguage ISO6392Code="bho" EnglishName="Bhojpuri" />
+	<ISOLanguage ISO6392Code="bih" ISO6391Code="bh" EnglishName="Bihari languages" />
+	<ISOLanguage ISO6392Code="bik" EnglishName="Bikol" />
+	<ISOLanguage ISO6392Code="bin" EnglishName="Bini; Edo" />
+	<ISOLanguage ISO6392Code="bis" ISO6391Code="bi" EnglishName="Bislama" />
+	<ISOLanguage ISO6392Code="bla" EnglishName="Siksika" />
+	<ISOLanguage ISO6392Code="bnt" EnglishName="Bantu languages" />
+	<ISOLanguage ISO6392Code="bod" ISO6391Code="bo" EnglishName="Tibetan" />
+	<ISOLanguage ISO6392Code="bos" ISO6391Code="bs" EnglishName="Bosnian" />
+	<ISOLanguage ISO6392Code="bra" EnglishName="Braj" />
+	<ISOLanguage ISO6392Code="bre" ISO6391Code="br" EnglishName="Breton" />
+	<ISOLanguage ISO6392Code="btk" EnglishName="Batak languages" />
+	<ISOLanguage ISO6392Code="bua" EnglishName="Buriat" />
+	<ISOLanguage ISO6392Code="bug" EnglishName="Buginese" />
+	<ISOLanguage ISO6392Code="bul" ISO6391Code="bg" EnglishName="Bulgarian" />
+	<ISOLanguage ISO6392Code="bur" ISO6391Code="my" EnglishName="Burmese" />
+	<ISOLanguage ISO6392Code="byn" EnglishName="Blin; Bilin" />
+	<ISOLanguage ISO6392Code="cad" EnglishName="Caddo" />
+	<ISOLanguage ISO6392Code="cai" EnglishName="Central American Indian languages" />
+	<ISOLanguage ISO6392Code="car" EnglishName="Galibi Carib" />
+	<ISOLanguage ISO6392Code="cat" ISO6391Code="ca" EnglishName="Catalan; Valencian" />
+	<ISOLanguage ISO6392Code="cau" EnglishName="Caucasian languages" />
+	<ISOLanguage ISO6392Code="ceb" EnglishName="Cebuano" />
+	<ISOLanguage ISO6392Code="cel" EnglishName="Celtic languages" />
+	<ISOLanguage ISO6392Code="ces" ISO6391Code="cs" EnglishName="Czech" />
+	<ISOLanguage ISO6392Code="cha" ISO6391Code="ch" EnglishName="Chamorro" />
+	<ISOLanguage ISO6392Code="chb" EnglishName="Chibcha" />
+	<ISOLanguage ISO6392Code="che" ISO6391Code="ce" EnglishName="Chechen" />
+	<ISOLanguage ISO6392Code="chg" EnglishName="Chagatai" />
+	<ISOLanguage ISO6392Code="chi" ISO6391Code="zh" EnglishName="Chinese" />
+	<ISOLanguage ISO6392Code="chk" EnglishName="Chuukese" />
+	<ISOLanguage ISO6392Code="chm" EnglishName="Mari" />
+	<ISOLanguage ISO6392Code="chn" EnglishName="Chinook jargon" />
+	<ISOLanguage ISO6392Code="cho" EnglishName="Choctaw" />
+	<ISOLanguage ISO6392Code="chp" EnglishName="Chipewyan; Dene Suline" />
+	<ISOLanguage ISO6392Code="chr" EnglishName="Cherokee" />
+	<ISOLanguage ISO6392Code="chu" ISO6391Code="cu" EnglishName="Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian" />
+	<ISOLanguage ISO6392Code="chv" ISO6391Code="cv" EnglishName="Chuvash" />
+	<ISOLanguage ISO6392Code="chy" EnglishName="Cheyenne" />
+	<ISOLanguage ISO6392Code="cmc" EnglishName="Chamic languages" />
+	<ISOLanguage ISO6392Code="cop" EnglishName="Coptic" />
+	<ISOLanguage ISO6392Code="cor" ISO6391Code="kw" EnglishName="Cornish" />
+	<ISOLanguage ISO6392Code="cos" ISO6391Code="co" EnglishName="Corsican" />
+	<ISOLanguage ISO6392Code="cpe" EnglishName="Creoles and pidgins, English based" />
+	<ISOLanguage ISO6392Code="cpf" EnglishName="Creoles and pidgins, French-based" />
+	<ISOLanguage ISO6392Code="cpp" EnglishName="Creoles and pidgins, Portuguese-based" />
+	<ISOLanguage ISO6392Code="cre" ISO6391Code="cr" EnglishName="Cree" />
+	<ISOLanguage ISO6392Code="crh" EnglishName="Crimean Tatar; Crimean Turkish" />
+	<ISOLanguage ISO6392Code="crp" EnglishName="Creoles and pidgins" />
+	<ISOLanguage ISO6392Code="csb" EnglishName="Kashubian" />
+	<ISOLanguage ISO6392Code="cus" EnglishName="Cushitic languages" />
+	<ISOLanguage ISO6392Code="cym" ISO6391Code="cy" EnglishName="Welsh" />
+	<ISOLanguage ISO6392Code="cze" ISO6391Code="cs" EnglishName="Czech" />
+	<ISOLanguage ISO6392Code="dak" EnglishName="Dakota" />
+	<ISOLanguage ISO6392Code="dan" ISO6391Code="da" EnglishName="Danish" />
+	<ISOLanguage ISO6392Code="dar" EnglishName="Dargwa" />
+	<ISOLanguage ISO6392Code="day" EnglishName="Land Dayak languages" />
+	<ISOLanguage ISO6392Code="del" EnglishName="Delaware" />
+	<ISOLanguage ISO6392Code="den" EnglishName="Slave (Athapascan)" />
+	<ISOLanguage ISO6392Code="deu" ISO6391Code="de" EnglishName="German" />
+	<ISOLanguage ISO6392Code="dgr" EnglishName="Dogrib" />
+	<ISOLanguage ISO6392Code="din" EnglishName="Dinka" />
+	<ISOLanguage ISO6392Code="div" ISO6391Code="dv" EnglishName="Divehi; Dhivehi; Maldivian" />
+	<ISOLanguage ISO6392Code="doi" EnglishName="Dogri" />
+	<ISOLanguage ISO6392Code="dra" EnglishName="Dravidian languages" />
+	<ISOLanguage ISO6392Code="dsb" EnglishName="Lower Sorbian" />
+	<ISOLanguage ISO6392Code="dua" EnglishName="Duala" />
+	<ISOLanguage ISO6392Code="dum" EnglishName="Dutch, Middle (ca.1050-1350)" />
+	<ISOLanguage ISO6392Code="dut" ISO6391Code="nl" EnglishName="Dutch; Flemish" />
+	<ISOLanguage ISO6392Code="dyu" EnglishName="Dyula" />
+	<ISOLanguage ISO6392Code="dzo" ISO6391Code="dz" EnglishName="Dzongkha" />
+	<ISOLanguage ISO6392Code="efi" EnglishName="Efik" />
+	<ISOLanguage ISO6392Code="egy" EnglishName="Egyptian (Ancient)" />
+	<ISOLanguage ISO6392Code="eka" EnglishName="Ekajuk" />
+	<ISOLanguage ISO6392Code="ell" ISO6391Code="el" EnglishName="Greek, Modern (1453-)" />
+	<ISOLanguage ISO6392Code="elx" EnglishName="Elamite" />
+	<ISOLanguage ISO6392Code="eng" ISO6391Code="en" EnglishName="English" />
+	<ISOLanguage ISO6392Code="enm" EnglishName="English, Middle (1100-1500)" />
+	<ISOLanguage ISO6392Code="epo" ISO6391Code="eo" EnglishName="Esperanto" />
+	<ISOLanguage ISO6392Code="est" ISO6391Code="et" EnglishName="Estonian" />
+	<ISOLanguage ISO6392Code="eus" ISO6391Code="eu" EnglishName="Basque" />
+	<ISOLanguage ISO6392Code="ewe" ISO6391Code="ee" EnglishName="Ewe" />
+	<ISOLanguage ISO6392Code="ewo" EnglishName="Ewondo" />
+	<ISOLanguage ISO6392Code="fan" EnglishName="Fang" />
+	<ISOLanguage ISO6392Code="fao" ISO6391Code="fo" EnglishName="Faroese" />
+	<ISOLanguage ISO6392Code="fas" ISO6391Code="fa" EnglishName="Persian" />
+	<ISOLanguage ISO6392Code="fat" EnglishName="Fanti" />
+	<ISOLanguage ISO6392Code="fij" ISO6391Code="fj" EnglishName="Fijian" />
+	<ISOLanguage ISO6392Code="fil" EnglishName="Filipino; Pilipino" />
+	<ISOLanguage ISO6392Code="fin" ISO6391Code="fi" EnglishName="Finnish" />
+	<ISOLanguage ISO6392Code="fiu" EnglishName="Finno-Ugrian languages" />
+	<ISOLanguage ISO6392Code="fon" EnglishName="Fon" />
+	<ISOLanguage ISO6392Code="fra" ISO6391Code="fr" EnglishName="French" />
+	<ISOLanguage ISO6392Code="fre" ISO6391Code="fr" EnglishName="French" />
+	<ISOLanguage ISO6392Code="frm" EnglishName="French, Middle (ca.1400-1600)" />
+	<ISOLanguage ISO6392Code="fro" EnglishName="French, Old (842-ca.1400)" />
+	<ISOLanguage ISO6392Code="frr" EnglishName="Northern Frisian" />
+	<ISOLanguage ISO6392Code="frs" EnglishName="Eastern Frisian" />
+	<ISOLanguage ISO6392Code="fry" ISO6391Code="fy" EnglishName="Western Frisian" />
+	<ISOLanguage ISO6392Code="ful" ISO6391Code="ff" EnglishName="Fulah" />
+	<ISOLanguage ISO6392Code="fur" EnglishName="Friulian" />
+	<ISOLanguage ISO6392Code="gaa" EnglishName="Ga" />
+	<ISOLanguage ISO6392Code="gay" EnglishName="Gayo" />
+	<ISOLanguage ISO6392Code="gba" EnglishName="Gbaya" />
+	<ISOLanguage ISO6392Code="gem" EnglishName="Germanic languages" />
+	<ISOLanguage ISO6392Code="geo" ISO6391Code="ka" EnglishName="Georgian" />
+	<ISOLanguage ISO6392Code="ger" ISO6391Code="de" EnglishName="German" />
+	<ISOLanguage ISO6392Code="gez" EnglishName="Geez" />
+	<ISOLanguage ISO6392Code="gil" EnglishName="Gilbertese" />
+	<ISOLanguage ISO6392Code="gla" ISO6391Code="gd" EnglishName="Gaelic; Scottish Gaelic" />
+	<ISOLanguage ISO6392Code="gle" ISO6391Code="ga" EnglishName="Irish" />
+	<ISOLanguage ISO6392Code="glg" ISO6391Code="gl" EnglishName="Galician" />
+	<ISOLanguage ISO6392Code="glv" ISO6391Code="gv" EnglishName="Manx" />
+	<ISOLanguage ISO6392Code="gmh" EnglishName="German, Middle High (ca.1050-1500)" />
+	<ISOLanguage ISO6392Code="goh" EnglishName="German, Old High (ca.750-1050)" />
+	<ISOLanguage ISO6392Code="gon" EnglishName="Gondi" />
+	<ISOLanguage ISO6392Code="gor" EnglishName="Gorontalo" />
+	<ISOLanguage ISO6392Code="got" EnglishName="Gothic" />
+	<ISOLanguage ISO6392Code="grb" EnglishName="Grebo" />
+	<ISOLanguage ISO6392Code="grc" EnglishName="Greek, Ancient (to 1453)" />
+	<ISOLanguage ISO6392Code="gre" ISO6391Code="el" EnglishName="Greek, Modern (1453-)" />
+	<ISOLanguage ISO6392Code="grn" ISO6391Code="gn" EnglishName="Guarani" />
+	<ISOLanguage ISO6392Code="gsw" EnglishName="Swiss German; Alemannic; Alsatian" />
+	<ISOLanguage ISO6392Code="guj" ISO6391Code="gu" EnglishName="Gujarati" />
+	<ISOLanguage ISO6392Code="gwi" EnglishName="Gwich'in" />
+	<ISOLanguage ISO6392Code="hai" EnglishName="Haida" />
+	<ISOLanguage ISO6392Code="hat" ISO6391Code="ht" EnglishName="Haitian; Haitian Creole" />
+	<ISOLanguage ISO6392Code="hau" ISO6391Code="ha" EnglishName="Hausa" />
+	<ISOLanguage ISO6392Code="haw" EnglishName="Hawaiian" />
+	<ISOLanguage ISO6392Code="heb" ISO6391Code="he" EnglishName="Hebrew" />
+	<ISOLanguage ISO6392Code="her" ISO6391Code="hz" EnglishName="Herero" />
+	<ISOLanguage ISO6392Code="hil" EnglishName="Hiligaynon" />
+	<ISOLanguage ISO6392Code="him" EnglishName="Himachali languages; Western Pahari languages" />
+	<ISOLanguage ISO6392Code="hin" ISO6391Code="hi" EnglishName="Hindi" />
+	<ISOLanguage ISO6392Code="hit" EnglishName="Hittite" />
+	<ISOLanguage ISO6392Code="hmn" EnglishName="Hmong; Mong" />
+	<ISOLanguage ISO6392Code="hmo" ISO6391Code="ho" EnglishName="Hiri Motu" />
+	<ISOLanguage ISO6392Code="hrv" ISO6391Code="hr" EnglishName="Croatian" />
+	<ISOLanguage ISO6392Code="hsb" EnglishName="Upper Sorbian" />
+	<ISOLanguage ISO6392Code="hun" ISO6391Code="hu" EnglishName="Hungarian" />
+	<ISOLanguage ISO6392Code="hup" EnglishName="Hupa" />
+	<ISOLanguage ISO6392Code="hye" ISO6391Code="hy" EnglishName="Armenian" />
+	<ISOLanguage ISO6392Code="iba" EnglishName="Iban" />
+	<ISOLanguage ISO6392Code="ibo" ISO6391Code="ig" EnglishName="Igbo" />
+	<ISOLanguage ISO6392Code="ice" ISO6391Code="is" EnglishName="Icelandic" />
+	<ISOLanguage ISO6392Code="ido" ISO6391Code="io" EnglishName="Ido" />
+	<ISOLanguage ISO6392Code="iii" ISO6391Code="ii" EnglishName="Sichuan Yi; Nuosu" />
+	<ISOLanguage ISO6392Code="ijo" EnglishName="Ijo languages" />
+	<ISOLanguage ISO6392Code="iku" ISO6391Code="iu" EnglishName="Inuktitut" />
+	<ISOLanguage ISO6392Code="ile" ISO6391Code="ie" EnglishName="Interlingue; Occidental" />
+	<ISOLanguage ISO6392Code="ilo" EnglishName="Iloko" />
+	<ISOLanguage ISO6392Code="ina" ISO6391Code="ia" EnglishName="Interlingua (International Auxiliary Language Association)" />
+	<ISOLanguage ISO6392Code="inc" EnglishName="Indic languages" />
+	<ISOLanguage ISO6392Code="ind" ISO6391Code="id" EnglishName="Indonesian" />
+	<ISOLanguage ISO6392Code="ine" EnglishName="Indo-European languages" />
+	<ISOLanguage ISO6392Code="inh" EnglishName="Ingush" />
+	<ISOLanguage ISO6392Code="ipk" ISO6391Code="ik" EnglishName="Inupiaq" />
+	<ISOLanguage ISO6392Code="ira" EnglishName="Iranian languages" />
+	<ISOLanguage ISO6392Code="iro" EnglishName="Iroquoian languages" />
+	<ISOLanguage ISO6392Code="isl" ISO6391Code="is" EnglishName="Icelandic" />
+	<ISOLanguage ISO6392Code="ita" ISO6391Code="it" EnglishName="Italian" />
+	<ISOLanguage ISO6392Code="jav" ISO6391Code="jv" EnglishName="Javanese" />
+	<ISOLanguage ISO6392Code="jbo" EnglishName="Lojban" />
+	<ISOLanguage ISO6392Code="jpn" ISO6391Code="ja" EnglishName="Japanese" />
+	<ISOLanguage ISO6392Code="jpr" EnglishName="Judeo-Persian" />
+	<ISOLanguage ISO6392Code="jrb" EnglishName="Judeo-Arabic" />
+	<ISOLanguage ISO6392Code="kaa" EnglishName="Kara-Kalpak" />
+	<ISOLanguage ISO6392Code="kab" EnglishName="Kabyle" />
+	<ISOLanguage ISO6392Code="kac" EnglishName="Kachin; Jingpho" />
+	<ISOLanguage ISO6392Code="kal" ISO6391Code="kl" EnglishName="Kalaallisut; Greenlandic" />
+	<ISOLanguage ISO6392Code="kam" EnglishName="Kamba" />
+	<ISOLanguage ISO6392Code="kan" ISO6391Code="kn" EnglishName="Kannada" />
+	<ISOLanguage ISO6392Code="kar" EnglishName="Karen languages" />
+	<ISOLanguage ISO6392Code="kas" ISO6391Code="ks" EnglishName="Kashmiri" />
+	<ISOLanguage ISO6392Code="kat" ISO6391Code="ka" EnglishName="Georgian" />
+	<ISOLanguage ISO6392Code="kau" ISO6391Code="kr" EnglishName="Kanuri" />
+	<ISOLanguage ISO6392Code="kaw" EnglishName="Kawi" />
+	<ISOLanguage ISO6392Code="kaz" ISO6391Code="kk" EnglishName="Kazakh" />
+	<ISOLanguage ISO6392Code="kbd" EnglishName="Kabardian" />
+	<ISOLanguage ISO6392Code="kha" EnglishName="Khasi" />
+	<ISOLanguage ISO6392Code="khi" EnglishName="Khoisan languages" />
+	<ISOLanguage ISO6392Code="khm" ISO6391Code="km" EnglishName="Central Khmer" />
+	<ISOLanguage ISO6392Code="kho" EnglishName="Khotanese; Sakan" />
+	<ISOLanguage ISO6392Code="kik" ISO6391Code="ki" EnglishName="Kikuyu; Gikuyu" />
+	<ISOLanguage ISO6392Code="kin" ISO6391Code="rw" EnglishName="Kinyarwanda" />
+	<ISOLanguage ISO6392Code="kir" ISO6391Code="ky" EnglishName="Kirghiz; Kyrgyz" />
+	<ISOLanguage ISO6392Code="kmb" EnglishName="Kimbundu" />
+	<ISOLanguage ISO6392Code="kok" EnglishName="Konkani" />
+	<ISOLanguage ISO6392Code="kom" ISO6391Code="kv" EnglishName="Komi" />
+	<ISOLanguage ISO6392Code="kon" ISO6391Code="kg" EnglishName="Kongo" />
+	<ISOLanguage ISO6392Code="kor" ISO6391Code="ko" EnglishName="Korean" />
+	<ISOLanguage ISO6392Code="kos" EnglishName="Kosraean" />
+	<ISOLanguage ISO6392Code="kpe" EnglishName="Kpelle" />
+	<ISOLanguage ISO6392Code="krc" EnglishName="Karachay-Balkar" />
+	<ISOLanguage ISO6392Code="krl" EnglishName="Karelian" />
+	<ISOLanguage ISO6392Code="kro" EnglishName="Kru languages" />
+	<ISOLanguage ISO6392Code="kru" EnglishName="Kurukh" />
+	<ISOLanguage ISO6392Code="kua" ISO6391Code="kj" EnglishName="Kuanyama; Kwanyama" />
+	<ISOLanguage ISO6392Code="kum" EnglishName="Kumyk" />
+	<ISOLanguage ISO6392Code="kur" ISO6391Code="ku" EnglishName="Kurdish" />
+	<ISOLanguage ISO6392Code="kut" EnglishName="Kutenai" />
+	<ISOLanguage ISO6392Code="lad" EnglishName="Ladino" />
+	<ISOLanguage ISO6392Code="lah" EnglishName="Lahnda" />
+	<ISOLanguage ISO6392Code="lam" EnglishName="Lamba" />
+	<ISOLanguage ISO6392Code="lao" ISO6391Code="lo" EnglishName="Lao" />
+	<ISOLanguage ISO6392Code="lat" ISO6391Code="la" EnglishName="Latin" />
+	<ISOLanguage ISO6392Code="lav" ISO6391Code="lv" EnglishName="Latvian" />
+	<ISOLanguage ISO6392Code="lez" EnglishName="Lezghian" />
+	<ISOLanguage ISO6392Code="lim" ISO6391Code="li" EnglishName="Limburgan; Limburger; Limburgish" />
+	<ISOLanguage ISO6392Code="lin" ISO6391Code="ln" EnglishName="Lingala" />
+	<ISOLanguage ISO6392Code="lit" ISO6391Code="lt" EnglishName="Lithuanian" />
+	<ISOLanguage ISO6392Code="lol" EnglishName="Mongo" />
+	<ISOLanguage ISO6392Code="loz" EnglishName="Lozi" />
+	<ISOLanguage ISO6392Code="ltz" ISO6391Code="lb" EnglishName="Luxembourgish; Letzeburgesch" />
+	<ISOLanguage ISO6392Code="lua" EnglishName="Luba-Lulua" />
+	<ISOLanguage ISO6392Code="lub" ISO6391Code="lu" EnglishName="Luba-Katanga" />
+	<ISOLanguage ISO6392Code="lug" ISO6391Code="lg" EnglishName="Ganda" />
+	<ISOLanguage ISO6392Code="lui" EnglishName="Luiseno" />
+	<ISOLanguage ISO6392Code="lun" EnglishName="Lunda" />
+	<ISOLanguage ISO6392Code="luo" EnglishName="Luo (Kenya and Tanzania)" />
+	<ISOLanguage ISO6392Code="lus" EnglishName="Lushai" />
+	<ISOLanguage ISO6392Code="mac" ISO6391Code="mk" EnglishName="Macedonian" />
+	<ISOLanguage ISO6392Code="mad" EnglishName="Madurese" />
+	<ISOLanguage ISO6392Code="mag" EnglishName="Magahi" />
+	<ISOLanguage ISO6392Code="mah" ISO6391Code="mh" EnglishName="Marshallese" />
+	<ISOLanguage ISO6392Code="mai" EnglishName="Maithili" />
+	<ISOLanguage ISO6392Code="mak" EnglishName="Makasar" />
+	<ISOLanguage ISO6392Code="mal" ISO6391Code="ml" EnglishName="Malayalam" />
+	<ISOLanguage ISO6392Code="man" EnglishName="Mandingo" />
+	<ISOLanguage ISO6392Code="mao" ISO6391Code="mi" EnglishName="Maori" />
+	<ISOLanguage ISO6392Code="map" EnglishName="Austronesian languages" />
+	<ISOLanguage ISO6392Code="mar" ISO6391Code="mr" EnglishName="Marathi" />
+	<ISOLanguage ISO6392Code="mas" EnglishName="Masai" />
+	<ISOLanguage ISO6392Code="may" ISO6391Code="ms" EnglishName="Malay" />
+	<ISOLanguage ISO6392Code="mdf" EnglishName="Moksha" />
+	<ISOLanguage ISO6392Code="mdr" EnglishName="Mandar" />
+	<ISOLanguage ISO6392Code="men" EnglishName="Mende" />
+	<ISOLanguage ISO6392Code="mga" EnglishName="Irish, Middle (900-1200)" />
+	<ISOLanguage ISO6392Code="mic" EnglishName="Mi'kmaq; Micmac" />
+	<ISOLanguage ISO6392Code="min" EnglishName="Minangkabau" />
+	<ISOLanguage ISO6392Code="mis" EnglishName="Uncoded languages" />
+	<ISOLanguage ISO6392Code="mkd" ISO6391Code="mk" EnglishName="Macedonian" />
+	<ISOLanguage ISO6392Code="mkh" EnglishName="Mon-Khmer languages" />
+	<ISOLanguage ISO6392Code="mlg" ISO6391Code="mg" EnglishName="Malagasy" />
+	<ISOLanguage ISO6392Code="mlt" ISO6391Code="mt" EnglishName="Maltese" />
+	<ISOLanguage ISO6392Code="mnc" EnglishName="Manchu" />
+	<ISOLanguage ISO6392Code="mni" EnglishName="Manipuri" />
+	<ISOLanguage ISO6392Code="mno" EnglishName="Manobo languages" />
+	<ISOLanguage ISO6392Code="moh" EnglishName="Mohawk" />
+	<ISOLanguage ISO6392Code="mon" ISO6391Code="mn" EnglishName="Mongolian" />
+	<ISOLanguage ISO6392Code="mos" EnglishName="Mossi" />
+	<ISOLanguage ISO6392Code="mri" ISO6391Code="mi" EnglishName="Maori" />
+	<ISOLanguage ISO6392Code="msa" ISO6391Code="ms" EnglishName="Malay" />
+	<ISOLanguage ISO6392Code="mul" EnglishName="Multiple languages" />
+	<ISOLanguage ISO6392Code="mun" EnglishName="Munda languages" />
+	<ISOLanguage ISO6392Code="mus" EnglishName="Creek" />
+	<ISOLanguage ISO6392Code="mwl" EnglishName="Mirandese" />
+	<ISOLanguage ISO6392Code="mwr" EnglishName="Marwari" />
+	<ISOLanguage ISO6392Code="mya" ISO6391Code="my" EnglishName="Burmese" />
+	<ISOLanguage ISO6392Code="myn" EnglishName="Mayan languages" />
+	<ISOLanguage ISO6392Code="myv" EnglishName="Erzya" />
+	<ISOLanguage ISO6392Code="nah" EnglishName="Nahuatl languages" />
+	<ISOLanguage ISO6392Code="nai" EnglishName="North American Indian languages" />
+	<ISOLanguage ISO6392Code="nap" EnglishName="Neapolitan" />
+	<ISOLanguage ISO6392Code="nau" ISO6391Code="na" EnglishName="Nauru" />
+	<ISOLanguage ISO6392Code="nav" ISO6391Code="nv" EnglishName="Navajo; Navaho" />
+	<ISOLanguage ISO6392Code="nbl" ISO6391Code="nr" EnglishName="Ndebele, South; South Ndebele" />
+	<ISOLanguage ISO6392Code="nde" ISO6391Code="nd" EnglishName="Ndebele, North; North Ndebele" />
+	<ISOLanguage ISO6392Code="ndo" ISO6391Code="ng" EnglishName="Ndonga" />
+	<ISOLanguage ISO6392Code="nds" EnglishName="Low German; Low Saxon; German, Low; Saxon, Low" />
+	<ISOLanguage ISO6392Code="nep" ISO6391Code="ne" EnglishName="Nepali" />
+	<ISOLanguage ISO6392Code="new" EnglishName="Nepal Bhasa; Newari" />
+	<ISOLanguage ISO6392Code="nia" EnglishName="Nias" />
+	<ISOLanguage ISO6392Code="nic" EnglishName="Niger-Kordofanian languages" />
+	<ISOLanguage ISO6392Code="niu" EnglishName="Niuean" />
+	<ISOLanguage ISO6392Code="nld" ISO6391Code="nl" EnglishName="Dutch; Flemish" />
+	<ISOLanguage ISO6392Code="nno" ISO6391Code="nn" EnglishName="Norwegian Nynorsk; Nynorsk, Norwegian" />
+	<ISOLanguage ISO6392Code="nob" ISO6391Code="nb" EnglishName="Bokmål, Norwegian; Norwegian Bokmål" />
+	<ISOLanguage ISO6392Code="nog" EnglishName="Nogai" />
+	<ISOLanguage ISO6392Code="non" EnglishName="Norse, Old" />
+	<ISOLanguage ISO6392Code="nor" ISO6391Code="no" EnglishName="Norwegian" />
+	<ISOLanguage ISO6392Code="nqo" EnglishName="N'Ko" />
+	<ISOLanguage ISO6392Code="nso" EnglishName="Pedi; Sepedi; Northern Sotho" />
+	<ISOLanguage ISO6392Code="nub" EnglishName="Nubian languages" />
+	<ISOLanguage ISO6392Code="nwc" EnglishName="Classical Newari; Old Newari; Classical Nepal Bhasa" />
+	<ISOLanguage ISO6392Code="nya" ISO6391Code="ny" EnglishName="Chichewa; Chewa; Nyanja" />
+	<ISOLanguage ISO6392Code="nym" EnglishName="Nyamwezi" />
+	<ISOLanguage ISO6392Code="nyn" EnglishName="Nyankole" />
+	<ISOLanguage ISO6392Code="nyo" EnglishName="Nyoro" />
+	<ISOLanguage ISO6392Code="nzi" EnglishName="Nzima" />
+	<ISOLanguage ISO6392Code="oci" ISO6391Code="oc" EnglishName="Occitan (post 1500)" />
+	<ISOLanguage ISO6392Code="oji" ISO6391Code="oj" EnglishName="Ojibwa" />
+	<ISOLanguage ISO6392Code="ori" ISO6391Code="or" EnglishName="Oriya" />
+	<ISOLanguage ISO6392Code="orm" ISO6391Code="om" EnglishName="Oromo" />
+	<ISOLanguage ISO6392Code="osa" EnglishName="Osage" />
+	<ISOLanguage ISO6392Code="oss" ISO6391Code="os" EnglishName="Ossetian; Ossetic" />
+	<ISOLanguage ISO6392Code="ota" EnglishName="Turkish, Ottoman (1500-1928)" />
+	<ISOLanguage ISO6392Code="oto" EnglishName="Otomian languages" />
+	<ISOLanguage ISO6392Code="paa" EnglishName="Papuan languages" />
+	<ISOLanguage ISO6392Code="pag" EnglishName="Pangasinan" />
+	<ISOLanguage ISO6392Code="pal" EnglishName="Pahlavi" />
+	<ISOLanguage ISO6392Code="pam" EnglishName="Pampanga; Kapampangan" />
+	<ISOLanguage ISO6392Code="pan" ISO6391Code="pa" EnglishName="Panjabi; Punjabi" />
+	<ISOLanguage ISO6392Code="pap" EnglishName="Papiamento" />
+	<ISOLanguage ISO6392Code="pau" EnglishName="Palauan" />
+	<ISOLanguage ISO6392Code="peo" EnglishName="Persian, Old (ca.600-400 B.C.)" />
+	<ISOLanguage ISO6392Code="per" ISO6391Code="fa" EnglishName="Persian" />
+	<ISOLanguage ISO6392Code="phi" EnglishName="Philippine languages" />
+	<ISOLanguage ISO6392Code="phn" EnglishName="Phoenician" />
+	<ISOLanguage ISO6392Code="pli" ISO6391Code="pi" EnglishName="Pali" />
+	<ISOLanguage ISO6392Code="pol" ISO6391Code="pl" EnglishName="Polish" />
+	<ISOLanguage ISO6392Code="pon" EnglishName="Pohnpeian" />
+	<ISOLanguage ISO6392Code="por" ISO6391Code="pt" EnglishName="Portuguese" />
+	<ISOLanguage ISO6392Code="pra" EnglishName="Prakrit languages" />
+	<ISOLanguage ISO6392Code="pro" EnglishName="Provençal, Old (to 1500);Occitan, Old (to 1500)" />
+	<ISOLanguage ISO6392Code="pus" ISO6391Code="ps" EnglishName="Pushto; Pashto" />
+	<ISOLanguage ISO6392Code="raj" EnglishName="Rajasthani" />
+	<ISOLanguage ISO6392Code="rap" EnglishName="Rapanui" />
+	<ISOLanguage ISO6392Code="rar" EnglishName="Rarotongan; Cook Islands Maori" />
+	<ISOLanguage ISO6392Code="roa" EnglishName="Romance languages" />
+	<ISOLanguage ISO6392Code="roh" ISO6391Code="rm" EnglishName="Romansh" />
+	<ISOLanguage ISO6392Code="rom" EnglishName="Romany" />
+	<ISOLanguage ISO6392Code="ron" ISO6391Code="ro" EnglishName="Romanian; Moldavian; Moldovan" />
+	<ISOLanguage ISO6392Code="rum" ISO6391Code="ro" EnglishName="Romanian; Moldavian; Moldovan" />
+	<ISOLanguage ISO6392Code="run" ISO6391Code="rn" EnglishName="Rundi" />
+	<ISOLanguage ISO6392Code="rup" EnglishName="Aromanian; Arumanian; Macedo-Romanian" />
+	<ISOLanguage ISO6392Code="rus" ISO6391Code="ru" EnglishName="Russian" />
+	<ISOLanguage ISO6392Code="sad" EnglishName="Sandawe" />
+	<ISOLanguage ISO6392Code="sag" ISO6391Code="sg" EnglishName="Sango" />
+	<ISOLanguage ISO6392Code="sah" EnglishName="Yakut" />
+	<ISOLanguage ISO6392Code="sai" EnglishName="South American Indian languages" />
+	<ISOLanguage ISO6392Code="sal" EnglishName="Salishan languages" />
+	<ISOLanguage ISO6392Code="sam" EnglishName="Samaritan Aramaic" />
+	<ISOLanguage ISO6392Code="san" ISO6391Code="sa" EnglishName="Sanskrit" />
+	<ISOLanguage ISO6392Code="sas" EnglishName="Sasak" />
+	<ISOLanguage ISO6392Code="sat" EnglishName="Santali" />
+	<ISOLanguage ISO6392Code="scn" EnglishName="Sicilian" />
+	<ISOLanguage ISO6392Code="sco" EnglishName="Scots" />
+	<ISOLanguage ISO6392Code="sel" EnglishName="Selkup" />
+	<ISOLanguage ISO6392Code="sem" EnglishName="Semitic languages" />
+	<ISOLanguage ISO6392Code="sga" EnglishName="Irish, Old (to 900)" />
+	<ISOLanguage ISO6392Code="sgn" EnglishName="Sign Languages" />
+	<ISOLanguage ISO6392Code="shn" EnglishName="Shan" />
+	<ISOLanguage ISO6392Code="sid" EnglishName="Sidamo" />
+	<ISOLanguage ISO6392Code="sin" ISO6391Code="si" EnglishName="Sinhala; Sinhalese" />
+	<ISOLanguage ISO6392Code="sio" EnglishName="Siouan languages" />
+	<ISOLanguage ISO6392Code="sit" EnglishName="Sino-Tibetan languages" />
+	<ISOLanguage ISO6392Code="sla" EnglishName="Slavic languages" />
+	<ISOLanguage ISO6392Code="slk" ISO6391Code="sk" EnglishName="Slovak" />
+	<ISOLanguage ISO6392Code="slo" ISO6391Code="sk" EnglishName="Slovak" />
+	<ISOLanguage ISO6392Code="slv" ISO6391Code="sl" EnglishName="Slovenian" />
+	<ISOLanguage ISO6392Code="sma" EnglishName="Southern Sami" />
+	<ISOLanguage ISO6392Code="sme" ISO6391Code="se" EnglishName="Northern Sami" />
+	<ISOLanguage ISO6392Code="smi" EnglishName="Sami languages" />
+	<ISOLanguage ISO6392Code="smj" EnglishName="Lule Sami" />
+	<ISOLanguage ISO6392Code="smn" EnglishName="Inari Sami" />
+	<ISOLanguage ISO6392Code="smo" ISO6391Code="sm" EnglishName="Samoan" />
+	<ISOLanguage ISO6392Code="sms" EnglishName="Skolt Sami" />
+	<ISOLanguage ISO6392Code="sna" ISO6391Code="sn" EnglishName="Shona" />
+	<ISOLanguage ISO6392Code="snd" ISO6391Code="sd" EnglishName="Sindhi" />
+	<ISOLanguage ISO6392Code="snk" EnglishName="Soninke" />
+	<ISOLanguage ISO6392Code="sog" EnglishName="Sogdian" />
+	<ISOLanguage ISO6392Code="som" ISO6391Code="so" EnglishName="Somali" />
+	<ISOLanguage ISO6392Code="son" EnglishName="Songhai languages" />
+	<ISOLanguage ISO6392Code="sot" ISO6391Code="st" EnglishName="Sotho, Southern" />
+	<ISOLanguage ISO6392Code="spa" ISO6391Code="es" EnglishName="Spanish; Castilian" />
+	<ISOLanguage ISO6392Code="sqi" ISO6391Code="sq" EnglishName="Albanian" />
+	<ISOLanguage ISO6392Code="srd" ISO6391Code="sc" EnglishName="Sardinian" />
+	<ISOLanguage ISO6392Code="srn" EnglishName="Sranan Tongo" />
+	<ISOLanguage ISO6392Code="srp" ISO6391Code="sr" EnglishName="Serbian" />
+	<ISOLanguage ISO6392Code="srr" EnglishName="Serer" />
+	<ISOLanguage ISO6392Code="ssa" EnglishName="Nilo-Saharan languages" />
+	<ISOLanguage ISO6392Code="ssw" ISO6391Code="ss" EnglishName="Swati" />
+	<ISOLanguage ISO6392Code="suk" EnglishName="Sukuma" />
+	<ISOLanguage ISO6392Code="sun" ISO6391Code="su" EnglishName="Sundanese" />
+	<ISOLanguage ISO6392Code="sus" EnglishName="Susu" />
+	<ISOLanguage ISO6392Code="sux" EnglishName="Sumerian" />
+	<ISOLanguage ISO6392Code="swa" ISO6391Code="sw" EnglishName="Swahili" />
+	<ISOLanguage ISO6392Code="swe" ISO6391Code="sv" EnglishName="Swedish" />
+	<ISOLanguage ISO6392Code="syc" EnglishName="Classical Syriac" />
+	<ISOLanguage ISO6392Code="syr" EnglishName="Syriac" />
+	<ISOLanguage ISO6392Code="tah" ISO6391Code="ty" EnglishName="Tahitian" />
+	<ISOLanguage ISO6392Code="tai" EnglishName="Tai languages" />
+	<ISOLanguage ISO6392Code="tam" ISO6391Code="ta" EnglishName="Tamil" />
+	<ISOLanguage ISO6392Code="tat" ISO6391Code="tt" EnglishName="Tatar" />
+	<ISOLanguage ISO6392Code="tel" ISO6391Code="te" EnglishName="Telugu" />
+	<ISOLanguage ISO6392Code="tem" EnglishName="Timne" />
+	<ISOLanguage ISO6392Code="ter" EnglishName="Tereno" />
+	<ISOLanguage ISO6392Code="tet" EnglishName="Tetum" />
+	<ISOLanguage ISO6392Code="tgk" ISO6391Code="tg" EnglishName="Tajik" />
+	<ISOLanguage ISO6392Code="tgl" ISO6391Code="tl" EnglishName="Tagalog" />
+	<ISOLanguage ISO6392Code="tha" ISO6391Code="th" EnglishName="Thai" />
+	<ISOLanguage ISO6392Code="tib" ISO6391Code="bo" EnglishName="Tibetan" />
+	<ISOLanguage ISO6392Code="tig" EnglishName="Tigre" />
+	<ISOLanguage ISO6392Code="tir" ISO6391Code="ti" EnglishName="Tigrinya" />
+	<ISOLanguage ISO6392Code="tiv" EnglishName="Tiv" />
+	<ISOLanguage ISO6392Code="tkl" EnglishName="Tokelau" />
+	<ISOLanguage ISO6392Code="tlh" EnglishName="Klingon; tlhIngan-Hol" />
+	<ISOLanguage ISO6392Code="tli" EnglishName="Tlingit" />
+	<ISOLanguage ISO6392Code="tmh" EnglishName="Tamashek" />
+	<ISOLanguage ISO6392Code="tog" EnglishName="Tonga (Nyasa)" />
+	<ISOLanguage ISO6392Code="ton" ISO6391Code="to" EnglishName="Tonga (Tonga Islands)" />
+	<ISOLanguage ISO6392Code="tpi" EnglishName="Tok Pisin" />
+	<ISOLanguage ISO6392Code="tsi" EnglishName="Tsimshian" />
+	<ISOLanguage ISO6392Code="tsn" ISO6391Code="tn" EnglishName="Tswana" />
+	<ISOLanguage ISO6392Code="tso" ISO6391Code="ts" EnglishName="Tsonga" />
+	<ISOLanguage ISO6392Code="tuk" ISO6391Code="tk" EnglishName="Turkmen" />
+	<ISOLanguage ISO6392Code="tum" EnglishName="Tumbuka" />
+	<ISOLanguage ISO6392Code="tup" EnglishName="Tupi languages" />
+	<ISOLanguage ISO6392Code="tur" ISO6391Code="tr" EnglishName="Turkish" />
+	<ISOLanguage ISO6392Code="tut" EnglishName="Altaic languages" />
+	<ISOLanguage ISO6392Code="tvl" EnglishName="Tuvalu" />
+	<ISOLanguage ISO6392Code="twi" ISO6391Code="tw" EnglishName="Twi" />
+	<ISOLanguage ISO6392Code="tyv" EnglishName="Tuvinian" />
+	<ISOLanguage ISO6392Code="udm" EnglishName="Udmurt" />
+	<ISOLanguage ISO6392Code="uga" EnglishName="Ugaritic" />
+	<ISOLanguage ISO6392Code="uig" ISO6391Code="ug" EnglishName="Uighur; Uyghur" />
+	<ISOLanguage ISO6392Code="ukr" ISO6391Code="uk" EnglishName="Ukrainian" />
+	<ISOLanguage ISO6392Code="umb" EnglishName="Umbundu" />
+	<ISOLanguage ISO6392Code="und" EnglishName="Undetermined" />
+	<ISOLanguage ISO6392Code="urd" ISO6391Code="ur" EnglishName="Urdu" />
+	<ISOLanguage ISO6392Code="uzb" ISO6391Code="uz" EnglishName="Uzbek" />
+	<ISOLanguage ISO6392Code="vai" EnglishName="Vai" />
+	<ISOLanguage ISO6392Code="ven" ISO6391Code="ve" EnglishName="Venda" />
+	<ISOLanguage ISO6392Code="vie" ISO6391Code="vi" EnglishName="Vietnamese" />
+	<ISOLanguage ISO6392Code="vol" ISO6391Code="vo" EnglishName="Volapük" />
+	<ISOLanguage ISO6392Code="vot" EnglishName="Votic" />
+	<ISOLanguage ISO6392Code="wak" EnglishName="Wakashan languages" />
+	<ISOLanguage ISO6392Code="wal" EnglishName="Wolaitta; Wolaytta" />
+	<ISOLanguage ISO6392Code="war" EnglishName="Waray" />
+	<ISOLanguage ISO6392Code="was" EnglishName="Washo" />
+	<ISOLanguage ISO6392Code="wel" ISO6391Code="cy" EnglishName="Welsh" />
+	<ISOLanguage ISO6392Code="wen" EnglishName="Sorbian languages" />
+	<ISOLanguage ISO6392Code="wln" ISO6391Code="wa" EnglishName="Walloon" />
+	<ISOLanguage ISO6392Code="wol" ISO6391Code="wo" EnglishName="Wolof" />
+	<ISOLanguage ISO6392Code="xal" EnglishName="Kalmyk; Oirat" />
+	<ISOLanguage ISO6392Code="xho" ISO6391Code="xh" EnglishName="Xhosa" />
+	<ISOLanguage ISO6392Code="yao" EnglishName="Yao" />
+	<ISOLanguage ISO6392Code="yap" EnglishName="Yapese" />
+	<ISOLanguage ISO6392Code="yid" ISO6391Code="yi" EnglishName="Yiddish" />
+	<ISOLanguage ISO6392Code="yor" ISO6391Code="yo" EnglishName="Yoruba" />
+	<ISOLanguage ISO6392Code="ypk" EnglishName="Yupik languages" />
+	<ISOLanguage ISO6392Code="zap" EnglishName="Zapotec" />
+	<ISOLanguage ISO6392Code="zbl" EnglishName="Blissymbols; Blissymbolics; Bliss" />
+	<ISOLanguage ISO6392Code="zen" EnglishName="Zenaga" />
+	<ISOLanguage ISO6392Code="zgh" EnglishName="Standard Moroccan Tamazight" />
+	<ISOLanguage ISO6392Code="zha" ISO6391Code="za" EnglishName="Zhuang; Chuang" />
+	<ISOLanguage ISO6392Code="zho" ISO6391Code="zh" EnglishName="Chinese" />
+	<ISOLanguage ISO6392Code="znd" EnglishName="Zande languages" />
+	<ISOLanguage ISO6392Code="zul" ISO6391Code="zu" EnglishName="Zulu" />
+	<ISOLanguage ISO6392Code="zun" EnglishName="Zuni" />
+	<ISOLanguage ISO6392Code="zxx" EnglishName="No linguistic content; Not applicable" />
+	<ISOLanguage ISO6392Code="zza" EnglishName="Zaza; Dimili; Dimli; Kirdki; Kirmanjki; Zazaki" />
+</CFSec>

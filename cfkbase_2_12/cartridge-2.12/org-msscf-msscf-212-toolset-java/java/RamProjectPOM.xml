@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="RamProjectPOM"
+	Revision="2.12"
+	Descr="Java 11 Ram package pom.xml">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaRamPOM"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema SchemaName$Ram"
+		SubPackageName=""
+		ExpansionClassName="RamPOM"
+		ExpansionKeyName="$SchemaName$RamPOM"
+		ExpansionFileName="pom.xml"
+>$POMHeader$
+  &lt;parent&gt;
+    &lt;groupId&gt;$lower TldName$.$lower TopDomainName$.$lower TopProjectName$.v$MajorVersionName$_$MinorVersionName$&lt;/groupId&gt;
+    &lt;artifactId&gt;$lower TldName$.$lower TopDomainName$.$lower TopProjectName$.v$MajorVersionName$_$MinorVersionName$&lt;/artifactId&gt;
+    &lt;version&gt;$MajorVersionName$.$MinorVersionName$.$GeneratingBuild$&lt;/version&gt;
+  &lt;/parent&gt;
+
+  &lt;groupId&gt;$lower TldName$.$lower TopDomainName$.$lower TopProjectName$.v$MajorVersionName$_$MinorVersionName$&lt;/groupId&gt;
+  &lt;artifactId&gt;$lower TldName$.$lower TopDomainName$.$lower TopProjectName$.v$MajorVersionName$_$MinorVersionName$.$lower SchemaName$.$SchemaName$Ram&lt;/artifactId&gt;
+  &lt;version&gt;$MajorVersionName$.$MinorVersionName$.$GeneratingBuild$&lt;/version&gt;
+  &lt;name&gt;$lower TldName$.$lower TopDomainName$.$lower TopProjectName$.v$MajorVersionName$_$MinorVersionName$.$lower SchemaName$.$SchemaName$Ram&lt;/name&gt;
+  &lt;description&gt;$TopProjectDescription$ $SchemaName$Ram $MajorVersionName$.$MinorVersionName$ $SubProjectDescription$ RAM persistence&lt;/description&gt;
+  &lt;url&gt;https://$lower TopDomainName$.$lower TldName$/$lower TopProjectName$/&lt;/url&gt;
+
+  &lt;properties&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;maven.compiler.source&gt;21&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;21&lt;/maven.compiler.target&gt;
+  &lt;/properties&gt;
+
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.msscf.msscf.v2_13&lt;/groupId&gt;
+      &lt;artifactId&gt;org.msscf.msscf.v2_13.cflib.CFLib&lt;/artifactId&gt;
+      &lt;version&gt;$MajorVersionName$.$MinorVersionName$.$GeneratingBuild$&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;$lower TldName$.$lower TopDomainName$.$lower TopProjectName$.v$lower MajorVersionName$_$lower MinorVersionName$&lt;/groupId&gt;
+      &lt;artifactId&gt;$lower TldName$.$lower TopDomainName$.$lower TopProjectName$.v$lower MajorVersionName$_$lower MinorVersionName$.$lower SchemaName$&lt;/artifactId&gt;
+      &lt;version&gt;$MajorVersionName$.$MinorVersionName$.$GeneratingBuild$&lt;/version&gt;
+    &lt;/dependency&gt;$iterate SchemaRefs( each DependsOnSchemaRefBasePOM empty empty )$
+    &lt;dependency&gt;
+      &lt;groupId&gt;$lower TldName$.$lower TopDomainName$.$lower TopProjectName$.v$lower MajorVersionName$_$lower MinorVersionName$&lt;/groupId&gt;
+      &lt;artifactId&gt;$lower TldName$.$lower TopDomainName$.$lower TopProjectName$.v$lower MajorVersionName$_$lower MinorVersionName$.$lower SchemaName$.$SchemaName$SaxLoader&lt;/artifactId&gt;
+      &lt;version&gt;$MajorVersionName$.$MinorVersionName$.$GeneratingBuild$&lt;/version&gt;
+    &lt;/dependency&gt;
+$iterate SchemaRefs( each DependsOnSchemaRefSaxLoaderPOM empty empty )$
+  &lt;/dependencies&gt;
+
+  &lt;build&gt;
+    &lt;pluginManagement&gt;
+    &lt;/pluginManagement&gt;
+  &lt;/build&gt;
+
+  &lt;reporting&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/reporting&gt;
+&lt;/project&gt;
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="DependsOnSchemaRefSaxLoaderPOM">
+    &lt;dependency&gt;
+      &lt;groupId&gt;$lower reference RefSchema TldName$.$lower reference RefSchema TopDomainName$.$lower reference RefSchema TopProjectName$.v$lower reference RefSchema MajorVersionName$_$lower reference RefSchema MinorVersionName$&lt;/groupId&gt;
+      &lt;artifactId&gt;$lower reference RefSchema TldName$.$lower reference RefSchema TopDomainName$.$lower reference RefSchema TopProjectName$.v$lower reference RefSchema MajorVersionName$_$lower reference RefSchema MinorVersionName$.$lower reference RefSchema SchemaName$.$reference RefSchema SchemaName$SaxLoader&lt;/artifactId&gt;
+      &lt;version&gt;$reference RefSchema MajorVersionName$.$reference RefSchema MinorVersionName$.$GeneratingBuild$&lt;/version&gt;
+    &lt;/dependency&gt;</GenRule>
+
+</RuleSet>

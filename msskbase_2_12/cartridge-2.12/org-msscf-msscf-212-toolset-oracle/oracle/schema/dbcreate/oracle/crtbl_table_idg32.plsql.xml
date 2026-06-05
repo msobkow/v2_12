@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/crtbl_table_idg32.plsql"
+	Revision="2.12"
+	Descr="Oracle Create Id32 Generator Table PL/SQL Script">
+
+	<GenFile ScopeDef="Table" GenDef="Id32Gen" Name="dbadminfile_CreateTableIdg32Table"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="crtbl_$lower DbTableName$_idg32"
+		ExpansionKeyName="crtbl_$lower DbTableName$_idg32"
+		ExpansionFileName="$dbadminfilename_CreateTableIdg32Table$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+CREATE TABLE $lower DbSchemaName$.$popto Table DbTableName$_idg32 ($popto Table reference PrimaryKeyIndex iterate Columns( each clause_IdgCreateColComma )$
+	slice_id	SMALLINT$clause_NotNull$,
+	next_id	$clause_ColType$$clause_NotNull$ )
+TABLESPACE $lower DbSchemaName$_data1$RunSqlStmt$
+
+CREATE UNIQUE INDEX $lower DbTableName$_idg32_pidx ON $lower DbSchemaName$.$popto Table DbTableName$_idg32($popto Table reference PrimaryKeyIndex iterate Columns( each clause_PKeyColComma )$ slice_id ) TABLESPACE $lower DbSchemaName$_idx1$RunSqlStmt$
+
+ALTER TABLE $lower DbSchemaName$.$popto Table DbTableName$_idg32
+	ADD CONSTRAINT pk_$lower popto Table DbTableName$_idg32 PRIMARY KEY ($popto Table reference PrimaryKeyIndex iterate Columns( each clause_PKeyColComma )$ slice_id )$RunSqlStmt$
+</GenFile>
+
+</RuleSet>

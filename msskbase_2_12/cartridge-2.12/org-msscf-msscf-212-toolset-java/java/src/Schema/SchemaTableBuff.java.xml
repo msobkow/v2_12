@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/Schema/SchemaTableBuff.java"
+	Revision="2.12"
+	Descr="Java 11 implementation of a $TableName$ buffer object.">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableBuffJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$$TableName$BuffJava"
+		ExpansionKeyName="$SchemaName$$TableName$BuffJava"
+		ExpansionFileName="$SchemaName$$TableName$Buff.java"
+>// Description: Java 11 implementation of a $TableName$ buffer object.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$;
+
+import java.lang.reflect.*;
+import java.io.*;
+import java.math.*;
+import java.net.*;
+import java.rmi.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$
+
+public class $SchemaName$$TableName$Buff$switch HasDefSchema yes extendSchemaTableBuff default extendSchemaTableBuffSuperBuff$$switch HasDefSchemaOrSuper no empty default implementSchemaTableBuffComparable$
+{$implBuffStaticClassCode$$switch HasDefSchemaOrSuper no implBuffOptDeclInitAuditColumns default empty$$switch HasDefSchema yes empty default declSchemaTableBuffColumns$$switch HasDefSchema yes empty default declSchemaTableBuffMinValues$$switch HasDefSchema yes empty default declSchemaTableBuffMaxValues$$switch HasDefSchemaOrSuper yes implBuffDataAttr default implBuffColumnAttr$$switch HasDefSchemaOrSuper no implBuffRequiredRevisionAttr default empty$$switch HasDefSchemaOrSuper yes implSchemaTableBuffInhConstruct default implSchemaTableBuffBaseConstruct$$implBuffGetClassCode$$switch HasDefSchemaOrSuper no implBuffColumnGetterSetters default implBuffDataGetterSetters$$switch HasDefSchemaOrSuper no implRevisionGetterSetter default empty$$implBuffEquals$$implBuffGetHashCode$$implBuffCompareTo$$implBuffSet$}
+</GenFile>
+
+	<GenRule GenDef="Index" Name="maybeImplEqualsCmpKey"
+		>$switch IsPrimaryIndex yes empty default implEqualsCmpKey$</GenRule>
+	<GenRule GenDef="Index" Name="implEqualsCmpKey">
+		else if( obj instanceof $SchemaName$$TableName$By$Suffix$Key ) {
+			$SchemaName$$TableName$By$Suffix$Key rhs = ($SchemaName$$TableName$By$Suffix$Key)obj;$iterate Columns( each implEqualsCmpAttr )$
+			return( true );
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="maybeImplEqualsCmpAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implEqualsCmpAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableBuffMinValues"
+		>$iterate Columns( each maybeDeclMinValue empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableBuffMaxValues"
+		>$iterate Columns( each maybeDeclMaxValue empty empty )$</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaTableBuffColumns"
+		>$popto Table declSchemaTableBuffColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableBuffColumns"
+		>$iterate Columns( each maybeDeclInitValue empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="extendSchemaTableBuff">
+	extends $reference DefSchema SchemaName$$TableName$Buff</GenRule>
+
+	<GenRule GenDef="Table" Name="HasDefSchemaOrSuper"
+		>$switch HasDefSchema yes yes default HasSuperClassRelation$</GenRule>
+
+	<GenRule GenDef="Table" Name="HasDefSchemaButNoSuper"
+		>$switch HasDefSchema yes HasDefSchemaButNoSuperOnlyIfNoSuper default no$</GenRule>
+	<GenRule GenDef="Table" Name="HasDefSchemaButNoSuperOnlyIfNoSuper"
+		>$switch HasSuperClassRelation no yes default no$</GenRule>
+
+	<GenRule GenDef="Table" Name="implementSchemaTableBuffComparable">
+	implements Comparable&lt;Object&gt;,
+		Serializable</GenRule>
+
+	<GenRule GenDef="Object" Name="extendSchemaTableBuffSuperBuff"
+		>$popto Table extendSchemaTableBuffSuperBuff$</GenRule>
+
+	<GenRule GenDef="Table" Name="extendSchemaTableBuffSuperBuff"
+		>$switch HasSuperClassRelation yes implBuffInheritSuper default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffOptDeclInitAuditColumns"
+		>$switch HasAuditColumns yes implBuffDeclInitAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffDeclInitAuditColumns">
+	public final static String S_INIT_CREATEDBY = "654dbba0-eda7-11e1-aff1-0800200c9a66";
+	public final static UUID INIT_CREATEDBY = UUID.fromString( S_INIT_CREATEDBY );
+	public final static String S_INIT_UPDATEDBY = "654dbba0-eda7-11e1-aff1-0800200c9a66";
+	public final static UUID INIT_UPDATEDBY = UUID.fromString( S_INIT_UPDATEDBY );</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeDeclInitValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef declInitValueIfSpecified
+			EnumDef declInitValue
+			Id16Gen declInitValue
+			Id32Gen declInitValue 
+			Id64Gen declInitValue
+			Int16Def declInitValue
+			Int32Def declInitValue
+			Int64Def declInitValue
+			UInt16Def declInitValue
+			UInt32Def declInitValue
+			UInt64Def declInitValue
+			FloatDef declInitValueIfSpecified
+			DoubleDef declInitValueIfSpecified
+			NumberDef declInitValue
+			DateDef declInitValueIfSpecified
+			TimeDef declInitValueIfSpecified
+			TimestampDef declInitValueIfSpecified
+			TZDateDef declInitValueIfSpecified
+			TZTimeDef declInitValueIfSpecified
+			TZTimestampDef declInitValueIfSpecified
+			UuidGen declInitValueIfSpecified
+			UuidDef declInitValueIfSpecified
+			StringDef declInitValueIfSpecified
+			TokenDef declInitValueIfSpecified
+			NmTokenDef declInitValueIfSpecified
+			NmTokensDef declInitValueIfSpecified
+			TextDef declInitValueIfSpecified
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declInitValueIfSpecified"
+		>$switch HasInitValue yes declInitValue default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeDeclMinValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef empty
+			EnumDef declMinValue
+			Id16Gen declMinValueIfSpecified
+			Id32Gen declMinValueIfSpecified
+			Id64Gen declMinValueIfSpecified
+			Int16Def declMinValueIfSpecified
+			Int32Def declMinValueIfSpecified
+			Int64Def declMinValueIfSpecified
+			UInt16Def declMinValueIfSpecified
+			UInt32Def declMinValueIfSpecified
+			UInt64Def declMinValueIfSpecified
+			FloatDef declMinValueIfSpecified
+			DoubleDef declMinValueIfSpecified
+			NumberDef declMinValueIfSpecified
+			DateDef empty
+			TimeDef empty
+			TimestampDef empty
+			TZDateDef empty
+			TZTimeDef empty
+			TZTimestampDef empty
+			UuidGen empty
+			UuidDef empty
+			StringDef empty
+			TokenDef empty
+			NmTokenDef empty
+			NmTokensDef empty
+			TextDef empty
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declMinValueIfSpecified"
+		>$switch HasMinValue yes declMinValue default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeDeclMaxValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef empty
+			EnumDef declMaxValue
+			Id16Gen declMaxValueIfSpecified
+			Id32Gen declMaxValueIfSpecified 
+			Id64Gen declMaxValueIfSpecified
+			Int16Def declMaxValueIfSpecified
+			Int32Def declMaxValueIfSpecified
+			Int64Def declMaxValueIfSpecified
+			UInt16Def declMaxValueIfSpecified
+			UInt32Def declMaxValueIfSpecified
+			UInt64Def declMaxValueIfSpecified
+			FloatDef declMaxValueIfSpecified
+			DoubleDef declMaxValueIfSpecified
+			NumberDef declMaxValueIfSpecified
+			DateDef empty
+			TimeDef empty
+			TimestampDef empty
+			TZDateDef empty
+			TZTimeDef empty
+			TZTimestampDef empty
+			UuidGen empty
+			UuidDef empty
+			StringDef empty
+			TokenDef empty
+			NmTokenDef empty
+			NmTokensDef empty
+			TextDef empty
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declMaxValueIfSpecified"
+		>$switch HasMaxValue yes declMaxValue default empty$</GenRule>
+
+	<GenRule GenDef="Index" Name="maybeImplBuffComparableToIndex"
+		>$switch IsPrimaryIndex yes empty default implBuffComparableToIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffComparableToIndex">,
+		Comparable&lt;$SchemaName$$TableName$By$Suffix$Key&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffStaticClassCode">
+	public final static String CLASS_CODE = "$ClassCode$";</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffGetClassCode">
+	public String getClassCode() {
+		return( CLASS_CODE );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffColumnAttr"
+		>$switch HasSuperClassRelation no implBuffOptAuditColumnAttr default empty$$iterate Columns( each implColumnAttr )$</GenRule>
+	<GenRule GenDef="Table" Name="implBuffDataAttr"
+		>$iterate DataColumns( each implColumnAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffOptAuditColumnAttr"
+		>$switch HasAuditColumns yes implBuffAuditColumnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffAuditColumnAttr">
+	protected UUID createdByUserId = $SchemaName$$TableName$Buff.INIT_CREATEDBY;
+	protected Calendar createdAt = Calendar.getInstance();
+	protected UUID updatedByUserId = $SchemaName$$TableName$Buff.INIT_UPDATEDBY;
+	protected Calendar updatedAt = Calendar.getInstance();</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffColumnGetterSetters"
+		>$switch HasSuperClassRelation no implBuffColumnOptAuditGetterSetters default empty$$iterate Columns( each implColumnGetterSetter )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffColumnOptAuditGetterSetters"
+		>$switch HasAuditColumns yes implBuffColumnAuditGetterSetters default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffColumnAuditGetterSetters">
+	public UUID getCreatedByUserId() {
+		return( createdByUserId );
+	}
+
+	public void setCreatedByUserId( UUID value ) {
+		createdByUserId = value;
+	}
+
+	public Calendar getCreatedAt() {
+		return( createdAt );
+	}
+
+	public void setCreatedAt( Calendar value ) {
+		createdAt = value;
+	}
+
+	public UUID getUpdatedByUserId() {
+		return( updatedByUserId );
+	}
+
+	public void setUpdatedByUserId( UUID value ) {
+		updatedByUserId = value;
+	}
+
+	public Calendar getUpdatedAt() {
+		return( updatedAt );
+	}
+
+	public void setUpdatedAt( Calendar value ) {
+		updatedAt = value;
+	}</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffDataGetterSetters"
+		>$iterate DataColumns( each implColumnGetterSetter empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffInheritSuper">
+	extends $SchemaName$$reference SuperClassRelation reference ToTable TableName$Buff</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffRequiredRevisionAttr">
+	protected int requiredRevision;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableBuffBaseConstruct">
+	public $poptop SchemaDef SchemaName$$TableName$Buff() {$implBuffConstructorInitColumns$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableBuffInhConstruct">
+	public $poptop SchemaDef SchemaName$$TableName$Buff() {
+		super();$switch HasDefSchema yes empty default implBuffConstructorInitDataColumns$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffConstructorInitDataColumns"
+		>$iterate DataColumns( each implConstructorInitAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffConstructorInitColumns"
+		>$iterate Columns( each implConstructorInitAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffConstructorInvokeSuper">
+		super();</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffEquals">
+	public boolean equals( Object obj ) {
+		if( obj == null ) {
+			return( false );
+		}
+		else if( obj instanceof $SchemaName$$TableName$Buff ) {
+			$SchemaName$$TableName$Buff rhs = ($SchemaName$$TableName$Buff)obj;$switch HasSuperClassRelation no implBuffEqualsOptAuditColumns default empty$$iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}
+		else if( obj instanceof $SchemaName$$reference BaseClass TableName$PKey ) {
+			$SchemaName$$reference BaseClass TableName$PKey rhs = ($SchemaName$$reference BaseClass TableName$PKey)obj;$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}
+		else if( obj instanceof $SchemaName$$TableName$HBuff ) {
+			$SchemaName$$TableName$HBuff rhs = ($SchemaName$$TableName$HBuff)obj;$iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}
+		else if( obj instanceof $SchemaName$$reference BaseClass TableName$HPKey ) {
+			$SchemaName$$reference BaseClass TableName$HPKey rhs = ($SchemaName$$reference BaseClass TableName$HPKey)obj;$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}$iterate Index( each maybeImplEqualsCmpKey)$
+		else {$switch IsBaseTable yes implBuffEqualsReturnFalse default implBuffEqualsReturnSuper$
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffEqualsOptAuditColumns"
+		>$switch HasAuditColumns yes implBuffEqualsAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffEqualsAuditColumns">
+			if( ! getCreatedByUserId().equals( rhs.getCreatedByUserId() ) ) {
+				return( false );
+			}
+			if( ! getCreatedAt().equals( rhs.getCreatedAt() ) ) {
+				return( false );
+			}
+			if( ! getUpdatedByUserId().equals( rhs.getUpdatedByUserId() ) ) {
+				return( false );
+			}
+			if( ! getUpdatedAt().equals( rhs.getUpdatedAt() ) ) {
+				return( false );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffEqualsReturnFalse">
+			return( false );</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffEqualsReturnSuper">
+			boolean retval = super.equals( obj );
+			return( retval );</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffGetHashCode">
+	public int hashCode() {$switch HasSuperClassRelation no implBuffGetHashCodeInitHashCode default implBuffGetHashCodeInitSuper$$switch HasSuperClassRelation no implBuffGetHashCodeOptAuditColumns default empty$$switch HasSuperClassRelation no implBuffGetHashCodeColumns default implBuffGetHashCodeData$
+		return( hashCode &amp; 0x7fffffff );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffGetHashCodeOptAuditColumns"
+		>$switch HasAuditColumns yes implBuffGetHashCodeAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffGetHashCodeAuditColumns">
+		hashCode = hashCode + getCreatedByUserId().hashCode();
+		hashCode = hashCode + getCreatedAt().hashCode();
+		hashCode = hashCode + getUpdatedByUserId().hashCode();
+		hashCode = hashCode + getUpdatedAt().hashCode();</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffGetHashCodeColumns"
+		>$iterate Columns( each implGetHashCodeAttr )$</GenRule>
+	<GenRule GenDef="Table" Name="implBuffGetHashCodeData"
+		>$iterate DataColumns( each implGetHashCodeAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffGetHashCodeInitHashCode">
+		int hashCode = 0;</GenRule>
+	<GenRule GenDef="Table" Name="implBuffGetHashCodeInitSuper">
+		int hashCode = super.hashCode();</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffCompareTo">
+	public int compareTo( Object obj ) {
+		if( obj == null ) {
+			return( -1 );
+		}
+		else if( obj instanceof $SchemaName$$TableName$Buff ) {
+			$SchemaName$$TableName$Buff rhs = ($SchemaName$$TableName$Buff)obj;$switch HasSuperClassRelation yes implBuffCompareInvokeSuperRetVal default implBuffCompareInitRetVal$$switch HasSuperClassRelation no implBuffCompareOptAuditColumns default empty$$implBuffCompareHierarchy$
+			return( 0 );
+		}
+		else if( obj instanceof $SchemaName$$reference BaseClass TableName$PKey ) {
+			$SchemaName$$reference BaseClass TableName$PKey rhs = ($SchemaName$$reference BaseClass TableName$PKey)obj;$reference PrimaryKeyIndex iterate Columns( each implCompareToAttr )$
+			return( 0 );
+		}
+		else if( obj instanceof $SchemaName$$reference BaseClass TableName$HPKey ) {
+			$SchemaName$$reference BaseClass TableName$HPKey rhs = ($SchemaName$$reference BaseClass TableName$HPKey)obj;$implHPKeyCompareToRequiredRevision$$reference PrimaryKeyIndex iterate Columns( each implCompareToAttr )$
+			return( 0 );
+		}
+		else if( obj instanceof $SchemaName$$TableName$HBuff ) {
+			$SchemaName$$TableName$HBuff rhs = ($SchemaName$$TableName$HBuff)obj;$switch HasSuperClassRelation yes implBuffCompareInvokeSuperRetVal default implBuffCompareInitRetVal$$switch HasSuperClassRelation yes implBuffCompareData default implBuffCompareColumns$
+			return( 0 );
+		}$iterate Index( each maybeImplBuffCompareToIndex )$
+		else {$switch HasSuperClassRelation no implBuffCompareThrowCannotCompare default implBuffCompareInvokeSuper$
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffCompareOptAuditColumns"
+		>$switch HasAuditColumns yes implBuffCompareAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffCompareAuditColumns">
+			{
+				int cmp = getCreatedByUserId().compareTo( rhs.getCreatedByUserId() );
+				if( cmp != 0 ) {
+					return( cmp );
+				}
+
+				cmp = getCreatedAt().compareTo( rhs.getCreatedAt() );
+				if( cmp != 0 ) {
+					return( cmp );
+				}
+
+				cmp = getUpdatedByUserId().compareTo( rhs.getUpdatedByUserId() );
+				if( cmp != 0 ) {
+					return( cmp );
+				}
+
+				cmp = getUpdatedAt().compareTo( rhs.getUpdatedAt() );
+				if( cmp != 0 ) {
+					return( cmp );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Index" Name="maybeImplBuffMethCompareToIndex"
+		>$switch IsPrimaryIndex yes empty default implBuffMethCompareToIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffMethCompareToIndex">
+	public int compareTo( $SchemaName$$popto Table TableName$By$Suffix$Key rhs ) {$iterate Columns( each implCompareToAttr )$
+			return( 0 );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffCompareHierarchy"
+		>$switch HasSuperClassRelation yes implBuffCompareData default implBuffCompareColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffCompareData"
+		>$iterate DataColumns( each implCompareToAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffCompareColumns"
+		>$iterate Columns( each implCompareToAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffCompareThrowCannotCompare">
+			throw new CFLibUnsupportedClassException( getClass(),
+				"compareTo",
+				"obj",
+				obj,
+				null );</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffCompareInvokeSuperRetVal">
+			int retval = super.compareTo( rhs );
+			if( retval != 0 ) {
+				return( retval );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffCompareInitRetVal">
+			int retval = 0;</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffCompareInvokeSuper">
+			int retval = super.compareTo( obj );
+			return( retval );</GenRule>
+
+	<GenRule GenDef="Index" Name="maybeImplBuffCompareToIndex"
+		>$switch IsPrimaryIndex yes empty default implBuffCompareToIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffCompareToIndex">
+		else if( obj instanceof $SchemaName$$TableName$By$Suffix$Key ) {
+			$SchemaName$$TableName$By$Suffix$Key rhs = ($SchemaName$$TableName$By$Suffix$Key)obj;
+$iterate Columns( each implCompareToAttr )
+$			return( 0 );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetWithCast">
+		if( src instanceof $DefSchemaName$$TableName$Buff ) {
+			set$TableName$Buff( ($DefSchemaName$$TableName$Buff)src );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				"compareTo",
+				"src",
+				src,
+				"$DefSchemaName$$TableName$Buff" );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetDirect">
+		set$TableName$Buff( src );</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSet">
+	public void set( $reference BaseClass DefSchemaName$$reference BaseClass TableName$Buff src ) {$switch HasSuperClassRelation yes implBuffSetWithCast default implBuffSetDirect$
+	}
+
+	public void set$TableName$Buff( $DefSchemaName$$TableName$Buff src ) {$switch HasSuperClassRelation yes implBuffSetInvokeSuper default implBuffSetCopyPKey$$switch HasSuperClassRelation no implBuffSetOptAuditColumns default empty$$iterate Columns( each implBuffSetCopyDataCol )$$switch HasSuperClassRelation no implBuffSetCopyRevision default empty$
+	}
+
+	public void set( $reference BaseClass DefSchemaName$$reference BaseClass TableName$HBuff src ) {$switch HasSuperClassRelation yes implHBuffSetWithCast default implBuffSetDirect$
+	}
+
+	public void set$TableName$Buff( $DefSchemaName$$TableName$HBuff src ) {$switch HasSuperClassRelation yes implBuffSetInvokeSuper default implBuffSetCopyPKey$$iterate Columns( each implBuffSetCopyDataCol )$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetOptAuditColumns"
+		>$switch HasAuditColumns yes implBuffSetAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetAuditColumns">
+		setCreatedByUserId( src.getCreatedByUserId() );
+		setCreatedAt( src.getCreatedAt() );
+		setUpdatedByUserId( src.getUpdatedByUserId() );
+		setUpdatedAt( src.getUpdatedAt() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetCopyPKey"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implBuffSetCopyPKeyCol )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetCopyRevision">
+		setRequiredRevision( src.getRequiredRevision() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetInvokeSuper">
+		super.set$reference SuperClassRelation reference ToTable TableName$Buff( src );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffSetCopyDataCol"
+		>$switch ColumnInPrimaryIndex yes empty default implBuffSetCopyCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffSetCopyCol">
+		set$implColumnAttrOptionality$$Name$( src.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implBuffSetCopyPKeyCol">
+		set$implColumnAttrOptionality$$reference Column Name$( src.get$implColumnAttrOptionality$$reference Column Name$() );</GenRule>
+
+</RuleSet>

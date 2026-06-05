@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crsp_moveup_dbtablename.sql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPMoveUpDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="$dbadminfilename_CreateSPMoveUpDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPMoveUpDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPMoveUpDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+$implDb2LUWMoveUpTableBody$</GenFile>
+
+	<GenRule GenDef="Table" Name="implDb2LUWMoveUpTableBody">
+create or replace procedure $sp_moveup_dbtablename$($implDb2LUWSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaTableCol )$,	\\
+	in argRevision integer )	\\
+dynamic result sets 1	\\
+language sql	\\
+begin$declSPOldVars$	\\
+	declare permissionFlag integer;	\\
+	declare isSystemUser integer;$reference Chain reference Table declDb2LUWSPMoveUpTableContainerVars$$declDb2LUWSPMoveUpTableChainLinkVars$	\\
+	declare retcursor cursor with return to client for	\\
+		select$implDb2LUWSelectTableColumns$,	\\
+			$lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$;	\\
+	begin$implDb2LUWSPMoveUpBody$	\\
+	end;	\\
+end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpBody"
+		>$reference Chain reference Table implDb2LUWSPMoveUpTableFetchContainerKeys$$reference Chain reference Table implDb2LUWSPMoveUpTableLatchContainer$$implDb2LUWLockTables$$implDb2LUWSPMoveUpDbTablenameValidateRevision$$switch SecScope None empty System implDb2LUWSPMoveUpTableCheckSystem Cluster implDb2LUWSPMoveUpTableCheckCluster Tenant implDb2LUWSPMoveUpTableCheckTenant default error$$reference Chain reference Table implDb2LUWSPMoveUpTableChainSelectChainLinks$$reference Chain reference Table implDb2LUWSPMoveUpTableIfPrevBegin$$reference Chain reference Table implDb2LUWSPMoveUpTableUpdateGPrev$$reference Chain reference Table implDb2LUWSPMoveUpTableUpdateThis$$reference Chain reference Table implDb2LUWSPMoveUpTableUpdatePrev$$reference Chain reference Table implDb2LUWSPMoveUpTableUpdateNext$$reference Chain reference Table implDb2LUWSPMoveUpTableIfPrevEnd$$reference Chain reference Table implDb2LUWSPMoveUpTableUnlatchContainer$	\\
+		open retcursor;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpDbTablenameValidateRevision">	\\
+		if argRevision != oldRevision	\\
+		then	\\
+			call raise_application_error( -20002, '$sp_moveup_dbtablename$() Data collision detected' );	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableIfPrevBegin">	\\
+		if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implDb2LUWSPMoveUpTableUpdatePrevIfNotNull each empty )$ )	\\
+		then</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableIfPrevEnd">	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateGPrev">	\\
+			if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implDb2LUWSPMoveUpTableUpdateGPrevIfNotNull each empty )$ )	\\
+			then$switch ChainTableHasSuperClassRelation yes implDb2LUWSPMoveUpTableUpdateGPrevTwoTables default implDb2LUWSPMoveUpTableUpdateGPrevOneTable$$switch BaseHasHistory yes implDb2LUWSPMoveUpTableUpdateGPrevAuditUpdated default empty$	\\
+			end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateGPrevOneTable">	\\
+				update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+				set	\\
+					revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implDb2LUWSPMoveUpTableUpdateTableAuditColumns5 default empty$$reference Chain reference NextRel iterate Columns( each implDb2LUWSPMoveUpTableUpdateGPrevWithCommaKey )$	\\
+				where	\\
+					$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWhereGPrevPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndGPrevPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateTableAuditColumns4">,	\\
+				updatedby = argAuditUserId,	\\
+				updatedat = current timestamp</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateTableAuditColumns5">,	\\
+					updatedby = argAuditUserId,	\\
+					updatedat = current timestamp</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateGPrevWithKey"
+		>$reference FromCol DbColumnName$ = arg$reference ToCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateGPrevWithCommaKey">,	\\
+					$implDb2LUWSPMoveUpTableUpdateGPrevWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateTableWhereGPrevPKeyCol"
+		>$reference ToCol DbColumnName$ = gprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateTableWhereAndGPrevPKeyCol">	\\
+					and $implDb2LUWSPMoveUpTableUpdateTableWhereGPrevPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateGPrevTwoTables">	\\
+				update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$	\\
+				set	\\
+					revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implDb2LUWSPMoveUpTableUpdateTableAuditColumns5 default empty$	\\
+				where	\\
+					$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWhereGPrevPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndGPrevPKeyCol )$;	\\
+	\\
+				update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+				set	\\
+					$reference Chain reference NextRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateGPrevWithKey each implDb2LUWSPMoveUpTableUpdateGPrevWithCommaKey )$	\\
+				where	\\
+					$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWhereGPrevPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndGPrevPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableUpdateGPrevIfNotNull"
+		>gprev$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateGPrevAuditUpdated">	\\
+				call sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,	\\
+					argAuditUserId,	\\
+					argAuditSessionId,	\\
+					secClusterId,	\\
+					secTenantId$reference Chain reference Table switch HasClassCode yes implDb2LUWSPMoveUpTableUpdateGPrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implDb2LUWSPMoveUpTableAuditUpdatedGPrevPassArg )$,	\\
+					1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateGPrevAuditPassClassCode">,	\\
+					gprevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableAuditUpdatedGPrevPassArg">,	\\
+					gprev$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateThis">$switch ChainTableHasSuperClassRelation yes implDb2LUWSPMoveUpTableUpdateThisTwoTables default implDb2LUWSPMoveUpTableUpdateThisOneTable$$switch BaseHasHistory yes implDb2LUWSPMoveUpTableUpdateThisAuditUpdated default empty$	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateThisOneTable">	\\
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+			set	\\
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implDb2LUWSPMoveUpTableUpdateTableAuditColumns4 default empty$$reference Chain reference PrevRel iterate Columns( each implDb2LUWSPMoveUpTableUpdateThisPrevWithCommaKey )$$reference Chain reference NextRel iterate Columns( each implDb2LUWSPMoveUpTableUpdateThisNextWithCommaKey )$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWhereThisPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndThisPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateThisPrevWithKey"
+		>$reference FromCol DbColumnName$ = gprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateThisPrevWithCommaKey">,	\\
+				$implDb2LUWSPMoveUpTableUpdateThisPrevWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateThisNextWithKey"
+		>$reference FromCol DbColumnName$ = varprev$reference ToCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateThisNextWithCommaKey">,	\\
+				$implDb2LUWSPMoveUpTableUpdateThisNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateTableWhereThisPKeyCol"
+		>$reference ToCol DbColumnName$ = arg$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateTableWhereAndThisPKeyCol">	\\
+				and $implDb2LUWSPMoveUpTableUpdateTableWhereThisPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateThisTwoTables">	\\
+			update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$	\\
+			set	\\
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implDb2LUWSPMoveUpTableUpdateTableAuditColumns4 default empty$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWhereThisPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndThisPKeyCol )$;	\\
+	\\
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+			set	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateThisPrevWithKey each implDb2LUWSPMoveUpTableUpdateThisPrevWithCommaKey )$$reference Chain reference NextRel iterate Columns( each implDb2LUWSPMoveUpTableUpdateThisNextWithCommaKey )$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWhereThisPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndThisPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateThisAuditUpdated">	\\
+			call sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,	\\
+				argAuditUserId,	\\
+				argAuditSessionId,	\\
+				secClusterId,	\\
+				secTenantId$reference Chain reference Table switch HasClassCode yes implDb2LUWSPMoveUpTableUpdateThisAuditPassClassCode default empty$$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implDb2LUWSPMoveUpTableAuditUpdatedThisPassArg )$,	\\
+				1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateThisAuditPassClassCode">,	\\
+				oldClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableAuditUpdatedThisPassArg">,	\\
+				arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdatePrev"
+		>$switch ChainTableHasSuperClassRelation yes implDb2LUWSPMoveUpTableUpdatePrevTwoTables default implDb2LUWSPMoveUpTableUpdatePrevOneTable$$switch BaseHasHistory yes implDb2LUWSPMoveUpTableUpdatePrevAuditUpdated default empty$	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdatePrevOneTable">	\\
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+			set	\\
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implDb2LUWSPMoveUpTableUpdateTableAuditColumns4 default empty$$reference Chain reference PrevRel iterate Columns( each implDb2LUWSPMoveUpTableUpdatePrevWithPrevCommaKey )$$reference Chain reference NextRel iterate Columns( each implDb2LUWSPMoveUpTableUpdatePrevWithNextCommaKey )$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWherePrevPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndPrevPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdatePrevWithPrevKey"
+		>$reference FromCol DbColumnName$ = arg$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdatePrevWithPrevCommaKey">,	\\
+				$implDb2LUWSPMoveUpTableUpdatePrevWithPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdatePrevWithNextKey"
+		>$reference FromCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdatePrevWithNextCommaKey">,	\\
+				$implDb2LUWSPMoveUpTableUpdatePrevWithNextKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateTableWherePrevPKeyCol"
+		>$reference ToCol DbColumnName$ = varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateTableWhereAndPrevPKeyCol">	\\
+				and $implDb2LUWSPMoveUpTableUpdateTableWherePrevPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdatePrevTwoTables">	\\
+			update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$	\\
+			set	\\
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implDb2LUWSPMoveUpTableUpdateTableAuditColumns4 default empty$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWherePrevPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndPrevPKeyCol )$;	\\
+	\\
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+			set	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdatePrevWithPrevKey each implDb2LUWSPMoveUpTableUpdatePrevWithPrevCommaKey )$$reference Chain reference NextRel iterate Columns( each implDb2LUWSPMoveUpTableUpdatePrevWithNextCommaKey )$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWherePrevPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndPrevPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableUpdatePrevIfNotNull"
+		>varprev$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdatePrevAuditUpdated">	\\
+			call sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,	\\
+				argAuditUserId,	\\
+				argAuditSessionId,	\\
+				secClusterId,	\\
+				secTenantId$reference Chain reference Table switch HasClassCode yes implDb2LUWSPMoveUpTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implDb2LUWSPMoveUpTableAuditUpdatedPrevPassArg )$,	\\
+				1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdatePrevAuditPassClassCode">,	\\
+				varprevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableAuditUpdatedPrevPassArg">,	\\
+				varprev$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateNext">	\\
+			if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implDb2LUWSPMoveUpTableUpdateNextIfNotNull each empty )$ )	\\
+			then$switch ChainTableHasSuperClassRelation yes implDb2LUWSPMoveUpTableUpdateNextTwoTables default implDb2LUWSPMoveUpTableUpdateNextOneTable$$switch BaseHasHistory yes implDb2LUWSPMoveUpTableUpdateNextAuditUpdated default empty$	\\
+			end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateNextOneTable">	\\
+				update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+				set	\\
+					revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implDb2LUWSPMoveUpTableUpdateTableAuditColumns5 default empty$$reference Chain reference PrevRel iterate Columns( each implDb2LUWSPMoveUpTableUpdateNextWithCommaKey )$	\\
+				where	\\
+					$reference Chain reference NextRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWhereNextPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndNextPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateNextWithKey"
+		>$reference FromCol DbColumnName$ = varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateNextWithCommaKey">,	\\
+					$implDb2LUWSPMoveUpTableUpdateNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateTableWhereNextPKeyCol"
+		>$reference ToCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableUpdateTableWhereAndNextPKeyCol">	\\
+					and $implDb2LUWSPMoveUpTableUpdateTableWhereNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateNextTwoTables">	\\
+				update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$	\\
+				set	\\
+					revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implDb2LUWSPMoveUpTableUpdateTableAuditColumns5 default empty$	\\
+				where	\\
+					$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWhereNextPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndNextPKeyCol )$;	\\
+	\\
+				update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+				set	\\
+					$reference Chain reference NextRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateNextWithKey each implDb2LUWSPMoveUpTableUpdateNextWithCommaKey )$	\\
+				where	\\
+					$reference Chain reference NextRel iterate Columns( first implDb2LUWSPMoveUpTableUpdateTableWhereNextPKeyCol each implDb2LUWSPMoveUpTableUpdateTableWhereAndNextPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableUpdateNextIfNotNull"
+		>varnext$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateNextAuditUpdated">	\\
+				call sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,	\\
+					argAuditUserId,	\\
+					argAuditSessionId,	\\
+					secClusterId,	\\
+					secTenantId$reference Chain reference Table switch HasClassCode yes implDb2LUWSPMoveUpTableUpdateNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implDb2LUWSPMoveUpTableAuditUpdatedNextPassArg )$,	\\
+					1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUpdateNextAuditPassClassCode">,	\\
+					varnextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableAuditUpdatedNextPassArg">,	\\
+					varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPMoveUpTableChainLinkVars"
+		>$switch HasClassCode yes declDb2LUWSPMoveUpTableChainLinkClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declDb2LUWSPMoveUpTableChainGPrevVar )$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declDb2LUWSPMoveUpTableChainPrevVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declDb2LUWSPMoveUpTableChainNextVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPMoveUpTableChainLinkClassCode">	\\
+	declare gprevClassCode varchar(4);	\\
+	declare varprevClassCode varchar(4);	\\
+	declare varnextClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declDb2LUWSPMoveUpTableChainGPrevVar">	\\
+	declare gprev$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declDb2LUWSPMoveUpTableChainPrevVar">	\\
+	declare varprev$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declDb2LUWSPMoveUpTableChainNextVar">	\\
+	declare varnext$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectLinks"
+		>$reference Chain reference Table implDb2LUWSPMoveUpTableChainSelectChainLinks$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectChainLinks">	\\
+		select$switch HasClassCode yes implDb2LUWSPMoveUpTableChainSelectGPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implDb2LUWSPMoveUpTableChainSelectGPrevKeyComma )$$switch HasClassCode yes implDb2LUWSPMoveUpTableChainSelectPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implDb2LUWSPMoveUpTableChainSelectPrevKeyComma )$$switch HasClassCode yes implDb2LUWSPMoveUpTableChainSelectNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implDb2LUWSPMoveUpTableChainSelectNextKeyComma last implDb2LUWSPMoveUpTableChainSelectNextKey )$$implDb2LUWSPMoveUpTableChainSelectChainLinksInto$$implDb2LUWSPMoveUpTableChainSelectChainLinksFromWhere$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectChainLinksInto">	\\
+		into$switch HasClassCode yes implDb2LUWSPMoveUpTableChainSelectIntoGPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implDb2LUWSPMoveUpTableChainSelectIntoGPrevKeyComma )$$switch HasClassCode yes implDb2LUWSPMoveUpTableChainSelectIntoPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implDb2LUWSPMoveUpTableChainSelectIntoPrevKeyComma )$$switch HasClassCode yes implDb2LUWSPMoveUpTableChainSelectIntoNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implDb2LUWSPMoveUpTableChainSelectIntoNextKeyComma last implDb2LUWSPMoveUpTableChainSelectIntoNextKey )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectChainLinksFromWhere">	\\
+		from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ $lower reference Chain reference Table ClassCode$$reference Chain reference Table switch HasSuperClassRelation yes implDb2LUWSPMoveUpTableChainSelectInnerJoinSuper default empty$$implDb2LUWSPMoveUpTableChainSelectOuterJoinLinkTables$	\\
+		where	\\
+			$reference Chain reference Table reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPMoveUpTableChainSelectWherePKey each implDb2LUWSPMoveUpTableChainSelectWhereAndPKey )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectInnerJoinSuper">	\\
+			inner join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implDb2LUWSPMoveUpTableChainSelectOnKeySuper each implDb2LUWSPMoveUpTableChainSelectOnKeyAndSuper )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOnKeySuper"
+		>$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = $lower popto Relation reference ToTable ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOnKeyAndSuper">	\\
+				and $implDb2LUWSPMoveUpTableChainSelectOnKeySuper$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableChainSelectWherePKey"
+		>$lower poptop Table reference Chain reference Table ClassCode$.$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableChainSelectWhereAndPKey">	\\
+			and $implDb2LUWSPMoveUpTableChainSelectWherePKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectOuterJoinLinkTables">	\\
+			left outer join $lower DbSchemaName$.$DbTableName$ prv$lower ClassCode$ on	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableChainSelectOJPrevKey each implDb2LUWSPMoveUpTableChainSelectOJAndPrevKey )$$switch HasSuperClassRelation yes implDb2LUWSPMoveUpTableChainSelectOuterJoinPrevSuper default empty$	\\
+			left outer join $lower DbSchemaName$.$DbTableName$ nxt$lower ClassCode$ on	\\
+				$reference Chain reference NextRel iterate Columns( first implDb2LUWSPMoveUpTableChainSelectOJNextKey each implDb2LUWSPMoveUpTableChainSelectOJAndNextKey )$$switch HasSuperClassRelation yes implDb2LUWSPMoveUpTableChainSelectOuterJoinNextSuper default empty$$switch HasClassCode yes implDb2LUWSPMoveUpTableChainSelectOuterJoinGPrevTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectOuterJoinGPrevTable">	\\
+			left outer join $lower DbSchemaName$.$DbTableName$ gprv$lower ClassCode$ on	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPMoveUpTableChainSelectOJGPrevKey each implDb2LUWSPMoveUpTableChainSelectOJAndGPrevKey )$$switch HasSuperClassRelation yes implDb2LUWSPMoveUpTableChainSelectOuterJoinGPrevSuper default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectOuterJoinGPrevSuper">	\\
+			left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ gprv$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implDb2LUWSPMoveUpTableChainSelectOuterJoinGPrevSuperKey each implDb2LUWSPMoveUpTableChainSelectOuterJoinGPrevSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implDb2LUWSPMoveUpTableChainSelectOuterJoinGPrevSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOuterJoinGPrevSuperKey"
+		>gprv$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = gprv$lower popto Relation reference ToTable ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOuterJoinGPrevSuperAndKey">	\\
+				and $implDb2LUWSPMoveUpTableChainSelectOuterJoinGPrevSuperKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectOuterJoinPrevSuper">	\\
+			left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ prv$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implDb2LUWSPMoveUpTableChainSelectOuterJoinPrevSuperKey each implDb2LUWSPMoveUpTableChainSelectOuterJoinPrevSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implDb2LUWSPMoveUpTableChainSelectOuterJoinPrevSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOuterJoinPrevSuperKey"
+		>prv$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = prv$lower popto Relation reference ToTable ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOuterJoinPrevSuperAndKey">	\\
+				and $implDb2LUWSPMoveUpTableChainSelectOuterJoinPrevSuperKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectOuterJoinNextSuper">	\\
+			left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ nxt$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implDb2LUWSPMoveUpTableChainSelectOuterJoinNextSuperKey each implDb2LUWSPMoveUpTableChainSelectOuterJoinNextSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implDb2LUWSPMoveUpTableChainSelectOuterJoinNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOuterJoinNextSuperKey"
+		>nxt$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = nxt$lower popto Relation reference ToTable ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOuterJoinNextSuperAndKey">	\\
+				and $implDb2LUWSPMoveUpTableChainSelectOuterJoinNextSuperKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOJGPrevKey"
+		>gprv$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$ = prv$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOJAndGPrevKey">	\\
+				and $implDb2LUWSPMoveUpTableChainSelectOJGPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOJPrevKey"
+		>prv$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOJAndPrevKey">	\\
+				and $implDb2LUWSPMoveUpTableChainSelectOJPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOJNextKey"
+		>nxt$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableChainSelectOJAndNextKey">	\\
+				and $implDb2LUWSPMoveUpTableChainSelectOJNextKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectGPrevClassCodeComma">	\\
+			gprv$lower reference BaseClass ClassCode$.classcode as gprvclasscode,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectPrevClassCodeComma">	\\
+			prv$lower reference BaseClass ClassCode$.classcode as prvclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableChainSelectGPrevKeyComma">	\\
+			prv$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as gprv$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableChainSelectPrevKeyComma">	\\
+			$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as prv$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectNextClassCodeComma">	\\
+			nxt$lower reference Chain reference Table reference BaseClass ClassCode$.classcode as nxtclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableChainSelectNextKey">	\\
+			$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as nxt$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableChainSelectNextKeyComma"
+		>$implDb2LUWSPMoveUpTableChainSelectNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectIntoGPrevClassCodeComma">	\\
+			gprevClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableChainSelectIntoGPrevKeyComma">	\\
+			gprev$StripPrevNextColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectIntoPrevClassCodeComma">	\\
+			varprevClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableChainSelectIntoPrevKeyComma">	\\
+			varprev$StripPrevNextColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableChainSelectIntoNextClassCodeComma">	\\
+			varnextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableChainSelectIntoNextKey">	\\
+			varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableChainSelectIntoNextKeyComma"
+		>$implDb2LUWSPMoveUpTableChainSelectIntoNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableFetchContainerKeys">	\\
+		select$reference ContainerRelation iterate Columns( first implDb2LUWSPMoveUpTableFetchContainerKeysColName each implDb2LUWSPMoveUpTableFetchContainerKeysCommaColName )$	\\
+		into$reference ContainerRelation iterate Columns( first implDb2LUWSPMoveUpTableFetchContainerKeysIntoVar each implDb2LUWSPMoveUpTableFetchContainerKeysCommaIntoVar )$	\\
+		from $lower DbSchemaName$.$reference ContainerRelation reference FromTable DbTableName$	\\
+		where$reference ContainerRelation reference FromTable reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPMoveUpTableFetchContainerKeysPassPKey each implDb2LUWSPMoveUpTableFetchContainerKeysAndPassPKey )$;	\\
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableFetchContainerKeysColName">	\\
+			$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableFetchContainerKeysCommaColName"
+		>,$implDb2LUWSPMoveUpTableFetchContainerKeysColName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableFetchContainerKeysIntoVar">	\\
+			var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableFetchContainerKeysCommaIntoVar"
+		>,$implDb2LUWSPMoveUpTableFetchContainerKeysIntoVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableFetchContainerKeysPassPKey">	\\
+			$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPMoveUpTableFetchContainerKeysAndPassPKey">	\\
+			and $DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="DoesContainerRelationNarrow"
+		>$reference ContainerRelation HasNarrowed$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPMoveUpTableContainerVars"
+		>$switch DoesContainerRelationNarrow yes declDb2LUWSPMoveUpTableChaseContainerVars default declDb2LUWSPMoveUpTableActualContainerVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPMoveUpTableChaseContainerVars"
+		>$reference ContainerRelation reference Narrowed declDb2LUWSPMoveUpTableContainerVars$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declDb2LUWSPMoveUpTableContainerVars"
+		>$switch HasNarrowed yes declDb2LUWSPMoveUpTableChaseContainerVars default declDb2LUWSPMoveUpTableActualContainerVars$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declDb2LUWSPMoveUpTableActualContainerVars"
+		>$iterate Columns( each declDb2LUWSPMoveUpTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declDb2LUWSPMoveUpTableChaseContainerVars"
+		>$reference Narrowed declDb2LUWSPMoveUpTableContainerVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPMoveUpTableActualContainerVars"
+		>$reference ContainerRelation iterate Columns( each declDb2LUWSPMoveUpTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="declDb2LUWSPMoveUpTableContainerVar">	\\
+	declare var$reference FromCol Name$ $reference FromCol clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implDb2LUWSPMoveUpTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableLatchBase">	\\
+		update $lower DbSchemaName$.$DbTableName$	\\
+		set revision = revision + 1	\\
+		where	\\
+			$popto Relation iterate Columns( first implDb2LUWSPMoveUpTableLatchWhereArg each implDb2LUWSPMoveUpTableLatchWhereAndArg )$;	\\
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableLatchWhereArg"
+		>$reference ToCol DbColumnName$ = var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPMoveUpTableLatchWhereAndArg">	\\
+			and $implDb2LUWSPMoveUpTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implDb2LUWSPMoveUpTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableUnlatchBase">	\\
+		update $lower DbSchemaName$.$DbTableName$	\\
+		set revision = revision - 1	\\
+		where	\\
+			$popto Relation iterate Columns( first implDb2LUWSPMoveUpTableLatchWhereArg each implDb2LUWSPMoveUpTableLatchWhereAndArg )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableArgSecClusterId">,	\\
+		secClusterId</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableArgSecTenantId">,	\\
+		secTenantId</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableCheckSystem">	\\
+		set( permissionFlag ) = ( sp_is_system_user( argAuditUserId ) );	\\
+		if( permissionFlag = 0 )	\\
+		then	\\
+			call raise_application_error( -20001, 'Permission denied -- only system can update $TableName$ records' );	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableCheckCluster">	\\
+		set( permissionFlag ) = ( sp_is_cluster_user( arg$poptop Table reference ClusterIdColumn Name$,	\\
+				'Update$Name$',	\\
+				argAuditUserId ) );	\\
+		if( permissionFlag = 0 )	\\
+		then	\\
+			call raise_application_error( -20002, 'Permission denied -- User not in SecGroup for Update$TableName$' );	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPMoveUpTableCheckTenant">	\\
+		set( permissionFlag ) = ( sp_is_tenant_user( arg$poptop Table reference TenantIdColumn Name$,	\\
+				'Update$Name$',	\\
+				argAuditUserId ) );	\\
+		if( permissionFlag = 0 )	\\
+		then	\\
+			call raise_application_error( -20003, 'Permission denied -- User not in TSecGroup for Update$TableName$' );	\\
+		end if;	\\
+</GenRule>
+
+</RuleSet>

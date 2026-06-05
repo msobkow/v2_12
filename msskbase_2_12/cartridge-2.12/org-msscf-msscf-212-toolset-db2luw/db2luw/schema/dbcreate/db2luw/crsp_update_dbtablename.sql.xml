@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crsp_update_dbtablename.sql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPUpdateDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="$dbadminfilename_CreateSPUpdateDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPUpdateDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPUpdateDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+$CrSpUpdateDbTablenameDb2LUWPreamble$$switch HasChain yes implDb2LUWSPTableLatchContainer default empty$$switch TableName SecSession empty default implDb2LUWSPUpdateTableCheckPermissions$$implDb2LUWLockTables$$CrSpUpdateDbTablenameDb2LUWValidateRevision$$CrSpUpdateDbTablenameDb2LUWUpdateTable$$switch HasChain yes implDb2LUWSPTableUnlatchContainer default empty$$CrSpUpdateDbTablenameDb2LUWReturnUpdateRow$
+</GenFile>
+
+<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameDb2LUWPreamble">
+create or replace procedure $sp_update_dbtablename$($implDb2LUWSPStandardArgs$,	\\
+	$implDb2LUWSPUpdateTableArgs$$implDb2LUWSPUpdateTableArgRevision$ )	\\
+dynamic result sets 1	\\
+language sql	\\
+begin$declSPOldVars$	\\
+	declare permissionFlag integer;	\\
+	declare retcursor cursor with return to client for	\\
+		select$implDb2LUWSelectTableColumns$,	\\
+			$lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$;	\\
+	begin</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPUpdateTableCheckPermissions"
+		>$switch SecScope None empty System implDb2LUWSPUpdateTableCheckSystem Cluster implDb2LUWSPUpdateTableCheckCluster Tenant implDb2LUWSPUpdateTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPUpdateTableCheckSystem">	\\
+		if( argClassCode = '$poptop Table ClassCode$' )	\\
+		then	\\
+			set( permissionFlag ) = ( sp_is_system_user( argAuditUserId ) );	\\
+			if( permissionFlag = 0 )	\\
+			then	\\
+				call raise_application_error( -20001, 'Permission denied -- only system user can update $TableName$ records' );	\\
+			end if;	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPUpdateTableCheckCluster">	\\
+		if( argClassCode = '$poptop Table ClassCode$' )	\\
+		then	\\
+			set( permissionFlag ) = ( sp_is_cluster_user( arg$poptop Table reference ClusterIdColumn Name$,	\\
+					'Update$Name$',	\\
+					argAuditUserId ) );	\\
+			if( permissionFlag = 0 )	\\
+			then	\\
+				call raise_application_error( -20002, 'Permission denied -- User not found in cluster SecGroup for Update$TableName$' );	\\
+			end if;	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPUpdateTableCheckTenant">	\\
+		if( argClassCode = '$poptop Table ClassCode$' )	\\
+		then	\\
+			set( permissionFlag ) = ( sp_is_tenant_user( arg$poptop Table reference TenantIdColumn Name$,	\\
+					'Update$Name$',	\\
+					argAuditUserId ) );	\\
+			if( permissionFlag = 0 )	\\
+			then	\\
+				call raise_application_error( -20003, 'Permission denied -- User not found in tenant TSecGroup for Update$TableName$' );	\\
+			end if;	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPUpdateTableArgs"
+		>$switch HasSuperClassRelation yes implDb2LUWSPUpdateTableSuperArgs default implDb2LUWSPUpdateTableBaseArgs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPUpdateTableSuperArgs"
+		>$reference SuperClassRelation reference ToTable implDb2LUWSPUpdateTableArgs$$iterate Columns( each implDb2LUWSPCommaUpdateTableInsertDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCommaUpdateTableInsertDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPUpdateTableBaseArgs"
+		>$implDb2LUWSPUpdateTableArgClassCode$$iterate Columns( each sparg_CommaTableCol )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWSPUpdateTableArgClassCode"
+		>in argClassCode varchar(4)</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWSPUpdateTableArgRevision">,	\\
+	in argRevision integer</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameDb2LUWValidateRevision">	\\
+		if argRevision != oldRevision	\\
+		then	\\
+			call raise_application_error( -20002, '$sp_update_dbtablename$() Data collision detected' );	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameDb2LUWUpdateTable"
+		>$switch HasSuperClassRelation yes CrSpUpdateDbTablenameDb2LUWUpdateSuperTable default CrSpUpdateDbTablenameDb2LUWUpdateBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="TableDefRawHasDataColumns"
+		>$iterate DataColumns( each empty empty no )$</GenRule>
+
+	<GenRule GenDef="Table" Name="HasDataColumns"
+		>$switch TableDefRawHasDataColumns no no default yes$</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameDb2LUWUpdateSuperTable">$reference SuperClassRelation reference ToTable CrSpUpdateDbTablenameDb2LUWUpdateTable$$switch HasDataColumns yes CrSpUpdateDbTablenameDb2LUWUpdateThisTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameDb2LUWUpdateThisTable">	\\
+		update $lower DbSchemaName$.$DbTableName$	\\
+		set	\\
+$iterate DataColumns( first implDb2LUWUpdateColumn each implDb2LUWUpdateCommaColumn empty empty )$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWUpdateWhereFragBindVar each implDb2LUWUpdateWhereAndFragBindVar )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameDb2LUWUpdateBaseTable">	\\
+		update $lower DbSchemaName$.$DbTableName$	\\
+		set	\\
+$implDb2LUWUpdateRevision$$switch HasAuditColumns yes implDb2LUWUpdateAuditColumns default empty$$iterate DataColumns( each implDb2LUWUpdateCommaColumn empty empty )$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWUpdateWhereFragBindVar each implDb2LUWUpdateWhereAndFragBindVar )$$implDb2LUWUpdateWhereFragOldRevision$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWUpdateAuditColumns">,	\\
+			updatedby = argAuditUserId,	\\
+			updatedat = current timestamp</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameDb2LUWReturnUpdateRow">$switch BaseHasHistory yes CrSpUpdateDbTablenameDb2LUWAuditUpdated default empty$	\\
+		open retcursor;	\\
+	end;	\\
+end</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameDb2LUWAuditUpdated"
+		>$switch BaseHasClassCode yes implCreateAuditTwoWithCC default implCreateAuditTwoNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditTwoNoCC" >	\\
+		insert into $lower DbSchemaName$.$DbTableHName$ ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$	\\
+			auditclusterid,	\\
+			auditsessionid,	\\
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$	\\
+			revision,	\\
+			auditaction )	\\
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$	\\
+			argAuditClusterId,	\\
+			argAuditSessionId,	\\
+			current timestamp,$implAuditInheritedDataColumnNameComma$	\\
+			$lower reference BaseClass ClassCode$.revision,	\\
+			2	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditTwoWithCC">	\\
+		if( argClassCode = '$poptop Table ClassCode$' )	\\
+		then	\\
+			insert into $lower DbSchemaName$.$DbTableHName$ ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$	\\
+				classcode,	\\
+				auditclusterid,	\\
+				auditsessionid,	\\
+				auditstamp,$implAuditInheritedIntoDataColumnNameComma$	\\
+				revision,	\\
+				auditaction )	\\
+			select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$	\\
+				$lower reference BaseClass ClassCode$.classcode,	\\
+				argAuditClusterId,	\\
+				argAuditSessionId,	\\
+				current timestamp,$implAuditInheritedDataColumnNameComma$	\\
+				$lower reference BaseClass ClassCode$.revision,	\\
+				2	\\
+			from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+			where	\\
+				$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$;	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWUpdateWhereAndFragBindVar">	\\
+		and $implDb2LUWUpdateWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWUpdateWhereFragBindVar"
+		>$switch IsNullable yes implDb2LUWUpdateWhereFragBindOptVar
+			default implDb2LUWUpdateWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWUpdateWhereFragBindOptVar"
+		>$reference Column implDb2LUWUpdateWhereFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWUpdateWhereFragBindReqVar"
+		>$reference Column implDb2LUWUpdateWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implDb2LUWUpdateWhereFragBindOptBlobVar
+			BoolDef implDb2LUWUpdateWhereFragBindOptBoolVar
+			EnumDef implDb2LUWUpdateWhereFragBindOptEnumVar
+			Int16Def implDb2LUWUpdateWhereFragBindOptInt16Var
+			Int32Def implDb2LUWUpdateWhereFragBindOptInt32Var
+			Int64Def implDb2LUWUpdateWhereFragBindOptInt64Var
+			UInt16Def implDb2LUWUpdateWhereFragBindOptUInt16Var
+			UInt32Def implDb2LUWUpdateWhereFragBindOptUInt32Var
+			UInt64Def implDb2LUWUpdateWhereFragBindOptUInt64Var
+			Id16Gen implDb2LUWUpdateWhereFragBindOptInt16Var
+			Id32Gen implDb2LUWUpdateWhereFragBindOptInt32Var
+			Id64Gen implDb2LUWUpdateWhereFragBindOptInt64Var
+			FloatDef implDb2LUWUpdateWhereFragBindOptFloatVar
+			DoubleDef implDb2LUWUpdateWhereFragBindOptDoubleVar
+			NumberDef implDb2LUWUpdateWhereFragBindOptNumberVar
+			StringDef implDb2LUWUpdateWhereFragBindOptStringVar
+			TokenDef implDb2LUWUpdateWhereFragBindOptStringVar
+			NmTokenDef implDb2LUWUpdateWhereFragBindOptStringVar
+			NmTokensDef implDb2LUWUpdateWhereFragBindOptStringVar
+			TextDef implDb2LUWUpdateWhereFragBindOptTextVar
+			DateDef implDb2LUWUpdateWhereFragBindOptDateVar
+			TimeDef implDb2LUWUpdateWhereFragBindOptTimeVar
+			TimestampDef implDb2LUWUpdateWhereFragBindOptTimestampVar
+			TZDateDef implDb2LUWUpdateWhereFragBindOptTZDateVar
+			TZTimeDef implDb2LUWUpdateWhereFragBindOptTZTimeVar
+			TZTimestampDef implDb2LUWUpdateWhereFragBindOptTZTimestampVar
+			UuidDef implDb2LUWUpdateWhereFragBindOptUuidVar
+			UuidGen implDb2LUWUpdateWhereFragBindOptUuidVar
+			default empty$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implDb2LUWUpdateWhereFragBindReqBlobVar
+			BoolDef implDb2LUWUpdateWhereFragBindReqBoolVar
+			EnumDef implDb2LUWUpdateWhereFragBindReqEnumVar
+			Int16Def implDb2LUWUpdateWhereFragBindReqInt16Var
+			Int32Def implDb2LUWUpdateWhereFragBindReqInt32Var
+			Int64Def implDb2LUWUpdateWhereFragBindReqInt64Var
+			UInt16Def implDb2LUWUpdateWhereFragBindReqUInt16Var
+			UInt32Def implDb2LUWUpdateWhereFragBindReqUInt32Var
+			UInt64Def implDb2LUWUpdateWhereFragBindReqUInt64Var
+			Id16Gen implDb2LUWUpdateWhereFragBindReqInt16Var
+			Id32Gen implDb2LUWUpdateWhereFragBindReqInt32Var
+			Id64Gen implDb2LUWUpdateWhereFragBindReqInt64Var
+			FloatDef implDb2LUWUpdateWhereFragBindReqFloatVar
+			DoubleDef implDb2LUWUpdateWhereFragBindReqDoubleVar
+			NumberDef implDb2LUWUpdateWhereFragBindReqNumberVar
+			StringDef implDb2LUWUpdateWhereFragBindReqStringVar
+			TokenDef implDb2LUWUpdateWhereFragBindReqStringVar
+			NmTokenDef implDb2LUWUpdateWhereFragBindReqStringVar
+			NmTokensDef implDb2LUWUpdateWhereFragBindReqStringVar
+			TextDef implDb2LUWUpdateWhereFragBindReqTextVar
+			DateDef implDb2LUWUpdateWhereFragBindReqDateVar
+			TimeDef implDb2LUWUpdateWhereFragBindReqTimeVar
+			TimestampDef implDb2LUWUpdateWhereFragBindReqTimestampVar
+			TZDateDef implDb2LUWUpdateWhereFragBindReqTZDateVar
+			TZTimeDef implDb2LUWUpdateWhereFragBindReqTZTimeVar
+			TZTimestampDef implDb2LUWUpdateWhereFragBindReqTZTimestampVar
+			UuidDef implDb2LUWUpdateWhereFragBindReqUuidVar
+			UuidGen implDb2LUWUpdateWhereFragBindReqUuidVar
+			default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqBlobVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptBlobVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqBoolVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptBoolVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqEnumVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptEnumVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqInt16Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqInt32Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqInt64Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqUInt16Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptUInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqUInt32Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptUInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqUInt64Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptUInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqFloatVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptFloatVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqDoubleVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptDoubleVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqNumberVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptNumberVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqStringVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptStringVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqTokenVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqNmTokenVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptNmTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqNmTokensVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptNmTokensVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqTextVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptTextVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqDateVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptDateVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqTimeVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqTimestampVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqTZDateVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptTZDateVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqTZTimeVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptTZTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqTZTimestampVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptTZTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindReqUuidVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragBindOptUuidVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )	\\
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateWhereFragOldRevision">	\\
+		and revision = argRevision</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateCommaColumn"
+		>,	\\
+$implDb2LUWUpdateColumn$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateColumn"
+>			$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateCommaRevision"
+		>,	\\
+$implDb2LUWUpdateRevision$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWUpdateRevision"
+>			revision = argRevision + 1</GenRule>
+
+</RuleSet>

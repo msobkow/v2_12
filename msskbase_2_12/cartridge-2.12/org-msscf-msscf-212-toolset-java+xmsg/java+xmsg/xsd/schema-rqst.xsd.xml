@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="xsd/project-schema-rqst.xsd"
+	Revision="2.12"
+	Descr="Java 11 XML Request Message Schema Definition">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaRqstXsd"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema SchemaName$XMsgRqst/src/main/resources"
+		SubPackageName="xsd"
+		ExpansionClassName="$SchemaName$RqstXsd"
+		ExpansionKeyName="$SchemaName$RqstXsd"
+		ExpansionFileName="$lower SchemaName$-rqst.xsd"
+>$XsdXmlPreamble$&lt;xsd:schema xmlns="$SchemaXMsgRqstNamespace$" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="$SchemaXMsgRqstNamespace$" version="$reference MinorVersion reference ParentMajVer Name$.$reference MinorVersion Name$"&gt;
+$SchemaRqstAnnotation$$iterate Types( first CommentDeclRqstAtomType each DeclRqstAtomType empty empty )$$iterate SchemaTables( first CommentDeclRqstTableColTypes each DeclRqstTableColTypes empty empty )$$DeclRqstFileImportAttributeTypes$$DeclRqstLogInAttributeTypes$$DeclRqstLogOutAttributeTypes$$iterate SchemaTables( first CommentDeclRqstIndexType each DeclRqstIndexType empty empty )$$CommentRqstTableObjTypes$$iterate SchemaTables( each DeclRqstTableRootObjTypes empty empty )$$JavaXMsgRqstSchemaXsdSpec$$ReferencedJavaXMsgRqstSchemaXsdSpec$$DeclRqstFileImportType$$DeclRqstLogInType$$DeclRqstLogOutType$$DeclRqstRootDocument$
+&lt;/xsd:schema&gt;
+</GenFile>
+
+<GenRule GenDef="SchemaDef" Name="DeclRqstFileImportAttributeTypes">
+&lt;xsd:simpleType name="FileImportFileName"&gt;
+	&lt;xsd:restriction base="xsd:string"/&gt;
+&lt;/xsd:simpleType&gt;
+
+&lt;xsd:simpleType name="FileImportFileContent"&gt;
+	&lt;xsd:restriction base="xsd:string"&gt;
+		&lt;xsd:whiteSpace value="preserve"/&gt;
+	&lt;/xsd:restriction&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="DeclRqstFileImportType">
+&lt;xsd:complexType name="RqstFileImportType" mixed="true"&gt;
+	&lt;xsd:sequence&gt;
+	&lt;/xsd:sequence&gt;
+	&lt;xsd:attribute name="FileName" type="FileImportFileName" use="required" /&gt;
+	&lt;xsd:attribute name="FileContent" type="FileImportFileContent" use="required" /&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="DeclRqstLogInAttributeTypes">
+&lt;xsd:simpleType name="LogInDevEncPWHashType"&gt;
+	&lt;xsd:restriction base="xsd:base64Binary"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="DeclRqstLogInType">
+&lt;xsd:complexType name="RqstLogInType" mixed="true"&gt;
+	&lt;xsd:sequence&gt;
+	&lt;/xsd:sequence&gt;
+	&lt;xsd:attribute name="LoginId" type="SecUserLoginIdType" use="required" /&gt;
+	&lt;xsd:attribute name="DeviceName" type="DeviceNameType" use="required" /&gt;
+	&lt;xsd:attribute name="DevEncPWHash" type="LogInDevEncPWHashType" use="required" /&gt;
+	&lt;xsd:attribute name="ClusterName" type="ClusterFullDomNameType" use="required" /&gt;
+	&lt;xsd:attribute name="TenantName" type="TenantTenantNameType" use="required" /&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="DeclRqstLogOutAttributeTypes">
+&lt;xsd:simpleType name="LogOutSecSessionIdType"&gt;
+	&lt;xsd:restriction base="SecSessionIdGenType"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="DeclRqstLogOutType">
+&lt;xsd:complexType name="RqstLogOutType" mixed="true"&gt;
+	&lt;xsd:sequence&gt;
+	&lt;/xsd:sequence&gt;
+	&lt;xsd:attribute name="SecSessionId" type="LogOutSecSessionIdType" use="required" /&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgRqstSchemaXsdSpec"
+		>$iterate SchemaRefs( each ApplyJavaXMsgRqstSchemaXsdSpec empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgRqstSchemaXsdSpec"
+		>$reference RefSchema JavaXMsgRqstSchemaXsdSpec$</GenRule>
+
+	<GenRule GenDef="Object" Name="XsdXmlPreamble"
+>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?>
+</GenRule>
+
+	<GenRule GenDef="MajorVersion" Name="DashPackedVersion">-$lower PackedVersion$</GenRule>
+
+	<GenRule GenDef="MinorVersion" Name="DashPackedVersion">-$lower PackedVersion$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DashPackedVersion">-$lower PackedVersion$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DeclRqstRootDocument">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Root Document
+ *
+ **************************************************************************--&gt;
+
+&lt;xsd:complexType name="$SchemaName$RqstType" mixed="true"&gt;
+	&lt;xsd:sequence&gt;
+		&lt;xsd:choice minOccurs="0" maxOccurs="unbounded"&gt;$DeclRqstFileImportElement$$DeclRqstLogInElement$$DeclRqstLogOutElement$$iterate SchemaTables( each DeclRqstRootObjElements empty empty )$$JavaXMsgRqstSchemaXsdElementList$
+		&lt;/xsd:choice&gt;
+	&lt;/xsd:sequence&gt;
+&lt;/xsd:complexType&gt;
+
+&lt;xsd:element name="$SchemaName$Rqst" type="$SchemaName$RqstType" /&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DeclRqstFileImportElement">
+			&lt;xsd:element name="RqstFileImport" type="RqstFileImportType" /&gt;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DeclRqstLogInElement">
+			&lt;xsd:element name="RqstLogIn" type="RqstLogInType" /&gt;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DeclRqstLogOutElement">
+			&lt;xsd:element name="RqstLogOut" type="RqstLogOutType" /&gt;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgRqstNamespace"
+		>uri://$lower reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj reference ParentSDom reference ParentTld Name$.$lower reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj reference ParentSDom Name$/$lower reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference MinorVersion reference ParentMajVer Name$.0.$reference MinorVersion Name$/$lower SchemaName$rqst</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstRootObjElements"
+		>$DeclRqstCreateTableElement$$DeclRqstReadTableElement$$DeclRqstLockTableElement$$DeclRqstUpdateTableElement$$DeclRqstDeleteElement$$switch HasChain yes DeclRqstMoveUpElement default empty$$switch HasChain yes DeclRqstMoveDownElement default empty$$DeclRqstReadAllElement$$switch PageData yes DeclRqstPageAllElement default empty$$DeclRqstRdByIndexElements$$switch PageData yes DeclRqstPageByIndexElements default empty$$DeclRqstDelByIndexElements$$iterate ServerMethods( each DeclRqstServerMethodElement empty empty )$</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="DeclRqstServerMethodElement">
+			&lt;xsd:element name="Rqst$TableName$$Name$" type="$TableName$Rqst$Name$Type" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstDelByIndexElements"
+		>$switch HasSuperClassRelation yes DeclRqstDelByInhIndexElements default DeclRqstDelByBaseIndexElements$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstDelByInhIndexElements"
+		>$reference SuperClassRelation reference ToTable DeclRqstDelByIndexElements$$iterate Index( each DeclRqstDelByNonPrimaryIndexElement empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstDelByBaseIndexElements"
+		>$iterate Index( each DeclRqstDelByNonPrimaryIndexElement empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstRdByIndexElements"
+		>$switch HasSuperClassRelation yes DeclRqstRdByInhIndexElements default DeclRqstRdByBaseIndexElements$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstRdByInhIndexElements"
+		>$reference SuperClassRelation reference ToTable DeclRqstRdByIndexElements$$iterate Index( each DeclRqstReadTableByNonPrimaryIndexElement empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstRdByBaseIndexElements"
+		>$iterate Index( each DeclRqstReadTableByNonPrimaryIndexElement empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstReadTableElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$Read" type="$poptop Table TableName$RqstReadType" /&gt;</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstReadTableByNonPrimaryIndexElement"
+		>$switch IsPrimaryIndex yes empty default DeclRqstReadTableByIndexElement$</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstReadTableByIndexElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$RdBy$Suffix$" type="$poptop Table TableName$RqstRdBy$Suffix$Type" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstPageByIndexElements"
+		>$switch HasSuperClassRelation yes DeclRqstPageByInhIndexElements default DeclRqstPageByBaseIndexElements$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstPageByInhIndexElements"
+		>$reference SuperClassRelation reference ToTable DeclRqstPageByIndexElements$$iterate Index( each DeclRqstPageTableByNonPrimaryIndexElement empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstPageByBaseIndexElements"
+		>$iterate Index( each DeclRqstPageTableByNonPrimaryIndexElement empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstPageTableElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$Page" type="$poptop Table TableName$RqstPageType" /&gt;</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstPageTableByNonPrimaryIndexElement"
+		>$switch IsPrimaryIndex yes empty default ifduplicate_DeclRqstPageTableByIndexElement$</GenRule>
+
+	<GenRule GenDef="Index" Name="ifduplicate_DeclRqstPageTableByIndexElement"
+		>$switch IsUnique yes empty default DeclRqstPageTableByIndexElement$</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstPageTableByIndexElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$PageBy$Suffix$" type="$poptop Table TableName$RqstPageBy$Suffix$Type" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstReadAllElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$ReadAll" type="$poptop Table TableName$RqstReadAllType" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstPageAllElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$PageAll" type="$poptop Table TableName$RqstPageAllType" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstLockTableElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$Lock" type="$poptop Table TableName$RqstLockType" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstCreateTableElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$Create" type="$poptop Table TableName$RqstCreateType" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstUpdateTableElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$Update" type="$poptop Table TableName$RqstUpdateType" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstDeleteElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$Delete" type="$poptop Table TableName$RqstDeleteType" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstMoveUpElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$MoveUp" type="$poptop Table TableName$RqstMoveUpType" /&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstMoveDownElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$MoveDown" type="$poptop Table TableName$RqstMoveDownType" /&gt;</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstDelByNonPrimaryIndexElement"
+		>$switch IsPrimaryIndex yes empty default DeclRqstDelByIndexElement$</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstDelByIndexElement">
+			&lt;xsd:element name="Rqst$poptop Table TableName$DelBy$Suffix$" type="$poptop Table TableName$RqstDelBy$Suffix$Type" /&gt;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaRqstAnnotation">
+&lt;xsd:annotation&gt;
+	&lt;xsd:documentation xml:lang="en"&gt;
+		$EffectiveProjectName$ request messages for schema $SchemaName$
+	&lt;/xsd:documentation&gt;
+&lt;/xsd:annotation&gt;
+</GenRule>
+
+	<GenRule GenDef="Atom" Name="CommentDeclRqstAtomType">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Atomic Types
+ *
+ **************************************************************************--&gt;
+$DeclRqstAtomType$</GenRule>
+
+	<GenRule GenDef="Table" Name="CommentDeclRqstTableColTypes">
+&lt;!-- ************************************************************************
+ *
+ *	Table Column Types
+ *
+ **************************************************************************--&gt;
+$DeclRqstTableColTypes$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstTableColTypes"
+		>$iterate Columns( each DeclRqstTableColType empty empty )$$DeclRqstTableColRevisionType$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstTableColRevisionType">
+&lt;xsd:simpleType name="$Name$RevisionType"&gt;
+	&lt;xsd:restriction base="xsd:integer"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+	<GenRule GenDef="BoolDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="EnumDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="Int16Def" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="Int32Def" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="Int64Def" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="UInt16Def" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="UInt32Def" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="UInt64Def" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="FloatDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="DoubleDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="NumberDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="StringDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"&gt;
+		&lt;xsd:maxLength value="$MaxLen$"/&gt;
+		&lt;xsd:whiteSpace value="preserve"/&gt;
+	&lt;/xsd:restriction&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TokenDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$" /&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$" /&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$" /&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TextDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"&gt;
+		&lt;xsd:maxLength value="$MaxLen$"/&gt;
+		&lt;xsd:whiteSpace value="preserve"/&gt;
+	&lt;/xsd:restriction&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="DateDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TimeDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TimestampDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TZDateDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="UuidDef" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TableCol" Name="DeclRqstTableColType">
+&lt;xsd:simpleType name="$TableName$$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"&gt;$switch BaseModelAtomClass StringDef DeclRqstTableColMaxLenPreserveWhitespace TextDef DeclRqstTableColMaxLenPreserveWhitespace default empty$
+	&lt;/xsd:restriction&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+	<GenRule GenDef="TableCol" Name="DeclRqstTableColMaxLenPreserveWhitespace">
+		&lt;xsd:maxLength value="$MaxLen$"/&gt;
+		&lt;xsd:whiteSpace value="preserve"/&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="CommentDeclRqstIndexType">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Request Primary Index Types
+ *
+ **************************************************************************--&gt;
+$DeclRqstIndexType$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstIndexType"
+		>$reference PrimaryKeyIndex DeclIndexType$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CommentRqstTableObjTypes">
+&lt;!-- ************************************************************************
+ *
+ *	Schema Table Request Object Types
+ *
+ **************************************************************************--&gt;
+</GenRule>
+
+	<GenRule GenDef="BoolDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"&gt;
+		&lt;xsd:minLength value="1"/&gt;
+		&lt;xsd:maxLength value="127"/&gt;
+		&lt;xsd:whiteSpace value="collapse"/&gt;$iterate Tag( each declEnumTypeEnumerationTag )$
+	&lt;/xsd:restriction&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="declEnumTypeEnumerationTag">
+		&lt;xsd:enumeration value="$Name$"/&gt;</GenRule>
+
+	<GenRule GenDef="Int16Def" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="Int32Def" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="Int64Def" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="UInt16Def" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="UInt32Def" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="UInt64Def" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="FloatDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="DoubleDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="NumberDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="StringDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"&gt;
+		&lt;xsd:maxLength value="$MaxLen$"/&gt;
+	&lt;/xsd:restriction&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TokenDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$" /&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$" /&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$" /&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TextDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"&gt;
+		&lt;xsd:maxLength value="$MaxLen$"/&gt;
+	&lt;/xsd:restriction&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="DateDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TimeDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TimestampDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TZDateDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="UuidDef" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"/&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+	<GenRule GenDef="Atom" Name="DeclRqstAtomType">
+&lt;xsd:simpleType name="$Name$Type"&gt;
+	&lt;xsd:restriction base="$XsdBaseType$"&gt;
+		&lt;!-- WORKING: Need the constraints here --&gt;
+	&lt;/xsd:restriction&gt;
+&lt;/xsd:simpleType&gt;
+</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="XsdBaseType"
+		>xsd:base64Binary</GenRule>
+	<GenRule GenDef="BoolDef" Name="XsdBaseType"
+		>xsd:boolean</GenRule>
+	<GenRule GenDef="StringDef" Name="XsdBaseType"
+		>xsd:string</GenRule>
+	<GenRule GenDef="TextDef" Name="XsdBaseType"
+		>xsd:string</GenRule>
+	<GenRule GenDef="EnumDef" Name="XsdBaseType"
+		>xsd:token</GenRule>
+	<GenRule GenDef="Int16Def" Name="XsdBaseType"
+		>xsd:short</GenRule>
+	<GenRule GenDef="Int32Def" Name="XsdBaseType"
+		>xsd:integer</GenRule>
+	<GenRule GenDef="Int64Def" Name="XsdBaseType"
+		>xsd:long</GenRule>
+	<GenRule GenDef="UInt16Def" Name="XsdBaseType"
+		>xsd:unsignedShort</GenRule>
+	<GenRule GenDef="UInt32Def" Name="XsdBaseType"
+		>xsd:unsignedInt</GenRule>
+	<GenRule GenDef="UInt64Def" Name="XsdBaseType"
+		>xsd:unsignedLong</GenRule>
+	<GenRule GenDef="FloatDef" Name="XsdBaseType"
+		>xsd:decimal</GenRule>
+	<GenRule GenDef="DoubleDef" Name="XsdBaseType"
+		>xsd:double</GenRule>
+	<GenRule GenDef="NumberDef" Name="XsdBaseType"
+		>xsd:decimal</GenRule>
+	<GenRule GenDef="DateDef" Name="XsdBaseType"
+		>xsd:date</GenRule>
+	<GenRule GenDef="TimeDef" Name="XsdBaseType"
+		>xsd:time</GenRule>
+	<GenRule GenDef="TimestampDef" Name="XsdBaseType"
+		>xsd:dateTime</GenRule>
+	<GenRule GenDef="TZDateDef" Name="XsdBaseType"
+		>xsd:date</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="XsdBaseType"
+		>xsd:time</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="XsdBaseType"
+		>xsd:dateTime</GenRule>
+	<GenRule GenDef="TokenDef" Name="XsdBaseType"
+		>xsd:token</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="XsdBaseType"
+		>xsd:NMTOKEN</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="XsdBaseType"
+		>xsd:NMTOKENS</GenRule>
+	<GenRule GenDef="UuidDef" Name="XsdBaseType"
+		>xsd:string</GenRule>
+	<GenRule GenDef="TableCol" Name="XsdBaseType"
+		>$reference DataType Name$Type</GenRule>
+	<GenRule GenDef="IndexCol" Name="XsdBaseType"
+		>$reference DataType IndexColXsdBaseType$</GenRule>
+	<GenRule GenDef="Atom" Name="IndexColXsdBaseType"
+		>$XsdBaseType$</GenRule>
+	<GenRule GenDef="TableCol" Name="IndexColXsdBaseType"
+		>$reference DataType Name$Type</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstTableRootObjTypes"
+		>$DeclRqstCreateTableType$$reference BaseClass reference PrimaryKeyIndex DeclRqstReadTableType$$reference BaseClass reference PrimaryKeyIndex DeclRqstLockTableType$$DeclRqstUpdateTableType$$reference BaseClass reference PrimaryKeyIndex DeclRqstDeleteType$$switch HasChain yes DeclRqstMoveUpType default empty$$switch HasChain yes DeclRqstMoveDownType default empty$$DeclRqstReadAllType$$switch PageData yes DeclRqstPageAllType default empty$$DeclRqstRdByIndexTypes$$switch PageData yes DeclRqstPageByIndexTypes default empty$$DeclRqstDelByIndexTypes$$iterate ServerMethods( each DeclRqstServerMethod empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstRdByInhIndexTypes"
+		>$reference SuperClassRelation reference ToTable DeclRqstRdByIndexTypes$$iterate Index( each DeclRqstRdByNonPrimaryIndexType empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstRdByIndexTypes"
+		>$switch HasSuperClassRelation yes DeclRqstRdByInhIndexTypes default DeclRqstRdByBaseIndexTypes$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstRdByBaseIndexTypes"
+		>$iterate Index( each DeclRqstRdByNonPrimaryIndexType empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstReadTableType">
+&lt;xsd:complexType name="$poptop Table Name$RqstReadType" mixed="true"&gt;$iterate Columns( each DeclRqstIndexAttribute empty empty )$
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="DeclRqstIndexAttribute">
+	&lt;xsd:attribute name="$reference Column Name$" type="$reference Column reference Table Name$$reference Column Name$Type" use="$switch IsNullable yes DeclRqstIndexAttributeOptional default DeclRqstIndexAttributeRequired$"/&gt;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="DeclRqstOptPriorColAttribute">
+	&lt;xsd:attribute name="Prior$reference Column Name$" type="$reference Column reference Table Name$$reference Column Name$Type" use="optional"/&gt;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="DeclRqstIndexAttributeOptional">optional</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="DeclRqstIndexAttributeRequired">required</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstRdByNonPrimaryIndexType"
+		>$switch IsPrimaryIndex yes empty default DeclRqstRdByIndexType$</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstRdByIndexType">
+&lt;xsd:complexType name="$poptop Table Name$RqstRdBy$Suffix$Type" mixed="true"&gt;$iterate Columns( each DeclRqstIndexAttribute empty empty )$
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstPageByIndexTypes"
+		>$switch HasSuperClassRelation yes DeclRqstPageByInhIndexTypes default DeclRqstPageByBaseIndexTypes$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstPageByBaseIndexTypes"
+		>$iterate Index( each DeclRqstPageByNonPrimaryIndexType empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstPageByNonPrimaryIndexType"
+		>$switch IsPrimaryIndex yes empty default ifduplicate_DeclRqstPageByIndexType$</GenRule>
+
+	<GenRule GenDef="Index" Name="ifduplicate_DeclRqstPageByIndexType"
+		>$switch IsUnique yes empty default DeclRqstPageByIndexType$</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstPageByIndexType">
+&lt;xsd:complexType name="$poptop Table Name$RqstPageBy$Suffix$Type" mixed="true"&gt;$iterate Columns( each DeclRqstIndexAttribute empty empty )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each DeclRqstOptPriorColAttribute )$
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstReadAllType">
+&lt;xsd:complexType name="$poptop Table TableName$RqstReadAllType" mixed="true"&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstPageAllType">
+&lt;xsd:complexType name="$poptop Table TableName$RqstPageAllType" mixed="true"&gt;$reference BaseClass reference PrimaryKeyIndex iterate Columns( each DeclRqstOptPriorColAttribute )$
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstDelByIndexType">
+&lt;xsd:complexType name="$poptop Table Name$RqstDelBy$Suffix$Type" mixed="true"&gt;$iterate Columns( each DeclRqstIndexAttribute empty empty )$
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstDelByInhIndexTypes"
+		>$reference SuperClassRelation reference ToTable DeclRqstDelByIndexTypes$$iterate Index( each DeclRqstDelByNonPrimaryIndexType empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstDelByIndexTypes"
+		>$switch HasSuperClassRelation yes DeclRqstDelByInhIndexTypes default DeclRqstDelByBaseIndexTypes$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstDelByBaseIndexTypes"
+		>$iterate Index( each DeclRqstDelByNonPrimaryIndexType empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstDelByNonPrimaryIndexType"
+		>$switch IsPrimaryIndex yes empty default DeclRqstDelByIndexType$</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstLockTableType">
+&lt;xsd:complexType name="$poptop Table Name$RqstLockType" mixed="true"&gt;$iterate Columns( each DeclRqstIndexAttribute empty empty )$
+&lt;/xsd:complexType&gt;</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclRqstDeleteType">
+&lt;xsd:complexType name="$poptop Table Name$RqstDeleteType" mixed="true"&gt;$iterate Columns( each DeclRqstIndexAttribute empty empty )$
+	&lt;xsd:attribute name="Revision" type="$reference Table reference BaseClass TableName$RevisionType" use="required"/&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstMoveUpType">
+&lt;xsd:complexType name="$poptop Table Name$RqstMoveUpType" mixed="true"&gt;$reference BaseClass reference PrimaryKeyIndex iterate Columns( each DeclRqstIndexAttribute empty empty )$
+	&lt;xsd:attribute name="Revision" type="$reference BaseClass TableName$RevisionType" use="required"/&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstMoveDownType">
+&lt;xsd:complexType name="$poptop Table Name$RqstMoveDownType" mixed="true"&gt;$reference BaseClass reference PrimaryKeyIndex iterate Columns( each DeclRqstIndexAttribute empty empty )$
+	&lt;xsd:attribute name="Revision" type="$reference BaseClass TableName$RevisionType" use="required"/&gt;
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstUpdateTableType">
+&lt;xsd:complexType name="$Name$RqstUpdateType" mixed="true"&gt;$switch HasSuperClassRelation yes DeclRqstUpdateTableTypeExtensionBase default DeclRqstUpdateTableTypeBase$
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstUpdateTableTypeExtensionBase">
+	&lt;xsd:complexContentHandler&gt;
+		&lt;xsd:extension base="$reference SuperClassRelation reference ToTable TableName$RqstUpdateType"&gt;$iterate Columns( each DeclExtensionColAttribute empty empty )$
+		&lt;/xsd:extension&gt;
+	&lt;/xsd:complexContentHandler&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="BaseHasAuditColumns"
+		>$reference BaseClass HasAuditColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstUpdateTableTypeBase">$iterate Columns( each DeclBaseColAttribute empty empty )$
+	&lt;xsd:attribute name="Revision" type="$reference BaseClass TableName$RevisionType" use="required"/&gt;$switch BaseHasAuditColumns yes DeclTableTypeAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclTableTypeAuditColumns">
+	&lt;xsd:attribute name="CreatedAt" type="xsd:dateTime" use="optional" /&gt;
+	&lt;xsd:attribute name="CreatedBy" type="xsd:string" use="optional" /&gt;
+	&lt;xsd:attribute name="UpdatedAt" type="xsd:dateTime" use="optional" /&gt;
+	&lt;xsd:attribute name="UpdatedBy" type="xsd:string" use="optional" /&gt;</GenRule>
+
+	<GenRule GenDef="Object" Name="Required">Required</GenRule>
+	<GenRule GenDef="Object" Name="Optional">Optional</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstCreateTableType">
+&lt;xsd:complexType name="$Name$RqstCreateType" mixed="true"&gt;$switch HasSuperClassRelation yes DeclRqstCreateTableTypeExtensionBase default DeclRqstCreateTableTypeBase$
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstCreateTableTypeExtensionBase">
+	&lt;xsd:complexContentHandler&gt;
+		&lt;xsd:extension base="$reference SuperClassRelation reference ToTable TableName$RqstCreateType"&gt;$iterate Columns( each DeclExtensionColAttribute empty empty )$
+		&lt;/xsd:extension&gt;
+	&lt;/xsd:complexContentHandler&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="DeclRqstCreateTableTypeBase">$iterate Columns( each DeclBaseColAttribute empty empty )$
+	&lt;xsd:attribute name="Revision" type="$reference BaseClass TableName$RevisionType" use="required"/&gt;$switch BaseHasAuditColumns yes DeclTableTypeAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="DeclExtensionColAttribute"
+		>$switch ColumnInPrimaryIndex yes empty default DeclIndent3ColAttribute$</GenRule>
+
+	<GenRule GenDef="Value" Name="DeclIndent3ColAttribute">
+			&lt;xsd:attribute name="$Name$" type="$TableName$$Name$Type" use="$DeclColRequiredOrOptional$"/&gt;</GenRule>
+
+	<GenRule GenDef="Value" Name="DeclBaseColAttribute"
+		>$DeclIndentColAttribute$</GenRule>
+
+	<GenRule GenDef="Value" Name="DeclIndentColAttribute">
+	&lt;xsd:attribute name="$Name$" type="$TableName$$Name$Type" use="$DeclColRequiredOrOptional$"/&gt;</GenRule>
+
+	<GenRule GenDef="Value" Name="DeclIndentPKeyAttribute">
+	&lt;xsd:attribute name="$Name$" type="$TableName$$Name$Type" use="$DeclColOptional$"/&gt;</GenRule>
+
+	<GenRule GenDef="Index" Name="DeclIndexType">
+&lt;xsd:complexType name="$Name$Type" mixed="true"&gt;
+	&lt;xsd:sequence&gt;
+	&lt;/xsd:sequence&gt;
+$iterate Columns( each DeclColAttribute empty empty )
+$&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="DeclColAttribute"
+>	&lt;xsd:attribute name="$Name$" type="$TableName$$Name$Type" use="$DeclColRequiredOrOptional$"/&gt;
+</GenRule>
+	<GenRule GenDef="Atom" Name="DeclColAttribute"
+>	&lt;xsd:attribute name="$Name$" type="$TableName$$Name$Type" use="$DeclColRequiredOrOptional$"/&gt;
+</GenRule>
+	<GenRule GenDef="TableCol" Name="DeclColAttribute"
+>	&lt;xsd:attribute name="$Name$" type="$TableName$$Name$Type" use="$DeclColRequiredOrOptional$"/&gt;
+</GenRule>
+
+	<GenRule GenDef="Param" Name="DeclColRequiredOrOptional"
+		>$switch IsNullable yes DeclColOptional default DeclColRequired$</GenRule>
+	<GenRule GenDef="IndexCol" Name="DeclColRequiredOrOptional"
+		>$switch IsNullable yes DeclColOptional default DeclColRequired$</GenRule>
+	<GenRule GenDef="Atom" Name="DeclColRequiredOrOptional"
+		>$switch IsNullable yes DeclColOptional default DeclColRequired$</GenRule>
+	<GenRule GenDef="TableCol" Name="DeclColRequiredOrOptional"
+		>$switch IsNullable yes DeclColOptional default DeclColRequired$</GenRule>
+
+	<GenRule GenDef="Atom" Name="DeclColRequired">required</GenRule>
+	<GenRule GenDef="TableCol" Name="DeclColRequired">required</GenRule>
+	<GenRule GenDef="IndexCol" Name="DeclColRequired">required</GenRule>
+	<GenRule GenDef="Param" Name="DeclColRequired">required</GenRule>
+
+	<GenRule GenDef="Atom" Name="DeclColOptional">optional</GenRule>
+	<GenRule GenDef="TableCol" Name="DeclColOptional">optional</GenRule>
+	<GenRule GenDef="IndexCol" Name="DeclColOptional">optional</GenRule>
+	<GenRule GenDef="Param" Name="DeclColOptional">optional</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="DeclRqstServerMethod"
+		>$switch IsInstanceMethod yes DeclRqstInstServerMethod default DeclRqstClassServerMethod$</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="DeclRqstClassServerMethod">
+&lt;xsd:complexType name="$TableName$Rqst$Name$Type" mixed="true"&gt;$iterate Params( each DeclRqstParamAttribute empty empty )$
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="DeclRqstInstServerMethod">
+&lt;xsd:complexType name="$TableName$Rqst$Name$Type" mixed="true"&gt;$reference ForTable reference BaseClass reference PrimaryKeyIndex iterate Columns( each DeclRqstObjKeyAttribute )$$iterate Params( each DeclRqstParamAttribute empty empty )$
+&lt;/xsd:complexType&gt;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="DeclRqstObjKeyAttribute">
+	&lt;xsd:attribute name="Obj$Name$" type="$TableName$$Name$Type" use="$DeclColRequiredOrOptional$"/&gt;</GenRule>
+
+	<GenRule GenDef="Param" Name="DeclRqstParamAttribute">
+	&lt;xsd:attribute name="$Name$" type="$reference Type Name$Type" use="$DeclColRequiredOrOptional$"/&gt;</GenRule>
+
+</RuleSet>

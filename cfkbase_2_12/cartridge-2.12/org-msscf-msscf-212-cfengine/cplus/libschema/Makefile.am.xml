@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/Makefile.am"
+	Revision="2.12"
+	Descr="C++18 library Makefile.am">
+
+	<GenFile GenDef="SchemaDef" Name="fileMakefileAM"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$reference ManufacturingSchema lower PackageName$"
+		SubPackageName=""
+		ExpansionClassName="$PackageName$MakefileAM"
+		ExpansionKeyName="Makefile.am"
+		ExpansionFileName="Makefile.am"
+>MAJOR_VERSION=$reference MinorVersion reference ParentMajVer Name$
+
+MINOR_VERSION=$reference MinorVersion Name$
+
+BUILD_NUMBER=$GeneratingBuild$
+
+RELEASE=$$(MAJOR_VERSION).$$(MINOR_VERSION).$$(BUILD_NUMBER)
+
+SUB_RELEASE=$$(MAJOR_VERSION).$$(MINOR_VERSION)
+
+MAIN_RELEASE=$$(MAJOR_VERSION)
+
+DEPDIR=debug
+
+LT_OBJDIR=.libs
+
+BIN=$$(prefix)/bin/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$$(MAJOR_VERSION).0.$$(MINOR_VERSION)
+
+bindir=$$(prefix)/bin/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$$(MAJOR_VERSION).0.$$(MINOR_VERSION)
+
+lib_LTLIBRARIES=lib$lower PackageName$.la
+
+lib$lower PackageName$xsd_ladir=$$(prefix)/share/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$$(MAJOR_VERSION).0.$$(MINOR_VERSION)/xsd
+
+lib$lower PackageName$xsd_la_HEADERS=xsd/cfgenkb-2.13-cartridge.xsd xsd/cfgenkb-2.13-ruleset.xsd xsd/cfgenkb-2.13-toolset.xsd
+
+lib$lower PackageName$_ladir=
+
+lib$lower PackageName$_la_COREdir=$$(prefix)/include/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$$(MAJOR_VERSION).0.$$(MINOR_VERSION)/$lower SchemaName$
+
+lib$lower PackageName$_la_OBJdir=$$(prefix)/include/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$$(MAJOR_VERSION).0.$$(MINOR_VERSION)/$lower SchemaName$obj
+
+lib$lower PackageName$_la_RAMdir=$$(prefix)/include/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$$(MAJOR_VERSION).0.$$(MINOR_VERSION)/$lower SchemaName$ram
+
+lib$lower PackageName$_la_MSSCFdir=$$(prefix)/include/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$$(MAJOR_VERSION).0.$$(MINOR_VERSION)/msscf
+
+lib$lower PackageName$_la_SOURCES=$fileMakefileAMSources$
+
+lib$lower PackageName$_la_CORE_HEADERS=$fileMakefileAMCoreHeaders$
+
+lib$lower PackageName$_la_OBJ_HEADERS=$fileMakefileAMObjHeaders$
+
+lib$lower PackageName$_la_RAM_HEADERS=$fileMakefileAMRamHeaders$
+
+lib$lower PackageName$_la_MSSCF_HEADERS= msscf/MssCFPublic.hpp msscf/MssCFCounter.hpp msscf/MssCFDefClassObj.hpp msscf/MssCFDefClassTableObj.hpp msscf/MssCFEngine.hpp msscf/MssCFGelCompiler.hpp msscf/MssCFGenBindObj.hpp msscf/MssCFGenBindTableObj.hpp msscf/MssCFGenContext.hpp msscf/MssCFGenContextFactory.hpp msscf/MssCFGenFileObj.hpp msscf/MssCFGenFileTableObj.hpp msscf/MssCFGenItemTableObj.hpp msscf/MssCFGenIteratorObj.hpp msscf/MssCFGenIteratorTableObj.hpp msscf/MssCFGenReferenceContainer.hpp msscf/MssCFGenReferenceObj.hpp msscf/MssCFGenReferenceTableObj.hpp msscf/MssCFGenRuleObj.hpp msscf/MssCFGenRuleTableObj.hpp msscf/MssCFGenSwitchLimb.hpp msscf/MssCFGenTruncObj.hpp msscf/MssCFGenTruncTableObj.hpp msscf/MssCFMessageLog.hpp msscf/MssCFRuleCartObj.hpp msscf/MssCFRuleCartTableObj.hpp msscf/MssCFRuleCartridgeParser.hpp msscf/MssCFRuleSetParser.hpp msscf/MssCFRuleTypeObj.hpp msscf/MssCFRuleTypeTableObj.hpp msscf/MssCFToolObj.hpp msscf/MssCFToolSetObj.hpp msscf/MssCFToolSetParser.hpp msscf/MssCFToolSetTableObj.hpp msscf/MssCFToolTableObj.hpp
+
+lib$lower PackageName$_la_HEADERS=
+
+lib$lower PackageName$_la_LDFLAGS= -version-info $$(MAJOR_VERSION):$$(MINOR_VERSION) -lmpfr -lxerces-c -luuid -l:libcflib.so.$$(MAJOR_VERSION).0.$$(MINOR_VERSION) -lstdc++fs
+
+lib$lower PackageName$_la_CXXFLAGS= -I$$(top_srcdir) -I$$(prefix)/include/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$$(MAJOR_VERSION).0.$$(MINOR_VERSION) -I$$(prefix)/include/$lower poptop SchemaDef reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$$(MAJOR_VERSION).0.$$(MINOR_VERSION)
+
+ACLOCAL_AMFLAGS= -Im4
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="fileMakefileAM_LDFLAGS"
+		> -l$lower reference RefSchema PackageName$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="fileMakefileAMSources"
+		> I$SchemaName$Schema.cpp I$SchemaName$Public.cpp I$SchemaName$ObjPublic.cpp I$SchemaName$TablePerms.cpp $SchemaName$Schema.cpp $SchemaName$Authorization.cpp I$SchemaName$SchemaObj.cpp $SchemaName$SchemaObj.cpp $SchemaName$RamSchema.cpp $SchemaName$RamPublic.cpp $iterate SchemaTables( each fileMakefileAMSources empty empty )$ MssCFPublic.cpp MssCFCounter.cpp MssCFDefClassObj.cpp MssCFDefClassTableObj.cpp MssCFEngine.cpp MssCFGelCompiler.cpp MssCFGenBindObj.cpp MssCFGenBindTableObj.cpp MssCFGenContext.cpp MssCFGenContextFactory.cpp MssCFGenFileObj.cpp MssCFGenFileTableObj.cpp MssCFGenItemTableObj.cpp MssCFGenIteratorObj.cpp MssCFGenIteratorTableObj.cpp MssCFGenReferenceContainer.cpp MssCFGenReferenceObj.cpp MssCFGenReferenceTableObj.cpp MssCFGenRuleObj.cpp MssCFGenRuleTableObj.cpp MssCFGenSwitchLimb.cpp MssCFGenTruncObj.cpp MssCFGenTruncTableObj.cpp MssCFMessageLog.cpp MssCFRuleCartObj.cpp MssCFRuleCartTableObj.cpp MssCFRuleCartridgeParser.cpp MssCFRuleSetParser.cpp MssCFRuleTypeObj.cpp MssCFRuleTypeTableObj.cpp MssCFToolObj.cpp MssCFToolSetObj.cpp MssCFToolSetParser.cpp MssCFToolSetTableObj.cpp MssCFToolTableObj.cpp </GenRule>
+
+	<GenRule GenDef="Table" Name="fileMakefileAMSources"
+		>$fileMakefileAMSourcesNoDefSchema$ I$SchemaName$$TableName$Obj.cpp I$SchemaName$$TableName$EditObj.cpp I$SchemaName$$TableName$TableObj.cpp I$SchemaName$$TableName$Table.cpp $SchemaName$$TableName$Obj.cpp $SchemaName$$TableName$EditObj.cpp $SchemaName$$TableName$TableObj.cpp $SchemaName$Ram$TableName$Table.cpp$iterate DispensedId16Generators( first nameSchemaRamTableId16GenCPlus each empty empty empty )$$iterate DispensedId32Generators( first nameSchemaRamTableId32GenCPlus each empty empty empty )$$iterate DispensedId64Generators( first nameSchemaRamTableId64GenCPlus each empty empty empty )$$iterate Index( each fileMakefileAMSourcesIndexFiles empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="fileMakefileAMSourcesIndexFilesNoDefSchema"
+			>$iterate Index( each fileMakefileAMSourcesIndexFilesNoDefSchema empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="fileMakefileAMSourcesIndexFiles"></GenRule>
+
+	<GenRule GenDef="Index" Name="fileMakefileAMSourcesIndexFilesNoDefSchema"
+		>$switch IsPrimaryIndex no fileMakefileAMSchemaTableIndexKeyCpp default empty$</GenRule>
+
+	<GenRule GenDef="Index" Name="fileMakefileAMSchemaTableIndexKeyCpp"
+		> $SchemaName$$TableName$By$Suffix$Key.cpp</GenRule>
+
+	<GenRule GenDef="Table" Name="fileMakefileAMSourcesNoDefSchema"
+		>$switch HasSuperClassRelation no fileMakefileAMFilesTablePKeyCpp default empty$ $SchemaName$$TableName$Buff.cpp$fileMakefileAMSourcesIndexFilesNoDefSchema$</GenRule>
+
+	<GenRule GenDef="Table" Name="fileMakefileAMFilesTablePKeyCpp"> $SchemaName$$TableName$PKey.cpp</GenRule>
+
+	<GenRule GenDef="Value" Name="nameSchemaRamTableId16GenCPlus"
+		> $SchemaName$Ram$TableName$Id16Gen.cpp</GenRule>
+
+	<GenRule GenDef="Value" Name="nameSchemaRamTableId32GenCPlus"
+		> $SchemaName$Ram$TableName$Id32Gen.cpp</GenRule>
+
+	<GenRule GenDef="Value" Name="nameSchemaRamTableId64GenCPlus"
+		> $SchemaName$Ram$TableName$Id64Gen.cpp</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="fileMakefileAMCoreHeaders"
+		>$lower SchemaName$/I$SchemaName$Schema.hpp $lower SchemaName$/I$SchemaName$Public.hpp $lower SchemaName$/I$SchemaName$TablePerms.hpp $lower SchemaName$/$SchemaName$Schema.hpp $lower SchemaName$/$SchemaName$Authorization.hpp $iterate SchemaTables( each fileMakefileAMCoreHeaders empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="fileMakefileAMCoreHeaders"
+		>$fileMakefileAMCoreHeadersNoDefSchema$ $lower SchemaName$/I$SchemaName$$TableName$Table.hpp $iterate Index( each fileMakefileAMCoreHeadersIndexFiles empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="fileMakefileAMCoreHeadersNoDefSchema"
+		>$switch HasSuperClassRelation no fileMakefileAMCoreHeadersTablePKeyHpp default empty$ $lower SchemaName$/$SchemaName$$TableName$Buff.hpp $iterate Index( each fileMakefileAMCoreHeadersIndexFilesNoDefSchema empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="fileMakefileAMCoreHeadersTablePKeyHpp"> $lower SchemaName$/$SchemaName$$TableName$PKey.hpp</GenRule>
+
+	<GenRule GenDef="Index" Name="fileMakefileAMCoreHeadersIndexFilesNoDefSchema"
+		>$switch IsPrimaryIndex no fileMakefileAMCoreHeadersSchemaTableIndexKeyHppIfNoTableDefSchema default empty$</GenRule>
+
+	<GenRule GenDef="Index" Name="IndexTableHasDefSchema"
+		>$reference Table HasDefSchema$</GenRule>
+
+	<GenRule GenDef="Index" Name="fileMakefileAMCoreHeadersSchemaTableIndexKeyHppIfNoTableDefSchema"
+		>$switch IndexTableHasDefSchema no fileMakefileAMCoreHeadersSchemaTableIndexKeyHpp default empty$</GenRule>
+
+	<GenRule GenDef="Index" Name="fileMakefileAMCoreHeadersSchemaTableIndexKeyHpp"
+		> $lower SchemaName$/$SchemaName$$TableName$By$Suffix$Key.hpp</GenRule>
+
+	<GenRule GenDef="Index" Name="fileMakefileAMCoreHeadersIndexFiles"
+		></GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="fileMakefileAMObjHeaders"
+		> $lower SchemaName$obj/I$SchemaName$SchemaObj.hpp $lower SchemaName$obj/I$SchemaName$ObjPublic.hpp $lower SchemaName$obj/$SchemaName$SchemaObj.hpp $iterate SchemaTables( each fileMakefileAMObjHeaders empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="fileMakefileAMObjHeaders"
+		> $lower SchemaName$obj/I$SchemaName$$TableName$Obj.hpp $lower SchemaName$obj/I$SchemaName$$TableName$EditObj.hpp $lower SchemaName$obj/I$SchemaName$$TableName$TableObj.hpp $lower SchemaName$obj/$SchemaName$$TableName$Obj.hpp $lower SchemaName$obj/$SchemaName$$TableName$EditObj.hpp $lower SchemaName$obj/$SchemaName$$TableName$TableObj.hpp</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="fileMakefileAMRamHeaders"
+		> $lower SchemaName$ram/$SchemaName$RamSchema.hpp $lower SchemaName$ram/$SchemaName$RamPublic.hpp$iterate SchemaTables( each fileMakefileAMRamHeaders empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="fileMakefileAMRamHeaders"
+		> $lower SchemaName$ram/$SchemaName$Ram$TableName$Table.hpp$iterate DispensedId16Generators( first nameSchemaRamTableId16GenHPlus each empty empty empty )$$iterate DispensedId32Generators( first nameSchemaRamTableId32GenHPlus each empty empty empty )$$iterate DispensedId64Generators( first nameSchemaRamTableId64GenHPlus each empty empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="nameSchemaRamTableId16GenHPlus"
+		> $lower SchemaName$ram/$SchemaName$Ram$TableName$Id16Gen.hpp</GenRule>
+
+	<GenRule GenDef="Value" Name="nameSchemaRamTableId32GenHPlus"
+		> $lower SchemaName$ram/$SchemaName$Ram$TableName$Id32Gen.hpp</GenRule>
+
+	<GenRule GenDef="Value" Name="nameSchemaRamTableId64GenHPlus"
+		> $lower SchemaName$ram/$SchemaName$Ram$TableName$Id64Gen.hpp</GenRule>
+
+</RuleSet>

@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+javafx"
+	Name="src/SchemaJavaFXTableFinderForm.java"
+	Revision="2.12"
+	Descr="Java 11 JavaFX Finder Form for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaJavaFXTableFinderFormJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$JavaFX/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$JavaFX"
+		ExpansionClassName="$SchemaName$JavaFX$TableName$TableFinderFormJava"
+		ExpansionKeyName="$SchemaName$JavaFX$TableName$TableFinderFormJava"
+		ExpansionFileName="$SchemaName$JavaFX$TableName$FinderForm.java"
+>$SchemaJavaFXTableFinderFormPreamble$
+/**
+ *	$SchemaName$JavaFX$TableName$FinderForm JavaFX Finder Form implementation
+ *	for $TableName$.
+ */
+public class $SchemaName$JavaFX$TableName$FinderForm
+extends CFBorderPane
+implements I$DefSchemaName$JavaFX$TableName$PaneCommon,
+	ICFForm
+{
+	public static String S_FormName = "Find $EffLabel$";
+	protected ICFFormManager cfFormManager = null;
+	protected I$SchemaName$JavaFXSchema javafxSchema = null;
+	protected boolean javafxIsInitializing = true;$switch HasContainer yes maybeDeclJavaFXTableFinderFormContainingTenantOrCluster default empty$
+	protected ScrollPane scrollMenu = null;
+	protected CFHBox hboxMenu = null;$switch TableName Cluster empty default implJavaFXTableFinderFormDeclMenuAdd$$switch TableName Cluster empty default declAddButtons$$declSchemaJavaFXTableFinderFormCommonButtons$$switch PageData yes declJavaFXTableFinderFormMemberPageCallback default declJavaFXTableFinderFormList$
+	protected ObservableList&lt;I$DefSchemaName$$TableName$Obj&gt; observableListOf$TableName$ = null;$switch HasSubClasses yes declJavaFXTableListPaneClassTableColumn default empty$$declJavaFXTableListPaneAttributeTableColumns$$declJavaFXTableListPaneMasterTableColumns$$declJavaFXTableListPaneParentTableColumns$$declJavaFXTableListPaneLookupTableColumns$
+	protected TableView&lt;I$DefSchemaName$$TableName$Obj&gt; dataTable = null;
+$switch PageData yes classJavaFXTableFinderFormListTabRefListPageData default empty$$implSchemaJavaFXTableFinderFormViewEditClosedCallback$$implSchemaJavaFXTableFinderFormDeleteCallback$$implConstructJavaFXTableFinderForm$$implGetSetCFFormManager$$implSchemaJavaFXTableFinderFormForceCancelAndClose$$implGetJavaFXSchema$$implJavaFXFinderFormGetHBoxMenu$$implJavaFXFinderFormGetSetJavaFXFocus$$implJavaFXFinderFormAdjustFinderButtons$$classJavaFXTableFinderFormListTableByQualNameComparator$$switch PageData yes empty default implJavaFXTableFinderFormLoadData$$implJavaFXTableFinderFormRefreshMe$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableFinderFormMemberPageCallback">
+	protected I$SchemaName$JavaFX$TableName$PageCallback pageCallback = null;
+	protected CFButton buttonRefresh = null;
+	protected CFButton buttonMoreData = null;
+	protected boolean endOfData = true;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableFinderFormList">
+	protected List&lt;I$DefSchemaName$$TableName$Obj&gt; listOf$TableName$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="classJavaFXTableFinderFormListTabRefListPageData">
+	protected class PageData$TableName$List
+	implements I$DefSchemaName$JavaFX$TableName$PageCallback
+	{
+		public PageData$TableName$List() {
+		}
+
+		public List&lt;I$DefSchemaName$$TableName$Obj&gt; pageData( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first declOptPriorArg each declCommaOptPriorArg )$ )
+		{
+			List&lt;I$DefSchemaName$$TableName$Obj&gt; dataList;
+			I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();$switch HasContainer yes maybePageJavaFXTableFinderFormContainingTenantOrCluster default empty$$switch HasContainer yes implJavaFXTableFinderFormPageTenantOrClusterData default implJavaFXTableFinderFormPageGlobalData$
+			return( dataList );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="maybePageJavaFXTableFinderFormContainingTenantOrCluster"
+		>$switch ContainerTableName Tenant pageJavaFXTableFinderFormContainingTenant Cluster pageJavaFXTableFinderFormContainingCluster default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="pageJavaFXTableFinderFormContainingTenant">
+			if( containingTenant == null ) {
+				$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+				long containingTenantId = auth.getSecTenantId();
+				containingTenant = schemaObj.getTenantTableObj().readTenantByIdIdx( containingTenantId );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="pageJavaFXTableFinderFormContainingCluster">
+			if( containingCluster == null ) {
+				$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+				long containingClusterId = auth.getSecClusterId();
+				containingCluster = schemaObj.getClusterTableObj().readClusterByIdIdx( containingClusterId );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormPageTenantOrClusterData"
+		>$switch ContainerTableName Tenant implJavaFXTableFinderFormPageTenantData Cluster implJavaFXTableFinderFormPageClusterData default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormPageTenantData">
+			dataList = schemaObj.get$TableName$TableObj().page$TableName$ByTenantIdx( containingTenant.getRequiredId()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implJavaFXTableFinderFormPassCommaPriorArg )$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormPageClusterData">
+			dataList = schemaObj.get$TableName$TableObj().page$TableName$ByClusterIdx( containingCluster.getRequiredId()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implJavaFXTableFinderFormPassCommaPriorArg )$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormPageGlobalData">
+			dataList = schemaObj.get$TableName$TableObj().pageAll$TableName$($reference BaseClass reference PrimaryKeyIndex iterate Columns( first implJavaFXTableFinderFormPassPriorArg each implJavaFXTableFinderFormPassCommaPriorArg )$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableFinderFormPassPriorArg"
+		>prior$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableFinderFormPassCommaPriorArg">,
+					$implJavaFXTableFinderFormPassPriorArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaJavaFXTableFinderFormViewEditClosedCallback">
+	class ViewEditClosedCallback implements ICFFormClosedCallback {
+		public ViewEditClosedCallback() {
+		}
+
+		@Override
+		public void formClosed( ICFLibAnyObj affectedObject ) {
+			if( affectedObject != null ) {
+				refreshMe();
+			}
+		}
+	}
+
+	protected ViewEditClosedCallback viewEditClosedCallback = null;
+
+	public ICFFormClosedCallback getViewEditClosedCallback() {
+		if( viewEditClosedCallback == null ) {
+			viewEditClosedCallback = new ViewEditClosedCallback();
+		}
+		return( viewEditClosedCallback );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaJavaFXTableFinderFormDeleteCallback">
+	class DeleteCallback implements ICFDeleteCallback {
+		public DeleteCallback() {
+		}
+
+		@Override
+		public void deleted( ICFLibAnyObj deletedObject ) {
+			if( deletedObject != null ) {
+				refreshMe();
+			}
+		}
+
+		@Override
+		public void formClosed( ICFLibAnyObj affectedObject ) {
+			if( affectedObject != null ) {
+				refreshMe();
+			}
+		}
+	}
+
+	protected DeleteCallback deleteCallback = null;
+
+	public ICFDeleteCallback getDeleteCallback() {
+		if( deleteCallback == null ) {
+			deleteCallback = new DeleteCallback();
+		}
+		return( deleteCallback );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaJavaFXTableFinderFormForceCancelAndClose">
+	public void forceCancelAndClose() {
+		if( cfFormManager != null ) {
+			if( cfFormManager.getCurrentForm() == this ) {
+				cfFormManager.closeCurrentForm();
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetSetCFFormManager">
+	public ICFFormManager getCFFormManager() {
+		return( cfFormManager );
+	}
+
+	public void setCFFormManager( ICFFormManager value ) {
+		final String S_ProcName = "setCFFormManager";
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"value" );
+		}
+		cfFormManager = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaJavaFXTableFinderFormCommonButtons">
+	protected CFButton buttonViewSelected = null;
+	protected CFButton buttonEditSelected = null;
+	protected CFButton buttonClose = null;
+	protected CFButton buttonDeleteSelected = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaJavaFXTableFinderFormPreamble"
+>// Description: Java 11 JavaFX Finder Form implementation for $TableName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$JavaFX;
+
+import java.math.*;
+import java.util.*;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
+import javafx.util.Callback;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.JavaFX.*;
+import org.apache.commons.codec.binary.Base64;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormDeclMenuAdd">
+	protected CFVBox vboxMenuAdd = null;
+	protected ScrollPane scrollMenuAdd = null;
+	protected CFButton buttonAdd = null;
+	protected CFButton buttonCancelAdd = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormGetSetJavaFXFocus">
+	public void setJavaFXFocus( ICFLibAnyObj value ) {
+		final String S_ProcName = "setJavaFXFocus";
+		if( ( value == null ) || ( value instanceof I$DefSchemaName$$TableName$Obj ) ) {
+			super.setJavaFXFocus( value );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				S_ProcName,
+				"value",
+				value,
+				"I$DefSchemaName$$TableName$Obj" );
+		}
+		adjustFinderButtons();
+	}
+
+	public I$DefSchemaName$$TableName$Obj getJavaFXFocusAs$TableName$() {
+		return( (I$DefSchemaName$$TableName$Obj)getJavaFXFocus() );
+	}
+
+	public void setJavaFXFocusAs$TableName$( I$DefSchemaName$$TableName$Obj value ) {
+		setJavaFXFocus( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declAddButtons"
+		>$switch IsInstantiable yes reallyDeclAddButton default empty$$iterate TableSubClasses( each declAddButtons empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyDeclAddButton">
+	protected CFButton buttonAdd$TableName$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="commaNameSubClass"
+		>, I$SchemaName$$TableName$Obj$iterate TableSubClasses( each commaNameSubClass empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableFinderForm">
+	public $SchemaName$JavaFX$TableName$FinderForm( ICFFormManager formManager, I$SchemaName$JavaFXSchema argSchema ) {
+		super();
+		final String S_ProcName = "construct-schema-focus";
+		if( formManager == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"formManager" );
+		}
+		cfFormManager = formManager;
+		if( argSchema == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"argSchema" );
+		}
+		javafxSchema = argSchema;$switch PageData yes implJavaFXFinderFormConstructPageCallback default empty$$implConstructJavaFXTableFinderFormConstructDataTable$
+
+		scrollMenu = new ScrollPane();
+		scrollMenu.setVbarPolicy( ScrollBarPolicy.NEVER );
+		scrollMenu.setHbarPolicy( ScrollBarPolicy.AS_NEEDED );
+		scrollMenu.setFitToHeight( true );
+		scrollMenu.setContent( getHBoxMenu() );
+
+		setTop( scrollMenu );
+		setCenter( dataTable );
+
+		refreshMe();
+		javafxIsInitializing = false;
+		adjustFinderButtons();
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormConstructPageCallback">
+		pageCallback = new PageData$TableName$List();</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormGetHBoxMenu">$implJavaFXTableListPaneCompareCFButtonByText$
+	public CFHBox getHBoxMenu() {
+		if( hboxMenu == null ) {
+			hboxMenu = new CFHBox( 10 );
+$switch PageData yes implJavaFXTableFinderFormGetPanelHBoxMenuButtonRefresh default empty$$switch PageData yes implJavaFXTableFinderFormGetPanelHBoxMenuButtonMoreData default empty$$implJavaFXFinderFormMenuBarAddAddItemOrMenu$$implJavaFXFinderFormMenuButtonViewSelected$$implJavaFXFinderFormMenuButtonEditSelected$$switch TableName Cluster empty default implJavaFXFinderFormGetHBoxMenuAddDeleteSelected$$implJavaFXFinderFormMenuButtonClose$
+		}
+		return( hboxMenu );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormGetPanelHBoxMenuButtonRefresh">
+			buttonRefresh = new CFButton();
+			buttonRefresh.setMinWidth( 200 );
+			buttonRefresh.setText( "Refresh" );
+			buttonRefresh.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						refreshMe();
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonRefresh );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormGetPanelHBoxMenuButtonMoreData">
+			buttonMoreData = new CFButton();
+			buttonMoreData.setMinWidth( 200 );
+			buttonMoreData.setText( "MoreData" );
+			buttonMoreData.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$DefSchemaName$$TableName$Obj lastObj = null;
+						if( ( observableListOf$TableName$ != null ) &amp;&amp; ( observableListOf$TableName$.size() &gt; 0 ) ) {
+							lastObj = observableListOf$TableName$.get( observableListOf$TableName$.size() - 1 );
+						}
+						List&lt;I$DefSchemaName$$TableName$Obj&gt; page;
+						if( lastObj != null ) {
+							page = pageCallback.pageData( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implListPaneMoreDataPassLastObjCol each implListPaneMoreDataPassCommaLastObjCol )$ );
+						}
+						else {
+							page = pageCallback.pageData( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implListPaneMoreDataPassNull each implListPaneMoreDataPassCommaNull )$ );
+						}
+						Iterator&lt;I$DefSchemaName$$TableName$Obj&gt; iter = page.iterator();
+						while( iter.hasNext() ) {
+							observableListOf$TableName$.add( iter.next() );
+						}
+						if( page.size() &lt; 25 ) {$switch ThisHasChain yes empty default implJavaFXListTableMoreDataSortByQualName$
+							endOfData = true;
+						}
+						else {
+							endOfData = false;
+						}
+						if( dataTable != null ) {
+							dataTable.setItems( observableListOf$TableName$ );
+							// Hack from stackoverflow to fix JavaFX TableView refresh issue
+							((TableColumn)dataTable.getColumns().get(0)).setVisible( false );
+							((TableColumn)dataTable.getColumns().get(0)).setVisible( true );
+						}
+						adjustFinderButtons();
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonMoreData );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormMenuButtonViewSelected">
+			buttonViewSelected = new CFButton();
+			buttonViewSelected.setMinWidth( 200 );
+			buttonViewSelected.setText( "View Selected" );
+			buttonViewSelected.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+						if( schemaObj == null ) {
+							throw new CFLibNullArgumentException( getClass(),
+								S_ProcName,
+								0,
+								"schemaObj" );
+						}
+						I$DefSchemaName$$TableName$Obj selectedInstance = getJavaFXFocusAs$TableName$();
+						if( selectedInstance != null ) {
+							String classCode = selectedInstance.getClassCode();
+							if( "$ClassCode$".equals( classCode ) ) {
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newViewEditForm( cfFormManager, selectedInstance, getViewEditClosedCallback(), false );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.View );
+								cfFormManager.pushForm( frame );
+							}$implViewSelectedActionActionPerformedWalkSubClasses$
+							else {
+								throw new CFLibUnsupportedClassException( getClass(),
+									S_ProcName,
+									"selectedInstance",
+									selectedInstance,
+									"I$SchemaName$$TableName$Obj$iterate TableSubClasses( each commaNameSubClass empty empty )$" );
+							}
+						}
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonViewSelected );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implViewSelectedActionActionPerformedWalkSubClasses"
+		>$iterate TableSubClasses( each implViewSelectedActionActionPerformedWireSubClass empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implViewSelectedActionActionPerformedWireSubClass">
+							else if( "$ClassCode$".equals( classCode ) ) {
+								I$SchemaName$$TableName$Obj obj = (I$SchemaName$$TableName$Obj)selectedInstance;
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newViewEditForm( cfFormManager, obj, getViewEditClosedCallback(), false );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.View );
+								cfFormManager.pushForm( frame );
+							}$implViewSelectedActionActionPerformedWalkSubClasses$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormMenuButtonEditSelected">
+			buttonEditSelected = new CFButton();
+			buttonEditSelected.setMinWidth( 200 );
+			buttonEditSelected.setText( "Edit Selected" );
+			buttonEditSelected.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+						if( schemaObj == null ) {
+							throw new CFLibNullArgumentException( getClass(),
+								S_ProcName,
+								0,
+								"schemaObj" );
+						}
+						I$DefSchemaName$$TableName$Obj selectedInstance = getJavaFXFocusAs$TableName$();
+						if( selectedInstance != null ) {
+							String classCode = selectedInstance.getClassCode();
+							if( "$ClassCode$".equals( classCode ) ) {
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newViewEditForm( cfFormManager, selectedInstance, getViewEditClosedCallback(), false );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.Edit );
+								cfFormManager.pushForm( frame );
+							}$classEditSelectedActionActionPerformedWalkSubClasses$
+							else {
+								throw new CFLibUnsupportedClassException( getClass(),
+									S_ProcName,
+									"selectedInstance",
+									selectedInstance,
+									"I$SchemaName$$TableName$Obj$iterate TableSubClasses( each commaNameSubClass empty empty )$" );
+							}
+						}
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonEditSelected );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="classEditSelectedActionActionPerformedWalkSubClasses"
+		>$iterate TableSubClasses( each classEditSelectedActionActionPerformedWireSubClass empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="classEditSelectedActionActionPerformedWireSubClass">
+							else if( "$ClassCode$".equals( classCode ) ) {
+								I$SchemaName$$TableName$Obj obj = (I$SchemaName$$TableName$Obj)selectedInstance;
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newViewEditForm( cfFormManager, obj, getViewEditClosedCallback(), false );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.Edit );
+								cfFormManager.pushForm( frame );
+							}$implViewSelectedActionActionPerformedWalkSubClasses$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormMenuButtonClose">
+			buttonClose = new CFButton();
+			buttonClose.setMinWidth( 200 );
+			buttonClose.setText( "Close" );
+			buttonClose.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						cfFormManager.closeCurrentForm();
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonClose );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormMenuBarAddAddItemOrMenu"
+		>$switch HasSubClasses yes implJavaFXFinderFormMenuAdd default implMaybeJavaFXFinderFormItemAdd$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormGetHBoxMenuAddDeleteSelected">
+			buttonDeleteSelected = new CFButton();
+			buttonDeleteSelected.setMinWidth( 200 );
+			buttonDeleteSelected.setText( "Delete Selected" );
+			buttonDeleteSelected.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+						if( schemaObj == null ) {
+							throw new CFLibNullArgumentException( getClass(),
+								S_ProcName,
+								0,
+								"schemaObj" );
+						}
+						I$DefSchemaName$$TableName$Obj selectedInstance = getJavaFXFocusAs$TableName$();
+						if( selectedInstance != null ) {
+							String classCode = selectedInstance.getClassCode();
+							if( "$ClassCode$".equals( classCode ) ) {
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newAskDeleteForm( cfFormManager, selectedInstance, getDeleteCallback() );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.View );
+								cfFormManager.pushForm( frame );
+							}$classDeleteSelectedActionActionPerformedWalkSubClasses$
+							else {
+								throw new CFLibUnsupportedClassException( getClass(),
+									S_ProcName,
+									"selectedInstance",
+									selectedInstance,
+									"I$SchemaName$$TableName$Obj$iterate TableSubClasses( each commaNameSubClass empty empty )$" );
+							}
+						}
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonDeleteSelected );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="classDeleteSelectedActionActionPerformedWalkSubClasses"
+		>$iterate TableSubClasses( each classDeleteSelectedActionActionPerformedWireSubClass empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="classDeleteSelectedActionActionPerformedWireSubClass">
+							else if( "$ClassCode$".equals( classCode ) ) {
+								I$SchemaName$$TableName$Obj obj = (I$SchemaName$$TableName$Obj)selectedInstance;
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newAskDeleteForm( cfFormManager, obj, getDeleteCallback() );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.View );
+								cfFormManager.pushForm( frame );
+							}$classDeleteSelectedActionActionPerformedWalkSubClasses$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormMenuAdd"
+		>$switch TableName Cluster empty default implJavaFXFinderFormMenuReallyAdd$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormMenuReallyAdd">
+					LinkedList&lt;CFButton&gt; list = new LinkedList&lt;CFButton&gt;();
+
+					vboxMenuAdd = new CFVBox( 10 );$iterate TableSubClasses( each implJavaFXFinderFormAddActions empty empty )$
+
+					int len = list.size();
+					CFButton arr[] = new CFButton[len];
+					Iterator&lt;CFButton&gt; iter = list.iterator();
+					int idx = 0;
+					while( iter.hasNext() ) {
+						arr[idx++] = iter.next();
+					}
+					Arrays.sort( arr, new CompareCFButtonByText() );
+					for( idx = 0; idx &lt; len; idx ++ ) {
+						vboxMenuAdd.getChildren().add( arr[idx] );
+					}
+
+					buttonCancelAdd = new CFButton();
+					buttonCancelAdd.setMinWidth( 200 );
+					buttonCancelAdd.setText( "Cancel Add" );
+					buttonCancelAdd.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+						@Override public void handle( ActionEvent e ) {
+							final String S_ProcName = "handle";
+							try {
+								setLeft( null );
+								adjustFinderButtons();
+							}
+							catch( Throwable t ) {
+								CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+							}
+						}
+					});
+					vboxMenuAdd.getChildren().add( buttonCancelAdd );
+
+					scrollMenuAdd = new ScrollPane();
+					scrollMenuAdd.setMinWidth( 240 );
+					scrollMenuAdd.setMaxWidth( 240 );
+					scrollMenuAdd.setFitToWidth( true );
+					scrollMenuAdd.setHbarPolicy( ScrollBarPolicy.NEVER );
+					scrollMenuAdd.setVbarPolicy( ScrollBarPolicy.AS_NEEDED );
+					scrollMenuAdd.setContent( vboxMenuAdd );
+
+			buttonAdd = new CFButton();
+			buttonAdd.setMinWidth( 200 );
+			buttonAdd.setText( "Add..." );
+			buttonAdd.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						setLeft( scrollMenuAdd );
+						adjustFinderButtons();
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonAdd );
+</GenRule>
+
+
+	<GenRule GenDef="Table" Name="implMaybeJavaFXFinderFormItemAdd"
+		>$switch TableName Cluster empty default implOnlyInstantiableJavaFXFinderFormItemAdd$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOnlyInstantiableJavaFXFinderFormItemAdd"
+		>$switch IsInstantiable yes reallyImplJavaFXFinderFormItemAdd default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyImplJavaFXFinderFormItemAdd">
+			buttonAdd$TableName$ = new CFButton();
+			buttonAdd$TableName$.setMinWidth( 200 );
+			buttonAdd$TableName$.setText( "Add $EffLabel$..." );
+			buttonAdd$TableName$.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+						if( schemaObj == null ) {
+							throw new CFLibNullArgumentException( getClass(),
+								S_ProcName,
+								0,
+								"schemaObj" );
+						}
+						I$SchemaName$$TableName$Obj obj = (I$SchemaName$$TableName$Obj)schemaObj.get$TableName$TableObj().newInstance();
+						I$SchemaName$$TableName$EditObj edit = (I$SchemaName$$TableName$EditObj)( obj.beginEdit() );
+						if( edit == null ) {
+							throw new CFLibNullArgumentException( getClass(),
+								S_ProcName,
+								0,
+								"edit" );
+						}$switch HasContainer yes implClassJavaFXTableFinderFormActionAddBindContainer default empty$
+						CFBorderPane frame = javafxSchema.get$TableName$Factory().newAddForm( cfFormManager, obj, getViewEditClosedCallback(), true );
+						I$DefSchemaName$JavaFX$TableName$PaneCommon jpanelCommon = (I$SchemaName$JavaFX$TableName$PaneCommon)frame;
+						jpanelCommon.setPaneMode( CFPane.PaneMode.Add );
+						cfFormManager.pushForm( frame );
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonAdd$TableName$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implClassJavaFXTableFinderFormActionAddBindContainer"
+		>$reference ContainerRelation implClassJavaFXTableFinderFormActionAddBindContainer$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implClassJavaFXTableFinderFormActionAddBindContainer"
+		>$switch ToTableName 
+			Cluster implClassJavaFXTableFinderFormActionAddBindContainerCluster
+			Tenant implClassJavaFXTableFinderFormActionAddBindContainerTenant
+			default error$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implClassJavaFXTableFinderFormActionAddBindContainerCluster">
+								I$SecSchemaName$ClusterObj secCluster = schemaObj.getSecCluster();
+								edit.set$OptionalOrRequired$$RelationTypeTag$$Suffix$( secCluster );</GenRule>
+
+	<GenRule GenDef="Relation" Name="implClassJavaFXTableFinderFormActionAddBindContainerTenant">
+								I$SecSchemaName$TenantObj secTenant = schemaObj.getSecTenant();
+								edit.set$OptionalOrRequired$$RelationTypeTag$$Suffix$( secTenant );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormAddActions"
+		>$switch IsInstantiable yes reallyImplJavaFXFinderFormAddAction default empty$$iterate TableSubClasses( each implJavaFXFinderFormAddActions empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyImplJavaFXFinderFormAddAction">
+						buttonAdd$TableName$ = new CFButton();
+						buttonAdd$TableName$.setMinWidth( 200 );
+						buttonAdd$TableName$.setText( "Add $TableName$..." );
+						buttonAdd$TableName$.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+							@Override public void handle( ActionEvent e ) {
+								final String S_ProcName = "handle";
+								try {
+									I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+									if( schemaObj == null ) {
+										throw new CFLibNullArgumentException( getClass(),
+											S_ProcName,
+											0,
+											"schemaObj" );
+									}
+									I$SchemaName$$TableName$Obj obj = (I$SchemaName$$TableName$Obj)schemaObj.get$TableName$TableObj().newInstance();
+									I$SchemaName$$TableName$EditObj edit = (I$SchemaName$$TableName$EditObj)( obj.beginEdit() );
+									if( edit == null ) {
+										throw new CFLibNullArgumentException( getClass(),
+											S_ProcName,
+											0,
+											"edit" );
+									}$switch HasContainer yes implClassJavaFXTableFinderFormActionAddBindContainer default empty$
+									CFBorderPane frame = javafxSchema.get$TableName$Factory().newAddForm( cfFormManager, obj, getViewEditClosedCallback(), true );
+									I$DefSchemaName$JavaFX$TableName$PaneCommon jpanelCommon = (I$SchemaName$JavaFX$TableName$PaneCommon)frame;
+									jpanelCommon.setPaneMode( CFPane.PaneMode.Add );
+									cfFormManager.pushForm( frame );
+									setLeft( null );
+									adjustFinderButtons();
+								}
+								catch( Throwable t ) {
+									CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+								}
+							}
+						});
+						list.add( buttonAdd$TableName$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormAdjustFinderButtons">
+	public void adjustFinderButtons() {$implJavaFXFinderFormAdjustFinderButtonsPart1$$switch PageData yes implJavaFXTableFinderFormAdjustPagingButtons default empty$$implJavaFXFinderFormAdjustFinderButtonsPart2$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormAdjustPagingButtons">
+		if( buttonRefresh != null ) {
+			buttonRefresh.setDisable( false );
+		}
+		if( buttonMoreData != null ) {
+			buttonMoreData.setDisable( endOfData );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormAdjustFinderButtonsPart1">
+		I$DefSchemaName$$TableName$Obj selectedObj = getJavaFXFocusAs$TableName$();
+		boolean disableState;
+		if( selectedObj == null ) {
+			disableState = true;
+		}
+		else {
+			disableState = false;
+		}
+		boolean inAddMode;
+		if( getLeft() == null ) {
+			inAddMode = false;
+		}
+		else {
+			inAddMode = true;
+			disableState = true;
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormAdjustFinderButtonsPart2">
+		if( buttonViewSelected != null ) {
+			buttonViewSelected.setDisable( disableState );
+		}
+		if( buttonEditSelected != null ) {
+			buttonEditSelected.setDisable( disableState );
+		}$switch TableName Cluster empty default implJavaFXFinderFormAdjustFinderButtonsAdjustDelete$$switch HasSubClasses no implJavaFXFinderFormAdjustActionDefaultAdd default empty$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormAdjustFinderButtonsAdjustDelete">
+		if( buttonDeleteSelected != null ) {
+			buttonDeleteSelected.setDisable( disableState );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXFinderFormAdjustActionDefaultAdd"
+		>$switch IsInstantiable yes reallyImplNonClusterJavaFXFinderFormAdjustActionDefaultAdd default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyImplNonClusterJavaFXFinderFormAdjustActionDefaultAdd"
+		>$switch TableName Cluster empty default reallyImplJavaFXFinderFormAdjustActionDefaultAdd$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyImplJavaFXFinderFormAdjustActionDefaultAdd">
+		if( buttonAdd$TableName$ != null ) {
+			buttonAdd$TableName$.setDisable( false );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormRefreshMe">
+	public void refreshMe() {$switch PageData yes implJavaFXTableFinderFormRefreshMePage default implJavaFXTableFinderFormRefreshMeLoadData$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormRefreshMePage">
+		final String S_ProcName = "refreshMe";
+		observableListOf$TableName$ = FXCollections.observableArrayList();
+		List&lt;I$DefSchemaName$$TableName$Obj&gt; page = pageCallback.pageData( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implListPaneMoreDataPassNull each implListPaneMoreDataPassCommaNull )$ );
+		Iterator&lt;I$DefSchemaName$$TableName$Obj&gt; iter = page.iterator();
+		while( iter.hasNext() ) {
+			observableListOf$TableName$.add( iter.next() );
+		}
+		if( page.size() &lt; 25 ) {$switch ThisHasChain yes empty default implJavaFXTableFinderFormRefreshMeSortByQualName$
+			endOfData = true;
+		}
+		else {
+			endOfData = false;
+		}
+		if( dataTable != null ) {
+			dataTable.setItems( observableListOf$TableName$ );
+			// Hack from stackoverflow to fix JavaFX TableView refresh issue
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( false );
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( true );
+		}
+		adjustFinderButtons();</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormRefreshMeSortByQualName">
+				observableListOf$TableName$.sort( compare$TableName$ByQualName );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormRefreshMeLoadData">
+		loadData( true );</GenRule>
+
+	<GenRule GenDef="Table" Name="ContainerTableName"
+		>$reference ContainerRelation reference ToTable TableName$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeDeclJavaFXTableFinderFormContainingTenantOrCluster"
+		>$switch ContainerTableName Tenant declJavaFXTableFinderFormContainingTenant Cluster declJavaFXTableFinderFormContainingCluster default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableFinderFormContainingTenant">
+	protected I$SecSchemaName$TenantObj containingTenant = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableFinderFormContainingCluster">
+	protected I$SecSchemaName$ClusterObj containingCluster = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableFinderFormConstructDataTable">
+		dataTable = new TableView&lt;I$DefSchemaName$$TableName$Obj&gt;();$switch HasSubClasses yes implJavaFXTableListPaneConstructClassTableColumn default empty$$implJavaFXTableListPaneAttributeConstructTableColumns$$implJavaFXTableListPaneMasterConstructTableColumns$$implJavaFXTableListPaneParentConstructTableColumns$$implJavaFXTableListPaneLookupConstructTableColumns$
+		dataTable.getSelectionModel().selectedItemProperty().addListener(
+			new ChangeListener&lt;I$DefSchemaName$$TableName$Obj&gt;() {
+				@Override public void changed( ObservableValue&lt;? extends I$DefSchemaName$$TableName$Obj&gt; observable,
+					I$DefSchemaName$$TableName$Obj oldValue,
+					I$DefSchemaName$$TableName$Obj newValue )
+				{
+					setJavaFXFocus( newValue );
+				}
+			});</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormLoadData">
+	public void loadData( boolean forceReload ) {
+		I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();$switch HasContainer yes maybeLoadJavaFXTableFinderFormContainingTenantOrCluster default empty$$switch HasContainer yes implJavaFXTableFinderFormLoadTenantOrClusterData default implJavaFXTableFinderFormLoadGlobalData$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeLoadJavaFXTableFinderFormContainingTenantOrCluster"
+		>$switch ContainerTableName Tenant loadJavaFXTableFinderFormContainingTenant Cluster loadJavaFXTableFinderFormContainingCluster default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="loadJavaFXTableFinderFormContainingTenant">
+		if( ( containingTenant == null ) || forceReload ) {
+			$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+			long containingTenantId = auth.getSecTenantId();
+			containingTenant = schemaObj.getTenantTableObj().readTenantByIdIdx( containingTenantId );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="loadJavaFXTableFinderFormContainingCluster">
+		if( ( containingCluster == null ) || forceReload ) {
+			$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+			long containingClusterId = auth.getSecClusterId();
+			containingCluster = schemaObj.getClusterTableObj().readClusterByIdIdx( containingClusterId );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormLoadTenantOrClusterData"
+		>$switch ContainerTableName Tenant implJavaFXTableFinderFormLoadTenantData Cluster implJavaFXTableFinderFormLoadClusterData default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormLoadTenantData">
+		if( ( listOf$TableName$ == null ) || forceReload ) {
+			observableListOf$TableName$ = null;
+			listOf$TableName$ = schemaObj.get$TableName$TableObj().read$TableName$ByTenantIdx( containingTenant.getRequiredId(), javafxIsInitializing );
+			if( listOf$TableName$ != null ) {
+				observableListOf$TableName$ = FXCollections.observableArrayList( listOf$TableName$ );
+				observableListOf$TableName$.sort( compare$TableName$ByQualName );
+			}
+			else {
+				observableListOf$TableName$ = FXCollections.observableArrayList();
+			}
+			dataTable.setItems( observableListOf$TableName$ );
+			// Hack from stackoverflow to fix JavaFX TableView refresh issue
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( false );
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( true );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormLoadClusterData">
+		if( ( listOf$TableName$ == null ) || forceReload ) {
+			observableListOf$TableName$ = null;
+			listOf$TableName$ = schemaObj.get$TableName$TableObj().read$TableName$ByClusterIdx( containingCluster.getRequiredId(), javafxIsInitializing );
+			if( listOf$TableName$ != null ) {
+				observableListOf$TableName$ = FXCollections.observableArrayList( listOf$TableName$ );
+				observableListOf$TableName$.sort( compare$TableName$ByQualName );
+			}
+			else {
+				observableListOf$TableName$ = FXCollections.observableArrayList();
+			}
+			dataTable.setItems( observableListOf$TableName$ );
+			// Hack from stackoverflow to fix JavaFX TableView refresh issue
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( false );
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( true );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableFinderFormLoadGlobalData">
+		if( ( listOf$TableName$ == null ) || forceReload ) {
+			observableListOf$TableName$ = null;
+			listOf$TableName$ = schemaObj.get$TableName$TableObj().readAll$TableName$( javafxIsInitializing );
+			if( listOf$TableName$ != null ) {
+				observableListOf$TableName$ = FXCollections.observableArrayList( listOf$TableName$ );
+				observableListOf$TableName$.sort( compare$TableName$ByQualName );
+			}
+			else {
+				observableListOf$TableName$ = FXCollections.observableArrayList();
+			}
+			dataTable.setItems( observableListOf$TableName$ );
+			// Hack from stackoverflow to fix JavaFX TableView refresh issue
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( false );
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( true );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="classJavaFXTableFinderFormListTableByQualNameComparator">
+	public class $TableName$ByQualNameComparator
+	implements Comparator&lt;I$DefSchemaName$$TableName$Obj&gt;
+	{
+		public $TableName$ByQualNameComparator() {
+		}
+
+		public int compare( I$DefSchemaName$$TableName$Obj lhs, I$DefSchemaName$$TableName$Obj rhs ) {
+			if( lhs == null ) {
+				if( rhs == null ) {
+					return( 0 );
+				}
+				else {
+					return( -1 );
+				}
+			}
+			else if( rhs == null ) {
+				return( 1 );
+			}
+			else {
+				String lhsValue = lhs.getObjQualifiedName();
+				String rhsValue = rhs.getObjQualifiedName();
+				if( lhsValue == null ) {
+					if( rhsValue == null ) {
+						return( 0 );
+					}
+					else {
+						return( -1 );
+					}
+				}
+				else if( rhsValue == null ) {
+					return( 1 );
+				}
+				else {
+					return( lhsValue.compareTo( rhsValue ) );
+				}
+			}
+		}
+	}
+
+	protected $TableName$ByQualNameComparator compare$TableName$ByQualName = new $TableName$ByQualNameComparator();
+</GenRule>
+
+</RuleSet>

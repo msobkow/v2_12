@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/Schema/SchemaConfigurationFile.java"
+	Revision="2.12"
+	Descr="Java 11 configuration section for a $SchemaName$ schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaConfigurationFileJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$ConfigurationFileJava"
+		ExpansionKeyName="$SchemaName$ConfigurationFileJava"
+		ExpansionFileName="$SchemaName$ConfigurationFile.java"
+>// Description: Java 11 configuration file for a $SchemaName$ schema.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower SubProjectPackageName$.$SchemaName$;
+
+import java.io.*;
+import java.lang.reflect.*;
+import java.net.*;
+import java.rmi.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+
+public class $SchemaName$ConfigurationFile
+{$ConfigurationFileImplDefBaseBody$}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="ConfigurationFileExtendDefBaseBody">
+	public $poptop SchemaDef SchemaName$ConfigurationFile() {
+		super();
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="ConfigurationFileImplDefBaseBody">
+	protected String fileName = null;
+	protected Properties props = new Properties();$poptop SchemaDef declSchemaConfigurationFileMethods$
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="extendSchemaConfigurationFile">
+extends $reference RefSchema SchemaName$ConfigurationFile</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaConfigurationFileMethods"
+		>$reallyDeclSchemaConfigurationFileMethods$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="reallyDeclSchemaConfigurationFileMethods"
+		>$reference RefSchema reallyDeclSchemaConfigurationFileMethods$</GenRule>
+
+	<GenRule GenDef="Object" Name="reallyDeclSchemaConfigurationFileMethods"
+		></GenRule>
+
+	<GenRule GenDef="Object" Name="reallyDerefDeclSchemaConfigurationFileMethods"
+		>$poptop SchemaDef reallyDeclSchemaConfigurationFileMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="reallyDeclSchemaConfigurationFileMethods">
+$declSchemaConfigurationFileNetServerPort$$declSchemaConfigurationFileDbServerClassName$$declSchemaConfigurationFileDbServer$$declSchemaConfigurationFileDbPort$$declSchemaConfigurationFileDbDatabase$$declSchemaConfigurationFileDbUserName$$declSchemaConfigurationFileDbPassword$
+	public $poptop SchemaDef SchemaName$ConfigurationFile() {
+	}$reallyDeclSchemaConfigurationFileImplMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="reallyDeclSchemaConfigurationFileImplMethods"
+		>$implConfigurationFileFileName$$implConfigurationFileSchemaGet$$implConfigurationFileSchemaSet$$implConfigurationFileSchemaLoad$$implConfigurationFileSchemaSave$$implSchemaConfigurationFileNetServerPort$$implSchemaConfigurationFileDbServerClassName$$implSchemaConfigurationFileDbServer$$implSchemaConfigurationFileDbPort$$implSchemaConfigurationFileDbDatabase$$implSchemaConfigurationFileDbUserName$$implSchemaConfigurationFileDbPassword$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implConfigurationFileConstructorInvokeSuper">
+		super();</GenRule>
+
+	<GenRule GenDef="Object" Name="implConfigurationFileConstructorInvokeSuper">
+		super();</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implConfigurationFileFileName"
+		>$reference RefSchema implConfigurationFileFileName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implConfigurationFileFileName">
+	public String getFileName() {
+		return( fileName );
+	}
+
+	public void setFileName( String value ) {
+		fileName = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implConfigurationFileSchemaGet">
+	public String get( String theKey ) {
+		return( props.getProperty( theKey ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implConfigurationFileSchemaSet">
+	public void set( String theKey, String theValue ) {
+		set( theKey, theValue, false );
+	}
+
+	public void set(String theKey, String theValue, boolean doSave ) {
+		props.put( theKey, theValue );
+		if( doSave ) {
+			save();
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implConfigurationFileSchemaLoad">
+	public void load() {
+		load( fileName );
+	}
+
+	public void load( String configFileName ) {
+		boolean doSave = false;
+		try {
+			FileReader reader = new FileReader( configFileName );
+			props.load( reader );
+			reader.close();
+		}
+		catch( FileNotFoundException e ) {
+			doSave = true;
+		}
+		catch( IOException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				"load",
+				"IOException " + e.getMessage(),
+				e );
+		}
+		if( doSave ) {
+			save();
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implConfigurationFileSchemaSave">
+	public void save() {
+		try {
+			FileWriter writer = new FileWriter( fileName );
+			props.store( writer, "$SchemaName$ConfigurationFile" );
+			writer.close();
+		}
+		catch( IOException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				"save",
+				"IOException " + e.getMessage(),
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaConfigurationFileNetServerPort">
+	protected int netServerPort = -1;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaConfigurationFileNetServerPort">
+	protected int netServerPort = -1;</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaConfigurationFileNetServerPort"
+		>$reference RefSchema implSchemaConfigurationFileNetServerPort$</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaConfigurationFileNetServerPort">
+	public int getNetServerPort() {
+		if( netServerPort &lt; 0 ) {
+			String strValue = get( "NetServerPort" );
+			netServerPort = Integer.parseInt( strValue );
+		}
+		return( netServerPort );
+	}
+
+	public void setNetServerPort( int value ) {
+		netServerPort = value;
+		String strValue = Integer.toString( netServerPort );
+		set( "NetServerPort", strValue );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaConfigurationFileDbServer"
+>	protected String dbServer = null;
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaConfigurationFileDbServer"
+		>$reference RefSchema implSchemaConfigurationFileDbServer$</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaConfigurationFileDbServer">
+	public String getDbServer() {
+		if( dbServer == null ) {
+			dbServer = get( "DbServer" );
+		}
+		return( dbServer );
+	}
+
+	public void setDbServer( String value ) {
+		dbServer = value;
+		set( "DbServer", dbServer );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaConfigurationFileDbServerClassName"
+>	protected String dbServerClassName = null;
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaConfigurationFileDbServerClassName"
+		>$reference RefSchema implSchemaConfigurationFileDbServerClassName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaConfigurationFileDbServerClassName">
+	public String getDbServerClassName() {
+		if( dbServerClassName == null ) {
+			dbServerClassName = get( "DbServerClassName" );
+		}
+		return( dbServerClassName );
+	}
+
+	public void setDbServerClassName( String value ) {
+		dbServerClassName = value;
+		set( "DbServerClassName", dbServerClassName );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaConfigurationFileDbUserName"
+>	protected String dbUserName = null;
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaConfigurationFileDbUserName"
+		>$reference RefSchema implSchemaConfigurationFileDbUserName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaConfigurationFileDbUserName">
+	public String getDbUserName() {
+		if( dbUserName == null ) {
+			dbUserName = get( "DbUserName" );
+		}
+		return( dbUserName );
+	}
+
+	public void setDbUserName( String value ) {
+		dbUserName = value;
+		set( "DbUserName", dbUserName );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaConfigurationFileDbPassword"
+>	protected String dbPassword = null;
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaConfigurationFileDbPassword"
+		>$reference RefSchema implSchemaConfigurationFileDbPassword$</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaConfigurationFileDbPassword">
+	public String getDbPassword() {
+		if( dbPassword == null ) {
+			dbPassword = get( "DbPassword" );
+		}
+		return( dbPassword );
+	}
+
+	public void setDbPassword( String value ) {
+		dbPassword = value;
+		set( "DbPassword", dbPassword );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaConfigurationFileDbPort"
+>	protected int dbPort = -1;
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaConfigurationFileDbPort"
+		>$reference RefSchema implSchemaConfigurationFileDbPort$</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaConfigurationFileDbPort">
+	public int getDbPort() {
+		if( dbPort &lt; 0 ) {
+			String strValue = get( "DbPort" );
+			dbPort = Integer.parseInt( strValue );
+		}
+		return( dbPort );
+	}
+
+	public void setDbPort( int value ) {
+		dbPort = value;
+		String strValue = Integer.toString( dbPort );
+		set( "DbPort", strValue );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaConfigurationFileDbDatabase">
+	protected String dbDatabase = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaConfigurationFileDbDatabase">
+	protected String dbDatabase = null;</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaConfigurationFileDbDatabase"
+		>$reference RefSchema implSchemaConfigurationFileDbDatabase$</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaConfigurationFileDbDatabase">
+	public String getDbDatabase() {
+		if( dbDatabase == null ) {
+			dbDatabase = get( "DbDatabase" );
+		}
+		return( dbDatabase );
+	}
+
+	public void setDbDatabase( String value ) {
+		dbDatabase = value;
+		set( "DbDatabase", dbDatabase );
+	}
+</GenRule>
+
+</RuleSet>

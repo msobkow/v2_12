@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="schema/dbcreate/pgsql/crsp_delete_dbtablename_by_suffix.pgsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile GenDef="Index" Name="dbadminfile_CreateSPDeleteDbTableNameBySuffix"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="pgsql"
+		ExpansionClassName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$"
+		ExpansionKeyName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$"
+		ExpansionFileName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create or replace function $lower DbSchemaName$.$sp_delete_dbtablename_by_suffix$($implPgSqlSPStandardArgs$$iterate Columns( each sparg_CommaIndexCol )$ )
+returns boolean as $$$$
+declare
+	RowsAffected integer;
+	cur record;
+	subret boolean;$poptop Table switch HasSubClasses yes implSPDeleteDbTablenameBySuffixDeclClassCode default empty$
+begin$implSPDeleteDbTablenameBySuffixDirectSQL$
+	return true;
+end;
+$$$$ language plpgsql;
+</GenFile>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixEACRNormal">
+		for cur in
+			select
+$poptop Table implPgSqlSelectDeleteColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinDeleteSuperTable default empty$
+			where
+				$iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$$switch SecScope None empty System empty Cluster implSPDeleteDbTablenameBySuffixAndCluster Tenant implSPDeleteDbTablenameBySuffixAndTenant default error$
+		loop$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixEACRRestrictCluster">
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into subret;
+		if( subret )
+		then
+			for cur in
+				select
+$poptop Table implPgSqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+				from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinDeleteSuperTable default empty$
+				where
+					$iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+			loop$implSPDeleteTablenameBySuffixLoopBody$
+			end loop;
+		else
+			for cur in
+				select
+$poptop Table implPgSqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+				from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinDeleteSuperTable default empty$
+				where
+					$iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+					and $lower reference Table reference ClusterIdColumn reference Table ClassCode$.$reference Table referenceClusterIdColumn DbColumnName$ = secClusterId
+			loop$implSPDeleteTablenameBySuffixLoopBody$
+			end loop;
+		end if;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixEACRRestrictTenant">
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into subret;
+		if( subret )
+		then
+			for cur in
+				select
+$poptop Table implPgSqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+				from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinDeleteSuperTable default empty$
+				where
+					$iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+			loop$implSPDeleteTablenameBySuffixLoopBody$
+			end loop;
+		else
+			for cur in
+				select
+$poptop Table implPgSqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+				from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinDeleteSuperTable default empty$
+				where
+					$iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+					and $lower reference Table reference TenantIdColumn reference Table ClassCode$.$reference Table referenceTenantIdColumn DbColumnName$ = secTenantId
+			loop$implSPDeleteTablenameBySuffixLoopBody$
+			end loop;
+		end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPDeleteDbTablenameBySuffixDeclClassCode">
+	classCode varchar(4);</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectSQL"
+		>$switch SecScope None implSPDeleteDbTablenameBySuffixDirectNormal System implSPDeleteDbTablenameBySuffixDirectNormal Cluster implSPDeleteDbTablenameBySuffixDirectRestrictCluster Tenant implSPDeleteDbTablenameBySuffixDirectRestrictTenant default error$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectNormal">
+	for cur in
+		select
+$poptop Table implPgSqlSelectDeleteColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinDeleteSuperTable default empty$
+		where
+				$iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$$switch SecScope None empty System empty Cluster implSPDeleteDbTablenameBySuffixAndCluster Tenant implSPDeleteDbTablenameBySuffixAndTenant default error$
+	loop$implSPDeleteTablenameBySuffixLoopBody$
+	end loop;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectRestrictCluster">
+	select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into subret;
+	if( subret )
+	then
+		for cur in
+			select
+$poptop Table implPgSqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinDeleteSuperTable default empty$
+			where
+					$iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+		loop$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+	else
+		for cur in
+			select
+$poptop Table implPgSqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinDeleteSuperTable default empty$
+			where
+					$iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+					and $lower reference Table reference ClusterIdColumn reference Table ClassCode$.$reference Table referenceClusterIdColumn DbColumnName$ = secClusterId
+		loop$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+	end if;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectRestrictTenant">
+	select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into subret;
+	if( subret )
+	then
+		for cur in
+			select
+$poptop Table implPgSqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinDeleteSuperTable default empty$
+			where
+					$iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+		loop$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+	else
+		for cur in
+			select
+$poptop Table implPgSqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinDeleteSuperTable default empty$
+			where
+					$iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+					and $lower reference Table reference TenantIdColumn reference Table ClassCode$.$reference Table referenceTenantIdColumn DbColumnName$ = secTenantId
+		loop$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+	end if;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlColumnDynamicWhereFragBindReqVar"
+		>$reference Column implPgSqlColumnDynamicWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implPgSqlColumnDynamicWhereFragBindReqBlobVar
+			BoolDef implPgSqlColumnDynamicWhereFragBindReqBoolVar
+			EnumDef implPgSqlColumnDynamicWhereFragBindReqEnumVar
+			Int16Def implPgSqlColumnDynamicWhereFragBindReqInt16Var
+			Int32Def implPgSqlColumnDynamicWhereFragBindReqInt32Var
+			Int64Def implPgSqlColumnDynamicWhereFragBindReqInt64Var
+			UInt16Def implPgSqlColumnDynamicWhereFragBindReqUInt16Var
+			UInt32Def implPgSqlColumnDynamicWhereFragBindReqUInt32Var
+			UInt64Def implPgSqlColumnDynamicWhereFragBindReqUInt64Var
+			Id16Gen implPgSqlColumnDynamicWhereFragBindReqInt16Var
+			Id32Gen implPgSqlColumnDynamicWhereFragBindReqInt32Var
+			Id64Gen implPgSqlColumnDynamicWhereFragBindReqInt64Var
+			FloatDef implPgSqlColumnDynamicWhereFragBindReqFloatVar
+			DoubleDef implPgSqlColumnDynamicWhereFragBindReqDoubleVar
+			NumberDef implPgSqlColumnDynamicWhereFragBindReqNumberVar
+			StringDef implPgSqlColumnDynamicWhereFragBindReqStringVar
+			TokenDef implPgSqlColumnDynamicWhereFragBindReqStringVar
+			NmTokenDef implPgSqlColumnDynamicWhereFragBindReqStringVar
+			NmTokensDef implPgSqlColumnDynamicWhereFragBindReqStringVar
+			TextDef implPgSqlColumnDynamicWhereFragBindReqTextVar
+			DateDef implPgSqlColumnDynamicWhereFragBindReqDateVar
+			TimeDef implPgSqlColumnDynamicWhereFragBindReqTimeVar
+			TimestampDef implPgSqlColumnDynamicWhereFragBindReqTZTimestampVar
+			TZDateDef implPgSqlColumnDynamicWhereFragBindReqTZDateVar
+			TZTimeDef implPgSqlColumnDynamicWhereFragBindReqTZTimeVar
+			TZTimestampDef implPgSqlColumnDynamicWhereFragBindReqTZTimestampVar
+			UuidDef implPgSqlColumnDynamicWhereFragBindReqUuidVar
+			UuidGen implPgSqlColumnDynamicWhereFragBindReqUuidVar
+			default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqBlobVar"
+		>$error_blob_cannot_be_an_index_column$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqBoolVar"
+		>case when arg$Name$ then 'true' else 'false' end</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqEnumVar"
+		>to_char( arg$Name$, 'MI90' )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqInt16Var"
+		>to_char( arg$Name$, 'MI90' )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqInt32Var"
+		>to_char( arg$Name$, 'MI90' )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqInt64Var"
+		>to_char( arg$Name$, 'MI90' )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqUInt16Var"
+		>to_char( arg$Name$, 'MI90' )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqUInt32Var"
+		>to_char( arg$Name$, 'MI90' )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqUInt64Var"
+		>to_char( arg$Name$, 'MI90' )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqFloatVar"
+		>to_char( arg$Name$, 'MI90' )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqDoubleVar"
+		>to_char( arg$Name$, 'MI90.99999999999999999999999999999999999999999999999999999999999999999999999999999999' )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqNumberVar"
+		>to_char( arg$Name$, 'MI90.99999999999999999999999999999999999999999999999999999999999999999999999999999999' )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqStringVar"
+		>quote_literal( arg$Name$ )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqTokenVar"
+		>quote_literal( arg$Name$ )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqNmTokenVar"
+		>quote_literal( arg$Name$ )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqNmTokensVar"
+		>quote_literal( arg$Name$ )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqTextVar"
+		>quote_literal( arg$Name$ )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqDateVar"
+		>' to_date( ' || to_char( arg$Name$, 'YYYY-MM-DD' ) || ', ''YYYY-MM-DD'' )'</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqTimeVar"
+		>' to_timestamp( ' || to_char( arg$Name$, 'HH24:MI:SS' ) || ', ''HH24:MI:SS'' )'</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqTimestampVar"
+		>' to_timestamp( ' || to_char( arg$Name$, 'YYYY-MM-DD HH24:MI:SS' ) || ', ''YYYY-MM-DD HH24:MI:SS'' )'</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqTZDateVar"
+		>' to_timestamp( ' || to_char( arg$Name$, 'YYYY-MM-DD HH24:MI:SS' ) || ', ''YYYY-MM-DD HH24:MI:SS'' )'</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqTZTimeVar"
+		>' to_timestamp( ' || to_char( arg$Name$, 'YYYY-MM-DD HH24:MI:SS' ) || ', ''YYYY-MM-DD HH24:MI:SS'' )'</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqTZTimestampVar"
+		>' to_timestamp( ' || to_char( arg$Name$, 'YYYY-MM-DD HH24:MI:SS' ) || ', ''YYYY-MM-DD HH24:MI:SS'' )'</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlColumnDynamicWhereFragBindReqUuidVar"
+		>quote_literal( arg$Name$ )</GenRule>
+
+	<GenRule GenDef="Index" Name="TableHasSubClasses"
+		>$poptop Table HasSubClasses$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBody"
+		>$switch TableHasSubClasses yes implSPDeleteTablenameBySuffixLoopBodyEvalCC default implSPDeleteTablenameBySuffixLoopBodyInvokeDirect$</GenRule>
+
+	<GenRule GenDef="Object" Name="delinvoke_sp_delete_dbtablename">sp_delete_$lower DbTableName$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBodyEvalCC">
+				select cur.classcode into classCode;
+				case classCode
+				when '$poptop Table ClassCode$' then
+					select $lower poptop Table DbSchemaName$.$poptop Table sp_delete_dbtablename$( argAuditClusterId,
+							argAuditUserId,
+							argAuditSessionId,
+							secClusterId,
+							secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassArg )$,
+							cur.revision )
+						into subret;$poptop Table iterate ReverseRelations( each implSPDeleteTablenameBySuffixChaseSubclass empty empty )$
+				else
+					raise exception '$sp_delete_dbtablename_by_suffix$() Unrecognized cur.classcode value';
+				end case;</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSPDeleteTablenameBySuffixChaseSubclass"
+		>$switch RelationTypeTag
+			Superclass implSPDeleteTablenameBySuffixCheckSubclass
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSPDeleteTablenameBySuffixCheckSubclass"
+		>$reference FromTable implSPDeleteTablenameBySuffixLoopBodyEvalCCLimb$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPDeleteTablenameBySuffixLoopBodyEvalCCLimb">
+				when '$ClassCode$' then
+					select $lower poptop Table DbSchemaName$.$delinvoke_sp_delete_dbtablename$( argAuditClusterId,
+							argAuditUserId,
+							argAuditSessionId,
+							secClusterId,
+							secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassArg )$,
+							cur.revision )
+						into subret;$iterate ReverseRelations( each implSPDeleteTablenameBySuffixChaseSubclass empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBodyInvokeDirect">
+				select $lower poptop Table DbSchemaName$.$poptop Table sp_delete_dbtablename$( argAuditClusterId,
+						argAuditUserId,
+						argAuditSessionId,
+						secClusterId,
+						secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassArg )$,
+						cur.revision )
+					into subret;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteTablenameBySuffixPassArg"
+		>cur.$lower Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteTablenameBySuffixCommaPassArg">,
+							$implSPDeleteTablenameBySuffixPassArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectDeleteColumns"
+		>$switch HasSuperClassRelation yes implPgSqlSelectSuperDelete default implPgSqlSelectBaseDelete$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectSuperDelete"
+		>$reference SuperClassRelation reference ToTable implPgSqlSelectDeleteColumns$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSelectFragCommaDataDeleteColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implPgSqlTableColumnSelectFragCommaDeleteColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectBaseDelete"
+		>$switch IsBaseTable yes implPgSqlSelectBaseDeleteWithCC default implPgSqlSelectBaseDeleteNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectBaseDeleteWithCC"
+>					$lower ClassCode$.classcode$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implPgSqlTableColumnSelectFragCommaDeleteColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectBaseDeleteNoCC"
+>					$reference PrimaryKeyIndex iterate Columns( first implPgSqlTableColumnSelectFragDbName each implPgSqlTableColumnSelectFragCommaDeleteColumn )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragCommaDeleteColumn">,
+						$implPgSqlTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlClassCodeMaybeJoinDeleteSuperTable"
+		>$switch HasSuperClassRelation yes implPgSqlClassCodeJoinDeleteSuperTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlClassCodeJoinDeleteSuperTable">
+					inner join $lower reference SuperClassRelation reference ToTable DbSchemaName$.$lower reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implPgSqlClassCodeJoinDeleteSuperTableColumn each implPgSqlClassCodeAndJoinDeleteSuperTableColumn )$$reference SuperClassRelation reference ToTable implPgSqlClassCodeMaybeJoinDeleteSuperTable$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeJoinDeleteSuperTableColumn">
+						$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeAndJoinDeleteSuperTableColumn">
+							and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlClassCodeJoinDeleteBaseTable">
+					inner join $lower reference BaseClass DbSchemaName$.$lower reference BaseClass DbTableName$ $lower reference BaseClass ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implPgSqlClassCodeJoinDeleteBaseTableColumn each implPgSqlClassCodeAndJoinDeleteBaseTableColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeJoinDeleteBaseTableColumn">
+						$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeAndJoinDeleteBaseTableColumn">
+							and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectDynamicDeleteColumns"
+		>$switch HasSuperClassRelation yes implPgSqlSelectDynamicSuperDelete default implPgSqlSelectDynamicBaseDelete$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectDynamicSuperDelete"
+		>$reference SuperClassRelation reference ToTable implPgSqlSelectDynamicDeleteColumns$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSelectFragCommaDataDynamicDeleteColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implPgSqlTableColumnSelectFragCommaDynamicDeleteColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectDynamicBaseDelete"
+		>$switch IsBaseTable yes implPgSqlSelectDynamicBaseDeleteWithCC default implPgSqlSelectDynamicBaseDeleteNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectDynamicBaseDeleteWithCC">
+				||		' $lower ClassCode$.classcode'$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implPgSqlTableColumnSelectFragCommaDynamicDeleteColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSelectDynamicBaseDeleteNoCC">
+				||		$reference PrimaryKeyIndex iterate Columns( first implPgSqlTableColumnSelectFragDynamicDbName each implPgSqlTableColumnSelectFragCommaDynamicDeleteColumn )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragCommaDynamicDeleteColumn">|| ', '
+				||		$implPgSqlTableColumnSelectFragDynamicDbName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlClassCodeMaybeDynamicJoinDeleteSuperTable"
+		>$switch HasSuperClassRelation yes implPgSqlClassCodeDynamicJoinDeleteSuperTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlClassCodeDynamicJoinDeleteSuperTable">
+				||	' inner join $lower reference SuperClassRelation reference ToTable DbSchemaName$.$lower reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on '$reference PrimaryKeyIndex iterate Columns( first implPgSqlClassCodeDynamicJoinDeleteSuperTableColumn each implPgSqlClassCodeAndDynamicJoinDeleteSuperTableColumn )$$reference SuperClassRelation reference ToTable implPgSqlClassCodeMaybeDynamicJoinDeleteSuperTable$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeDynamicJoinDeleteSuperTableColumn">
+				||		' $lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$'</GenRule>
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeAndDynamicJoinDeleteSuperTableColumn">
+				||		' and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$'</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlClassCodeDynamicJoinDeleteBaseTable">
+				||	' inner join $lower reference BaseClass DbSchemaName$.$lower reference BaseClass DbTableName$ $lower reference BaseClass ClassCode$ on'$reference PrimaryKeyIndex iterate Columns( first implPgSqlClassCodeDynamicJoinDeleteBaseTableColumn each implPgSqlClassCodeAndDynamicJoinDeleteBaseTableColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeDynamicJoinDeleteBaseTableColumn">
+				||		' $lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$'</GenRule>
+	<GenRule GenDef="IndexCol" Name="implPgSqlClassCodeAndJoinDynamciDeleteBaseTableColumn">
+				||		' and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$'</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameBlob"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameBool"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameEnum"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameInt16"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameInt32"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameInt64"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameUInt16"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameUInt32"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameUInt64"
+		>' to_char( $TableAlias$.$lower DbColumnName$, ''FM99999999999999999990'' ) as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameFloat"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameDouble"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameNumber"
+		>' to_char( $TableAlias$.$lower DbColumnName$, ''SFM99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999.99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999'' ) as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameString"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameToken"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameNmToken"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameNmTokens"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameText"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameDate"
+		>' to_char( $TableAlias$.$lower DbColumnName$, ''YYYY-MM-DD'' ) as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameTime"
+		>' to_char( $TableAlias$.$lower DbColumnName$, ''HH24:MI:SS'' ) as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameTimestamp"
+		>' to_char( $TableAlias$.$lower DbColumnName$, ''YYYY-MM-DD HH24:MI:SS'' ) as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameTZDate"
+		>' to_char( $TableAlias$.$lower DbColumnName$, ''YYYY-MM-DD HH24:MI:SS'' ) as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameTZTime"
+		>' to_char( $TableAlias$.$lower DbColumnName$, ''YYYY-MM-DD HH24:MI:SS'' ) as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameTZTimestamp"
+		>' to_char( $TableAlias$.$lower DbColumnName$, ''YYYY-MM-DD HH24:MI:SS'' ) as $lower DbColumnName$'</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbNameUuid"
+		>' $TableAlias$.$lower DbColumnName$ as $lower DbColumnName$'</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSelectFragDynamicDbName"
+>$switch BaseModelAtomClass
+			BlobDef implPgSqlTableColumnSelectFragDynamicDbNameBlob
+			BoolDef implPgSqlTableColumnSelectFragDynamicDbNameBool
+			EnumDef implPgSqlTableColumnSelectFragDynamicDbNameEnum
+			Int16Def implPgSqlTableColumnSelectFragDynamicDbNameInt16
+			Int32Def implPgSqlTableColumnSelectFragDynamicDbNameInt32
+			Int64Def implPgSqlTableColumnSelectFragDynamicDbNameInt64
+			UInt16Def implPgSqlTableColumnSelectFragDynamicDbNameUInt16
+			UInt32Def implPgSqlTableColumnSelectFragDynamicDbNameUInt32
+			UInt64Def implPgSqlTableColumnSelectFragDynamicDbNameUInt64
+			Id16Gen implPgSqlTableColumnSelectFragDynamicDbNameInt16
+			Id32Gen implPgSqlTableColumnSelectFragDynamicDbNameInt32
+			Id64Gen implPgSqlTableColumnSelectFragDynamicDbNameInt64
+			FloatDef implPgSqlTableColumnSelectFragDynamicDbNameFloat
+			DoubleDef implPgSqlTableColumnSelectFragDynamicDbNameDouble
+			NumberDef implPgSqlTableColumnSelectFragDynamicDbNameNumber
+			StringDef implPgSqlTableColumnSelectFragDynamicDbNameString
+			TokenDef implPgSqlTableColumnSelectFragDynamicDbNameToken
+			NmTokenDef implPgSqlTableColumnSelectFragDynamicDbNameNmToken
+			NmTokensDef implPgSqlTableColumnSelectFragDynamicDbNameNmTokens
+			TextDef implPgSqlTableColumnSelectFragDynamicDbNameText
+			DateDef implPgSqlTableColumnSelectFragDynamicDbNameDate
+			TimeDef implPgSqlTableColumnSelectFragDynamicDbNameTime
+			TimestampDef implPgSqlTableColumnSelectFragDynamicDbNameTimestamp
+			TZDateDef implPgSqlTableColumnSelectFragDynamicDbNameTZDate
+			TZTimeDef implPgSqlTableColumnSelectFragDynamicDbNameTZTime
+			TZTimestampDef implPgSqlTableColumnSelectFragDynamicDbNameTZTimestamp
+			UuidDef implPgSqlTableColumnSelectFragDynamicDbNameUuid
+			UuidGen implPgSqlTableColumnSelectFragDynamicDbNameUuid
+			default empty$</GenRule>
+	<GenRule ScopeDef="Table" GenDef="TableCol" Name="implPgSqlTableColumnSqlFragDynamicDbName"
+>				|| ' $lower ClassCode$.$lower DbColumnName$ as $lower DbTableName$'
+</GenRule>
+	<GenRule ScopeDef="Table" GenDef="Atom" Name="implPgSqlTableColumnSqlFragDynamicDbName"
+>				|| ' $lower ClassCode$.$lower DbColumnName$ as $lower DbTableName$'
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlIndexColumnWhereAndFragDynamicBindVar">
+				|| ' and ' || $implPgSqlIndexColumnWhereFragDynamicBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlIndexColumnWhereFragDynamicBindVar"
+		>whereFrag$Name$</GenRule>
+
+</RuleSet>

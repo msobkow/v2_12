@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+saxloader+pgsql"
+	Name="src/SchemaSaxPgSqlLdr/SchemaSaxPgSqlLdr.java"
+	Revision="2.12"
+	Descr="Java 11 Command Line Interface for Schema SAX PostgreSQL Loader Parser">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSaxPgSqlLdrJava"
+			GenerateOnce="false"
+			ModuleName=""
+			SourceBundle="java"
+			BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$SaxPgSqlLdr/src/main/java"
+			SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$SaxPgSqlLdr"
+			ExpansionClassName="$SchemaName$SaxPgSqlLdrJava"
+			ExpansionKeyName="$SchemaName$SaxPgSqlLdrJava"
+			ExpansionFileName="$SchemaName$SaxPgSqlLdr.java"
+>// Description: Java 11 XML SAX Loader CLI persisting as PostgreSQL for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$SaxPgSqlLdr;
+
+import org.apache.log4j.*;
+import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Properties;
+
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$importJavaPackageSchemaName$$iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$importJavaPackageSchemaNameObj$
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import $lower JavaPackage$.$SchemaName$PgSql.*;
+import $lower JavaPackage$.$SchemaName$SaxLoader.*;
+
+public class $SchemaName$SaxPgSqlLdr
+	extends $SchemaName$SaxLdr
+{
+	private static ICFLibMessageLog log = new CFLibConsoleMessageLog();
+
+	// Constructors
+$implSchemaSaxPgSqlLdrConstructor$
+	// main() entry point
+$implSchemaSaxPgSqlLdrMain$
+	// Initialize the console log
+$implSchemaSaxPgSqlLdrInitConsoleLog$
+	// Evaluate remaining arguments
+$implSchemaSaxPgSqlLdrEvalRemaining$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrConstructor"
+		>$implSchemaSaxPgSqlLdrConstructorVoid$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrConstructorVoid">
+	public $SchemaName$SaxPgSqlLdr() {
+		super( log );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrEvalRemaining">
+	public void evaluateRemainingArgs( String[] args, int consumed ) {
+		// There are no extra arguments for the PostgreSQL database instance
+		if( args.length &gt; consumed ) {
+			log.message( "$SchemaName$SaxPgSqlLdr.evaluateRemainingArgs() WARNING No extra arguments are expected for a RAM database instance, but "
+				+ Integer.toString( args.length - consumed )
+				+ " extra arguments were specified.  Extra arguments ignored." );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrMain"
+		>$implSchemaSaxPgSqlLdrMainPart01$$implSchemaSaxPgSqlLdrMainPart02$$implSchemaSaxPgSqlLdrMainPart03$$implSchemaSaxPgSqlLdrMainPart04$$implSchemaSaxPgSqlLdrMainPart05$$implSchemaSaxPgSqlLdrMainPart06$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrMainPart01">
+	public static void main( String args[] ) {
+		final String S_ProcName = "$SchemaName$SaxPgSqlLdr.main() ";
+		initConsoleLog();
+		int numArgs = args.length;
+		if( numArgs &gt;= 2 ) {$implSchemaSaxPgSqlLdrInitHomeDir$$implSchemaSaxPgSqlLdrConf$
+			boolean fastExit = false;
+			$SchemaName$ClientConfigurationFile cFDbTestClientConfig = new $SchemaName$ClientConfigurationFile();
+			String cFDbTestClientConfigFileName = homeDir.getPath() + File.separator + ".cfdbtestclientrc";
+			cFDbTestClientConfig.setFileName( cFDbTestClientConfigFileName );
+			File cFDbTestClientConfigFile = new File( cFDbTestClientConfigFileName );
+			if( ! cFDbTestClientConfigFile.exists() ) {
+				String cFDbTestKeyStoreFileName = homeDir.getPath() + File.separator + ".msscfjceks";
+				cFDbTestClientConfig.setKeyStore( cFDbTestKeyStoreFileName );
+				InetAddress localHost;
+				try {
+					localHost = InetAddress.getLocalHost();
+				}
+				catch( UnknownHostException e ) {
+					localHost = null;
+				}
+				if( localHost == null ) {
+					log.message( S_ProcName + "ERROR: LocalHost is null" );
+					return;
+				}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrMainPart02">
+				String hostName = localHost.getHostName();
+				if( ( hostName == null ) || ( hostName.length() &lt;= 0 ) ) {
+					log.message( "ERROR: LocalHost.HostName is null or empty" );
+					return;
+				}
+				String userName = System.getProperty( "user.name" );
+				if( ( userName == null ) || ( userName.length() &lt;= 0 ) ) {
+					log.message( "ERROR: user.name is null or empty" );
+					return;
+				}
+				String deviceName = hostName.replaceAll( "[^\\\\w]", "_" ).toLowerCase()
+					+ "-"
+					+ userName.replaceAll( "[^\\\\w]", "_" ).toLowerCase();
+				cFDbTestClientConfig.setDeviceName( deviceName );
+				cFDbTestClientConfig.save();
+				log.message( S_ProcName + "INFO: Created $SchemaName$ client configuration file " + cFDbTestClientConfigFileName );
+				fastExit = true;
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrMainPart03">
+			if( ! cFDbTestClientConfigFile.isFile() ) {
+				log.message( S_ProcName + "ERROR: Proposed client configuration file " + cFDbTestClientConfigFileName + " is not a file." );
+				fastExit = true;
+			}
+			if( ! cFDbTestClientConfigFile.canRead() ) {
+				log.message( S_ProcName + "ERROR: Permission denied attempting to read client configuration file " + cFDbTestClientConfigFileName );
+				fastExit = true;
+			}
+			cFDbTestClientConfig.load();
+
+			if( fastExit ) {
+				return;
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrMainPart04">
+			// Configure logging
+			Properties sysProps = System.getProperties();
+			sysProps.setProperty( "log4j.rootCategory", "WARN" );
+			sysProps.setProperty( "org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Log4JLogger" );
+
+			Logger httpLogger = Logger.getLogger( $SchemaName$SaxPgSqlLdr.class );
+			httpLogger.setLevel( Level.WARN );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrMainPart05">
+			I$SchemaName$Schema $leadlower SchemaName$Schema = new $SchemaName$PgSqlSchema();
+			$leadlower SchemaName$Schema.setConfigurationFile( $leadlower SchemaName$Config );
+			I$SchemaName$SchemaObj $leadlower SchemaName$SchemaObj = new $SchemaName$SchemaObj();
+			$leadlower SchemaName$SchemaObj.setBackingStore( $leadlower SchemaName$Schema );
+			$SchemaName$SaxLdr cli = new $SchemaName$SaxPgSqlLdr();
+			$SchemaName$SaxLoader loader = cli.getSaxLoader();
+			loader.setSchemaObj( $leadlower SchemaName$SchemaObj );
+			$leadlower SchemaName$Schema.connect();
+			String url = args[1];
+			if( numArgs &gt;= 5 ) {
+				cli.setClusterName( args[2] );
+				cli.setTenantName( args[3] );
+				cli.setSecUserName( args[4] );
+			}
+			else {
+				cli.setClusterName( "default" );
+				cli.setTenantName( "system" );
+				cli.setSecUserName( "system" );
+			}
+			loader.setUseCluster( cli.getClusterObj() );
+			loader.setUseTenant( cli.getTenantObj() );
+			try {$implSchemaSaxPgSqlLoaderMainTryBody$
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLoaderMainTryBody">
+				$leadlower SchemaName$Schema.beginTransaction();
+				$leadlower SchemaName$SchemaObj.setSecCluster( cli.getClusterObj() );
+				$leadlower SchemaName$SchemaObj.setSecTenant( cli.getTenantObj() );
+				$leadlower SchemaName$SchemaObj.setSecUser( cli.getSecUserObj() );
+				$leadlower SchemaName$SchemaObj.setSecSession( cli.getSecSessionObj() );
+				$SecSchemaName$Authorization auth = new $SecSchemaName$Authorization();
+				auth.setSecCluster( $leadlower SchemaName$SchemaObj.getSecCluster() );
+				auth.setSecTenant( $leadlower SchemaName$SchemaObj.getSecTenant() );
+				auth.setSecSession( $leadlower SchemaName$SchemaObj.getSecSession() );
+				$leadlower SchemaName$SchemaObj.setAuthorization( auth );
+				applyLoaderOptions( loader, args[0] );
+				if( numArgs &gt;= 5 ) {
+					cli.evaluateRemainingArgs( args, 5 );
+				}
+				else {
+					cli.evaluateRemainingArgs( args, 2 );
+				}
+				loader.parseFile( url );
+				$leadlower SchemaName$Schema.commit();
+				$leadlower SchemaName$Schema.disconnect( true );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrMainPart06">
+			catch( Exception e ) {
+				log.message( S_ProcName + "EXCEPTION: Could not parse XML file \\"" + url + "\\": " + e.getMessage() );
+				e.printStackTrace( System.out );
+			}
+			catch( Error e ) {
+				log.message( S_ProcName + "ERROR: Could not parse XML file \\"" + url + "\\": " + e.getMessage() );
+				e.printStackTrace( System.out );
+			}
+			finally {
+				if( $leadlower SchemaName$Schema.isConnected() ) {
+					$leadlower SchemaName$Schema.rollback();
+					$leadlower SchemaName$Schema.disconnect( false );
+				}
+			}
+		}
+		else {
+			log.message( S_ProcName + "ERROR: Expected at least two argument specifying the loader options and the name of the XML file to parse.  The first argument may be empty." );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrInitHomeDir">
+			String homeDirName = System.getProperty( "HOME" );
+			if( homeDirName == null ) {
+				homeDirName = System.getProperty( "user.home" );
+				if( homeDirName == null ) {
+					log.message( S_ProcName + "ERROR: Home directory not set" );
+					return;
+				}
+			}
+			File homeDir = new File( homeDirName );
+			if( ! homeDir.exists() ) {
+				log.message( S_ProcName + "ERROR: Home directory \\"" + homeDirName + "\\" does not exist" );
+				return;
+			}
+			if( ! homeDir.isDirectory() ) {
+				log.message( S_ProcName + "ERROR: Home directory \\"" + homeDirName + "\\" is not a directory" );
+				return;
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrConf">
+			$SchemaName$ConfigurationFile $leadlower SchemaName$Config = new $SchemaName$ConfigurationFile();
+			String $leadlower SchemaName$ConfigFileName = homeDir.getPath() + File.separator + ".$lower SchemaName$pgsqlrc";
+			$leadlower SchemaName$Config.setFileName( $leadlower SchemaName$ConfigFileName );
+			File $leadlower SchemaName$ConfigFile = new File( $leadlower SchemaName$ConfigFileName );
+			if( ! $leadlower SchemaName$ConfigFile.exists() ) {
+				$leadlower SchemaName$Config.setDbServer( "127.0.0.1" );
+				$leadlower SchemaName$Config.setDbPort( 5432 );
+				$leadlower SchemaName$Config.setDbDatabase( "$DbSchemaName$" );
+				$leadlower SchemaName$Config.setDbUserName( "postgres" );
+				$leadlower SchemaName$Config.setDbPassword( "edit-me-please" );
+				$leadlower SchemaName$Config.save();
+				log.message( S_ProcName + "INFO: Created configuration file " + $leadlower SchemaName$ConfigFileName + ", please edit configuration and restart." );
+				return;
+			}
+			if( ! $leadlower SchemaName$ConfigFile.isFile() ) {
+				log.message( S_ProcName + "ERROR: Proposed configuration file " + $leadlower SchemaName$ConfigFileName + " is not a file." );
+				return;
+			}
+			if( ! $leadlower SchemaName$ConfigFile.canRead() ) {
+				log.message( S_ProcName + "ERROR: Permission denied attempting to read configuration file " + $leadlower SchemaName$ConfigFileName );
+				return;
+			}
+			$leadlower SchemaName$Config.load();</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxPgSqlLdrInitConsoleLog">
+	protected static void initConsoleLog() {
+//		Layout layout = new PatternLayout(
+//				"%d{ISO8601}"		// Start with a timestamp
+//			+	" %-5p"				// Include the severity
+//			+	" %C.%M"			// pkg.class.method()
+//			+	" %F[%L]"			// File[lineNumber]
+//			+	": %m\\n" );			// Message text
+//		BasicConfigurator.configure( new ConsoleAppender( layout, "System.out" ) );
+	}
+</GenRule>
+
+</RuleSet>

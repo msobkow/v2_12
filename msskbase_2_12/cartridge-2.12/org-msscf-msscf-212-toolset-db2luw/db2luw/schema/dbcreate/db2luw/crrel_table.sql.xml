@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crrel_table.sql"
+	Revision="2.12"
+	Descr="IBM DB/2 LUW create table relationships sql script">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateTableRelations"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="crrel_$lower DbTableName$"
+		ExpansionKeyName="crrel_$lower DbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateTableRelations$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+$iterate Relation( each maybecreate_TableRelation empty empty )$
+commit$RunSqlStmt$</GenFile>
+
+	<GenRule ScopeDef="Table" GenDef="Relation" Name="maybecreate_TableRelation">$switch RelationTypeTag Superclass create_TableRelation Lookup create_TableRelation Master create_TableRelation Container create_TableRelation Owner create_TableRelation Parent create_TableRelation default empty$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Relation" Name="create_TableRelation">
+ALTER TABLE $DbSchemaName$.$DbTableName$ ADD CONSTRAINT $DbRelationName$$ContSqlStmt$	FOREIGN KEY ($iterate Columns(
+						each clause_FromColComma
+						last clause_FromCol
+						empty clause_MissingRelationColumns )$$ContSqlStmt$	) REFERENCES $reference ToTable
+			DbSchemaName$.$reference ToTable
+				DbTableName$ ($iterate Columns(
+								each clause_ToColComma
+								last clause_ToCol
+								empty clause_MissingRelationColumns )$$ContSqlStmt$	)$switch RelationTypeTag
+		Superclass clause_SuperclassRelConstraints
+		Lookup clause_LookupRelConstraints
+		Master clause_MasterRelConstraints
+		Details clause_DetailsRelConstraints
+		Container clause_ContainerRelConstraints
+		Owner clause_OwnerRelConstraints
+		Component clause_ComponentRelConstraints
+		Parent clause_ParentRelConstraints
+		Children clause_ChildrenRelConstraints
+		Unknown clause_UnknownRelConstraints
+		default clause_UnknownRelConstraints$$RunSqlStmt$</GenRule>
+
+	<GenRule ScopeDef="Relation" GenDef="RelationCol" Name="clause_FromColComma">$clause_FromCol$,</GenRule>
+
+	<GenRule ScopeDef="Relation" GenDef="RelationCol" Name="clause_FromCol">$ContSqlStmt$		$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule ScopeDef="Relation" GenDef="RelationCol" Name="clause_ToColComma">$clause_ToCol$,</GenRule>
+
+	<GenRule ScopeDef="Relation" GenDef="RelationCol" Name="clause_ToCol">$ContSqlStmt$		$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Relation" Name="clause_MissingRelationColumns">$ContSqlStmt$		/* BAD APPLICATION MODEL HAS NO RELATION COLUMNS */</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Relation" Name="clause_SuperclassRelConstraints"> ON DELETE RESTRICT</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Relation" Name="clause_LookupRelConstraints"> ON DELETE RESTRICT ON UPDATE RESTRICT</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Relation" Name="clause_MasterRelConstraints"> ON DELETE RESTRICT</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Relation" Name="clause_ContainerRelConstraints"> ON DELETE RESTRICT</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Relation" Name="clause_OwnerRelConstraints"> ON DELETE RESTRICT</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Relation" Name="clause_ParentRelConstraints"> ON DELETE RESTRICT</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Relation" Name="clause_UnknownRelConstraints"> ON DELETE RESTRICT ON UPDATE RESTRICT</GenRule>
+
+</RuleSet>

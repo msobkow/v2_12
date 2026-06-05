@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crsp_read_dbtablename_by_suffix.sql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="Table" GenDef="Index" Name="dbadminfile_CreateSPReadDbTableNameBySuffix"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="$dbadminfilename_CreateSPReadDbTableNameBySuffix$"
+		ExpansionKeyName="$dbadminfilename_CreateSPReadDbTableNameBySuffix$"
+		ExpansionFileName="$dbadminfilename_CreateSPReadDbTableNameBySuffix$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create or replace procedure $sp_read_dbtablename_by_suffix$($implDb2LUWSPStandardArgs$$iterate Columns( each sparg_CommaTableCol )$ )	\\
+dynamic result sets 1	\\
+language sql	\\
+begin$implDb2LUWSPReadBySuffixDeclarations$	\\
+	begin$switch TableName Cluster empty Tenant empty SecUser empty SecSession empty default implDb2LUWSPReadEnforceSec$$poptop Table implDb2LUWSPReadTableImplBody$	\\
+	end;	\\
+end
+</GenFile>
+
+	<GenRule GenDef="Index" Name="implDb2LUWSPReadBySuffixDeclarations">	\\
+	declare permissionFlag integer;	\\
+	declare isSystemUser integer;	\\
+	declare syscurs cursor with return to client for	\\
+		select$poptop Table implDb2LUWSelectTableColumns$,	\\
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$poptop Table DbTableName$ as $lower poptop Table ClassCode$$poptop Table switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+			$iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$$poptop Table restrictReadByIndexQuery$$switch IsUnique yes empty default implSPReadTableOrderByDescendingPKey$;	\\
+	declare usercurs cursor with return to client for	\\
+		select$poptop Table implDb2LUWSelectTableColumns$,	\\
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$poptop Table DbTableName$ as $lower poptop Table ClassCode$$poptop Table switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+			$iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$$poptop Table restrictReadByIndexQuery$$poptop Table implDb2LUWReadRestrictSec$$switch IsUnique yes empty default implSPReadTableOrderByDescendingPKey$;</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictReadByIndexQuery"
+		>$switch HasSuperClassRelation yes restrictReadByIndexQueryByClassCode default restrictBaseReadByIndexQueryByClassCode$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictBaseReadByIndexQueryByClassCode"
+		>$switch HasSubClasses yes restrictReadByIndexQueryByClassCode default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictReadByIndexQueryByClassCode">	\\
+		and $lower reference BaseClass ClassCode$.ClassCode = '$poptop Table ClassCode$'</GenRule>
+
+</RuleSet>

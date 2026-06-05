@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mssql"
+	Name="schema/dbcreate/mssql/crsp_read_dbtablename_all.tsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPReadDbTableNameAll"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mssql"
+		ExpansionClassName="$dbadminfilename_CreateSPReadDbTableNameAll$"
+		ExpansionKeyName="$dbadminfilename_CreateSPReadDbTableNameAll$"
+		ExpansionFileName="$dbadminfilename_CreateSPReadDbTableNameAll$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+use $lower DbSchemaName$
+go
+
+create proc $sp_read_dbtablename_all$$implMSSqlSPStandardArgs$
+as$switch SecScope None empty System empty Cluster implMSSqlSPTableReallyDeclPermFlag Tenant implMSSqlSPTableReallyDeclPermFlag default error$
+begin$switch TableName Cluster empty Tenant empty SecUser empty default implMSSqlSPReadEnforceSec$$switch SecScope None implMSSqlSPReadTableAllRetSelectNormal System implMSSqlSPReadTableAllRetSelectNormal Cluster implMSSqlSPReadTableAllRetSelectRestrictCluster Tenant implMSSqlSPReadTableAllRetSelectRestrictTenant default error$
+end
+go
+
+quit
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableAllRetSelectNormal">
+	select
+$poptop Table implMSSqlSelectTableColumns$,
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision
+	from $poptop Table lower DbSchemaName$..$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$implSPReadTableOrderByDescendingPKey$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPReadTableOrderByDescendingPKey"
+		>$reference Table implSPReadTableOrderByDescendingPKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPReadTableOrderByDescendingPKey"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( first implSPReadTableOrderEmitOrderByColumn each implSPReadTableOrderCommaByColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPReadTableOrderEmitOrderByColumn">
+		order by $implSPReadTableOrderByColumn$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPReadTableOrderCommaByColumn">,
+			$implSPReadTableOrderByColumn$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPReadTableOrderByColumn"
+		><!--reference Index reference Table lower ClassCode.-->$reference Column DbColumnName$ desc</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableAllRetSelectRestrictCluster"
+>	if( @isSystemUser = 1 )
+	begin
+		select$poptop Table implMSSqlSelectTableColumns$,
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$..$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$implSPReadTableOrderByDescendingPKey$
+	end
+	else begin
+		select$poptop Table implMSSqlSelectTableColumns$,
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$..$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$switch TableInClassHierarchy yes implMSSqlSPReadTableRetSelectAndRestrictCluster default implMSSqlSPReadTableRetSelectWhereRestrictCluster$$implSPReadTableOrderByDescendingPKey$
+	end</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPReadTableAllRetSelectRestrictTenant"
+>	if( @isSystemUser = 1 )
+	begin
+		select$poptop Table implMSSqlSelectTableColumns$,
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$..$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$implSPReadTableOrderByDescendingPKey$
+	end
+	else begin
+		select$poptop Table implMSSqlSelectTableColumns$,
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$..$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$switch TableInClassHierarchy yes implMSSqlSPReadTableRetSelectAndRestrictTenant default implMSSqlSPReadTableRetSelectWhereRestrictTenant$$implSPReadTableOrderByDescendingPKey$
+	end</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictReadAllQuery">
+	where
+		$lower reference BaseClass ClassCode$.classcode = '$poptop Table ClassCode$'</GenRule>
+
+	<GenRule GenDef="Index" Name="TableInClassHierarchy"
+		>$poptop Table TableInClassHierarchy$</GenRule>
+
+	<GenRule GenDef="Table" Name="TableInClassHierarchy"
+		>$reference BaseClass IsBaseTable$</GenRule>
+
+</RuleSet>

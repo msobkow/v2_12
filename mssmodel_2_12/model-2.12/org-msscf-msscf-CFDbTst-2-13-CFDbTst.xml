@@ -1,0 +1,6258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ *	MSS Code Factory CFDbTst 2.13 Database Test Suite
+ *
+ *	Copyright 2020 Mark Stephen Sobkow
+ *
+ *		This file is part of MSS Code Factory.
+ *
+ *		MSS Code Factory is available under dual commercial license from Mark Stephen
+ *		Sobkow, or under the terms of the GNU General Public License, Version 3
+ *		or later.
+ *
+ *	    MSS Code Factory is free software: you can redistribute it and/or modify
+ *	    it under the terms of the GNU General Public License as published by
+ *	    the Free Software Foundation, either version 3 of the License, or
+ *	    (at your option) any later version.
+ *
+ *	    MSS Code Factory is distributed in the hope that it will be useful,
+ *	    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	    GNU General Public License for more details.
+ *
+ *	    You should have received a copy of the GNU General Public License
+ *	    along with MSS Code Factory.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Please contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ *-->
+<MSSBam
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/mssbam.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/mssbam.xsd http://msscf.org:8088/msscf/2.0.12/xsd/mssbam.xsd"
+		Name="CFDbTst"
+		Revision="2.13"
+		Description="MSS Code Factory Database Test"
+		ProjectRoot="org.msscf.msscf.CFDbTst.2.13" >
+	<Tld Name="org" >
+		<TopDomain Name="msscf" >
+			<License Name="MssCFDbTstGPLv3"
+					Description="MSS Code Factory Dual Commercial/GNU General Public License V3 for CFDbTst">
+MSS Code Factory CFDbTst 2.13 Database Test Suite
+
+Copyright 2020 Mark Stephen Sobkow
+
+	This file is part of MSS Code Factory.
+
+	MSS Code Factory is available under dual commercial license from Mark Stephen
+	Sobkow, or under the terms of the GNU General Public License, Version 3
+	or later.
+
+    MSS Code Factory is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    MSS Code Factory is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with MSS Code Factory.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
+
+Donations to support MSS Code Factory can be made at
+https://www.paypal.com/paypalme2/MarkSobkow
+
+Please contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.</License>
+			<TopProject Name="msscf" >
+				<SubProject Name="CFDbTst" >
+					<MajorVersion Name="2" >
+						<MinorVersion Name="13" >
+<SchemaDef Name="CFDbTst"
+		DbName="CFDbTst213"
+		ShortName="CFDbTst"
+		Description="MSS Code Factory Database Test"
+		DefaultLicense="org.msscf.MssCFDbTstGPLv3"
+		CopyrightHolder="Mark Stephen Sobkow"
+		CopyrightPeriod="2020"
+		AuthorEMail="msobkow@sasktel.net"
+		ProjectURL="http://msscf.org/"
+		PublishURI="https://msscf.sourceforge.io/org-msscf-msscf-CFDbTst-2-13-CFDbTst.xml" >
+
+	<SchemaRef Name="CFSec"
+			RefModelName="org-msscf-msscf-CFSec-2-13-CFSec"
+			IncludeRoot="org.msscf.msscf.CFSec.2.13.CFSec" />
+
+	<SchemaRef Name="CFInt"
+			RefModelName="org-msscf-msscf-CFInt-2-13-CFInt"
+			IncludeRoot="org.msscf.msscf.CFInt.2.13.CFInt" />
+
+	<StringType Name="DescriptionType"
+			IsNullable="false"
+			MaxLen="127"
+			InitValue="" />
+
+	<Int16Type Name="FullRangeInt16"
+			IsNullable="false"
+			InitValue="0" />
+
+	<Id64Gen Name="IndexColIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1012"
+			BlockSize="1" />
+
+	<Id64Gen Name="IndexIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1011"
+			BlockSize="1" />
+
+	<EnumType Name="LoaderBehaviourEnum"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0" >
+		<EnumTag Name="Insert" EnumCode="0" />
+		<EnumTag Name="Update" EnumCode="1" />
+		<EnumTag Name="Replace" EnumCode="2" />
+	</EnumType>
+
+	<StringType Name="NameType"
+			IsNullable="false"
+			MaxLen="255"
+			InitValue="" />
+
+	<Id16Gen Name="OptFullRangeIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Slice="1005"
+			BlockSize="1" />
+
+	<Id64Gen Name="OptMaxValueIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Slice="1007"
+			BlockSize="1" />
+
+	<UuidGen Name="OptMinMaxValueIdGen"
+			IsNullable="false"
+			InitValue="654dbba0-eda7-11e1-aff1-0800200c9a66"
+			Slice="1008"
+			BlockSize="1" />
+
+	<Id32Gen Name="OptMinValueIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Slice="1006"
+			BlockSize="1" />
+
+	<Id64Gen Name="RelationColIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1014"
+			BlockSize="1" />
+
+	<Id64Gen Name="RelationIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1013"
+			BlockSize="1" />
+
+	<Id16Gen Name="ReqFullRangeIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1001"
+			BlockSize="1" />
+
+	<Id64Gen Name="ReqMaxValueIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1003"
+			BlockSize="1" />
+
+	<Id64Gen Name="ReqMinMaxValueIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1004"
+			BlockSize="1" />
+
+	<Id32Gen Name="ReqMinValueIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1002"
+			BlockSize="1" />
+
+	<Id64Gen Name="ScopeIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1009"
+			BlockSize="1" />
+
+	<Id64Gen Name="ValueIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="1015"
+			BlockSize="1" />
+
+	<Table Name="OptFullRange"
+			TableClassCode="a701"
+			DbName="optflrng"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="OptFullRangeUDescrIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="OptFullRangeIdGen" />
+		<TableCol Name="Description"
+				IsNullable="false"
+				DataType="DescriptionType" />
+		<BoolCol Name="TestBool"
+				IsNullable="true" />
+		<BlobCol Name="TestBlob"
+				IsNullable="true"
+				MaxLen="100000000" />
+		<Int16Col Name="TestInt16"
+				IsNullable="true" />
+		<Int32Col Name="TestInt32"
+				IsNullable="true" />
+		<Int64Col Name="TestInt64"
+				IsNullable="true" />
+		<UInt16Col Name="TestUInt16"
+				IsNullable="true" />
+		<UInt32Col Name="TestUInt32"
+				IsNullable="true" />
+		<UInt64Col Name="TestUInt64"
+				IsNullable="true" />
+		<FloatCol Name="TestFloat"
+				IsNullable="true" />
+		<DoubleCol Name="TestDouble"
+				IsNullable="true" />
+		<NumberCol Name="TestNumber"
+				IsNullable="true"
+				Digits="20"
+				Precis="0" />
+		<StringCol Name="TestString"
+				IsNullable="true"
+				MaxLen="32" />
+		<TextCol Name="TestText"
+				IsNullable="true"
+				MaxLen="100000000" />
+		<TokenCol Name="TestToken"
+				IsNullable="true"
+				MaxLen="32" />
+		<NmTokenCol Name="TestNmToken"
+				IsNullable="true"
+				MaxLen="32" />
+		<NmTokensCol Name="TestNmTokens"
+				IsNullable="true"
+				MaxLen="32" />
+		<DateCol Name="TestDate"
+				IsNullable="true" />
+		<TimeCol Name="TestTime"
+				IsNullable="true" />
+		<TimestampCol Name="TestTimestamp"
+				IsNullable="true" />
+		<TZDateCol Name="TestTZDate"
+				IsNullable="true" />
+		<TZTimeCol Name="TestTZTime"
+				IsNullable="true" />
+		<TZTimestampCol Name="TestTZTimestamp"
+				IsNullable="true" />
+		<UuidCol Name="TestUuid"
+				IsNullable="true" />
+		<TableCol Name="TestEnum"
+				IsNullable="true"
+				DataType="LoaderBehaviourEnum" />
+		<PrimaryIndex Name="OptFullRangeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="optfullrange_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="OptFullRangeUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="optfullrange_xudescr"
+				ShortName="UDescr"
+				Suffix="UDescrIdx"
+				Label="Unique Description Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+		<Index Name="OptFullRangeTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="optfullrange_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="OptMaxValue"
+			TableClassCode="a702"
+			DbName="optmaxval"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="OptMaxValueUDescrIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="OptMaxValueIdGen" />
+		<TableCol Name="Description"
+				IsNullable="false"
+				DataType="DescriptionType" />
+		<Int16Col Name="TestInt16"
+				IsNullable="true"
+				MaxValue="100" />
+		<Int32Col Name="TestInt32"
+				IsNullable="true"
+				MaxValue="100" />
+		<Int64Col Name="TestInt64"
+				IsNullable="true"
+				MaxValue="100" />
+		<UInt16Col Name="TestUInt16"
+				IsNullable="true"
+				MaxValue="100" />
+		<UInt32Col Name="TestUInt32"
+				IsNullable="true"
+				MaxValue="100" />
+		<UInt64Col Name="TestUInt64"
+				IsNullable="true"
+				MaxValue="100" />
+		<FloatCol Name="TestFloat"
+				IsNullable="true"
+				MaxValue="100" />
+		<DoubleCol Name="TestDouble"
+				IsNullable="true"
+				MaxValue="100" />
+		<NumberCol Name="TestNumber"
+				IsNullable="true"
+				Digits="20"
+				Precis="0"
+				MaxValue="100" />
+		<PrimaryIndex Name="OptMaxValueIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="optmaxvalue_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="OptMaxValueUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="optmaxval_xudescr"
+				ShortName="UDescr"
+				Suffix="UDescrIdx"
+				Label="Unique Description Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+		<Index Name="OptMaxValueTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="optmaxvalue_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="OptMinMaxValue"
+			TableClassCode="a703"
+			DbName="optminmaxval"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="OptMinMaxValueUDescrIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="OptMinMaxValueIdGen" />
+		<TableCol Name="Description"
+				IsNullable="false"
+				DataType="DescriptionType" />
+		<Int16Col Name="TestInt16"
+				IsNullable="true"
+				MinValue="10"
+				MaxValue="100" />
+		<Int32Col Name="TestInt32"
+				IsNullable="true"
+				MinValue="10"
+				MaxValue="100" />
+		<Int64Col Name="TestInt64"
+				IsNullable="true"
+				MinValue="10"
+				MaxValue="100" />
+		<UInt16Col Name="TestUInt16"
+				IsNullable="true"
+				MinValue="10"
+				MaxValue="100" />
+		<UInt32Col Name="TestUInt32"
+				IsNullable="true"
+				MinValue="10"
+				MaxValue="100" />
+		<UInt64Col Name="TestUInt64"
+				IsNullable="true"
+				MinValue="10"
+				MaxValue="100" />
+		<FloatCol Name="TestFloat"
+				IsNullable="true"
+				MinValue="10"
+				MaxValue="100" />
+		<DoubleCol Name="TestDouble"
+				IsNullable="true"
+				MinValue="10"
+				MaxValue="100" />
+		<NumberCol Name="TestNumber"
+				IsNullable="true"
+				Digits="20"
+				Precis="0"
+				MinValue="10"
+				MaxValue="100" />
+		<PrimaryIndex Name="OptMinMaxValueIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="optminmaxvalue_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="OptMinMaxValueUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="optminmaxval_xudescr"
+				ShortName="UDescr"
+				Suffix="UDescrIdx"
+				Label="Unique Description Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+		<Index Name="OptMinMaxValueTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="optminmaxvalue_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="OptMinValue"
+			TableClassCode="a704"
+			DbName="optminval"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="OptMinValueUDescrIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="OptMinValueIdGen" />
+		<TableCol Name="Description"
+				IsNullable="false"
+				DataType="DescriptionType" />
+		<Int16Col Name="TestInt16"
+				IsNullable="true"
+				MinValue="10" />
+		<Int32Col Name="TestInt32"
+				IsNullable="true"
+				MinValue="10" />
+		<Int64Col Name="TestInt64"
+				IsNullable="true"
+				MinValue="10" />
+		<UInt16Col Name="TestUInt16"
+				IsNullable="true"
+				MinValue="10" />
+		<UInt32Col Name="TestUInt32"
+				IsNullable="true"
+				MinValue="10" />
+		<UInt64Col Name="TestUInt64"
+				IsNullable="true"
+				MinValue="10" />
+		<FloatCol Name="TestFloat"
+				IsNullable="true"
+				MinValue="10" />
+		<DoubleCol Name="TestDouble"
+				IsNullable="true"
+				MinValue="10" />
+		<NumberCol Name="TestNumber"
+				IsNullable="true"
+				Digits="20"
+				Precis="0"
+				MinValue="10" />
+		<PrimaryIndex Name="OptMinValueIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="optminvalue_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="OptMinValueUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="optminval_xudescr"
+				ShortName="UDescr"
+				Suffix="UDescrIdx"
+				Label="Unique Description Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+		<Index Name="OptMinValueTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="optminvalue_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ReqFullRange"
+			TableClassCode="a705"
+			DbName="reqflrng"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ReqFullRangeUDescrIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ReqFullRangeIdGen" />
+		<TableCol Name="Description"
+				IsNullable="false"
+				DataType="DescriptionType" />
+		<BoolCol Name="TestBool"
+				IsNullable="false"
+				InitValue="false" />
+		<TableCol Name="TestInt16"
+				IsNullable="false"
+				DataType="FullRangeInt16" />
+		<Int32Col Name="TestInt32"
+				IsNullable="false"
+				InitValue="0" />
+		<Int64Col Name="TestInt64"
+				IsNullable="false"
+				InitValue="0" />
+		<UInt16Col Name="TestUInt16"
+				IsNullable="false"
+				InitValue="0" />
+		<UInt32Col Name="TestUInt32"
+				IsNullable="false"
+				InitValue="0" />
+		<UInt64Col Name="TestUInt64"
+				IsNullable="false"
+				InitValue="0" />
+		<FloatCol Name="TestFloat"
+				IsNullable="false"
+				InitValue="0" />
+		<DoubleCol Name="TestDouble"
+				IsNullable="false"
+				InitValue="0" />
+		<NumberCol Name="TestNumber"
+				IsNullable="false"
+				Digits="20"
+				Precis="0"
+				InitValue="0" />
+		<StringCol Name="TestString"
+				IsNullable="false"
+				MaxLen="32"
+				InitValue="" />
+		<TextCol Name="TestText"
+				IsNullable="false"
+				MaxLen="100000000"
+				InitValue="" />
+		<TokenCol Name="TestToken"
+				IsNullable="false"
+				MaxLen="32"
+				InitValue="init" />
+		<NmTokenCol Name="TestNmToken"
+				IsNullable="false"
+				MaxLen="32"
+				InitValue="init" />
+		<NmTokensCol Name="TestNmTokens"
+				IsNullable="false"
+				MaxLen="32"
+				InitValue="init" />
+		<DateCol Name="TestDate"
+				IsNullable="false" />
+		<TimeCol Name="TestTime"
+				IsNullable="false" />
+		<TimestampCol Name="TestTimestamp"
+				IsNullable="false" />
+		<TZDateCol Name="TestTZDate"
+				IsNullable="false" />
+		<TZTimeCol Name="TestTZTime"
+				IsNullable="false" />
+		<TZTimestampCol Name="TestTZTimestamp"
+				IsNullable="false" />
+		<UuidCol Name="TestUuid"
+				IsNullable="false"
+				InitValue="43119404-fbac-11e1-9c2b-f23c91df28c0" />
+		<TableCol Name="TestEnum"
+				IsNullable="false"
+				DataType="LoaderBehaviourEnum" />
+		<PrimaryIndex Name="ReqFullRangeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="reqfullrange_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ReqFullRangeUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="reqfullrange_xudescr"
+				ShortName="UDescr"
+				Suffix="UDescrIdx"
+				Label="Unique Description Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+		<Index Name="ReqFullRangeTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reqfullrange_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ReqMaxValue"
+			TableClassCode="a706"
+			DbName="reqmaxval"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ReqMaxValueUDescrIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ReqMaxValueIdGen" />
+		<TableCol Name="Description"
+				IsNullable="false"
+				DataType="DescriptionType" />
+		<Int16Col Name="TestInt16"
+				IsNullable="false"
+				MaxValue="100"
+				InitValue="100" />
+		<Int32Col Name="TestInt32"
+				IsNullable="false"
+				MaxValue="100"
+				InitValue="100" />
+		<Int64Col Name="TestInt64"
+				IsNullable="false"
+				MaxValue="100"
+				InitValue="100" />
+		<UInt16Col Name="TestUInt16"
+				IsNullable="false"
+				MaxValue="100"
+				InitValue="100" />
+		<UInt32Col Name="TestUInt32"
+				IsNullable="false"
+				MaxValue="100"
+				InitValue="100" />
+		<UInt64Col Name="TestUInt64"
+				IsNullable="false"
+				MaxValue="100"
+				InitValue="100" />
+		<FloatCol Name="TestFloat"
+				IsNullable="false"
+				MaxValue="100"
+				InitValue="100" />
+		<DoubleCol Name="TestDouble"
+				IsNullable="false"
+				MaxValue="100"
+				InitValue="100" />
+		<NumberCol Name="TestNumber"
+				IsNullable="false"
+				Digits="20"
+				Precis="0"
+				MaxValue="100"
+				InitValue="100" />
+		<PrimaryIndex Name="ReqMaxValueIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="reqmaxvalue_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ReqMaxValueUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="reqmaxval_xudescr"
+				ShortName="UDescr"
+				Suffix="UDescrIdx"
+				Label="Unique Description Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+		<Index Name="ReqMaxValueTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reqmaxvalue_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ReqMinMaxValue"
+			TableClassCode="a707"
+			DbName="reqminmaxval"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ReqMinMaxValueUDescrIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ReqMinMaxValueIdGen" />
+		<TableCol Name="Description"
+				IsNullable="false"
+				DataType="DescriptionType" />
+		<Int16Col Name="TestInt16"
+				IsNullable="false"
+				MinValue="10"
+				MaxValue="100"
+				InitValue="10" />
+		<Int32Col Name="TestInt32"
+				IsNullable="false"
+				MinValue="10"
+				MaxValue="100"
+				InitValue="10" />
+		<Int64Col Name="TestInt64"
+				IsNullable="false"
+				MinValue="10"
+				MaxValue="100"
+				InitValue="10" />
+		<UInt16Col Name="TestUInt16"
+				IsNullable="false"
+				MinValue="10"
+				MaxValue="100"
+				InitValue="10" />
+		<UInt32Col Name="TestUInt32"
+				IsNullable="false"
+				MinValue="10"
+				MaxValue="100"
+				InitValue="10" />
+		<UInt64Col Name="TestUInt64"
+				IsNullable="false"
+				MinValue="10"
+				MaxValue="100"
+				InitValue="10" />
+		<FloatCol Name="TestFloat"
+				IsNullable="false"
+				MinValue="10"
+				MaxValue="100"
+				InitValue="10" />
+		<DoubleCol Name="TestDouble"
+				IsNullable="false"
+				MinValue="10"
+				MaxValue="100"
+				InitValue="10" />
+		<NumberCol Name="TestNumber"
+				IsNullable="false"
+				Digits="20"
+				Precis="0"
+				MinValue="10"
+				MaxValue="100"
+				InitValue="10" />
+		<PrimaryIndex Name="ReqMinMaxValueIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="reqminmaxvalue_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ReqMinMaxValueUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="reqminmaxval_xudescr"
+				ShortName="UDescr"
+				Suffix="UDescrIdx"
+				Label="Unique Description Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+		<Index Name="ReqMinMaxValueTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reqminmaxvalue_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ReqMinValue"
+			TableClassCode="a708"
+			DbName="reqminval"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ReqMinValueUDescrIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ReqMinValueIdGen" />
+		<TableCol Name="Description"
+				IsNullable="false"
+				DataType="DescriptionType" />
+		<Int16Col Name="TestInt16"
+				IsNullable="false"
+				MinValue="10"
+				InitValue="10" />
+		<Int32Col Name="TestInt32"
+				IsNullable="false"
+				MinValue="10"
+				InitValue="10" />
+		<Int64Col Name="TestInt64"
+				IsNullable="false"
+				MinValue="10"
+				InitValue="10" />
+		<UInt16Col Name="TestUInt16"
+				IsNullable="false"
+				MinValue="10"
+				InitValue="10" />
+		<UInt32Col Name="TestUInt32"
+				IsNullable="false"
+				MinValue="10"
+				InitValue="10" />
+		<UInt64Col Name="TestUInt64"
+				IsNullable="false"
+				MinValue="10"
+				InitValue="10" />
+		<FloatCol Name="TestFloat"
+				IsNullable="false"
+				MinValue="10"
+				InitValue="10" />
+		<DoubleCol Name="TestDouble"
+				IsNullable="false"
+				MinValue="10"
+				InitValue="10" />
+		<NumberCol Name="TestNumber"
+				IsNullable="false"
+				Digits="20"
+				Precis="0"
+				MinValue="10"
+				InitValue="10" />
+		<PrimaryIndex Name="ReqMinValueIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="reqminvalue_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ReqMinValueUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="reqminval_xudescr"
+				ShortName="UDescr"
+				Suffix="UDescrIdx"
+				Label="Unique Description Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+		<Index Name="ReqMinValueTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reqminvalue_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="Scope"
+			TableClassCode="a709"
+			DbName="scopedef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="ScopeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="scopedef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ScopeTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="scopedef_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="SchemaDef"
+			TableClassCode="a70a"
+			DbName="schemadef"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="SchemaDefUNameIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ScopeIdGen" />
+		<TableCol Name="MinorVersionId"
+				IsNullable="false"
+				DataType="MinorVersionIdGen" />
+		<TableCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				DataType="NameType" />
+		<PrimaryIndex Name="SchemaDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="schemadef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="SchemaDefCTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="schemadef_ctenantidx"
+				ShortName="CTenant"
+				Suffix="CTenantIdx"
+				Label="CTenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="SchemaDefMinorVersionIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="schemadef_mnvridx"
+				ShortName="MinorVersionIdx"
+				Suffix="MinorVersionIdx"
+				Label="Minor Version Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="MinorVersionId" IsAscending="true" />
+		</Index>
+		<Index Name="SchemaDefUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="schemadef_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="MinorVersionId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="schemadef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="SchemaDefIdIdx"
+				ToIndex="Scope.ScopeIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Table"
+			TableClassCode="a70b"
+			DbName="tbldef"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="TableUNameIdx"
+			QualTable="SchemaDef"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ScopeIdGen" />
+		<TableCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				DataType="NameType" />
+		<BoolCol Name="DefaultVisibility"
+				IsNullable="false"
+				DbName="dflt_vis"
+				InitValue="true" />
+		<TableCol Name="LoaderBehaviour"
+				IsNullable="false"
+				DbName="LoaderBhv"
+				DataType="LoaderBehaviourEnum" />
+		<TableCol Name="OptLoaderBehaviour"
+				IsNullable="true"
+				DbName="OptLoaderBhv"
+				DataType="LoaderBehaviourEnum" />
+		<TableCol Name="PrimaryIndexTenantId"
+				IsNullable="true"
+				DbName="pidxtentid"
+				DataType="TenantIdGen" />
+		<TableCol Name="PrimaryIndexId"
+				IsNullable="true"
+				DbName="pidxid"
+				DataType="IndexIdGen" />
+		<PrimaryIndex Name="TableIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tbldef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="TableSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tbldef_schemaidx"
+				ShortName="SchemaDef"
+				Suffix="SchemaDefIdx"
+				Label="SchemaDefIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<Index Name="TableUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="table_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+		<Index Name="TablePrimaryIndexIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tbldef_pidxidx"
+				ShortName="PIndexIdx"
+				Suffix="PIndexIdx"
+				Label="Primary Index Index" >
+			<IndexCol Name="PrimaryIndexTenantId" IsAscending="true" />
+			<IndexCol Name="PrimaryIndexId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="tbldef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="TableIdIdx"
+				ToIndex="Scope.ScopeIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Value"
+			TableClassCode="a70c"
+			DbName="valdef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ValueUNameIdx"
+			QualTable="SchemaDef"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="ScopeId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ValueIdGen" />
+		<TableCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				DataType="NameType" />
+		<BoolCol Name="DefaultVisibility"
+				IsNullable="false"
+				DbName="dflt_vis"
+				InitValue="true" />
+		<TableCol Name="PrevTenantId"
+				IsNullable="true"
+				DbName="prevtentid"
+				DataType="TenantIdGen" />
+		<TableCol Name="PrevId"
+				IsNullable="true"
+				DataType="ValueIdGen" />
+		<TableCol Name="NextTenantId"
+				IsNullable="true"
+				DbName="nexttentid"
+				DataType="TenantIdGen" />
+		<TableCol Name="NextId"
+				IsNullable="true"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="ValueIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="valdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ValueUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="valdef_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ScopeId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+		<Index Name="ValueTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="valdef_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="ValueScopeIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="valdef_scopeidx"
+				ShortName="Scope"
+				Suffix="ScopeIdx"
+				Label="ScopeIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ScopeId" IsAscending="true" />
+		</Index>
+		<Index Name="ValuePrevIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="valdef_previdx"
+				ShortName="Previous"
+				Suffix="PrevIdx"
+				Label="Previous Index" >
+			<IndexCol Name="PrevTenantId" IsAscending="true" />
+			<IndexCol Name="PrevId" IsAscending="true" />
+		</Index>
+		<Index Name="ValueNextIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="valdef_nextidx"
+				ShortName="Next"
+				Suffix="NextIdx"
+				Label="Next Index" >
+			<IndexCol Name="NextTenantId" IsAscending="true" />
+			<IndexCol Name="NextId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="Atom"
+			TableClassCode="a70d"
+			DbName="atomdef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="AtomIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="atomdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="atomdef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="AtomIdIdx"
+				ToIndex="Value.ValueIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="BlobDef"
+			TableClassCode="a70e"
+			DbName="blbdef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<BlobCol Name="InitVal"
+				IsNullable="true"
+				MaxLen="100000000" />
+		<PrimaryIndex Name="BlobDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="blbdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="blbdef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="BlobDefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="BlobType"
+			TableClassCode="a70f"
+			DbName="blbtyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="BlobTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="blbtyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="BlobTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="blbtyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="blbtyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="BlobTypeIdIdx"
+				ToIndex="BlobDef.BlobDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="BoolDef"
+			TableClassCode="a710"
+			DbName="booldef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="BoolDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="booldef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="booldef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="BoolDefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="BoolType"
+			TableClassCode="a711"
+			DbName="booltyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="BoolTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="booltyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="BoolTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="booltyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="booltyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="BoolTypeIdIdx"
+				ToIndex="BoolDef.BoolDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="DoubleDef"
+			TableClassCode="a712"
+			DbName="dbldef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="DoubleDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="dbldef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="dbldef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="DoubleDefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="DoubleType"
+			TableClassCode="a713"
+			DbName="dbltyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="DoubleTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="dbltyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="DoubleTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="dbltyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="dbltyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="DoubleTypeIdIdx"
+				ToIndex="DoubleDef.DoubleDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="FloatDef"
+			TableClassCode="a714"
+			DbName="fltdef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="FloatDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="fltdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="fltdef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="FloatDefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="FloatType"
+			TableClassCode="a715"
+			DbName="flttyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="FloatTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="flttyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FloatTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="flttyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="flttyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="FloatTypeIdIdx"
+				ToIndex="FloatDef.FloatDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Index"
+			TableClassCode="a716"
+			DbName="idxdef"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="IndexUNameIdx"
+			QualTable="SchemaDef"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="IndexIdGen" />
+		<TableCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				DataType="NameType" />
+		<BoolCol Name="DefaultVisibility"
+				IsNullable="false"
+				DbName="dflt_vis"
+				InitValue="true" />
+		<PrimaryIndex Name="IndexIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="idxdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="IndexUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="idxdef_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+		<Index Name="IndexTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="idxdef_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="IndexTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="idxdef_tableidx"
+				ShortName="Table"
+				Suffix="TableIdx"
+				Label="TableIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="IndexCol"
+			TableClassCode="a717"
+			DbName="idxcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="IndexColUNameIdx"
+			QualTable="SchemaDef"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="IndexId"
+				IsNullable="false"
+				DataType="IndexIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="IndexColIdGen" />
+		<TableCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				DataType="NameType" />
+		<BoolCol Name="DefaultVisibility"
+				IsNullable="false"
+				DbName="dflt_vis"
+				InitValue="true" />
+		<TableCol Name="DataColTenantId"
+				IsNullable="true"
+				DbName="dcol_tentid"
+				DataType="TenantIdGen" />
+		<TableCol Name="DataColId"
+				IsNullable="true"
+				DbName="dcol_id"
+				DataType="ValueIdGen" />
+		<TableCol Name="PrevTenantId"
+				IsNullable="true"
+				DbName="prevtentid"
+				DataType="TenantIdGen" />
+		<TableCol Name="PrevId"
+				IsNullable="true"
+				DataType="IndexColIdGen" />
+		<TableCol Name="NextTenantId"
+				IsNullable="true"
+				DbName="nexttentid"
+				DataType="TenantIdGen" />
+		<TableCol Name="NextId"
+				IsNullable="true"
+				DataType="IndexColIdGen" />
+		<PrimaryIndex Name="IndexColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="idxcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="IndexColUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="idxcol_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="IndexId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+		<Index Name="IndexColTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="idxcol_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="IndexColIndexIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="idxcol_indexidx"
+				ShortName="Index"
+				Suffix="IndexIdx"
+				Label="IndexIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="IndexId" IsAscending="true" />
+		</Index>
+		<Index Name="IndexColDataColIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="idxcol_datacolidx"
+				ShortName="DColIndex"
+				Suffix="DataColIdx"
+				Label="DataIndexIdx" >
+			<IndexCol Name="DataColTenantId" IsAscending="true" />
+			<IndexCol Name="DataColId" IsAscending="true" />
+		</Index>
+		<Index Name="IndexColPrevIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="idxcol_previdx"
+				ShortName="PrevIndex"
+				Suffix="PrevIdx"
+				Label="Previous Index" >
+			<IndexCol Name="PrevTenantId" IsAscending="true" />
+			<IndexCol Name="PrevId" IsAscending="true" />
+		</Index>
+		<Index Name="IndexColNextIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="idxcol_nextidx"
+				ShortName="NextIndex"
+				Suffix="NextIdx"
+				Label="Next Index" >
+			<IndexCol Name="NextTenantId" IsAscending="true" />
+			<IndexCol Name="NextId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="Int16Def"
+			TableClassCode="a718"
+			DbName="i16def"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="Int16DefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="i16def_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="i16def_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Int16DefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Int16Type"
+			TableClassCode="a719"
+			DbName="int16typ"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="Int16TypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="int16typ_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="Int16TypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="int16typ_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="int16typ_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Int16TypeIdIdx"
+				ToIndex="Int16Def.Int16DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Int32Def"
+			TableClassCode="a71a"
+			DbName="i32def"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="Int32DefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="i32def_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="i32def_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Int32DefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Int32Type"
+			TableClassCode="a71b"
+			DbName="int32typ"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="Int32TypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="int32typ_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="Int32TypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="int32typ_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="int32typ_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Int32TypeIdIdx"
+				ToIndex="Int32Def.Int32DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Int64Def"
+			TableClassCode="a71c"
+			DbName="i64def"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="Int64DefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="i64def_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="i64def_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Int64DefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Int64Type"
+			TableClassCode="a71d"
+			DbName="int64typ"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="Int64TypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="int64typ_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="Int64TypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="int64typ_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="int64typ_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Int64TypeIdIdx"
+				ToIndex="Int64Def.Int64DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="NmTokenDef"
+			TableClassCode="a71e"
+			DbName="nmtkndef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<NmTokenCol Name="InitVal"
+				IsNullable="true"
+				MaxLen="2000" />
+		<PrimaryIndex Name="NmTokenDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="nmtkndef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="nmtkndef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="NmTokenDefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="NmTokenType"
+			TableClassCode="a71f"
+			DbName="nmtkntyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="NmTokenTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="nmtkntyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="NmTokenTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="nmtkntyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="nmtkntyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="NmTokenTypeIdIdx"
+				ToIndex="NmTokenDef.NmTokenDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="NmTokensDef"
+			TableClassCode="a720"
+			DbName="nmtknsdef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<NmTokensCol Name="InitVal"
+				IsNullable="true"
+				MaxLen="2000" />
+		<PrimaryIndex Name="NmTokensDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="nmtknsdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="nmtknsdef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="NmTokensDefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="NmTokensType"
+			TableClassCode="a721"
+			DbName="nmtknstyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="NmTokensTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="nmtknstyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="NmTokensTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="nmtknstyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="nmtknstyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="NmTokensTypeIdIdx"
+				ToIndex="NmTokensDef.NmTokensDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="NumberDef"
+			TableClassCode="a722"
+			DbName="numdef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="NumberDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="numdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="numdef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="NumberDefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="NumberType"
+			TableClassCode="a723"
+			DbName="numtyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="NumberTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="numtyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="NumberTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="numtyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="numtyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="NumberTypeIdIdx"
+				ToIndex="NumberDef.NumberDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Relation"
+			TableClassCode="a724"
+			DbName="reldef"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="RelationUNameIdx"
+			QualTable="SchemaDef"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="RelationIdGen" />
+		<TableCol Name="FromIndexTenantId"
+				IsNullable="false"
+				DbName="fidx_tentid"
+				DataType="TenantIdGen" />
+		<TableCol Name="FromIndexId"
+				IsNullable="false"
+				DataType="IndexIdGen" />
+		<TableCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				DataType="NameType" />
+		<BoolCol Name="DefaultVisibility"
+				IsNullable="false"
+				DbName="dflt_vis"
+				InitValue="true" />
+		<TableCol Name="ToTableTenantId"
+				IsNullable="false"
+				DbName="totbl_tentid"
+				DataType="TenantIdGen" />
+		<TableCol Name="ToTableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<TableCol Name="ToIndexTenantId"
+				IsNullable="false"
+				DbName="toidx_tentid"
+				DataType="TenantIdGen" />
+		<TableCol Name="ToIndexId"
+				IsNullable="false"
+				DataType="IndexIdGen" />
+		<TableCol Name="NarrowedTenantId"
+				IsNullable="true"
+				DataType="TenantIdGen" />
+		<TableCol Name="NarrowedId"
+				IsNullable="true"
+				DataType="RelationIdGen" />
+		<PrimaryIndex Name="RelationIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="reldef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="RelationUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="reldef_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+		<Index Name="RelationTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reldef_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="RelationTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reldef_tableidx"
+				ShortName="Table"
+				Suffix="TableIdx"
+				Label="TableIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<Index Name="RelationFromIndexIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reldef_frmindexidx"
+				ShortName="FromIndex"
+				Suffix="FromIndexIdx"
+				Label="FromIndexIdx" >
+			<IndexCol Name="FromIndexTenantId" IsAscending="true" />
+			<IndexCol Name="FromIndexId" IsAscending="true" />
+		</Index>
+		<Index Name="RelationToTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reldef_totableidx"
+				ShortName="ToTable"
+				Suffix="ToTableIdx"
+				Label="ToTableIdx" >
+			<IndexCol Name="ToTableTenantId" IsAscending="true" />
+			<IndexCol Name="ToTableId" IsAscending="true" />
+		</Index>
+		<Index Name="RelationToIndexIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reldef_toindexidx"
+				ShortName="ToIndex"
+				Suffix="ToIndexIdx"
+				Label="ToIndexIdx" >
+			<IndexCol Name="ToIndexTenantId" IsAscending="true" />
+			<IndexCol Name="ToIndexId" IsAscending="true" />
+		</Index>
+		<Index Name="RelationNarrowedIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reldef_narrowidx"
+				ShortName="NarrowedIdx"
+				Suffix="NarrowedIdx"
+				Label="Narrowed Index" >
+			<IndexCol Name="NarrowedTenantId" IsAscending="true" />
+			<IndexCol Name="NarrowedId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="RelationCol"
+			TableClassCode="a725"
+			DbName="relcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="RelationColUNameIdx"
+			QualTable="SchemaDef"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="RelationId"
+				IsNullable="false"
+				DataType="RelationIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="RelationColIdGen" />
+		<TableCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				DataType="NameType" />
+		<BoolCol Name="DefaultVisibility"
+				IsNullable="false"
+				DbName="dflt_vis"
+				InitValue="true" />
+		<TableCol Name="FromColTenantId"
+				IsNullable="false"
+				DbName="fcol_tentid"
+				DataType="TenantIdGen" />
+		<TableCol Name="FromColId"
+				IsNullable="false"
+				DataType="IndexColIdGen" />
+		<TableCol Name="ToColTenantId"
+				IsNullable="false"
+				DbName="tocol_tentid"
+				DataType="TenantIdGen" />
+		<TableCol Name="ToColId"
+				IsNullable="false"
+				DataType="IndexColIdGen" />
+		<PrimaryIndex Name="RelationColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="relcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="RelationColUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="relcol_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="RelationId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+		<Index Name="RelationColTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="relcol_tenantidx"
+				ShortName="Tenant"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="RelationColRelIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="relcol_relnidx"
+				ShortName="Reln"
+				Suffix="RelationIdx"
+				Label="RelationIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="RelationId" IsAscending="true" />
+		</Index>
+		<Index Name="RelationColFromIndexColIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="relcol_fmidxcolidx"
+				ShortName="FromColIdx"
+				Suffix="FromIdxColIdx" >
+			<IndexCol Name="FromColTenantId" IsAscending="true" />
+			<IndexCol Name="FromColId" IsAscending="true" />
+		</Index>
+		<Index Name="RelationColToIndexColIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="relcol_toidxcolidx"
+				ShortName="ToColIdx"
+				Suffix="ToIdxColIdx" >
+			<IndexCol Name="ToColTenantId" IsAscending="true" />
+			<IndexCol Name="ToColId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="StringDef"
+			TableClassCode="a726"
+			DbName="strdef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<StringCol Name="InitVal"
+				IsNullable="true"
+				MaxLen="2000" />
+		<PrimaryIndex Name="StringDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="strdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="strdef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="StringDefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="StringType"
+			TableClassCode="a727"
+			DbName="strtyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="StringTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="strtyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="StringTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="strtyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="strtyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="StringTypeIdIdx"
+				ToIndex="StringDef.StringDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="TableCol"
+			TableClassCode="a728"
+			DbName="tblcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<TableCol Name="DataTypeTenantId"
+				IsNullable="true"
+				DataType="TenantIdGen" />
+		<TableCol Name="DataTypeId"
+				IsNullable="true"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="TableColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tblcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="TableColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tblcol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<Index Name="TableColDataTypeIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tblcol_xdtype"
+				ShortName="DTypeIdx"
+				Suffix="DataTypeIdx"
+				Label="Data Type Index" >
+			<IndexCol Name="DataTypeTenantId" IsAscending="true" />
+			<IndexCol Name="DataTypeId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="tblcol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="TableColIdIdx"
+				ToIndex="Value.ValueIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="TextDef"
+			TableClassCode="a729"
+			DbName="txtdef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TextCol Name="InitVal"
+				IsNullable="true"
+				MaxLen="100000" />
+		<PrimaryIndex Name="TextDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="txtdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="txtdef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="TextDefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="TextType"
+			TableClassCode="a72a"
+			DbName="txttyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="TextTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="txttyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="TextTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="txttyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="txttyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="TextTypeIdIdx"
+				ToIndex="TextDef.TextDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="TokenDef"
+			TableClassCode="a72b"
+			DbName="tkndef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="TokenDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tkndef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="tkndef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="TokenDefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="TokenType"
+			TableClassCode="a72c"
+			DbName="tkntyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="TokenTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tkntyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="TokenTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tkntyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="tkntyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="TokenTypeIdIdx"
+				ToIndex="TokenDef.TokenDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UInt16Def"
+			TableClassCode="a72d"
+			DbName="u16def"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="UInt16DefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="ui16def_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="ui16def_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UInt16DefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UInt16Type"
+			TableClassCode="a72e"
+			DbName="uint16typ"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="UInt16TypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="uint16typ_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="UInt16TypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="uint16typ_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="uint16typ_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UInt16TypeIdIdx"
+				ToIndex="UInt16Def.UInt16DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UInt32Def"
+			TableClassCode="a72f"
+			DbName="u32def"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="UInt32DefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="ui32def_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="ui32def_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UInt32DefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UInt32Type"
+			TableClassCode="a730"
+			DbName="uint32typ"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="UInt32TypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="uint32typ_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="UInt32TypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="uint32typ_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="uint32typ_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UInt32TypeIdIdx"
+				ToIndex="UInt32Def.UInt32DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UInt64Def"
+			TableClassCode="a731"
+			DbName="u64def"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="UInt64DefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="ui64def_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="ui64def_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UInt64DefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UInt64Type"
+			TableClassCode="a732"
+			DbName="uint64typ"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="UInt64TypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="uint64typ_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="UInt64TypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="uint64typ_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="uint64typ_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UInt64TypeIdIdx"
+				ToIndex="UInt64Def.UInt64DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UuidDef"
+			TableClassCode="a733"
+			DbName="uuiddef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<UuidCol Name="InitVal"
+				IsNullable="true" />
+		<PrimaryIndex Name="UuidDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="uuiddef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="uuiddef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UuidDefIdIdx"
+				ToIndex="Atom.AtomIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UuidType"
+			TableClassCode="a734"
+			DbName="uuidtyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="UuidTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="uuidtyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="UuidTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="uuidtyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="uuidtyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UuidTypeIdIdx"
+				ToIndex="UuidDef.UuidDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="BlobCol"
+			TableClassCode="a735"
+			DbName="blbcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="BlobColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="blbcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="BlobColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="blbcol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="blbcol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="BlobColIdIdx"
+				ToIndex="BlobDef.BlobDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="BoolCol"
+			TableClassCode="a736"
+			DbName="boolcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="BoolColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="boolcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="BoolColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="boolcol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="boolcol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="BoolColIdIdx"
+				ToIndex="BoolDef.BoolDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="DoubleCol"
+			TableClassCode="a737"
+			DbName="dblcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="DoubleColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="dblcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="DoubleColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="dblcol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="dblcol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="DoubleColIdIdx"
+				ToIndex="DoubleDef.DoubleDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="EnumDef"
+			TableClassCode="a738"
+			DbName="enumdef"
+			IsInstantiable="false"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="EnumDefIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="enumdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="enumdef_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="EnumDefIdIdx"
+				ToIndex="Int16Def.Int16DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="EnumType"
+			TableClassCode="a739"
+			DbName="enumtyp"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="SchemaDefId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="EnumTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="enumtyp_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="EnumTypeSchemaDefIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="enumtyp_xschemadef"
+				ShortName="SchIdx"
+				Suffix="SchemaIdx"
+				Label="Schema Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="enumtyp_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="EnumTypeIdIdx"
+				ToIndex="EnumDef.EnumDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="FloatCol"
+			TableClassCode="a73a"
+			DbName="fltcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="FloatColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="fltcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="FloatColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="fltcol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="fltcol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="FloatColIdIdx"
+				ToIndex="FloatDef.FloatDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Id16Gen"
+			TableClassCode="a73b"
+			DbName="idg16"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="Id16GenIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="idg16_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="idg16_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Id16GenIdIdx"
+				ToIndex="Int16Type.Int16TypeIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Id32Gen"
+			TableClassCode="a73c"
+			DbName="idg32"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="Id32GenIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="idg32_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="idg32_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Id32GenIdIdx"
+				ToIndex="Int32Type.Int32TypeIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Id64Gen"
+			TableClassCode="a73d"
+			DbName="idg64"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="Id64GenIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="idg64_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="idg64_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Id64GenIdIdx"
+				ToIndex="Int64Type.Int64TypeIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Int16Col"
+			TableClassCode="a73e"
+			DbName="int16col"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="Int16ColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="int16col_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="Int16ColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="int16col_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="int16col_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Int16ColIdIdx"
+				ToIndex="Int16Def.Int16DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Int32Col"
+			TableClassCode="a73f"
+			DbName="int32col"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="Int32ColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="int32col_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="Int32ColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="int32col_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="int32col_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Int32ColIdIdx"
+				ToIndex="Int32Def.Int32DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="Int64Col"
+			TableClassCode="a740"
+			DbName="int64col"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="Int64ColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="int64col_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="Int64ColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="int64col_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="int64col_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="Int64ColIdIdx"
+				ToIndex="Int64Def.Int64DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="NmTokenCol"
+			TableClassCode="a741"
+			DbName="nmtkncol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="NmTokenColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="nmtkncol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="NmTokenColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="nmtkncol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="nmtkncol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="NmTokenColIdIdx"
+				ToIndex="NmTokenDef.NmTokenDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="NmTokensCol"
+			TableClassCode="a742"
+			DbName="nmtknscol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="NmTokensColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="nmtknscol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="NmTokensColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="nmtknscol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="nmtknscol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="NmTokensColIdIdx"
+				ToIndex="NmTokensDef.NmTokensDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="NumberCol"
+			TableClassCode="a743"
+			DbName="numcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="NumberColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="numcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="NumberColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="numcol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="numcol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="NumberColIdIdx"
+				ToIndex="NumberDef.NumberDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="StringCol"
+			TableClassCode="a744"
+			DbName="strcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="StringColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="strcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="StringColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="strcol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="strcol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="StringColIdIdx"
+				ToIndex="StringDef.StringDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="TextCol"
+			TableClassCode="a745"
+			DbName="txtcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="TextColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="txtcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="TextColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="txtcol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="txtcol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="TextColIdIdx"
+				ToIndex="TextDef.TextDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="TokenCol"
+			TableClassCode="a746"
+			DbName="tkncol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="TokenColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tkncol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="TokenColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tkncol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="tkncol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="TokenColIdIdx"
+				ToIndex="TokenDef.TokenDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UInt16Col"
+			TableClassCode="a747"
+			DbName="uint16col"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="UInt16ColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="uint16col_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="UInt16ColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="uint16col_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="uint16col_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UInt16ColIdIdx"
+				ToIndex="UInt16Def.UInt16DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UInt32Col"
+			TableClassCode="a748"
+			DbName="uint32col"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="UInt32ColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="uint32col_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="UInt32ColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="uint32col_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="uint32col_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UInt32ColIdIdx"
+				ToIndex="UInt32Def.UInt32DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UInt64Col"
+			TableClassCode="a749"
+			DbName="uint64col"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="UInt64ColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="uint64col_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="UInt64ColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="uint64col_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="uint64col_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UInt64ColIdIdx"
+				ToIndex="UInt64Def.UInt64DefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UuidCol"
+			TableClassCode="a74a"
+			DbName="uuidcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="UuidColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="uuidcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="UuidColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="uuidcol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="uuidcol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UuidColIdIdx"
+				ToIndex="UuidDef.UuidDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="UuidGen"
+			TableClassCode="a74b"
+			DbName="idguuid"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<PrimaryIndex Name="UuidGenIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="idguuid_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<SuperClassRelation Name="SuperClass"
+				DbName="idguuid_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="UuidGenIdIdx"
+				ToIndex="UuidType.UuidTypeIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<Table Name="EnumCol"
+			TableClassCode="a74c"
+			DbName="enumcol"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DataType="ValueIdGen" />
+		<TableCol Name="TableId"
+				IsNullable="false"
+				DataType="ScopeIdGen" />
+		<PrimaryIndex Name="EnumColIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="enumcol_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="EnumColTableIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="enumcol_xtable"
+				ShortName="TblIdx"
+				Suffix="TableIdx"
+				Label="Table Index" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<SuperClassRelation Name="SuperClass"
+				DbName="enumcol_super"
+				Label="SuperClass"
+				Suffix="SuperClass"
+				FromIndex="EnumColIdIdx"
+				ToIndex="EnumDef.EnumDefIdIdx" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="Id" />
+		</SuperClassRelation>
+	</Table>
+
+	<TableAddendum FromTable="BlobType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="blbtyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="BlobTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="BoolType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="booltyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="BoolTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="DoubleType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="dbltyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="DoubleTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="EnumType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="enumtyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="EnumTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FloatType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="flttyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="FloatTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Index">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="index_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="IndexTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="IndexTable"
+				RelationType="Container"
+				DbName="index_idxtbl"
+				Label="Table Definition"
+				Suffix="Table"
+				FromIndex="IndexTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+		<Relation Name="IndexCol"
+				RelationType="Components"
+				DbName="index_idxcol"
+				Label="Index Column Definitions"
+				Suffix="Column"
+				FromIndex="IndexIdIdx"
+				ToIndex="IndexCol.IndexColIndexIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="IndexId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="IndexCol">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="idxcol_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="IndexColTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="Index"
+				RelationType="Container"
+				DbName="idxcol_index"
+				Label="Containing Index"
+				Suffix="Index"
+				FromIndex="IndexColIndexIdx"
+				ToIndex="Index.IndexIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="IndexId" ToCol="Id" />
+		</Relation>
+		<Relation Name="Prev"
+				RelationType="Lookup"
+				DbName="idxcol_prev"
+				Label="Previous Column"
+				Suffix="Prev"
+				FromIndex="IndexColPrevIdx"
+				ToIndex="IndexCol.IndexColIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="PrevTenantId" ToCol="TenantId" />
+			<RelationCol Name="PrevId" ToCol="Id" />
+		</Relation>
+		<Relation Name="Next"
+				RelationType="Lookup"
+				DbName="idxcol_next"
+				Label="Next Column"
+				Suffix="Next"
+				FromIndex="IndexColNextIdx"
+				ToIndex="IndexCol.IndexColIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="NextTenantId" ToCol="TenantId" />
+			<RelationCol Name="NextId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int16Type">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="int16typ_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="Int16TypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int32Type">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="int32typ_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="Int32TypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int64Type">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="int64typ_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="Int64TypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="MinorVersion">
+		<Relation Name="SchemaDef"
+				RelationType="Components"
+				DbName="mnvr_schdef"
+				Label="Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="MinorVersionIdIdx"
+				ToIndex="SchemaDef.SchemaDefMinorVersionIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="MinorVersionId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="NmTokenType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="nmtoktyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="NmTokenTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="NmTokensType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="nmtokstyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="NmTokensTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="NumberType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="numtyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="NumberTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="OptFullRange">
+		<Relation Name="Tenant"
+				RelationType="Container"
+				DbName="optfulrng_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="OptFullRangeTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="OptMaxValue">
+		<Relation Name="Tenant"
+				RelationType="Container"
+				DbName="optmaxval_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="OptMaxValueTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="OptMinMaxValue">
+		<Relation Name="Tenant"
+				RelationType="Container"
+				DbName="optminmaxval_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="OptMinMaxValueTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="OptMinValue">
+		<Relation Name="Tenant"
+				RelationType="Container"
+				DbName="optminval_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="OptMinValueTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Relation">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="reln_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="RelationTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="RelationTable"
+				RelationType="Container"
+				DbName="reln_table"
+				Label="Table Definition"
+				Suffix="Table"
+				FromIndex="RelationTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+		<Relation Name="RelationNarrowed"
+				RelationType="Lookup"
+				DbName="reln_narrowed"
+				Label="Narrowed Relation"
+				Suffix="Narrowed"
+				FromIndex="RelationNarrowedIdx"
+				ToIndex="Relation.RelationIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="NarrowedTenantId" ToCol="TenantId" />
+			<RelationCol Name="NarrowedId" ToCol="Id" />
+		</Relation>
+		<Relation Name="RelationCol"
+				RelationType="Components"
+				DbName="reln_relncol"
+				Label="Relation Column Definitions"
+				Suffix="Column"
+				FromIndex="RelationIdIdx"
+				ToIndex="RelationCol.RelationColRelIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="RelationId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="RelationCol">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="relncol_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="RelationColTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="Relation"
+				RelationType="Container"
+				DbName="relncol_reln"
+				Label="Containing Relation"
+				Suffix="Relation"
+				FromIndex="RelationColRelIdx"
+				ToIndex="Relation.RelationIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="RelationId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ReqFullRange">
+		<Relation Name="Tenant"
+				RelationType="Container"
+				DbName="reqfulrng_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="ReqFullRangeTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ReqMaxValue">
+		<Relation Name="Tenant"
+				RelationType="Container"
+				DbName="reqmaxval_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="ReqMaxValueTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ReqMinMaxValue">
+		<Relation Name="Tenant"
+				RelationType="Container"
+				DbName="reqminmaxval_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="ReqMinMaxValueTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ReqMinValue">
+		<Relation Name="Tenant"
+				RelationType="Container"
+				DbName="reqminval_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="ReqMinValueTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SchemaDef">
+		<Relation Name="ParentMinorVersion"
+				RelationType="Container"
+				DbName="schdef_mnvr"
+				Label="Parent Minor Version"
+				Suffix="ParentMinorVer"
+				FromIndex="SchemaDefMinorVersionIdx"
+				ToIndex="MinorVersion.MinorVersionIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="MinorVersionId" ToCol="Id" />
+		</Relation>
+		<Relation Name="SchemaDefTable"
+				RelationType="Components"
+				DbName="schdef_table"
+				Label="Table Definitions"
+				Suffix="Table"
+				FromIndex="SchemaDefIdIdx"
+				ToIndex="Table.TableSchemaDefIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="SchemaDefId" />
+		</Relation>
+		<Relation Name="SchemaDefType"
+				RelationType="Components"
+				DbName="schdef_type"
+				Label="Type Definitions"
+				Suffix="Type"
+				FromIndex="SchemaDefIdIdx"
+				ToIndex="Value.ValueScopeIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="ScopeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Scope">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="scope_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="ScopeTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="StringType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="strtyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="StringTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Table">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="table_schdef"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="TableSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+		<Relation Name="TableRelation"
+				RelationType="Components"
+				DbName="table_tblreln"
+				Label="Relation Definitions"
+				Suffix="Relation"
+				FromIndex="TableIdIdx"
+				ToIndex="Relation.RelationTableIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="TableId" />
+		</Relation>
+		<Relation Name="TableIndex"
+				RelationType="Components"
+				DbName="table_tblidx"
+				Label="Index Definitions"
+				Suffix="Index"
+				FromIndex="TableIdIdx"
+				ToIndex="Index.IndexTableIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="TableId" />
+		</Relation>
+		<Relation Name="TableValue"
+				RelationType="Components"
+				DbName="table_tblval"
+				Label="Value Definitions"
+				Suffix="Value"
+				FromIndex="TableIdIdx"
+				ToIndex="Value.ValueScopeIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="Id" ToCol="ScopeId" />
+		</Relation>
+		<Relation Name="PrimaryIndex"
+				RelationType="Lookup"
+				DbName="table_primidx"
+				Label="Primary Index"
+				Suffix="PIndex"
+				FromIndex="TablePrimaryIndexIdx"
+				ToIndex="Index.IndexIdIdx"
+				IsRequired="false"
+				IsLateResolver="true"
+				PopDepChain="TableIndex" >
+			<RelationCol Name="PrimaryIndexTenantId" ToCol="TenantId" />
+			<RelationCol Name="PrimaryIndexId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tenant">
+		<Relation Name="TenantReqFullRange"
+				RelationType="Components"
+				DbName="tenant_reqfulrng"
+				Label="Test 01 - Full Range"
+				Suffix="ReqFullRange"
+				FromIndex="TenantIdIdx"
+				ToIndex="ReqFullRange.ReqFullRangeTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantReqMinValue"
+				RelationType="Components"
+				DbName="tenant_reqminval"
+				Label="Test 02 - Req Min Value"
+				Suffix="ReqMinValue"
+				FromIndex="TenantIdIdx"
+				ToIndex="ReqMinValue.ReqMinValueTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantReqMaxValue"
+				RelationType="Components"
+				DbName="tenant_reqmaxval"
+				Label="Test 03 - Req Max Value"
+				Suffix="ReqMaxValue"
+				FromIndex="TenantIdIdx"
+				ToIndex="ReqMaxValue.ReqMaxValueTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantReqMinMaxValue"
+				RelationType="Components"
+				DbName="tenant_reqminmaxval"
+				Label="Test 04 - Req Min and Max Value"
+				Suffix="ReqMinMaxVal"
+				FromIndex="TenantIdIdx"
+				ToIndex="ReqMinMaxValue.ReqMinMaxValueTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantOptFullRange"
+				RelationType="Components"
+				DbName="tenant_optfulrng"
+				Label="Test 05 - Opt Full Range"
+				Suffix="OptFullRange"
+				FromIndex="TenantIdIdx"
+				ToIndex="OptFullRange.OptFullRangeTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantOptMinValue"
+				RelationType="Components"
+				DbName="tenant_optminval"
+				Label="Test 06 - Opt Min Value"
+				Suffix="OptMinValue"
+				FromIndex="TenantIdIdx"
+				ToIndex="OptMinValue.OptMinValueTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantOptMaxValue"
+				RelationType="Components"
+				DbName="tenant_optmaxval"
+				Label="Test 07 - Opt Max Value"
+				Suffix="OptMaxValue"
+				FromIndex="TenantIdIdx"
+				ToIndex="OptMaxValue.OptMaxValueTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantOptMinMaxValue"
+				RelationType="Components"
+				DbName="tenant_optminmaxval"
+				Label="Test 08 - Opt Min and Max Value"
+				Suffix="OptMinMaxVal"
+				FromIndex="TenantIdIdx"
+				ToIndex="OptMinMaxValue.OptMinMaxValueTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+		<Relation Name="TenantSchema"
+				RelationType="Components"
+				DbName="tenant_schdef"
+				Label="Scope Definitions (Tables and SchemaDefs)"
+				Suffix="Scope"
+				FromIndex="TenantIdIdx"
+				ToIndex="SchemaDef.SchemaDefCTenantIdx"
+				IsRequired="false" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TextType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="txttyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="TextTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TokenType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="tkntyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="TokenTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt16Type">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="ui16typ_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="UInt16TypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt32Type">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="ui32typ_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="UInt32TypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt64Type">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="ui64typ_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="UInt64TypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UuidType">
+		<Relation Name="Reference"
+				RelationType="Children"
+				DbName="uuidtyp_ref"
+				Label="Referencing Table Columns"
+				Suffix="Ref"
+				FromIndex="UuidTypeIdIdx"
+				ToIndex="TableCol.TableColDataTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="TenantId" ToCol="DataTypeTenantId" />
+			<RelationCol Name="Id" ToCol="DataTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Value">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="value_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="ValueTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="Scope"
+				RelationType="Container"
+				DbName="value_scope"
+				Label="Containing Scope"
+				Suffix="Scope"
+				FromIndex="ValueScopeIdx"
+				ToIndex="Scope.ScopeIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ScopeId" ToCol="Id" />
+		</Relation>
+		<Relation Name="Prev"
+				RelationType="Lookup"
+				DbName="value_prev"
+				Label="Previous Value"
+				Suffix="Prev"
+				FromIndex="ValuePrevIdx"
+				ToIndex="Value.ValueIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="PrevTenantId" ToCol="TenantId" />
+			<RelationCol Name="PrevId" ToCol="Id" />
+		</Relation>
+		<Relation Name="Next"
+				RelationType="Lookup"
+				DbName="value_next"
+				Label="Next Value"
+				Suffix="Next"
+				FromIndex="ValueNextIdx"
+				ToIndex="Value.ValueIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="NextTenantId" ToCol="TenantId" />
+			<RelationCol Name="NextId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="BlobCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="blbcol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="BlobColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="BlobType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="blbtyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="BlobTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="BoolCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="boolcol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="BoolColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="BoolType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="booltyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="BoolTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="DoubleCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="dblcol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="DoubleColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="DoubleType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="dbltyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="DoubleTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="EnumCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="enumcol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="EnumColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="EnumType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="enumtyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="EnumTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FloatCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="fltcol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="FloatColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="FloatType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="flttyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="FloatTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="IndexCol">
+		<Relation Name="DataCol"
+				RelationType="Lookup"
+				DbName="idxcol_datacol"
+				Label="Data Column"
+				Suffix="DataCol"
+				FromIndex="IndexColDataColIdx"
+				ToIndex="Value.ValueIdIdx"
+				IsRequired="false"
+				PopDepChain="Index.IndexTable.TableValue" >
+			<RelationCol Name="DataColTenantId" ToCol="TenantId" />
+			<RelationCol Name="DataColId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int16Col">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="i16col_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="Int16ColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int16Type">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="i16typ_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="Int16TypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int32Col">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="i32col_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="Int32ColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int32Type">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="i32typ_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="Int32TypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int64Col">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="i64col_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="Int64ColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int64Type">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="i64typ_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="Int64TypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="NmTokenCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="nmtokcol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="NmTokenColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="NmTokenType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="nmtoktyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="NmTokenTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="NmTokensCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="nmtkscol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="NmTokensColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="NmTokensType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="nmtkstyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="NmTokensTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="NumberCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="numcol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="NumberColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="NumberType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="numtyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="NumberTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Relation">
+		<Relation Name="RelationFromIndex"
+				RelationType="Parent"
+				DbName="reln_relfmidx"
+				Label="From Index Definition"
+				Suffix="FromIndex"
+				FromIndex="RelationFromIndexIdx"
+				ToIndex="Index.IndexIdIdx"
+				IsRequired="true"
+				PopDepChain="RelationTable.TableIndex" >
+			<RelationCol Name="FromIndexTenantId" ToCol="TenantId" />
+			<RelationCol Name="FromIndexId" ToCol="Id" />
+		</Relation>
+		<Relation Name="RelationToTable"
+				RelationType="Parent"
+				DbName="reln_totbl"
+				Label="To Table Definition"
+				Suffix="ToTable"
+				FromIndex="RelationToTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				PopDepChain="RelationTable.SchemaDef.SchemaDefTable" >
+			<RelationCol Name="ToTableTenantId" ToCol="TenantId" />
+			<RelationCol Name="ToTableId" ToCol="Id" />
+		</Relation>
+		<Relation Name="RelationToIndex"
+				RelationType="Parent"
+				DbName="reln_toidx"
+				Label="To Index Definition"
+				Suffix="ToIndex"
+				FromIndex="RelationToIndexIdx"
+				ToIndex="Index.IndexIdIdx"
+				IsRequired="true"
+				PopDepChain="RelationToTable.TableIndex" >
+			<RelationCol Name="ToIndexTenantId" ToCol="TenantId" />
+			<RelationCol Name="ToIndexId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="RelationCol">
+		<Relation Name="FromColumn"
+				RelationType="Lookup"
+				DbName="relcol_fmcol"
+				Label="From Index Column"
+				Suffix="FromCol"
+				FromIndex="RelationColFromIndexColIdx"
+				ToIndex="IndexCol.IndexColIdIdx"
+				IsRequired="true"
+				PopDepChain="Relation.RelationFromIndex.IndexCol" >
+			<RelationCol Name="FromColTenantId" ToCol="TenantId" />
+			<RelationCol Name="FromColId" ToCol="Id" />
+		</Relation>
+		<Relation Name="ToColumn"
+				RelationType="Lookup"
+				DbName="relcol_tocol"
+				Label="To Index Column"
+				Suffix="ToCol"
+				FromIndex="RelationColToIndexColIdx"
+				ToIndex="IndexCol.IndexColIdIdx"
+				IsRequired="true"
+				PopDepChain="Relation.RelationToIndex.IndexCol" >
+			<RelationCol Name="ToColTenantId" ToCol="TenantId" />
+			<RelationCol Name="ToColId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SchemaDef">
+		<Relation Name="CTenant"
+				RelationType="Owner"
+				DbName="schdef_ctenant"
+				Label="CTenant"
+				Suffix="CTenant"
+				FromIndex="SchemaDefCTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true"
+				Narrowed="Scope.Tenant" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="StringCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="strcol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="StringColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="StringType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="strtyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="StringTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TableCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="tblcol_table"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="TableColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+		<Relation Name="DataType"
+				RelationType="Parent"
+				DbName="tblcol_datatyp"
+				Label="Column Data Type"
+				Suffix="DataType"
+				FromIndex="TableColDataTypeIdx"
+				ToIndex="Value.ValueIdIdx"
+				IsRequired="true"
+				PopDepChain="Table.SchemaDef.SchemaDefType" >
+			<RelationCol Name="DataTypeTenantId" ToCol="TenantId" />
+			<RelationCol Name="DataTypeId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TextCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="txtcol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="TextColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TextType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="txttyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="TextTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TokenCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="tokecol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="TokenColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TokenType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="toketyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="TokenTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt16Col">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="ui16col_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="UInt16ColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt16Type">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="ui16typ_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="UInt16TypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt32Col">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="ui32col_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="UInt32ColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt32Type">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="ui32typ_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="UInt32TypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt64Col">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="ui64col_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="UInt64ColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt64Type">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="ui64typ_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="UInt64TypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UuidCol">
+		<Relation Name="Table"
+				RelationType="Container"
+				DbName="uuidcol_tbl"
+				Label="Containing Table"
+				Suffix="Table"
+				FromIndex="UuidColTableIdx"
+				ToIndex="Table.TableIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TableId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="UuidType">
+		<Relation Name="SchemaDef"
+				RelationType="Container"
+				DbName="uuidtyp_sch"
+				Label="Containing Schema Definition"
+				Suffix="SchemaDef"
+				FromIndex="UuidTypeSchemaDefIdx"
+				ToIndex="SchemaDef.SchemaDefIdIdx"
+				IsRequired="true"
+				Narrowed="Value.Scope" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="SchemaDefId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="IndexCol">
+		<Chain Name="IndexColOrder"
+				ShortName="ColOrd"
+				Label="Index Column Order"
+				Suffix="ColOrder"
+				PrevRel="Prev"
+				NextRel="Next" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Value">
+		<Chain Name="ValueOrder"
+				ShortName="ValOrd"
+				Label="Value Order"
+				Suffix="ValOrder"
+				PrevRel="Prev"
+				NextRel="Next" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="SchemaDef">
+		<ClearDep Name="ClearTableRelationNarrowed" ClearDepChain="SchemaDefTable.TableRelation.RelationNarrowed" />
+		<ClearDep Name="ClearTablePrimaryIndex" ClearDepChain="SchemaDefTable.PrimaryIndex" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Table">
+		<ClearDep Name="ClearTablePrimaryIndex" ClearDepChain="PrimaryIndex" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tenant">
+		<ClearDep Name="ClearTableRelationNarrowed" ClearDepChain="TenantSchema.SchemaDefTable.TableRelation.RelationNarrowed" />
+		<ClearDep Name="ClearTablePrimaryIndex" ClearDepChain="TenantSchema.SchemaDefTable.PrimaryIndex" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="BlobType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="BoolType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="DoubleType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="EnumType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="FloatType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Index">
+		<DelDep Name="DelIndexCol" DelDepChain="IndexCol" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int16Type">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int32Type">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Int64Type">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="MinorVersion">
+		<DelDep Name="DelMinVerSchemaDefs" DelDepChain="SchemaDef" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="NmTokenType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="NmTokensType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="NumberType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Relation">
+		<DelDep Name="DelRelationCol" DelDepChain="RelationCol" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="SchemaDef">
+		<DelDep Name="DelTypeDef" DelDepChain="SchemaDefType" />
+		<DelDep Name="DelTable" DelDepChain="SchemaDefTable" />
+		<DelDep Name="DelTableColumns" DelDepChain="SchemaDefTable.TableValue" />
+		<DelDep Name="DelTableIndex" DelDepChain="SchemaDefTable.TableIndex" />
+		<DelDep Name="DelTableIndexCol" DelDepChain="SchemaDefTable.TableIndex.IndexCol" />
+		<DelDep Name="DelTableRelation" DelDepChain="SchemaDefTable.TableRelation" />
+		<DelDep Name="DelTableRelationCol" DelDepChain="SchemaDefTable.TableRelation.RelationCol" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="StringType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Table">
+		<DelDep Name="DelTableColumns" DelDepChain="TableValue" />
+		<DelDep Name="DelTableIndex" DelDepChain="TableIndex" />
+		<DelDep Name="DelTableIndexCol" DelDepChain="TableIndex.IndexCol" />
+		<DelDep Name="DelTableRelation" DelDepChain="TableRelation" />
+		<DelDep Name="DelTableRelationCol" DelDepChain="TableRelation.RelationCol" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tenant">
+		<DelDep Name="DelReqFullRange" DelDepChain="TenantReqFullRange" />
+		<DelDep Name="DelReqMinValue" DelDepChain="TenantReqMinValue" />
+		<DelDep Name="DelReqMaxValue" DelDepChain="TenantReqMaxValue" />
+		<DelDep Name="DelReqMinMaxValue" DelDepChain="TenantReqMinMaxValue" />
+		<DelDep Name="DelOptFullRange" DelDepChain="TenantOptFullRange" />
+		<DelDep Name="DelOptMinValue" DelDepChain="TenantOptMinValue" />
+		<DelDep Name="DelOptMaxValue" DelDepChain="TenantOptMaxValue" />
+		<DelDep Name="DelOptMinMaxValue" DelDepChain="TenantOptMinMaxValue" />
+		<DelDep Name="DelSchemaDef" DelDepChain="TenantSchema" />
+		<DelDep Name="DelTypeDef" DelDepChain="TenantSchema.SchemaDefType" />
+		<DelDep Name="DelTable" DelDepChain="TenantSchema.SchemaDefTable" />
+		<DelDep Name="DelTableColumns" DelDepChain="TenantSchema.SchemaDefTable.TableValue" />
+		<DelDep Name="DelTableIndex" DelDepChain="TenantSchema.SchemaDefTable.TableIndex" />
+		<DelDep Name="DelTableIndexCol" DelDepChain="TenantSchema.SchemaDefTable.TableIndex.IndexCol" />
+		<DelDep Name="DelTableRelation" DelDepChain="TenantSchema.SchemaDefTable.TableRelation" />
+		<DelDep Name="DelTableRelationCol" DelDepChain="TenantSchema.SchemaDefTable.TableRelation.RelationCol" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="TextType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="TokenType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt16Type">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt32Type">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="UInt64Type">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="UuidType">
+		<DelDep Name="DelReferences" DelDepChain="Reference" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="ReqFullRange">
+		<ServerProc Name="TestClassProcNoArgs"
+				IsInstanceMethod="false" >
+			<CafeMethodBody>
+		// This method is wired as a class procedure and therefore
+		// has no dirty flag to return.  It takes no arguments,
+		// so you&apos;d have to be pretty creative to use this form
+		// of server procedure.  The return value indicates whether
+		// any data was changed by invoking the procedure.
+
+		return( false );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		// This method is wired as a class procedure and therefore
+		// has no dirty flag to return.  It takes no arguments,
+		// so you&apos;d have to be pretty creative to use this form
+		// of server procedure.  The return value indicates whether
+		// any data was changed by invoking the procedure.
+
+		return( false );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		// This method is wired as a class procedure and therefore
+		// has no dirty flag to return.  It takes no arguments,
+		// so you&apos;d have to be pretty creative to use this form
+		// of server procedure.  The return value indicates whether
+		// any data was changed by invoking the procedure.
+
+		return( false );
+</CSharpMethodBody>
+		</ServerProc>
+		<ServerProc Name="TestClassProcWithArg"
+				IsInstanceMethod="false" >
+			<Param Name="ReqArg1"
+					IsNullable="false"
+					Type="FullRangeInt16" />
+			<Param Name="OptArg2"
+					IsNullable="true"
+					Type="FullRangeInt16" />
+			<CafeMethodBody>
+		// This method is wired as a class procedure and returns
+		// true if any data was changed.  It takes two arguments,
+		// the first required and the second nullable, just to
+		// make sure the range of rules is exercised.
+
+		return( true );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		// This method is wired as a class procedure and returns
+		// true if any data was changed.  It takes two arguments,
+		// the first required and the second nullable, just to
+		// make sure the range of rules is exercised.
+
+		return( true );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		// This method is wired as a class procedure and returns
+		// true if any data was changed.  It takes two arguments,
+		// the first required and the second nullable, just to
+		// make sure the range of rules is exercised.
+
+		return( true );
+</CSharpMethodBody>
+		</ServerProc>
+		<ServerProc Name="TestInstProcNoArgs"
+				IsInstanceMethod="true" >
+			<CafeMethodBody>
+		// This method is wired as an instance procedure and
+		// returns a boolean dirty flag.
+
+		return( false );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		// This method is wired as an instance procedure and
+		// returns a boolean dirty flag.
+
+		return( false );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		// This method is wired as an instance procedure and
+		// returns a boolean dirty flag.
+
+		return( false );
+</CSharpMethodBody>
+		</ServerProc>
+		<ServerProc Name="TestInstProcWithArg"
+				IsInstanceMethod="true" >
+			<Param Name="ReqArg1"
+					IsNullable="false"
+					Type="FullRangeInt16" />
+			<Param Name="OptArg2"
+					IsNullable="true"
+					Type="FullRangeInt16" />
+			<CafeMethodBody>
+		// This method is wired as an instance procedure and
+		// returns a boolean dirty flag.  It takes two arguments,
+		// the first required and the second nullable, just to
+		// make sure the range of rules is exercised.
+
+		return( true );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		// This method is wired as an instance procedure and
+		// returns a boolean dirty flag.  It takes two arguments,
+		// the first required and the second nullable, just to
+		// make sure the range of rules is exercised.
+
+		return( true );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		// This method is wired as an instance procedure and
+		// returns a boolean dirty flag.  It takes two arguments,
+		// the first required and the second nullable, just to
+		// make sure the range of rules is exercised.
+
+		return( true );
+</CSharpMethodBody>
+		</ServerProc>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Table">
+		<ServerObjFunc Name="TestClassObjFuncNoArgs"
+				IsInstanceMethod="false"
+				ReturnTable="Table" >
+			<CafeMethodBody>
+		return( null );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		return( NULL );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		return( null );
+</CSharpMethodBody>
+		</ServerObjFunc>
+		<ServerObjFunc Name="TestClassObjFuncWithArg"
+				IsInstanceMethod="false"
+				ReturnTable="Table" >
+			<Param Name="ReqArg1"
+					IsNullable="false"
+					Type="FullRangeInt16" />
+			<Param Name="OptArg2"
+					IsNullable="true"
+					Type="FullRangeInt16" />
+			<CafeMethodBody>
+		return( null );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		return( NULL );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		return( null );
+</CSharpMethodBody>
+		</ServerObjFunc>
+		<ServerObjFunc Name="TestInstObjFuncNoArgs"
+				IsInstanceMethod="true"
+				ReturnTable="Table" >
+			<CafeMethodBody>
+		return( ($SchemaName$TableBuff)obj.getBuff() );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		return( dynamic_cast&lt;$DefSchemaName$TableBuff*&gt;( obj-&gt;getBuff()-&gt;clone() ) );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		return( ($DefSchemaName$TableBuff*)( obj-&gt;getBuff()-&gt;clone() ) );
+</CSharpMethodBody>
+		</ServerObjFunc>
+		<ServerObjFunc Name="TestInstObjFuncWithArg"
+				IsInstanceMethod="true"
+				ReturnTable="Table" >
+			<Param Name="ReqArg1"
+					IsNullable="false"
+					Type="FullRangeInt16" />
+			<Param Name="OptArg2"
+					IsNullable="true"
+					Type="FullRangeInt16" />
+			<CafeMethodBody>
+		return( ($DefSchemaName$TableBuff)obj.getBuff() );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		return( dynamic_cast&lt;$DefSchemaName$TableBuff*&gt;( obj-&gt;getBuff()-&gt;clone() ) );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		return( ($DefSchemaName$TableBuff*)( obj-&gt;getBuff()-&gt;clone() ) );
+</CSharpMethodBody>
+		</ServerObjFunc>
+		<ServerListFunc Name="TestClassListFuncNoArgs"
+				IsInstanceMethod="false"
+				ReturnTable="Value" >
+			<CafeMethodBody>
+		$DefSchemaName$ValueBuff arrOfValue[] = new $DefSchemaName$ValueBuff[0];
+		return( arrOfValue );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		std::TCFLibOwningVector&lt;$DefSchemaName$ValueBuff*&gt; newVec;
+		return( newVec );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		std::TCFLibOwningVector&lt;$DefSchemaName$ValueBuff*&gt; newVec = new std::TCFLibOwningVector&lt;$DefSchemaName$ValueBuff*&gt;();
+		return( newVec );
+</CSharpMethodBody>
+		</ServerListFunc>
+		<ServerListFunc Name="TestClassListFuncWithArg"
+				IsInstanceMethod="false"
+				ReturnTable="Value" >
+			<Param Name="ReqArg1"
+					IsNullable="false"
+					Type="FullRangeInt16" />
+			<Param Name="OptArg2"
+					IsNullable="true"
+					Type="FullRangeInt16" />
+			<CafeMethodBody>
+		$SchemaName$ValueBuff arrOfValue[] = new $SchemaName$ValueBuff[0];
+		return( arrOfValue );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		std::TCFLibOwningVector&lt;$DefSchemaName$ValueBuff*&gt; newVec;
+		return( newVec );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		std::TCFLibOwningVector&lt;$DefSchemaName$ValueBuff*&gt; newVec;
+		return( newVec );
+</CSharpMethodBody>
+		</ServerListFunc>
+		<ServerListFunc Name="TestInstListFuncNoArgs"
+				IsInstanceMethod="true"
+				ReturnTable="Value" >
+			<CafeMethodBody>
+		List&lt;I$DefSchemaName$ValueObj&gt; values = obj.getOptionalComponentsValue();
+		int sz = values.size();
+		$DefSchemaName$ValueBuff arrOfValue[] = new $DefSchemaName$ValueBuff[sz];
+		Iterator&lt;I$DefSchemaName$ValueObj&gt; iter = values.iterator();
+		I$DefSchemaName$ValueObj value;
+		for( int i = 0; i &lt; sz; i ++ ) {
+			value = iter.next();
+			arrOfValue[i] = value.getBuff();
+		}
+		return( arrOfValue );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt; values = obj-&gt;getOptionalComponentsValue();
+		std::TCFLibOwningVector&lt;$DefSchemaName$ValueBuff*&gt; retVec;
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt;::iterator iter = values.begin();
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt;::iterator end = values.end();
+		while( iter != end ) {
+			retVec.push_back( dynamic_cast&lt;$DefSchemaName$ValueBuff*&gt;( (*iter)-&gt;getBuff()-&gt;clone() ) );
+			iter ++;
+		}
+		return( retVec );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt; values = obj-&gt;getOptionalComponentsValue();
+		std::TCFLibOwningVector&lt;$DefSchemaName$ValueBuff*&gt; retVec;
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt;::iterator iter = values.begin();
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt;::iterator end = values.end();
+		while( iter != end ) {
+			retVec.push_back( dynamic_cast&lt;$DefSchemaName$ValueBuff*&gt;( (*iter)-&gt;getBuff()-&gt;clone() ) );
+			iter ++;
+		}
+		return( retVec );
+</CSharpMethodBody>
+		</ServerListFunc>
+		<ServerListFunc Name="TestInstListFuncWithArg"
+				IsInstanceMethod="true"
+				ReturnTable="Value" >
+			<Param Name="ReqArg1"
+					IsNullable="false"
+					Type="FullRangeInt16" />
+			<Param Name="OptArg2"
+					IsNullable="true"
+					Type="FullRangeInt16" />
+			<CafeMethodBody>
+		List&lt;I$DefSchemaName$ValueObj&gt; values = obj.getOptionalComponentsValue();
+		int sz = values.size();
+		$DefSchemaName$ValueBuff arrOfValue[] = new $DefSchemaName$ValueBuff[sz];
+		Iterator&lt;I$DefSchemaName$ValueObj&gt; iter = values.iterator();
+		I$DefSchemaName$ValueObj value;
+		for( int i = 0; i &lt; sz; i ++ ) {
+			value = iter.next();
+			arrOfValue[i] = value.getBuff();
+		}
+		return( arrOfValue );
+</CafeMethodBody>
+
+			<CPlusMethodBody>
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt; values = obj-&gt;getOptionalComponentsValue();
+		std::TCFLibOwningVector&lt;$DefSchemaName$ValueBuff*&gt; retVec;
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt;::iterator iter = values.begin();
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt;::iterator end = values.end();
+		while( iter != end ) {
+			retVec.push_back( dynamic_cast&lt;$DefSchemaName$ValueBuff*&gt;( (*iter)-&gt;getBuff()-&gt;clone() ) );
+			iter ++;
+		}
+		return( retVec );
+</CPlusMethodBody>
+
+			<CSharpMethodBody>
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt; values = obj-&gt;getOptionalComponentsValue();
+		std::TCFLibOwningVector&lt;$DefSchemaName$ValueBuff*&gt; retVec;
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt;::iterator iter = values.begin();
+		std::vector&lt;I$DefSchemaName$ValueObj*&gt;::iterator end = values.end();
+		while( iter != end ) {
+			retVec.push_back( dynamic_cast&lt;$DefSchemaName$ValueBuff*&gt;( (*iter)-&gt;getBuff()-&gt;clone() ) );
+			iter ++;
+		}
+		return( retVec );
+</CSharpMethodBody>
+		</ServerListFunc>
+	</TableAddendum>
+</SchemaDef>
+						</MinorVersion>
+					</MajorVersion>
+				</SubProject>
+			</TopProject>
+		</TopDomain>
+	</Tld>
+</MSSBam>

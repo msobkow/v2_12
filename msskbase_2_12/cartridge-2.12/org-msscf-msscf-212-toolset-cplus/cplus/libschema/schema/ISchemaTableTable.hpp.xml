@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schema/ISchemaTableTable.hpp"
+	Revision="2.12"
+	Descr="C++18 Table Interface">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableTableHpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="I$SchemaName$$TableName$TableHpp"
+		ExpansionKeyName="I$SchemaName$$TableName$TableHpp"
+		ExpansionFileName="I$SchemaName$$TableName$Table.hpp">#pragma once
+
+// Description: C++18 DbIO interface for $TableName$.
+
+$MssSourceLicense$
+
+$includeISchemaTableTableIncludes$
+namespace $CPlusDefNamespace$ {
+	class I$DefSchemaName$SchemaObj;
+}
+
+namespace $CPlusNamespace$ {
+	class I$SchemaName$$TableName$Obj;
+
+	class I$SchemaName$$TableName$Table$iterate TableRefs( first extendsCPlusSchemaTableNameTable each extendsCommaCPlusSchemaTableNameTable empty empty )$
+	{
+	public:$declISchemaTableTableConstructor$$iterate DispensedId16Generators( each declNextIdGen empty empty )$$iterate DispensedId32Generators( each declNextIdGen empty empty )$$iterate DispensedId64Generators( each declNextIdGen empty empty )$$declCreateTable$$declUpdateTable$$declDeleteTable$$declReadTableDerivedByPKey$$declLockTableDerivedByPKey$$declReadAllTableDerived$$declReadTableDerivedByIndexes$$declReadTableBuffByPKey$$declLockTableBuffByPKey$$declReadAllTableBuff$$switch PageData yes declPageAllTableBuff default empty$$declReadTableBuffByIndexes$$switch HasLookupIndex yes declReadTableBuffByLookupIndex default empty$$switch PageData yes declPageTableBuffByIndexes default empty$$switch HasChain yes declMoveUpTableBuff default empty$$switch HasChain yes declMoveDownTableBuff default empty$$declReleasePreparedStatements$$iterate ServerMethods( each declServerMethod empty empty )$$CPlusTableInterface$	};
+}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="includeISchemaTableTableIncludes">
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SecSchemaName$/$SecSchemaName$Authorization.hpp&gt;
+#include &lt;$lower DefSchemaName$/$DefSchemaName$HPKey.hpp&gt;
+#include &lt;$lower DefSchemaName$/$DefSchemaName$$TableName$Buff.hpp&gt;
+#include &lt;$lower reference BaseClass DefSchemaName$/$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey.hpp&gt;
+#include &lt;$lower DefSchemaName$/$DefSchemaName$$TableName$HBuff.hpp&gt;
+#include &lt;$lower reference BaseClass DefSchemaName$/$reference BaseClass DefSchemaName$$reference BaseClass TableName$HPKey.hpp&gt;$includeBuffIndexHeaders$$iterate TableRefs( each includeISchemaTableTable empty empty )$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="includeISchemaTableTable">
+#include &lt;$lower reference SchemaDef SchemaName$/I$reference SchemaDef SchemaName$$TableName$Table.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="declISchemaTableTableConstructor">
+		I$SchemaName$$TableName$Table();
+		virtual ~I$SchemaName$$TableName$Table();
+</GenRule>
+
+	<GenRule GenDef="Index" Name="includeNonPrimarySchemaTableIndexKeyHpp"
+		>$switch IsPrimaryIndex yes empty default includeSchemaTableIndexKeyHpp$</GenRule>
+
+	<GenRule GenDef="Table" Name="extendsCPlusSchemaTableNameTable">
+	: public virtual $CPlusDefNamespace$::I$reference SchemaDef SchemaName$$TableName$Table</GenRule>
+
+	<GenRule GenDef="Table" Name="extendsCommaCPlusSchemaTableNameTable">,
+	  public virtual $reference SchemaDef CPlusNamespace$::I$reference SchemaDef SchemaName$$TableName$Table</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="TableName"
+		>$reference ForTable TableName$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declServerMethod"
+		>$switch IsInstanceMethod yes declInstServerProc default declClassServerProc$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declClassServerProc">
+		virtual bool $leadlower Name$( $CPlusDefNamespace$::I$DefSchemaName$SchemaObj* schemaObj$iterate Params( each declServerMethodParam empty empty )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declInstServerProc">
+		virtual bool $leadlower Name$( $CPlusDefNamespace$::I$DefSchemaName$SchemaObj* schemaObj,
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj$iterate Params( each declServerMethodParam empty empty )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Param" Name="declServerMethodParam">,
+			$declConstAtomType$ $leadlower Name$</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declServerMethod"
+		>$switch IsInstanceMethod yes declInstServerObjFunc default declClassServerObjFunc$</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declClassServerObjFunc">
+		virtual $reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable Name$Buff* $leadlower Name$( $reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$SchemaObj* schemaObj$iterate Params( each declServerMethodParam empty empty )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declInstServerObjFunc">
+		virtual $reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable Name$Buff* $leadlower Name$( $reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$SchemaObj* schemaObj,
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj$iterate Params( each declServerMethodParam empty empty )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declServerMethod"
+		>$switch IsInstanceMethod yes declInstServerListFunc default declClassServerListFunc$</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declClassServerListFunc">
+		virtual std::TCFLibOwningVector&lt;$reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable Name$Buff*&gt; $leadlower Name$( $reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$SchemaObj* schemaObj$iterate Params( each declServerMethodParam empty empty )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declInstServerListFunc">
+		virtual std::TCFLibOwningVector&lt;$reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable Name$Buff*&gt; $leadlower Name$( $reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$SchemaObj* schemaObj,
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj$iterate Params( each declServerMethodParam empty empty )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReleasePreparedStatements">
+		virtual void releasePreparedStatements() = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadTableDerivedByPKey">
+		virtual $poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff* readDerived( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			const $reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey* PKey ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declLockTableDerivedByPKey">
+		virtual $poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff* lockDerived( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			const $reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey* PKey ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadAllTableDerived">
+		virtual std::TCFLibOwningVector&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt; readAllDerived( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadTableDerivedByIndexes"
+		>$switch HasSuperClassRelation yes declReadTableDerivedByInhIndexes default declReadTableDerivedByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadTableDerivedByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declReadTableDerivedByIndexes$$iterate Index( each declReadTableDerivedByNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadTableDerivedByBaseIndexes"
+		>$iterate Index( each declReadTableDerivedByIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadTableDerivedByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declReadTableDerivedByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadTableDerivedByIndex"
+		>$switch IsUnique
+			yes declReadTableDerivedByUniqueIndex
+			default declReadTableDerivedByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadTableSuffix"
+		>$switch IsPrimaryIndex yes declReadTableBasePrimarySuffix default Suffix$</GenRule>
+	<GenRule GenDef="Index" Name="declReadTableBasePrimarySuffix"
+		>$reference Table reference BaseClass reference PrimaryKeyIndex Suffix$</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadTableDerivedByUniqueIndex">
+		virtual $poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff* readDerivedBy$declReadTableSuffix$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$iterate Columns( each declCommaColumnArg )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadTableDerivedByDuplicateIndex">
+		virtual std::TCFLibOwningVector&lt;$CPlusDefNamespace$::$DefSchemaName$$poptop Table TableName$Buff*&gt; readDerivedBy$declReadTableSuffix$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$iterate Columns( each declCommaColumnArg )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadTableBuffByPKey">
+		virtual $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* readBuff( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			const $reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey* PKey ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declLockTableBuffByPKey">
+		virtual $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* lockBuff( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			const $CPlusDefNamespace$::$DefSchemaName$$reference BaseClass TableName$PKey* PKey ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadAllTableBuff">
+		virtual std::TCFLibOwningVector&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt; readAllBuff( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadTableBuffByIndexes"
+		>$switch HasSuperClassRelation yes declReadTableBuffByInhIndexes default declReadTableBuffByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadTableBuffByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declReadTableBuffByIndexes$$iterate Index( each declReadTableBuffByNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadTableBuffByBaseIndexes"
+		>$iterate Index( each declReadTableBuffByIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadTableBuffByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declReadTableBuffSPs$</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadTableBuffSPs"
+		>$declReadTableBuffByIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPageTableBuffByIndexes"
+		>$switch HasSuperClassRelation yes declPageTableBuffByInhIndexes default declPageTableBuffByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPageTableBuffByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declPageTableBuffByIndexes$$iterate Index( each declPageTableBuffByNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPageTableBuffByBaseIndexes"
+		>$iterate Index( each declPageTableBuffByIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declPageTableBuffByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declPageTableBuffSPs$</GenRule>
+
+	<GenRule GenDef="Index" Name="declPageTableBuffSPs"
+		>$switch PageData yes maybe_declPageTableBuffByIndex default empty$</GenRule>
+
+	<GenRule GenDef="Index" Name="maybe_declPageTableBuffByIndex"
+		>$switch IsUnique yes empty default declPageTableBuffByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadTableBuffByLookupIndex"
+		>$reference LookupIndex declReadTableBuffByLookupIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadTableBuffByLookupIndex">
+		virtual $CPlusDefNamespace$::$DefSchemaName$$poptop Table TableName$Buff* readBuffByLookup$declReadTableSuffix$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$iterate Columns( each declCommaColumnReqArg last empty lone empty )$, $iterate Columns( each empty last declConstAtomType )$ $iterate Columns( each empty last Name )$,
+			bool forceRead = false ) = 0;
+
+		virtual $CPlusDefNamespace$::$DefSchemaName$$poptop Table TableName$Buff* readDerivedByLookup$declReadTableSuffix$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$iterate Columns( each declCommaColumnReqArg last empty lone empty )$, $iterate Columns( each empty last declConstAtomType )$ $iterate Columns( each empty last Name )$,
+			bool forceRead = false ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Object" Name="CommaSpace">, </GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declCommaColumnReqArg">,
+			$declConstReqAtomType$ $Name$</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadTableBuffByUniqueIndex">
+		virtual $CPlusDefNamespace$::$DefSchemaName$$poptop Table TableName$Buff* readBuffBy$declReadTableSuffix$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$iterate Columns( each declCommaColumnArg )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadTableBuffByDuplicateIndex">
+		virtual std::TCFLibOwningVector&lt;$CPlusDefNamespace$::$DefSchemaName$$poptop Table TableName$Buff*&gt; readBuffBy$declReadTableSuffix$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$iterate Columns( each declCommaColumnArg )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declPageAllTableBuff">
+		virtual std::TCFLibOwningVector&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt; pageAllBuff( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaOptPriorArg )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declPageTableBuffByDuplicateIndex">
+		virtual std::TCFLibOwningVector&lt;$CPlusDefNamespace$::$DefSchemaName$$poptop Table TableName$Buff*&gt; pageBuffBy$declReadTableSuffix$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$iterate Columns( each declCommaColumnArg )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaOptPriorArg )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declMoveUpTableBuff">
+		virtual $poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff* moveBuffUp( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaColumnArg )$,
+			int32_t revision ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declMoveDownTableBuff">
+		virtual $poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff* moveBuffDown( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaColumnArg )$,
+			int32_t revision ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declCommaColumnArg">,
+			$declColumnArg$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declColumnArg"
+		>$declConstAtomType$ $Name$</GenRule>
+	<GenRule GenDef="Atom" Name="declColumnArg"
+		>$declConstAtomType$ $Name$</GenRule>
+	<GenRule GenDef="IndexCol" Name="declColumnArg"
+		>$reference Column declColumnArg$</GenRule>
+
+	<GenRule GenDef="Object" Name="declCommaReqColumnArg">,
+			$declReqColumnArg$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declReqColumnArg"
+		>$declConstReqAtomType$ $Name$</GenRule>
+	<GenRule GenDef="Atom" Name="declReqColumnArg"
+		>$declConstReqAtomType$ $Name$</GenRule>
+	<GenRule GenDef="IndexCol" Name="declReqColumnArg"
+		>$reference Column declReqColumnArg$</GenRule>
+
+	<GenRule GenDef="Object" Name="declCommaOptPriorArg">,
+			$declOptPriorArg$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declOptPriorArg"
+		>$declConstOptAtomType$ prior$Name$</GenRule>
+	<GenRule GenDef="Atom" Name="declOptPriorArg"
+		>$declConstOptAtomType$ prior$Name$</GenRule>
+	<GenRule GenDef="IndexCol" Name="declOptPriorArg"
+		>$reference Column declOptPriorArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadTableBuffByIndex"
+		>$switch IsUnique
+			yes declReadTableBuffByUniqueIndex
+			default declReadTableBuffByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declPageTableBuffByIndex"
+		>$switch IsUnique
+			yes empty
+			default declPageTableBuffByDuplicateIndex$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id16Gen" Name="declNextIdGen">
+		virtual int16_t next$Name$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			const $poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$popto Table reference BaseClass TableName$PKey* PKey ) = 0;
+
+		virtual int16_t next$Name$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$reference Dispenser reference BaseClass reference PrimaryKeyIndex iterate Columns( each implNextIdGenDeclAttr )$ ) = 0;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implNextIdGenDeclAttr">,
+			$declConstAtomType$ arg$Name$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id32Gen" Name="declNextIdGen">
+		virtual int32_t next$Name$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			const $popto Table reference BaseClass CPlusDefNamespace$::$popto Table reference BaseClass DefSchemaName$$popto Table reference BaseClass TableName$PKey* PKey ) = 0;
+
+		virtual int32_t next$Name$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$reference Dispenser reference BaseClass reference PrimaryKeyIndex iterate Columns( each implNextIdGenDeclAttr )$ ) = 0;
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id64Gen" Name="declNextIdGen">
+		virtual int64_t next$Name$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			const $popto Table reference BaseClass CPlusDefNamespace$::$popto Table reference BaseClass DefSchemaName$$popto Table reference BaseClass TableName$PKey* PKey ) = 0;
+
+		virtual int64_t next$Name$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$reference Dispenser reference BaseClass reference PrimaryKeyIndex iterate Columns( each implNextIdGenDeclAttr )$ ) = 0;
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="UuidGen" Name="declNextIdGen"></GenRule>
+
+	<GenRule GenDef="Table" Name="declCreateTable">
+		virtual $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* create$TableName$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* Buff ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadAllTable">
+		virtual std::TCFLibOwningVector&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt; readAll$TableName$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declUpdateTable">
+		virtual $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* update$TableName$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* Buff ) = 0;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declDeleteTable">
+		virtual void delete$TableName$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* Buff ) = 0;$declDeleteTableByInheritedIndexes$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declDeleteTableByInheritedIndexes"
+		>$switch HasSuperClassRelation yes declDeleteTableByInhIndexes default declDeleteTableByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDeleteTableByInhIndexes"
+		>$iterate Index( each declDeleteTableByNonPrimaryIndex empty empty )$$reference SuperClassRelation reference ToTable declDeleteTableByInheritedIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDeleteTableByBaseIndexes"
+		>$iterate Index( each declDeleteTableBySpecialIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declDeleteTableByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declDeleteTableByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declDeleteTableBySpecialIndex"
+		>$switch IsPrimaryIndex yes declDeleteTableByPrimaryIndex default declDeleteTableByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declDeleteTableByIndex">
+		virtual void delete$poptop Table TableName$By$Suffix$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$iterate Columns( each implNextIdGenDeclAttr )$ ) = 0;
+
+		virtual void delete$poptop Table TableName$By$Suffix$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			const $CPlusDefNamespace$::$DefSchemaName$$TableName$By$Suffix$Key* argKey ) = 0;</GenRule>
+
+	<GenRule GenDef="Index" Name="declDeleteTableByPrimaryIndex">
+		virtual void delete$poptop Table TableName$By$Suffix$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization$iterate Columns( each implNextIdGenDeclAttr )$ ) = 0;
+
+		virtual void delete$poptop Table TableName$By$Suffix$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+			const $poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey* argKey ) = 0;</GenRule>
+
+</RuleSet>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="DefinePgSqlAdminFiles"
+	Revision="2.12"
+	Descr="PostgreSQL Database Admin Files">
+
+	<GenRule GenDef="MinorVersion" Name="top">$iterate SchemaDef( each rdbmsAdminFiles )$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="rdbmsAdminFiles">$validatePageData$$dbadminfile_ReadmeTxt$$dbadminfile_CreateDatabase$$dbadminfile_CreateDatabaseBat$$dbadminfile_CreateSchema$$dbadminfile_CreateSchemaBat$$dbadminfile_CreateAllTables$$dbadminfile_CreateAllTablesBat$$dbadminfile_CreateAllIndexes$$dbadminfile_CreateAllIndexesBat$$dbadminfile_CreateAllHIndexes$$dbadminfile_CreateAllHIndexesBat$$dbadminfile_CreateAllRelations$$dbadminfile_CreateAllRelationsBat$$dbadminfile_CreateAllTypes$$dbadminfile_CreateAllTypesBat$$dbadminfile_CreateAllStoredProcs$$dbadminfile_CreateAllStoredProcsBat$$dbadminfile_CreateAllSequences$$dbadminfile_CreateAllSequencesBat$$dbadminfile_ReorgAllTables$$dbadminfile_ReorgAllTablesBat$$dbadminfile_CreateTypeDbSchemaNameCCRec$$iterate Id16Generators( each dbadminfile_CreateSchemaIdg16Sequence empty empty )$$iterate Id32Generators( each dbadminfile_CreateSchemaIdg32Sequence empty empty )$$iterate Id64Generators( each dbadminfile_CreateSchemaIdg64Sequence empty empty )$$dbadminfile_CreateSPBootstrap$$dbadminfile_CreateSPIsSystemUser$$dbadminfile_CreateSPIsClusterUser$$dbadminfile_CreateSPIsTenantUser$$iterate Id16Generators( each dbadminfile_CreateSPNextSchemaIdGen empty empty )$$iterate Id32Generators( each dbadminfile_CreateSPNextSchemaIdGen empty empty )$$iterate Id64Generators( each dbadminfile_CreateSPNextSchemaIdGen empty empty )$$iterate SchemaTables( each create_SchemaTableFiles empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="validatePageData"
+		>$iterate SchemaTables( each validatePageData )$</GenRule>
+	<GenRule GenDef="Table" Name="validatePageData"
+		>$switch PageData yes checkPageDataNoSubclasses default empty$</GenRule>
+	<GenRule GenDef="Table" Name="checkPageDataNoSubclasses"
+		>$switch HasSubClasses no checkPageDataNormalizedKey default FailAssertPageDataNotAllowedForTablesWithSubclasses$</GenRule>
+	<GenRule GenDef="Table" Name="checkPageDataNormalizedKey"
+		>$reference BaseClass reference PrimaryKeyIndex checkPageDataNormalizedKey$</GenRule>
+	<GenRule GenDef="Index" Name="checkPageDataNormalizedKey"
+		>$iterate Columns( each checkPageDataNormalizedKey )$</GenRule>
+	<GenRule GenDef="IndexCol" Name="checkPageDataNormalizedKey"
+		>$switch IsNullable no empty default FailAssertPageDataNotAllowedForPrimaryKeyWithOptionalColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybe_SchemaHIndexFiles"
+		>$switch BaseHasHistory no empty default create_SchemaHIndexFiles$</GenRule>
+
+	<GenRule GenDef="Table" Name="create_SchemaHIndexFiles"
+		>$switch HasSuperClassRelation yes create_SchemaHIndexInhFiles default create_SchemaHIndexBaseFiles$</GenRule>
+
+	<GenRule GenDef="Table" Name="create_SchemaHIndexInhFiles"
+		>$reference SuperClassRelation reference ToTable create_SchemaHIndexFiles$$create_SchemaHIndexBaseFiles$</GenRule>
+
+	<GenRule GenDef="Table" Name="create_SchemaHIndexBaseFiles"
+		>$iterate Index( each maybe_SchemaHIndexFiles )$</GenRule>
+
+	<GenRule GenDef="Index" Name="maybe_SchemaHIndexFiles"
+		>$switch IsPrimaryIndex yes empty default create_SchemaHIndexFiles$</GenRule>
+
+	<GenRule GenDef="Index" Name="create_SchemaHIndexFiles"
+		>$dbadminfile_CreateHIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="create_SchemaTableFiles">$switch ThisHasChain yes dbadminfile_CreateSPAuditDbTableName default empty$$dbadminfile_CreateTable$$switch BaseHasHistory yes dbadminfile_CreateTableH default empty$$iterate Index( each dbadminfile_maybeCreateIndex empty empty )$$maybe_SchemaHIndexFiles$<!--
+		-->$dbadminfile_CreateDbTableNameRecType$<!--
+		-->$iterate DispensedId16Generators(
+				first dbadminfile_CreateTableIdg16Table
+				each empty
+				empty empty )$<!--
+		-->$iterate DispensedId32Generators(
+				first dbadminfile_CreateTableIdg32Table
+				each empty
+				empty empty )$<!--
+		-->$iterate DispensedId64Generators(
+				first dbadminfile_CreateTableIdg64Table
+				each empty
+				empty empty )$<!--
+		-->$iterate DispensedId16Generators(
+				first dbadminfile_CreateTableIdg16Relations
+				each empty
+				empty empty )$<!--
+		-->$iterate DispensedId32Generators(
+				first dbadminfile_CreateTableIdg32Relations
+				each empty
+				empty empty )$<!--
+		-->$iterate DispensedId64Generators(
+				first dbadminfile_CreateTableIdg64Relations
+				each empty
+				empty empty )$<!--
+		-->$dbadminfile_CreateTableRelations$<!--
+		-->$maybe_dbadminfile_CreateSPCreateDbTableName$<!--
+		-->$dbadminfile_CreateSPLockDbTableName$<!--
+		-->$dbadminfile_CreateSPReadDbTableName$<!--
+		-->$dbadminfile_maybeCreateSPReadDbTableNameCC$<!--
+		-->$dbadminfile_CreateSPReadDbTableNameAll$<!--
+		-->$switch PageData yes dbadminfile_CreateSPPageDbTableNameAll default empty$<!--
+		-->$dbadminfile_maybeCreateSPReadDbTableNameCCAll$<!--
+		-->$tableFilesSPReadByIndexes$<!--
+		-->$maybe_dbadminfile_CreateSPUpdateDbTableName$<!--
+		-->$dbadminfile_CreateSPDeleteDbTableName$<!--
+		-->$dbadminfile_CreateSPDeleteDbTableNameBySuffix$<!--
+		-->$switch HasChain yes dbadminfile_CreateSPMoveUpDbTableName default empty$<!--
+		-->$switch HasChain yes dbadminfile_CreateSPMoveDownDbTableName default empty$<!--
+		-->$iterate DispensedId16Generators( each dbadminfile_CreateSPNextTableIdGen empty empty )$<!--
+		-->$iterate DispensedId32Generators( each dbadminfile_CreateSPNextTableIdGen empty empty )$<!--
+		-->$iterate DispensedId64Generators( each dbadminfile_CreateSPNextTableIdGen empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_CreateSPDeleteDbTableNameBySuffix"
+		>$switch HasSuperClassRelation yes dbadminfile_CreateSPDeleteDbTableNameByInhSuffix default dbadminfile_CreateSPDeleteDbTableNameByBaseSuffix$</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_CreateSPDeleteDbTableNameByInhSuffix"
+		>$reference SuperClassRelation reference ToTable dbadminfile_CreateSPDeleteDbTableNameBySuffix$$iterate Index( each dbadminfile_CreateSPDeleteDbTableNameByNonPrimarySuffix empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="dbadminfile_CreateSPDeleteDbTableNameByNonPrimarySuffix"
+		>$switch IsPrimaryIndex yes empty default dbadminfile_CreateSPDeleteDbTableNameBySuffix$</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_CreateSPDeleteDbTableNameByBaseSuffix"
+		>$iterate Index( each dbadminfile_CreateSPDeleteDbTableNameBySuffix )$</GenRule>
+
+	<GenRule GenDef="Index" Name="type_dbtablename_rec"
+		>$poptop Table type_dbtablename_rec$</GenRule>
+
+	<GenRule GenDef="Table" Name="type_dbschemaname_cc_rec"
+		>$popto SchemaDef type_dbschemaname_cc_rec$</GenRule>
+
+	<GenRule GenDef="Index" Name="type_dbschemaname_cc_rec"
+		>$popto SchemaDef type_dbschemaname_cc_rec$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybe_dbadminfile_CreateSPCreateDbTableName"
+		>$switch InheritsBlob yes empty default dbadminfile_CreateSPCreateDbTableName$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybe_dbadminfile_CreateSPUpdateDbTableName"
+		>$switch InheritsBlob yes empty default dbadminfile_CreateSPUpdateDbTableName$</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_maybeCreateSPReadDbTableNameCC"
+		>$switch HasSubClasses yes dbadminfile_CreateSPReadDbTableNameCC default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_maybeCreateSPReadDbTableNameCCAll"
+		>$switch HasSubClasses yes dbadminfile_CreateSPReadDbTableNameCCAll default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableFilesSPReadByIndexes"
+		>$switch HasSuperClassRelation yes tableFilesSPReadByInhIndexes default tableFilesSPReadByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableFilesSPReadByInhIndexes"
+		>$reference SuperClassRelation reference ToTable tableFilesSPReadByIndexes$$iterate Index( each tableFileSPReadByInhIndexesSPs empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="tableFileSPReadByInhIndexesSPs"
+		>$dbadminfile_maybeCreateNonPrimarySPReadDbTableNameBySuffix$$dbadminfile_maybeCreateNonPrimarySPReadDbTableNameCCBySuffix$$switch PageData yes dbadminfile_maybeCreateSPPageDbTableNameBySuffix default empty$</GenRule>
+
+	<GenRule GenDef="Index" Name="PageData"
+		>$poptop Table PageData$</GenRule>
+
+	<GenRule GenDef="Index" Name="dbadminfile_maybeCreateSPPageDbTableNameBySuffix"
+		>$switch IsUnique yes empty default dbadminfile_CreateSPPageDbTableNameBySuffix$</GenRule>
+
+	<GenRule GenDef="Index" Name="TopHasSubClasses"
+		>$poptop Table HasSubClasses$</GenRule>
+
+	<GenRule GenDef="Index" Name="dbadminfile_maybeCreateNonPrimarySPReadDbTableNameCCBySuffix"
+		>$switch IsPrimaryIndex yes empty default dbadminfile_maybeCreateSubSPReadDbTableNameCCBySuffix$</GenRule>
+
+	<GenRule GenDef="Index" Name="dbadminfile_maybeCreateSubSPReadDbTableNameCCBySuffix"
+		>$switch TopHasSubClasses yes dbadminfile_CreateSPReadDbTableNameCCBySuffix default empty$</GenRule>
+
+	<GenRule GenDef="Index" Name="dbadminfile_ifreqCreateSPReadDbTableNameCCBySuffix"
+		>$dbadminfile_CreateSPReadDbTableNameCCBySuffix$</GenRule>
+
+	<GenRule GenDef="Index" Name="dbadminfile_maybeCreateNonPrimarySPReadDbTableNameBySuffix"
+		>$switch IsPrimaryIndex yes empty default dbadminfile_CreateSPReadDbTableNameBySuffix$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="dbadminfile_maybeCreateSPReadDbTableNameBySuffix"
+		>$dbadminfile_CreateSPReadDbTableNameBySuffix$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableFilesSPReadByBaseIndexes"
+		>$iterate Index( each tableFilesSPReadByBaseIndexesSPs empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="tableFilesSPReadByBaseIndexesSPs"
+		>$dbadminfile_non_nullable_CreateSPReadDbTableNameBySuffix$$dbadminfile_maybeCreateSubSPReadDbTableNameCCBySuffix$$switch PageData yes dbadminfile_maybeCreateSPPageDbTableNameBySuffix default empty$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="dbadminfile_non_nullable_CreateSPReadDbTableNameBySuffix"
+		>$dbadminfile_CreateSPReadDbTableNameBySuffix$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="dbadminfile_maybeCreateIndex">$switch IsPrimaryIndex no dbadminfile_CreateIndex default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="RunSqlStmt">;
+</GenRule>
+
+	<GenRule GenDef="Object" Name="ContSqlStmt">
+</GenRule>
+
+	<GenRule GenDef="Object" Name="BeginCallScript">. </GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateSchema">crschema_$lower DbSchemaName$.bash</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateSchemaBat">crschema_$lower DbSchemaName$.bat</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateDatabase">crdb_$lower DbSchemaName$.bash</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateDatabaseBat">crdb_$lower DbSchemaName$.bat</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllTables">crtbl_$lower DbSchemaName$.bash</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllTablesBat">crtbl_$lower DbSchemaName$.bat</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllIndexes">cridx_$lower DbSchemaName$.bash</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllIndexesBat">cridx_$lower DbSchemaName$.bat</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllHIndexes">cridx_$lower DbSchemaName$_h.bash</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllHIndexesBat">cridx_$lower DbSchemaName$_h.bat</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllRelations">crrel_$lower DbSchemaName$.bash</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllRelationsBat">crrel_$lower DbSchemaName$.bat</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllStoredProcs">crprocs_$lower DbSchemaName$.bash</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllStoredProcsBat">crprocs_$lower DbSchemaName$.bat</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllTypes">crtypes_$lower DbSchemaName$.bash</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllTypesBat">crtypes_$lower DbSchemaName$.bat</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateTypeDbSchemaNameCCRec">cr$type_dbschemaname_cc_rec$.pgsql</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="type_dbschemaname_cc_rec">type_$lower DbSchemaName$_cc_rec</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="sp_bootstrap">sp_bootstrap</GenRule>
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateSPBootstrap">cr$sp_bootstrap$.pgsql</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="sp_is_system_user">sp_is_system_user</GenRule>
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateSPIsSystemUser">cr$sp_is_system_user$.pgsql</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="sp_is_cluster_user">sp_is_cluster_user</GenRule>
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateSPIsClusterUser">cr$sp_is_cluster_user$.pgsql</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="sp_is_tenant_user">sp_is_tenant_user</GenRule>
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateSPIsTenantUser">cr$sp_is_tenant_user$.pgsql</GenRule>
+
+	<GenRule GenDef="Id16Gen" Name="sp_next_schemaidgen">sp_next_$lower Name$</GenRule>
+	<GenRule GenDef="Id32Gen" Name="sp_next_schemaidgen">sp_next_$lower Name$</GenRule>
+	<GenRule GenDef="Id64Gen" Name="sp_next_schemaidgen">sp_next_$lower Name$</GenRule>
+	<GenRule GenDef="TableCol" Name="sp_next_schemaidgen">$reference DataType sp_next_schemaidgen$</GenRule>
+
+	<GenRule GenDef="Id16Gen" Name="sp_next_tableidgen">sp_next_$lower Name$</GenRule>
+	<GenRule GenDef="Id32Gen" Name="sp_next_tableidgen">sp_next_$lower Name$</GenRule>
+	<GenRule GenDef="Id64Gen" Name="sp_next_tableidgen">sp_next_$lower Name$</GenRule>
+	<GenRule GenDef="TableCol" Name="sp_next_tableidgen">$reference DataType sp_next_tableidgen$</GenRule>
+
+	<GenRule GenDef="Table" Name="type_dbtablename_rec">type_$lower DbTableName$_rec</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateDbTableNameRecType">cr$type_dbtablename_rec$.pgsql</GenRule>
+
+	<GenRule GenDef="Table" Name="sp_audit_dbtablename">sp_audit_$lower DbTableName$</GenRule>
+	<GenRule GenDef="Table" Name="sp_create_dbtablename">sp_create_$lower DbTableName$</GenRule>
+	<GenRule GenDef="Table" Name="sp_lock_dbtablename">sp_lock_$lower DbTableName$</GenRule>
+	<GenRule GenDef="Table" Name="sp_read_dbtablename">sp_read_$lower DbTableName$</GenRule>
+	<GenRule GenDef="Table" Name="sp_read_dbtablename_all">sp_read_$lower DbTableName$_all</GenRule>
+	<GenRule GenDef="Index" Name="sp_read_dbtablename_by_suffix">sp_read_$lower poptop Table DbTableName$_by_$lower Suffix$</GenRule>
+	<GenRule GenDef="Table" Name="sp_read_dbtablename_cc">sp_read_cc_$lower DbTableName$</GenRule>
+	<GenRule GenDef="Table" Name="sp_read_dbtablename_cc_all">sp_read_$lower DbTableName$_cc_all</GenRule>
+	<GenRule GenDef="Index" Name="sp_read_dbtablename_cc_by_suffix">sp_read_$lower poptop Table DbTableName$_cc_by_$lower Suffix$</GenRule>
+	<GenRule GenDef="Table" Name="sp_page_dbtablename_all">sp_page_$lower DbTableName$_all</GenRule>
+	<GenRule GenDef="Index" Name="sp_page_dbtablename_by_suffix">sp_page_$lower poptop Table DbTableName$_by_$lower Suffix$</GenRule>
+	<GenRule GenDef="Table" Name="sp_update_dbtablename">sp_update_$lower DbTableName$</GenRule>
+	<GenRule GenDef="Table" Name="sp_delete_dbtablename">sp_delete_$lower DbTableName$</GenRule>
+	<GenRule GenDef="Index" Name="sp_delete_dbtablename_by_suffix">sp_delete_$lower poptop Table DbTableName$_by_$lower Suffix$</GenRule>
+	<GenRule GenDef="Table" Name="sp_moveup_dbtablename">sp_moveup_$lower DbTableName$</GenRule>
+	<GenRule GenDef="Table" Name="sp_movedown_dbtablename">sp_movedown_$lower DbTableName$</GenRule>
+
+	<GenRule GenDef="Object" Name="dbadminfilename_CreateSPNextSchemaIdGen">cr$sp_next_schemaidgen$.pgsql</GenRule>
+	<GenRule GenDef="Object" Name="dbadminfilename_CreateSPNextTableIdGen">cr$sp_next_tableidgen$.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPCreateDbTableName">cr$sp_create_dbtablename$.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPAuditDbTableName">cr$sp_audit_dbtablename$.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPLockDbTableName">cr$sp_lock_dbtablename$.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPReadDbTableName">cr$sp_read_dbtablename$.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPReadDbTableNameAll">cr$sp_read_dbtablename_all$.pgsql</GenRule>
+	<GenRule GenDef="Index" Name="dbadminfilename_CreateSPReadDbTableNameBySuffix">cr$sp_read_dbtablename_by_suffix$.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPReadDbTableNameCC">cr$sp_read_dbtablename$_cc.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPReadDbTableNameCCAll">cr$sp_read_dbtablename_cc_all$.pgsql</GenRule>
+	<GenRule GenDef="Index" Name="dbadminfilename_CreateSPReadDbTableNameCCBySuffix">cr$sp_read_dbtablename_cc_by_suffix$.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPPageDbTableNameAll">cr$sp_page_dbtablename_all$.pgsql</GenRule>
+	<GenRule GenDef="Index" Name="dbadminfilename_CreateSPPageDbTableNameBySuffix">cr$sp_page_dbtablename_by_suffix$.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPUpdateDbTableName">cr$sp_update_dbtablename$.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPDeleteDbTableName">cr$sp_delete_dbtablename$.pgsql</GenRule>
+	<GenRule GenDef="Index" Name="dbadminfilename_CreateSPDeleteDbTableNameBySuffix">cr$sp_delete_dbtablename_by_suffix$.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPMoveUpDbTableName">cr$sp_moveup_dbtablename$.pgsql</GenRule>
+	<GenRule GenDef="Table" Name="dbadminfilename_CreateSPMoveDownDbTableName">cr$sp_movedown_dbtablename$.pgsql</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllSequences">crseq_$lower DbSchemaName$.bash</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllSequencesBat">crseq_$lower DbSchemaName$.bat</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_LoadAllData">load_$lower DbSchemaName$.bash</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_LoadAllDataBat">load_$lower DbSchemaName$.bat</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllTriggers">crtrg_$lower DbSchemaName$.bash</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_CreateAllTriggersBat">crtrg_$lower DbSchemaName$.bat</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dbadminfilename_ReorgAllTables">reorg_$lower DbSchemaName$.pgsql</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfilename_CreateTable">crtbl_$lower DbTableName$.pgsql</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfilename_CreateTableH">crtbl_$lower DbHTableName$.pgsql</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="dbadminfilename_CreateIndex">cridx_$lower DbIndexName$.pgsql</GenRule>
+
+	<GenRule GenDef="Object" Name="DbHTableName"
+		>$lower poptop Table DbTableName$_h</GenRule>
+
+	<GenRule GenDef="Index" Name="DbHIndexName"
+		>$lower poptop Table DbTableName$_h_$lower Suffix$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="dbadminfilename_CreateHIndex">cridx_$lower DbHIndexName$.pgsql</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfilename_CreateTableRelations">crrel_$lower DbTableName$.pgsql</GenRule>
+
+	<GenRule GenDef="Id16Gen" Name="dbadminfilename_CreateSchemaIdg16Sequence">crseq_$lower DbColumnName$.pgsql</GenRule>
+
+	<GenRule GenDef="Id32Gen" Name="dbadminfilename_CreateSchemaIdg32Sequence">crseq_$lower DbColumnName$.pgsql</GenRule>
+
+	<GenRule GenDef="Id64Gen" Name="dbadminfilename_CreateSchemaIdg64Sequence">crseq_$lower DbColumnName$.pgsql</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id16Gen" Name="dbadminfilename_CreateTableIdg16Table">crtbl_$lower DbTableName$_idg16.pgsql</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id32Gen" Name="dbadminfilename_CreateTableIdg32Table">crtbl_$lower DbTableName$_idg32.pgsql</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id64Gen" Name="dbadminfilename_CreateTableIdg64Table">crtbl_$lower DbTableName$_idg64.pgsql</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id16Gen" Name="dbadminfilename_CreateTableIdg16Relations">crrel_$lower DbTableName$_idg16.pgsql</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id32Gen" Name="dbadminfilename_CreateTableIdg32Relations">crrel_$lower DbTableName$_idg32.pgsql</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id64Gen" Name="dbadminfilename_CreateTableIdg64Relations">crrel_$lower DbTableName$_idg64.pgsql</GenRule>
+
+</RuleSet>

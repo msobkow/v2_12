@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/crsp_delete_dbtablename_by_suffix.plsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile GenDef="Index" Name="dbadminfile_CreateSPDeleteDbTableNameBySuffix"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$"
+		ExpansionKeyName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$"
+		ExpansionFileName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+alter session set plsql_warnings = 'ENABLE:ALL';
+/
+
+create or replace procedure $lower DbSchemaName$.$sp_delete_dbtablename_by_suffix$($implOracleSPStandardArgs$$iterate Columns( each sparg_CommaIndexCol )$ ) authid definer
+is$poptop Table switch HasSubClasses yes implSPDeleteDbTablenameBySuffixDeclClassCode default empty$
+	unrecognizedClassCode exception;
+	permissionFlag integer;$declCursorSPDeleteDbTablenameBySuffixDirectSQL$
+begin$implSPDeleteDbTablenameBySuffixDirectSQL$
+end $sp_delete_dbtablename_by_suffix$;
+/
+
+show errors procedure $lower DbSchemaName$.$sp_delete_dbtablename_by_suffix$;
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implSPDeleteDbTablenameBySuffixDeclClassCode">
+	classCode varchar(4);</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectSQL"
+		>$switch SecScope None implSPDeleteDbTablenameBySuffixDirectNormal System implSPDeleteDbTablenameBySuffixDirectNormal Cluster implSPDeleteDbTablenameBySuffixDirectRestrictCluster Tenant implSPDeleteDbTablenameBySuffixDirectRestrictTenant default error$</GenRule>
+
+	<GenRule GenDef="Index" Name="declCursorSPDeleteDbTablenameBySuffixDirectSQL"
+		>$switch SecScope None declCursorSPDeleteDbTablenameBySuffixDirectNormal System declCursorSPDeleteDbTablenameBySuffixDirectNormal Cluster declCursorSPDeleteDbTablenameBySuffixDirectRestrictCluster Tenant declCursorSPDeleteDbTablenameBySuffixDirectRestrictTenant default error$</GenRule>
+
+	<GenRule GenDef="Index" Name="declCursorSPDeleteDbTablenameBySuffixDirectNormal">
+	cursor cursNormal is
+		select
+$poptop Table implOracleSelectDeleteColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinDeleteSuperTable default empty$
+		where
+				$iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$$switch SecScope None empty System empty Cluster implSPDeleteDbTablenameBySuffixAndCluster Tenant implSPDeleteDbTablenameBySuffixAndTenant default error$;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectNormal">
+	for cur in cursNormal
+	loop$implSPDeleteTablenameBySuffixLoopBody$
+	end loop;</GenRule>
+
+	<GenRule GenDef="Index" Name="declCursorSPDeleteDbTablenameBySuffixDirectRestrictCluster">
+	cursor cursSystem is
+		select
+$poptop Table implOracleSelectDeleteColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinDeleteSuperTable default empty$
+		where
+				$iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$;
+	cursor cursRestrict is
+		select
+$poptop Table implOracleSelectDeleteColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinDeleteSuperTable default empty$
+		where
+				$iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$
+				and $lower reference Table reference ClusterIdColumn reference Table ClassCode$.$reference Table referenceClusterIdColumn DbColumnName$ = secClusterId;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectRestrictCluster">
+	permissionFlag := $lower DbSchemaName$.sp_is_system_user( argAuditUserId );
+	if( permissionFlag = 1 )
+	then
+		for cur in cursSystem
+		loop$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+	else
+		for cur in cursRestrict
+		loop$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+	end if;</GenRule>
+
+	<GenRule GenDef="Index" Name="declCursorSPDeleteDbTablenameBySuffixDirectRestrictTenant">
+	cursor cursSystem is
+		select
+$poptop Table implOracleSelectDeleteColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinDeleteSuperTable default empty$
+		where
+				$iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$;
+	cursor cursRestrict is
+		select
+$poptop Table implOracleSelectDeleteColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinDeleteSuperTable default empty$
+		where
+				$iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$
+				and $lower reference Table reference TenantIdColumn reference Table ClassCode$.$reference Table referenceTenantIdColumn DbColumnName$ = secTenantId;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectRestrictTenant">
+	permissionFlag := $lower DbSchemaName$.sp_is_system_user( argAuditUserId );
+	if( permissionFlag = 1 )
+	then
+		for cur in cursSystem
+		loop$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+	else
+		for cur in cursRestrict
+		loop$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+	end if;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDeclStmt">
+	stmt varchar(2000);$iterate Columns( each implSPDeleteDbTablenameBySuffixDeclColumnWhereFrag )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteDbTablenameBySuffixDeclColumnWhereFrag">
+	whereFrag$Name$ varchar(2000);</GenRule>
+
+	<GenRule GenDef="Index" Name="TableHasSubClasses"
+		>$poptop Table HasSubClasses$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBody"
+		>$switch TableHasSubClasses yes implSPDeleteTablenameBySuffixLoopBodyEvalCC default implSPDeleteTablenameBySuffixLoopBodyInvokeDirect$</GenRule>
+
+	<GenRule GenDef="Object" Name="delinvoke_sp_delete_dbtablename">dl_$lower DbTableName$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBodyEvalCC">
+		select cur.classcode into classCode from dual;
+		case classCode
+		when '$poptop Table ClassCode$' then
+			$lower poptop Table DbSchemaName$.$poptop Table sp_delete_dbtablename$( argAuditClusterId,
+					argAuditUserId,
+					argAuditSessionId,
+					secClusterId,
+					secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassArg )$,
+					cur.revision );$poptop Table iterate ReverseRelations( each implSPDeleteTablenameBySuffixChaseSubclass empty empty )$
+		else
+			raise unrecognizedClassCode;
+		end case;</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSPDeleteTablenameBySuffixChaseSubclass"
+		>$switch RelationTypeTag
+			Superclass implSPDeleteTablenameBySuffixCheckSubclass
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSPDeleteTablenameBySuffixCheckSubclass"
+		>$reference FromTable implSPDeleteTablenameBySuffixLoopBodyEvalCCLimb$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPDeleteTablenameBySuffixLoopBodyEvalCCLimb">
+		when '$ClassCode$' then
+			$lower poptop Table DbSchemaName$.$delinvoke_sp_delete_dbtablename$( argAuditClusterId,
+					argAuditUserId,
+					argAuditSessionId,
+					secClusterId,
+					secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassArg )$,
+					cur.revision );$iterate ReverseRelations( each implSPDeleteTablenameBySuffixChaseSubclass empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBodyInvokeDirect">
+			$lower poptop Table DbSchemaName$.$poptop Table sp_delete_dbtablename$( argAuditClusterId,
+					argAuditUserId,
+					argAuditSessionId,
+					secClusterId,
+					secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassArg )$,
+					cur.revision );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteTablenameBySuffixPassArg"
+		>cur.$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteTablenameBySuffixCommaPassArg">,
+					$implSPDeleteTablenameBySuffixPassArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectDeleteColumns"
+		>$switch HasSuperClassRelation yes implOracleSelectSuperDelete default implOracleSelectBaseDelete$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectSuperDelete"
+		>$reference SuperClassRelation reference ToTable implOracleSelectDeleteColumns$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSelectFragCommaDataDeleteColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implOracleTableColumnSelectFragCommaDeleteColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectBaseDelete"
+		>$switch IsBaseTable yes implOracleSelectBaseDeleteWithCC default implOracleSelectBaseDeleteNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectBaseDeleteWithCC"
+>			$lower ClassCode$.classcode$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implOracleTableColumnSelectFragCommaDeleteColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSelectBaseDeleteNoCC"
+>			$reference PrimaryKeyIndex iterate Columns( first implOracleTableColumnSelectFragDbColumnName each implOracleTableColumnSelectFragCommaDeleteColumn )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleTableColumnSelectFragCommaDeleteColumn">,
+			$implOracleTableColumnSelectFragDbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleClassCodeMaybeJoinDeleteSuperTable"
+		>$switch HasSuperClassRelation yes implOracleClassCodeJoinDeleteSuperTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleClassCodeJoinDeleteSuperTable">
+			inner join $lower reference SuperClassRelation reference ToTable DbSchemaName$.$lower reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implOracleClassCodeJoinDeleteSuperTableColumn each implOracleClassCodeAndJoinDeleteSuperTableColumn )$$reference SuperClassRelation reference ToTable implOracleClassCodeMaybeJoinDeleteSuperTable$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleClassCodeJoinDeleteSuperTableColumn">
+				$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implOracleClassCodeAndJoinDeleteSuperTableColumn">
+				and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleClassCodeJoinDeleteBaseTable">
+			inner join $lower reference BaseClass DbSchemaName$.$lower reference BaseClass DbTableName$ $lower reference BaseClass ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implOracleClassCodeJoinDeleteBaseTableColumn each implOracleClassCodeAndJoinDeleteBaseTableColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleClassCodeJoinDeleteBaseTableColumn">
+				$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implOracleClassCodeAndJoinDeleteBaseTableColumn">
+				and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+</RuleSet>

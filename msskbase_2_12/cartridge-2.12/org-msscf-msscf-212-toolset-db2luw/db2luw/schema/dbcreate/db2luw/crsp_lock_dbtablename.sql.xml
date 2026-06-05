@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crsp_lock_dbtablename.sql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPLockDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="$dbadminfilename_CreateSPLockDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPLockDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPLockDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+$switch HasSuperClassRelation yes implDb2LUWLockTableHierarchyBody default implDb2LUWLockTableBaseBody$</GenFile>
+
+	<GenRule GenDef="Table" Name="implDb2LUWLockTableBaseBody">
+create or replace procedure $sp_lock_dbtablename$($implDb2LUWSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaTableCol )$ )	\\
+dynamic result sets 1	\\
+language sql	\\
+begin	\\
+	declare permissionFlag integer;	\\
+	declare isSystemUser integer;	\\
+	declare syscurs cursor with return to client for	\\
+		select$implDb2LUWSelectTableColumns$,	\\
+			$lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$$poptop Table reference BaseClass switch BaseHasClassCode no implSPLockForUpdateClause default empty$;	\\
+	declare usercurs cursor with return to client for	\\
+		select$implDb2LUWSelectTableColumns$,	\\
+			$lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$$implDb2LUWReadRestrictSec$$poptop Table reference BaseClass switch BaseHasClassCode no implSPLockForUpdateClause default empty$;	\\
+	begin$switch TableName SecSession empty default implDb2LUWSPLockTableCheckPermissions$	\\
+		set( isSystemUser ) = ( sp_is_system_user( argAuditUserId ) );	\\
+		if( isSystemUser = 1 )	\\
+		then	\\
+			open syscurs;	\\
+		else	\\
+			open usercurs;	\\
+		end if;	\\
+	end;	\\
+end
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSPLockForUpdateClause">	\\
+		for update</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWReadRestrictSec"
+			>$switch TableName SecSession empty default implDb2LUWReadRestrictSecNotSession$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWReadRestrictSecNotSession"
+		>$switch SecScope None empty System empty Cluster implDb2LUWReadRestrictSecByCluster Tenant implDb2LUWReadRestrictSecByTenant default error$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWReadRestrictSecByCluster">	\\
+			and ( $poptop Table lower reference ClusterIdColumn reference Table ClassCode$.$poptop Table reference ClusterIdColumn DbColumnName$ = secClusterId )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWReadRestrictSecByTenant">	\\
+			and ( $poptop Table lower reference TenantIdColumn reference Table ClassCode$.$poptop Table reference TenantIdColumn DbColumnName$ = secTenantId )</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWLockTableHierarchyBody">
+create or replace procedure $sp_lock_dbtablename$($implDb2LUWSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaTableCol )$ )	\\
+dynamic result sets 1	\\
+language sql	\\
+begin$declSPOldVars$	\\
+	declare permissionFlag integer;	\\
+	declare isSystemUser integer;	\\
+	declare syscurs cursor with return to client for	\\
+		select$implDb2LUWSelectTableColumns$,	\\
+			$lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$$poptop Table reference BaseClass switch BaseHasClassCode no implSPLockForUpdateClause default empty$;	\\
+	declare usercurs cursor with return to client for	\\
+		select$implDb2LUWSelectTableColumns$,	\\
+			$lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$$implDb2LUWReadRestrictSec$$poptop Table reference BaseClass switch BaseHasClassCode no implSPLockForUpdateClause default empty$;	\\
+	begin$switch TableName SecSession empty default implDb2LUWSPLockTableCheckPermissions$$implDb2LUWLockTables$	\\
+		set( isSystemUser ) = ( sp_is_system_user( argAuditUserId ) );	\\
+		if( isSystemUser = 1 )	\\
+		then	\\
+			open syscurs;	\\
+		else	\\
+			open usercurs;	\\
+		end if;	\\
+	end;	\\
+end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPLockTableCheckPermissions"
+		>$switch SecScope None empty System implDb2LUWSPLockTableCheckSystem Cluster implDb2LUWSPLockTableCheckCluster Tenant implDb2LUWSPLockTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPLockTableCheckSystem">	\\
+		set( permissionFlag ) = ( sp_is_system_user( argAuditUserId ) );	\\
+		if( permissionFlag = 0 )	\\
+		then	\\
+			call raise_application_error( -20001, 'Permission denied -- only system user can create $TableName$ records' );	\\
+		end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPLockTableCheckCluster">	\\
+		set( permissionFlag ) = ( sp_is_cluster_user( secClusterId,	\\
+				'Update$TableName$',	\\
+				argAuditUserId ) );	\\
+		if( permissionFlag = 0 )	\\
+		then	\\
+			call raise_application_error( -20002, 'Permission denied -- User not found in cluster SecGroup for Update$TableName$' );	\\
+		end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPLockTableCheckTenant">	\\
+		set( permissionFlag ) = ( sp_is_tenant_user( secTenantId,	\\
+				'Update$TableName$',	\\
+				argAuditUserId ) );	\\
+		if( permissionFlag = 0 )	\\
+		then	\\
+			call raise_application_error( -20003, 'Permission denied -- User not found in tenant TSecGroup for Update$TableName$' );	\\
+		end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWLockTables"
+		>$switch HasSuperClassRelation yes implDb2LUWLockInhTable default implDb2LUWLockBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWLockBaseTable"
+		>$switch HasSubClasses yes implDb2LUWLockBaseCCTable default implDb2LUWLockBaseNoCCTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWLockInhTable"
+		>$reference SuperClassRelation reference ToTable implDb2LUWLockTables$	\\
+		select	\\
+			$iterate Columns( first implDb2LUWLockSelectCol each implDb2LUWLockSelectCommaCol )$	\\
+		into	\\
+			$iterate Columns( first implDb2LUWLockIntoOldVar each implDb2LUWLockIntoCommaOldVar )$	\\
+		from $lower DbSchemaName$.$DbTableName$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWLockWhereFragBindVar each implDb2LUWLockWhereAndFragBindVar )$	\\
+		for update;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWLockBaseCCTable">	\\
+		select	\\
+			ClassCode$iterate Columns( each implDb2LUWLockSelectCommaCol )$,	\\
+			revision	\\
+		into	\\
+			oldClassCode$iterate Columns( each implDb2LUWLockIntoCommaOldVar )$,	\\
+			oldRevision	\\
+		from $lower DbSchemaName$.$DbTableName$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWLockWhereFragBindVar each implDb2LUWLockWhereAndFragBindVar )$	\\
+		for update;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWLockBaseNoCCTable">	\\
+		select	\\
+			$iterate Columns( first implDb2LUWLockSelectCol each implDb2LUWLockSelectCommaCol )$,	\\
+			revision	\\
+		into	\\
+			$iterate Columns( first implDb2LUWLockIntoOldVar each implDb2LUWLockIntoCommaOldVar )$,	\\
+			oldRevision	\\
+		from $lower DbSchemaName$.$DbTableName$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWLockWhereFragBindVar each implDb2LUWLockWhereAndFragBindVar )$	\\
+		for update;	\\
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWLockWhereFragBindVar"
+		>$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWLockWhereAndFragBindVar">	\\
+			and $implDb2LUWLockWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWLockSelectCommaCol">,	\\
+			$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWLockSelectCol"
+		>$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWLockIntoOldVar"
+		>old$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWLockIntoCommaOldVar">,	\\
+			old$Name$</GenRule>
+
+</RuleSet>

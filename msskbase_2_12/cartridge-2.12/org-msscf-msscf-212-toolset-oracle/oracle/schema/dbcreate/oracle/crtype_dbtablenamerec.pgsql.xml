@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="schema/dbcreate/pgsql/crtype_dbtablenamerec.pgsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateDbTableNameRecType"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="pgsql"
+		ExpansionClassName="$dbadminfilename_CreateDbTableNameRecType$"
+		ExpansionKeyName="$dbadminfilename_CreateDbTableNameRecType$"
+		ExpansionFileName="$dbadminfilename_CreateDbTableNameRecType$" >--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create type $lower DbSchemaName$.$type_dbtablename_rec$ as (
+$implOracleSpecTypeTableColumns$,
+		revision integer );
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implOracleSpecTypeTableColumns"
+		>$switch HasSuperClassRelation yes implOracleSpecTypeSuperTable default implOracleSpecTypeBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSpecTypeSuperTable"
+		>$reference SuperClassRelation reference ToTable implOracleSpecTypeTableColumns$$iterate Columns( each implOracleSpecTypeFragCommaDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSpecTypeFragCommaDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implOracleTableColumnSpecTypeFragCommaColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSpecTypeBaseTable"
+		>$switch IsBaseTable yes implOracleSpecTypeBaseTableWithCC default implOracleSpecTypeBaseTableNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSpecTypeBaseTableWithCC"
+>		ClassCode varchar$iterate Columns( each implOracleTableColumnSpecTypeFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSpecTypeBaseTableNoCC"
+>		$iterate Columns( first implOracleTableColumnSpecTypeFragDbColumnName each implOracleTableColumnSpecTypeFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragCommaColumn">,
+		$implOracleTableColumnSpecTypeFragDbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameBlob"
+		>$lower DbColumnName$ bytea</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameBool"
+		>$lower DbColumnName$ boolean</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameEnum"
+		>$lower DbColumnName$ smallint</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameInt16"
+		>$lower DbColumnName$ smallint</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameInt32"
+		>$lower DbColumnName$ integer</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameInt64"
+		>$lower DbColumnName$ numeric(22,0)</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameUInt16"
+		>$lower DbColumnName$ integer</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameUInt32"
+		>$lower DbColumnName$ numeric(22,0)</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameUInt64"
+		>$lower DbColumnName$ clob</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameFloat"
+		>$lower DbColumnName$ real</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameDouble"
+		>$lower DbColumnName$ double precision</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameNumber"
+		>$lower DbColumnName$ clob</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameString"
+		>$lower DbColumnName$ varchar</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameToken"
+		>$lower DbColumnName$ varchar</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameNmToken"
+		>$lower DbColumnName$ varchar</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameNmTokens"
+		>$lower DbColumnName$ varchar</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameText"
+		>$lower DbColumnName$ clob</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameDate"
+		>$lower DbColumnName$ clob</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameTime"
+		>$lower DbColumnName$ clob</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameTimestamp"
+		>$lower DbColumnName$ clob</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameTZDate"
+		>$lower DbColumnName$ clob</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameTZTime"
+		>$lower DbColumnName$ clob</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameTZTimestamp"
+		>$lower DbColumnName$ clob</GenRule>
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnNameUuid"
+		>$lower DbColumnName$ varchar</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleTableColumnSpecTypeFragDbColumnName"
+>$switch BaseModelAtomClass
+			BlobDef implOracleTableColumnSpecTypeFragDbColumnNameBlob
+			BoolDef implOracleTableColumnSpecTypeFragDbColumnNameBool
+			EnumDef implOracleTableColumnSpecTypeFragDbColumnNameEnum
+			Int16Def implOracleTableColumnSpecTypeFragDbColumnNameInt16
+			Int32Def implOracleTableColumnSpecTypeFragDbColumnNameInt32
+			Int64Def implOracleTableColumnSpecTypeFragDbColumnNameInt64
+			UInt16Def implOracleTableColumnSpecTypeFragDbColumnNameUInt16
+			UInt32Def implOracleTableColumnSpecTypeFragDbColumnNameUInt32
+			UInt64Def implOracleTableColumnSpecTypeFragDbColumnNameUInt64
+			Id16Gen implOracleTableColumnSpecTypeFragDbColumnNameInt16
+			Id32Gen implOracleTableColumnSpecTypeFragDbColumnNameInt32
+			Id64Gen implOracleTableColumnSpecTypeFragDbColumnNameInt64
+			FloatDef implOracleTableColumnSpecTypeFragDbColumnNameFloat
+			DoubleDef implOracleTableColumnSpecTypeFragDbColumnNameDouble
+			NumberDef implOracleTableColumnSpecTypeFragDbColumnNameNumber
+			StringDef implOracleTableColumnSpecTypeFragDbColumnNameString
+			TokenDef implOracleTableColumnSpecTypeFragDbColumnNameToken
+			NmTokenDef implOracleTableColumnSpecTypeFragDbColumnNameNmToken
+			NmTokensDef implOracleTableColumnSpecTypeFragDbColumnNameNmTokens
+			TextDef implOracleTableColumnSpecTypeFragDbColumnNameText
+			DateDef implOracleTableColumnSpecTypeFragDbColumnNameDate
+			TimeDef implOracleTableColumnSpecTypeFragDbColumnNameTime
+			TimestampDef implOracleTableColumnSpecTypeFragDbColumnNameTimestamp
+			TZDateDef implOracleTableColumnSpecTypeFragDbColumnNameTZDate
+			TZTimeDef implOracleTableColumnSpecTypeFragDbColumnNameTZTime
+			TZTimestampDef implOracleTableColumnSpecTypeFragDbColumnNameTZTimestamp
+			UuidDef implOracleTableColumnSpecTypeFragDbColumnNameUuid
+			UuidGen implOracleTableColumnSpecTypeFragDbColumnNameUuid
+			default empty$</GenRule>
+
+</RuleSet>

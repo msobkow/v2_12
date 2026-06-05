@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="schema/dbcreate/pgsql/crsp_delete_dbtablename.pgsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPDeleteDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="pgsql"
+		ExpansionClassName="$dbadminfilename_CreateSPDeleteDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPDeleteDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPDeleteDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create or replace function $lower DbSchemaName$.$sp_delete_dbtablename$($implPgSqlSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaIndexCol )$$sparg_Revision$ )
+returns boolean as $$$$
+declare
+	RowsAffected integer;
+	cur record;
+	subret boolean;$switch HasChain yes declPgSqlSPDeleteTableContainerVars default empty$$switch HasChain yes declPgSqlSPDeleteTableChainLinkVars default empty$$declSPOldVars$$switch SecScope None empty System implPgSqlSPDeleteTableDeclPermFlag Cluster implPgSqlSPDeleteTableDeclPermFlag Tenant implPgSqlSPDeleteTableDeclPermFlag default error$
+begin$switch HasChain yes implPgSqlSPDeleteTableFetchContainerKeys default empty$$switch HasChain yes implPgSqlSPDeleteTableLatchContainer default empty$$implPgSqlLockTables$$switch SecScope None empty System implPgSqlSPDeleteTableCheckSystem Cluster implPgSqlSPDeleteTableCheckCluster Tenant implPgSqlSPDeleteTableCheckTenant default error$$switch HasChain yes implPgSqlSPDeleteTableChainSelectChainLinks default empty$$switch HasChain yes implPgSqlSPDeleteTableUpdatePrev default empty$$switch HasChain yes implPgSqlSPDeleteTableUpdateNext default empty$$switch BaseHasHistory yes implPgSqlDeleteLogAudit default empty$$implPgSqlSPDeleteTableClearDeps$$implPgSqlSPDeleteTableClearSubObjectRefs$$switch HasDelDeps no empty default implPgSqlDeleteDelDeps$
+$implPgSqlDeleteHierarchy$$switch HasChain yes implPgSqlSPDeleteTableUnlatchContainer default empty$
+	return true;
+end;
+$$$$ language plpgsql;
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUpdatePrev">
+	if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implPgSqlSPDeleteTableUpdatePrevIfNotNull each empty )$ )
+	then$switch ChainTableHasSuperClassRelation yes implPgSqlSPDeleteTableUpdatePrevTwoTables default implPgSqlSPDeleteTableUpdatePrevOneTable$$switch BaseHasHistory yes implPgSqlSPDeleteTableUpdatePrevAuditUpdated default empty$
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUpdatePrevOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implPgSqlSPDeleteTableUpdateTableAuditColumns default empty$$reference Chain reference NextRel iterate Columns( each implPgSqlSPDeleteTableUpdatePrevWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPDeleteTableUpdateTableWherePrevPKeyCol each implPgSqlSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUpdateTableAuditColumns">,
+			updatedby = argAuditUserId,
+			updatedat = now()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableUpdatePrevWithKey"
+		>$reference FromCol DbColumnName$ = next$reference FromCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableUpdatePrevWithCommaKey">,
+			$implPgSqlSPDeleteTableUpdatePrevWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableUpdateTableWherePrevPKeyCol"
+		>$reference ToCol DbColumnName$ = prev$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableUpdateTableWhereAndPrevPKeyCol">
+			and $implPgSqlSPDeleteTableUpdateTableWherePrevPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUpdatePrevTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implPgSqlSPDeleteTableUpdateTableAuditColumns default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPDeleteTableUpdateTableWherePrevPKeyCol each implPgSqlSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference NextRel iterate Columns( first implPgSqlSPDeleteTableUpdatePrevWithKey each implPgSqlSPDeleteTableUpdatePrevWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPDeleteTableUpdateTableWherePrevPKeyCol each implPgSqlSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableUpdatePrevIfNotNull"
+		>prev$Name$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUpdatePrevAuditUpdated">
+		select $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implPgSqlSPDeleteTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implPgSqlSPDeleteTableAuditUpdatedPrevPassArg )$,
+			1 )
+		into subret;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUpdatePrevAuditPassClassCode">,
+			prevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableAuditUpdatedPrevPassArg">,
+			prev$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUpdateNext">
+	if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implPgSqlSPDeleteTableUpdateNextIfNotNull each empty )$ )
+	then$switch ChainTableHasSuperClassRelation yes implPgSqlSPDeleteTableUpdateNextTwoTables default implPgSqlSPDeleteTableUpdateNextOneTable$$switch BaseHasHistory yes implPgSqlSPDeleteTableUpdateNextAuditUpdated default empty$
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUpdateNextOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implPgSqlSPDeleteTableUpdateTableAuditColumns default empty$$reference Chain reference PrevRel iterate Columns( each implPgSqlSPDeleteTableUpdateNextWithCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implPgSqlSPDeleteTableUpdateTableWhereNextPKeyCol each implPgSqlSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableUpdateNextWithKey"
+		>$reference FromCol DbColumnName$ = prev$reference FromCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableUpdateNextWithCommaKey">,
+			$implPgSqlSPDeleteTableUpdateNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableUpdateTableWhereNextPKeyCol"
+		>$reference ToCol DbColumnName$ = next$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableUpdateTableWhereAndNextPKeyCol">
+			and $implPgSqlSPDeleteTableUpdateTableWhereNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUpdateNextTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implPgSqlSPDeleteTableUpdateTableAuditColumns default empty$
+		where
+			$reference Chain reference NextRel iterate Columns( first implPgSqlSPDeleteTableUpdateTableWhereNextPKeyCol each implPgSqlSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPDeleteTableUpdateNextWithKey each implPgSqlSPDeleteTableUpdateNextWithCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implPgSqlSPDeleteTableUpdateTableWhereNextPKeyCol each implPgSqlSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableUpdateNextIfNotNull"
+		>next$Name$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUpdateNextAuditUpdated">
+		select $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implPgSqlSPDeleteTableUpdateNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implPgSqlSPDeleteTableAuditUpdatedNextPassArg )$,
+			1 )
+		into subret;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUpdateNextAuditPassClassCode">,
+			nextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableAuditUpdatedNextPassArg">,
+			next$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPDeleteTableChainLinkVars"
+		>$switch HasClassCode yes declPgSqlSPDeleteTableChainLinkClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declPgSqlSPDeleteTableChainPrevVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declPgSqlSPDeleteTableChainNextVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPDeleteTableChainLinkClassCode">
+	prevClassCode varchar(4);
+	nextClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declPgSqlSPDeleteTableChainPrevVar">
+	prev$Name$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declPgSqlSPDeleteTableChainNextVar">
+	next$Name$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableChainSelectLinks"
+		>$reference Chain reference Table implPgSqlSPDeleteTableChainSelectChainLinks$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableChainSelectChainLinks">
+	select$switch HasClassCode yes implPgSqlSPDeleteTableChainSelectPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implPgSqlSPDeleteTableChainSelectPrevKeyComma )$$switch HasClassCode yes implPgSqlSPDeleteTableChainSelectNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implPgSqlSPDeleteTableChainSelectNextKeyComma last implPgSqlSPDeleteTableChainSelectNextKey )$
+	into$switch HasClassCode yes implPgSqlSPDeleteTableChainSelectIntoPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implPgSqlSPDeleteTableChainSelectIntoPrevKeyComma )$$switch HasClassCode yes implPgSqlSPDeleteTableChainSelectIntoNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implPgSqlSPDeleteTableChainSelectIntoNextKeyComma last implPgSqlSPDeleteTableChainSelectIntoNextKey )$
+	from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ myself$switch HasClassCode yes implPgSqlSPDeleteTableChainSelectOuterJoinLinkBases default empty$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteTableChainSelectWherePKey each implPgSqlSPDeleteTableChainSelectWhereAndPKey )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableChainSelectWherePKey"
+		>myself.$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableChainSelectWhereAndPKey">
+		and $implPgSqlSPDeleteTableChainSelectWherePKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableChainSelectOuterJoinLinkBases">
+		left outer join $lower DbSchemaName$.$reference BaseClass DbTableName$ prv$lower reference BaseClass ClassCode$ on
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPDeleteTableChainSelectOJPrevKey each implPgSqlSPDeleteTableChainSelectOJAndPrevKey )$
+		left outer join $lower DbSchemaName$.$reference BaseClass DbTableName$ nxt$lower reference BaseClass ClassCode$ on
+			$reference Chain reference NextRel iterate Columns( first implPgSqlSPDeleteTableChainSelectOJNextKey each implPgSqlSPDeleteTableChainSelectOJAndNextKey )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableChainSelectOJPrevKey"
+		>prv$lower popto Table reference BaseClass ClassCode$.$reference ToCol DbColumnName$ = myself.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableChainSelectOJAndPrevKey">
+			and $implPgSqlSPDeleteTableChainSelectOJPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableChainSelectOJNextKey"
+		>nxt$lower popto Table reference BaseClass ClassCode$.$reference ToCol DbColumnName$ = myself.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableChainSelectOJAndNextKey">
+			and $implPgSqlSPDeleteTableChainSelectOJNextKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableChainSelectPrevClassCodeComma">
+		prv$lower reference BaseClass ClassCode$.classcode as prvclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableChainSelectPrevKeyComma">
+		myself.$DbColumnName$ as prv$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableChainSelectNextClassCodeComma">
+		nxt$lower reference BaseClass ClassCode$.classcode as nxtclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableChainSelectNextKey">
+		myself.$DbColumnName$ as nxt$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableChainSelectNextKeyComma"
+		>$implPgSqlSPDeleteTableChainSelectNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableChainSelectIntoPrevClassCodeComma">
+		prevClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableChainSelectIntoPrevKeyComma">
+		prev$Name$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableChainSelectIntoNextClassCodeComma">
+		nextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableChainSelectIntoNextKey">
+		next$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableChainSelectIntoNextKeyComma"
+		>$implPgSqlSPDeleteTableChainSelectIntoNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableFetchContainerKeys">
+	select$reference ContainerRelation iterate Columns( first implPgSqlSPDeleteTableFetchContainerKeysColName each implPgSqlSPDeleteTableFetchContainerKeysCommaColName )$
+	into$reference ContainerRelation iterate Columns( first implPgSqlSPDeleteTableFetchContainerKeysIntoVar each implPgSqlSPDeleteTableFetchContainerKeysCommaIntoVar )$
+	from $lower DbSchemaName$.$reference ContainerRelation reference FromTable DbTableName$
+	where$reference ContainerRelation reference FromTable reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteTableFetchContainerKeysPassPKey each implPgSqlSPDeleteTableFetchContainerKeysAndPassPKey )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableFetchContainerKeysColName">
+		$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableFetchContainerKeysCommaColName"
+		>,$implPgSqlSPDeleteTableFetchContainerKeysColName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableFetchContainerKeysIntoVar">
+		var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableFetchContainerKeysCommaIntoVar"
+		>,$implPgSqlSPDeleteTableFetchContainerKeysIntoVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableFetchContainerKeysPassPKey">
+		$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableFetchContainerKeysAndPassPKey">
+		and $DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPDeleteTableContainerVars"
+		>$reference ContainerRelation iterate Columns( each declPgSqlSPDeleteTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="declPgSqlSPDeleteTableContainerVar">
+	var$reference FromCol Name$ $reference FromCol clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implPgSqlSPDeleteTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableLatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision + 1
+	where
+		$popto Relation iterate Columns( first implPgSqlSPDeleteTableLatchWhereArg each implPgSqlSPDeleteTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableLatchWhereArg"
+		>$reference ToCol DbColumnName$ = var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableLatchWhereAndArg">
+		and $implPgSqlSPDeleteTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implPgSqlSPDeleteTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableUnlatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision - 1
+	where
+		$popto Relation iterate Columns( first implPgSqlSPDeleteTableLatchWhereArg each implPgSqlSPDeleteTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableClearDeps"
+		>$switch HasSuperClassRelation yes implPgSqlSPDeleteTableInhClearDeps default implPgSqlSPDeleteTableBaseClearDeps$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableInhClearDeps"
+		>$reference SuperClassRelation reference ToTable implPgSqlSPDeleteTableClearDeps$$iterate ReverseClearDeps( each implPgSqlSPDeleteTableClearDep empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableBaseClearDeps"
+		>$iterate ReverseClearDeps( each implPgSqlSPDeleteTableClearDep empty empty )$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implPgSqlSPDeleteTableClearDep">
+	for cur in
+		select$switch HasClearSubDep yes implPgSqlSPDeleteSelectClearDepSubDeleteColumns default implPgSqlSPDeleteSelectClearDepMyDeleteColumns$
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch HasClearSubDep yes implPgSqlSPDeleteClearDepSubJoin default empty$
+		where
+			$poptop Table reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteClearDepWhereFragBindVar each implPgSqlSPDeleteClearDepWhereAndFragBindVar )$
+	loop$switch HasClearSubDep yes implPgSqlSPDeleteClearDepSubBody default implPgSqlSPDeleteClearDepMyBody$
+	end loop;
+</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implPgSqlSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep switch HasClearSubDep yes implPgSqlSPDeleteSelectClearDepSubDeleteColumns default implPgSqlSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implPgSqlSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteSelectClearDepColumn each implPgSqlSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteSelectClearDepColumn">
+			$lower popto Table ClassCode$.$reference Column DbColumnName$ as $DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteSelectCommaClearDepColumn">,
+			$lower popto Table ClassCode$.$reference Column DbColumnName$ as $DbColumnName$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implPgSqlSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep switch HasClearSubDep yes implPgSqlSPDeleteSelectClearDepSubDeleteColumns default implPgSqlSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implPgSqlSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteSelectClearDepColumn each implPgSqlSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implPgSqlSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep implPgSqlSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implPgSqlSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteSelectClearDepColumn each implPgSqlSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="ClearSubDep3" Name="implPgSqlSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteSelectClearDepColumn each implPgSqlSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteClearDepWhereFragBindVar"
+		>$poptop Table lower ClassCode$.$reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteClearDepWhereAndFragBindVar">
+			and $poptop Table lower ClassCode$.$reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implPgSqlSPDeleteClearDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implPgSqlSPDeleteClearDepJoinRelCol each implPgSqlSPDeleteClearDepJoinAndRelCol )$$reference ClearSubDep implPgSqlSPDeleteClearDepJoin$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteClearDepJoinRelCol">
+				$popto Relation reference FromTable lower ClassCode$.$reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteClearDepJoinAndRelCol">
+				and $popto Relation reference FromTable lower ClassCode$.$reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implPgSqlSPDeleteClearDepJoin"
+		>$switch HasClearSubDep yes implPgSqlSPDeleteClearDepSubJoin default empty$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implPgSqlSPDeleteClearDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implPgSqlSPDeleteClearDepJoinRelCol each implPgSqlSPDeleteClearDepJoinAndRelCol )$$reference ClearSubDep implPgSqlSPDeleteClearDepJoin$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implPgSqlSPDeleteClearDepJoin"
+		>$switch HasClearSubDep yes implPgSqlSPDeleteClearDepSubJoin default empty$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implPgSqlSPDeleteClearDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implPgSqlSPDeleteClearDepJoinRelCol each implPgSqlSPDeleteClearDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implPgSqlSPDeleteClearDepSubBody"
+		>$reference ClearSubDep switch HasClearSubDep yes implPgSqlSPDeleteClearDepSubBody default implPgSqlSPDeleteClearDepMyBody$</GenRule>
+
+	<GenRule GenDef="ClearDep" Name="implPgSqlSPDeleteClearDepMyBody">
+		update $lower poptop Table DbSchemaName$.$reference Relation reference FromTable lower DbTableName$
+		set$reference Relation reference FromIndex iterate Columns( first implPgSqlSPDeleteClearNLCol each implPgSqlSPDeleteClearCommaNLCol )$
+		where
+			$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implSPDeleteClearDepPassCurArg each implSPDeleteClearDepPassAndCurArg )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteClearNLCol">
+			$DbColumnName$ = null</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteClearCommaNLCol"
+		>,$implPgSqlSPDeleteClearNLCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteClearDepPassCurArg"
+		>$DbColumnName$ = cur.$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteClearDepPassAndCurArg">
+			and $implSPDeleteClearDepPassCurArg$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implPgSqlSPDeleteClearDepSubBody"
+		>$reference ClearSubDep switch HasClearSubDep yes implPgSqlSPDeleteClearDepSubBody default implPgSqlSPDeleteClearDepMyBody$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implPgSqlSPDeleteClearDepSubBody"
+		>$reference ClearSubDep implPgSqlSPDeleteClearDepMyBody$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableClearSubObjectRefs"
+		>$switch HasSuperClassRelation yes implPgSqlSPDeleteTableClearInhSubObjectRefs default implPgSqlSPDeleteTableClearBaseSubObjectRefs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableClearInhSubObjectRefs"
+		>$reference SuperClassRelation reference ToTable implPgSqlSPDeleteTableClearSubObjectRefs$$switch HasSubObjectLookup yes implPgSqlSPDeleteTableClearSubObjectLookups default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableClearBaseSubObjectRefs"
+		>$switch HasSubObjectLookup yes implPgSqlSPDeleteTableClearSubObjectLookups default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableClearSubObjectLookups">
+	update $lower DbSchemaName$.$DbTableName$
+	set
+		$reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteTableClearSubObjectLookupsSetPKeyCol each empty )$$iterate Relation( each implPgSqlSPDeleteTableClearSubObjectLookupCols empty empty )$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implPgSqlLockWhereFragBindVar each implPgSqlLockWhereAndFragBindVar )$;
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implPgSqlSPDeleteTableClearSubObjectLookupCols"
+		>$switch IsSubObjectLookup yes implPgSqlSPDeleteTableReallyClearSubObjectLookupCols default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implPgSqlSPDeleteTableReallyClearSubObjectLookupCols"
+		>$iterate Columns( each implPgSqlSPDeleteTableClearSubObjectFromCol )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteTableClearSubObjectFromCol">,
+		$reference FromCol DbColumnName$ = null</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteTableClearSubObjectLookupsSetPKeyCol"
+		>$DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableArgSecClusterId">,
+	secClusterId</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableArgSecTenantId">,
+	secTenantId</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableDeclPermFlag">
+	permissionFlag boolean;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableCheckSystem">
+	select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into permissionFlag;
+	if( permissionFlag = false )
+	then
+		raise exception 'Permission denied -- only system user can delete $TableName$ records';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableCheckCluster">
+	if( old$reference ClusterIdColumn Name$ != secClusterId )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+		into permissionFlag;
+		if( permissionFlag = false )
+		then
+			raise exception 'Permission denied -- Data is not owned by logged in cluster';
+		end if;
+	end if;
+
+	select $lower DbSchemaName$.sp_is_cluster_user( old$reference ClusterIdColumn Name$,
+		'Delete$Name$',
+		argAuditUserId )
+	into permissionFlag;
+	if( permissionFlag = false )
+	then
+		raise exception 'Permission denied -- User not found in cluster SecGroup for Delete$TableName$';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPDeleteTableCheckTenant">
+	if( old$reference TenantIdColumn Name$ != secTenantId )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+		into permissionFlag;
+		if( permissionFlag = false )
+		then
+			raise exception 'Permission denied -- Data is not owned by logged in tenant';
+		end if;
+	end if;
+
+	select $lower DbSchemaName$.sp_is_tenant_user( old$reference TenantIdColumn Name$,
+		'Delete$Name$',
+		argAuditUserId )
+	into permissionFlag;
+	if( permissionFlag = false )
+	then
+		raise exception 'Permission denied -- User not found in tenant TSecGroup for Delete$TableName$';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlDeleteLogAudit"
+		>$switch BaseHasClassCode yes implCreateAuditThreeWithCC default implCreateAuditThreeNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditThreeNoCC">
+	insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			argRevision + 1,
+			2
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditThreeWithCC">
+	if( oldClassCode = '$poptop Table ClassCode$' )
+	then
+		insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			classcode,
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.classcode,
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			argRevision + 1,
+			2
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlDeleteDelDeps"
+		>$iterate ReverseDelDeps( each implPgSqlDeleteDelDep empty empty )$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implPgSqlDeleteDelDep">
+	for cur in
+		select$switch HasDelSubDep yes implPgSqlSPDeleteSelectDelDepSubDeleteColumns default implPgSqlSPDeleteSelectDelDepMyDeleteColumns$
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch HasDelSubDep yes implPgSqlSPDeleteDelDepSubJoin default implPgSqlSPDeleteDelDepMyJoin$
+		where
+			$poptop Table reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteDelDepWhereFragBindVar each implPgSqlSPDeleteDelDepWhereAndFragBindVar )$
+	loop$switch HasDelSubDep yes implPgSqlSPDeleteDelDepSubBody default implPgSqlSPDeleteDelDepMyBody$
+	end loop;
+</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implPgSqlSPDeleteDelDepSubBody"
+		>$reference DelSubDep switch HasDelSubDep yes implPgSqlSPDeleteDelDepSubBody default implPgSqlSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="DelDep" Name="implPgSqlSPDeleteDelDepMyBody">
+		select $lower poptop Table DbSchemaName$.sp_delete_$reference Relation reference ToTable lower DbTableName$_by_$lower reference Relation reference ToTable reference PrimaryKeyIndex Suffix$( argAuditClusterId,
+				argAuditUserId,
+				argAuditSessionId,
+				secClusterId,
+				secTenantId$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( each implSPDeleteDelDepCommaPassCurArg )$ )
+			into subret;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteDelDepCommaPassCurArg">,
+				cur.$Name$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implPgSqlSPDeleteDelDepSubBody"
+		>$reference DelSubDep switch HasDelSubDep yes implPgSqlSPDeleteDelDepSubBody default implPgSqlSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implPgSqlSPDeleteDelDepSubBody"
+		>$reference DelSubDep implPgSqlSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteDelDepWhereFragBindVar"
+		>$poptop Table lower ClassCode$.$reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteDelDepWhereAndFragBindVar">
+			and $poptop Table lower ClassCode$.$reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implPgSqlSPDeleteDelDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implPgSqlSPDeleteDelDepJoinRelCol each implPgSqlSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implPgSqlSPDeleteDelDepJoin$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implPgSqlSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implPgSqlSPDeleteDelDepJoinRelCol each implPgSqlSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteDelDepJoinRelCol">
+				$popto Relation reference FromTable lower ClassCode$.$reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPDeleteDelDepJoinAndRelCol">
+				and $popto Relation reference FromTable lower ClassCode$.$reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implPgSqlSPDeleteDelDepJoin"
+		>$switch HasDelSubDep yes implPgSqlSPDeleteDelDepSubJoin default implPgSqlSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implPgSqlSPDeleteDelDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implPgSqlSPDeleteDelDepJoinRelCol each implPgSqlSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implPgSqlSPDeleteDelDepJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implPgSqlSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implPgSqlSPDeleteDelDepJoinRelCol each implPgSqlSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implPgSqlSPDeleteDelDepJoin"
+		>$switch HasDelSubDep yes implPgSqlSPDeleteDelDepSubJoin default implPgSqlSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implPgSqlSPDeleteDelDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implPgSqlSPDeleteDelDepJoinRelCol each implPgSqlSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implPgSqlSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implPgSqlSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implPgSqlSPDeleteDelDepJoinRelCol each implPgSqlSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implPgSqlSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$lower reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on $reference Relation iterate Columns( first implPgSqlSPDeleteDelDepJoinRelCol each implPgSqlSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implPgSqlSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep switch HasDelSubDep yes implPgSqlSPDeleteSelectDelDepSubDeleteColumns default implPgSqlSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implPgSqlSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteSelectDelDepColumn each implPgSqlSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteSelectDelDepColumn">
+			$lower popto Table ClassCode$.$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPDeleteSelectCommaDelDepColumn">,
+			$lower popto Table ClassCode$.$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implPgSqlSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep switch HasDelSubDep yes implPgSqlSPDeleteSelectDelDepSubDeleteColumns default implPgSqlSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implPgSqlSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteSelectDelDepColumn each implPgSqlSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implPgSqlSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep implPgSqlSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implPgSqlSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteSelectDelDepColumn each implPgSqlSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implPgSqlSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implPgSqlSPDeleteSelectDelDepColumn each implPgSqlSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+<GenRule GenDef="Table" Name="implPgSqlDeleteHierarchy">
+	delete from $lower DbSchemaName$.$DbTableName$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnDeleteFragBindVar each implPgSqlIndexColumnDeleteAndFragBindVar )$;
+
+	get diagnostics RowsAffected = row_count;
+	if RowsAffected != 1 and RowsAffected != 0
+	then
+		raise exception '$poptop Table sp_delete_dbtablename$() Expected to affect 1 $DbTableName$, not %', RowsAffected;
+	end if;$switch HasSuperClassRelation yes implPgSqlDeleteSuper default empty$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlDeleteSuper"
+		>$reference SuperClassRelation reference ToTable implPgSqlDeleteHierarchy$</GenRule>
+
+	<GenRule GenDef="Object" Name="sparg_Revision">,
+	argRevision int</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteAndFragBindVar">
+		and $implPgSqlIndexColumnDeleteFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlIndexColumnDeleteFragBindVar"
+		>$switch IsNullable yes implPgSqlIndexColumnDeleteFragBindOptVar
+			default implPgSqlIndexColumnDeleteFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlIndexColumnDeleteFragBindOptVar"
+		>$reference Column implPgSqlIndexColumnDeleteFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlIndexColumnDeleteFragBindReqVar"
+		>$reference Column implPgSqlIndexColumnDeleteFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implPgSqlIndexColumnDeleteFragBindOptBlobVar
+			BoolDef implPgSqlIndexColumnDeleteFragBindOptBoolVar
+			EnumDef implPgSqlIndexColumnDeleteFragBindOptEnumVar
+			Int16Def implPgSqlIndexColumnDeleteFragBindOptInt16Var
+			Int32Def implPgSqlIndexColumnDeleteFragBindOptInt32Var
+			Int64Def implPgSqlIndexColumnDeleteFragBindOptInt64Var
+			UInt16Def implPgSqlIndexColumnDeleteFragBindOptUInt16Var
+			UInt32Def implPgSqlIndexColumnDeleteFragBindOptUInt32Var
+			UInt64Def implPgSqlIndexColumnDeleteFragBindOptUInt64Var
+			Id16Gen implPgSqlIndexColumnDeleteFragBindOptInt16Var
+			Id32Gen implPgSqlIndexColumnDeleteFragBindOptInt32Var
+			Id64Gen implPgSqlIndexColumnDeleteFragBindOptInt64Var
+			FloatDef implPgSqlIndexColumnDeleteFragBindOptFloatVar
+			DoubleDef implPgSqlIndexColumnDeleteFragBindOptDoubleVar
+			NumberDef implPgSqlIndexColumnDeleteFragBindOptNumberVar
+			StringDef implPgSqlIndexColumnDeleteFragBindOptStringVar
+			TokenDef implPgSqlIndexColumnDeleteFragBindOptStringVar
+			NmTokenDef implPgSqlIndexColumnDeleteFragBindOptStringVar
+			NmTokensDef implPgSqlIndexColumnDeleteFragBindOptStringVar
+			TextDef implPgSqlIndexColumnDeleteFragBindOptTextVar
+			DateDef implPgSqlIndexColumnDeleteFragBindOptDateVar
+			TimeDef implPgSqlIndexColumnDeleteFragBindOptTimeVar
+			TimestampDef implPgSqlIndexColumnDeleteFragBindOptTimestampVar
+			TZDateDef implPgSqlIndexColumnDeleteFragBindOptTZDateVar
+			TZTimeDef implPgSqlIndexColumnDeleteFragBindOptTZTimeVar
+			TZTimestampDef implPgSqlIndexColumnDeleteFragBindOptTZTimestampVar
+			UuidDef implPgSqlIndexColumnDeleteFragBindOptUuidVar
+			UuidGen implPgSqlIndexColumnDeleteFragBindOptUuidVar
+			default error$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implPgSqlIndexColumnDeleteFragBindReqBlobVar
+			BoolDef implPgSqlIndexColumnDeleteFragBindReqBoolVar
+			EnumDef implPgSqlIndexColumnDeleteFragBindReqEnumVar
+			Int16Def implPgSqlIndexColumnDeleteFragBindReqInt16Var
+			Int32Def implPgSqlIndexColumnDeleteFragBindReqInt32Var
+			Int64Def implPgSqlIndexColumnDeleteFragBindReqInt64Var
+			UInt16Def implPgSqlIndexColumnDeleteFragBindReqUInt16Var
+			UInt32Def implPgSqlIndexColumnDeleteFragBindReqUInt32Var
+			UInt64Def implPgSqlIndexColumnDeleteFragBindReqUInt64Var
+			Id16Gen implPgSqlIndexColumnDeleteFragBindReqInt16Var
+			Id32Gen implPgSqlIndexColumnDeleteFragBindReqInt32Var
+			Id64Gen implPgSqlIndexColumnDeleteFragBindReqInt64Var
+			FloatDef implPgSqlIndexColumnDeleteFragBindReqFloatVar
+			DoubleDef implPgSqlIndexColumnDeleteFragBindReqDoubleVar
+			NumberDef implPgSqlIndexColumnDeleteFragBindReqNumberVar
+			StringDef implPgSqlIndexColumnDeleteFragBindReqStringVar
+			TokenDef implPgSqlIndexColumnDeleteFragBindReqStringVar
+			NmTokenDef implPgSqlIndexColumnDeleteFragBindReqStringVar
+			NmTokensDef implPgSqlIndexColumnDeleteFragBindReqStringVar
+			TextDef implPgSqlIndexColumnDeleteFragBindReqTextVar
+			DateDef implPgSqlIndexColumnDeleteFragBindReqDateVar
+			TimeDef implPgSqlIndexColumnDeleteFragBindReqTimeVar
+			TimestampDef implPgSqlIndexColumnDeleteFragBindReqTimestampVar
+			TZDateDef implPgSqlIndexColumnDeleteFragBindReqTZDateVar
+			TZTimeDef implPgSqlIndexColumnDeleteFragBindReqTZTimeVar
+			TZTimestampDef implPgSqlIndexColumnDeleteFragBindReqTZTimestampVar
+			UuidDef implPgSqlIndexColumnDeleteFragBindReqUuidVar
+			UuidGen implPgSqlIndexColumnDeleteFragBindReqUuidVar
+			default error$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqBlobVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptBlobVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqBoolVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptBoolVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqEnumVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptEnumVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqInt16Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqInt32Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqInt64Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqUInt16Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptUInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqUInt32Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptUInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqUInt64Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptUInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqFloatVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptFloatVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqDoubleVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptDoubleVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqNumberVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptNumberVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqStringVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptStringVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqTokenVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqNmTokenVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptNmTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqNmTokensVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptNmTokensVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqTextVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptTextVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqDateVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptDateVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqTimeVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqTimestampVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqTZDateVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptTZDateVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqTZTimeVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptTZTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqTZTimestampVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptTZTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindReqUuidVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlIndexColumnDeleteFragBindOptUuidVar"
+		>( ( ( arg$Name$ is null ) and ( $lower DbColumnName$ is null ) )
+			or ( ( arg$Name$ is not null ) and ( $lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+</RuleSet>

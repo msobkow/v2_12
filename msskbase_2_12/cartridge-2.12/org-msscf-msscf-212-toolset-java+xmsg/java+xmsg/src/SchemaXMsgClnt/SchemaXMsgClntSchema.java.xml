@@ -1,0 +1,1685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsgClntSchema.java"
+	Revision="2.12"
+	Descr="Java 11 XMsg Client Schema DbIO implementation">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaXMsgClntSchemaJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgClnt/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgClnt"
+		ExpansionClassName="$SchemaName$XMsgClntSchemaJava"
+		ExpansionKeyName="$SchemaName$XMsgClntSchemaJava"
+		ExpansionFileName="$SchemaName$XMsgClntSchema.java"
+>// Description: Java 11 XMsg Client DbIO implementation for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgClnt;
+$importSchemaXMsgClntSchema$
+public class $SchemaName$XMsgClntSchema
+	extends $SchemaName$Schema
+{
+	protected CFTipClientHandler cftipClientHandler = null;
+	protected boolean transactionOpen = false;
+$implSchemaXMsgClntConstructor$$implSchemaXMsgClntGetCFTipClientHandler$$implSchemaXMsgClntGetSetResponseHandlerSchemaObj$$implSchemaXMsgClntLogWrappers$$implSchemaXMsgClntGetSetResponseHandlerDeleted$$implSchemaXMsgClntIsConnected$$implSchemaXMsgClntSendReceive$$implSchemaXMsgClntGetResponseHandler$$implSchemaXMsgClntConnect$$implSchemaXMsgClntDisconnect$$implSchemaXMsgClntLogout$$implSchemaXMsgClntCommitControl$$implSchemaXMsgClntIsSystemUser$$implSchemaXMsgClntIsClusterUser$$implSchemaXMsgClntIsTenantUser$$implXMsgClntFileImport$$iterate Id16Generators( each implSchemaXMsgClntNextIdGen empty empty )$$iterate Id32Generators( each implSchemaXMsgClntNextIdGen empty empty )$$iterate Id64Generators( each implSchemaXMsgClntNextIdGen empty empty )$$iterate UuidGenerators( each implSchemaXMsgClntNextIdGen empty empty )$$implSchemaXMsgClntSchemaMoreMethods$$JavaXMsgClientSchemaBody$$ReferencedJavaXMsgClientSchemaBody$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="importSchemaXMsgClntSchema">
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.*;
+import java.math.*;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.naming.*;
+import javax.sql.*;
+
+import org.apache.commons.codec.binary.Base64;
+
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.Tip.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+import $lower JavaPackage$.$SchemaName$XMsg.*;
+import $lower JavaPackage$.$SchemaName$XMsgRspn.*;$JavaXMsgClientSchemaImport$$ReferencedJavaXMsgClientSchemaImport$
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetCFTipClientHandler">
+	// Overload this to create an instance implementing your sendReceive() processing for CFTip
+	public CFTipClientHandler getCFTipClientHandler() {
+		if( cftipClientHandler == null ) {
+			cftipClientHandler = new CFTipClientHandler();
+		}
+		return( cftipClientHandler );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgClientSchemaImport"
+		>$iterate SchemaRefs( each ApplyJavaXMsgClientSchemaImport empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgClientSchemaImport"
+		>$reference RefSchema JavaXMsgClientSchemaImport$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgClientSchemaBody"
+		>$iterate SchemaRefs( each ApplyJavaXMsgClientSchemaBody empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgClientSchemaBody"
+		>$reference RefSchema JavaXMsgClientSchemaBody$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntSchemaMoreMethods"
+		>$implXMsgClntSchemaReleasePreparedStatements$$implSchemaXMsgClntGetQuotedString$$implSchemaXMsgClntGetNullableString$$implSchemaXMsgClntGetBlobString$$implSchemaXMsgClntGetBoolString$$implSchemaXMsgClntGetInt16String$$implSchemaXMsgClntGetInt32String$$implSchemaXMsgClntGetInt64String$$implSchemaXMsgClntGetUInt16String$$implSchemaXMsgClntGetUInt32String$$implSchemaXMsgClntGetUInt64String$$implSchemaXMsgClntGetFloatString$$implSchemaXMsgClntGetDoubleString$$implSchemaXMsgClntGetNumberString$$implSchemaXMsgClntGetNullableInt32$$implSchemaXMsgClntGetNullableInt16$$implSchemaXMsgClntGetNullableUInt16$$implSchemaXMsgClntGetNullableUInt32$$implSchemaXMsgClntGetNullableUInt64$$implSchemaXMsgClntGetNullableIntByte$$implSchemaXMsgClntGetQuotedDateString$$implSchemaXMsgClntGetQuotedTimeString$$implSchemaXMsgClntGetQuotedTimestampString$$implSchemaXMsgClntGetQuotedTZDateString$$implSchemaXMsgClntGetQuotedTZTimeString$$implSchemaXMsgClntGetQuotedTZTimestampString$$implSchemaXMsgClntGetDateString$$implSchemaXMsgClntGetTimeString$$implSchemaXMsgClntGetTimestampString$$implSchemaXMsgClntGetTZDateString$$implSchemaXMsgClntGetTZTimeString$$implSchemaXMsgClntGetTZTimestampString$$implSchemaXMsgClntGetUuidString$$implSchemaXMsgClntConvertDateString$$implSchemaXMsgClntConvertTimeString$$implSchemaXMsgClntConvertTimestampString$$implSchemaXMsgClntConvertTZDateString$$implSchemaXMsgClntConvertTZTimeString$$implSchemaXMsgClntConvertTZTimestampString$$implSchemaXMsgClntConvertUuidString$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgClntSchemaReleasePreparedStatements">
+	/**
+	 *	Release the prepared statements.
+	 *	&lt;p&gt;
+	 *	When the schema changes connections, the prepared statements
+	 *	have to be released because they contain connection-specific
+	 *	information for most databases.
+	 */
+	public void releasePreparedStatements() {
+		throw new CFLibNotSupportedException( getClass(),
+			"releasePreparedStatements" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgClntSchemaInvokeTableReleasePreparedStatements">
+		if( ( table$TableName$ != null ) &amp;&amp; ( table$TableName$ instanceof $SchemaName$XMsgClnt$TableName$ ) ) {
+			$SchemaName$XMsgClnt$TableName$ table = ($SchemaName$XMsgClnt$TableName$)table$TableName$;
+			table.releasePreparedStatements();
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntNewSchema">
+	public I$SchemaName$Schema newSchema() {
+		return( new $SchemaName$XMsgClntSchema() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgClntConstructTable">
+		table$TableName$ = new $SchemaName$XMsgClnt$TableName$( this );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConstructor">
+	public $SchemaName$XMsgClntSchema() {
+		super();
+		getCFTipClientHandler();
+		getResponseHandler();$iterate SchemaTables( each implSchemaXMsgClntConstructTable )$
+		setResponseHandlerSchemaObj( null );
+	}
+
+	public $SchemaName$XMsgClntSchema( $SchemaName$SchemaObj handlerSchema ) {
+		super();
+		getCFTipClientHandler();
+		getResponseHandler();$iterate SchemaTables( each implSchemaXMsgClntConstructTable )$
+		setResponseHandlerSchemaObj( handlerSchema );
+	}
+
+	public $SchemaName$XMsgClntSchema( $SchemaName$SchemaObj handlerSchema, $SchemaName$ConfigurationFile conf ) {
+		super( conf );
+		getCFTipClientHandler();
+		getResponseHandler();$iterate SchemaTables( each implSchemaXMsgClntConstructTable )$
+		setDbSchemaName( conf.getDbDatabase() );
+		setResponseHandlerSchemaObj( handlerSchema );
+	}
+
+	public $SchemaName$XMsgClntSchema( $SchemaName$SchemaObj handlerSchema, String argJndiName ) {
+		super( argJndiName );
+		getCFTipClientHandler();
+		getResponseHandler();$iterate SchemaTables( each implSchemaXMsgClntConstructTable )$
+		setResponseHandlerSchemaObj( handlerSchema );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetSetResponseHandlerSchemaObj">
+	/**
+	 *	Get the $SchemaName$SchemaObj that is used by the response processor to
+	 *	import the response objects during the parsing of response message strings.
+	 *
+	 *	@return	The $SchemaName$SchemaObj that is providing a persistence implementation
+	 *			for the parsing of response message strings.
+	 */
+	public I$SchemaName$SchemaObj getResponseHandlerSchemaObj() {
+		I$SchemaName$SchemaObj handlerSchema = getResponseHandler().getSchemaObj();
+		return( handlerSchema );
+	}
+
+	/**
+	 *	Set the $SchemaName$SchemaObj that is to be used by the response processor to
+	 *	import the response objects during the parsing of response message strings.
+	 *
+	 *	@param	handlerSchema The $SchemaName$SchemaObj that is to provide a persistence implementation
+	 *			for the parsing of response message strings.
+	 */
+	public void setResponseHandlerSchemaObj( I$SchemaName$SchemaObj handlerSchema ) {
+		getResponseHandler().setSchemaObj( handlerSchema );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetSetResponseHandlerDeleted">
+	/**
+	 *	Get the $SchemaName$Deleted flag that is used by the response processor to
+	 *	indate that a Deleted response was processed.
+	 *
+	 *	@return	True if a Deleted message was processed, otherwise false.
+	 */
+	public boolean getResponseHandlerDeleted() {
+		boolean deleted = getResponseHandler().getDeleted();
+		return( deleted );
+	}
+
+	/**
+	 *	Set the $SchemaName$Deleted flag that is to be used by the response processor to
+	 *	indicate that a Deleted response was processed.
+	 *
+	 *	@param	deleted True if a Deleted response was processed, otherwise false.
+	 */
+	public void setResponseHandlerDeleted( boolean deleted ) {
+		getResponseHandler().setDeleted( deleted );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntSendReceive">
+	/**
+	 *	Send the request and receive a response string from the server.
+	 *	&lt;p&gt;
+	 *	You are expected to overload the implementation of this method
+	 *	when binding an XMsgClnt package to a particular transport
+	 *	mechanism.  The implementation of sendReceive() is for pure XML
+	 *	strings, so you can wire it to pretty much any implementation
+	 *	you choose.
+	 *
+	 *	@param	Authorization -- null for connection requests
+	 *
+	 *	@param	rqst The String to send to the server
+	 *
+	 *	@return	rspn The response string recieved from the server, ready to be parsed as an XML file content.
+	 */
+	public String sendReceive( $SecSchemaName$Authorization Authorization,
+		String rqst )
+	{
+		throw new CFLibMustOverrideException( getClass(),
+			"sendReceive" );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntLogWrappers">
+		public ICFLibMessageLog getLog() {
+			ICFLibMessageLog mylog = getResponseHandler().getLog();
+			return( mylog );
+		}
+
+		public void setLog( ICFLibMessageLog newlog ) {
+			getResponseHandler().setLog( newlog );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetResponseHandler">
+	public $SchemaName$XMsgRspn getResponseHandler() {
+		$SchemaName$XMsgRspn responseHandler = null;
+		CFTipClientHandler clientHandler = getCFTipClientHandler();
+		responseHandler = ($SchemaName$XMsgRspn)clientHandler.getResponseHandler();
+		if( responseHandler == null ) {
+			responseHandler = new $SchemaName$XMsgRspn();
+			clientHandler.setResponseHandler( responseHandler );
+		}
+		return( responseHandler );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConnect">
+	public boolean connect() {
+		throw new CFLibNotSupportedException( getClass(),
+			"connect" );
+	}
+
+	public boolean connect( String username, String password ) {
+		throw new CFLibNotSupportedException( getClass(),
+			"connect-userpw" );
+	}
+
+	public boolean connect( String loginId, String password, String clusterName, String tenantName ) {
+		final String S_ProcName = "connect-full";
+		CFTipClientHandler clientHandler = getCFTipClientHandler();
+		String deviceName = clientHandler.getDeviceName();
+		String rqst = null;
+		try {
+			MessageDigest msgDigest = MessageDigest.getInstance( "SHA-512" );
+			msgDigest.update( password.getBytes( "UTF-8" ) );
+			byte[] hash = msgDigest.digest();
+			byte[] encodedHash = Base64.encodeBase64( hash );
+			byte[] devEncPWHash = clientHandler.encryptWithDevicePrivateKey( encodedHash );
+
+			clientHandler.initSessionKey();
+
+			rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRqstLogIn( "\n\t\t\t",
+								loginId,
+								deviceName,
+								devEncPWHash,
+								clusterName,
+								tenantName )
+				+	"\n"
+				+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		}
+		catch( NoSuchAlgorithmException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught NoSuchAlgorithmException - " + e.getMessage(),
+				e );
+		}
+		catch( UnsupportedEncodingException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught UnsupportedEncodingException - " + e.getMessage(),
+				e );
+		}
+		catch( InvalidKeyException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught InvalidKeyException - " + e.getMessage(),
+				e );
+		}
+		catch( NoSuchPaddingException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught NoSuchPaddingException - " + e.getMessage(),
+				e );
+		}
+		catch( IllegalBlockSizeException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught IllegalBlockSizeException - " + e.getMessage(),
+				e );
+		}
+		catch( BadPaddingException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught BadPaddingException - " + e.getMessage(),
+				e );
+		}
+		try {
+			cftipClientHandler.issueLoginRequest( rqst );
+		}
+		catch( InvalidAlgorithmParameterException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught InvalidAlgorithmParameterException - " + e.getMessage(),
+				e );
+		}
+		catch( BadPaddingException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught BadPaddingException - " + e.getMessage(),
+				e );
+		}
+		catch( IllegalBlockSizeException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught IllegalBlockSizeException - " + e.getMessage(),
+				e );
+		}
+		catch( InvalidKeyException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught InvalidKeyException - " + e.getMessage(),
+				e );
+		}
+		catch( NoSuchAlgorithmException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught NoSuchAlgorithmException - " + e.getMessage(),
+				e );
+		}
+		catch( NoSuchPaddingException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught NoSuchPaddingException - " + e.getMessage(),
+				e );
+		}
+		// The response handler sets up the authorization
+		ICFTipResponseHandler responseHandler = cftipClientHandler.getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		// If we got a response instead of an exception, we succeeded at logging in.
+		return( true );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="CFTipClientHandlerCatchBlock">
+		catch( BadPaddingException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught BadPaddingException - " + e.getMessage(),
+				e );
+		}
+		catch( IllegalBlockSizeException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught IllegalBlockSizeException - " + e.getMessage(),
+				e );
+		}
+		catch( InvalidKeyException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught InvalidKeyException - " + e.getMessage(),
+				e );
+		}
+		catch( NoSuchAlgorithmException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught NoSuchAlgorithmException - " + e.getMessage(),
+				e );
+		}
+		catch( InvalidAlgorithmParameterException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught InvalidAlgorithmParameterException - " + e.getMessage(),
+				e );
+		}
+		catch( NoSuchPaddingException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught NoSuchPaddingException - " + e.getMessage(),
+				e );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntIsConnected">
+	public boolean isConnected() {
+		I$SchemaName$SchemaObj schemaObj = getResponseHandlerSchemaObj();
+		if( schemaObj.getAuthorization() != null ) {
+			return( true );
+		}
+		else {
+			return( false );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntDisconnect">
+	public void disconnect( boolean doCommit ) {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntLogout">
+	public void logout( $SecSchemaName$Authorization auth ) {
+		final String S_ProcName = "logout";
+		if( ( auth == null ) || ( null == auth.getSecSessionId() ) ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Not authorized/connected" );
+		}
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRqstLogOut( "\n\t\t\t",
+							auth.getSecSessionId() )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			cftipClientHandler.issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = cftipClientHandler.getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntCommitControl">
+	public boolean isTransactionOpen() {
+		return( transactionOpen );
+	}
+
+	public boolean beginTransaction() {
+		if( transactionOpen ) {
+			return( false );
+		}
+		else {
+			transactionOpen = true;
+			return( true );
+		}
+	}
+
+	public void commit() {
+		transactionOpen = false;
+	}
+
+	public void rollback() {
+		transactionOpen = false;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgClntFileImport">
+	public String fileImport( $SecSchemaName$Authorization Authorization,
+		String fileName,
+		String fileContent )
+	{
+		final String S_ProcName = "fileImport";
+		if( ( fileName == null ) || ( fileName.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"fileName" );
+		}
+		if( ( fileContent == null ) || ( fileContent.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"fileContent" );
+		}
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRqstFileImport( "\n\t\t\t",
+						fileName,
+						fileContent ) + "\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$$implXMsgClntFileImportProcessResponse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgClntFileImportProcessResponse">
+		ICFTipResponseHandler responseHandler = getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		$SchemaName$XMsgRspn responseParser = ($SchemaName$XMsgRspn)responseHandler;
+		String logContent = responseParser.getLogContent();
+		return( logContent );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetQuotedString">
+	public static String getQuotedString(String val) {
+		if (val == null) {
+			return ("null");
+		}
+		else {
+			char c;
+			StringBuilder quoted = new StringBuilder();
+			quoted.append( "'" );
+			int len = val.length();
+			for (int i = 0; i &lt; len; i++)
+			{
+				if (val.charAt( i ) == '\'')
+				{
+					quoted.append("''");
+				}
+				else if (val.charAt( i ) == '\\\\') {
+					quoted.append("'||E'\\\\\\\\'||'");
+				}
+				else {
+					c = val.charAt( i );
+					if (   ( c == '0' )
+						|| ( c == '1' )
+						|| ( c == '2' )
+						|| ( c == '3' )
+						|| ( c == '4' )
+						|| ( c == '5' )
+						|| ( c == '6' )
+						|| ( c == '7' )
+						|| ( c == '8' )
+						|| ( c == '9' )
+						|| ( c == 'a' )
+						|| ( c == 'b' )
+						|| ( c == 'c' )
+						|| ( c == 'd' )
+						|| ( c == 'e' )
+						|| ( c == 'f' )
+						|| ( c == 'g' )
+						|| ( c == 'h' )
+						|| ( c == 'i' )
+						|| ( c == 'j' )
+						|| ( c == 'k' )
+						|| ( c == 'l' )
+						|| ( c == 'm' )
+						|| ( c == 'n' )
+						|| ( c == 'o' )
+						|| ( c == 'p' )
+						|| ( c == 'q' )
+						|| ( c == 'r' )
+						|| ( c == 's' )
+						|| ( c == 't' )
+						|| ( c == 'u' )
+						|| ( c == 'v' )
+						|| ( c == 'w' )
+						|| ( c == 'x' )
+						|| ( c == 'y' )
+						|| ( c == 'z' )
+						|| ( c == 'A' )
+						|| ( c == 'B' )
+						|| ( c == 'C' )
+						|| ( c == 'D' )
+						|| ( c == 'E' )
+						|| ( c == 'F' )
+						|| ( c == 'G' )
+						|| ( c == 'H' )
+						|| ( c == 'I' )
+						|| ( c == 'J' )
+						|| ( c == 'K' )
+						|| ( c == 'L' )
+						|| ( c == 'M' )
+						|| ( c == 'N' )
+						|| ( c == 'O' )
+						|| ( c == 'P' )
+						|| ( c == 'Q' )
+						|| ( c == 'R' )
+						|| ( c == 'S' )
+						|| ( c == 'T' )
+						|| ( c == 'U' )
+						|| ( c == 'V' )
+						|| ( c == 'W' )
+						|| ( c == 'X' )
+						|| ( c == 'Y' )
+						|| ( c == 'Z' )
+						|| ( c == ' ' )
+						|| ( c == '\t' )
+						|| ( c == '\r' )
+						|| ( c == '\n' )
+						|| ( c == '`' )
+						|| ( c == '~' )
+						|| ( c == '!' )
+						|| ( c == '@' )
+						|| ( c == '#' )
+						|| ( c == '$$' )
+						|| ( c == '%' )
+						|| ( c == '^' )
+						|| ( c == '&amp;' )
+						|| ( c == '*' )
+						|| ( c == '(' )
+						|| ( c == ')' )
+						|| ( c == '-' )
+						|| ( c == '_' )
+						|| ( c == '=' )
+						|| ( c == '+' )
+						|| ( c == '[' )
+						|| ( c == ']' )
+						|| ( c == '{' )
+						|| ( c == '}' )
+						|| ( c == '|' )
+						|| ( c == ';' )
+						|| ( c == ':' )
+						|| ( c == '"' )
+						|| ( c == '&lt;' )
+						|| ( c == '&gt;' )
+						|| ( c == ',' )
+						|| ( c == '.' )
+						|| ( c == '/' )
+						|| ( c == '?' ))
+					{
+						quoted.append(c);
+					}
+					else {
+//						Syslog.warn("\\t\\t\\tReplacing invalid character '" + c + "' with space");
+						quoted.append( ' ' );
+					}
+				}
+			}
+			quoted.append( "'" );
+			return (quoted.toString());
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetNullableString">
+	public static String getNullableString(ResultSet reader, int colidx) {
+		try {
+			String val = reader.getString( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( val );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$XMsgClntSchema.class,
+				"getNullableString",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetBlobString">
+	public static String getBlobString(byte[] val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( "'" + new String( Base64.encodeBase64( val ) ) + "'" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetBoolString">
+	public static String getBoolString(Boolean val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			if( val ) {
+				return( "true" );
+			}
+			else {
+				return( "false" );
+			}
+		}
+	}
+
+	public static String getBoolString(boolean val) {
+		if( val ) {
+			return( "true" );
+		}
+		else {
+			return( "false" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetInt16String">
+	public static String getInt16String(Short val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getInt16String(short val) {
+		return( Short.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetInt32String">
+	public static String getInt32String(Integer val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getInt32String(int val) {
+		return( Integer.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetInt64String">
+	public static String getInt64String(Long val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getInt64String(long val) {
+		return( Long.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetUInt16String">
+	public static String getUInt16String(Integer val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getUInt16String(int val) {
+		return( Integer.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetUInt32String">
+	public static String getUInt32String(Long val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getUInt32String(long val) {
+		return( Long.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetUInt64String">
+	public static String getUInt64String(BigDecimal val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetFloatString">
+	public static String getFloatString(Float val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getFloatString(float val) {
+		return( Float.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetDoubleString">
+	public static String getDoubleString(Double val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getDoubleString(double val) {
+		return( Double.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetNumberString">
+	public static String getNumberString(BigDecimal val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetNullableInt32">
+	public static Integer getNullableInt32(ResultSet reader, int colidx) {
+		try {
+			int val = reader.getInt( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Integer.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$XMsgClntSchema.class,
+				"getNullableInt32",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetNullableInt16">
+	public static Short getNullableInt16(ResultSet reader, int colidx) {
+		try {
+			short val = reader.getShort( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Short.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$XMsgClntSchema.class,
+				"getNullableInt64",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetNullableUInt16">
+	public static Integer getNullableUInt16(ResultSet reader, int colidx) {
+		try {
+			int val = reader.getInt( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Integer.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$XMsgClntSchema.class,
+				"getNullableUInt16",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetNullableUInt32">
+	public static Long getNullableUInt32(ResultSet reader, int colidx) {
+		try {
+			long val = reader.getLong( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Long.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$XMsgClntSchema.class,
+				"getNullableUInt32",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetNullableUInt64">
+	public static BigDecimal getNullableUInt64(ResultSet reader, int colidx) {
+		try {
+			String strval = reader.getString( colidx );
+			if( reader.wasNull() || ( strval == null ) || ( strval.length() &lt;=0 ) ) {
+				return(null);
+			}
+			else {
+				BigDecimal retval = new BigDecimal( strval );
+				return( retval );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$XMsgClntSchema.class,
+				"getNullableUInt64",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetNullableIntByte">
+	public static Byte getNullableByte(ResultSet reader, int colidx) {
+		try {
+			byte val = reader.getByte( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Byte.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$XMsgClntSchema.class,
+				"getNullableByte",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetDateString">
+	public static String getDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetTimeString">
+	public static String getTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetTimestampString">
+	public static String getTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetTZDateString">
+	public static String getTZDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetTZTimeString">
+	public static String getTZTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetTZTimestampString">
+	public static String getTZTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetQuotedDateString">
+	public static String getQuotedDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetQuotedTimeString">
+	public static String getQuotedTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetQuotedTimestampString">
+	public static String getQuotedTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetQuotedTZDateString">
+	public static String getQuotedTZDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetQuotedTZTimeString">
+	public static String getQuotedTZTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetQuotedTZTimestampString">
+	public static String getQuotedTZTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntGetUuidString">
+	public static String getUuidString(UUID val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			return( "'" + val.toString() + "'" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertDateString">
+	public static Calendar convertDateString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 10 ) {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertDateString",
+				"Value must be in YYYY-MM-DD format, \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9')) )
+$implSchemaXMsgClntConvertDateStringIfMatchElse$
+	}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertDateStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, 0 );
+			retval.set( Calendar.MINUTE, 0 );
+			retval.set( Calendar.SECOND, 0 );
+			Calendar local = new GregorianCalendar();
+			local.setTimeInMillis( retval.getTimeInMillis() );
+			return( local );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertDateString",
+				"Value must be in YYYY-MM-DD format, \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertTimeString">
+	public static Calendar convertTimeString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 8 ) {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertTimeString",
+				"Value must be in HH24:MI:SS format, \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 2 ) == ':')
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 4 ) &gt;= '0') &amp;&amp; (val.charAt( 4 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 5 ) == ':')
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 7 ) &gt;= '0') &amp;&amp; (val.charAt( 7 ) &lt;= '9')) )
+$implSchemaXMsgClntConvertTimeStringIfMatchElse$
+	}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertTimeStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int hour = Integer.parseInt( val.substring( 0, 2 ) );
+			int minute = Integer.parseInt( val.substring( 3, 5 ) );
+			int second = Integer.parseInt( val.substring( 6, 8 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, 2000 );
+			retval.set( Calendar.MONTH, 0 );
+			retval.set( Calendar.DAY_OF_MONTH, 1 );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar local = new GregorianCalendar();
+			local.setTimeInMillis( retval.getTimeInMillis() );
+			return( local );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertTimeString",
+				"Value must be in HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertTimestampString">
+	public static Calendar convertTimestampString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertTimestampString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaXMsgClntConvertTimestampStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertTimestampStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar local = new GregorianCalendar();
+			local.setTimeInMillis( retval.getTimeInMillis() );
+			return( local );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertTimestampString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertTZDateString">
+	public static Calendar convertTZDateString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertTZDateString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaXMsgClntConvertTZDateStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertTZDateStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar utc = CFLibDbUtil.getUTCCalendar( retval );
+			return( utc );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertTZDateString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertTZTimeString">
+	public static Calendar convertTZTimeString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertTZTimeString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaXMsgClntConvertTZTimeStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertTZTimeStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar utc = CFLibDbUtil.getUTCCalendar( retval );
+			return( utc );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertTZTimeString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertTZTimestampString">
+	public static Calendar convertTZTimestampString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertTZTimestampString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaXMsgClntConvertTZTimestampStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertTZTimestampStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar utc = CFLibDbUtil.getUTCCalendar( retval );
+			return( utc );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$XMsgClntSchema.class,
+				"convertTZTimestampString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntConvertUuidString">
+	public static UUID convertUuidString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else {
+			return( UUID.fromString( val ) );
+		}
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="implSchemaXMsgClntNextIdGen">
+	public short next$Name$() {
+		throw new CFLibNotSupportedException( getClass(),
+			"next$Name$" );
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="implSchemaXMsgClntNextIdGen">
+	public int next$Name$() {
+		throw new CFLibNotSupportedException( getClass(),
+			"next$Name$" );
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="implSchemaXMsgClntNextIdGen">
+	public long next$Name$() {
+		throw new CFLibNotSupportedException( getClass(),
+			"next$Name$" );
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidGen" Name="implSchemaXMsgClntNextIdGen">
+	public UUID next$Name$() {
+		throw new CFLibNotSupportedException( getClass(),
+			"next$Name$" );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntIsSystemUser">
+	public boolean isSystemUser( $SecSchemaName$Authorization Authorization) {
+		throw new CFLibNotSupportedException( getClass(),
+			"isSystemUser" );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntIsClusterUser">
+	public boolean isClusterUser( $SecSchemaName$Authorization Authorization,
+		long clusterId,
+		String groupName )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"isClusterUser" );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgClntIsTenantUser">
+	public boolean isTenantUser( $SecSchemaName$Authorization Authorization,
+		long tenantId,
+		String groupName )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"isTenantUser" );
+	}
+</GenRule>
+
+</RuleSet>

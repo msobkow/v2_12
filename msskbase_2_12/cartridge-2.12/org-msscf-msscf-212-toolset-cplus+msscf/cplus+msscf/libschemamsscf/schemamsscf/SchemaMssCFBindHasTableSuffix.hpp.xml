@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus+msscf"
+	Name="libschemamsscf/schemamsscf/SchemaMssCFBindHasTableSuffix.cplus"
+	Revision="2.12"
+	Descr="C++18 SchemaMssCFBindHasTableSuffix">
+
+	<GenFile GenDef="Relation" Name="fileSchemaMssCFBindHasTableSuffixHPlus"
+		GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$reference ManufacturingSchema lower PackageName$msscf"
+		SubPackageName="$lower poptop SchemaDef SchemaName$msscf"
+		ExpansionClassName="$SchemaName$MssCFBindHas$popto Table Name$$Suffix$HPlus"
+		ExpansionKeyName="$SchemaName$MssCFBindHas$popto Table Name$$Suffix$HPlus"
+		ExpansionFileName="$SchemaName$MssCFBindHas$popto Table Name$$Suffix$.hpp">
+// Description: C++18 MssCF Binding for $popto Table Name$ Has $Suffix$.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;msscf/MssCFPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$MssCFBindHas$popto Table Name$$Suffix$ : public cfcore::MssCFGenBindObj
+	{
+		public:
+			static const std::string CLASS_NAME;
+
+			$SchemaName$MssCFBindHas$popto Table Name$$Suffix$();
+			$SchemaName$MssCFBindHas$popto Table Name$$Suffix$( cfcore::MssCFEngine* argEngine );
+			virtual ~$SchemaName$MssCFBindHas$popto Table Name$$Suffix$();
+
+			virtual std::string expandBody( cfcore::MssCFGenContext* genContext );
+	};
+}
+</GenFile>
+
+</RuleSet>

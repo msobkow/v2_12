@@ -1,0 +1,1161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/SchemaObj/Obj.java"
+	Revision="2.12"
+	Descr="Java 11 base object instance implementation">
+
+	<GenFile GenDef="Table" Name="fileObjJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$Obj"
+		ExpansionClassName="$SchemaName$$TableName$ObjJava"
+		ExpansionKeyName="$SchemaName$$TableName$ObjJava"
+		ExpansionFileName="$SchemaName$$TableName$Obj.java"
+>// Description: Java 11 base object instance implementation for $SchemaName$ $TableName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$Obj;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$importJavaPackageSchemaName$$JavaObjImport$
+
+public class $SchemaName$$TableName$Obj
+$switch HasSuperClassRelation yes implObjExtendSuperClassImplements default implObjTabImplementsSpace$I$SchemaName$$TableName$Obj
+{
+	public final static String CLASS_CODE = "$ClassCode$";$switch HasSuperClassRelation no declObjAttrOptAuditColumns default empty$$switch HasSuperClassRelation no declObjAttrIsNew default empty$$switch HasSuperClassRelation no declObjEditAttr default empty$$switch HasSuperClassRelation no declObjSchemaAttr default empty$$switch HasSuperClassRelation no implObjPKeyAttr default empty$$switch HasSuperClassRelation no implObjBuffAttr default empty$$iterate Relation( each implObjRelationAttr empty empty )$$JavaObjMembers$
+$implSchemaTableObjAllTheMethods$}
+</GenFile>
+
+	<GenRule GenDef="ServerProc" Name="implJavaObjServerMethod"
+		>$switch IsInstanceMethod yes implJavaObjInstServerProc default empty$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implJavaObjInstServerProc">
+	public boolean $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		boolean retval = ((I$poptop SchemaDef SchemaName$$TableName$TableObj)((I$poptop SchemaDef SchemaName$SchemaObj)getSchema()).get$TableName$TableObj()).$leadlower Name$( this$iterate Params( each passServerMethodParam empty empty )$ );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implJavaObjServerMethod"
+		>$switch IsInstanceMethod yes implJavaObjInstServerObjFunc default empty$</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implJavaObjInstServerObjFunc">
+	public I$DefSchemaName$$reference RetTable Name$Obj $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		I$DefSchemaName$$reference RetTable Name$Obj retval = ((I$poptop SchemaDef SchemaName$$TableName$TableObj)((I$poptop SchemaDef SchemaName$SchemaObj)getSchema()).get$TableName$TableObj()).$leadlower Name$( this$iterate Params( each passServerMethodParam empty empty )$ );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implJavaObjServerMethod"
+		>$switch IsInstanceMethod yes implJavaObjInstServerListFunc default empty$</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implJavaObjInstServerListFunc">
+	public List&lt;I$DefSchemaName$$reference RetTable Name$Obj&gt; $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		List&lt;I$DefSchemaName$$reference RetTable Name$Obj&gt; retval = ((I$poptop SchemaDef SchemaName$$TableName$TableObj)((I$poptop SchemaDef SchemaName$SchemaObj)getSchema()).get$TableName$TableObj()).$leadlower Name$( this$iterate Params( each passServerMethodParam empty empty )$ );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declObjAttrOptAuditColumns"
+		>$switch HasAuditColumns yes declObjAttrAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declObjAttrAuditColumns">
+	protected I$SecSchemaName$SecUserObj createdBy = null;
+	protected I$SecSchemaName$SecUserObj updatedBy = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjGetOptAuditColumns"
+		>$switch BaseHasAuditColumns yes implObjGetAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjGetAuditColumns">
+	public I$SecSchemaName$SecUserObj getCreatedBy() {
+		if( createdBy == null ) {
+			$reference BaseClass DefSchemaName$$reference BaseClass TableName$Buff buff = getBuff();
+			createdBy = ((I$SchemaName$SchemaObj)getSchema()).getSecUserTableObj().readSecUserByIdIdx( buff.getCreatedByUserId() );
+		}
+		return( createdBy );
+	}
+
+	public Calendar getCreatedAt() {
+		return( getBuff().getCreatedAt() );
+	}
+
+	public I$SecSchemaName$SecUserObj getUpdatedBy() {
+		if( updatedBy == null ) {
+			$reference BaseClass DefSchemaName$$reference BaseClass TableName$Buff buff = getBuff();
+			updatedBy = ((I$SchemaName$SchemaObj)getSchema()).getSecUserTableObj().readSecUserByIdIdx( buff.getUpdatedByUserId() );
+		}
+		return( updatedBy );
+	}
+
+	public Calendar getUpdatedAt() {
+		return( getBuff().getUpdatedAt() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableObjAllTheMethods">
+	public $SchemaName$$TableName$Obj() {$switch HasSuperClassRelation yes implObjConstructorInvokeSuper default empty$$switch HasClassCode yes implObjConstructorMaybeInitPKeyClassCode default empty$$switch HasSuperClassRelation no implObjConstructorInitIsNew default empty$$iterate Relation( each implObjConstructorInitRelationAttr empty empty )$
+	}
+
+	public $SchemaName$$TableName$Obj( I$DefSchemaName$SchemaObj argSchema ) {$switch HasSuperClassRelation yes implObjConstructorInvokeSuperSchema default empty$$switch HasSuperClassRelation no implObjConstructorInitSchema default empty$$switch HasSuperClassRelation no implObjConstructorInitIsNew default empty$$switch HasSuperClassRelation no implObjConstructorInitEdit default empty$$switch HasClassCode yes implObjConstructorMaybeInitPKeyClassCode default empty$$iterate Relation( each implObjConstructorInitRelationAttr empty empty )$
+	}
+$implSchemaObjMethods$$iterate ServerMethods( each implJavaObjServerMethod empty empty )$$JavaObjImplementation$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaObjMethods"
+		>$implGetClassCode$$implGetGenDefName$$maybeImplGetScope$$implGetObjName$$maybeImplGetObjQualifier$$maybeImplGetQualNamedObject$$implGetNamedObject$$maybeImplGetObjQualifiedName$$maybeImplGetObjFullName$$implObjRealise$$implObjForget$$implObjRead$$switch HasChain yes implObjMoveUp default empty$$switch HasChain yes implObjMoveDown default empty$$implObjTableAccessors$$switch HasSuperClassRelation no implObjSchemaAccessors default empty$$implObjTableGetBuff$$implObjTableBuffAccessors$$switch HasSuperClassRelation no implObjPKeyAccessors default empty$$switch HasSuperClassRelation no implObjIsNewAccessors default empty$$implObjBeginEdit$$switch HasSuperClassRelation no implObjEndEdit default empty$$switch HasSuperClassRelation no implObjEditAccessors default empty$$implObjEditAsAccessors$$switch BaseHasAuditColumns yes implObjGetAuditColumns default empty$$iterate Columns( each implObjColumnAccessors empty empty )$$iterate Relation( each implObjRelationAccessors empty empty )$$switch HasSuperClassRelation yes empty default implObjCopyPKeyToBuff$$switch HasSuperClassRelation yes empty default implObjCopyBuffToPKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetClassCode">
+	public String getClassCode() {
+		return( CLASS_CODE );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetGenDefName">
+	public String getGenDefName() {
+		return( "$TableName$" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplGetQualNamedObject"
+		>$switch HasSuperClassRelation no implGetQualNamedObject default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetQualNamedObject">
+	public ICFLibAnyObj getNamedObject( Class qualifyingClass, String objName ) {
+		ICFLibAnyObj topContainer = getObjQualifier( qualifyingClass );
+		if( topContainer == null ) {
+			return( null );
+		}
+		ICFLibAnyObj namedObject = topContainer.getNamedObject( objName );
+		return( namedObject );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObject">
+	public ICFLibAnyObj getNamedObject( String objName ) {
+		String nextName;
+		String remainingName;
+		ICFLibAnyObj subObj = null;
+		ICFLibAnyObj retObj;
+		int nextDot = objName.indexOf( '.' );
+		if( nextDot &gt;= 0 ) {
+			nextName = objName.substring( 0, nextDot );
+			remainingName = objName.substring( nextDot + 1 );
+		}
+		else {
+			nextName = objName;
+			remainingName = null;
+		}$implGetNamedObjectProbeComponents$
+		if( remainingName == null ) {
+			retObj = subObj;
+		}
+		else if( subObj == null ) {
+			retObj = null;
+		}
+		else {
+			retObj = subObj.getNamedObject( remainingName );
+		}
+		return( retObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectProbeComponents"
+		>$switch TableName Tenant implGetNamedObjectOnlyProbeTldComponent default implGetNamedObjectProbeXsdComponents$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectOnlyProbeTldComponent"
+		>$switch HasSuperClassRelation yes implGetNamedObjectOnlyProbeInhTldComponent default implGetNamedObjectOnlyProbeBaseTldComponent$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectOnlyProbeInhTldComponent"
+		>$reference SuperClassRelation reference ToTable implGetNamedObjectOnlyProbeTldComponent$$iterate Relation( each implGetNamedObjectOnlyProbeTldComponent empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectOnlyProbeBaseTldComponent"
+		>$iterate Relation( each implGetNamedObjectOnlyProbeTldComponent empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectOnlyProbeTldComponent"
+		>$switch RelationTypeTag Components implGetNamedObjectOnlyProbeXsdTldComponent default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectOnlyProbeXsdTldComponent"
+		>$switch IsXsdContainer yes implGetNamedObjectDoProbeXsdTldComponent default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectDoProbeXsdTldComponent"
+		>$switch ToTableHasInheritedLookupIndex yes implGetNamedObjectProbeXsdTldComponentByName default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="ToTableName"
+		>$reference ToTable TableName$</GenRule>
+
+	<GenRule GenDef="Relation" Name="FromTableName"
+		>$reference FromTable TableName$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectProbeXsdTldComponentByName"
+		>$<!--switch ToTableName Tld -->implGetNamedObjectProbeXsdComponentByName<!-- default empty-->$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectProbeXsdComponents"
+		>$switch HasSuperClassRelation yes implGetNamedObjectProbeSuperXsdComponents default implGetNamedObjectProbeBaseXsdComponents$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectProbeSuperXsdComponents"
+		>$reference SuperClassRelation reference ToTable implGetNamedObjectProbeComponents$$iterate Relation( each implGetNamedObjectProbeComponent empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectProbeBaseXsdComponents"
+		>$iterate Relation( each implGetNamedObjectProbeComponent empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectProbeComponent"
+		>$switch RelationTypeTag Components implGetNamedObjectOnlyProbeXsdComponent default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectOnlyProbeXsdComponent"
+		>$switch IsXsdContainer yes implGetNamedObjectDoProbeXsdComponent default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectDoProbeXsdComponent"
+		>$switch ToTableHasInheritedLookupIndex yes implGetNamedObjectProbeXsdComponentByName default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectProbeXsdComponentByName"
+		>$switch ToTableHasInheritedLookupIndex yes implGetNamedObjectProbeXsdComponentByLookupIndex default maybeImplGetNamedObjectProbeXsdComponentBySuperName$</GenRule>
+
+	<GenRule GenDef="Relation" Name="maybeImplGetNamedObjectProbeXsdComponentBySuperName"
+		>$switch FromTableHasSuperClassRelation yes implGetNamedObjectProbeXsdComponentBySuperName default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="FromTableHasSuperClassRelation"
+		>$reference FromTable HasSuperClassRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="ToTableHasSuperClassRelation"
+		>$reference ToTable HasSuperClassRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectProbeXsdComponentBySuperName"
+		>$reference FromTable reference SuperClassRelation reference ToTable implGetNamedObjectProbeComponents$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectProbeXsdComponentByLookupIndex">
+		if( subObj == null ) {
+			subObj = ((I$SchemaName$SchemaObj)getSchema()).get$reference ToTable TableName$TableObj().read$reference ToTable TableName$By$implGetNamedObjectProbeXsdComponentReadByInheritedLookupIndex$
+		}</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectProbeXsdComponentReadByInheritedLookupIndex"
+		>$switch ToTableHasInheritedLookupIndex yes implGetNamedObjectProbeXsdComponentReadByToTableInheritedLookupIndex default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetNamedObjectProbeXsdComponentReadByToTableInheritedLookupIndex"
+		>$reference ToTable implGetNamedObjectProbeXsdComponentReadByInheritedLookupIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectProbeXsdComponentReadByInheritedLookupIndex"
+		>$switch HasLookupIndex yes implGetNamedObjectProbeXsdComponentReadByLookupIndex default maybeImplGetNamedObjectProbeXsdComponentReadByInheritedLookupIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplGetNamedObjectProbeXsdComponentReadByInheritedLookupIndex"
+		>$switch HasSuperClassRelation yes implGetNamedObjectProbeXsdComponentReadByInheritedLookupIndexSuper default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectProbeXsdComponentReadByInheritedLookupIndexSuper"
+		>$reference SuperClassRelation reference ToTable implGetNamedObjectProbeXsdComponentReadByInheritedLookupIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectProbeXsdComponentReadByLookupIndex"
+		>$reference LookupIndex Suffix$( $reference LookupIndex iterate Columns( lone implGetNamedObjectReadByArg first implGetNamedObjectReadByPKeyArgs each empty empty empty )$, false );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implGetNamedObjectReadByArg"
+		>nextName</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implGetNamedObjectReadByPKeyArgs"
+		>$poptop Table implGetNamedObjectReadByPKeyArgs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetNamedObjectReadByPKeyArgs"
+		>$reference PrimaryKeyIndex iterate Columns( first implGetNamedObjectPassPKeyArg each implGetNamedObjectCommaPassPKeyArg empty empty )$,
+				nextName</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implGetNamedObjectPassPKeyArg"
+		>get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implGetNamedObjectCommaPassPKeyArg">,
+				get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplGetObjQualifier"
+		>$implGetObjQualifier$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetObjQualifier">
+	public ICFLibAnyObj getObjQualifier( Class qualifyingClass ) {
+		ICFLibAnyObj container = this;
+		if( qualifyingClass != null ) {
+			while( container != null ) {
+				if( container instanceof I$SchemaName$ClusterObj ) {
+					break;
+				}
+				else if( container instanceof I$SchemaName$TenantObj ) {
+					break;
+				}
+				else if( qualifyingClass.isInstance( container ) ) {
+					break;
+				}
+				container = container.getObjScope();
+			}
+		}
+		else {
+			while( container != null ) {
+				if( container instanceof I$SchemaName$ClusterObj ) {
+					break;
+				}
+				else if( container instanceof I$SchemaName$TenantObj ) {
+					break;
+				}
+				container = container.getObjScope();
+			}
+		}
+		return( container );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplGetObjQualifiedName"
+		>$implGetObjQualifiedName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetObjQualifiedName">
+	public String getObjQualifiedName() {
+		String qualName = getObjName();
+		ICFLibAnyObj container = getObjScope();
+		String containerName;
+		while( container != null ) {
+			if( container instanceof I$SecSchemaName$ClusterObj ) {
+				container = null;
+			}
+			else if( container instanceof I$SecSchemaName$TenantObj ) {
+				container = null;
+			}$switch HasQualTable yes implGetObjQualifiedNameCheckQualTable default empty$
+			else {
+				containerName = container.getObjName();
+				qualName = containerName + "." + qualName;
+				container = container.getObjScope();
+			}
+		}
+		return( qualName );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetObjQualifiedNameCheckQualTable">
+			else if( container instanceof I$DefSchemaName$$reference QualTable Name$Obj ) {
+				container = null;
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplGetObjFullName"
+		>$switch HasSuperClassRelation no implGetObjFullName default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetObjFullName">
+	public String getObjFullName() {
+		String fullName = getObjName();
+		ICFLibAnyObj container = getObjScope();
+		String containerName;
+		while( container != null ) {
+			if( container instanceof I$SecSchemaName$ClusterObj ) {
+				container = null;
+			}
+			else if( container instanceof I$SecSchemaName$TenantObj ) {
+				container = null;
+			}
+			else {
+				containerName = container.getObjName();
+				fullName = containerName + "." + fullName;
+				container = container.getObjScope();
+			}
+		}
+		return( fullName );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetObjName">
+	public String getObjName() {
+		String objName;$reference ObjNameColumn implGetObjNameCalcName$
+		return( objName );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcName"
+		>$switch IsNullable yes implGetObjNameCalcOptName default implGetObjNameCalcReqName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcReqName"
+		>$switch BaseModelAtomClass
+			BlobDef ErrorUnsupportedBaseModelAtomClass
+			BoolDef implGetObjNameCalcBoolReqName
+			EnumDef implGetObjNameCalcInt16ReqName
+			Int16Def implGetObjNameCalcInt16ReqName
+			Int32Def implGetObjNameCalcInt32ReqName
+			Int64Def implGetObjNameCalcInt64ReqName
+			UInt16Def implGetObjNameCalcUInt16ReqName
+			UInt32Def implGetObjNameCalcUInt32ReqName
+			UInt64Def implGetObjNameCalcUInt64ReqName
+			Id16Gen implGetObjNameCalcInt16ReqName
+			Id32Gen implGetObjNameCalcInt32ReqName
+			Id64Gen implGetObjNameCalcInt64ReqName
+			FloatDef ErrorUnsupportedBaseModelAtomClass
+			DoubleDef ErrorUnsupportedBaseModelAtomClass
+			NumberDef ErrorUnsupportedBaseModelAtomClass
+			StringDef implGetObjNameCalcStringReqName
+			TokenDef implGetObjNameCalcStringReqName
+			NmTokenDef implGetObjNameCalcStringReqName
+			NmTokensDef ErrorUnsupportedBaseModelAtomClass
+			TextDef ErrorUnsupportedBaseModelAtomClass
+			DateDef ErrorUnsupportedBaseModelAtomClass
+			TimeDef ErrorUnsupportedBaseModelAtomClass
+			TimestampDef ErrorUnsupportedBaseModelAtomClass
+			TZDateDef ErrorUnsupportedBaseModelAtomClass
+			TZTimeDef ErrorUnsupportedBaseModelAtomClass
+			TZTimestampDef ErrorUnsupportedBaseModelAtomClass
+			UuidGen implGetObjNameCalcUuidReqName
+			UuidDef implGetObjNameCalcUuidReqName
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcOptName"
+		>$switch BaseModelAtomClass
+			BlobDef ErrorUnsupportedBaseModelAtomClass
+			BoolDef implGetObjNameCalcBoolOptName
+			EnumDef implGetObjNameCalcInt16OptName
+			Int16Def implGetObjNameCalcInt16OptName
+			Int32Def implGetObjNameCalcInt32OptName
+			Int64Def implGetObjNameCalcInt64OptName
+			UInt16Def implGetObjNameCalcUInt16OptName
+			UInt32Def implGetObjNameCalcUInt32OptName
+			UInt64Def implGetObjNameCalcUInt64OptName
+			Id16Gen implGetObjNameCalcInt16OptName
+			Id32Gen implGetObjNameCalcInt32OptName
+			Id64Gen implGetObjNameCalcInt64OptName
+			FloatDef ErrorUnsupportedBaseModelAtomClass
+			DoubleDef ErrorUnsupportedBaseModelAtomClass
+			NumberDef ErrorUnsupportedBaseModelAtomClass
+			StringDef implGetObjNameCalcStringOptName
+			TokenDef implGetObjNameCalcStringOptName
+			NmTokenDef implGetObjNameCalcStringOptName
+			NmTokensDef ErrorUnsupportedBaseModelAtomClass
+			TextDef ErrorUnsupportedBaseModelAtomClass
+			DateDef ErrorUnsupportedBaseModelAtomClass
+			TimeDef ErrorUnsupportedBaseModelAtomClass
+			TimestampDef ErrorUnsupportedBaseModelAtomClass
+			TZDateDef ErrorUnsupportedBaseModelAtomClass
+			TZTimeDef ErrorUnsupportedBaseModelAtomClass
+			TZTimestampDef ErrorUnsupportedBaseModelAtomClass
+			UuidGen implGetObjNameCalcUuidOptName
+			UuidDef implGetObjNameCalcUuidOptName
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcBoolReqName">
+		if( get$OptionalOrRequired$$Name$() ) {
+			objName = "true";
+		}
+		else {
+			objName = "false";
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcBoolOptName">
+		Boolean val = get$OptionalOrRequired$$Name$();
+		if( val == null ) {
+			objName = "";
+		}
+		else if( val.booleanValue() ) {
+			objName = "true";
+		}
+		else {
+			objName = "false";
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcStringReqName">
+		objName = get$OptionalOrRequired$$Name$();</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcStringOptName">
+		objName = get$OptionalOrRequired$$Name$();
+		if( objName == null ) {
+			objName = "";
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt16ReqName">
+		short val = get$OptionalOrRequired$$Name$();
+		objName = Short.toString( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt16OptName">
+		Short val = get$OptionalOrRequired$$Name$();
+		if( val == null ) {
+			objName = "";
+		}
+		else {
+			objName = val.toString();
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt32ReqName">
+		int val = get$OptionalOrRequired$$Name$();
+		objName = Integer.toString( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt32OptName">
+		Integer val = get$OptionalOrRequired$$Name$();
+		if( val == null ) {
+			objName = "";
+		}
+		else {
+			objName = val.toString();
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt64ReqName">
+		long val = get$OptionalOrRequired$$Name$();
+		objName = Long.toString( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcInt64OptName">
+		Long val = get$OptionalOrRequired$$Name$();
+		if( val == null ) {
+			objName = "";
+		}
+		else {
+			objName = val.toString();
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt16ReqName">
+		int val = get$OptionalOrRequired$$Name$();
+		objName = Integer.toString( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt16OptName">
+		Integer val = get$OptionalOrRequired$$Name$();
+		if( val == null ) {
+			objName = "";
+		}
+		else {
+			objName = val.toString();
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt32ReqName">
+		long val = get$OptionalOrRequired$$Name$();
+		objName = Long.toString( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt32OptName">
+		Long val = get$OptionalOrRequired$$Name$();
+		if( val == null ) {
+			objName = "";
+		}
+		else {
+			objName = val.toString();
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt64ReqName">
+		BigInteger val = get$OptionalOrRequired$$Name$();
+		objName = val.toString( val );</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUInt64OptName">
+		BigInteger val = get$OptionalOrRequired$$Name$();
+		if( val == null ) {
+			objName = "";
+		}
+		else {
+			objName = val.toString();
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUuidReqName">
+		UUID val = get$OptionalOrRequired$$Name$();
+		objName = val.toString();</GenRule>
+
+	<GenRule GenDef="Value" Name="implGetObjNameCalcUuidOptName">
+		UUID val = get$OptionalOrRequired$$Name$();
+		if( val == null ) {
+			objName = "";
+		}
+		else {
+			objName = val.toString();
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplGetScope"
+		>$switch ContainerStyle
+			Single implGetScopeViaSingleContainerSpecial
+			Multiple implGetScopeViaMultipleContainer
+			default maybeImplGetScopeNull$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplGetScopeNull"
+		>$switch HasSuperClassRelation no implGetScopeNull default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetScopeNull">
+	public ICFLibAnyObj getScope() {
+		return( null );
+	}
+
+	public ICFLibAnyObj getObjScope() {
+		return( null );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetScopeViaSingleContainerSpecial"
+		>$switch TableName Tld implGetScopeViaSingleContainerTld default implGetScopeViaSingleContainerNormal$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetScopeViaSingleContainerTld">
+	public ICFLibAnyObj getScope() {
+		return( getRequiredContainerTenant() );
+	}
+
+	public ICFLibAnyObj getObjScope() {
+		return( getRequiredContainerTenant() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetScopeViaSingleContainerNormal">
+	public ICFLibAnyObj getScope() {$iterate ContainerRelations( first implGetScopeViaSingleContainerBody each empty empty maybeImplGetScopeViaSingleInheritedContainerBody )$
+	}
+
+	public ICFLibAnyObj getObjScope() {$iterate ContainerRelations( first implGetScopeViaSingleContainerBody each empty empty maybeImplGetObjScopeViaSingleInheritedContainerBody )$
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="ObjectTableHasSuperClassRelation"
+		>$popto Table HasSuperClassRelation$</GenRule>
+
+	<GenRule GenDef="Object" Name="maybeImplGetScopeViaSingleInheritedContainerBody"
+		>$switch ObjectTableHasSuperClassRelation yes implGetScopeViaSingleInheritedContainerBody default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetScopeViaSingleInheritedContainerBody">
+		return( super.getScope() );</GenRule>
+
+	<GenRule GenDef="Object" Name="maybeImplGetObjScopeViaSingleInheritedContainerBody"
+		>$switch ObjectTableHasSuperClassRelation yes implGetObjScopeViaSingleInheritedContainerBody default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetObjScopeViaSingleInheritedContainerBody">
+		return( super.getObjScope() );</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetScopeViaSingleContainerBody">
+		I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj scope = get$OptionalOrRequired$$RelationTypeTag$$Suffix$();
+		return( scope );</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetScopeViaMultipleContainer">
+	public ICFLibAnyObj getObjScope() {$iterate ContainerRelations( first implGetScopeViaMultipleContainerBody each empty empty empty )$
+	}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implGetScopeViaMultipleContainerBody"
+		>$switch HasNarrowed yes implReallyGetScopeViaMultipleContainerBody default implReallyGetScopeViaSimpleContainerBody$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyGetScopeViaSimpleContainerBody">
+		I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj scope = get$OptionalOrRequired$$RelationTypeTag$$Suffix$();
+		return( scope );</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyGetScopeViaMultipleContainerBody">
+		I$reference Narrowed reference ToTable DefSchemaName$$reference Narrowed reference ToTable TableName$Obj scope = get$reference Narrowed OptionalOrRequired$$reference Narrowed RelationTypeTag$$reference Narrowed Suffix$();
+		if( scope == null ) {
+			I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj simpleScope = get$OptionalOrRequired$$RelationTypeTag$$Suffix$();
+			return( simpleScope );
+		}
+		return( scope );</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorInitEdit">
+		edit = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declObjEditAttr">
+	protected I$DefSchemaName$$TableName$EditObj edit;</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjBeginEdit">
+	public I$reference BaseClass DefSchemaName$$reference BaseClass TableName$EditObj beginEdit() {
+		if( edit != null ) {
+			throw new CFLibUsageException( getClass(), "beginEdit", "An edit is already open" );
+		}
+		I$DefSchemaName$$TableName$Obj lockobj;
+		if( getIsNew() ) {
+			lockobj = (I$DefSchemaName$$TableName$Obj)this;
+		}
+		else {
+			lockobj = ((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().lock$TableName$( getPKey() );
+		}
+		edit = ((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().newEditInstance( lockobj );
+		return( (I$reference BaseClass DefSchemaName$$reference BaseClass TableName$EditObj)edit );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjEndEdit">
+	public void endEdit() {
+		edit = null;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjEditAccessors">
+	public I$DefSchemaName$$TableName$EditObj getEdit() {
+		return( edit );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjEditAsAccessors">
+	public I$DefSchemaName$$TableName$EditObj getEditAs$TableName$() {
+		return( (I$DefSchemaName$$TableName$EditObj)edit );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorMaybeInitPKeyClassCode"
+		>$switch HasSuperClassRelation yes empty default implObjConstructorInitPKeyClassCode$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorInitPKeyClassCode">
+		getPKey().setClassCode( getClassCode() );</GenRule>
+
+	<GenRule GenDef="Table" Name="declObjAttrIsNew">
+	protected boolean isNew;</GenRule>
+
+	<GenRule GenDef="Table" Name="declObjSchemaAttr">
+	protected I$DefSchemaName$SchemaObj schema;</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorInitIsNew">
+		isNew = true;</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorInitSchema">
+		schema = argSchema;</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjIsNewAccessors">
+	public boolean getIsNew() {
+		return( isNew );
+	}
+
+	public void setIsNew( boolean value ) {
+		isNew = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjSchemaAccessors">
+	public I$DefSchemaName$SchemaObj getSchema() {
+		return( schema );
+	}
+
+	public void setSchema( I$DefSchemaName$SchemaObj value ) {
+		schema = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjTableAccessors">
+	public I$DefSchemaName$$TableName$TableObj get$TableName$Table() {
+		return( ((I$SchemaName$SchemaObj)schema).get$TableName$TableObj() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjConstructorInitRelationAttr"
+		>$switch RelationTypeTag
+			Lookup implObjConstructorInitRelationSingletonAttr
+			Superclass empty
+			Master implObjConstructorInitRelationSingletonAttr
+			Details empty
+			Container implObjConstructorInitRelationSingletonAttr
+			Owner implObjConstructorInitRelationSingletonAttr
+			Components empty
+			Parent implObjConstructorInitRelationSingletonAttr
+			Children empty
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjConstructorInitRelationSingletonAttr">
+		$leadlower OptionalOrRequired$$RelationTypeTag$$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjRelationAttr"
+		>$switch RelationToIndexIsUnique yes maybeImplObjRelationSingletonAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="maybeImplObjRelationSingletonAttr"
+		>$switch RelationTypeTag Superclass empty default implObjRelationSingletonAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjRelationSingletonAttr">
+	protected I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj $leadlower OptionalOrRequired$$RelationTypeTag$$Suffix$;</GenRule>
+
+	<GenRule GenDef="Relation" Name="RelationToIndexIsUnique"
+		>$reference ToIndex IsUnique$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjRelationAccessors"
+		>$switch RelationToIndexIsUnique yes maybeImplObjRelationSingletonAccessors default maybeImplObjRelationCollectionAccessors$</GenRule>
+
+	<GenRule GenDef="Relation" Name="maybeImplObjRelationSingletonAccessors"
+		>$switch RelationTypeTag Superclass empty default implObjRelationSingletonAccessors$</GenRule>
+
+	<GenRule GenDef="Relation" Name="maybeImplObjRelationCollectionAccessors"
+		>$switch RelationTypeTag Superclass empty default implObjRelationCollectionAccessors$</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjRelationJavaOptional">?</GenRule>
+
+	<GenRule GenDef="Relation" Name="OptionalOrRequired"
+		>$switch IsRequired yes implRequired default implOptional$</GenRule>
+	<GenRule ScopeDef="Relation" GenDef="Object" Name="OptionalOrRequired"
+		>$popto Relation OptionalOrRequired$</GenRule>
+	<GenRule GenDef="TableCol" Name="OptionalOrRequired"
+		>$switch IsNullable yes implOptional default implRequired$</GenRule>
+	<GenRule GenDef="Atom" Name="OptionalOrRequired"
+		>$switch IsNullable yes implOptional default implRequired$</GenRule>
+	<GenRule GenDef="IndexCol" Name="OptionalOrRequired"
+		>$switch IsNullable yes implOptional default implRequired$</GenRule>
+	<GenRule GenDef="Param" Name="OptionalOrRequired"
+		>$switch IsNullable yes implOptional default implRequired$</GenRule>
+
+	<GenRule GenDef="Object" Name="implRequired">Required</GenRule>
+	<GenRule GenDef="Object" Name="implOptional">Optional</GenRule>
+
+	<GenRule GenDef="Relation" Name="implToIndexSuffix"
+		>$reference ToIndex Suffix$</GenRule>
+		<!--$reference ToIndex implToIndexSuffix$</GenRule -->
+	<GenRule GenDef="Index" Name="implToIndexSuffix"
+		>$Suffix$</GenRule>
+		<!-->$switch IsPrimaryIndex yes implToIndexBasePrimarySuffix default Suffix$</GenRule-->
+	<GenRule GenDef="Index" Name="implToIndexBasePrimarySuffix"
+		>$reference BaseClass reference PrimaryKeyIndex Suffix$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjRelationSingletonAccessors">
+	public I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj get$OptionalOrRequired$$RelationTypeTag$$Suffix$() {
+		return( get$OptionalOrRequired$$RelationTypeTag$$Suffix$( false ) );
+	}
+
+	public I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj get$OptionalOrRequired$$RelationTypeTag$$Suffix$( boolean forceRead ) {
+		if( ( $leadlower OptionalOrRequired$$RelationTypeTag$$Suffix$ == null ) || forceRead ) {
+			boolean anyMissing = false;
+$iterate Columns( each implObjRelationAccessorCheckIfColumnProvided empty empty )
+$			if( ! anyMissing ) {
+				$leadlower OptionalOrRequired$$RelationTypeTag$$Suffix$ = ((I$SchemaName$SchemaObj)schema).get$reference ToTable TableName$TableObj().read$reference ToTable TableName$By$implToIndexSuffix$( $iterate Columns( first implObjRelationAccessorsPassArg each implObjRelationAccessorsCommaPassArg empty empty )$, forceRead );
+			}
+		}
+		return( $leadlower OptionalOrRequired$$RelationTypeTag$$Suffix$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationSingletonAccessorsSetBuffAttr"
+>				$leadlower reference FromCol reference Table TableName$Buff.set$reference FromCol switch IsNullable yes implOptional default implRequired$$reference FromCol Name$( value.get$reference ToCol switch IsNullable yes implOptional default implRequired$$reference ToCol Name$() );
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="FromColDefIsNullable"
+		>$reference FromCol IsNullable$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationSingletonAccessorsSetBuffOptionalAttrNull"
+		>$switch FromColDefIsNullable yes implObjRelationSingletonAccessorsSetBuffAttrNull default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationSingletonAccessorsSetBuffAttrNull"
+>				$leadlower reference FromCol reference Table TableName$Buff.set$reference FromCol switch IsNullable yes implOptional default implRequired$$reference FromCol Name$( null );
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsPassArg"
+		>$reference FromCol switch ColumnInPrimaryIndex yes implObjRelationAccessorsPKey default implObjRelationAccessorsBuff$.get$reference FromCol OptionalOrRequired$$reference FromCol Name$()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsToColIsNullable"
+		>$reference ToCol IsNullable$</GenRule>
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsFromColIsNullable"
+		>$reference FromCol IsNullable$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsCommaPassArg">,
+					$implObjRelationAccessorsPassArg$</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjRelationAccessorsPKey">getPKey()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorsBuff">get$reference Relation reference FromTable TableName$Buff()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjRelationAccessorsBuff">get$reference Index reference Table TableName$Buff()</GenRule>
+
+	<GenRule GenDef="Value" Name="implObjRelationAccessorsBuff">get$reference Table TableName$Buff()</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjRelationAccessorInitDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implObjRelationAccessorInitDataAttrValue$</GenRule>
+	<GenRule GenDef="Object" Name="implObjRelationAccessorInitDataAttrValue"
+>				data.set$switch IsNullable yes implOptional default implRequired$$Name$( buff.get$switch IsNullable yes implOptional default implRequired$$Name$() );
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjRelationAccessorInitPKeyAttr"
+>				pkey.set$switch IsNullable yes implOptional default implRequired$$Name$( buff.get$switch IsNullable yes implOptional default implRequired$$Name$() );
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorCheckIfColumnProvided"
+		>$switch implObjRelationAccessorsToColIsNullable yes empty default implObjRelationAccessorCheckIfReqColProvided$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implObjRelationAccessorCheckIfReqColProvided"
+		>$switch IsNullable yes implObjRelationAccessorCheckIfNullableNull default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjRelationAccessorCheckIfNullableNull"
+>			if( get$TableName$Buff().get$switch IsNullable yes implOptional default implRequired$$Name$() == null ) {
+				anyMissing = true;
+			}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjRelationCollectionAccessors">
+	public List&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; get$OptionalOrRequired$$RelationTypeTag$$Suffix$() {
+		List&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; retval;
+		retval = ((I$SchemaName$SchemaObj)schema).get$reference ToTable TableName$TableObj().read$reference ToTable TableName$By$reference ToIndex Suffix$( $iterate Columns( first implObjRelationAccessorsPassArg each implObjRelationAccessorsCommaPassArg empty empty )$,
+			false );
+		return( retval );
+	}
+
+	public List&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; get$OptionalOrRequired$$RelationTypeTag$$Suffix$( boolean forceRead ) {
+		List&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; retval;
+		retval = ((I$SchemaName$SchemaObj)schema).get$reference ToTable TableName$TableObj().read$reference ToTable TableName$By$reference ToIndex Suffix$( $iterate Columns( first implObjRelationAccessorsPassArg each implObjRelationAccessorsCommaPassArg empty empty )$,
+			forceRead );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjColumnAccessors"
+		>$switch ColumnInPrimaryIndex yes implObjColumnBaseROPKeyAccessor default implObjColumnDataAccessor$</GenRule>
+	<GenRule GenDef="Atom" Name="implObjColumnAccessors"
+		>$switch ColumnInPrimaryIndex yes implObjColumnBaseROPKeyAccessor default implObjColumnDataAccessor$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjColumnDataAccessor"
+		>$switch ColumnInAnyRelation yes implObjColumnRODataAccessor default implObjColumnRWDataAccessor$</GenRule>
+	<GenRule GenDef="Atom" Name="implObjColumnDataAccessor"
+		>$switch ColumnInAnyRelation yes implObjColumnRODataAccessor default implObjColumnRWDataAccessor$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="TableCol" Name="IsBaseTable"
+		>$popto Table IsBaseTable$</GenRule>
+	<GenRule ScopeDef="Table" GenDef="Atom" Name="IsBaseTable"
+		>$popto Table IsBaseTable$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="HasSuperClassRelation"
+		>$reference Table HasSuperClassRelation$</GenRule>
+	<GenRule GenDef="Atom" Name="HasSuperClassRelation"
+		>$reference Table HasSuperClassRelation$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjColumnBaseROPKeyAccessor"
+		>$switch HasSuperClassRelation no implObjColumnROPKeyAccessor default empty$</GenRule>
+	<GenRule GenDef="Atom" Name="implObjColumnBaseROPKeyAccessor"
+		>$switch HasSuperClassRelation no implObjColumnROPKeyAccessor default empty$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjColumnROAccessor"
+		>$switch ColumnInPrimaryIndex yes implObjColumnROPKeyAccessor default implObjColumnRODataAccessor$</GenRule>
+	<GenRule GenDef="Atom" Name="implObjColumnROAccessor"
+		>$switch ColumnInPrimaryIndex yes implObjColumnROPKeyAccessor default implObjColumnRODataAccessor$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implObjColumnROPKeyAccessor">
+	public $implJavaAtomType$ get$implColumnAttrOptionality$$Name$() {
+		return( getPKey().get$implColumnAttrOptionality$$Name$() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Atom" Name="implObjColumnROPKeyAccessor">
+	public $implJavaAtomType$ get$implColumnAttrOptionality$$Name$() {
+		return( getPKey().get$implColumnAttrOptionality$$Name$() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjColumnRODataAccessor">
+	public $implJavaAtomType$ get$implColumnAttrOptionality$$Name$() {
+		return( get$TableName$Buff().get$implColumnAttrOptionality$$Name$() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjColumnRWDataAccessor">
+	public $implJavaAtomType$ get$implColumnAttrOptionality$$Name$() {
+		return( get$TableName$Buff().get$implColumnAttrOptionality$$Name$() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implObjColumnRWDataAccessorClearRelations"
+		>$popto Table iterate Relation( each implObjColumnRWDataAccessorClearRelation empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjColumnRWDataAccessorClearRelation"
+		>$switch RelationTypeTag
+			Superclass empty
+			default implObjColumnRWDataAccessorReallyClearRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjColumnRWDataAccessorReallyClearRelation"
+>			$leadlower OptionalOrRequired$$RelationTypeTag$$Suffix$ = null;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjTabImplementsSpace"
+>	implements </GenRule>
+
+	<GenRule GenDef="Table" Name="implObjExtendSuperClassImplements"
+>	extends $reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$Obj
+	implements </GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorInvokeSuper">
+		super();</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjConstructorInvokeSuperSchema">
+		super( argSchema );</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjPKeyAttr">
+	protected $DefSchemaName$$TableName$PKey pKey;</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjBuffAttr">
+	protected $DefSchemaName$$TableName$Buff buff;</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjPKeyAccessors">
+	public $DefSchemaName$$TableName$PKey getPKey() {
+		if( pKey == null ) {
+			pKey = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$TableName$().newPKey();
+		}
+		return( pKey );
+	}
+
+	public void setPKey( $DefSchemaName$$TableName$PKey value ) {
+		if( pKey != value ) {
+			pKey = value;
+			copyPKeyToBuff();
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjRealise">
+	public I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj realise() {
+		I$DefSchemaName$$TableName$Obj retobj = ((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().realise$TableName$(
+			(I$DefSchemaName$$TableName$Obj)this );
+		return( (I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj)retobj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjForget">
+	public void forget() {
+		((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().reallyDeepDispose$TableName$( (I$DefSchemaName$$TableName$Obj)this );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjCreate">
+	/*
+	 *	NOTE: create() may return a different instance than the
+	 *	one used to invoke the operation.  All future references
+	 *	should be to the returned instance, not the original
+	 *	invoker.  You should lose all references to the original
+	 *	invoker.
+	 */
+	public I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj create() {
+		I$DefSchemaName$$TableName$Obj retobj = ((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().create$TableName$( this );
+		return( retobj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjRead">
+	public I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj read() {
+		I$DefSchemaName$$TableName$Obj retobj = ((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().read$TableName$By$reference BaseClass reference PrimaryKeyIndex Suffix$( $reference PrimaryKeyIndex iterate Columns( first implObjReadPassPKeyArg each implObjReadCommaPassPKeyArg )$, false );
+		return( (I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj)retobj );
+	}
+
+	public I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj read( boolean forceRead ) {
+		I$DefSchemaName$$TableName$Obj retobj = ((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().read$TableName$By$reference BaseClass reference PrimaryKeyIndex Suffix$( $reference PrimaryKeyIndex iterate Columns( first implObjReadPassPKeyArg each implObjReadCommaPassPKeyArg )$, forceRead );
+		return( (I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj)retobj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjMoveUp">
+	public I$reference BaseClass DefSchemaName$$reference Chain reference Table TableName$Obj moveUp() {
+		I$DefSchemaName$$TableName$Obj retobj = ((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().moveUp$TableName$( this );
+		return( (I$DefSchemaName$$reference Chain reference Table TableName$Obj)retobj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjMoveDown">
+	public I$reference BaseClass DefSchemaName$$reference Chain reference Table TableName$Obj moveDown() {
+		I$DefSchemaName$$TableName$Obj retobj = ((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().moveDown$TableName$( this );
+		return( (I$DefSchemaName$$reference Chain reference Table TableName$Obj)retobj );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjReadPassPKeyArg"
+		>getPKey().get$OptionalOrRequired$$Name$()</GenRule>
+	<GenRule GenDef="IndexCol" Name="implObjReadCommaPassPKeyArg">,
+			$implObjReadPassPKeyArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjUpdate">
+	public void update() {
+		((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().update$TableName$( this );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjDelete">
+	public void deleteInstance() {
+		((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().delete$TableName$( this );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjCopyPKeyToBuff">
+	public void copyPKeyToBuff() {
+		if( buff != null ) {$reference PrimaryKeyIndex iterate Columns( each implObjCopyPKeyAttrToBuff empty empty )$
+		}
+		if( edit != null ) {
+			edit.copyPKeyToBuff();
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjCopyBuffClassCodeToPKey">
+		getPKey().setClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjCopyBuffToPKey">
+	public void copyBuffToPKey() {$switch HasClassCode yes implObjCopyBuffClassCodeToPKey default empty$$reference PrimaryKeyIndex iterate Columns( each implObjCopyBuffAttrToPKey empty empty )$
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjCopyPKeyAttrToBuff">
+			buff.set$implColumnAttrOptionality$$Name$( getPKey().get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjCopyBuffAttrToPKey">
+		getPKey().set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjTableGetBuff">
+	public $reference BaseClass DefSchemaName$$reference BaseClass TableName$Buff getBuff() {
+		if( buff == null ) {
+			if( isNew ) {
+				buff = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$TableName$().newBuff();
+			}
+			else {
+				// Read the data buff via the backing store
+				buff = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().readDerivedBy$reference BaseClass reference PrimaryKeyIndex Suffix$( ((I$SchemaName$SchemaObj)schema).getAuthorization()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implObjTableDataAccessorsCommaPassArg empty empty )$ );
+				if( buff != null ) {
+					copyBuffToPKey();
+				}
+			}
+		}
+		return( buff );
+	}
+
+	public void setBuff( $reference BaseClass DefSchemaName$$reference BaseClass TableName$Buff value ) {
+		if( ! ( ( value == null ) || ( value instanceof $DefSchemaName$$TableName$Buff ) ) ) {
+			throw new CFLibUnsupportedClassException( getClass(),
+				"setBuff",
+				"value",
+				value,
+				"$DefSchemaName$$TableName$Buff" );
+		}
+		buff = value;
+		copyBuffToPKey();$implObjTableSetBuffClearRelations$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjTableSetBuffClearRelations"
+		>$switch HasSuperClassRelation yes implObjTableSetBuffClearInhRelations default implObjTableSetBuffClearBaseRelations$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjTableSetBuffClearInhRelations"
+		>$reference SuperClassRelation reference ToTable implObjTableSetBuffClearRelations$$iterate Relation( each implObjConstructorInitRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjTableSetBuffClearBaseRelations"
+		>$iterate Relation( each implObjConstructorInitRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implObjTableBuffAccessors">
+	public $DefSchemaName$$TableName$Buff get$TableName$Buff() {
+		return( ($DefSchemaName$$TableName$Buff)getBuff() );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="ColumnInPrimaryIndex">$reference Column ColumnInPrimaryIndex$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjTableDataAccessorsCommaPassArg">,
+						$switch ColumnInPrimaryIndex yes implObjTableDataAccessorsPKey default implObjTableDataAccessorsData$.get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjTableDataAccessorsPKey">getPKey()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implObjTableDataAccessorsBuff">$leadlower reference Table TableName$Buff</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjTableDataAccessorsClearRelationMember"
+		>$switch RelationTypeTag
+			Superclass empty
+			default implObjTableDataAccessorsReallyClearMember$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implObjTableDataAccessorsReallyClearMember"
+>			$leadlower OptionalOrRequired$$RelationTypeTag$$Suffix$ = null;
+</GenRule>
+
+</RuleSet>

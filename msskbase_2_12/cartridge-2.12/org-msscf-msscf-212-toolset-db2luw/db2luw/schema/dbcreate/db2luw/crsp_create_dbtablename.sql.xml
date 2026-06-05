@@ -1,0 +1,1022 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crsp_create_dbtablename.sql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPCreateDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="$dbadminfilename_CreateSPCreateDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPCreateDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPCreateDbTableName$" >--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create or replace procedure $sp_create_dbtablename$($implDb2LUWSPStandardArgs$,	\\
+	$implDb2LUWSPCreateTableArgs$ )	\\
+dynamic result sets 1	\\
+language sql	\\
+begin	\\
+	declare permissionFlag integer;	\\
+$declDb2LUWGeneratedVars$$switch HasChain yes declDb2LUWSPCreateTableChainPrevVars default empty$	declare retcursor cursor with return to client for	\\
+		select$implDb2LUWSelectTableColumns$,	\\
+			$lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+			$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$;	\\
+	begin$switch TableName SecSession empty default implDb2LUWSPCreateTableCheckPermissions$$switch HasChain yes implDb2LUWSPTableLatchContainer default empty$$switch HasChain yes implDb2LUWSPCreateTableChainSelectPrev default empty$$reference BaseClass iterate GeneratedTableColumns( each invoke_Generator empty empty )$$insertTableHierarchy$$switch BaseHasHistory yes implAudit default empty$$switch HasChain yes implDb2LUWSPCreateTableUpdatePrev default empty$$switch HasChain yes implDb2LUWSPTableUnlatchContainer default empty$	\\
+		open retcursor;	\\
+	end;	\\
+end
+</GenFile>
+
+	<GenRule GenDef="Table" Name="ChainTableHasSuperClassRelation"
+		>$reference Chain reference Table HasSuperClassRelation$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableUpdatePrev">	\\
+		if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implDb2LUWSPCreateTableUpdatePrevIfNotNull each empty )$ )	\\
+		then$switch ChainTableHasSuperClassRelation yes implDb2LUWSPCreateTableUpdateTwoTables default implDb2LUWSPCreateTableUpdateOneTable$$switch BaseHasHistory yes implDb2LUWSPCreateTableUpdatePrevAuditUpdated default empty$	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableUpdateOneTable">	\\
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+			set	\\
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implDb2LUWSPCreateTableUpdateTableAuditColumns default empty$$reference Chain reference NextRel iterate Columns( each implDb2LUWSPCreateTableUpdateWithCommaKey )$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPCreateTableUpdateTableWherePKeyCol each implDb2LUWSPCreateTableUpdateTableWhereAndPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableUpdateTableAuditColumns">,	\\
+				updatedby = argAuditUserId,	\\
+				updatedat = current timestamp</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPCreateTableUpdateWithKey"
+		>$lower reference FromCol DbColumnName$ = arg$reference ToCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPCreateTableUpdateWithCommaKey">,	\\
+				$implDb2LUWSPCreateTableUpdateWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPCreateTableUpdateTableWherePKeyCol"
+		>$lower reference ToCol DbColumnName$ = prev$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPCreateTableUpdateTableWhereAndPKeyCol">	\\
+				and $implDb2LUWSPCreateTableUpdateTableWherePKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableUpdateTwoTables">	\\
+			update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$	\\
+			set	\\
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implDb2LUWSPCreateTableUpdateTableAuditColumns default empty$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPCreateTableUpdateTableWherePKeyCol each implDb2LUWSPCreateTableUpdateTableWhereAndPKeyCol )$;	\\
+	\\
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$	\\
+			set	\\
+				$reference Chain reference NextRel iterate Columns( first implDb2LUWSPCreateTableUpdateWithKey each implDb2LUWSPCreateTableUpdateWithCommaKey )$	\\
+			where	\\
+				$reference Chain reference PrevRel iterate Columns( first implDb2LUWSPCreateTableUpdateTableWherePKeyCol each implDb2LUWSPCreateTableUpdateTableWhereAndPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPCreateTableUpdatePrevIfNotNull"
+		>prev$Name$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableUpdatePrevAuditUpdated">	\\
+			call sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,	\\
+				argAuditUserId,	\\
+				argAuditSessionId,	\\
+				secClusterId,	\\
+				secTenantId$reference Chain reference Table switch HasClassCode yes implDb2LUWSPCreateTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implDb2LUWSPCreateTableAuditUpdatedPassArg )$,	\\
+				1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableUpdatePrevAuditPassClassCode">,	\\
+				prevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPCreateTableAuditUpdatedPassArg">,	\\
+				prev$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableChainSelectPrev">	\\
+		select$reference Chain reference NextRel reference ToTable reference BaseClass reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPCreateTableChainSelectPrevKeyCol each implDb2LUWSPCreateTableChainSelectCommaPrevKeyCol )$$reference Chain reference Table switch HasClassCode yes implDb2LUWSPCreateTableChainSelectCommaClassCode default empty$	\\
+		into$reference Chain reference PrevRel reference FromIndex iterate Columns( first implDb2LUWSPCreateTableChainSelectIntoVar each implDb2LUWSPCreateTableChainSelectCommaIntoVar )$$reference Chain reference Table switch HasClassCode yes implDb2LUWSPCreateTableChainSelectCommaIntoClassCode default empty$	\\
+		from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ $lower reference Chain reference Table ClassCode$$reference Chain reference Table switch HasSuperClassRelation yes implDb2LUWSPCreateTableChainSelectJoinSuper default empty$	\\
+		where$reference Chain reference Table reference ContainerRelation iterate Columns( first implDb2LUWSPCreateTableChainSelectWhereContainerArg each implDb2LUWSPCreateTableChainSelectWhereAndContainerArg )$$reference Chain reference NextRel reference FromIndex iterate Columns( each implDb2LUWSPCreateTableChainSelectWhereAndNextNull )$;	\\
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPCreateTableChainSelectWhereContainerArg">	\\
+			$lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPCreateTableChainSelectWhereAndContainerArg">	\\
+			and $lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPCreateTableChainSelectWhereAndNextNull">	\\
+			and $lower reference Index reference Table ClassCode$.$lower DbColumnName$ is null</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableChainSelectJoinSuper">	\\
+			inner join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference SuperClassRelation iterate Columns( first implDb2LUWSPCreateTableChainSelectJoinSuperOnCol each implDb2LUWSPCreateTableChainSelectJoinSuperAndOnCol )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implDb2LUWSPCreateTableChainSelectJoinSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPCreateTableChainSelectJoinSuperOnCol">	\\
+				$lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = $lower reference Relation reference ToTable ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPCreateTableChainSelectJoinSuperAndOnCol">	\\
+				and $lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = $lower reference Relation reference ToTable ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPCreateTableChainSelectPrevKeyCol">	\\
+			$lower reference Index reference Table ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPCreateTableChainSelectCommaPrevKeyCol"
+		>,$implDb2LUWSPCreateTableChainSelectPrevKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableChainSelectCommaClassCode">,	\\
+			$lower reference BaseClass ClassCode$.classcode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPCreateTableChainSelectIntoVar">	\\
+			prev$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPCreateTableChainSelectCommaIntoVar"
+		>,$implDb2LUWSPCreateTableChainSelectIntoVar$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableChainSelectCommaIntoClassCode">,	\\
+			prevClassCode</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPCreateTableChainPrevVars"
+		>$reference Chain reference Table switch HasClassCode yes declDb2LUWSPCreateTableChainPrevClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declDb2LUWSPCreateTableChainPrevVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPCreateTableChainPrevClassCode">	\\
+	declare prevClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declDb2LUWSPCreateTableChainPrevVar">	\\
+	declare prev$Name$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implDb2LUWSPTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPTableLatchBase">	\\
+		update $lower DbSchemaName$.$DbTableName$	\\
+		set revision = revision + 1	\\
+		where	\\
+			$popto Relation iterate Columns( first implDb2LUWSPTableLatchWhereArg each implDb2LUWSPTableLatchWhereAndArg )$;	\\
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPTableLatchWhereArg"
+		>$lower reference ToCol DbColumnName$ = arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implDb2LUWSPTableLatchWhereAndArg">	\\
+			and $implDb2LUWSPTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implDb2LUWSPTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPTableUnlatchBase">	\\
+		update $lower DbSchemaName$.$DbTableName$	\\
+		set revision = revision - 1	\\
+		where	\\
+			$popto Relation iterate Columns( first implDb2LUWSPTableLatchWhereArg each implDb2LUWSPTableLatchWhereAndArg )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWSPStandardArgs">	\\
+	in argAuditClusterId bigint,	\\
+	in argAuditUserId varchar(36),	\\
+	in argAuditSessionId varchar(36),	\\
+	in secClusterId bigint,	\\
+	in secTenantId bigint</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableCheckPermissions"
+		>$switch SecScope None empty System implDb2LUWSPCreateTableCheckSystem Cluster implDb2LUWSPCreateTableCheckCluster Tenant implDb2LUWSPCreateTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableCheckSystem">	\\
+		if( argClassCode = '$poptop Table ClassCode$' )	\\
+		then	\\
+			set( permissionFlag ) = ( sp_is_system_user( argAuditUserId ) );	\\
+			if( permissionFlag = 0 )	\\
+			then	\\
+				call raise_application_error( -20001, 'Permission denied -- only system user can create $TableName$ records' );	\\
+			end if;	\\
+		end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableCheckCluster">	\\
+		if( argClassCode = '$poptop Table ClassCode$' )	\\
+		then	\\
+			set( permissionFlag ) = ( sp_is_cluster_user( arg$poptop Table reference ClusterIdColumn Name$,	\\
+					'Create$TableName$',	\\
+					argAuditUserId ) );	\\
+			if( permissionFlag = 0 )	\\
+			then	\\
+				call raise_application_error( -20002, 'Permission denied -- User not found in cluster SecGroup for Create$TableName$' );	\\
+			end if;	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableCheckTenant">	\\
+		if( argClassCode = '$poptop Table ClassCode$' )	\\
+		then	\\
+			set( permissionFlag ) = ( sp_is_tenant_user( arg$poptop Table reference TenantIdColumn Name$,	\\
+					'Create$TableName$',	\\
+					argAuditUserId ) );	\\
+			if( permissionFlag = 0 )	\\
+			then	\\
+				call raise_application_error( -20003, 'Permission denied -- User not found in tenant TSecGroup for Create$TableName$' );	\\
+			end if;	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWGeneratedVars"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each maybe_declDb2LUWGeneratedVar )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="maybe_declDb2LUWGeneratedVar"
+		>$switch derefIndexColGenerateId yes likely_declDb2LUWGeneratedVar default empty$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="derefIndexColGenerateId"
+		>$reference Column GenerateId$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="derefIndexColBaseModelAtomClass"
+		>$reference Column BaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="likely_declDb2LUWGeneratedVar"
+		>$switch derefIndexColBaseModelAtomClass
+			Int16Def yes_declDb2LUWGeneratedVar
+			Int32Def yes_declDb2LUWGeneratedVar
+			Int64Def yes_declDb2LUWGeneratedVar
+			Id16Gen yes_declDb2LUWGeneratedVar
+			Id32Gen yes_declDb2LUWGeneratedVar
+			Id64Gen yes_declDb2LUWGeneratedVar
+			UuidDef empty
+			UuidGen empty
+			default error$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="yes_declDb2LUWGeneratedVar"
+>		declare arg$Name$ $clause_SPColType$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAudit"
+		>$switch BaseHasClassCode yes implAuditWithCC default implAuditNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditNoCC" >	\\
+		insert into $lower DbSchemaName$.$lower DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$	\\
+				auditclusterid,	\\
+				auditsessionid,	\\
+				auditstamp,$implAuditInheritedIntoDataColumnNameComma$	\\
+				revision,	\\
+				auditaction )	\\
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$	\\
+				argAuditClusterId,	\\
+				argAuditSessionId,	\\
+				current timestamp,$implAuditInheritedDataColumnNameComma$	\\
+				$lower reference BaseClass ClassCode$.revision,	\\
+				0	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+		where	\\
+				$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditWithCC">	\\
+		if( argClassCode = '$poptop Table ClassCode$' )	\\
+		then	\\
+			insert into $lower DbSchemaName$.$lower DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$	\\
+				classcode,	\\
+				auditclusterid,	\\
+				auditsessionid,	\\
+				auditstamp,$implAuditInheritedIntoDataColumnNameComma$	\\
+				revision,	\\
+				auditaction )	\\
+			select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$	\\
+				$lower reference BaseClass ClassCode$.classcode,	\\
+				argAuditClusterId,	\\
+				argAuditSessionId,	\\
+				current timestamp,$implAuditInheritedDataColumnNameComma$	\\
+				$lower reference BaseClass ClassCode$.revision,	\\
+				0	\\
+			from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+			where	\\
+				$reference PrimaryKeyIndex iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$;	\\
+		end if;	\\
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgAuditOneComma">	\\
+				$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgValueComma">	\\
+				$lower reference Column reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedDataColumnNameCommaInh default implAuditInheritedDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnEmitDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnReallyEmitDataColumn">	\\
+				$lower reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedIntoDataColumnNameCommaInh default implAuditInheritedIntoDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedIntoDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitIntoDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedIntoDataColumnReallyEmitDataColumn">	\\
+				$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameInhComma"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameBaseComma"
+		>$iterate Columns( each implAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implAuditInheritedDataColumnNameComma"
+		>$reference Column implAuditInheritedDataColumnNameComma$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitNameComma">	\\
+				$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectTableColumns"
+		>$switch HasSuperClassRelation yes implDb2LUWSelectSuperTable default implDb2LUWSelectBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectSuperTable"
+		>$reference SuperClassRelation reference ToTable implDb2LUWSelectTableColumns$$iterate Columns( each implDb2LUWSelectFragCommaDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSelectFragCommaDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implDb2LUWTableColumnSelectFragCommaColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSelectFragDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implDb2LUWTableColumnSelectFragColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectBaseTable"
+		>$switch IsBaseTable yes implDb2LUWSelectBaseTableWithCC default implDb2LUWSelectBaseTableNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectBaseTableWithCC">	\\
+				$lower ClassCode$.ClassCode$switch HasAuditColumns yes implDb2LUWTableColumnSelectCommaAuditColumns default empty$$iterate Columns( each implDb2LUWTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectCommaAuditColumns"
+		>,$implDb2LUWTableColumnSelectAuditColumns$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectAuditColumns">	\\
+				$lower ClassCode$.createdby as createdby,	\\
+				to_char( $lower ClassCode$.createdat, 'YYYY-MM-DD-HH24.MI.SS' ) as createdat,	\\
+				$lower ClassCode$.updatedby as updatedby,	\\
+				to_char( $lower ClassCode$.updatedat, 'YYYY-MM-DD-HH24.MI.SS' ) as updatedat</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectBaseTableNoCC"
+		>$switch HasAuditColumns yes implDb2LUWSelectBaseTableNoCCWithAudit default implDb2LUWSelectBaseTableNoCCNoAudit$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectBaseTableNoCCWithAudit"
+		>$implDb2LUWTableColumnSelectAuditColumns$$iterate Columns( each implDb2LUWTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectBaseTableNoCCNoAudit">	\\
+				$iterate Columns( first implDb2LUWTableColumnSelectFragColumn each implDb2LUWTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableHierarchy"
+		>$switch HasSuperClassRelation yes insertTableSuperHierarchy default insertTableBaseHierarchy$</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableSuperHierarchy"	>$reference SuperClassRelation reference ToTable insertTableHierarchy$	\\
+		insert into $lower DbSchemaName$.$lower DbTableName$(	\\
+			$iterate Columns( first implDb2LUWSPCreateTableInsertColumn each implDb2LUWSPCommaCreateTableInsertColumn )$ )	\\
+		values (	\\
+			$iterate Columns( first implDb2LUWSPCreateTableBindArg each implDb2LUWSPCommaCreateTableBindArg )$ );	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableBaseHierarchy">	\\
+		insert into $lower DbSchemaName$.$lower DbTableName$(	\\
+			$switch IsBaseTable yes implDb2LUWSPCreateTableInsertClassCode default empty$$switch HasAuditColumns yes implDb2LUWSPCreateTableInsertAuditColumns default empty$$iterate Columns( first implDb2LUWSPCreateTableInsertColumn each implDb2LUWSPCommaCreateTableInsertColumn )$$implDb2LUWSPCreateTableInsertRevision$ )	\\
+		values (	\\
+			$switch IsBaseTable yes implDb2LUWSPCreateTableBindClassCode default empty$$switch HasAuditColumns yes implDb2LUWSPCreateTableBindAuditColumns default empty$$iterate Columns( first implDb2LUWSPCreateTableBindArg each implDb2LUWSPCommaCreateTableBindArg )$$implDb2LUWSPCommaCreateTableBindRevision$ );	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPCreateTableGeneratedColumns"
+		>$switch HasSuperClassRelation yes declDb2LUWSPCreateTableSuperGeneratedColumns default declDb2LUWSPCreateTableBaseGeneratedColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPCreateTableSuperGeneratedColumns"
+		>$reference SuperClassRelation reference ToTable declDb2LUWSPCreateTableGeneratedColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declDb2LUWSPCreateTableBaseGeneratedColumns"
+		>$iterate Columns( each spvar_DeclareGeneratedTableCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="spvar_DeclareGeneratedTableCol"
+		>$switch GenerateId yes spvar_DeclareGeneratedNonUuidTableCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="spvar_DeclareGeneratedNonUuidTableCol"
+		>$switch BaseModelAtomClass
+			UuidGen empty
+			Id16Gen spvar_DeclareTableCol
+			Id32Gen spvar_DeclareTableCol
+			Id64Gen spvar_DeclareTableCol
+			default errorSpVarDeclareGeneratedNonUuidTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableArgs"
+		>$switch HasSuperClassRelation yes implDb2LUWSPCreateTableSuperArgs default implDb2LUWSPCreateTableBaseArgs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableSuperArgs"
+		>$reference SuperClassRelation reference ToTable implDb2LUWSPCreateTableArgs$$iterate Columns( each implDb2LUWSPCommaCreateTableInsertDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCommaCreateTableInsertDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableBaseArgs"
+		>$implDb2LUWSPCreateTableArgClassCode$$iterate Columns( each implDb2LUWSPCreateTableInsertNGColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCreateTableInsertNGColumn"
+		>$switch GenerateId yes implDb2LUWSPCreateTableForceInsertUuidGenColumn default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCreateTableForceInsertUuidGenColumn"
+		>$switch BaseModelAtomClass
+			UuidGen sparg_CommaTableCol
+			Id16Gen empty
+			Id32Gen empty
+			Id64Gen empty
+			default errorDb2LUWSPCreateTableForceInsertUuidGenColumn$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="invoke_Generator"
+		>$switch BaseModelAtomClass
+			UuidGen empty
+			Id16Gen decideWhatKindOfGenerator
+			Id32Gen decideWhatKindOfGenerator
+			Id64Gen decideWhatKindOfGenerator
+			default errorInvokeGenerator$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="decideWhatKindOfGenerator"
+		>$switch TableColDataDefHasDispenser yes invoke_tableid_generator_with_args default invoke_schemaid_generator$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="invoke_schemaid_generator">	\\
+		call $sp_next_schemaidgen$( arg$Name$ );</GenRule>
+
+	<GenRule GenDef="TableCol" Name="invoke_tableid_generator_with_args">	\\
+		call $reference DataType sp_next_tableidgen$( $reference IdGenResolverRelation iterate Columns( first dispenserRelationArg each commaDispenserRelationArg )$,	\\
+			arg$Name$ );</GenRule>
+
+	<GenRule GenDef="TableCol" Name="TableColDataDefHasDispenser"
+		>$reference DataType HasDispenser$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="dispenserRelationArg"
+		>arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="commaDispenserRelationArg">,
+		$dispenserRelationArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implDb2LUWTableColumnSelectFragRevision"
+		>$popto Table implDb2LUWTableColumnSelectFragRevision$</GenRule>
+	<GenRule GenDef="Table" Name="implDb2LUWTableColumnSelectFragRevision">,	\\
+		$lower ClassCode$.revision as revision</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragTabTabDbName"
+>		$implDb2LUWTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplDb2LUWClassCodeSelectFragDbNameComma"
+		>$switch HasSubClasses yes implDb2LUWClassCodeSelectFragDbNameComma default empty$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnWhereFragPassVar"
+		>arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnFragPassVar">,	\\
+			$implDb2LUWIndexColumnWhereFragPassVar$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableBindClassCode"
+		>argClassCode,	\\
+		</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPCreateTableBindAuditColumns"
+		>argAuditUserId,	\\
+			current timestamp,	\\
+			argAuditUserId,	\\
+			current timestamp,	\\
+			</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnWhereAndFragBindVar">	\\
+		and $implDb2LUWIndexColumnWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnWhereFragBindVar"
+		>$switch IsNullable yes implDb2LUWIndexColumnWhereFragBindOptVar
+			default implDb2LUWIndexColumnWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnWhereFragBindOptVar"
+		>$reference Column implDb2LUWIndexColumnWhereFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWIndexColumnWhereFragBindReqVar"
+		>$reference Column implDb2LUWIndexColumnWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implDb2LUWIndexColumnWhereFragBindOptBlobVar
+			BoolDef implDb2LUWIndexColumnWhereFragBindOptBoolVar
+			EnumDef implDb2LUWIndexColumnWhereFragBindOptEnumVar
+			Int16Def implDb2LUWIndexColumnWhereFragBindOptInt16Var
+			Int32Def implDb2LUWIndexColumnWhereFragBindOptInt32Var
+			Int64Def implDb2LUWIndexColumnWhereFragBindOptInt64Var
+			UInt16Def implDb2LUWIndexColumnWhereFragBindOptUInt16Var
+			UInt32Def implDb2LUWIndexColumnWhereFragBindOptUInt32Var
+			UInt64Def implDb2LUWIndexColumnWhereFragBindOptUInt64Var
+			Id16Gen implDb2LUWIndexColumnWhereFragBindOptInt16Var
+			Id32Gen implDb2LUWIndexColumnWhereFragBindOptInt32Var
+			Id64Gen implDb2LUWIndexColumnWhereFragBindOptInt64Var
+			FloatDef implDb2LUWIndexColumnWhereFragBindOptFloatVar
+			DoubleDef implDb2LUWIndexColumnWhereFragBindOptDoubleVar
+			NumberDef implDb2LUWIndexColumnWhereFragBindOptNumberVar
+			StringDef implDb2LUWIndexColumnWhereFragBindOptStringVar
+			TokenDef implDb2LUWIndexColumnWhereFragBindOptStringVar
+			NmTokenDef implDb2LUWIndexColumnWhereFragBindOptStringVar
+			NmTokensDef implDb2LUWIndexColumnWhereFragBindOptStringVar
+			TextDef implDb2LUWIndexColumnWhereFragBindOptTextVar
+			DateDef implDb2LUWIndexColumnWhereFragBindOptDateVar
+			TimeDef implDb2LUWIndexColumnWhereFragBindOptTimeVar
+			TimestampDef implDb2LUWIndexColumnWhereFragBindOptTimestampVar
+			TZDateDef implDb2LUWIndexColumnWhereFragBindOptTZDateVar
+			TZTimeDef implDb2LUWIndexColumnWhereFragBindOptTZTimeVar
+			TZTimestampDef implDb2LUWIndexColumnWhereFragBindOptTZTimestampVar
+			UuidDef implDb2LUWIndexColumnWhereFragBindOptUuidVar
+			UuidGen implDb2LUWIndexColumnWhereFragBindOptUuidVar
+			default empty$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implDb2LUWIndexColumnWhereFragBindReqBlobVar
+			BoolDef implDb2LUWIndexColumnWhereFragBindReqBoolVar
+			EnumDef implDb2LUWIndexColumnWhereFragBindReqEnumVar
+			Int16Def implDb2LUWIndexColumnWhereFragBindReqInt16Var
+			Int32Def implDb2LUWIndexColumnWhereFragBindReqInt32Var
+			Int64Def implDb2LUWIndexColumnWhereFragBindReqInt64Var
+			UInt16Def implDb2LUWIndexColumnWhereFragBindReqUInt16Var
+			UInt32Def implDb2LUWIndexColumnWhereFragBindReqUInt32Var
+			UInt64Def implDb2LUWIndexColumnWhereFragBindReqUInt64Var
+			Id16Gen implDb2LUWIndexColumnWhereFragBindReqInt16Var
+			Id32Gen implDb2LUWIndexColumnWhereFragBindReqInt32Var
+			Id64Gen implDb2LUWIndexColumnWhereFragBindReqInt64Var
+			FloatDef implDb2LUWIndexColumnWhereFragBindReqFloatVar
+			DoubleDef implDb2LUWIndexColumnWhereFragBindReqDoubleVar
+			NumberDef implDb2LUWIndexColumnWhereFragBindReqNumberVar
+			StringDef implDb2LUWIndexColumnWhereFragBindReqStringVar
+			TokenDef implDb2LUWIndexColumnWhereFragBindReqStringVar
+			NmTokenDef implDb2LUWIndexColumnWhereFragBindReqStringVar
+			NmTokensDef implDb2LUWIndexColumnWhereFragBindReqStringVar
+			TextDef implDb2LUWIndexColumnWhereFragBindReqTextVar
+			DateDef implDb2LUWIndexColumnWhereFragBindReqDateVar
+			TimeDef implDb2LUWIndexColumnWhereFragBindReqTimeVar
+			TimestampDef implDb2LUWIndexColumnWhereFragBindReqTZTimestampVar
+			TZDateDef implDb2LUWIndexColumnWhereFragBindReqTZDateVar
+			TZTimeDef implDb2LUWIndexColumnWhereFragBindReqTZTimeVar
+			TZTimestampDef implDb2LUWIndexColumnWhereFragBindReqTZTimestampVar
+			UuidDef implDb2LUWIndexColumnWhereFragBindReqUuidVar
+			UuidGen implDb2LUWIndexColumnWhereFragBindReqUuidVar
+			default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqBlobVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptBlobVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqBoolVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptBoolVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqEnumVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptEnumVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqInt16Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqInt32Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqInt64Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqUInt16Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptUInt16Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqUInt32Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptUInt32Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqUInt64Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptUInt64Var"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqFloatVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptFloatVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqDoubleVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptDoubleVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqNumberVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptNumberVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqStringVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptStringVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqTokenVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqNmTokenVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptNmTokenVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqNmTokensVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptNmTokensVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqTextVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptTextVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqDateVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptDateVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqTimeVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqTimestampVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqTZDateVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptTZDateVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqTZTimeVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptTZTimeVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqTZTimestampVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptTZTimestampVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindReqUuidVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnWhereFragBindOptUuidVar"
+		>( ( ( arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lowerDbColumnName$ is null ) )	\\
+				or ( ( arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragColumn"
+			>$implDb2LUWTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragCommaColumn">,	\\
+			$implDb2LUWTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameBlob"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameBool"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameEnum"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameInt16"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameInt32"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameInt64"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameUInt16"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameUInt32"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameUInt64"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameFloat"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameDouble"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameNumber"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameString"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameToken"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameNmToken"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameNmTokens"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameText"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameDate"
+		>char( $lower ClassCode$.$lower DbColumnName$, ISO ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameTime"
+		>char( $lower ClassCode$.$lower DbColumnName$, ISO ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameTimestamp"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'YYYY-MM-DD-HH24.MI.SS' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameTZDate"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'YYYY-MM-DD-HH24.MI.SS' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameTZTime"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'YYYY-MM-DD-HH24.MI.SS' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameTZTimestamp"
+		>to_char( $lower ClassCode$.$lower DbColumnName$, 'YYYY-MM-DD-HH24.MI.SS' ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbNameUuid"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragDbName"
+>$switch BaseModelAtomClass
+			BlobDef implDb2LUWTableColumnSelectFragDbNameBlob
+			BoolDef implDb2LUWTableColumnSelectFragDbNameBool
+			EnumDef implDb2LUWTableColumnSelectFragDbNameEnum
+			Int16Def implDb2LUWTableColumnSelectFragDbNameInt16
+			Int32Def implDb2LUWTableColumnSelectFragDbNameInt32
+			Int64Def implDb2LUWTableColumnSelectFragDbNameInt64
+			UInt16Def implDb2LUWTableColumnSelectFragDbNameUInt16
+			UInt32Def implDb2LUWTableColumnSelectFragDbNameUInt32
+			UInt64Def implDb2LUWTableColumnSelectFragDbNameUInt64
+			Id16Gen implDb2LUWTableColumnSelectFragDbNameInt16
+			Id32Gen implDb2LUWTableColumnSelectFragDbNameInt32
+			Id64Gen implDb2LUWTableColumnSelectFragDbNameInt64
+			FloatDef implDb2LUWTableColumnSelectFragDbNameFloat
+			DoubleDef implDb2LUWTableColumnSelectFragDbNameDouble
+			NumberDef implDb2LUWTableColumnSelectFragDbNameNumber
+			StringDef implDb2LUWTableColumnSelectFragDbNameString
+			TokenDef implDb2LUWTableColumnSelectFragDbNameToken
+			NmTokenDef implDb2LUWTableColumnSelectFragDbNameNmToken
+			NmTokensDef implDb2LUWTableColumnSelectFragDbNameNmTokens
+			TextDef implDb2LUWTableColumnSelectFragDbNameText
+			DateDef implDb2LUWTableColumnSelectFragDbNameDate
+			TimeDef implDb2LUWTableColumnSelectFragDbNameTime
+			TimestampDef implDb2LUWTableColumnSelectFragDbNameTimestamp
+			TZDateDef implDb2LUWTableColumnSelectFragDbNameTZDate
+			TZTimeDef implDb2LUWTableColumnSelectFragDbNameTZTime
+			TZTimestampDef implDb2LUWTableColumnSelectFragDbNameTZTimestamp
+			UuidDef implDb2LUWTableColumnSelectFragDbNameUuid
+			UuidGen implDb2LUWTableColumnSelectFragDbNameUuid
+			default empty$</GenRule>
+	<GenRule ScopeDef="Table" GenDef="TableCol" Name="implDb2LUWTableColumnSqlFragDbName"
+>			$lower ClassCode$.$lower DbColumnName$ as $lower DbTableName$	\\
+</GenRule>
+	<GenRule ScopeDef="Table" GenDef="Atom" Name="implDb2LUWTableColumnSqlFragDbName"
+>			$lower ClassCode$.$lower DbColumnName$ as $lower DbTableName$	\\
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnOrderBy">	\\
+			$lower reference Column ClassCode$.$lower reference Column DbColumnName$ asc</GenRule>
+	<GenRule GenDef="Object" Name="implDb2LUWIndexColumnCommaOrderBy"
+		>$implDb2LUWIndexColumnOrderBy$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWClassCodeSelectFragDbNameComma"
+>			$lower reference BaseClass ClassCode$.classcode,	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWClassCodeMaybeJoinSuperTable"
+		>$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWClassCodeJoinSuperTable">	\\
+			inner join $lower reference SuperClassRelation reference ToTable DbSchemaName$.$lower reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implDb2LUWClassCodeJoinSuperTableColumn each implDb2LUWClassCodeAndJoinSuperTableColumn )$$reference SuperClassRelation reference ToTable implDb2LUWClassCodeMaybeJoinSuperTable$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWClassCodeJoinSuperTableColumn">	\\
+				$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implDb2LUWClassCodeAndJoinSuperTableColumn">	\\
+				and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWClassCodeJoinBaseTable">	\\
+			inner join $lower reference BaseClass DbSchemaName$.$lower reference BaseClass DbTableName$ $lower reference BaseClass ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implDb2LUWClassCodeJoinBaseTableColumn each implDb2LUWClassCodeAndJoinBaseTableColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWClassCodeJoinBaseTableColumn">	\\
+				$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implDb2LUWClassCodeAndJoinBaseTableColumn">	\\
+				and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCommaCreateTableInsertColumn">,	\\
+			$implDb2LUWSPCreateTableInsertColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCreateTableInsertColumn"
+		>$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCommaCreateTableBindArg">,	\\
+			$implDb2LUWSPCreateTableBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCreateTableBindArg"
+		>$switch ColumnInChainPrev yes implDb2LUWSPCreateTableBindPrevArg default implDb2LUWSPCreateTableMaybeBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCreateTableMaybeBindArg"
+		>$switch ColumnInChainNext yes implDb2LUWSPCreateTableBindNullArg default implDb2LUWSPCreateTableReallyBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCreateTableReallyBindArg"
+		>arg$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCreateTableBindPrevArg"
+		>prev$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPCreateTableBindNullArg"
+		>null</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWSPCreateTableInsertRevision">,	\\
+			revision</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWSPCommaCreateTableBindRevision">,	\\
+			1</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWSPCreateTableInsertClassCode"
+>classcode,	\\
+			</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWSPCreateTableInsertAuditColumns"
+>createdby,	\\
+			createdat,	\\
+			updatedby,	\\
+			updatedat,	\\
+			</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWSPCreateTableArgClassCode"
+		>in argClassCode varchar(4)</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="sparg_TableCol"
+		>$reference Column sparg_TableCol$</GenRule>
+	<GenRule GenDef="IndexCol" Name="sparg_CommaTableCol">,	\\
+	$sparg_TableCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="sparg_IndexCol"
+		>$reference Column sparg_TableCol$</GenRule>
+	<GenRule GenDef="IndexCol" Name="sparg_CommaIndexCol">,	\\
+	$sparg_IndexCol$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="sparg_TableCol"
+		>in arg$Name$ $reference DataType clause_SPColType$</GenRule>
+	<GenRule GenDef="Atom" Name="sparg_TableCol"
+		>in arg$Name$ $clause_SPColType$</GenRule>
+	<GenRule GenDef="Object" Name="sparg_CommaTableCol">,	\\
+	$sparg_TableCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="clause_SPColType"
+		>$reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="clause_SPColType">$reference DataType clause_SPColType$</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="clause_SPColType">blob($MaxLen$)</GenRule>
+
+	<GenRule GenDef="BoolDef" Name="clause_SPColType">char(1)</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="clause_SPColType">smallint</GenRule>
+
+	<GenRule GenDef="Int16Def" Name="clause_SPColType">smallint</GenRule>
+
+	<GenRule GenDef="Int32Def" Name="clause_SPColType">integer</GenRule>
+
+	<GenRule GenDef="Int64Def" Name="clause_SPColType">bigint</GenRule>
+
+	<GenRule GenDef="UInt16Def" Name="clause_SPColType">integer</GenRule>
+
+	<GenRule GenDef="UInt32Def" Name="clause_SPColType">bigint</GenRule>
+
+	<GenRule GenDef="UInt64Def" Name="clause_SPColType">decimal(22,0)</GenRule>
+
+	<GenRule GenDef="FloatDef" Name="clause_SPColType">real</GenRule>
+
+	<GenRule GenDef="DoubleDef" Name="clause_SPColType">double</GenRule>
+
+	<GenRule GenDef="NumberDef" Name="clause_SPColType">numeric($Digits$,$Precis$)</GenRule>
+
+	<GenRule GenDef="StringDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="TokenDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="NmTokenDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="NmTokensDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="TextDef" Name="clause_SPColType">clob($MaxLen$)</GenRule>
+
+	<GenRule GenDef="DateDef" Name="clause_SPColType">date</GenRule>
+
+	<GenRule GenDef="TimeDef" Name="clause_SPColType">time</GenRule>
+
+	<GenRule GenDef="TimestampDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="TZDateDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="TZTimeDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="TZTimestampDef" Name="clause_SPColType">timestamp</GenRule>
+
+	<GenRule GenDef="UuidDef" Name="clause_SPColType">varchar(36)</GenRule>
+
+	<GenRule GenDef="UuidGen" Name="clause_SPColType">varchar(36)</GenRule>
+
+	<GenRule GenDef="Object" Name="spvar_DeclareTableCol">	\\
+	declare	$spvar_TableCol$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="spvar_TableCol"
+		>arg$Name$ $reference DataType clause_ColType$;</GenRule>
+	<GenRule GenDef="Atom" Name="spvar_TableCol"
+		>arg$Name$ $clause_ColType$;</GenRule>
+	<GenRule GenDef="Object" Name="spvar_CommaTableCol">,	\\
+	$sparg_TableCol$</GenRule>
+
+</RuleSet>

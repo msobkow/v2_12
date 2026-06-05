@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/crsp_read_dbtablename_cc_by_suffix.oracle"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="Table" GenDef="Index" Name="dbadminfile_CreateSPReadDbTableNameCCBySuffix"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="$dbadminfilename_CreateSPReadDbTableNameCCBySuffix$"
+		ExpansionKeyName="$dbadminfilename_CreateSPReadDbTableNameCCBySuffix$"
+		ExpansionFileName="$dbadminfilename_CreateSPReadDbTableNameCCBySuffix$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+alter session set plsql_warnings = 'ENABLE:ALL';
+/
+
+create or replace procedure $poptop Table lower DbSchemaName$.$sp_read_dbtablename_cc_by_suffix$(
+	retCursor out sys_refcursor,$implOracleSPStandardArgs$$iterate Columns( each sparg_CommaTableCol )$ ) authid definer
+is$switch SecScope None empty System empty Cluster implOracleSPReadTableDeclPermFlag Tenant implOracleSPReadTableDeclPermFlag default error$
+begin$poptop Table switch TableName Cluster empty Tenant empty SecUser empty default implOracleSPReadEnforceSec$$switch SecScope None implOracleSPReadTableCCBySuffixRetSelectSystem System implOracleSPReadTableCCBySuffixRetSelectSystem Cluster implOracleSPReadTableCCBySuffixRetSelectRestrictCluster Tenant implOracleSPReadTableCCBySuffixRetSelectRestrictTenant default error$
+end $sp_read_dbtablename_cc_by_suffix$;
+/
+
+show errors procedure $poptop Table lower DbSchemaName$.$sp_read_dbtablename_cc_by_suffix$;
+</GenFile>
+
+	<GenRule GenDef="Index" Name="implOracleSPReadTableCCBySuffixRetSelectSystem">
+	open retCursor for select
+		distinct( $lower poptop Table reference BaseClass ClassCode$.ClassCode ) as ClassCode
+	from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+	where
+		$iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$
+	order by ClassCode asc;</GenRule>
+
+	<GenRule GenDef="Index" Name="implOracleSPReadTableCCBySuffixRetSelectRestrictCluster">
+	if( isSystemUser = 1 )
+	then
+		open retCursor for select
+			distinct( $lower poptop Table reference BaseClass ClassCode$.ClassCode ) as ClassCode
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+		where
+			$iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$
+		order by ClassCode asc;
+	else
+		open retCursor for select
+			distinct( $lower poptop Table reference BaseClass ClassCode$.ClassCode ) as ClassCode
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+		where
+			$iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$$poptop Table implOracleSPReadTableRetSelectAndRestrictCluster$
+		order by ClassCode asc;
+	end if;</GenRule>
+
+	<GenRule GenDef="Index" Name="implOracleSPReadTableCCBySuffixRetSelectRestrictTenant">
+	if( isSystemUser = 1 )
+	then
+		open retCursor for select
+			distinct( $lower poptop Table reference BaseClass ClassCode$.ClassCode ) as ClassCode
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+		where
+			$iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$
+		order by ClassCode asc;
+	else
+		open retCursor for select
+			distinct( $lower poptop Table reference BaseClass ClassCode$.ClassCode ) as ClassCode
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+		where
+			$iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$$poptop Table implOracleSPReadTableRetSelectAndRestrictTenant$
+		order by ClassCode asc;
+	end if;</GenRule>
+
+</RuleSet>

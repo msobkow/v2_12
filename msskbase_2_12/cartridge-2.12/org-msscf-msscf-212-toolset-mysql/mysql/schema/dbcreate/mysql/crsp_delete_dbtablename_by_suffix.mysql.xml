@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mysql"
+	Name="schema/dbcreate/mysql/crsp_delete_dbtablename_by_suffix.mysql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile GenDef="Index" Name="dbadminfile_CreateSPDeleteDbTableNameBySuffix"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mysql"
+		ExpansionClassName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$"
+		ExpansionKeyName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$"
+		ExpansionFileName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+delimiter ////
+create procedure $lower DbSchemaName$.$sp_delete_dbtablename_by_suffix$($implMySqlSPStandardArgs$$iterate Columns( each sparg_CommaIndexCol )$ )
+not deterministic
+modifies sql data
+begin
+	declare curRevision int;
+	declare subret boolean;$poptop Table switch HasClassCode yes implSPDeclClassCode default empty$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCurVar )$$declSPDeleteDirectSQLCursor$$implSPDeleteDbTablenameBySuffixDirectSQL$
+end;////
+</GenFile>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteDbTablenameBySuffixIfColIsNull"
+		>( arg$Name$ is null )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteDbTablenameBySuffixIfOrColIsNull">
+		or $implSPDeleteDbTablenameBySuffixIfColIsNull$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declCurVar">
+	declare cur$Name$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Index" Name="declSPDeleteDirectSQLCursor">
+	declare done int default false;
+	declare cur_$lower Suffix$ cursor for
+		select
+$poptop Table implMySqlSelectDeleteColumns$,
+			$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$
+		where
+			$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;$switch SecScope None declSPDeleteDbTablenameBySuffixDirectNormal System declSPDeleteDbTablenameBySuffixDirectNormal Cluster declSPDeleteDbTablenameBySuffixDirectRestrictCluster Tenant declSPDeleteDbTablenameBySuffixDirectRestrictTenant default error$
+	declare continue handler for not found set done = true;
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declSPDeleteDbTablenameBySuffixEACRNormal">
+	declare cur_$lower Suffix$_normal cursor for
+			select
+$poptop Table implMySqlSelectDeleteColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$
+			where
+				$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$$switch SecScope None empty System empty Cluster implSPDeleteDbTablenameBySuffixAndCluster Tenant implSPDeleteDbTablenameBySuffixAndTenant default error$;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixEACRNormal">
+		open cur_$lower Suffix$_normal;
+		read_loop_$lower Suffix$_normal: loop
+			fetch cur_$lower Suffix$_normal into
+$poptop Table reference BaseClass implSPBaseDeleteLoopInto$;
+			if done then
+				leave read_loop_$lower Suffix$_normal;
+			end if;$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+		close cur_$lower Suffix$_normal;</GenRule>
+
+	<GenRule GenDef="Index" Name="declSPDeleteDbTablenameBySuffixEACRRestrictCluster">
+		declare cur_$lower Suffix$_system cursor for
+				select
+$poptop Table implMySqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+				from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$
+				where
+					$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+		declare cur_$lower Suffix$_restricted cursor for
+				select
+$poptop Table implMySqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+				from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$
+				where
+					$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$
+					and $lower reference Table reference ClusterIdColumn reference Table ClassCode$.$reference Table referenceClusterIdColumn DbColumnName$ = secClusterId;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixEACRRestrictCluster">
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into subret;
+		if( subret )
+		then
+			open cur_$lower Suffix$_system;
+			read_loop_$lower Suffix$_system: loop
+				fetch cur_$lower Suffix$_system into
+$poptop Table reference BaseClass implSPBaseDeleteLoopInto$;
+				if done then
+					leave read_loop_$lower Suffix$_system;
+				end if;$implSPDeleteTablenameBySuffixLoopBody$
+			end loop;
+			close cur_$lower Suffix$_system;
+		else
+			open cur_$lower Suffix$_restricted;
+			read_loop_$lower Suffix$_restricted: loop
+				fetch cur_$lower Suffix$_restricted into
+$poptop Table reference BaseClass implSPBaseDeleteLoopInto$;
+				if done then
+					leave read_loop_$lower Suffix$_restricted;
+				end if;$implSPDeleteTablenameBySuffixLoopBody$
+			end loop_$lower Suffix$_restricted;
+		end if;</GenRule>
+
+	<GenRule GenDef="Index" Name="declSPDeleteDbTablenameBySuffixEACRRestrictTenant">
+		declare cur_$lower Suffix$_system cursor for
+				select
+$poptop Table implMySqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+				from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$
+				where
+					$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+		declare cur_$lower Suffix$_restricted cursor for
+				select
+$poptop Table implMySqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+				from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$
+				where
+					$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$
+					and $lower reference Table reference TenantIdColumn reference Table ClassCode$.$reference Table referenceTenantIdColumn DbColumnName$ = secTenantId;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixEACRRestrictTenant">
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into subret;
+		if( subret )
+		then
+			open cur_$lower Suffix$_system;
+			read_loop_$lower Suffix$_system: loop
+				fetch cur_$lower Suffix$_system into
+$poptop Table reference BaseClass implSPBaseDeleteLoopInto$;
+				if done then
+					leave read_loop_$lower Suffix$_system;
+				end if;$implSPDeleteTablenameBySuffixLoopBody$
+			end loop;
+			close cur_$lower Suffix$_system;
+		else
+			open cur_$lower Suffix$_restricted;
+			read_loop_$lower Suffix$_restricted: loop
+				fetch cur_$lower Suffix$_restricted into
+$poptop Table reference BaseClass implSPBaseDeleteLoopInto$;
+				if done then
+					leave read_loop_$lower Suffix$_restricted;
+				end if;$implSPDeleteTablenameBySuffixLoopBody$
+			end loop;
+			close cur_$lower Suffix$_restricted;
+		end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPDeclClassCode">
+	declare classCode varchar(4);</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPDeleteDbTablenameBySuffixDeclClassCode">
+	declare classCode varchar(4);</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectSQL"
+		>$switch SecScope None implSPDeleteDbTablenameBySuffixDirectNormal System implSPDeleteDbTablenameBySuffixDirectNormal Cluster implSPDeleteDbTablenameBySuffixDirectRestrictCluster Tenant implSPDeleteDbTablenameBySuffixDirectRestrictTenant default error$</GenRule>
+
+	<GenRule GenDef="Index" Name="declSPDeleteDbTablenameBySuffixDirectNormal">
+	declare cur_$lower Suffix$_normal cursor for
+		select
+$poptop Table implMySqlSelectDeleteColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$
+		where
+				$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$$switch SecScope None empty System empty Cluster implSPDeleteDbTablenameBySuffixAndCluster Tenant implSPDeleteDbTablenameBySuffixAndTenant default error$;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectNormal">
+	open cur_$lower Suffix$_normal;
+	read_loop_$lower Suffix$_normal: loop
+		fetch cur_$lower Suffix$_normal into
+$poptop Table reference BaseClass implSPBaseDeleteLoopInto$;
+		if done then
+			leave read_loop_$lower Suffix$_normal;
+		end if;$implSPDeleteTablenameBySuffixLoopBody$
+	end loop;
+	close cur_$lower Suffix$_normal;</GenRule>
+
+	<GenRule GenDef="Index" Name="declSPDeleteDbTablenameBySuffixDirectRestrictCluster">
+	declare cur_$lower Suffix$_system cursor for
+			select
+$poptop Table implMySqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$
+			where
+					$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+	declare cur_$lower Suffix$_restricted cursor for
+			select
+$poptop Table implMySqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$
+			where
+					$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$
+					and $lower reference Table reference ClusterIdColumn reference Table ClassCode$.$reference Table referenceClusterIdColumn DbColumnName$ = secClusterId;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectRestrictCluster">
+	select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into subret;
+	if( subret )
+	then
+		open cur_$lower Suffix$_system;
+		read_loop_$lower Suffix$_system: loop
+			fetch cur_$lower Suffix$_system into
+$poptop Table reference BaseClass implSPBaseDeleteLoopInto$;
+			if done then
+				leave read_loop_$lower Suffix$_system;
+			end if;$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+		close cur_$lower Suffix$_system;
+	else
+		open cur_$lower Suffix$_restricted;
+		read_loop_$lower Suffix$_restricted: loop
+			fetch cur_$lower Suffix$_restricted into
+$poptop Table reference BaseClass implSPBaseDeleteLoopInto$;
+			if done then
+				leave read_loop_$lower Suffix$_restricted;
+			end if;$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+		close cur_$lower Suffix$_restricted;
+	end if;</GenRule>
+
+	<GenRule GenDef="Index" Name="declSPDeleteDbTablenameBySuffixDirectRestrictTenant">
+	declare cur_$lower Suffix$_system cursor for
+			select
+$poptop Table implMySqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$
+			where
+					$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+	declare cur_$lower Suffix$_restricted cursor for
+			select
+$poptop Table implMySqlSelectDeleteColumns$,
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$
+			where
+					$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$
+					and $lower reference Table reference TenantIdColumn reference Table ClassCode$.$reference Table referenceTenantIdColumn DbColumnName$ = secTenantId;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectRestrictTenant">
+	select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into subret;
+	if( subret )
+	then
+		open cur_$lower Suffix$_system;
+		read_loop_$lower Suffix$_system: loop
+			fetch cur_$lower Suffix$_system into
+$poptop Table reference BaseClass implSPBaseDeleteLoopInto$;
+			if done then
+				leave read_loop_$lower Suffix$_system;
+			end if;$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+		close cur_$lower Suffix$_system;
+	else
+		open cur_$lower Suffix$_restricted;
+		read_loop_$lower Suffix$_restricted: loop
+			fetch cur_$lower Suffix$_restricted into
+$poptop Table reference BaseClass implSPBaseDeleteLoopInto$;
+			if done then
+				leave read_loop_$lower Suffix$_restricted;
+			end if;$implSPDeleteTablenameBySuffixLoopBody$
+		end loop;
+		close cur_$lower Suffix$_restricted;
+	end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPBaseDeleteLoopInto"
+		>$switch IsBaseTable yes implSPBaseDeleteLoopIntoWithCC default implSPBaseDeleteLoopIntoNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPBaseDeleteLoopIntoWithCC"
+>				classCode$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPBaseDeleteCommaCur )$,
+				curRevision</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPBaseDeleteCommaCur">,
+				$implSPBaseDeleteCur$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPBaseDeleteCur">cur$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPBaseDeleteLoopIntoNoCC"
+>				$reference PrimaryKeyIndex iterate Columns( first implSPBaseDeleteCur each implSPBaseDeleteCommaCur )$,
+				curRevision</GenRule>
+
+	<GenRule GenDef="Index" Name="TableHasSubClasses"
+		>$poptop Table HasSubClasses$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBody"
+		>$switch TableHasSubClasses yes implSPDeleteTablenameBySuffixLoopBodyEvalCC default implSPDeleteTablenameBySuffixLoopBodyInvokeDirect$</GenRule>
+
+	<GenRule GenDef="Object" Name="delinvoke_sp_delete_dbtablename">sp_delete_$lower DbTableName$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBodyEvalCC">
+			case classCode
+			when '$poptop Table ClassCode$' then
+				call $poptop Table lower DbSchemaName$.$poptop Table sp_delete_dbtablename$( argAuditClusterId,
+						argAuditUserId,
+						argAuditSessionId,
+						secClusterId,
+						secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassCur )$,
+						curRevision );$poptop Table iterate ReverseRelations( each implSPDeleteTablenameBySuffixChaseSubclass empty empty )$
+			else
+				signal sqlstate '45000'
+				set message_text = '$sp_delete_dbtablename_by_suffix$() Unrecognized classCode value',
+					schema_name = '$lower DbSchemaName$',
+					table_name = '$poptop Table DbTableName$';
+			end case;</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSPDeleteTablenameBySuffixChaseSubclass"
+		>$switch RelationTypeTag
+			Superclass implSPDeleteTablenameBySuffixCheckSubclass
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSPDeleteTablenameBySuffixCheckSubclass"
+		>$reference FromTable implSPDeleteTablenameBySuffixLoopBodyEvalCCLimb$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPDeleteTablenameBySuffixLoopBodyEvalCCLimb">
+			when '$ClassCode$' then
+				call $poptop Table lower DbSchemaName$.$delinvoke_sp_delete_dbtablename$( argAuditClusterId,
+						argAuditUserId,
+						argAuditSessionId,
+						secClusterId,
+						secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassCur )$,
+						curRevision );$iterate ReverseRelations( each implSPDeleteTablenameBySuffixChaseSubclass empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBodyInvokeDirect">
+			call $poptop Table lower DbSchemaName$.$poptop Table sp_delete_dbtablename$( argAuditClusterId,
+						argAuditUserId,
+						argAuditSessionId,
+						secClusterId,
+						secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassCur )$,
+						curRevision );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteTablenameBySuffixPassCur"
+		>cur$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteTablenameBySuffixCommaPassCur">,
+						$implSPDeleteTablenameBySuffixPassCur$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSelectDeleteColumns"
+		>$switch HasSuperClassRelation yes implMySqlSelectSuperDelete default implMySqlSelectBaseDelete$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSelectSuperDelete"
+		>$reference SuperClassRelation reference ToTable implMySqlSelectDeleteColumns$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSelectFragCommaDataDeleteColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implMySqlTableColumnSelectFragCommaDeleteColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSelectBaseDelete"
+		>$switch IsBaseTable yes implMySqlSelectBaseDeleteWithCC default implMySqlSelectBaseDeleteNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSelectBaseDeleteWithCC"
+>			$lower ClassCode$.classcode$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMySqlTableColumnSelectFragCommaDeleteColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSelectBaseDeleteNoCC"
+>			$reference PrimaryKeyIndex iterate Columns( first implMySqlTableColumnSelectFragDbName each implMySqlTableColumnSelectFragCommaDeleteColumn )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlTableColumnSelectFragCommaDeleteColumn">,
+			$implMySqlTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlClassCodeMaybeJoinDeleteSuperTable"
+		>$switch HasSuperClassRelation yes implMySqlClassCodeJoinDeleteSuperTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlClassCodeJoinDeleteSuperTable">
+			inner join $lower reference SuperClassRelation reference ToTable DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implMySqlClassCodeJoinDeleteSuperTableColumn each implMySqlClassCodeAndJoinDeleteSuperTableColumn )$$reference SuperClassRelation reference ToTable implMySqlClassCodeMaybeJoinDeleteSuperTable$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlClassCodeJoinDeleteSuperTableColumn">
+				$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implMySqlClassCodeAndJoinDeleteSuperTableColumn">
+				and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlClassCodeJoinDeleteBaseTable">
+			inner join $lower reference BaseClass DbSchemaName$.$reference BaseClass DbTableName$ $lower reference BaseClass ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implMySqlClassCodeJoinDeleteBaseTableColumn each implMySqlClassCodeAndJoinDeleteBaseTableColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlClassCodeJoinDeleteBaseTableColumn">
+				$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implMySqlClassCodeAndJoinDeleteBaseTableColumn">
+				and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+</RuleSet>

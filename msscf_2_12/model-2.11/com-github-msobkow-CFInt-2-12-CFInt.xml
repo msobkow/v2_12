@@ -1,0 +1,1152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ *	MSS Code Factory CFInt 2.12
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ *-->
+<MSSBam
+		xmlns="uri://msscf/mssbam"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="uri://msscf/mssbam file:../bin/xsd/mssbam-2.11.xsd"
+		Name="CFInt"
+		Revision="2.12"
+		Description="CFInt"
+		ProjectRoot="com.github.msobkow.CFInt.2.12" >
+	<Tld Name="com" >
+		<TopDomain Name="github" >
+			<License Name="MssGPLv3"
+					Description="MSS Code Factory GNU GPL v3+ License">
+This file is part of MSS Code Factory.
+
+MSS Code Factory is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+MSS Code Factory is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+
+Donations to support MSS Code Factory can be made at
+https://www.paypal.com/paypalme2/MarkSobkow
+
+Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.</License>
+			<TopProject Name="msobkow" >
+				<SubProject Name="CFInt" >
+					<MajorVersion Name="2" >
+						<MinorVersion Name="12" >
+<SchemaDef Name="CFInt"
+		DbName="CFINet212"
+		Description="Code Factory Internet"
+		DefaultLicense="com.github.MssGPLv3"
+		ExtendCFCore="true"
+		CopyrightHolder="Mark Stephen Sobkow"
+		CopyrightPeriod="2020"
+		AuthorEMail="msobkow@sasktel.net"
+		ProjectURL="http://msobkow.github.com/"
+		PublishURI="https://msscf.sourceforge.io/com-github-msobkow-CFInt-2-12-CFInt.xml" >
+
+	<SchemaRef Name="CFSec"
+			RefModelName="com-github-msobkow-CFSec-2-12-CFSec"
+			IncludeRoot="com.github.msobkow.CFSec.2.12.CFSec" />
+
+	<Id64Gen Name="TldIdGen"
+			IsNullable="false"
+			DefaultVisibility="true"
+			MinValue="0"
+			InitValue="0"
+			NullValue="0"
+			Dispenser="Tenant"
+			Slice="200"
+			BlockSize="1" />
+
+	<Id64Gen Name="TopDomainIdGen"
+			IsNullable="false"
+			DefaultVisibility="true"
+			MinValue="0"
+			InitValue="0"
+			NullValue="0"
+			Dispenser="Tenant"
+			Slice="201"
+			BlockSize="1" />
+
+	<Id64Gen Name="TopProjectIdGen"
+			IsNullable="false"
+			DefaultVisibility="true"
+			MinValue="0"
+			InitValue="0"
+			NullValue="0"
+			Dispenser="Tenant"
+			Slice="203"
+			BlockSize="1" />
+
+	<Id64Gen Name="SubProjectIdGen"
+			IsNullable="false"
+			DefaultVisibility="true"
+			MinValue="0"
+			InitValue="0"
+			NullValue="0"
+			Dispenser="Tenant"
+			Slice="204"
+			BlockSize="1" />
+
+	<Id64Gen Name="MajorVersionIdGen"
+			IsNullable="false"
+			DefaultVisibility="true"
+			MinValue="0"
+			InitValue="0"
+			NullValue="0"
+			Dispenser="Tenant"
+			Slice="205"
+			BlockSize="1" />
+
+	<Id64Gen Name="MinorVersionIdGen"
+			IsNullable="false"
+			DefaultVisibility="true"
+			MinValue="0"
+			InitValue="0"
+			NullValue="0"
+			Dispenser="Tenant"
+			Slice="206"
+			BlockSize="1" />
+
+	<StringType Name="DomNameType"
+			IsNullable="false"
+			DefaultVisibility="true"
+			MaxLen="64"
+			ShowLines="1"
+			InitValue="" />
+
+	<StringType Name="DomainDescrType"
+			IsNullable="false"
+			DefaultVisibility="true"
+			MaxLen="1024"
+			ShowLines="1"
+			InitValue="" />
+
+	<Id64Gen Name="LicenseIdGen"
+			IsNullable="false"
+			DefaultVisibility="true"
+			MinValue="0"
+			InitValue="0"
+			NullValue="0"
+			Dispenser="Tenant"
+			Slice="207"
+			BlockSize="1" />
+
+	<Id32Gen Name="MimeTypeIdGen"
+			IsNullable="false"
+			DefaultVisibility="true"
+			DbName="MimeTypeIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			NullValue="0"
+			Slice="208"
+			BlockSize="1" />
+
+	<Id32Gen Name="URLProtocolIdGen"
+			IsNullable="false"
+			DefaultVisibility="true"
+			DbName="URLProtoIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			NullValue="0"
+			Slice="209"
+			BlockSize="1" />
+
+	<Table Name="Tld"
+			TableClassCode="GTld"
+			DbName="tlddef"
+			Label="Top Level Domain"
+			DefaultVisibility="true"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			QualTable="Tenant"
+			LookupIndex="TldNameIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DefaultVisibility="true"
+				GenerateId="true"
+				DataType="TldIdGen" />
+		<TableCol Name="Name"
+				DbName="safe_name"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="DomNameType" />
+		<TableCol Name="Description"
+				ShortName="Descr"
+				DbName="descr"
+				IsNullable="true"
+				DefaultVisibility="true"
+				DataType="DomainDescrType" />
+		<PrimaryIndex Name="TldIdIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tlddef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Id" IsAscending="true" DefaultVisibility="true" />
+		</PrimaryIndex>
+		<Index Name="TldTenantIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tlddef_xtenant"
+				ShortName="TenantIdx"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="TldNameIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tlddef_unameidx"
+				ShortName="NameIdx"
+				Suffix="NameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Name" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+	</Table>
+
+	<Table Name="TopDomain"
+			TableClassCode="TDOM"
+			DbName="tdomdef"
+			DefaultVisibility="true"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="TopDomNameIdx"
+			QualTable="Tenant"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DefaultVisibility="true"
+				GenerateId="true"
+				DataType="TopDomainIdGen" />
+		<TableCol Name="TldId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="TldIdGen" />
+		<TableCol Name="Name"
+				DbName="safe_name"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="DomNameType" />
+		<TableCol Name="Description"
+				ShortName="Descr"
+				DbName="descr"
+				IsNullable="true"
+				DefaultVisibility="true"
+				DataType="DomainDescrType" />
+		<PrimaryIndex Name="TopDomainIdIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tdomdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Id" IsAscending="true" DefaultVisibility="true" />
+		</PrimaryIndex>
+		<Index Name="TopDomainTenantIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tdomdef_xtenant"
+				ShortName="TenantIdx"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="TopDomainTldIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tdomdef_xtld"
+				ShortName="TldIdx"
+				Suffix="TldIdx"
+				Label="TldIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="TldId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="TopDomNameIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tdomdef_unameidx"
+				ShortName="NameIdx"
+				Suffix="NameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="TldId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Name" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+	</Table>
+
+	<Table Name="TopProject"
+			TableClassCode="TPRJ"
+			DbName="tprjdef"
+			DefaultVisibility="true"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="TopProjectNameIdx"
+			QualTable="Tenant"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DefaultVisibility="true"
+				GenerateId="true"
+				DataType="TopProjectIdGen" />
+		<TableCol Name="TopDomainId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="TopDomainIdGen" />
+		<TableCol Name="Name"
+				DbName="safe_name"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="DomNameType" />
+		<TableCol Name="Description"
+				ShortName="Descr"
+				DbName="descr"
+				IsNullable="true"
+				DefaultVisibility="true"
+				DataType="DomainDescrType" />
+		<PrimaryIndex Name="TopProjectIdIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tprjdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Id" IsAscending="true" DefaultVisibility="true" />
+		</PrimaryIndex>
+		<Index Name="TopProjectTenantIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tprjdef_xtenant"
+				ShortName="TenantIdx"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="TopProjectTopDomainIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tprjdef_xsdom"
+				ShortName="TopDomainIdx"
+				Suffix="TopDomainIdx"
+				Label="TopDomainIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="TopDomainId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="TopProjectNameIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tprjdef_unameidx"
+				ShortName="NameIdx"
+				Suffix="NameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="TopDomainId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Name" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+	</Table>
+
+	<Table Name="SubProject"
+			TableClassCode="SPRJ"
+			DbName="sprjdef"
+			DefaultVisibility="true"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="SubProjectNameIdx"
+			QualTable="Tenant"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DefaultVisibility="true"
+				GenerateId="true"
+				DataType="SubProjectIdGen" />
+		<TableCol Name="TopProjectId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="TopProjectIdGen" />
+		<TableCol Name="Name"
+				DbName="safe_name"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="DomNameType" />
+		<TableCol Name="Description"
+				ShortName="Descr"
+				DbName="descr"
+				IsNullable="true"
+				DefaultVisibility="true"
+				DataType="DomainDescrType" />
+		<PrimaryIndex Name="SubProjectIdIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="sprjdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Id" IsAscending="true" DefaultVisibility="true" />
+		</PrimaryIndex>
+		<Index Name="SubProjectTenantIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="sprjdef_xtenant"
+				ShortName="TenantIdx"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="SubProjectTopProjectIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="sprjdef_xtprj"
+				ShortName="TopProjectIdx"
+				Suffix="TopProjectIdx"
+				Label="TopProjectIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="TopProjectId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="SubProjectNameIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="sprjdef_unameidx"
+				ShortName="NameIdx"
+				Suffix="NameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="TopProjectId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Name" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+	</Table>
+
+	<Table Name="MajorVersion"
+			TableClassCode="MJVR"
+			DbName="mjvrdef"
+			DefaultVisibility="true"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="MajorVersionNameIdx"
+			QualTable="Tenant"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DefaultVisibility="true"
+				GenerateId="true"
+				DataType="MajorVersionIdGen" />
+		<TableCol Name="SubProjectId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="SubProjectIdGen" />
+		<TableCol Name="Name"
+				DbName="safe_name"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="DomNameType" />
+		<TableCol Name="Description"
+				ShortName="Descr"
+				DbName="descr"
+				IsNullable="true"
+				DefaultVisibility="true"
+				DataType="DomainDescrType" />
+		<PrimaryIndex Name="MajorVersionIdIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="mjvrdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Id" IsAscending="true" DefaultVisibility="true" />
+		</PrimaryIndex>
+		<Index Name="MajorVersionTenantIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="mjvrdef_xtenant"
+				ShortName="TenantIdx"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="MajorVersionSubProjectIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="mjvrdef_xsprj"
+				ShortName="SubProjectIdx"
+				Suffix="SubProjectIdx"
+				Label="SubProjectIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="SubProjectId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="MajorVersionNameIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="mjvrdef_unameidx"
+				ShortName="NameIdx"
+				Suffix="NameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="SubProjectId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Name" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+	</Table>
+
+	<Table Name="MinorVersion"
+			TableClassCode="MNVR"
+			DbName="mnvrdef"
+			DefaultVisibility="true"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="MinorVersionNameIdx"
+			QualTable="Tenant"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DefaultVisibility="true"
+				GenerateId="true"
+				DataType="MinorVersionIdGen" />
+		<TableCol Name="MajorVersionId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="MajorVersionIdGen" />
+		<TableCol Name="Name"
+				DbName="safe_name"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="DomNameType" />
+		<TableCol Name="Description"
+				ShortName="Descr"
+				DbName="descr"
+				IsNullable="true"
+				DefaultVisibility="true"
+				DataType="DomainDescrType" />
+		<PrimaryIndex Name="MinorVersionIdIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="mnvrdef_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Id" IsAscending="true" DefaultVisibility="true" />
+		</PrimaryIndex>
+		<Index Name="MinorVersionTenantIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="mnvrdef_xtenant"
+				ShortName="TenantIdx"
+				Suffix="TenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="MinorVersionMajorVersionIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="mnvrdef_xmjvr"
+				ShortName="MajorVerIdx"
+				Suffix="MajorVerIdx"
+				Label="MajorVerIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="MajorVersionId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="MinorVersionNameIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="mnvrdef_unameidx"
+				ShortName="NameIdx"
+				Suffix="NameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="MajorVersionId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Name" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+	</Table>
+
+	<Table Name="License"
+			TableClassCode="LIC"
+			DbName="licn"
+			DefaultVisibility="true"
+			IsInstantiable="true"
+			HasHistory="false"
+			HasAuditColumns="false"
+			LookupIndex="LicenseUNameIdx"
+			QualTable="Tenant"
+			LoaderBehaviour="Insert"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="TenantIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				DefaultVisibility="true"
+				GenerateId="true"
+				DataType="LicenseIdGen" />
+		<TableCol Name="TopDomainId"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="TopDomainIdGen" />
+		<TableCol Name="Name"
+				DbName="safe_name"
+				IsNullable="false"
+				DefaultVisibility="true"
+				DataType="DomNameType" />
+		<TableCol Name="Description"
+				ShortName="Descr"
+				DbName="descr"
+				IsNullable="true"
+				DefaultVisibility="true"
+				DataType="DomainDescrType" />
+		<TextCol Name="EmbeddedText"
+				IsNullable="true"
+				DefaultVisibility="true"
+				MaxLen="8000"
+				ShowLines="5"
+				InitValue="" />
+		<TextCol Name="FullText"
+				IsNullable="true"
+				DefaultVisibility="true"
+				DbName="FullTxt"
+				MaxLen="8000"
+				ShowLines="5"
+				InitValue="" />
+		<PrimaryIndex Name="LicenseIdIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="lic_pk"
+				Suffix="IdIdx"
+				Label="LicenseIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Id" IsAscending="true" DefaultVisibility="true" />
+		</PrimaryIndex>
+		<Index Name="LicenseTenantIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="lic_xtenant"
+				Suffix="LicnTenantIdx"
+				Label="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="LicenseTopDomainIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="lic_xtdom"
+				Suffix="DomainIdx"
+				Label="DomainIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="TopDomainId" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="LicenseUNameIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="lic_xuname"
+				Suffix="UNameIdx"
+				Label="Unique Name Index" >
+			<IndexCol Name="TenantId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="TopDomainId" IsAscending="true" DefaultVisibility="true" />
+			<IndexCol Name="Name" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+	</Table>
+
+	<Table Name="MimeType"
+			TableClassCode="MIME"
+			DbName="MimeType"
+			ShortName="MimeType"
+			Label="MIME Type"
+			Description="MIME Type is a global lookup"
+			DefaultVisibility="true"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="MimeTypeUNameIdx"
+			LoaderBehaviour="Update"
+			SecScope="System" >
+		<TableCol Name="MimeTypeId"
+				Label="MIME Type Id"
+				IsNullable="false"
+				DefaultVisibility="true"
+				GenerateId="true"
+				DataType="MimeTypeIdGen" />
+		<StringCol Name="Name"
+				DbName="safe_name"
+				IsNullable="false"
+				DefaultVisibility="true"
+				MaxLen="128"
+				ShowLines="1"
+				InitValue="" />
+		<StringCol Name="FileTypes"
+				IsNullable="true"
+				DefaultVisibility="true"
+				MaxLen="128"
+				ShowLines="1"
+				InitValue="" />
+		<PrimaryIndex Name="MimeTypeIdIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="MimeType_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="MimeTypeId" IsAscending="true" DefaultVisibility="true" />
+		</PrimaryIndex>
+		<Index Name="MimeTypeUNameIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="MimeType_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx" >
+			<IndexCol Name="Name" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+	</Table>
+
+	<Table Name="URLProtocol"
+			TableClassCode="UPRT"
+			DbName="URLProto"
+			ShortName="URLProto"
+			Label="URL Protocol"
+			Description="URL Protocol is a global lookup"
+			DefaultVisibility="true"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="URLProtocolUNameIdx"
+			LoaderBehaviour="Update"
+			SecScope="System" >
+		<TableCol Name="URLProtocolId"
+				Label="URL Protocol Id"
+				IsNullable="false"
+				DefaultVisibility="true"
+				GenerateId="true"
+				DataType="URLProtocolIdGen" />
+		<StringCol Name="Name"
+				DbName="safe_name"
+				IsNullable="false"
+				DefaultVisibility="true"
+				MaxLen="16"
+				ShowLines="1"
+				InitValue="" />
+		<StringCol Name="Description"
+				IsNullable="false"
+				DefaultVisibility="true"
+				MaxLen="50"
+				ShowLines="1"
+				InitValue="" />
+		<BoolCol Name="IsSecure"
+				IsNullable="false"
+				DefaultVisibility="true"
+				InitValue="false" />
+		<PrimaryIndex Name="URLProtocolIdIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="URLProto_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="URLProtocolId" IsAscending="true" DefaultVisibility="true" />
+		</PrimaryIndex>
+		<Index Name="URLProtocolUNameIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="URLProto_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx" >
+			<IndexCol Name="Name" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+		<Index Name="URLProtocolIsSecureIdx"
+				DefaultVisibility="true"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="URLProto_xsecure"
+				ShortName="IsSec"
+				Suffix="IsSecureIdx" >
+			<IndexCol Name="IsSecure" IsAscending="true" DefaultVisibility="true" />
+		</Index>
+	</Table>
+
+	<TableAddendum FromTable="Tld">
+		<Relation Name="TldTenant"
+				RelationType="Container"
+				DbName="tld_tent"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="TldTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="TopDomain"
+				RelationType="Components"
+				DbName="tld_topdom"
+				Label="Top Domain"
+				Suffix="TopDomain"
+				FromIndex="TldIdIdx"
+				ToIndex="TopDomain.TopDomainTldIdx"
+				IsRequired="false"
+				IsXsdContainer="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="Id" ToCol="TldId" DefaultVisibility="true" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TopDomain">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="tdom_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="TopDomainTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="ParentTld"
+				RelationType="Container"
+				DbName="tdom_partld"
+				Label="Parent TLD"
+				Suffix="ParentTld"
+				FromIndex="TopDomainTldIdx"
+				ToIndex="Tld.TldIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="TldId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="Licenses"
+				RelationType="Components"
+				DbName="tdom_licn"
+				Label="License"
+				Suffix="License"
+				FromIndex="TopDomainIdIdx"
+				ToIndex="License.LicenseTopDomainIdx"
+				IsRequired="false"
+				IsXsdContainer="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="Id" ToCol="TopDomainId" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="TopProject"
+				RelationType="Components"
+				DbName="tdom_tprj"
+				Label="Top Project"
+				Suffix="TopProject"
+				FromIndex="TopDomainIdIdx"
+				ToIndex="TopProject.TopProjectTopDomainIdx"
+				IsRequired="false"
+				IsXsdContainer="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="Id" ToCol="TopDomainId" DefaultVisibility="true" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TopProject">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="tprj_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="TopProjectTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="ParentTopDomain"
+				RelationType="Container"
+				DbName="tprj_parsdom"
+				Label="Parent Sub Domain"
+				Suffix="ParentSDom"
+				FromIndex="TopProjectTopDomainIdx"
+				ToIndex="TopDomain.TopDomainIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="TopDomainId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="SubProject"
+				RelationType="Components"
+				DbName="tprj_sprj"
+				Label="Sub Project"
+				Suffix="SubProject"
+				FromIndex="TopProjectIdIdx"
+				ToIndex="SubProject.SubProjectTopProjectIdx"
+				IsRequired="false"
+				IsXsdContainer="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="Id" ToCol="TopProjectId" DefaultVisibility="true" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SubProject">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="sprj_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="SubProjectTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="ParentTopProject"
+				RelationType="Container"
+				DbName="sprj_partprj"
+				Label="Parent Top Project"
+				Suffix="ParentTPrj"
+				FromIndex="SubProjectTopProjectIdx"
+				ToIndex="TopProject.TopProjectIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="TopProjectId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="MajorVersion"
+				RelationType="Components"
+				DbName="sprj_mjvr"
+				Label="Major Version"
+				Suffix="MajorVer"
+				FromIndex="SubProjectIdIdx"
+				ToIndex="MajorVersion.MajorVersionSubProjectIdx"
+				IsRequired="false"
+				IsXsdContainer="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="Id" ToCol="SubProjectId" DefaultVisibility="true" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="MajorVersion">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="mjvr_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="MajorVersionTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="ParentSubProject"
+				RelationType="Container"
+				DbName="mjvr_parsprj"
+				Label="Parent Sub Project"
+				Suffix="ParentSPrj"
+				FromIndex="MajorVersionSubProjectIdx"
+				ToIndex="SubProject.SubProjectIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="SubProjectId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="MinorVersion"
+				RelationType="Components"
+				DbName="mjvr_mnvr"
+				Label="Minor Version"
+				Suffix="MinorVer"
+				FromIndex="MajorVersionIdIdx"
+				ToIndex="MinorVersion.MinorVersionMajorVersionIdx"
+				IsRequired="false"
+				IsXsdContainer="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="Id" ToCol="MajorVersionId" DefaultVisibility="true" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="MinorVersion">
+		<Relation Name="Tenant"
+				RelationType="Owner"
+				DbName="mnvr_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="MinorVersionTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="ParentMajorVersion"
+				RelationType="Container"
+				DbName="mnvr_parmjvr"
+				Label="Parent Major Version"
+				Suffix="ParentMajVer"
+				FromIndex="MinorVersionMajorVersionIdx"
+				ToIndex="MajorVersion.MajorVersionIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="MajorVersionId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="License">
+		<Relation Name="Owner"
+				RelationType="Owner"
+				DbName="licn_owner"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="LicenseTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+		<Relation Name="TopDomain"
+				RelationType="Container"
+				DbName="licn_tdom"
+				Label="Top Domain"
+				Suffix="TopDomain"
+				FromIndex="LicenseTopDomainIdx"
+				ToIndex="TopDomain.TopDomainIdIdx"
+				IsRequired="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" DefaultVisibility="true" />
+			<RelationCol Name="TopDomainId" ToCol="Id" DefaultVisibility="true" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tenant">
+		<Relation Name="TenantTld"
+				RelationType="Components"
+				DbName="tenant_tld"
+				Label="Top Level Domains"
+				Suffix="Tld"
+				FromIndex="TenantIdIdx"
+				ToIndex="Tld.TldTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true"
+				DefaultVisibility="true" >
+			<RelationCol Name="Id" ToCol="TenantId" DefaultVisibility="true" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tld">
+		<DelDep Name="DelTopDomains" DelDepChain="TopDomain" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="TopDomain">
+		<DelDep Name="DelTopDomLicense" DelDepChain="Licenses" />
+		<DelDep Name="DelSubDomTopProject" DelDepChain="TopProject" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="TopProject">
+		<DelDep Name="DelTopPrjSubProject" DelDepChain="SubProject" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="SubProject">
+		<DelDep Name="DelSubPrjMajorVer" DelDepChain="MajorVersion" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="MajorVersion">
+		<DelDep Name="DelMajVerMinVersion" DelDepChain="MinorVersion" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tenant">
+		<DelDep Name="DelTlds" DelDepChain="TenantTld" />
+	</TableAddendum>
+</SchemaDef>
+						</MinorVersion>
+					</MajorVersion>
+				</SubProject>
+			</TopProject>
+		</TopDomain>
+	</Tld>
+</MSSBam>

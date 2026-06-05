@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+javafx"
+	Name="src/ISchemaJavaFXSchema.java"
+	Revision="2.12"
+	Descr="Java 11 JavaFX Schema Interface specification">
+
+	<GenFile GenDef="SchemaDef" Name="fileISchemaJavaFXSchemaJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$JavaFX/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$JavaFX"
+		ExpansionClassName="I$SchemaName$JavaFXSchemaJava"
+		ExpansionKeyName="I$SchemaName$JavaFXSchemaJava"
+		ExpansionFileName="I$SchemaName$JavaFXSchema.java"
+>$ISchemaJavaFXSchemaPreamble$
+/**
+ *	The I$SchemaName$JavaFXSchema defines the factory interface for the
+ *	for the various panes and components used to construct a GUI interface
+ *	using the JavaFX framework.
+ */
+public interface I$SchemaName$JavaFXSchema$iterate SchemaRefs( first extendISchemaJavaFXSchemaSchemaRef each commaNewlineISchemaJavaFXSchemaSchemaRef empty empty )$
+{
+	$SecSchemaName$ClientConfigurationFile getClientConfigurationFile();
+	void setClientConfigurationFile( $SecSchemaName$ClientConfigurationFile value );
+
+	KeyStore getKeyStore();
+	void setKeyStore( KeyStore value );
+
+	I$SecSchemaName$SchemaObj getSchema();
+	void setSchema( I$SecSchemaName$SchemaObj argSchema );
+
+	String getClusterName();
+	void setClusterName( String argClusterName );
+	I$SecSchemaName$ClusterObj getClusterObj();
+
+	String getTenantName();
+	void setTenantName( String argTenantName );
+	I$SecSchemaName$TenantObj getTenantObj();
+
+	String getSecUserName();
+	void setSecUserName( String argSecUserName );
+	I$SecSchemaName$SecUserObj getSecUserObj();
+
+	I$SecSchemaName$SecSessionObj getSecSessionObj();
+$iterate SchemaTables( each declSchemaJavaFXSchemaGetTableFactory empty empty )$}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="extendISchemaJavaFXSchemaSchemaRef">
+	extends I$reference RefSchema SchemaName$JavaFXSchema</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="commaNewlineISchemaJavaFXSchemaSchemaRef">,
+		I$reference RefSchema SchemaName$JavaFXSchema</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ISchemaJavaFXSchemaPreamble"
+>// Description: Java 11 JavaFX Schema Interface for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$JavaFX;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import java.security.KeyStore;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.JavaFX.*;
+import org.apache.commons.codec.binary.Base64;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$$iterate SchemaRefs( each importJavaPackageSchemaNameJavaFX empty empty )$
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="importJavaPackageSchemaNameJavaFX"
+		>$reference RefSchema importJavaPackageSchemaNameJavaFX$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="importJavaPackageSchemaNameJavaFX">
+import $lower JavaExpandPackage$.$SchemaName$JavaFX.*;</GenRule>
+	<GenRule GenDef="Table" Name="importJavaPackageSchemaNameJavaFX"
+		>$popto SchemaDef importJavaPackageSchemaNameJavaFX$</GenRule>
+	<GenRule GenDef="Object" Name="importJavaPackageSchemaNameJavaFX"
+		>$popto SchemaDef importJavaPackageSchemaNameJavaFX$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaJavaFXSchemaGetTableFactory">
+	public I$DefSchemaName$JavaFX$TableName$Factory get$TableName$Factory();
+</GenRule>
+
+</RuleSet>

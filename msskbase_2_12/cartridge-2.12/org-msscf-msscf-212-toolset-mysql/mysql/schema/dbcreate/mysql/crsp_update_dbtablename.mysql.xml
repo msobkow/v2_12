@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mysql"
+	Name="schema/dbcreate/mysql/crsp_update_dbtablename.mysql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPUpdateDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mysql"
+		ExpansionClassName="$dbadminfilename_CreateSPUpdateDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPUpdateDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPUpdateDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+delimiter ////
+$CrSpUpdateDbTablenameMySqlPreamble$$switch HasChain yes implMySqlSPTableLatchContainer default empty$$implMySqlLockTables$$CrSpUpdateDbTablenameMySqlValidateRevision$$CrSpUpdateDbTablenameMySqlUpdateTable$$switch HasChain yes implMySqlSPTableUnlatchContainer default empty$$CrSpUpdateDbTablenameMySqlReturnUpdateRow$
+</GenFile>
+
+<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMySqlPreamble">
+create procedure $lower DbSchemaName$.$sp_update_dbtablename$($implMySqlSPStandardArgs$,
+	$implMySqlSPUpdateTableArgs$$implMySqlSPUpdateTableArgRevision$ )
+not deterministic
+modifies sql data
+begin
+	declare RowsAffected bigint;$declSPOldVars$
+	declare permissionFlag boolean;
+	declare isSystemUser boolean;$switch TableName SecSession empty default implMySqlSPUpdateTableCheckPermissions$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPUpdateTableCheckPermissions"
+		>$switch SecScope None empty System implMySqlSPUpdateTableCheckSystem Cluster implMySqlSPUpdateTableCheckCluster Tenant implMySqlSPUpdateTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPUpdateTableCheckSystem">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into permissionFlag;
+		if( permissionFlag = false )
+		then
+			signal sqlstate '45001'
+			set message_text = '$poptop Table sp_update_dbtablename$() Permission denied, not identified as system',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPUpdateTableCheckCluster">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_cluster_user( arg$reference ClusterIdColumn Name$,
+				'Update$Name$',
+				argAuditUserId ),
+			$lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+		into permissionFlag, isSystemUser;
+
+		if( ( permissionFlag = false ) and ( isSystemUser = false ) )
+		then
+			signal sqlstate '45002'
+			set message_text = '$poptop Table sp_update_dbtablename$() Permission denied, User not found in cluster SecGroup for Update$TableName$ access',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPUpdateTableCheckTenant">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_tenant_user( arg$reference TenantIdColumn Name$,
+				'Update$Name$',
+				argAuditUserId ),
+			$lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+		into permissionFlag, isSystemUser;
+
+		if( ( permissionFlag = false ) and ( isSystemUser = false ) )
+		then
+			signal sqlstate '45003'
+			set message_text = '$poptop Table sp_update_dbtablename$() Permission denied, User not found in tenant TSecGroup for Update$TableName$ access',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPUpdateTableArgs"
+		>$switch HasSuperClassRelation yes implMySqlSPUpdateTableSuperArgs default implMySqlSPUpdateTableBaseArgs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPUpdateTableSuperArgs"
+		>$reference SuperClassRelation reference ToTable implMySqlSPUpdateTableArgs$$iterate Columns( each implMySqlSPCommaUpdateTableInsertDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPCommaUpdateTableInsertDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPUpdateTableBaseArgs"
+		>$implMySqlSPUpdateTableArgClassCode$$iterate Columns( each sparg_CommaTableCol )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlSPUpdateTableArgClassCode"
+		>argClassCode varchar(4)</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlSPUpdateTableArgRevision">,
+	argRevision integer</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMySqlValidateRevision">
+	if argRevision != oldRevision
+	then
+		signal sqlstate '45000'
+		set message_text = '$poptop Table sp_update_dbtablename$() Data collision detected',
+			schema_name = '$lower DbSchemaName$',
+			table_name = '$poptop Table DbTableName$';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMySqlUpdateTable"
+		>$switch HasSuperClassRelation yes CrSpUpdateDbTablenameMySqlUpdateSuperTable default CrSpUpdateDbTablenameMySqlUpdateBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="TableDefRawHasDataColumns"
+		>$iterate DataColumns( each empty empty no )$</GenRule>
+
+	<GenRule GenDef="Table" Name="HasDataColumns"
+		>$switch TableDefRawHasDataColumns no no default yes$</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMySqlUpdateSuperTable">$reference SuperClassRelation reference ToTable CrSpUpdateDbTablenameMySqlUpdateTable$$switch HasDataColumns yes CrSpUpdateDbTablenameMySqlUpdateThisTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMySqlUpdateThisTable">
+	update $lower DbSchemaName$.$DbTableName$
+	set
+$iterate DataColumns( first implMySqlUpdateColumn each implMySqlUpdateCommaColumn empty empty )$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMySqlLockWhereFragBindVar each implMySqlLockWhereAndFragBindVar )$;
+$CrSpUpdateDbTablenameMySqlVerifyUpdatedOne$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMySqlUpdateBaseTable">
+	update $lower DbSchemaName$.$DbTableName$
+	set
+$implMySqlUpdateRevision$$switch HasAuditColumns yes implMySqlUpdateAuditColumns default empty$$iterate DataColumns( each implMySqlUpdateCommaColumn empty empty )$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMySqlLockWhereFragBindVar each implMySqlLockWhereAndFragBindVar )$$implMySqlUpdateWhereFragOldRevision$;
+$CrSpUpdateDbTablenameMySqlVerifyUpdatedOne$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlUpdateAuditColumns">,
+		updatedby = argAuditUserId,
+		updatedat = now()</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMySqlVerifyUpdatedOne">
+	select row_count()
+	into RowsAffected;
+	if RowsAffected != 1
+	then
+		signal sqlstate '02003'
+		set message_text = '$poptop Table sp_update_dbtablename$() Expected to affect 1 $DbTableName$',
+			schema_name = '$poptop Table lower DbSchemaName$',
+			table_name = '$poptop Table DbTableName$';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMySqlReturnUpdateRow">$switch BaseHasHistory yes CrSpUpdateDbTablenameMySqlAuditUpdated default empty$
+	select
+$implMySqlSelectTableColumns$,
+		$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+end;////
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMySqlAuditUpdated"
+		>$switch BaseHasClassCode yes implCreateAuditTwoWithCC default implCreateAuditTwoNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditTwoNoCC">
+	insert into $lower DbSchemaName$.$DbTableHName$ ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			$lower reference BaseClass ClassCode$.revision,
+			2
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditTwoWithCC">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		insert into $lower DbSchemaName$.$DbTableHName$ ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			classcode,
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.classcode,
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			$lower reference BaseClass ClassCode$.revision,
+			2
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlUpdateWhereAndFragBindVar">
+		and $implMySqlUpdateWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlUpdateWhereFragBindVar"
+		>$switch IsNullable yes implMySqlUpdateWhereFragBindOptVar
+			default implMySqlUpdateWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlUpdateWhereFragBindOptVar"
+		>$reference Column implMySqlUpdateWhereFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlUpdateWhereFragBindReqVar"
+		>$reference Column implMySqlUpdateWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implMySqlUpdateWhereFragBindOptBlobVar
+			BoolDef implMySqlUpdateWhereFragBindOptBoolVar
+			EnumDef implMySqlUpdateWhereFragBindOptEnumVar
+			Int16Def implMySqlUpdateWhereFragBindOptInt16Var
+			Int32Def implMySqlUpdateWhereFragBindOptInt32Var
+			Int64Def implMySqlUpdateWhereFragBindOptInt64Var
+			UInt16Def implMySqlUpdateWhereFragBindOptUInt16Var
+			UInt32Def implMySqlUpdateWhereFragBindOptUInt32Var
+			UInt64Def implMySqlUpdateWhereFragBindOptUInt64Var
+			Id16Gen implMySqlUpdateWhereFragBindOptInt16Var
+			Id32Gen implMySqlUpdateWhereFragBindOptInt32Var
+			Id64Gen implMySqlUpdateWhereFragBindOptInt64Var
+			FloatDef implMySqlUpdateWhereFragBindOptFloatVar
+			DoubleDef implMySqlUpdateWhereFragBindOptDoubleVar
+			NumberDef implMySqlUpdateWhereFragBindOptNumberVar
+			StringDef implMySqlUpdateWhereFragBindOptStringVar
+			TokenDef implMySqlUpdateWhereFragBindOptStringVar
+			NmTokenDef implMySqlUpdateWhereFragBindOptStringVar
+			NmTokensDef implMySqlUpdateWhereFragBindOptStringVar
+			TextDef implMySqlUpdateWhereFragBindOptTextVar
+			DateDef implMySqlUpdateWhereFragBindOptDateVar
+			TimeDef implMySqlUpdateWhereFragBindOptTimeVar
+			TimestampDef implMySqlUpdateWhereFragBindOptTimestampVar
+			TZDateDef implMySqlUpdateWhereFragBindOptTZDateVar
+			TZTimeDef implMySqlUpdateWhereFragBindOptTZTimeVar
+			TZTimestampDef implMySqlUpdateWhereFragBindOptTZTimestampVar
+			UuidDef implMySqlUpdateWhereFragBindOptUuidVar
+			UuidGen implMySqlUpdateWhereFragBindOptUuidVar
+			default empty$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implMySqlUpdateWhereFragBindReqBlobVar
+			BoolDef implMySqlUpdateWhereFragBindReqBoolVar
+			EnumDef implMySqlUpdateWhereFragBindReqEnumVar
+			Int16Def implMySqlUpdateWhereFragBindReqInt16Var
+			Int32Def implMySqlUpdateWhereFragBindReqInt32Var
+			Int64Def implMySqlUpdateWhereFragBindReqInt64Var
+			UInt16Def implMySqlUpdateWhereFragBindReqUInt16Var
+			UInt32Def implMySqlUpdateWhereFragBindReqUInt32Var
+			UInt64Def implMySqlUpdateWhereFragBindReqUInt64Var
+			Id16Gen implMySqlUpdateWhereFragBindReqInt16Var
+			Id32Gen implMySqlUpdateWhereFragBindReqInt32Var
+			Id64Gen implMySqlUpdateWhereFragBindReqInt64Var
+			FloatDef implMySqlUpdateWhereFragBindReqFloatVar
+			DoubleDef implMySqlUpdateWhereFragBindReqDoubleVar
+			NumberDef implMySqlUpdateWhereFragBindReqNumberVar
+			StringDef implMySqlUpdateWhereFragBindReqStringVar
+			TokenDef implMySqlUpdateWhereFragBindReqStringVar
+			NmTokenDef implMySqlUpdateWhereFragBindReqStringVar
+			NmTokensDef implMySqlUpdateWhereFragBindReqStringVar
+			TextDef implMySqlUpdateWhereFragBindReqTextVar
+			DateDef implMySqlUpdateWhereFragBindReqDateVar
+			TimeDef implMySqlUpdateWhereFragBindReqTimeVar
+			TimestampDef implMySqlUpdateWhereFragBindReqTimestampVar
+			TZDateDef implMySqlUpdateWhereFragBindReqTZDateVar
+			TZTimeDef implMySqlUpdateWhereFragBindReqTZTimeVar
+			TZTimestampDef implMySqlUpdateWhereFragBindReqTZTimestampVar
+			UuidDef implMySqlUpdateWhereFragBindReqUuidVar
+			UuidGen implMySqlUpdateWhereFragBindReqUuidVar
+			default empty$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="TableAlias"
+		>$lower reference Column reference Table ClassCode$</GenRule>
+
+	<GenRule GenDef="Value" Name="TableAlias"
+		>$lower reference Table ClassCode$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqBlobVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptBlobVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqBoolVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptBoolVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqEnumVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptEnumVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqInt16Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptInt16Var"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqInt32Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptInt32Var"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqInt64Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptInt64Var"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqUInt16Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptUInt16Var"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqUInt32Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptUInt32Var"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqUInt64Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptUInt64Var"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqFloatVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptFloatVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqDoubleVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptDoubleVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqNumberVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptNumberVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqStringVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptStringVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqTokenVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptTokenVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqNmTokenVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptNmTokenVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqNmTokensVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptNmTokensVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqTextVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptTextVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqDateVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptDateVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqTimeVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptTimeVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqTimestampVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptTimestampVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqTZDateVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptTZDateVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqTZTimeVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptTZTimeVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqTZTimestampVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptTZTimestampVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindReqUuidVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateWhereFragBindOptUuidVar"
+		>((( arg$Name$ is null ) and ( $TableAlias$.$lower DbColumnName$ is null ))
+			or (( arg$Name$ is not null ) and ( $TableAlias$.$lower DbColumnName$ = arg$Name$ )))</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlUpdateWhereFragOldRevision">
+		and revision = oldRevision</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlUpdateWhereFragOldRevision">
+		and revision = oldRevision</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlUpdateWhereFragOldRevision">
+		and revision = oldRevision</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateCommaColumn"
+		>,
+$implMySqlUpdateColumn$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateColumn"
+>		$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateCommaRevision"
+		>,
+$implMySqlUpdateRevision$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlUpdateRevision"
+>		revision = argRevision + 1</GenRule>
+
+</RuleSet>

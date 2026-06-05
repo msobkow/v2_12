@@ -1,0 +1,1028 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mssql"
+	Name="schema/dbcreate/mssql/crsp_create_dbtablename.tsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPCreateDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mssql"
+		ExpansionClassName="$dbadminfilename_CreateSPCreateDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPCreateDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPCreateDbTableName$" >--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+use $lower DbSchemaName$
+go
+
+create proc $sp_create_dbtablename$$implMSSqlSPStandardArgs$,$implMSSqlSPCreateTableArgs$
+as
+	declare @rc int
+	declare @permissionFlag int$declMSSqlGeneratedVars$$switch HasChain yes declMSSqlSPCreateTableChainPrevVars default empty$
+begin$switch TableName SecSession empty default implMSSqlSPCreateTableCheckPermissions$$switch HasChain yes implMSSqlSPTableLatchContainer default empty$$switch HasChain yes implMSSqlSPCreateTableChainSelectPrev default empty$$reference BaseClass iterate GeneratedTableColumns( each invoke_Generator empty empty )$$insertTableHierarchy$$switch BaseHasHistory yes implAudit default empty$$switch HasChain yes implMSSqlSPCreateTableUpdatePrev default empty$$switch HasChain yes implMSSqlSPTableUnlatchContainer default empty$
+	select$implMSSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$..$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$
+	where
+			$reference PrimaryKeyIndex iterate Columns( first implMSSqlIndexColumnWhereFragBindVar each implMSSqlIndexColumnWhereAndFragBindVar )$
+end
+go
+
+quit
+</GenFile>
+
+	<GenRule GenDef="Table" Name="ChainTableHasSuperClassRelation"
+		>$reference Chain reference Table HasSuperClassRelation$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableUpdatePrev">
+	if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implMSSqlSPCreateTableUpdatePrevIfNotNull each empty )$ )
+	begin$switch ChainTableHasSuperClassRelation yes implMSSqlSPCreateTableUpdateTwoTables default implMSSqlSPCreateTableUpdateOneTable$$switch BaseHasHistory yes implMSSqlSPCreateTableUpdatePrevAuditUpdated default empty$
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableUpdateOneTable">
+		update $lower DbSchemaName$..$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMSSqlSPCreateTableUpdateTableAuditColumns default empty$$reference Chain reference NextRel iterate Columns( each implMSSqlSPCreateTableUpdateWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMSSqlSPCreateTableUpdateTableWherePKeyCol each implMSSqlSPCreateTableUpdateTableWhereAndPKeyCol )$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableUpdateTableAuditColumns">,
+			updatedby = @argAuditUserId,
+			updatedat = sysdatetime()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPCreateTableUpdateWithKey"
+		>$lower reference FromCol DbColumnName$ = @arg$reference ToCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPCreateTableUpdateWithCommaKey">,
+			$implMSSqlSPCreateTableUpdateWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPCreateTableUpdateTableWherePKeyCol"
+		>$lower reference ToCol DbColumnName$ = @prev$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPCreateTableUpdateTableWhereAndPKeyCol">
+			and $implMSSqlSPCreateTableUpdateTableWherePKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableUpdateTwoTables">
+		update $lower DbSchemaName$..$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMSSqlSPCreateTableUpdateTableAuditColumns default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMSSqlSPCreateTableUpdateTableWherePKeyCol each implMSSqlSPCreateTableUpdateTableWhereAndPKeyCol )$
+
+		update $lower DbSchemaName$..$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference NextRel iterate Columns( first implMSSqlSPCreateTableUpdateWithKey each implMSSqlSPCreateTableUpdateWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMSSqlSPCreateTableUpdateTableWherePKeyCol each implMSSqlSPCreateTableUpdateTableWhereAndPKeyCol )$
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPCreateTableUpdatePrevIfNotNull"
+		>@prev$Name$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableUpdatePrevAuditUpdated">
+		exec sp_audit_$reference Chain reference Table lower DbTableName$ @argAuditClusterId,
+			@argAuditUserId,
+			@argAuditSessionId,
+			@secClusterId,
+			@secTenantId$reference Chain reference Table switch HasClassCode yes implMSSqlSPCreateTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implMSSqlSPCreateTableAuditUpdatedPassArg )$,
+			1</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableUpdatePrevAuditPassClassCode">,
+			@prevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPCreateTableAuditUpdatedPassArg">,
+			@prev$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableChainSelectPrev">$reference Chain reference PrevRel iterate Columns( each implMSSqlSPCreateTableChainSelectClearToNull )$$reference Chain reference Table switch HasClassCode yes implMSSqlSPCreateTableSelectClearClassCodeToNull default empty$
+
+	select$reference Chain reference PrevRel iterate Columns( first implMSSqlSPCreateTableChainSelectIntoVar each implMSSqlSPCreateTableChainSelectCommaIntoVar )$$reference Chain reference Table switch HasClassCode yes implMSSqlSPCreateTableChainSelectCommaIntoClassCode default empty$
+	from $lower DbSchemaName$..$reference Chain reference Table DbTableName$ $lower reference Chain reference Table ClassCode$$reference Chain reference Table switch HasSuperClassRelation yes implMSSqlSPCreateTableChainSelectJoinSuper default empty$
+	where$reference Chain reference Table reference ContainerRelation iterate Columns( first implMSSqlSPCreateTableChainSelectWhereContainerArg each implMSSqlSPCreateTableChainSelectWhereAndContainerArg )$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMSSqlSPCreateTableChainSelectWhereAndNextNull )$
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPCreateTableChainSelectWhereContainerArg">
+		$lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = @arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPCreateTableChainSelectWhereAndContainerArg">
+		and $lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = @arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPCreateTableChainSelectWhereAndNextNull">
+		and $lower reference Index reference Table ClassCode$.$lower DbColumnName$ is null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableChainSelectJoinSuper">
+		inner join $lower DbSchemaName$..$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference SuperClassRelation iterate Columns( first implMSSqlSPCreateTableChainSelectJoinSuperOnCol each implMSSqlSPCreateTableChainSelectJoinSuperAndOnCol )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implMSSqlSPCreateTableChainSelectJoinSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPCreateTableChainSelectJoinSuperOnCol">
+			$lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = $lower reference Relation reference ToTable ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPCreateTableChainSelectJoinSuperAndOnCol">
+			and $lower reference Relation reference FromTable ClassCode$.$lower reference FromCol DbColumnName$ = $lower reference Relation reference ToTable ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPCreateTableChainSelectPrevKeyCol">
+		$lower reference Index reference Table ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPCreateTableChainSelectCommaPrevKeyCol"
+		>,$implMSSqlSPCreateTableChainSelectPrevKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableChainSelectCommaClassCode">,
+		$lower reference BaseClass ClassCode$.classcode</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPCreateTableChainSelectClearToNull">
+	set @prev$reference FromCol Name$ = null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableSelectClearClassCodeToNull">
+	set @prevClassCode = null</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPCreateTableChainSelectIntoVar">
+		@prev$reference FromCol Name$ = $lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPCreateTableChainSelectCommaIntoVar"
+		>,$implMSSqlSPCreateTableChainSelectIntoVar$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableChainSelectCommaIntoClassCode">,
+		@prevClassCode = $lower reference BaseClass ClassCode$.classcode</GenRule>
+
+	<GenRule GenDef="Table" Name="declMSSqlSPCreateTableChainPrevVars"
+		>$reference Chain reference Table switch HasClassCode yes declMSSqlSPCreateTableChainPrevClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declMSSqlSPCreateTableChainPrevVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMSSqlSPCreateTableChainPrevClassCode">
+	declare @prevClassCode varchar(4)</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMSSqlSPCreateTableChainPrevVar">
+	declare @prev$Name$ $reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implMSSqlSPTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPTableLatchBase">
+	update $lower DbSchemaName$..$DbTableName$
+	set revision = revision + 1
+	where
+		$popto Relation iterate Columns( first implMSSqlSPTableLatchWhereArg each implMSSqlSPTableLatchWhereAndArg )$
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPTableLatchWhereArg"
+		>$lower reference ToCol DbColumnName$ = @arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMSSqlSPTableLatchWhereAndArg">
+		and $implMSSqlSPTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implMSSqlSPTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPTableUnlatchBase">
+	update $lower DbSchemaName$..$DbTableName$
+	set revision = revision - 1
+	where
+		$popto Relation iterate Columns( first implMSSqlSPTableLatchWhereArg each implMSSqlSPTableLatchWhereAndArg )$
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlSPStandardArgs">
+	@argAuditClusterId bigint,
+	@argAuditUserId varchar(36),
+	@argAuditSessionId varchar(36),
+	@secClusterId bigint,
+	@secTenantId bigint</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableCheckPermissions"
+		>$switch SecScope None empty System implMSSqlSPCreateTableCheckSystem Cluster implMSSqlSPCreateTableCheckCluster Tenant implMSSqlSPCreateTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableCheckSystem">
+	if( @argClassCode = '$poptop Table ClassCode$' )
+	begin
+		exec sp_is_system_user @permissionFlag output, @argAuditUserId
+		if( @permissionFlag = 0 )
+		begin
+			raiserror( 'Permission denied -- only system user can create $TableName$ records',
+				15,
+				1 )
+		end
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableCheckCluster">
+	if( @argClassCode = '$poptop Table ClassCode$' )
+	begin
+		exec sp_is_cluster_user @permissionFlag output, @arg$reference ClusterIdColumn Name$, 'Create$TableName$', @argAuditUserId
+		if( @permissionFlag = 0 )
+		begin
+			raiserror( 'Permission denied -- User not found in cluster SecGroup for Create$TableName$',
+				15,
+				1 )
+		end
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableCheckTenant">
+	if( @argClassCode = '$poptop Table ClassCode$' )
+	begin
+		exec sp_is_tenant_user @permissionFlag output, @arg$reference TenantIdColumn Name$, 'Create$TableName$', @argAuditUserId
+		if( @permissionFlag = 0 )
+		begin
+			raiserror( 'Permission denied -- User not found in tenant TSecGroup for Create$TableName$',
+				15,
+				1 )
+		end
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declMSSqlGeneratedVars"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each maybe_declMSSqlGeneratedVar )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="maybe_declMSSqlGeneratedVar"
+		>$switch derefIndexColGenerateId yes likely_declMSSqlGeneratedVar default empty$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="derefIndexColGenerateId"
+		>$reference Column GenerateId$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="derefIndexColBaseModelAtomClass"
+		>$reference Column BaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="likely_declMSSqlGeneratedVar"
+		>$switch derefIndexColBaseModelAtomClass
+			Int16Def yes_declMSSqlGeneratedVar
+			Int32Def yes_declMSSqlGeneratedVar
+			Int64Def yes_declMSSqlGeneratedVar
+			Id16Gen yes_declMSSqlGeneratedVar
+			Id32Gen yes_declMSSqlGeneratedVar
+			Id64Gen yes_declMSSqlGeneratedVar
+			UuidDef empty
+			UuidGen empty
+			default error$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="yes_declMSSqlGeneratedVar">
+	declare @arg$Name$ $clause_SPColType$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAudit"
+		>$switch BaseHasClassCode yes implAuditWithCC default implAuditNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditNoCC">
+	insert into $lower DbSchemaName$..$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			@argAuditClusterId,
+			@argAuditSessionId,
+			sysdatetime(),$implAuditInheritedDataColumnNameComma$
+			$lower reference BaseClass ClassCode$.revision,
+			0
+		from $lower DbSchemaName$..$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implMSSqlIndexColumnWhereFragBindVar each implMSSqlIndexColumnWhereAndFragBindVar )$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditWithCC">
+	if( @argClassCode = '$poptop Table ClassCode$' )
+	begin
+		insert into $lower DbSchemaName$..$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			classcode,
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.classcode,
+			@argAuditClusterId,
+			@argAuditSessionId,
+			sysdatetime(),$implAuditInheritedDataColumnNameComma$
+			$lower reference BaseClass ClassCode$.revision,
+			0
+		from $lower DbSchemaName$..$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implMSSqlIndexColumnWhereFragBindVar each implMSSqlIndexColumnWhereAndFragBindVar )$
+	end
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgAuditOneComma">
+			$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implFragArgValueComma">
+			$lower reference Column reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedDataColumnNameCommaInh default implAuditInheritedDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnEmitDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnReallyEmitDataColumn">
+			$lower reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implAuditInheritedIntoDataColumnNameCommaInh default implAuditInheritedIntoDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedIntoDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedIntoDataColumnNameCommaBase"
+		>$iterate Columns( each implAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitIntoDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedIntoDataColumnReallyEmitDataColumn">
+			$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameInhComma"
+		>$reference SuperClassRelation reference ToTable implAuditInheritedDataColumnNameComma$$iterate Columns( each implAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAuditInheritedDataColumnNameBaseComma"
+		>$iterate Columns( each implAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implAuditInheritedDataColumnNameComma"
+		>$reference Column implAuditInheritedDataColumnNameComma$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAuditInheritedDataColumnEmitNameComma">
+			$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSelectTableColumns"
+		>$switch HasSuperClassRelation yes implMSSqlSelectSuperTable default implMSSqlSelectBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSelectSuperTable"
+		>$reference SuperClassRelation reference ToTable implMSSqlSelectTableColumns$$iterate Columns( each implMSSqlSelectFragCommaDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSelectFragCommaDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implMSSqlTableColumnSelectFragCommaColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSelectBaseTable"
+		>$switch HasSubClasses yes implMSSqlSelectBaseTableWithCC default implMSSqlSelectBaseTableNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSelectBaseTableWithCC">
+			$lower ClassCode$.classcode$switch HasAuditColumns yes implMSSqlTableColumnSelectCommaAuditColumns default implMSSqlTableColumnSelectCommaBaseColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlTableColumnSelectCommaBaseColumns"
+		>$iterate Columns( each implMSSqlTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSelectBaseTableNoCC"
+		>$switch HasAuditColumns yes implMSSqlTableColumnSelectAuditColumns default implMSSqlSelectBaseTableNoCCNoAudit$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSelectBaseTableNoCCNoAudit"
+>			$iterate Columns( first implMSSqlTableColumnSelectFragColumn each implMSSqlTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlTableColumnSelectCommaAuditColumns"
+		>,$implMSSqlTableColumnSelectAuditColumns$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectAuditColumns">
+			$poptop Table reference BaseClass lower ClassCode$.createdby,
+			convert( varchar, $poptop Table reference BaseClass lower ClassCode$.createdat, 120 ) as createdat,
+			$poptop Table reference BaseClass lower ClassCode$.updatedby,
+			convert( varchar, $poptop Table reference BaseClass lower ClassCode$.updatedat, 120 ) as updatedat$iterate Columns( each implMSSqlTableColumnSelectFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableHierarchy"
+		>$switch HasSuperClassRelation yes insertTableSuperHierarchy default insertTableBaseHierarchy$</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableSuperHierarchy"
+		>$reference SuperClassRelation reference ToTable insertTableHierarchy$
+	insert into $lower DbSchemaName$..$DbTableName$(
+			$iterate Columns( first implMSSqlSPCreateTableInsertColumn each implMSSqlSPCommaCreateTableInsertColumn )$ )
+	values (
+			$iterate Columns( first implMSSqlSPCreateTableBindArg each implMSSqlSPCommaCreateTableBindArg )$ )
+</GenRule>
+
+	<GenRule GenDef="Table" Name="insertTableBaseHierarchy">
+	insert into $lower DbSchemaName$..$DbTableName$(
+			forcesynclock,
+			$switch IsBaseTable yes implMSSqlSPCreateTableInsertClassCode default empty$$switch HasAuditColumns yes implMSSqlSPCreateTableInsertAuditColumns default empty$$iterate Columns( first implMSSqlSPCreateTableInsertColumn each implMSSqlSPCommaCreateTableInsertColumn )$$implMSSqlSPCreateTableInsertRevision$ )
+	values (
+			0,
+			$switch IsBaseTable yes implMSSqlSPCreateTableBindClassCode default empty$$switch HasAuditColumns yes implMSSqlSPCreateTableBindAuditColumns default empty$$iterate Columns( first implMSSqlSPCreateTableBindArg each implMSSqlSPCommaCreateTableBindArg )$$implMSSqlSPCommaCreateTableBindRevision$ )
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declMSSqlSPCreateTableGeneratedColumns"
+		>$switch HasSuperClassRelation yes declMSSqlSPCreateTableSuperGeneratedColumns default declMSSqlSPCreateTableBaseGeneratedColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMSSqlSPCreateTableSuperGeneratedColumns"
+		>$reference SuperClassRelation reference ToTable declMSSqlSPCreateTableGeneratedColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMSSqlSPCreateTableBaseGeneratedColumns"
+		>$iterate Columns( each spvar_DeclareGeneratedTableCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="spvar_DeclareGeneratedTableCol"
+		>$switch GenerateId yes spvar_DeclareGeneratedNonUuidTableCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="spvar_DeclareGeneratedNonUuidTableCol"
+		>$switch BaseModelAtomClass
+			UuidGen empty
+			Id16Gen spvar_DeclareTableCol
+			Id32Gen spvar_DeclareTableCol
+			Id64Gen spvar_DeclareTableCol
+			default errorSpVarDeclareGeneratedNonUuidTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableArgs"
+		>$switch HasSuperClassRelation yes implMSSqlSPCreateTableSuperArgs default implMSSqlSPCreateTableBaseArgs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableSuperArgs"
+		>$reference SuperClassRelation reference ToTable implMSSqlSPCreateTableArgs$$iterate Columns( each implMSSqlSPCommaCreateTableInsertDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCommaCreateTableInsertDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableBaseArgs"
+		>$implMSSqlSPCreateTableArgClassCode$$iterate Columns( each implMSSqlSPCreateTableInsertNGColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCreateTableInsertNGColumn"
+		>$switch GenerateId yes implMSSqlSPCreateTableForceInsertUuidGenColumn default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCreateTableForceInsertUuidGenColumn"
+		>$switch BaseModelAtomClass
+			UuidGen sparg_CommaTableCol
+			Id16Gen empty
+			Id32Gen empty
+			Id64Gen empty
+			default errorMSSqlSPCreateTableForceInsertUuidGenColumn$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="invoke_Generator"
+		>$switch BaseModelAtomClass
+			UuidGen empty
+			Id16Gen reallyInvoke_Generator
+			Id32Gen reallyInvoke_Generator
+			Id64Gen reallyInvoke_Generator
+			default errorInvokeGenerator$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="reallyInvoke_Generator">
+	exec $generator_sp_with_args$
+</GenRule>
+
+	<GenRule GenDef="TableCol" Name="TableColDataDefHasDispenser"
+		>$reference DataType HasDispenser$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="generator_sp_with_args"
+		>$switch TableColDataDefHasDispenser yes tableid_generator_with_args default schemaid_generator$</GenRule>
+
+	<GenRule GenDef="Object" Name="schemaid_generator"
+		>$sp_next_schemaidgen$ @arg$Name$ output</GenRule>
+
+	<GenRule GenDef="TableCol" Name="tableid_generator_with_args"
+		>$reference DataType sp_next_tableidgen$ @arg$Name$ output$reference IdGenResolverRelation iterate Columns( each commaDispenserRelationArg )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="dispenserRelationArg"
+		>@arg$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="commaDispenserRelationArg">,
+		$dispenserRelationArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implMSSqlTableColumnSelectFragRevision"
+		>$popto Table implMSSqlTableColumnSelectFragRevision$</GenRule>
+	<GenRule GenDef="Table" Name="implMSSqlTableColumnSelectFragRevision">,
+		$lower ClassCode$.revision as revision</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragTabTabDbName"
+>			$implMSSqlTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplMSSqlClassCodeSelectFragDbNameComma"
+		>$switch HasSubClasses yes implMSSqlClassCodeSelectFragDbNameComma default empty$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlIndexColumnWhereFragPassVar"
+		>@arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlIndexColumnFragPassVar">,
+			$implMSSqlIndexColumnWhereFragPassVar$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPCreateTableBindClassCode"
+		>@argClassCode,
+			</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlSPCreateTableBindAuditColumns"
+		>@argAuditUserId,
+			sysdatetime(),
+			@argAuditUserId,
+			sysdatetime(),
+			</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlIndexColumnWhereAndFragBindVar">
+			and $implMSSqlIndexColumnWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlIndexColumnWhereFragBindVar"
+		>$switch IsNullable yes implMSSqlIndexColumnWhereFragBindOptVar
+			default implMSSqlIndexColumnWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlIndexColumnWhereFragBindOptVar"
+		>$reference Column implMSSqlIndexColumnWhereFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlIndexColumnWhereFragBindReqVar"
+		>$reference Column implMSSqlIndexColumnWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implMSSqlIndexColumnWhereFragBindOptBlobVar
+			BoolDef implMSSqlIndexColumnWhereFragBindOptBoolVar
+			EnumDef implMSSqlIndexColumnWhereFragBindOptEnumVar
+			Int16Def implMSSqlIndexColumnWhereFragBindOptInt16Var
+			Int32Def implMSSqlIndexColumnWhereFragBindOptInt32Var
+			Int64Def implMSSqlIndexColumnWhereFragBindOptInt64Var
+			UInt16Def implMSSqlIndexColumnWhereFragBindOptUInt16Var
+			UInt32Def implMSSqlIndexColumnWhereFragBindOptUInt32Var
+			UInt64Def implMSSqlIndexColumnWhereFragBindOptUInt64Var
+			Id16Gen implMSSqlIndexColumnWhereFragBindOptInt16Var
+			Id32Gen implMSSqlIndexColumnWhereFragBindOptInt32Var
+			Id64Gen implMSSqlIndexColumnWhereFragBindOptInt64Var
+			FloatDef implMSSqlIndexColumnWhereFragBindOptFloatVar
+			DoubleDef implMSSqlIndexColumnWhereFragBindOptDoubleVar
+			NumberDef implMSSqlIndexColumnWhereFragBindOptNumberVar
+			StringDef implMSSqlIndexColumnWhereFragBindOptStringVar
+			TokenDef implMSSqlIndexColumnWhereFragBindOptStringVar
+			NmTokenDef implMSSqlIndexColumnWhereFragBindOptStringVar
+			NmTokensDef implMSSqlIndexColumnWhereFragBindOptStringVar
+			TextDef implMSSqlIndexColumnWhereFragBindOptTextVar
+			DateDef implMSSqlIndexColumnWhereFragBindOptDateVar
+			TimeDef implMSSqlIndexColumnWhereFragBindOptTimeVar
+			TimestampDef implMSSqlIndexColumnWhereFragBindOptTimestampVar
+			TZDateDef implMSSqlIndexColumnWhereFragBindOptTZDateVar
+			TZTimeDef implMSSqlIndexColumnWhereFragBindOptTZTimeVar
+			TZTimestampDef implMSSqlIndexColumnWhereFragBindOptTZTimestampVar
+			UuidDef implMSSqlIndexColumnWhereFragBindOptUuidVar
+			UuidGen implMSSqlIndexColumnWhereFragBindOptUuidVar
+			default empty$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implMSSqlIndexColumnWhereFragBindReqBlobVar
+			BoolDef implMSSqlIndexColumnWhereFragBindReqBoolVar
+			EnumDef implMSSqlIndexColumnWhereFragBindReqEnumVar
+			Int16Def implMSSqlIndexColumnWhereFragBindReqInt16Var
+			Int32Def implMSSqlIndexColumnWhereFragBindReqInt32Var
+			Int64Def implMSSqlIndexColumnWhereFragBindReqInt64Var
+			UInt16Def implMSSqlIndexColumnWhereFragBindReqUInt16Var
+			UInt32Def implMSSqlIndexColumnWhereFragBindReqUInt32Var
+			UInt64Def implMSSqlIndexColumnWhereFragBindReqUInt64Var
+			Id16Gen implMSSqlIndexColumnWhereFragBindReqInt16Var
+			Id32Gen implMSSqlIndexColumnWhereFragBindReqInt32Var
+			Id64Gen implMSSqlIndexColumnWhereFragBindReqInt64Var
+			FloatDef implMSSqlIndexColumnWhereFragBindReqFloatVar
+			DoubleDef implMSSqlIndexColumnWhereFragBindReqDoubleVar
+			NumberDef implMSSqlIndexColumnWhereFragBindReqNumberVar
+			StringDef implMSSqlIndexColumnWhereFragBindReqStringVar
+			TokenDef implMSSqlIndexColumnWhereFragBindReqStringVar
+			NmTokenDef implMSSqlIndexColumnWhereFragBindReqStringVar
+			NmTokensDef implMSSqlIndexColumnWhereFragBindReqStringVar
+			TextDef implMSSqlIndexColumnWhereFragBindReqTextVar
+			DateDef implMSSqlIndexColumnWhereFragBindReqDateVar
+			TimeDef implMSSqlIndexColumnWhereFragBindReqTimeVar
+			TimestampDef implMSSqlIndexColumnWhereFragBindReqTZTimestampVar
+			TZDateDef implMSSqlIndexColumnWhereFragBindReqTZDateVar
+			TZTimeDef implMSSqlIndexColumnWhereFragBindReqTZTimeVar
+			TZTimestampDef implMSSqlIndexColumnWhereFragBindReqTZTimestampVar
+			UuidDef implMSSqlIndexColumnWhereFragBindReqUuidVar
+			UuidGen implMSSqlIndexColumnWhereFragBindReqUuidVar
+			default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqBlobVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptBlobVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqBoolVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptBoolVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqEnumVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptEnumVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqInt16Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptInt16Var"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqInt32Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptInt32Var"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqInt64Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptInt64Var"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqUInt16Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptUInt16Var"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqUInt32Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptUInt32Var"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqUInt64Var"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptUInt64Var"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqFloatVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptFloatVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqDoubleVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptDoubleVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqNumberVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptNumberVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqStringVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptStringVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqTokenVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptTokenVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqNmTokenVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptNmTokenVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqNmTokensVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptNmTokensVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqTextVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptTextVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqDateVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptDateVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqTimeVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptTimeVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqTimestampVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptTimestampVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqTZDateVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptTZDateVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqTZTimeVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptTZTimeVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqTZTimestampVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptTZTimestampVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindReqUuidVar"
+		>$popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnWhereFragBindOptUuidVar"
+		>( ( ( @arg$Name$ is null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ is null ) )
+				or ( ( @arg$Name$ is not null ) and ( $popto Table lower ClassCode$.$lower DbColumnName$ = @arg$Name$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragCommaColumn"
+		>,$implMSSqlTableColumnSelectFragColumn$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragColumn">
+			$implMSSqlTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameBlob"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameBool"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameEnum"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameInt16"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameInt32"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameInt64"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameUInt16"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameUInt32"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameUInt64"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameFloat"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameDouble"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameNumber"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameString"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameToken"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameNmToken"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameNmTokens"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameText"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameDate"
+		>convert( varchar(8), $lower ClassCode$.$lower DbColumnName$, 112 ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameTime"
+		>convert( varchar(8), $lower ClassCode$.$lower DbColumnName$, 108 ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameTimestamp"
+		>convert( varchar, $lower ClassCode$.$lower DbColumnName$, 120 ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameTZDate"
+		>convert( varchar, $lower ClassCode$.$lower DbColumnName$, 120 ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameTZTime"
+		>convert( varchar, $lower ClassCode$.$lower DbColumnName$, 120 ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameTZTimestamp"
+		>convert( varchar, $lower ClassCode$.$lower DbColumnName$, 120 ) as $lower DbColumnName$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbNameUuid"
+		>$lower ClassCode$.$lower DbColumnName$ as $lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlTableColumnSelectFragDbName"
+>$switch BaseModelAtomClass
+			BlobDef implMSSqlTableColumnSelectFragDbNameBlob
+			BoolDef implMSSqlTableColumnSelectFragDbNameBool
+			EnumDef implMSSqlTableColumnSelectFragDbNameEnum
+			Int16Def implMSSqlTableColumnSelectFragDbNameInt16
+			Int32Def implMSSqlTableColumnSelectFragDbNameInt32
+			Int64Def implMSSqlTableColumnSelectFragDbNameInt64
+			UInt16Def implMSSqlTableColumnSelectFragDbNameUInt16
+			UInt32Def implMSSqlTableColumnSelectFragDbNameUInt32
+			UInt64Def implMSSqlTableColumnSelectFragDbNameUInt64
+			Id16Gen implMSSqlTableColumnSelectFragDbNameInt16
+			Id32Gen implMSSqlTableColumnSelectFragDbNameInt32
+			Id64Gen implMSSqlTableColumnSelectFragDbNameInt64
+			FloatDef implMSSqlTableColumnSelectFragDbNameFloat
+			DoubleDef implMSSqlTableColumnSelectFragDbNameDouble
+			NumberDef implMSSqlTableColumnSelectFragDbNameNumber
+			StringDef implMSSqlTableColumnSelectFragDbNameString
+			TokenDef implMSSqlTableColumnSelectFragDbNameToken
+			NmTokenDef implMSSqlTableColumnSelectFragDbNameNmToken
+			NmTokensDef implMSSqlTableColumnSelectFragDbNameNmTokens
+			TextDef implMSSqlTableColumnSelectFragDbNameText
+			DateDef implMSSqlTableColumnSelectFragDbNameDate
+			TimeDef implMSSqlTableColumnSelectFragDbNameTime
+			TimestampDef implMSSqlTableColumnSelectFragDbNameTimestamp
+			TZDateDef implMSSqlTableColumnSelectFragDbNameTZDate
+			TZTimeDef implMSSqlTableColumnSelectFragDbNameTZTime
+			TZTimestampDef implMSSqlTableColumnSelectFragDbNameTZTimestamp
+			UuidDef implMSSqlTableColumnSelectFragDbNameUuid
+			UuidGen implMSSqlTableColumnSelectFragDbNameUuid
+			default error$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnOrderBy">
+				$lower reference Column ClassCode$.$lower reference Column DbColumnName$ asc</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlIndexColumnCommaOrderBy"
+		>$implMSSqlIndexColumnOrderBy$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlClassCodeSelectFragDbNameComma"
+>			$lower reference BaseClass ClassCode$.classcode,
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlClassCodeMaybeJoinSuperTable"
+		>$switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlClassCodeJoinSuperTable">
+			inner join $lower reference SuperClassRelation reference ToTable DbSchemaName$..$lower reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implMSSqlClassCodeJoinSuperTableColumn each implMSSqlClassCodeAndJoinSuperTableColumn )$$reference SuperClassRelation reference ToTable implMSSqlClassCodeMaybeJoinSuperTable$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlClassCodeJoinSuperTableColumn">
+				$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implMSSqlClassCodeAndJoinSuperTableColumn">
+				and $lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlClassCodeJoinBaseTable">
+			inner join $lower reference BaseClass DbSchemaName$..$lower reference BaseClass DbTableName$ $lower reference BaseClass ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implMSSqlClassCodeJoinBaseTableColumn each implMSSqlClassCodeAndJoinBaseTableColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlClassCodeJoinBaseTableColumn">
+				$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implMSSqlClassCodeAndJoinBaseTableColumn">
+				and $lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCommaCreateTableInsertColumn">,
+			$implMSSqlSPCreateTableInsertColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCreateTableInsertColumn"
+		>$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCommaCreateTableBindArg">,
+			$implMSSqlSPCreateTableBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCreateTableBindArg"
+		>$switch ColumnInChainPrev yes implMSSqlSPCreateTableBindPrevArg default implMSSqlSPCreateTableMaybeBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCreateTableMaybeBindArg"
+		>$switch ColumnInChainNext yes implMSSqlSPCreateTableBindNullArg default implMSSqlSPCreateTableReallyBindArg$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCreateTableReallyBindArg"
+		>@arg$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCreateTableBindPrevArg"
+		>@prev$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCreateTableBindNullArg"
+		>null</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlSPCreateTableInsertRevision">,
+			revision</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlSPCommaCreateTableBindRevision">,
+			1</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlSPCreateTableInsertClassCode"
+>classcode,
+			</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlSPCreateTableInsertAuditColumns"
+>createdby,
+			createdat,
+			updatedby,
+			updatedat,
+			</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlSPCreateTableArgClassCode">
+	@argClassCode $DbSchemaName$ClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="sparg_TableCol"
+		>$reference Column sparg_TableCol$</GenRule>
+	<GenRule GenDef="IndexCol" Name="sparg_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="sparg_IndexCol"
+		>$reference Column sparg_TableCol$</GenRule>
+	<GenRule GenDef="IndexCol" Name="sparg_CommaIndexCol">,
+	$sparg_IndexCol$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="sparg_TableCol"
+		>@arg$Name$ $reference DataType clause_SPColType$</GenRule>
+	<GenRule GenDef="Atom" Name="sparg_TableCol"
+		>@arg$Name$ $clause_SPColType$</GenRule>
+	<GenRule GenDef="Object" Name="sparg_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="clause_SPColType"
+		>$reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="clause_SPColType">$reference DataType clause_SPColType$</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="clause_SPColType">image</GenRule>
+
+	<GenRule GenDef="BoolDef" Name="clause_SPColType">char(1)</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="clause_SPColType">smallint</GenRule>
+
+	<GenRule GenDef="Int16Def" Name="clause_SPColType">smallint</GenRule>
+
+	<GenRule GenDef="Int32Def" Name="clause_SPColType">integer</GenRule>
+
+	<GenRule GenDef="Int64Def" Name="clause_SPColType">decimal(21,0)</GenRule>
+
+	<GenRule GenDef="UInt16Def" Name="clause_SPColType">int</GenRule>
+
+	<GenRule GenDef="UInt32Def" Name="clause_SPColType">decimal(11,0)</GenRule>
+
+	<GenRule GenDef="UInt64Def" Name="clause_SPColType">decimal(22,0)</GenRule>
+
+	<GenRule GenDef="FloatDef" Name="clause_SPColType">real</GenRule>
+
+	<GenRule GenDef="DoubleDef" Name="clause_SPColType">double precision</GenRule>
+
+	<GenRule GenDef="NumberDef" Name="clause_SPColType">decimal($Digits$,$Precis$)</GenRule>
+
+	<GenRule GenDef="StringDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="TokenDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="NmTokenDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="NmTokensDef" Name="clause_SPColType">varchar($MaxLen$)</GenRule>
+
+	<GenRule GenDef="TextDef" Name="clause_SPColType">text</GenRule>
+
+	<GenRule GenDef="DateDef" Name="clause_SPColType">datetime2</GenRule>
+
+	<GenRule GenDef="TimeDef" Name="clause_SPColType">datetime2</GenRule>
+
+	<GenRule GenDef="TimestampDef" Name="clause_SPColType">datetime2</GenRule>
+
+	<GenRule GenDef="TZDateDef" Name="clause_SPColType">datetime2</GenRule>
+
+	<GenRule GenDef="TZTimeDef" Name="clause_SPColType">datetime2</GenRule>
+
+	<GenRule GenDef="TZTimestampDef" Name="clause_SPColType">datetime2</GenRule>
+
+	<GenRule GenDef="UuidDef" Name="clause_SPColType">varchar(36)</GenRule>
+
+	<GenRule GenDef="UuidGen" Name="clause_SPColType">varchar(36)</GenRule>
+
+	<GenRule GenDef="Object" Name="spvar_DeclareTableCol">,
+		$spvar_TableCol$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="spvar_TableCol"
+		>@arg$Name$ $reference DataType clause_ColType$</GenRule>
+	<GenRule GenDef="Atom" Name="spvar_TableCol"
+		>@arg$Name$ $clause_ColType$</GenRule>
+	<GenRule GenDef="Object" Name="spvar_CommaTableCol">,
+	$sparg_TableCol$</GenRule>
+
+</RuleSet>

@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mysql"
+	Name="schema/dbcreate/mysql/crsp_movedown_dbtablename.mysql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPMoveDownDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mysql"
+		ExpansionClassName="$dbadminfilename_CreateSPMoveDownDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPMoveDownDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPMoveDownDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+delimiter ////
+create procedure $lower DbSchemaName$.$sp_movedown_dbtablename$($implMySqlSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaTableCol )$,
+	argRevision int )
+not deterministic
+reads sql data
+begin
+	declare RowsAffected bigint;$reference Chain reference Table declMySqlSPMoveDownTableContainerVars$$declMySqlSPMoveDownTableChainLinkVars$$declSPOldVars$$switch SecScope None empty System implMySqlSPMoveDownTableDeclPermFlag Cluster implMySqlSPMoveDownTableDeclPermFlag Tenant implMySqlSPMoveDownTableDeclPermFlag default error$
+$implMySqlSPMoveDownBody$
+	select
+$implMySqlSelectTableColumns$,
+		$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+end;////
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownBody"
+		>$reference Chain reference Table implMySqlSPMoveDownTableFetchContainerKeys$$reference Chain reference Table implMySqlSPMoveDownTableLatchContainer$$implMySqlLockTables$$implMySqlSPMoveDownDbTablenameValidateRevision$$switch SecScope None empty System implMySqlSPMoveDownTableCheckSystem Cluster implMySqlSPMoveDownTableCheckCluster Tenant implMySqlSPMoveDownTableCheckTenant default error$$reference Chain reference Table implMySqlSPMoveDownTableChainSelectChainLinks$$reference Chain reference Table implMySqlSPMoveDownTableIfNextBegin$$reference Chain reference Table implMySqlSPMoveDownTableUpdatePrev$$reference Chain reference Table implMySqlSPMoveDownTableUpdateNext$$reference Chain reference Table implMySqlSPMoveDownTableUpdateThis$$reference Chain reference Table implMySqlSPMoveDownTableUpdateGNext$$reference Chain reference Table implMySqlSPMoveDownTableIfNextEnd$$reference Chain reference Table implMySqlSPMoveDownTableUnlatchContainer$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownDbTablenameValidateRevision">
+	if argRevision != oldRevision
+	then
+		signal sqlstate '45000'
+		set message_text = '$poptop Table sp_movedown_dbtablename$() Data collision detected',
+			schema_name = '$lower DbSchemaName$',
+			table_name = '$poptop Table DbTableName$';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableIfNextBegin">
+	if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implMySqlSPMoveDownTableUpdateNextIfNotNull each empty )$ )
+	then</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableIfNextEnd">
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateTableAuditColumns3">,
+			updatedby = argAuditUserId,
+			updatedat = now()</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateTableAuditColumns4">,
+				updatedby = argAuditUserId,
+				updatedat = now()</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdatePrev">
+		if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implMySqlSPMoveDownTableUpdatePrevIfNotNull each empty )$ )
+		then$switch ChainTableHasSuperClassRelation yes implMySqlSPMoveDownTableUpdatePrevTwoTables default implMySqlSPMoveDownTableUpdatePrevOneTable$$switch BaseHasHistory yes implMySqlSPMoveDownTableUpdatePrevAuditUpdated default empty$
+		end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdatePrevOneTable">
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMySqlSPMoveDownTableUpdateTableAuditColumns4 default empty$$reference Chain reference NextRel iterate Columns( each implMySqlSPMoveDownTableUpdatePrevWithNextCommaKey )$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWherePrevPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$;
+
+			select row_count()
+			into RowsAffected;
+
+			if RowsAffected != 1
+			then
+				signal sqlstate '45006'
+				set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one previous row',
+					schema_name = '$lower DbSchemaName$',
+					table_name = '$poptop Table DbTableName$';
+			end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdatePrevWithNextKey"
+		>$lower reference FromCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdatePrevWithNextCommaKey">,
+				$implMySqlSPMoveDownTableUpdatePrevWithNextKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateTableWherePrevPKeyCol"
+		>$lower reference ToCol DbColumnName$ = varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol">
+				and $implMySqlSPMoveDownTableUpdateTableWherePrevPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdatePrevTwoTables">
+			update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMySqlSPMoveDownTableUpdateTableAuditColumns4 default empty$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWherePrevPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$;
+
+			select row_count()
+			into RowsAffected;
+
+			if RowsAffected != 1
+			then
+				signal sqlstate '45006'
+				set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one previous base row',
+					schema_name = '$lower DbSchemaName$',
+					table_name = '$poptop Table DbTableName$';
+			end if;
+
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				$reference Chain reference NextRel iterate Columns( first implMySqlSPMoveDownTableUpdatePrevWithNextKey each implMySqlSPMoveDownTableUpdatePrevWithNextCommaKey )$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWherePrevPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$;
+
+			select row_count()
+			into RowsAffected;
+
+			if RowsAffected != 1
+			then
+				signal sqlstate '45006'
+				set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one previous chain row',
+					schema_name = '$lower DbSchemaName$',
+					table_name = '$poptop Table DbTableName$';
+			end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableUpdatePrevIfNotNull"
+		>varprev$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdatePrevAuditUpdated">
+			call $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+				argAuditUserId,
+				argAuditSessionId,
+				secClusterId,
+				secTenantId$reference Chain reference Table switch HasClassCode yes implMySqlSPMoveDownTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implMySqlSPMoveDownTableAuditUpdatedPrevPassArg )$,
+				1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdatePrevAuditPassClassCode">,
+				varprevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableAuditUpdatedPrevPassArg">,
+				varprev$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateNext">
+$switch ChainTableHasSuperClassRelation yes implMySqlSPMoveDownTableUpdateNextTwoTables default implMySqlSPMoveDownTableUpdateNextOneTable$$switch BaseHasHistory yes implMySqlSPMoveDownTableUpdateNextAuditUpdated default empty$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateNextOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMySqlSPMoveDownTableUpdateTableAuditColumns3 default empty$$reference Chain reference PrevRel iterate Columns( each implMySqlSPMoveDownTableUpdateNextWithPrevCommaKey )$$reference Chain reference NextRel iterate Columns( each implMySqlSPMoveDownTableUpdateNextWithThisCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWhereNextPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$;
+
+		select row_count()
+		into RowsAffected;
+
+		if RowsAffected != 1
+		then
+			signal sqlstate '45006'
+			set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one next row',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateNextWithThisKey"
+		>$lower reference FromCol DbColumnName$ = arg$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateNextWithThisCommaKey">,
+			$implMySqlSPMoveDownTableUpdateNextWithThisKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateNextWithPrevKey"
+		>$lower reference FromCol DbColumnName$ = varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateNextWithPrevCommaKey">,
+			$implMySqlSPMoveDownTableUpdateNextWithPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateTableWhereNextPKeyCol"
+		>$lower reference ToCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol">
+			and $implMySqlSPMoveDownTableUpdateTableWhereNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateNextTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMySqlSPMoveDownTableUpdateTableAuditColumns3 default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWhereNextPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$;
+
+		select row_count()
+		into RowsAffected;
+
+		if RowsAffected != 1
+		then
+			signal sqlstate '45006'
+			set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one next base row',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPMoveDownTableUpdateNextWithPrevKey each implMySqlSPMoveDownTableUpdateNextWithPrevCommaKey )$$reference Chain reference NextRel iterate Columns( each implMySqlSPMoveDownTableUpdateNextWithThisCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWhereNextPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$;
+
+		select row_count()
+		into RowsAffected;
+
+		if RowsAffected != 1
+		then
+			signal sqlstate '45006'
+			set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one next chain row',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableUpdateNextIfNotNull"
+		>varnext$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateNextAuditUpdated">
+		call $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implMySqlSPMoveDownTableUpdateNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMySqlSPMoveDownTableAuditUpdatedNextPassArg )$,
+			1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateNextAuditPassClassCode">,
+			varnextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableAuditUpdatedNextPassArg">,
+			varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateThisOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMySqlSPMoveDownTableUpdateTableAuditColumns3 default empty$$reference Chain reference PrevRel iterate Columns( each implMySqlSPMoveDownTableUpdateThisPrevWithCommaKey )$$reference Chain reference NextRel iterate Columns( each implMySqlSPMoveDownTableUpdateThisNextWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWhereThisPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$;
+
+		select row_count()
+		into RowsAffected;
+
+		if RowsAffected != 1
+		then
+			signal sqlstate '45006'
+			set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one obj row',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateThisPrevWithKey"
+		>$lower reference FromCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateThisPrevWithCommaKey">,
+			$implMySqlSPMoveDownTableUpdateThisPrevWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateThisNextWithKey"
+		>$lower reference FromCol DbColumnName$ = gnext$reference ToCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateThisNextWithCommaKey">,
+			$implMySqlSPMoveDownTableUpdateThisNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateTableWhereThisPKeyCol"
+		>$lower reference ToCol DbColumnName$ = arg$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol">
+			and $implMySqlSPMoveDownTableUpdateTableWhereThisPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateThisTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMySqlSPMoveDownTableUpdateTableAuditColumns3 default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWhereThisPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$;
+
+		select row_count()
+		into RowsAffected;
+
+		if RowsAffected != 1
+		then
+			signal sqlstate '45006'
+			set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one obj base row',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPMoveDownTableUpdateThisPrevWithKey each implMySqlSPMoveDownTableUpdateThisPrevWithCommaKey )$$reference Chain reference NextRel iterate Columns( each implMySqlSPMoveDownTableUpdateThisNextWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWhereThisPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$;
+
+		select row_count()
+		into RowsAffected;
+
+		if RowsAffected != 1
+		then
+			signal sqlstate '45006'
+			set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one obj chain row',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateThisAuditUpdated">
+		call $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implMySqlSPMoveDownTableUpdateThisAuditPassClassCode default empty$$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMySqlSPMoveDownTableAuditUpdatedThisPassArg )$,
+			1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateThisAuditPassClassCode">,
+			oldClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableAuditUpdatedThisPassArg">,
+			arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateGNext">
+		if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implMySqlSPMoveDownTableUpdateGNextIfNotNull each empty )$ )
+		then$switch ChainTableHasSuperClassRelation yes implMySqlSPMoveDownTableUpdateGNextTwoTables default implMySqlSPMoveDownTableUpdateGNextOneTable$$switch BaseHasHistory yes implMySqlSPMoveDownTableUpdateGNextAuditUpdated default empty$
+		end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateGNextOneTable">
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMySqlSPMoveDownTableUpdateTableAuditColumns4 default empty$$reference Chain reference PrevRel iterate Columns( each implMySqlSPMoveDownTableUpdateGNextWithCommaKey )$
+			where
+				$reference Chain reference NextRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWhereGNextPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$;
+
+			select row_count()
+			into RowsAffected;
+
+			if RowsAffected != 1
+			then
+				signal sqlstate '45006'
+				set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one grandnext row',
+					schema_name = '$lower DbSchemaName$',
+					table_name = '$poptop Table DbTableName$';
+			end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateGNextWithKey"
+		>$lower reference FromCol DbColumnName$ = arg$reference ToCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateGNextWithCommaKey">,
+				$implMySqlSPMoveDownTableUpdateGNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateTableWhereGNextPKeyCol"
+		>$lower reference ToCol DbColumnName$ = gnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol">
+				and $implMySqlSPMoveDownTableUpdateTableWhereGNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateGNextTwoTables">
+			update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMySqlSPMoveDownTableUpdateTableAuditColumns4 default empty$
+			where
+				$reference Chain reference NextRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWhereGNextPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$;
+
+			select row_count()
+			into RowsAffected;
+
+			if RowsAffected != 1
+			then
+				signal sqlstate '45006'
+				set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one grandnext base row',
+					schema_name = '$lower DbSchemaName$',
+					table_name = '$poptop Table DbTableName$';
+			end if;
+
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				$reference Chain reference PrevRel iterate Columns( first implMySqlSPMoveDownTableUpdateGNextWithKey each implMySqlSPMoveDownTableUpdateGNextWithCommaKey )$
+			where
+				$reference Chain reference NextRel iterate Columns( first implMySqlSPMoveDownTableUpdateTableWhereGNextPKeyCol each implMySqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$;
+
+			select row_count()
+			into RowsAffected;
+
+			if RowsAffected != 1
+			then
+				signal sqlstate '45006'
+				set message_text = '$poptop Table sp_movedown_dbtablename$() Expected to affect one grandnext chain row',
+					schema_name = '$lower DbSchemaName$',
+					table_name = '$poptop Table DbTableName$';
+			end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableUpdateGNextIfNotNull"
+		>gnext$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateGNextAuditUpdated">
+			call $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+				argAuditUserId,
+				argAuditSessionId,
+				secClusterId,
+				secTenantId$reference Chain reference Table switch HasClassCode yes implMySqlSPMoveDownTableUpdateGNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMySqlSPMoveDownTableAuditUpdatedGNextPassArg )$,
+				1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateGNextAuditPassClassCode">,
+				gnextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableAuditUpdatedGNextPassArg">,
+				gnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUpdateThis">$switch ChainTableHasSuperClassRelation yes implMySqlSPMoveDownTableUpdateThisTwoTables default implMySqlSPMoveDownTableUpdateThisOneTable$$switch BaseHasHistory yes implMySqlSPMoveDownTableUpdateThisAuditUpdated default empty$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPMoveDownTableChainLinkVars"
+		>$switch HasClassCode yes declMySqlSPMoveDownTableChainLinkClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declMySqlSPMoveDownTableChainPrevVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declMySqlSPMoveDownTableChainNextVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declMySqlSPMoveDownTableChainGNextVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPMoveDownTableChainLinkClassCode">
+	declare varprevClassCode varchar(4);
+	declare varnextClassCode varchar(4);
+	declare gnextClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMySqlSPMoveDownTableChainGNextVar">
+	declare gnext$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMySqlSPMoveDownTableChainPrevVar">
+	declare varprev$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMySqlSPMoveDownTableChainNextVar">
+	declare varnext$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectLinks"
+		>$reference Chain reference Table implMySqlSPMoveDownTableChainSelectChainLinks$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectChainLinks">
+	select$switch HasClassCode yes implMySqlSPMoveDownTableChainSelectPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implMySqlSPMoveDownTableChainSelectPrevKeyComma )$$switch HasClassCode yes implMySqlSPMoveDownTableChainSelectNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMySqlSPMoveDownTableChainSelectNextKeyComma )$$switch HasClassCode yes implMySqlSPMoveDownTableChainSelectGNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMySqlSPMoveDownTableChainSelectGNextKeyComma last implMySqlSPMoveDownTableChainSelectGNextKey )$$implMySqlSPMoveDownTableChainSelectChainLinksInto$$implMySqlSPMoveDownTableChainSelectChainLinksFromWhere$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectChainLinksInto">
+	into$switch HasClassCode yes implMySqlSPMoveDownTableChainSelectIntoPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implMySqlSPMoveDownTableChainSelectIntoPrevKeyComma )$$switch HasClassCode yes implMySqlSPMoveDownTableChainSelectIntoNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMySqlSPMoveDownTableChainSelectIntoNextKeyComma )$$switch HasClassCode yes implMySqlSPMoveDownTableChainSelectIntoGNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMySqlSPMoveDownTableChainSelectIntoGNextKeyComma last implMySqlSPMoveDownTableChainSelectIntoGNextKey )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectChainLinksFromWhere">
+	from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ $lower reference Chain reference Table ClassCode$$reference Chain reference Table switch HasSuperClassRelation yes implMySqlSPMoveDownTableChainSelectInnerJoinSuper default empty$$implMySqlSPMoveDownTableChainSelectOuterJoinLinkTables$
+	where
+		$reference Chain reference Table reference PrimaryKeyIndex iterate Columns( first implMySqlSPMoveDownTableChainSelectWherePKey each implMySqlSPMoveDownTableChainSelectWhereAndPKey )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectInnerJoinSuper">
+		inner join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implMySqlSPMoveDownTableChainSelectOnKeySuper each implMySqlSPMoveDownTableChainSelectOnKeyAndSuper )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOnKeySuper"
+		>$lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$ = $lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOnKeyAndSuper">
+			and $implMySqlSPMoveDownTableChainSelectOnKeySuper$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectWherePKey"
+		>$lower poptop Table reference Chain reference Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectWhereAndPKey">
+		and $implMySqlSPMoveDownTableChainSelectWherePKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectOuterJoinLinkTables">
+		left outer join $lower DbSchemaName$.$DbTableName$ prv$lower ClassCode$ on
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPMoveDownTableChainSelectOJPrevKey each implMySqlSPMoveDownTableChainSelectOJAndPrevKey )$$switch HasSuperClassRelation yes implMySqlSPMoveDownTableChainSelectOuterJoinPrevSuper default empty$
+		left outer join $lower DbSchemaName$.$DbTableName$ nxt$lower ClassCode$ on
+			$reference Chain reference NextRel iterate Columns( first implMySqlSPMoveDownTableChainSelectOJNextKey each implMySqlSPMoveDownTableChainSelectOJAndNextKey )$$switch HasSuperClassRelation yes implMySqlSPMoveDownTableChainSelectOuterJoinNextSuper default empty$$switch HasClassCode yes implMySqlSPMoveDownTableChainSelectOuterJoinGNextTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectOuterJoinGNextTable">
+		left outer join $lower DbSchemaName$.$DbTableName$ gnxt$lower ClassCode$ on
+			$reference Chain reference NextRel iterate Columns( first implMySqlSPMoveDownTableChainSelectOJGNextKey each implMySqlSPMoveDownTableChainSelectOJAndGNextKey )$$switch HasSuperClassRelation yes implMySqlSPMoveDownTableChainSelectOuterJoinGNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectOuterJoinGNextSuper">
+		left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ gnxt$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implMySqlSPMoveDownTableChainSelectOuterJoinGNextSuperKey each implMySqlSPMoveDownTableChainSelectOuterJoinGNextSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implMySqlSPMoveDownTableChainSelectOuterJoinGNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOuterJoinGNextSuperKey"
+		>gnxt$lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$ = gnxt$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOuterJoinGNextSuperAndKey">
+			and $implMySqlSPMoveDownTableChainSelectOuterJoinGNextSuperKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectOuterJoinPrevSuper">
+		left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ prv$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implMySqlSPMoveDownTableChainSelectOuterJoinPrevSuperKey each implMySqlSPMoveDownTableChainSelectOuterJoinPrevSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implMySqlSPMoveDownTableChainSelectOuterJoinPrevSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOuterJoinPrevSuperKey"
+		>prv$lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$ = prv$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOuterJoinPrevSuperAndKey">
+			and $implMySqlSPMoveDownTableChainSelectOuterJoinPrevSuperKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectOuterJoinNextSuper">
+		left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ nxt$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implMySqlSPMoveDownTableChainSelectOuterJoinNextSuperKey each implMySqlSPMoveDownTableChainSelectOuterJoinNextSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implMySqlSPMoveDownTableChainSelectOuterJoinNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOuterJoinNextSuperKey"
+		>nxt$lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$ = nxt$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOuterJoinNextSuperAndKey">
+			and $implMySqlSPMoveDownTableChainSelectOuterJoinNextSuperKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOJGNextKey"
+		>gnxt$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$ = nxt$lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOJAndGNextKey">
+			and $implMySqlSPMoveDownTableChainSelectOJGNextKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOJPrevKey"
+		>prv$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOJAndPrevKey">
+			and $implMySqlSPMoveDownTableChainSelectOJPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOJNextKey"
+		>nxt$lower reference ToCol reference Index reference Table ClassCode$.$lower reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$lower reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableChainSelectOJAndNextKey">
+			and $implMySqlSPMoveDownTableChainSelectOJNextKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectGNextClassCodeComma">
+		gnxt$lower reference BaseClass ClassCode$.classcode as gnxtclasscode,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectPrevClassCodeComma">
+		prv$lower reference BaseClass ClassCode$.classcode as prvclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectGNextKeyComma">
+		nxt$lower popto Table reference Chain reference Table ClassCode$.$lower DbColumnName$ as gnxt$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectGNextKey">
+		nxt$lower popto Table reference Chain reference Table ClassCode$.$lower DbColumnName$ as gnxt$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectPrevKeyComma">
+		$lower popto Table reference Chain reference Table ClassCode$.$lower DbColumnName$ as prv$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectNextClassCodeComma">
+		nxt$lower reference Chain reference Table reference BaseClass ClassCode$.classcode as nxtclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectNextKey">
+		$lower popto Table reference Chain reference Table ClassCode$.$lower DbColumnName$ as nxt$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectNextKeyComma"
+		>$implMySqlSPMoveDownTableChainSelectNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectIntoGNextClassCodeComma">
+		gnextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectIntoGNextKeyComma">
+		gnext$StripPrevNextColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectIntoGNextKey">
+		gnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectIntoPrevClassCodeComma">
+		varprevClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectIntoPrevKeyComma">
+		varprev$StripPrevNextColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableChainSelectIntoNextClassCodeComma">
+		varnextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectIntoNextKey">
+		varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableChainSelectIntoNextKeyComma"
+		>$implMySqlSPMoveDownTableChainSelectIntoNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableFetchContainerKeys">
+	select$reference ContainerRelation iterate Columns( first implMySqlSPMoveDownTableFetchContainerKeysColName each implMySqlSPMoveDownTableFetchContainerKeysCommaColName )$
+	into$reference ContainerRelation iterate Columns( first implMySqlSPMoveDownTableFetchContainerKeysIntoVar each implMySqlSPMoveDownTableFetchContainerKeysCommaIntoVar )$
+	from $lower DbSchemaName$.$reference ContainerRelation reference FromTable DbTableName$
+	where$reference ContainerRelation reference FromTable reference PrimaryKeyIndex iterate Columns( first implMySqlSPMoveDownTableFetchContainerKeysPassPKey each implMySqlSPMoveDownTableFetchContainerKeysAndPassPKey )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableFetchContainerKeysColName">
+		$lower reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableFetchContainerKeysCommaColName"
+		>,$implMySqlSPMoveDownTableFetchContainerKeysColName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableFetchContainerKeysIntoVar">
+		var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableFetchContainerKeysCommaIntoVar"
+		>,$implMySqlSPMoveDownTableFetchContainerKeysIntoVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableFetchContainerKeysPassPKey">
+		$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPMoveDownTableFetchContainerKeysAndPassPKey">
+		and $lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPMoveDownTableContainerVars"
+		>$switch DoesContainerRelationNarrow yes declMySqlSPMoveDownTableChaseContainerVars default declMySqlSPMoveDownTableActualContainerVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPMoveDownTableChaseContainerVars"
+		>$reference ContainerRelation reference Narrowed declMySqlSPMoveDownTableContainerVars$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declMySqlSPMoveDownTableContainerVars"
+		>$switch HasNarrowed yes declMySqlSPMoveDownTableChaseContainerVars default declMySqlSPMoveDownTableActualContainerVars$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declMySqlSPMoveDownTableActualContainerVars"
+		>$iterate Columns( each declMySqlSPMoveDownTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declMySqlSPMoveDownTableChaseContainerVars"
+		>$reference Narrowed declMySqlSPMoveDownTableContainerVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPMoveDownTableActualContainerVars"
+		>$reference ContainerRelation iterate Columns( each declMySqlSPMoveDownTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="declMySqlSPMoveDownTableContainerVar">
+	declare var$reference FromCol Name$ $reference FromCol clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implMySqlSPMoveDownTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableLatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision + 1
+	where
+		$popto Relation iterate Columns( first implMySqlSPMoveDownTableLatchWhereArg each implMySqlSPMoveDownTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableLatchWhereArg"
+		>$lower reference ToCol DbColumnName$ = var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPMoveDownTableLatchWhereAndArg">
+		and $implMySqlSPMoveDownTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implMySqlSPMoveDownTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableUnlatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision - 1
+	where
+		$popto Relation iterate Columns( first implMySqlSPMoveDownTableLatchWhereArg each implMySqlSPMoveDownTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableArgSecClusterId">,
+	secClusterId</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableArgSecTenantId">,
+	secTenantId</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableDeclPermFlag">
+	declare permissionFlag boolean;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableCheckSystem">
+	select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into permissionFlag;
+	if( permissionFlag = false )
+	then
+		signal sqlstate '45001'
+		set message_text = '$poptop Table sp_movedown_dbtablename$() Permission denied, not identified as system',
+			schema_name = '$lower DbSchemaName$',
+			table_name = '$poptop Table DbTableName$';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableCheckCluster">
+	if( old$reference ClusterIdColumn Name$ != secClusterId )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+		into permissionFlag;
+		if( permissionFlag = false )
+		then
+			signal sqlstate '45004'
+			set message_text = '$poptop Table sp_movedown_dbtablename$() Permission denied, data is not owned by logged in cluster',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+	end if;
+
+	select $lower DbSchemaName$.sp_is_cluster_user( old$reference ClusterIdColumn Name$,
+		'Update$Name$',
+		argAuditUserId )
+	into permissionFlag;
+	if( permissionFlag = false )
+	then
+		signal sqlstate '45002'
+		set message_text = '$poptop Table sp_movedown_dbtablename$() Permission denied, User not found in cluster SecGroup for Update$TableName$ access',
+			schema_name = '$lower DbSchemaName$',
+			table_name = '$poptop Table DbTableName$';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPMoveDownTableCheckTenant">
+	if( old$reference TenantIdColumn Name$ != secTenantId )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+		into permissionFlag;
+		if( permissionFlag = false )
+		then
+			signal sqlstate '45005'
+			set message_text = '$poptop Table sp_movedown_dbtablename$() Permission denied, data is not owned by logged in tenant',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+	end if;
+
+	select $lower DbSchemaName$.sp_is_tenant_user( old$reference TenantIdColumn Name$,
+		'Update$Name$',
+		argAuditUserId )
+	into permissionFlag;
+	if( permissionFlag = false )
+	then
+		signal sqlstate '45003'
+		set message_text = '$poptop Table sp_movedown_dbtablename$() Permission denied, User not found in tenant TSecGroup for Update$TableName$ access',
+			schema_name = '$lower DbSchemaName$',
+			table_name = '$poptop Table DbTableName$';
+	end if;
+</GenRule>
+
+</RuleSet>

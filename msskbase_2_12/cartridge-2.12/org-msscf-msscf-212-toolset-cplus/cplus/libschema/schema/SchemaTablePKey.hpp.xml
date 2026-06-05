@@ -1,0 +1,1389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schema/SchemaTablePKey.hpp"
+	Revision="2.12"
+	Descr="C++18 specification of a $TableName$ primary key object.">
+
+	<GenFile GenDef="Table" Name="fileSchemaTablePKeyHpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$$TableName$PKeyHpp"
+		ExpansionKeyName="$SchemaName$$TableName$PKeyHpp"
+		ExpansionFileName="$SchemaName$$TableName$PKey.hpp"
+>#pragma once
+
+// Description: C++18 specification of a $TableName$ primary key object.
+
+$MssSourceLicense$
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Schema.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$$TableName$Buff;
+	class $SchemaName$$TableName$HPKey;
+	class $SchemaName$$TableName$HBuff;
+
+	class $SchemaName$$TableName$PKey$switch HasDefSchema yes SchemaTablePKeyExtendBaseDef default empty$
+	{$switch HasDefSchema yes SchemaDeclTablePKeyExtendBaseDefBody default SchemaDeclTablePKeyDeclBaseDefBody$	};
+}
+$reference PrimaryKeyIndex declStdPKeyComparison$
+</GenFile>
+
+	<GenRule GenDef="Object" Name="declRevisionAttr">
+		int32_t requiredRevision;</GenRule>
+
+	<GenRule GenDef="Object" Name="declRevisionGetterSetter">
+		virtual int32_t getRequiredRevision() const;
+		virtual void setRequiredRevision( int32_t value );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declToString">
+		virtual std::string toString();
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdPKeyHash">
+	template&lt;&gt; struct hash&lt;$CPlusNamespace$::$SchemaName$$TableName$PKey&gt; {
+		typedef $CPlusNamespace$::$SchemaName$$TableName$PKey argument_type;
+		typedef size_t result_type;
+		result_type operator()(argument_type const&amp; s) const {
+			return( s.hashCode() );
+		}
+	};
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declPKeySet">
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$PKey operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$PKey&amp; src );
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$PKey operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$HPKey&amp; src );
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$PKey operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff&amp; src );
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$PKey operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$HBuff&amp; src );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaDeclTablePKeyExtendBaseDefBody">
+	public:
+		static const std::string CLASS_NAME;
+$reference PrimaryKeyIndex declPKeyConstructor$$reference PrimaryKeyIndex declPKeyComparison$$reference PrimaryKeyIndex declGetHashCode$$reference PrimaryKeyIndex declToString$</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaDeclTablePKeyDeclBaseDefBody">
+	protected:
+$switch IsBaseTable yes declClassCodeColumnAttr default empty$$reference PrimaryKeyIndex iterate Columns(
+	each declColumnAttr )$
+	public:
+		static const std::string CLASS_NAME;$declSValue$
+$reference PrimaryKeyIndex declPKeyConstructor$$reference PrimaryKeyIndex iterate Columns( each declColumnGetterSetter )$$reference PrimaryKeyIndex declPKeyComparison$$reference PrimaryKeyIndex declGetHashCode$$reference PrimaryKeyIndex declToString$$declPKeySet$</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTablePKeyExtendBaseDef"> : public $CPlusDefNamespace$::$DefSchemaName$$TableName$PKey</GenRule>
+
+	<GenRule GenDef="Object" Name="declClassCodeColumnAttr"
+>		classcode_t classCode;
+</GenRule>
+
+	<GenRule GenDef="TableCol" Name="HasInitValue"
+		>$reference DataType HasInitValue$</GenRule>
+	<GenRule GenDef="TableCol" Name="InitValue"
+		>$reference DataType InitValue$</GenRule>
+
+	<GenRule GenDef="Index" Name="declPKeyConstructor">
+		$SchemaName$$TableName$PKey();
+		$SchemaName$$TableName$PKey( const $SchemaName$$TableName$PKey&amp; src );
+		virtual ~$SchemaName$$TableName$PKey();
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declColumnAttrOptionality"
+		>$switch IsNullable
+			yes declColumnAttrOptional
+			default declColumnAttrRequired$</GenRule>
+	<GenRule GenDef="Atom" Name="declColumnAttrOptionality"
+		>$switch IsNullable
+			yes declColumnAttrOptional
+			default declColumnAttrRequired$</GenRule>
+	<GenRule GenDef="TableCol" Name="declColumnAttrOptionality"
+		>$switch IsNullable
+			yes declColumnAttrOptional
+			default declColumnAttrRequired$</GenRule>
+
+	<GenRule GenDef="Object" Name="declColumnAttrOptional"
+		>Optional</GenRule>
+	<GenRule GenDef="Object" Name="declColumnAttrRequired"
+		>Required</GenRule>
+
+	<GenRule GenDef="Object" Name="declAuditClusterIdGetterSetter">
+		virtual int64_t getAuditClusterId() const;
+		virtual void setAuditClusterId( int64_t value );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declAuditStampGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; getAuditStamp() const;
+		virtual void setAuditStamp( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declAuditActionIdGetterSetter">
+		virtual int16_t getAuditActionId() const;
+		virtual void setAuditActionId( int16_t value );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declAuditSessionIdGetterSetter">
+		virtual const uuid_ptr_t getAuditSessionId() const;
+		virtual void setAuditSessionId( const uuid_ptr_t value );
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declColumnAttr">
+		$declMemberAtomType$ $lower declColumnAttrOptionality$$Name$;</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declColumnAttr">
+		$declMemberAtomType$ $lower declColumnAttrOptionality$$Name$;</GenRule>
+
+	<GenRule GenDef="Atom" Name="declColumnAttr">
+		$declMemberAtomType$ $lower declColumnAttrOptionality$$Name$;</GenRule>
+
+	<GenRule GenDef="Param" Name="declCPlusAtomType"
+		>$switch IsNullable yes declCPlusOptAtomType default declCPlusReqAtomType$</GenRule>
+
+	<GenRule GenDef="Param" Name="declCPlusOptAtomType"
+		>$reference Type declCPlusOptAtomType$</GenRule>
+
+	<GenRule GenDef="Param" Name="declCPlusReqAtomType"
+		>$reference Type declCPlusReqAtomType$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declCPlusAtomType"
+		>$reference Column declCPlusAtomType$</GenRule>
+	<GenRule GenDef="IndexCol" Name="declCPlusOptAtomType"
+		>$reference Column declCPlusOptAtomType$</GenRule>
+	<GenRule GenDef="IndexCol" Name="declCPlusReqAtomType"
+		>$reference Column declCPlusReqAtomType$</GenRule>
+	<GenRule GenDef="Value" Name="declCPlusAtomType"
+		>$switch IsNullable yes declCPlusOptAtomType default declCPlusReqAtomType$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declCPlusOptAtomType"
+		>$reference DataType declCPlusOptAtomType$</GenRule>
+	<GenRule GenDef="TableCol" Name="declCPlusReqAtomType"
+		>$reference DataType declCPlusReqAtomType$</GenRule>
+
+	<GenRule GenDef="Object" Name="EffSchemaName"
+		>$switch HasDefSchema yes UseDefSchemaName default UseCurSchemaName$</GenRule>
+	<GenRule GenDef="Object" Name="UseDefSchemaName"
+		>$reference DefSchema SchemaName$</GenRule>
+	<GenRule GenDef="Object" Name="UseCurSchemaName"
+		>$SchemaName$</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="declCPlusReqAtomType">std::vector&lt;cflib::BYTE&gt;&amp;</GenRule>
+	<GenRule GenDef="BoolDef" Name="declCPlusReqAtomType">bool</GenRule>
+	<GenRule GenDef="EnumDef" Name="declCPlusReqAtomType">$CPlusDefNamespace$::I$EffSchemaName$Schema::$Name$</GenRule>
+	<GenRule GenDef="Int16Def" Name="declCPlusReqAtomType">int16_t</GenRule>
+	<GenRule GenDef="Int32Def" Name="declCPlusReqAtomType">int32_t</GenRule>
+	<GenRule GenDef="Int64Def" Name="declCPlusReqAtomType">int64_t</GenRule>
+	<GenRule GenDef="Id16Gen" Name="declCPlusReqAtomType">int16_t</GenRule>
+	<GenRule GenDef="Id32Gen" Name="declCPlusReqAtomType">int32_t</GenRule>
+	<GenRule GenDef="Id64Gen" Name="declCPlusReqAtomType">int64_t</GenRule>
+	<GenRule GenDef="UInt16Def" Name="declCPlusReqAtomType">uint16_t</GenRule>
+	<GenRule GenDef="UInt32Def" Name="declCPlusReqAtomType">uint32_t</GenRule>
+	<GenRule GenDef="UInt64Def" Name="declCPlusReqAtomType">uint64_t</GenRule>
+	<GenRule GenDef="FloatDef" Name="declCPlusReqAtomType">float</GenRule>
+	<GenRule GenDef="DoubleDef" Name="declCPlusReqAtomType">double</GenRule>
+	<GenRule GenDef="NumberDef" Name="declCPlusReqAtomType">cflib::TFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp;</GenRule>
+	<GenRule GenDef="StringDef" Name="declCPlusReqAtomType">std::string&amp;</GenRule>
+	<GenRule GenDef="TextDef" Name="declCPlusReqAtomType">std::string&amp;</GenRule>
+	<GenRule GenDef="DateDef" Name="declCPlusReqAtomType">std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="TimeDef" Name="declCPlusReqAtomType">std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="TimestampDef" Name="declCPlusReqAtomType">std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="TokenDef" Name="declCPlusReqAtomType">std::string&amp;</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="declCPlusReqAtomType">std::string&amp;</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="declCPlusReqAtomType">std::string&amp;</GenRule>
+	<GenRule GenDef="TZDateDef" Name="declCPlusReqAtomType">std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="declCPlusReqAtomType">std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="declCPlusReqAtomType">std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="UuidDef" Name="declCPlusReqAtomType">const uuid_ptr_t</GenRule>
+	<GenRule GenDef="UuidGen" Name="declCPlusReqAtomType">const uuid_ptr_t</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="declCPlusOptAtomType">std::vector&lt;cflib::BYTE&gt;*</GenRule>
+	<GenRule GenDef="BoolDef" Name="declCPlusOptAtomType">cflib::CFLibNullableBool</GenRule>
+	<GenRule GenDef="EnumDef" Name="declCPlusOptAtomType">$CPlusDefNamespace$::I$EffSchemaName$Schema::$Name$*</GenRule>
+	<GenRule GenDef="Int16Def" Name="declCPlusOptAtomType">cflib::CFLibNullableInt16</GenRule>
+	<GenRule GenDef="Int32Def" Name="declCPlusOptAtomType">cflib::CFLibNullableInt32</GenRule>
+	<GenRule GenDef="Int64Def" Name="declCPlusOptAtomType">cflib::CFLibNullableInt64</GenRule>
+	<GenRule GenDef="Id16Gen" Name="declCPlusOptAtomType">cflib::CFLibNullableInt16</GenRule>
+	<GenRule GenDef="Id32Gen" Name="declCPlusOptAtomType">cflib::CFLibNullableInt32</GenRule>
+	<GenRule GenDef="Id64Gen" Name="declCPlusOptAtomType">cflib::CFLibNullableInt64</GenRule>
+	<GenRule GenDef="UInt16Def" Name="declCPlusOptAtomType">cflib::CFLibNullableUInt16</GenRule>
+	<GenRule GenDef="UInt32Def" Name="declCPlusOptAtomType">cflib::CFLibNullableUInt32</GenRule>
+	<GenRule GenDef="UInt64Def" Name="declCPlusOptAtomType">cflib::CFLibNullableUInt64</GenRule>
+	<GenRule GenDef="FloatDef" Name="declCPlusOptAtomType">cflib::CFLibNullableFloat</GenRule>
+	<GenRule GenDef="DoubleDef" Name="declCPlusOptAtomType">cflib::CFLibNullableDouble</GenRule>
+	<GenRule GenDef="NumberDef" Name="declCPlusOptAtomType">cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;*</GenRule>
+	<GenRule GenDef="StringDef" Name="declCPlusOptAtomType">std::string*</GenRule>
+	<GenRule GenDef="TextDef" Name="declCPlusOptAtomType">std::string*</GenRule>
+	<GenRule GenDef="DateDef" Name="declCPlusOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TimeDef" Name="declCPlusOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TimestampDef" Name="declCPlusOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TokenDef" Name="declCPlusOptAtomType">std::string*</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="declCPlusOptAtomType">std::string*</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="declCPlusOptAtomType">std::string*</GenRule>
+	<GenRule GenDef="TZDateDef" Name="declCPlusOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="declCPlusOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="declCPlusOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="UuidDef" Name="declCPlusOptAtomType">uuid_ptr_t</GenRule>
+	<GenRule GenDef="UuidGen" Name="declCPlusOptAtomType">uuid_ptr_t</GenRule>
+
+	<GenRule GenDef="Param" Name="declConstAtomType"
+		>$switch IsNullable yes declConstOptAtomType default declConstReqAtomType$</GenRule>
+
+	<GenRule GenDef="Param" Name="declConstOptAtomType"
+		>$reference Type declConstOptAtomType$</GenRule>
+
+	<GenRule GenDef="Param" Name="declConstReqAtomType"
+		>$reference Type declConstReqAtomType$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declConstAtomType"
+		>$reference Column declConstAtomType$</GenRule>
+	<GenRule GenDef="IndexCol" Name="declConstOptAtomType"
+		>$reference Column declConstOptAtomType$</GenRule>
+	<GenRule GenDef="IndexCol" Name="declConstReqAtomType"
+		>$reference Column declConstReqAtomType$</GenRule>
+	<GenRule GenDef="Value" Name="declConstAtomType"
+		>$switch IsNullable yes declConstOptAtomType default declConstReqAtomType$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declConstOptAtomType"
+		>$reference DataType declConstOptAtomType$</GenRule>
+	<GenRule GenDef="TableCol" Name="declConstReqAtomType"
+		>$reference DataType declConstReqAtomType$</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="declConstReqAtomType">const std::vector&lt;cflib::BYTE&gt;&amp;</GenRule>
+	<GenRule GenDef="BoolDef" Name="declConstReqAtomType">const bool</GenRule>
+	<GenRule GenDef="EnumDef" Name="declConstReqAtomType">const $CPlusDefNamespace$::I$EffSchemaName$Schema::$Name$</GenRule>
+	<GenRule GenDef="Int16Def" Name="declConstReqAtomType">const int16_t</GenRule>
+	<GenRule GenDef="Int32Def" Name="declConstReqAtomType">const int32_t</GenRule>
+	<GenRule GenDef="Int64Def" Name="declConstReqAtomType">const int64_t</GenRule>
+	<GenRule GenDef="Id16Gen" Name="declConstReqAtomType">const int16_t</GenRule>
+	<GenRule GenDef="Id32Gen" Name="declConstReqAtomType">const int32_t</GenRule>
+	<GenRule GenDef="Id64Gen" Name="declConstReqAtomType">const int64_t</GenRule>
+	<GenRule GenDef="UInt16Def" Name="declConstReqAtomType">const uint16_t</GenRule>
+	<GenRule GenDef="UInt32Def" Name="declConstReqAtomType">const uint32_t</GenRule>
+	<GenRule GenDef="UInt64Def" Name="declConstReqAtomType">const uint64_t</GenRule>
+	<GenRule GenDef="FloatDef" Name="declConstReqAtomType">const float</GenRule>
+	<GenRule GenDef="DoubleDef" Name="declConstReqAtomType">const double</GenRule>
+	<GenRule GenDef="NumberDef" Name="declConstReqAtomType">const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp;</GenRule>
+	<GenRule GenDef="StringDef" Name="declConstReqAtomType">const std::string&amp;</GenRule>
+	<GenRule GenDef="TextDef" Name="declConstReqAtomType">const std::string&amp;</GenRule>
+	<GenRule GenDef="DateDef" Name="declConstReqAtomType">const std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="TimeDef" Name="declConstReqAtomType">const std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="TimestampDef" Name="declConstReqAtomType">const std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="TokenDef" Name="declConstReqAtomType">const std::string&amp;</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="declConstReqAtomType">const std::string&amp;</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="declConstReqAtomType">const std::string&amp;</GenRule>
+	<GenRule GenDef="TZDateDef" Name="declConstReqAtomType">const std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="declConstReqAtomType">const std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="declConstReqAtomType">const std::chrono::system_clock::time_point&amp;</GenRule>
+	<GenRule GenDef="UuidDef" Name="declConstReqAtomType">const uuid_ptr_t</GenRule>
+	<GenRule GenDef="UuidGen" Name="declConstReqAtomType">const uuid_ptr_t</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="declConstOptAtomType">const std::vector&lt;cflib::BYTE&gt;*</GenRule>
+	<GenRule GenDef="BoolDef" Name="declConstOptAtomType">const bool*</GenRule>
+	<GenRule GenDef="EnumDef" Name="declConstOptAtomType">const $CPlusDefNamespace$::I$EffSchemaName$Schema::$Name$*</GenRule>
+	<GenRule GenDef="Int16Def" Name="declConstOptAtomType">const int16_t*</GenRule>
+	<GenRule GenDef="Int32Def" Name="declConstOptAtomType">const int32_t*</GenRule>
+	<GenRule GenDef="Int64Def" Name="declConstOptAtomType">const int64_t*</GenRule>
+	<GenRule GenDef="Id16Gen" Name="declConstOptAtomType">const int16_t*</GenRule>
+	<GenRule GenDef="Id32Gen" Name="declConstOptAtomType">const int32_t*</GenRule>
+	<GenRule GenDef="Id64Gen" Name="declConstOptAtomType">const int64_t*</GenRule>
+	<GenRule GenDef="UInt16Def" Name="declConstOptAtomType">const uint16_t*</GenRule>
+	<GenRule GenDef="UInt32Def" Name="declConstOptAtomType">const uint32_t*</GenRule>
+	<GenRule GenDef="UInt64Def" Name="declConstOptAtomType">const uint64_t*</GenRule>
+	<GenRule GenDef="FloatDef" Name="declConstOptAtomType">const float*</GenRule>
+	<GenRule GenDef="DoubleDef" Name="declConstOptAtomType">const double*</GenRule>
+	<GenRule GenDef="NumberDef" Name="declConstOptAtomType">const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;*</GenRule>
+	<GenRule GenDef="StringDef" Name="declConstOptAtomType">const std::string*</GenRule>
+	<GenRule GenDef="TextDef" Name="declConstOptAtomType">const std::string*</GenRule>
+	<GenRule GenDef="DateDef" Name="declConstOptAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TimeDef" Name="declConstOptAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TimestampDef" Name="declConstOptAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TokenDef" Name="declConstOptAtomType">const std::string*</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="declConstOptAtomType">const std::string*</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="declConstOptAtomType">const std::string*</GenRule>
+	<GenRule GenDef="TZDateDef" Name="declConstOptAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="declConstOptAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="declConstOptAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="UuidDef" Name="declConstOptAtomType">const uuid_ptr_t</GenRule>
+	<GenRule GenDef="UuidGen" Name="declConstOptAtomType">const uuid_ptr_t</GenRule>
+
+	<GenRule GenDef="Param" Name="declConstReferenceAtomType"
+		>$reference Type declConstReferenceAtomType$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declConstReferenceAtomType"
+		>$reference Column declConstReferenceAtomType$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declConstReferenceAtomType"
+		>$reference DataType declConstReferenceAtomType$</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="declConstReferenceAtomType">const std::vector&lt;cflib::BYTE&gt;*</GenRule>
+	<GenRule GenDef="BoolDef" Name="declConstReferenceAtomType">const bool*</GenRule>
+	<GenRule GenDef="EnumDef" Name="declConstReferenceAtomType">const $CPlusDefNamespace$::I$EffSchemaName$Schema::$Name$*</GenRule>
+	<GenRule GenDef="Int16Def" Name="declConstReferenceAtomType">const int16_t*</GenRule>
+	<GenRule GenDef="Int32Def" Name="declConstReferenceAtomType">const int32_t*</GenRule>
+	<GenRule GenDef="Int64Def" Name="declConstReferenceAtomType">const int64_t*</GenRule>
+	<GenRule GenDef="Id16Gen" Name="declConstReferenceAtomType">const int16_t*</GenRule>
+	<GenRule GenDef="Id32Gen" Name="declConstReferenceAtomType">const int32_t*</GenRule>
+	<GenRule GenDef="Id64Gen" Name="declConstReferenceAtomType">const int64_t*</GenRule>
+	<GenRule GenDef="UInt16Def" Name="declConstReferenceAtomType">const uint16_t*</GenRule>
+	<GenRule GenDef="UInt32Def" Name="declConstReferenceAtomType">const uint32_t*</GenRule>
+	<GenRule GenDef="UInt64Def" Name="declConstReferenceAtomType">const uint64_t*</GenRule>
+	<GenRule GenDef="FloatDef" Name="declConstReferenceAtomType">const float*</GenRule>
+	<GenRule GenDef="DoubleDef" Name="declConstReferenceAtomType">const double*</GenRule>
+	<GenRule GenDef="NumberDef" Name="declConstReferenceAtomType">const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;*</GenRule>
+	<GenRule GenDef="StringDef" Name="declConstReferenceAtomType">const std::string*</GenRule>
+	<GenRule GenDef="TextDef" Name="declConstReferenceAtomType">const std::string*</GenRule>
+	<GenRule GenDef="DateDef" Name="declConstReferenceAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TimeDef" Name="declConstReferenceAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TimestampDef" Name="declConstReferenceAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TokenDef" Name="declConstReferenceAtomType">const std::string*</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="declConstReferenceAtomType">const std::string*</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="declConstReferenceAtomType">const std::string*</GenRule>
+	<GenRule GenDef="TZDateDef" Name="declConstReferenceAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="declConstReferenceAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="declConstReferenceAtomType">const std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="UuidDef" Name="declConstReferenceAtomType">const uuid_ptr_t</GenRule>
+	<GenRule GenDef="UuidGen" Name="declConstReferenceAtomType">const uuid_ptr_t</GenRule>
+
+	<GenRule GenDef="Param" Name="declMemberAtomType"
+		>$switch IsNullable yes declMemberOptAtomType default declMemberReqAtomType$</GenRule>
+
+	<GenRule GenDef="Param" Name="declMemberOptAtomType"
+		>$reference Type declMemberOptAtomType$</GenRule>
+
+	<GenRule GenDef="Param" Name="declMemberReqAtomType"
+		>$reference Type declMemberReqAtomType$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMemberAtomType"
+		>$reference Column declMemberAtomType$</GenRule>
+	<GenRule GenDef="IndexCol" Name="declMemberOptAtomType"
+		>$reference Column declMemberOptAtomType$</GenRule>
+	<GenRule GenDef="IndexCol" Name="declMemberReqAtomType"
+		>$reference Column declMemberReqAtomType$</GenRule>
+	<GenRule GenDef="Value" Name="declMemberAtomType"
+		>$switch IsNullable yes declMemberOptAtomType default declMemberReqAtomType$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declMemberOptAtomType"
+		>$reference DataType declMemberOptAtomType$</GenRule>
+	<GenRule GenDef="TableCol" Name="declMemberReqAtomType"
+		>$reference DataType declMemberReqAtomType$</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="declMemberReqAtomType">std::vector&lt;cflib::BYTE&gt;*</GenRule>
+	<GenRule GenDef="BoolDef" Name="declMemberReqAtomType">bool</GenRule>
+	<GenRule GenDef="EnumDef" Name="declMemberReqAtomType">$CPlusDefNamespace$::I$EffSchemaName$Schema::$Name$</GenRule>
+	<GenRule GenDef="Int16Def" Name="declMemberReqAtomType">int16_t</GenRule>
+	<GenRule GenDef="Int32Def" Name="declMemberReqAtomType">int32_t</GenRule>
+	<GenRule GenDef="Int64Def" Name="declMemberReqAtomType">int64_t</GenRule>
+	<GenRule GenDef="Id16Gen" Name="declMemberReqAtomType">int16_t</GenRule>
+	<GenRule GenDef="Id32Gen" Name="declMemberReqAtomType">int32_t</GenRule>
+	<GenRule GenDef="Id64Gen" Name="declMemberReqAtomType">int64_t</GenRule>
+	<GenRule GenDef="UInt16Def" Name="declMemberReqAtomType">uint16_t</GenRule>
+	<GenRule GenDef="UInt32Def" Name="declMemberReqAtomType">uint32_t</GenRule>
+	<GenRule GenDef="UInt64Def" Name="declMemberReqAtomType">uint64_t</GenRule>
+	<GenRule GenDef="FloatDef" Name="declMemberReqAtomType">float</GenRule>
+	<GenRule GenDef="DoubleDef" Name="declMemberReqAtomType">double</GenRule>
+	<GenRule GenDef="NumberDef" Name="declMemberReqAtomType">cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;*</GenRule>
+	<GenRule GenDef="StringDef" Name="declMemberReqAtomType">std::string*</GenRule>
+	<GenRule GenDef="TextDef" Name="declMemberReqAtomType">std::string*</GenRule>
+	<GenRule GenDef="DateDef" Name="declMemberReqAtomType">std::chrono::system_clock::time_point</GenRule>
+	<GenRule GenDef="TimeDef" Name="declMemberReqAtomType">std::chrono::system_clock::time_point</GenRule>
+	<GenRule GenDef="TimestampDef" Name="declMemberReqAtomType">std::chrono::system_clock::time_point</GenRule>
+	<GenRule GenDef="TokenDef" Name="declMemberReqAtomType">std::string*</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="declMemberReqAtomType">std::string*</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="declMemberReqAtomType">std::string*</GenRule>
+	<GenRule GenDef="TZDateDef" Name="declMemberReqAtomType">std::chrono::system_clock::time_point</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="declMemberReqAtomType">std::chrono::system_clock::time_point</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="declMemberReqAtomType">std::chrono::system_clock::time_point</GenRule>
+	<GenRule GenDef="UuidDef" Name="declMemberReqAtomType">uuid_t</GenRule>
+	<GenRule GenDef="UuidGen" Name="declMemberReqAtomType">uuid_t</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="declMemberOptAtomType">std::vector&lt;cflib::BYTE&gt;*</GenRule>
+	<GenRule GenDef="BoolDef" Name="declMemberOptAtomType">cflib::CFLibNullableBool</GenRule>
+	<GenRule GenDef="EnumDef" Name="declMemberOptAtomType">$CPlusDefNamespace$::I$EffSchemaName$Schema::$Name$*</GenRule>
+	<GenRule GenDef="Int16Def" Name="declMemberOptAtomType">cflib::CFLibNullableInt16</GenRule>
+	<GenRule GenDef="Int32Def" Name="declMemberOptAtomType">cflib::CFLibNullableInt32</GenRule>
+	<GenRule GenDef="Int64Def" Name="declMemberOptAtomType">cflib::CFLibNullableInt64</GenRule>
+	<GenRule GenDef="Id16Gen" Name="declMemberOptAtomType">cflib::CFLibNullableInt16</GenRule>
+	<GenRule GenDef="Id32Gen" Name="declMemberOptAtomType">cflib::CFLibNullableInt32</GenRule>
+	<GenRule GenDef="Id64Gen" Name="declMemberOptAtomType">cflib::CFLibNullableInt64</GenRule>
+	<GenRule GenDef="UInt16Def" Name="declMemberOptAtomType">cflib::CFLibNullableUInt16</GenRule>
+	<GenRule GenDef="UInt32Def" Name="declMemberOptAtomType">cflib::CFLibNullableUInt32</GenRule>
+	<GenRule GenDef="UInt64Def" Name="declMemberOptAtomType">cflib::CFLibNullableUInt64</GenRule>
+	<GenRule GenDef="FloatDef" Name="declMemberOptAtomType">cflib::CFLibNullableFloat</GenRule>
+	<GenRule GenDef="DoubleDef" Name="declMemberOptAtomType">cflib::CFLibNullableDouble</GenRule>
+	<GenRule GenDef="NumberDef" Name="declMemberOptAtomType">cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;*</GenRule>
+	<GenRule GenDef="StringDef" Name="declMemberOptAtomType">std::string*</GenRule>
+	<GenRule GenDef="TextDef" Name="declMemberOptAtomType">std::string*</GenRule>
+	<GenRule GenDef="DateDef" Name="declMemberOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TimeDef" Name="declMemberOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TimestampDef" Name="declMemberOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TokenDef" Name="declMemberOptAtomType">std::string*</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="declMemberOptAtomType">std::string*</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="declMemberOptAtomType">std::string*</GenRule>
+	<GenRule GenDef="TZDateDef" Name="declMemberOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="declMemberOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="declMemberOptAtomType">std::chrono::system_clock::time_point*</GenRule>
+	<GenRule GenDef="UuidDef" Name="declMemberOptAtomType">uuid_t</GenRule>
+	<GenRule GenDef="UuidGen" Name="declMemberOptAtomType">uuid_t</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declColumnGetterSetter"
+		>$reference Column declColumnGetterSetter$</GenRule>
+
+	<GenRule GenDef="Value" Name="declColumnGetterSetter"
+		>$switch IsNullable yes declOptGetterSetter default declReqGetterSetter$</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqGetterSetter"
+		>$switch BaseModelAtomClass
+			BlobDef declReqBlobGetterSetter
+			BoolDef declReqBoolGetterSetter
+			EnumDef declReqEnumGetterSetter
+			Id16Gen declReqInt16GetterSetter
+			Id32Gen declReqInt32GetterSetter
+			Id64Gen declReqInt64GetterSetter
+			Int16Def declReqInt16GetterSetter
+			Int32Def declReqInt32GetterSetter
+			Int64Def declReqInt64GetterSetter
+			UInt16Def declReqUInt16GetterSetter
+			UInt32Def declReqUInt32GetterSetter
+			UInt64Def declReqUInt64GetterSetter
+			FloatDef declReqFloatGetterSetter
+			DoubleDef declReqDoubleGetterSetter
+			NumberDef declReqNumberGetterSetter
+			DateDef declReqDateGetterSetter
+			TimeDef declReqTimeGetterSetter
+			TimestampDef declReqTimestampGetterSetter
+			TZDateDef declReqTZDateGetterSetter
+			TZTimeDef declReqTZTimeGetterSetter
+			TZTimestampDef declReqTZTimestampGetterSetter
+			UuidGen declReqUuidGetterSetter
+			UuidDef declReqUuidGetterSetter
+			StringDef declReqStringGetterSetter
+			TokenDef declReqTokenGetterSetter
+			NmTokenDef declReqNmTokenGetterSetter
+			NmTokensDef declReqNmTokensGetterSetter
+			TextDef declReqTextGetterSetter
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declMinValue"
+		>$switch BaseModelAtomClass
+			BlobDef declBlobMinValue
+			BoolDef declBoolMinValue
+			EnumDef declEnumMinValue
+			Id16Gen declInt16MinValue
+			Id32Gen declInt32MinValue
+			Id64Gen declInt64MinValue
+			Int16Def declInt16MinValue
+			Int32Def declInt32MinValue
+			Int64Def declInt64MinValue
+			UInt16Def declUInt16MinValue
+			UInt32Def declUInt32MinValue
+			UInt64Def declUInt64MinValue
+			FloatDef declFloatMinValue
+			DoubleDef declDoubleMinValue
+			NumberDef declNumberMinValue
+			DateDef declDateMinValue
+			TimeDef declTimeMinValue
+			TimestampDef declTimestampMinValue
+			TZDateDef declTZDateMinValue
+			TZTimeDef declTZTimeMinValue
+			TZTimestampDef declTZTimestampMinValue
+			UuidGen empty
+			UuidDef empty
+			StringDef declStringMinValue
+			TokenDef declTokenMinValue
+			NmTokenDef declNmTokenMinValue
+			NmTokensDef declNmTokensMinValue
+			TextDef declTextMinValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declMaxValue"
+		>$switch BaseModelAtomClass
+			BlobDef declBlobMaxValue
+			BoolDef declBoolMaxValue
+			EnumDef declEnumMaxValue
+			Id16Gen declInt16MaxValue
+			Id32Gen declInt32MaxValue
+			Id64Gen declInt64MaxValue
+			Int16Def declInt16MaxValue
+			Int32Def declInt32MaxValue
+			Int64Def declInt64MaxValue
+			UInt16Def declUInt16MaxValue
+			UInt32Def declUInt32MaxValue
+			UInt64Def declUInt64MaxValue
+			FloatDef declFloatMaxValue
+			DoubleDef declDoubleMaxValue
+			NumberDef declNumberMaxValue
+			DateDef declDateMaxValue
+			TimeDef declTimeMaxValue
+			TimestampDef declTimestampMaxValue
+			TZDateDef declTZDateMaxValue
+			TZTimeDef declTZTimeMaxValue
+			TZTimestampDef declTZTimestampMaxValue
+			UuidGen empty
+			UuidDef empty
+			StringDef declStringMaxValue
+			TokenDef declTokenMaxValue
+			NmTokenDef declNmTokenMaxValue
+			NmTokensDef declNmTokensMaxValue
+			TextDef declTextMaxValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declMaxLen"
+		>$switch BaseModelAtomClass
+			BlobDef declBlobMaxLen
+			BoolDef declBoolMaxLen
+			EnumDef declEnumMaxLen
+			Id16Gen declInt16MaxLen
+			Id32Gen declInt32MaxLen
+			Id64Gen declInt64MaxLen
+			Int16Def declInt16MaxLen
+			Int32Def declInt32MaxLen
+			Int64Def declInt64MaxLen
+			UInt16Def declUInt16MaxLen
+			UInt32Def declUInt32MaxLen
+			UInt64Def declUInt64MaxLen
+			FloatDef declFloatMaxLen
+			DoubleDef declDoubleMaxLen
+			NumberDef declNumberMaxLen
+			DateDef declDateMaxLen
+			TimeDef declTimeMaxLen
+			TimestampDef declTimestampMaxLen
+			TZDateDef declTZDateMaxLen
+			TZTimeDef declTZTimeMaxLen
+			TZTimestampDef declTZTimestampMaxLen
+			UuidGen empty
+			UuidDef empty
+			StringDef declStringMaxLen
+			TokenDef declTokenMaxLen
+			NmTokenDef declNmTokenMaxLen
+			NmTokensDef declNmTokensMaxLen
+			TextDef declTextMaxLen
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declInitValue"
+		>$switch BaseModelAtomClass
+			BlobDef declBlobInitValue
+			BoolDef declBoolInitValue
+			EnumDef declEnumInitValue
+			Id16Gen declInt16InitValue
+			Id32Gen declInt32InitValue
+			Id64Gen declInt64InitValue
+			Int16Def declInt16InitValue
+			Int32Def declInt32InitValue
+			Int64Def declInt64InitValue
+			UInt16Def declUInt16InitValue
+			UInt32Def declUInt32InitValue
+			UInt64Def declUInt64InitValue
+			FloatDef declFloatInitValue
+			DoubleDef declDoubleInitValue
+			NumberDef declNumberInitValue
+			DateDef declDateInitValue
+			TimeDef declTimeInitValue
+			TimestampDef declTimestampInitValue
+			TZDateDef declTZDateInitValue
+			TZTimeDef declTZTimeInitValue
+			TZTimestampDef declTZTimestampInitValue
+			UuidGen empty
+			UuidDef empty
+			StringDef declStringInitValue
+			TokenDef declTokenInitValue
+			NmTokenDef declNmTokenInitValue
+			NmTokensDef declNmTokensInitValue
+			TextDef declTextInitValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declBlobMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declBlobMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declBlobMaxLen">
+		static const std::vector&lt;cflib::BYTE&gt;::size_type $upper Name$_MAX_LEN;</GenRule>
+
+	<GenRule GenDef="Value" Name="declBlobInitValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declReqBlobGetterSetter">
+		virtual const std::vector&lt;cflib::BYTE&gt;&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::vector&lt;cflib::BYTE&gt;* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::vector&lt;cflib::BYTE&gt;&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declBoolMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declBoolMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declBoolMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declBoolInitValue">
+		static const bool $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqBoolGetterSetter">
+		virtual const bool get$declColumnAttrOptionality$$Name$() const;
+		virtual const bool* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const bool value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="Zero">0</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declEnumMinValue">
+		static const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $upper Name$_MIN_VALUE;</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="declEnumMinValueEmitTagName"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declEnumMaxValue">
+		static const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $upper Name$_MAX_VALUE;</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declEnumMaxLen"></GenRule>
+
+	<GenRule GenDef="EnumTag" Name="declEnumMaxValueEmitTagName"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declEnumInitValue">
+		static const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declEnumInitValueNull"
+		>NULL</GenRule>
+
+	<GenRule GenDef="Value" Name="declEnumInitValueAlways"
+		>$switch HasInitValue yes declEnumInitValueConvertOrdinal default declEnumInitValueUseFirst$</GenRule>
+
+	<GenRule GenDef="Value" Name="declEnumInitValueConvertOrdinal"
+		>$reference DataType CPlusDefNamespace$::$reference DataType EffSchemaName$Schema::ordinalTo$reference DataType Name$( $InitValue$ )</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declEnumInitValueUseFirst"
+		>$reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$::$reference DataType iterate Tag( first declEnumInitValueUseFirstTagName each empty )$</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="declEnumInitValueUseFirstTagName"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declReqEnumGetterSetter">
+		virtual const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ get$declColumnAttrOptionality$$Name$() const;
+		virtual const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt16MinValue">
+		static const int16_t $upper Name$_MIN_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt16MaxValue">
+		static const int16_t $upper Name$_MAX_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt16MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declInt16InitValue">
+		static const int16_t $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqInt16GetterSetter">
+		virtual const int16_t get$declColumnAttrOptionality$$Name$() const;
+		virtual const int16_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const int16_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt32MinValue">
+		static const int $upper Name$_MIN_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt32MaxValue">
+		static const int $upper Name$_MAX_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt32MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declInt32InitValue">
+		static const int $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqInt32GetterSetter">
+		virtual const int32_t get$declColumnAttrOptionality$$Name$() const;
+		virtual const int32_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const int32_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt64MinValue">
+		static const int64_t $upper Name$_MIN_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt64MaxValue">
+		static const int64_t $upper Name$_MAX_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt64MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declInt64InitValue">
+		static const int64_t $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqInt64GetterSetter">
+		virtual const int64_t get$declColumnAttrOptionality$$Name$() const;
+		virtual const int64_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const int64_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt16MinValue">
+		static const uint16_t $upper Name$_MIN_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt16MaxValue">
+		static const uint16_t $upper Name$_MAX_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt16MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt16InitValue">
+		static const uint16_t $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqUInt16GetterSetter">
+		virtual const uint16_t get$declColumnAttrOptionality$$Name$() const;
+		virtual const uint16_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const uint16_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt32MinValue">
+		static const uint32_t $upper Name$_MIN_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt32MaxValue">
+		static const uint32_t $upper Name$_MAX_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt32MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt32InitValue">
+		static const uint32_t $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqUInt32GetterSetter">
+		virtual const uint32_t get$declColumnAttrOptionality$$Name$() const;
+		virtual const uint32_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const uint32_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt64MinValue">
+		static const uint64_t $upper Name$_MIN_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt64MaxValue">
+		static const uint64_t $upper Name$_MAX_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt64MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt64InitValue">
+		static const uint64_t $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqUInt64GetterSetter">
+		virtual const uint64_t get$declColumnAttrOptionality$$Name$() const;
+		virtual const uint64_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const uint64_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declFloatMinValue">
+		static const float $upper Name$_MIN_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declFloatMaxValue">
+		static const float $upper Name$_MAX_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declFloatMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declFloatInitValue">
+		static const float $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqFloatGetterSetter">
+		virtual const float get$declColumnAttrOptionality$$Name$() const;
+		virtual const float* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const float value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declDoubleMinValue">
+		static const double $upper Name$_MIN_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declDoubleMaxValue">
+		static const double $upper Name$_MAX_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declDoubleMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declDoubleInitValue">
+		static const double $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqDoubleGetterSetter">
+		virtual const double get$declColumnAttrOptionality$$Name$() const;
+		virtual const double* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const double value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declNumberMinValue">
+		static const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $upper Name$_MIN_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declNumberMaxValue">
+		static const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $upper Name$_MAX_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declNumberMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declNumberInitValue">
+		static const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqNumberGetterSetter">
+		virtual const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const cflib::CFLibGenericBigDecimal&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declDateMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declDateMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declDateMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declDateInitValue">
+		static std::chrono::system_clock::time_point $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqDateGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTimeMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTimeMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTimeMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTimeInitValue">
+		static std::chrono::system_clock::time_point $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqTimeGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTimestampMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTimestampMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTimestampMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTimestampInitValue">
+		static std::chrono::system_clock::time_point $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqTimestampGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTZDateMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZDateMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZDateMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZDateInitValue">
+		static std::chrono::system_clock::time_point $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqTZDateGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimeMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimeMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimeMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimeInitValue">
+		static std::chrono::system_clock::time_point $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqTZTimeGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimestampMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimestampMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimestampMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimestampInitValue">
+		static std::chrono::system_clock::time_point $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqTZTimestampGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declUuidMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declUuidMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declUuidMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="declUuidInitValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declReqUuidGetterSetter">
+		virtual const uuid_ptr_t get$declColumnAttrOptionality$$Name$() const;
+		virtual const uuid_ptr_t get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const uuid_ptr_t value );
+		virtual void generate$declColumnAttrOptionality$$Name$();
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declStringMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declStringMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declStringMaxLen">
+		static const std::string::size_type $upper Name$_MAX_LEN;</GenRule>
+
+	<GenRule GenDef="Value" Name="declStringInitValue">
+		static const std::string $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqStringGetterSetter">
+		virtual const std::string&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::string* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTokenMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTokenMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTokenMaxLen">
+		static const std::string::size_type $upper Name$_MAX_LEN;</GenRule>
+
+	<GenRule GenDef="Value" Name="declTokenInitValue">
+		static const std::string $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqTokenGetterSetter">
+		virtual const std::string&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::string* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokenMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokenMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokenMaxLen">
+		static const std::string::size_type $upper Name$_MAX_LEN;</GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokenInitValue">
+		static const std::string $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqNmTokenGetterSetter">
+		virtual const std::string&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::string* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokensMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokensMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokensMaxLen">
+		static const std::string::size_type $upper Name$_MAX_LEN;</GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokensInitValue">
+		static const std::string $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqNmTokensGetterSetter">
+		virtual const std::string&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::string* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTextMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTextMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTextMaxLen">
+		static const std::string::size_type $upper Name$_MAX_LEN;</GenRule>
+
+	<GenRule GenDef="Value" Name="declTextInitValue">
+		static const std::string $upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="declReqTextGetterSetter">
+		virtual const std::string&amp; get$declColumnAttrOptionality$$Name$() const;
+		virtual const std::string* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual void set$declColumnAttrOptionality$$Name$( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptGetterSetter"
+		>$switch BaseModelAtomClass
+			BlobDef declOptBlobGetterSetter
+			BoolDef declOptBoolGetterSetter
+			EnumDef declOptEnumGetterSetter
+			Id16Gen declOptInt16GetterSetter
+			Id32Gen declOptInt32GetterSetter
+			Id64Gen declOptInt64GetterSetter
+			Int16Def declOptInt16GetterSetter
+			Int32Def declOptInt32GetterSetter
+			Int64Def declOptInt64GetterSetter
+			UInt16Def declOptUInt16GetterSetter
+			UInt32Def declOptUInt32GetterSetter
+			UInt64Def declOptUInt64GetterSetter
+			FloatDef declOptFloatGetterSetter
+			DoubleDef declOptDoubleGetterSetter
+			NumberDef declOptNumberGetterSetter
+			DateDef declOptDateGetterSetter
+			TimeDef declOptTimeGetterSetter
+			TimestampDef declOptTimestampGetterSetter
+			TZDateDef declOptTZDateGetterSetter
+			TZTimeDef declOptTZTimeGetterSetter
+			TZTimestampDef declOptTZTimestampGetterSetter
+			UuidGen declOptUuidGetterSetter
+			UuidDef declOptUuidGetterSetter
+			StringDef declOptStringGetterSetter
+			TokenDef declOptTokenGetterSetter
+			NmTokenDef declOptNmTokenGetterSetter
+			NmTokensDef declOptNmTokensGetterSetter
+			TextDef declOptTextGetterSetter
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptBlobGetterSetter">
+		virtual const std::vector&lt;cflib::BYTE&gt;&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::vector&lt;cflib::BYTE&gt;* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::vector&lt;cflib::BYTE&gt;&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptBoolGetterSetter">
+		virtual const bool get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const bool* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const bool value );
+</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declOptEnumGetterSetter">
+		virtual const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptInt16GetterSetter">
+		virtual const int16_t get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const int16_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const int16_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptInt32GetterSetter">
+		virtual const int32_t get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const int32_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const int32_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptInt64GetterSetter">
+		virtual const int64_t get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const int64_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const int64_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptUInt16GetterSetter">
+		virtual const uint16_t get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const uint16_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const uint16_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptUInt32GetterSetter">
+		virtual const uint32_t get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const uint32_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const uint32_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptUInt64GetterSetter">
+		virtual const uint64_t get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const uint64_t* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const uint64_t value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptFloatGetterSetter">
+		virtual const float get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const float* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const float value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptDoubleGetterSetter">
+		virtual const double get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const double* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const double value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptNumberGetterSetter">
+		virtual const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const cflib::CFLibGenericBigDecimal&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptDateGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptTimeGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptTimestampGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptTZDateGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptTZTimeGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptTZTimestampGetterSetter">
+		virtual const std::chrono::system_clock::time_point&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::chrono::system_clock::time_point* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptUuidGetterSetter">
+		virtual const uuid_ptr_t get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const uuid_ptr_t get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const uuid_ptr_t value );
+		virtual void generate$declColumnAttrOptionality$$Name$();
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptStringGetterSetter">
+		virtual const std::string&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::string* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptTokenGetterSetter">
+		virtual const std::string&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::string* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptNmTokenGetterSetter">
+		virtual const std::string&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::string* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptNmTokensGetterSetter">
+		virtual const std::string&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::string* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declOptTextGetterSetter">
+		virtual const std::string&amp; get$declColumnAttrOptionality$$Name$Value() const;
+		virtual const std::string* get$declColumnAttrOptionality$$Name$Reference() const;
+		virtual const bool is$declColumnAttrOptionality$$Name$Null() const;
+		virtual void set$declColumnAttrOptionality$$Name$Null();
+		virtual void set$declColumnAttrOptionality$$Name$Value( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declPKeyComparison"
+		>$declPKeyComparisonLessThan$
+$declPKeyComparisonLessOrEqual$
+$declPKeyComparisonEqual$
+$declPKeyComparisonNotEqual$
+$declPKeyComparisonGreaterOrEqual$
+$declPKeyComparisonGreaterThan$</GenRule>
+
+	<GenRule GenDef="Index" Name="declPKeyComparisonLessThan">
+		bool operator &lt;( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator &lt;( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator &lt;( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &lt;( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declPKeyComparisonLessOrEqual">
+		bool operator &lt;=( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator &lt;=( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator &lt;=( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &lt;=( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declPKeyComparisonEqual">
+		bool operator ==( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator ==( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator ==( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator ==( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declPKeyComparisonNotEqual">
+		bool operator !=( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator !=( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator !=( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator !=( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declPKeyComparisonGreaterOrEqual">
+		bool operator &gt;=( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator &gt;=( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator &gt;=( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &gt;=( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declPKeyComparisonGreaterThan">
+		bool operator &gt;( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator &gt;( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator &gt;( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &gt;( const $SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdPKeyComparison">
+namespace std {
+$declStdPKeyComparisonLessThan$
+$declStdPKeyComparisonLessOrEqual$
+$declStdPKeyComparisonEqual$
+$declStdPKeyComparisonNotEqual$
+$declStdPKeyComparisonGreaterOrEqual$
+$declStdPKeyComparisonGreaterThan$
+$implStdPKeyHash$
+}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdPKeyComparisonLessThan">
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdPKeyComparisonLessOrEqual">
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+
+	<GenRule GenDef="Index" Name="declStdPKeyComparisonEqual">
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdPKeyComparisonNotEqual">
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdPKeyComparisonGreaterOrEqual">
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdPKeyComparisonGreaterThan">
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );</GenRule>
+
+	<GenRule GenDef="Object" Name="declGetHashCode">
+		virtual size_t hashCode() const;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="GTAdjusted"
+		>$switch IsAscending yes AdjustedOne default AdjustedMinusOne$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="GTAdjusted"
+		>$AdjustedOne$</GenRule>
+
+	<GenRule GenDef="Atom" Name="GTAdjusted"
+		>$AdjustedOne$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="LTAdjusted"
+		>$switch IsAscending yes AdjustedMinusOne default AdjustedOne$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="LTAdjusted"
+		>$AdjustedMinusOne$</GenRule>
+
+	<GenRule GenDef="Atom" Name="LTAdjusted"
+		>$AdjustedMinusOne$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="CmpAdjusted"
+		>$switch IsAscending yes PositiveCmp default NegativeCmp$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="CmpAdjusted"
+		>$PositiveCmp$</GenRule>
+
+	<GenRule GenDef="Atom" Name="CmpAdjusted"
+		>$PositiveCmp$</GenRule>
+
+	<GenRule GenDef="Object" Name="PositiveCmp">cmp</GenRule>
+	<GenRule GenDef="Object" Name="NegativeCmp">-cmp</GenRule>
+
+	<GenRule GenDef="Object" Name="AdjustedOne">1</GenRule>
+	<GenRule GenDef="Object" Name="AdjustedMinusOne">-1</GenRule>
+
+</RuleSet>

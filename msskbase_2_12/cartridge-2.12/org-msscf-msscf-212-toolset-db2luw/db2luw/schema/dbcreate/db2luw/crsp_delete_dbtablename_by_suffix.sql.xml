@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crsp_delete_dbtablename_by_suffix.sql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile GenDef="Index" Name="dbadminfile_CreateSPDeleteDbTableNameBySuffix"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$"
+		ExpansionKeyName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$"
+		ExpansionFileName="$dbadminfilename_CreateSPDeleteDbTableNameBySuffix$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create or replace procedure $sp_delete_dbtablename_by_suffix$($implDb2LUWSPStandardArgs$$iterate Columns( each sparg_CommaIndexCol )$ )	\\
+dynamic result sets 1	\\
+language sql	\\
+begin	\\
+	declare permissionFlag integer;$poptop Table switch HasSubClasses yes implSPDeleteDbTablenameBySuffixDeclClassCode default empty$	\\
+	declare retcursor cursor with return to client for	\\
+		select 1 from sysibm.sysdummy1;	\\
+begin $switch SecScope None implSPDeleteDbTablenameBySuffixDirectSQL System implSPDeleteDbTablenameBySuffixDirectSQL Cluster implSPDeleteDbTablenameBySuffixDirectRestrictCluster Tenant implSPDeleteDbTablenameBySuffixDirectRestrictTenant default error$	\\
+		open retcursor;	\\
+	end;	\\
+end
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implSPDeleteDbTablenameBySuffixDeclClassCode">	\\
+	declare classCode varchar(4);</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectSQL">	\\
+		for cur as	\\
+			select	\\
+$poptop Table implDb2LUWSelectDeleteColumns$,	\\
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision	\\
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implDb2LUWClassCodeJoinDeleteSuperTable default empty$	\\
+			where	\\
+				$iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$	\\
+		do$implSPDeleteTablenameBySuffixLoopBody$	\\
+		end for;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectRestrictCluster">	\\
+	set( permissionFlag ) = ( sp_is_system_user( argAuditUserId ) );	\\
+	if( permissionFlag = 1 )	\\
+	then	\\
+		for cur as 	\\
+			select	\\
+$poptop Table implDb2LUWSelectDeleteColumns$,	\\
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision	\\
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implDb2LUWClassCodeJoinDeleteSuperTable default empty$	\\
+			where	\\
+					$iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$	\\
+		do$implSPDeleteTablenameBySuffixLoopBody$	\\
+		end for;	\\
+	else	\\
+		for cur as	\\
+			select	\\
+$poptop Table implDb2LUWSelectDeleteColumns$,	\\
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision	\\
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implDb2LUWClassCodeJoinDeleteSuperTable default empty$	\\
+			where	\\
+					$iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$	\\
+					and $lower reference Table reference ClusterIdColumn reference Table ClassCode$.$reference Table referenceClusterIdColumn DbColumnName$ = secClusterId	\\
+		do$implSPDeleteTablenameBySuffixLoopBody$	\\
+		end for;	\\
+	end if;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDirectRestrictTenant">	\\
+	set( permissionFlag ) = ( sp_is_system_user( argAuditUserId ) );	\\
+	if( permissionFlag = 1 )	\\
+	then	\\
+		for cur as 	\\
+			select	\\
+$poptop Table implDb2LUWSelectDeleteColumns$,	\\
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision	\\
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implDb2LUWClassCodeJoinDeleteSuperTable default empty$	\\
+			where	\\
+					$iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$	\\
+		do$implSPDeleteTablenameBySuffixLoopBody$	\\
+		end for;	\\
+	else	\\
+		for cur as	\\
+			select	\\
+$poptop Table implDb2LUWSelectDeleteColumns$,	\\
+					$poptop Table lower reference BaseClass ClassCode$.revision as revision	\\
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implDb2LUWClassCodeJoinDeleteSuperTable default empty$	\\
+			where	\\
+					$iterate Columns( first implDb2LUWIndexColumnWhereFragBindVar each implDb2LUWIndexColumnWhereAndFragBindVar )$	\\
+					and $lower reference Table reference TenantIdColumn reference Table ClassCode$.$reference Table referenceTenantIdColumn DbColumnName$ = secTenantId	\\
+		do$implSPDeleteTablenameBySuffixLoopBody$	\\
+		end for;	\\
+	end if;</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteDbTablenameBySuffixDynamicSQL">	\\
+	if ( $iterate Columns( first evalSPDeleteDbTablenameBySuffixIfNullCol each evalSPDeleteDbTablenameBySuffixOrIfNullCol )$ )	\\
+	then$implSPDeleteDbTablenameBySuffixDirectSQL$	\\
+	else	\\
+		call raise_application_error( -20004, '$sp_delete_dbtablename_by_suffix$() DB/2 LUW 10.2 does not support dynamic SQL loops' );	\\
+	end if;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="evalSPDeleteDbTablenameBySuffixOrIfNullCol"
+>	or $evalSPDeleteDbTablenameBySuffixIfNullCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="evalSPDeleteDbTablenameBySuffixIfNullCol">	\\
+	( arg$Name$ is null )</GenRule>
+
+	<GenRule GenDef="Index" Name="TableHasSubClasses"
+		>$poptop Table HasSubClasses$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBody"
+		>$switch TableHasSubClasses yes implSPDeleteTablenameBySuffixLoopBodyEvalCC default implSPDeleteTablenameBySuffixLoopBodyInvokeDirect$</GenRule>
+
+	<GenRule GenDef="Object" Name="delinvoke_sp_delete_dbtablename">sp_delete_$lower DbTableName$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBodyEvalCC">	\\
+			case classcode	\\
+			when '$poptop Table ClassCode$' then	\\
+				call $poptop Table sp_delete_dbtablename$( argAuditClusterId,	\\
+							argAuditUserId,	\\
+							argAuditSessionId,	\\
+							secClusterId,	\\
+							secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassCol )$,	\\
+							revision );	\\$poptop Table iterate ReverseRelations( each implSPDeleteTablenameBySuffixChaseSubclass empty empty )$
+			else	\\
+				call raise_application_error( -20006, '$sp_delete_dbtablename_by_suffix$() Unrecognized classcode value' );	\\
+			end case;</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSPDeleteTablenameBySuffixChaseSubclass"
+		>$switch RelationTypeTag
+			Superclass implSPDeleteTablenameBySuffixCheckSubclass
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSPDeleteTablenameBySuffixCheckSubclass"
+		>$reference FromTable implSPDeleteTablenameBySuffixLoopBodyEvalCCLimb$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPDeleteTablenameBySuffixLoopBodyEvalCCLimb">
+			when '$ClassCode$' then	\\
+				call $delinvoke_sp_delete_dbtablename$( argAuditClusterId,	\\
+							argAuditUserId,	\\
+							argAuditSessionId,	\\
+							secClusterId,	\\
+							secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassCol )$,	\\
+							revision );	\\$iterate ReverseRelations( each implSPDeleteTablenameBySuffixChaseSubclass empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSPDeleteTablenameBySuffixLoopBodyInvokeDirect">	\\
+			call $poptop Table sp_delete_dbtablename$( argAuditClusterId,	\\
+							argAuditUserId,	\\
+							argAuditSessionId,	\\
+							secClusterId,	\\
+							secTenantId$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implSPDeleteTablenameBySuffixCommaPassCol )$,	\\
+							revision );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteTablenameBySuffixPassCol"
+		>$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteTablenameBySuffixCommaPassCol">,	\\
+							$implSPDeleteTablenameBySuffixPassCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteTablenameBySuffixPassArg"
+		>$lower Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteTablenameBySuffixCommaPassArg">,	\\
+							$implSPDeleteTablenameBySuffixPassArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectDeleteColumns"
+		>$switch HasSuperClassRelation yes implDb2LUWSelectSuperDelete default implDb2LUWSelectBaseDelete$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectSuperDelete"
+		>$reference SuperClassRelation reference ToTable implDb2LUWSelectDeleteColumns$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSelectFragCommaDataDeleteColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implDb2LUWTableColumnSelectFragCommaDeleteColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectBaseDelete"
+		>$switch IsBaseTable yes implDb2LUWSelectBaseDeleteWithCC default implDb2LUWSelectBaseDeleteNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectBaseDeleteWithCC"
+>					$lower ClassCode$.classcode$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implDb2LUWTableColumnSelectFragCommaDeleteColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSelectBaseDeleteNoCC"
+>					$reference PrimaryKeyIndex iterate Columns( first implDb2LUWTableColumnSelectFragDbName each implDb2LUWTableColumnSelectFragCommaDeleteColumn )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implDb2LUWTableColumnSelectFragCommaDeleteColumn">,	\\
+					$implDb2LUWTableColumnSelectFragDbName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWClassCodeMaybeJoinDeleteSuperTable"
+		>$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinDeleteSuperTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWClassCodeJoinDeleteSuperTable">	\\
+				inner join $lower reference SuperClassRelation reference ToTable DbSchemaName$.$lower reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implDb2LUWClassCodeJoinDeleteSuperTableColumn each implDb2LUWClassCodeAndJoinDeleteSuperTableColumn )$$reference SuperClassRelation reference ToTable implDb2LUWClassCodeMaybeJoinDeleteSuperTable$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWClassCodeJoinDeleteSuperTableColumn">	\\
+					$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implDb2LUWClassCodeAndJoinDeleteSuperTableColumn">	\\
+						and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference SuperClassRelation reference ToTable ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWClassCodeJoinDeleteBaseTable">	\\
+					inner join $lower reference BaseClass DbSchemaName$.$lower reference BaseClass DbTableName$ $lower reference BaseClass ClassCode$ on$reference PrimaryKeyIndex iterate Columns( first implDb2LUWClassCodeJoinDeleteBaseTableColumn each implDb2LUWClassCodeAndJoinDeleteBaseTableColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWClassCodeJoinDeleteBaseTableColumn">	\\
+						$lower ClassCode$.$lower reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implDb2LUWClassCodeAndJoinDeleteBaseTableColumn">	\\
+						and $lower ClassCode$.$reference Column DbColumnName$ = $lower popto Table reference BaseClass ClassCode$.$lower reference Column DbColumnName$</GenRule>
+
+</RuleSet>

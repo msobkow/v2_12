@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mysql"
+	Name="schema/dbcreate/mysql/crsp_read_dbtablename_cc_by_suffix.mysql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="Table" GenDef="Index" Name="dbadminfile_CreateSPReadDbTableNameCCBySuffix"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mysql"
+		ExpansionClassName="$dbadminfilename_CreateSPReadDbTableNameCCBySuffix$"
+		ExpansionKeyName="$dbadminfilename_CreateSPReadDbTableNameCCBySuffix$"
+		ExpansionFileName="$dbadminfilename_CreateSPReadDbTableNameCCBySuffix$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+delimiter ////
+create procedure $poptop Table lower DbSchemaName$.$sp_read_dbtablename_cc_by_suffix$($implMySqlSPStandardArgs$$iterate Columns( each sparg_CommaTableCol )$ )
+not deterministic
+reads sql data
+begin
+	declare done boolean default false;$poptop Table switch SecScope None empty System empty Cluster implMySqlSPReadTableDeclPermFlag Tenant implMySqlSPReadTableDeclPermFlag default error$
+	declare continue handler for not found set done = true;$poptop Table switch TableName Cluster empty Tenant empty SecUser empty default implMySqlSPReadEnforceSec$$switch SecScope None implMySqlSPReadCCBySuffixSystem System implMySqlSPReadCCBySuffixSystem Cluster implMySqlSPReadCCBySuffixRestrictCluster Tenant implMySqlSPReadCCBySuffixRestrictTenant default error$
+end;////
+</GenFile>
+
+	<GenRule GenDef="Index" Name="implMySqlSPReadCCBySuffixSystem">
+	select
+		distinct( $lower poptop Table reference BaseClass ClassCode$.ClassCode ) as ClassCode
+	from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+	where
+		$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$
+	order by ClassCode asc;</GenRule>
+
+	<GenRule GenDef="Index" Name="implMySqlSPReadCCBySuffixRestrictCluster">
+	if( isSystemUser = true )
+	then
+		select
+			distinct( $lower poptop Table reference BaseClass ClassCode$.ClassCode ) as ClassCode
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+		where
+			$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$
+		order by ClassCode asc;
+	else
+		select
+			distinct( $lower poptop Table reference BaseClass ClassCode$.ClassCode ) as ClassCode
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+		where
+			$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$
+			and $poptop Table lower reference ClusterIdColumn reference Table ClassCode$.$poptop Table lower reference ClusterIdColumn DbColumnName$ = secClusterId
+		order by ClassCode asc;
+	end if;</GenRule>
+
+	<GenRule GenDef="Index" Name="implMySqlSPReadCCBySuffixRestrictTenant">
+	if( isSystemUser = true )
+	then
+		select
+			distinct( $lower poptop Table reference BaseClass ClassCode$.ClassCode ) as ClassCode
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+		where
+			$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$
+		order by ClassCode asc;
+	else
+		select
+			distinct( $lower poptop Table reference BaseClass ClassCode$.ClassCode ) as ClassCode
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+		where
+			$iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$
+			and $poptop Table lower reference TenantIdColumn reference Table ClassCode$.$poptop Table lower reference TenantIdColumn DbColumnName$ = secTenantId
+		order by ClassCode asc;
+	end if;</GenRule>
+
+</RuleSet>

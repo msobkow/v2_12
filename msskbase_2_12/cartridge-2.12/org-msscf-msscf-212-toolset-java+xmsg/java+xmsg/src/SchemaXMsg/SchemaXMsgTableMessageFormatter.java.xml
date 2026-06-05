@@ -1,0 +1,785 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsgHandler/SchemaXMsgTableMessageFormatter.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Element Handler for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaXMsgTableMessageFormatterJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsg/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsg"
+		ExpansionClassName="$SchemaName$XMsg$TableName$MessageFormatterJava"
+		ExpansionKeyName="$SchemaName$XMsg$TableName$MessageFormatterJava"
+		ExpansionFileName="$SchemaName$XMsg$TableName$MessageFormatter.java">
+// Description: Java 11 XML Message message formatter for $SchemaName$.$TableName$
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsg;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.xml.sax.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$$JavaXMsgTableImport$
+
+/*
+ *	$SchemaName$XMsg$TableName$MessageFormatter XML message formatter
+ *	for $SchemaName$.$TableName$.
+ */
+public class $SchemaName$XMsg$TableName$MessageFormatter$switch HasSuperClassRelation yes implXMsgTableMessageFormatterExtends default empty$
+{$implXMsgTableMessageFormatterMethods$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterMethods"
+		>$implConstructXMsgTableMessageFormatter$$implXMsgTableMessageFormatterFormatPKeyAttributes$$implXMsgTableMessageFormatterFormatBuffAttributes$$implXMsgTableMessageFormatterFormatRqstCreate$$implXMsgTableMessageFormatterFormatRqstRead$$implXMsgTableMessageFormatterFormatRqstReadAll$$switch PageData yes implXMsgTableMessageFormatterFormatRqstPageAll default empty$$implXMsgTableMessageFormatterFormatRqstRdByIndex$$switch PageData yes implXMsgTableMessageFormatterFormatRqstPageByIndex default empty$$implXMsgTableMessageFormatterFormatRqstLock$$implXMsgTableMessageFormatterFormatRqstUpdate$$implXMsgTableMessageFormatterFormatRqstDelete$$switch HasChain yes implXMsgTableMessageFormatterFormatRqstMoveUp default empty$$switch HasChain yes implXMsgTableMessageFormatterFormatRqstMoveDown default empty$$implXMsgTableMessageFormatterFormatRqstDelByIndex$$iterate ServerMethods( each implXMsgTableMessageFormatterFormatRqstServerMethod empty empty )$$implXMsgTableMessageFormatterFormatRspnReadSingleOpenTag$$implXMsgTableMessageFormatterFormatRspnReadSingleCloseTag$$implXMsgTableMessageFormatterFormatRspnReadListOpenTag$$implXMsgTableMessageFormatterFormatRspnReadListCloseTag$$implXMsgTableMessageFormatterFormatRspnRec$$implXMsgTableMessageFormatterFormatRspnDerivedRec$$implXMsgTableMessageFormatterFormatRspnCreated$$implXMsgTableMessageFormatterFormatRspnLocked$$implXMsgTableMessageFormatterFormatRspnUpdated$$implXMsgTableMessageFormatterFormatRspnDeleted$$iterate ServerMethods( each implXMsgTableMessageFormatterFormatRspnFuncExecutedTags empty empty )$$JavaXMsgTableFormatters$</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implXMsgTableMessageFormatterFormatRspnFuncExecutedTags"
+		>$implXMsgTableMessageFormatterFormatRspnFuncExecutedOpenTag$$implXMsgTableMessageFormatterFormatRspnFuncExecutedCloseTag$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterExtends">
+	extends $SchemaName$XMsg$reference SuperClassRelation reference ToTable TableName$MessageFormatter</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructXMsgTableMessageFormatter">
+	public $SchemaName$XMsg$TableName$MessageFormatter() {$switch HasSuperClassRelation yes implConstructXMsgTableMessageFormatterInvokeSuper default empty$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructXMsgTableMessageFormatterInvokeSuper">
+		super();</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatPKeyAttributes"
+		>$switch HasSuperClassRelation yes empty default implXMsgTableMessageFormatterReallyFormatPKeyAttributes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterReallyFormatPKeyAttributes"
+		>$reference PrimaryKeyIndex implXMsgTableMessageFormatterPKeyAttributes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implXMsgTableMessageFormatterPKeyAttributes">
+	public static String format$popto Table TableName$PKeyAttributes( String separator, $popto Table DefSchemaName$$popto Table TableName$PKey pkey ) {
+		String retval = $iterate Columns( first implXMsgTableMessageFormatterFirstPKeyAttr each implXMsgTableMessageFormatterAppendPKeyAttr )$;
+		return( retval );
+	}
+
+	public static String format$popto Table TableName$PKeyAttributes( String separator, $popto Table DefSchemaName$$popto Table TableName$Buff buff ) {
+		String retval = $iterate Columns( first implXMsgTableMessageFormatterFormatFirstBuffAttr each implXMsgTableMessageFormatterFormatBuffAttr )$;
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatFirstBuffAttr"
+		>$reference Column implXMsgTableMessageFormatterFormatFirstBuffAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatBuffAttr"
+		>$reference Column implXMsgTableMessageFormatterFormatBuffAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFirstPKeyAttr"
+		>$switch BaseModelAtomClass
+			EnumDef implXMsgTableMessageFormatterFirstPKeyEnumAttr
+			default implXMsgTableMessageFormatterFirstPKeyAtomicAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFirstPKeyEnumAttr"
+		>CFLibXmlUtil.format$reference Column OptionalOrRequired$XmlString( null,
+				"$reference Column Name$",
+				( pkey.get$reference Column OptionalOrRequired$$reference Column Name$() == null )
+					? null
+					: pkey.get$reference Column OptionalOrRequired$$reference Column Name$().toString() )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFirstPKeyAtomicAttr"
+		>CFLibXmlUtil.format$reference Column OptionalOrRequired$$reference Column MappedBaseModelAtomClass$( null,
+				"$reference Column Name$",
+				pkey.get$reference Column OptionalOrRequired$$reference Column Name$() )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterPKeyAttr"
+		>$switch BaseModelAtomClass
+			EnumDef implXMsgTableMessageFormatterPKeyEnumAttr
+			default implXMsgTableMessageFormatterPKeyAtomicAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterPKeyEnumAttr"
+		>CFLibXmlUtil.format$reference Column OptionalOrRequired$XmlString( separator,
+				"$reference Column Name$",
+				( pkey.get$reference Column OptionalOrRequired$$reference Column Name$() == null )
+					? null
+					: pkey.get$reference Column OptionalOrRequired$$reference Column Name$().toString() )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterPKeyAtomicAttr"
+		>CFLibXmlUtil.format$reference Column OptionalOrRequired$$reference Column MappedBaseModelAtomClass$( separator,
+				"$reference Column Name$",
+				pkey.get$reference Column OptionalOrRequired$$reference Column Name$() )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterAppendPKeyAttr">
+			+	$implXMsgTableMessageFormatterPKeyAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatBuffAttributes">
+	public static String format$TableName$BuffAttributes( String separator, $DefSchemaName$$TableName$Buff buff ) {
+		String retval = $switch HasSuperClassRelation yes implXMsgTableMessageFormatterFormatBuffInvokeSuper default implXMSgTableMessageFormatterFormatBuffInvokePKey$$iterate Columns( each implXMsgTableMessageFormatterFormatBuffDataAttr )$;
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatBuffInvokeSuper"
+		>$reference SuperClassRelation reference ToTable SchemaName$XMsg$reference SuperClassRelation reference ToTable TableName$MessageFormatter.format$reference SuperClassRelation reference ToTable TableName$BuffAttributes( separator, buff )</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMSgTableMessageFormatterFormatBuffInvokePKey"
+		>$SchemaName$XMsg$TableName$MessageFormatter.format$TableName$PKeyAttributes( separator, buff )$implXMsgTableMessageFormatterFormatBuffRevision$$switch BaseHasAuditColumns yes implXMsgTableMessageFormatterFormatBuffAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatBuffRevision">
+			+	CFLibXmlUtil.formatRequiredInt32( separator,
+					"Revision",
+					buff.getRequiredRevision() )</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatBuffAuditColumns">
+			+	CFLibXmlUtil.formatOptionalUuid( separator,
+					"CreatedBy",
+					buff.getCreatedByUserId() )
+			+	CFLibXmlUtil.formatOptionalTimestamp( separator,
+					"CreatedAt",
+					buff.getCreatedAt() )
+			+	CFLibXmlUtil.formatOptionalUuid( separator,
+					"UpdatedBy",
+					buff.getUpdatedByUserId() )
+			+	CFLibXmlUtil.formatOptionalTimestamp( separator,
+					"UpdatedAt",
+					buff.getUpdatedAt() )</GenRule>
+
+	<GenRule GenDef="Value" Name="implXMsgTableMessageFormatterFormatBuffDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implXMsgTableMessageFormatterFormatBuffAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implXMsgTableMessageFormatterFormatBuffAttr"
+		>$switch BaseModelAtomClass
+			EnumDef implXMsgTableMessageFormatterFormatBuffEnumAttr
+			default implXMsgTableMessageFormatterFormatBuffAtomicAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implXMsgTableMessageFormatterFormatBuffEnumAttr">
+			+	CFLibXmlUtil.format$OptionalOrRequired$XmlString( separator,
+					"$Name$",
+					( buff.get$OptionalOrRequired$$Name$() == null )
+						? null
+						: buff.get$OptionalOrRequired$$Name$().toString() )</GenRule>
+
+	<GenRule GenDef="Value" Name="implXMsgTableMessageFormatterFormatBuffAtomicAttr">
+			+	CFLibXmlUtil.format$OptionalOrRequired$$MappedBaseModelAtomClass$( separator,
+					"$Name$",
+					buff.get$OptionalOrRequired$$Name$() )</GenRule>
+
+	<GenRule GenDef="Value" Name="implXMsgTableMessageFormatterFormatFirstBuffAttr"
+		>$switch BaseModelAtomClass
+			EnumDef implXMsgTableMessageFormatterFormatFirstBuffEnumAttr
+			default implXMsgTableMessageFormatterFormatFirstBuffAtomicAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implXMsgTableMessageFormatterFormatFirstBuffEnumAttr"
+		>CFLibXmlUtil.format$OptionalOrRequired$XmlString( null,
+					"$Name$",
+					( buff.get$OptionalOrRequired$$Name$() == null )
+						? null
+						: buff.get$OptionalOrRequired$$Name$().toString() )</GenRule>
+
+	<GenRule GenDef="Value" Name="implXMsgTableMessageFormatterFormatFirstBuffAtomicAttr"
+		>CFLibXmlUtil.format$OptionalOrRequired$$MappedBaseModelAtomClass$( separator,
+					"$Name$",
+					buff.get$OptionalOrRequired$$Name$() )</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implXMsgTableMessageFormatterFormatRqstServerMethod"
+		>$switch IsInstanceMethod yes implXMsgTableMessageFormatterFormatRqstServerInstanceMethod default implXMsgTableMessageFormatterFormatRqstServerClassMethod$</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implXMsgTableMessageFormatterFormatRqstServerInstanceMethod">
+	public static String format$reference ForTable TableName$Rqst$Name$( String separator,
+		I$reference ForTable DefSchemaName$$reference ForTable TableName$Obj obj$iterate Params( each declServerMethodParam empty empty )$ )
+	{
+		String retval = "&lt;Rqst$reference ForTable TableName$$Name$ "$reference ForTable reference BaseClass reference PrimaryKeyIndex iterate Columns( first implXMsgTableMessageFormatterFirstPKeyObjAttr each implXMsgTableMessageFormatterPKeyObjAttr )$$iterate Params( each implXMsgTableMessageFormatterParamAttr empty empty )$
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implXMsgTableMessageFormatterFormatRqstServerClassMethod">
+	public static String format$reference ForTable TableName$Rqst$Name$( String separator$iterate Params( each declServerMethodParam empty empty )$ )
+	{
+		String retval = "&lt;Rqst$reference ForTable TableName$$Name$ "$iterate Params( first implXMsgTableMessageFormatterParamFirstAttr each implXMsgTableMessageFormatterParamAttr empty empty )$
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implXMsgTableMessageFormatterParamFirstAttr">
+			+	CFLibXmlUtil.format$OptionalOrRequired$$reference Type MappedBaseModelAtomClass$( null,
+					"$Name$",
+					$leadlower Name$ )</GenRule>
+
+	<GenRule GenDef="Param" Name="implXMsgTableMessageFormatterParamAttr">
+			+	CFLibXmlUtil.format$OptionalOrRequired$$reference Type MappedBaseModelAtomClass$( separator,
+					"$Name$",
+					$leadlower Name$ )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFirstPKeyObjAttr">
+			+	CFLibXmlUtil.format$reference Column OptionalOrRequired$$reference Column MappedBaseModelAtomClass$( null,
+					"Obj$reference Column Name$",
+					obj.get$reference Column OptionalOrRequired$$reference Column Name$() )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterPKeyObjAttr">
+			+	CFLibXmlUtil.format$reference Column OptionalOrRequired$$reference Column MappedBaseModelAtomClass$( separator,
+					"Obj$reference Column Name$",
+					obj.get$reference Column OptionalOrRequired$$reference Column Name$() )</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstCreate">
+	public static String format$TableName$RqstCreate( String separator, $DefSchemaName$$TableName$Buff buff ) {
+		String retval = "&lt;Rqst$TableName$Create "
+			+	format$TableName$BuffAttributes( separator, buff )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstRead">
+	public static String format$poptop Table TableName$RqstRead( String separator, $poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey pkey ) {
+		String retval = "&lt;Rqst$poptop Table TableName$Read "
+			+	format$poptop Table reference BaseClass TableName$PKeyAttributes( separator, pkey )
+			+	" /&gt;";
+		return( retval );
+	}
+
+	public static String format$poptop Table TableName$RqstRead( String separator, $poptop Table DefSchemaName$$poptop Table TableName$Buff buff ) {
+		String retval = "&lt;Rqst$poptop Table TableName$Read "
+			+	format$poptop Table reference BaseClass TableName$PKeyAttributes( separator, buff )
+			+	" /&gt;";
+		return( retval );
+	}
+
+	public static String format$poptop Table TableName$RqstRead( String separator$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implXMsgTableMessageFormatterFormatRqstRdByIndexCommaArg empty empty )$ )
+	{
+		String retval = "&lt;Rqst$poptop Table TableName$Read "$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( first implXMsgTableMessageFormatterFormatRqstRdByIndexPassArg each implXMsgTableMessageFormatterFormatRqstRdByIndexSeparatorPassArg empty empty )$
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstPageAll">
+	public static String format$TableName$RqstPageAll( String separator$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implXMsgTableMessageFormatterFormatRqstCommaPriorCol )$ ) {
+		String retval = "&lt;Rqst$TableName$PageAll "$reference BaseClass reference PrimaryKeyIndex iterate Columns( first implXMsgTableMessageFormatterFormatRqstPassPriorCol each implXMsgTableMessageFormatterFormatRqstPassPriorSeparatorCol empty empty )$
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstPassPriorCol"
+		>$switch BaseModelAtomClass
+			EnumDef implXMsgTableMessageFormatterFormatRqstPassPriorEnumCol
+			default implXMsgTableMessageFormatterFormatRqstPassPriorAtomicCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstPassPriorEnumCol">
+			+	CFLibXmlUtil.formatOptionalXmlString( null,
+					"Prior$reference Column Name$",
+					( prior$reference Column Name$ == null )
+						? null
+						: prior$reference Column Name$.toString() )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstPassPriorAtomicCol">
+			+	CFLibXmlUtil.formatOptional$reference Column MappedBaseModelAtomClass$( null,
+					"Prior$reference Column Name$",
+					prior$reference Column Name$ )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstPassPriorSeparatorCol"
+		>$switch BaseModelAtomClass
+			EnumDef implXMsgTableMessageFormatterFormatRqstPassPriorSeparatorEnumCol
+			default implXMsgTableMessageFormatterFormatRqstPassPriorSeparatorAtomicCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstPassPriorSeparatorEnumCol">
+			+	CFLibXmlUtil.formatOptionalXmlString( separator,
+					"Prior$reference Column Name$",
+					( prior$reference Column Name$ == null )
+						? null
+						: prior$reference Column Name$.toString() )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstPassPriorSeparatorAtomicCol">
+			+	CFLibXmlUtil.formatOptional$reference Column MappedBaseModelAtomClass$( separator,
+					"Prior$reference Column Name$",
+					prior$reference Column Name$ )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstCommaPriorCol">,
+		$implXMsgTableMessageFormatterFormatRqstPriorCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstPriorCol"
+		>$implJavaOptAtomType$ prior$reference Column Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstReadAll">
+	public static String format$TableName$RqstReadAll( String separator ) {
+		String retval = "&lt;Rqst$TableName$ReadAll /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstRdByIndex"
+		>$switch HasSuperClassRelation yes implXMsgTableMessageFormatterFormatRqstRdByInhIndex default implXMsgTableMessageFormatterFormatRqstRdByBaseIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstRdByInhIndex"
+		>$reference SuperClassRelation reference ToTable implXMsgTableMessageFormatterFormatRqstRdByIndex$$iterate Index( each implXMsgTableMessageFormatterFormatRqstRdByNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstRdByBaseIndex"
+		>$reference PrimaryKeyIndex implXMsgTableMessageFormatterFormatRqstRdByPrimaryIndex$$iterate Index( each implXMsgTableMessageFormatterFormatRqstRdByNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implXMsgTableMessageFormatterFormatRqstRdByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implXMsgTableMessageFormatterFormatRqstRdByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implXMsgTableMessageFormatterFormatRqstRdByPrimaryIndex">
+	public static String format$poptop Table TableName$RqstRdBy$Suffix$( String separator$iterate Columns( each implXMsgTableMessageFormatterFormatRqstRdByIndexCommaArg empty empty )$ )
+	{
+		String retval = "&lt;Rqst$poptop Table TableName$Read "$iterate Columns( first implXMsgTableMessageFormatterFormatRqstRdByIndexPassArg each implXMsgTableMessageFormatterFormatRqstRdByIndexSeparatorPassArg empty empty )$
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implXMsgTableMessageFormatterFormatRqstRdByIndex">
+	public static String format$poptop Table TableName$RqstRdBy$Suffix$( String separator$iterate Columns( each implXMsgTableMessageFormatterFormatRqstRdByIndexCommaArg empty empty )$ )
+	{
+		String retval = "&lt;Rqst$poptop Table TableName$RdBy$Suffix$ "$iterate Columns( first implXMsgTableMessageFormatterFormatRqstRdByIndexPassArg each implXMsgTableMessageFormatterFormatRqstRdByIndexSeparatorPassArg empty empty )$
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstPageByIndex"
+		>$switch HasSuperClassRelation yes implXMsgTableMessageFormatterFormatRqstPageByInhIndex default implXMsgTableMessageFormatterFormatRqstPageByBaseIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstPageByInhIndex"
+		>$reference SuperClassRelation reference ToTable implXMsgTableMessageFormatterFormatRqstPageByIndex$$iterate Index( each implXMsgTableMessageFormatterFormatRqstPageByNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstPageByBaseIndex"
+		>$iterate Index( each implXMsgTableMessageFormatterFormatRqstPageByNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implXMsgTableMessageFormatterFormatRqstPageByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default ifduplicate_implXMsgTableMessageFormatterFormatRqstPageByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="ifduplicate_implXMsgTableMessageFormatterFormatRqstPageByIndex"
+		>$switch IsUnique yes empty default implXMsgTableMessageFormatterFormatRqstPageByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implXMsgTableMessageFormatterFormatRqstPageByIndex">
+	public static String format$poptop Table TableName$RqstPageBy$Suffix$( String separator$iterate Columns( each implXMsgTableMessageFormatterFormatRqstRdByIndexCommaArg empty empty )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implXMsgTableMessageFormatterFormatRqstCommaPriorCol )$ )
+	{
+		String retval = "&lt;Rqst$poptop Table TableName$PageBy$Suffix$ "$iterate Columns( first implXMsgTableMessageFormatterFormatRqstRdByIndexPassArg each implXMsgTableMessageFormatterFormatRqstRdByIndexSeparatorPassArg empty empty )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implXMsgTableMessageFormatterFormatRqstPassPriorSeparatorCol )$
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstRdByIndexCommaArg">,
+		$implJavaAtomType$ arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstRdByIndexPassArg"
+		>$switch BaseModelAtomClass
+			EnumDef implXMsgTableMessageFormatterFormatRqstRdByIndexPassEnumArg
+			default implXMsgTableMessageFormatterFormatRqstRdByIndexPassAtomicArg$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstRdByIndexPassEnumArg">
+			+	CFLibXmlUtil.format$reference Column OptionalOrRequired$XmlString( null,
+					"$reference Column Name$",
+					( arg$reference Column Name$ == null )
+						? null
+						: arg$reference Column Name$.toString() )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstRdByIndexPassAtomicArg">
+			+	CFLibXmlUtil.format$reference Column OptionalOrRequired$$reference Column MappedBaseModelAtomClass$( null,
+					"$reference Column Name$",
+					arg$reference Column Name$ )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstRdByIndexSeparatorPassArg"
+		>$switch BaseModelAtomClass
+			EnumDef implXMsgTableMessageFormatterFormatRqstRdByIndexSeparatorPassEnumArg
+			default implXMsgTableMessageFormatterFormatRqstRdByIndexSeparatorPassAtomicArg$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstRdByIndexSeparatorPassEnumArg">
+			+	CFLibXmlUtil.format$reference Column OptionalOrRequired$XmlString( separator,
+					"$reference Column Name$",
+					( arg$reference Column Name$ == null )
+						? null
+						: arg$reference Column Name$.toString() )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstRdByIndexSeparatorPassAtomicArg">
+			+	CFLibXmlUtil.format$reference Column OptionalOrRequired$$reference Column MappedBaseModelAtomClass$( separator,
+					"$reference Column Name$",
+					arg$reference Column Name$ )</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstLock">
+	public static String format$TableName$RqstLock( String separator, $poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey pkey ) {
+		String retval = "&lt;Rqst$TableName$Lock "
+			+	format$poptop Table reference BaseClass TableName$PKeyAttributes( separator, pkey )
+			+	" /&gt;";
+		return( retval );
+	}
+
+	public static String format$TableName$RqstLock( String separator, $DefSchemaName$$TableName$Buff buff ) {
+		String retval = "&lt;Rqst$TableName$Lock "
+			+	format$poptop Table reference BaseClass TableName$PKeyAttributes( separator, buff )
+			+	" /&gt;";
+		return( retval );
+	}
+
+	public static String format$poptop Table TableName$RqstLock( String separator$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implXMsgTableMessageFormatterFormatRqstRdByIndexCommaArg empty empty )$ )
+	{
+		String retval = "&lt;Rqst$poptop Table TableName$Lock "$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( first implXMsgTableMessageFormatterFormatRqstRdByIndexPassArg each implXMsgTableMessageFormatterFormatRqstRdByIndexSeparatorPassArg empty empty )$
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstUpdate">
+	public static String format$TableName$RqstUpdate( String separator, $DefSchemaName$$TableName$Buff buff ) {
+		String retval = "&lt;Rqst$TableName$Update "
+			+	format$TableName$BuffAttributes( separator, buff )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstDelete">
+	public static String format$TableName$RqstDelete( String separator, $DefSchemaName$$TableName$Buff buff ) {
+		String retval = "&lt;Rqst$TableName$Delete "
+				+	format$poptop Table reference BaseClass TableName$PKeyAttributes( separator, buff )
+				+	CFLibXmlUtil.formatRequiredInt32( separator,
+						"Revision",
+						buff.getRequiredRevision() )
+				+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstMoveUp">
+	public static String format$TableName$RqstMoveUp( String separator$reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaColumnArg )$,
+		int revision )
+	{
+		String retval = "&lt;Rqst$TableName$MoveUp "$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implXMsgTableMessageFormatterFormatRqstMoveKeyCol )$
+				+	CFLibXmlUtil.formatRequiredInt32( separator,
+						"Revision",
+						revision )
+				+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstMoveKeyCol">
+				+	CFLibXmlUtil.format$reference Column OptionalOrRequired$$reference Column MappedBaseModelAtomClass$( separator,
+						"$reference Column Name$",
+						$Name$ )</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstMoveDown">
+	public static String format$TableName$RqstMoveDown( String separator$reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaColumnArg )$,
+		int revision )
+	{
+		String retval = "&lt;Rqst$TableName$MoveDown "$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implXMsgTableMessageFormatterFormatRqstMoveKeyCol )$
+				+	CFLibXmlUtil.formatRequiredInt32( separator,
+						"Revision",
+						revision )
+				+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstDelByIndex"
+		>$switch HasSuperClassRelation yes implXMsgTableMessageFormatterFormatRqstDelByInhIndex default implXMsgTableMessageFormatterFormatRqstDelByBaseIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstDelByInhIndex"
+		>$reference SuperClassRelation reference ToTable implXMsgTableMessageFormatterFormatRqstDelByIndex$$iterate Index( each implXMsgTableMessageFormatterFormatRqstDelByNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRqstDelByBaseIndex"
+		>$reference PrimaryKeyIndex implXMsgTableMessageFormatterFormatRqstDelByPrimaryIndex$$iterate Index( each implXMsgTableMessageFormatterFormatRqstDelByNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implXMsgTableMessageFormatterFormatRqstDelByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implXMsgTableMessageFormatterFormatRqstDelByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implXMsgTableMessageFormatterFormatRqstDelByPrimaryIndex">
+	public static String format$poptop Table TableName$RqstDelBy$Suffix$( String separator$iterate Columns( each implXMsgTableMessageFormatterFormatRqstDelByIndexCommaArg empty empty )$ )
+	{
+		String retval = "&lt;Rqst$poptop Table TableName$Delete "$iterate Columns( first implXMsgTableMessageFormatterFormatRqstDelByIndexPassArg each implXMsgTableMessageFormatterFormatRqstDelByIndexSeparatorPassArg empty empty )$
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implXMsgTableMessageFormatterFormatRqstDelByIndex">
+	public static String format$poptop Table TableName$RqstDelBy$Suffix$( String separator$iterate Columns( each implXMsgTableMessageFormatterFormatRqstDelByIndexCommaArg empty empty )$ )
+	{
+		String retval = "&lt;Rqst$poptop Table TableName$DelBy$Suffix$ "$iterate Columns( first implXMsgTableMessageFormatterFormatRqstDelByIndexPassArg each implXMsgTableMessageFormatterFormatRqstDelByIndexSeparatorPassArg empty empty )$
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstDelByIndexCommaArg">,
+		$implJavaAtomType$ arg$reference Column Name$</GenRule>
+
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstDelByIndexPassArg"
+		>$switch BaseModelAtomClass
+			EnumDef implXMsgTableMessageFormatterFormatRqstDelByIndexPassEnumArg
+			default implXMsgTableMessageFormatterFormatRqstDelByIndexPassAtomicArg$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstDelByIndexPassEnumArg">
+			+	CFLibXmlUtil.format$reference Column OptionalOrRequired$XmlString( null,
+					"$reference Column Name$",
+					( arg$reference Column Name$ == null )
+						? null
+						: arg$reference Column Name$.toString() )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstDelByIndexPassAtomicArg">
+			+	CFLibXmlUtil.format$reference Column OptionalOrRequired$$reference Column MappedBaseModelAtomClass$( null,
+					"$reference Column Name$",
+					arg$reference Column Name$ )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstDelByIndexSeparatorPassArg"
+		>$switch BaseModelAtomClass
+			EnumDef implXMsgTableMessageFormatterFormatRqstDelByIndexSeparatorPassEnumArg
+			default implXMsgTableMessageFormatterFormatRqstDelByIndexSeparatorPassAtomicArg$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstDelByIndexSeparatorPassEnumArg">
+			+	CFLibXmlUtil.format$reference Column OptionalOrRequired$XmlString( separator,
+					"$reference Column Name$",
+					( arg$reference Column Name$ == null )
+						? null
+						: arg$reference Column Name$.toString() )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgTableMessageFormatterFormatRqstDelByIndexSeparatorPassAtomicArg">
+			+	CFLibXmlUtil.format$reference Column OptionalOrRequired$$reference Column MappedBaseModelAtomClass$( separator,
+					"$reference Column Name$",
+					arg$reference Column Name$ )</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnReadSingleOpenTag">
+	public static String format$TableName$RspnSingleOpenTag() {
+		String retval = "&lt;Rspn$TableName$ReadSingle&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnReadSingleCloseTag">
+	public static String format$TableName$RspnSingleCloseTag() {
+		String retval = "&lt;/Rspn$TableName$ReadSingle&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnReadListOpenTag">
+	public static String format$TableName$RspnListOpenTag() {
+		String retval = "&lt;Rspn$TableName$ReadList&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnReadListCloseTag">
+	public static String format$TableName$RspnListCloseTag() {
+		String retval = "&lt;/Rspn$TableName$ReadList&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implXMsgTableMessageFormatterFormatRspnFuncExecutedOpenTag">
+	public static String format$reference ForTable TableName$Rspn$Name$ExecutedOpenTag() {
+		String retval = "&lt;Rspn$reference ForTable TableName$$Name$Executed&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implXMsgTableMessageFormatterFormatRspnFuncExecutedCloseTag">
+	public static String format$reference ForTable TableName$Rspn$Name$ExecutedCloseTag() {
+		String retval = "&lt;/Rspn$reference ForTable TableName$$Name$Executed&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implXMsgTableMessageFormatterFormatRspnFuncExecutedOpenTag">
+	public static String format$reference ForTable TableName$Rspn$Name$ExecutedOpenTag() {
+		String retval = "&lt;Rspn$reference ForTable TableName$$Name$Executed&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implXMsgTableMessageFormatterFormatRspnFuncExecutedCloseTag">
+	public static String format$reference ForTable TableName$Rspn$Name$ExecutedCloseTag() {
+		String retval = "&lt;/Rspn$reference ForTable TableName$$Name$Executed&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implXMsgTableMessageFormatterFormatRspnFuncExecutedOpenTag"
+		></GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implXMsgTableMessageFormatterFormatRspnFuncExecutedCloseTag"
+		></GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnRec">
+	public static String format$TableName$RspnRec( String separator, $DefSchemaName$$TableName$Buff buff ) {
+		String retval = "&lt;$TableName$ "
+			+	format$TableName$BuffAttributes( separator, buff )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnDerivedRec">
+	public static String format$TableName$RspnDerivedRec( String separator, $DefSchemaName$$TableName$Buff buff ) {
+		String retval;$switch HasSubClasses yes implXMsgTableMessageFormatterFormatRspnDerivedRecChoose default implXMsgTableMessageFormatterFormatRspnDerivedRecThis$
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnDerivedRecChoose">
+		final String S_ProcName = "format$TableName$RspnDerivedRec";
+		String classCode = buff.getClassCode();
+		if( classCode.equals( "$ClassCode$" ) ) {
+			retval = format$TableName$RspnRec( separator, buff );
+		}$iterate TableSubClasses( each implXMsgTableMessageFormatterFormatRspnDerivedRecWalkSubClasses empty empty )$
+		else {
+			throw new CFLibUnsupportedClassException( $SchemaName$XMsg$TableName$MessageFormatter.class,
+				S_ProcName,
+				"buff",
+				buff,
+				"derivative of $TableName$" );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnDerivedRecWalkSubClasses">
+		else if( classCode.equals( "$ClassCode$" ) ) {
+			retval = $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RspnRec( separator, ($DefSchemaName$$TableName$Buff)buff );
+		}$iterate TableSubClasses( each implXMsgTableMessageFormatterFormatRspnDerivedRecWalkSubClasses empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnDerivedRecThis">
+		retval = format$TableName$RspnRec( separator, buff );</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnCreated">
+	public static String format$TableName$RspnCreated( String separator, $DefSchemaName$$TableName$Buff buff ) {
+		String retval = "&lt;Rspn$TableName$Created "
+			+	format$TableName$BuffAttributes( separator, buff )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnLocked">
+	public static String format$TableName$RspnLocked( String separator, $DefSchemaName$$TableName$Buff buff ) {
+		String retval = "&lt;Rspn$TableName$Locked "
+			+	format$TableName$BuffAttributes( separator, buff )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnUpdated">
+	public static String format$TableName$RspnUpdated( String separator, $DefSchemaName$$TableName$Buff buff ) {
+		String retval = "&lt;Rspn$TableName$Updated "
+			+	format$TableName$BuffAttributes( separator, buff )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgTableMessageFormatterFormatRspnDeleted">
+	public static String format$TableName$RspnDeleted() {
+		String retval = "&lt;Rspn$TableName$Deleted /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="MappedBaseModelAtomClass"
+		>$switch BaseModelAtomClass
+			BoolDef strBool
+			BlobDef strBlob
+			EnumDef strEnum
+			Int16Def strInt16
+			Int32Def strInt32
+			Int64Def strInt64
+			Id16Gen strInt16
+			Id32Gen strInt32
+			Id64Gen strInt64
+			UInt16Def strUInt16
+			UInt32Def strUInt32
+			UInt64Def strUInt64
+			FloatDef strFloat
+			DoubleDef strDouble
+			NumberDef strNumber
+			StringDef strXmlString
+			TextDef strXmlString
+			TokenDef strXmlString
+			NmTokenDef strXmlString
+			NmTokensDef strXmlString
+			DateDef strDate
+			TimeDef strTime
+			TimestampDef strTimestamp
+			TZDateDef strTZDate
+			TZTimeDef strTZTime
+			TZTimestampDef strTZTimestamp
+			UuidDef strUuid
+			UuidGen strUuid
+			default BaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Object" Name="strBool">Boolean</GenRule>
+
+	<GenRule GenDef="Object" Name="strBlob">Blob</GenRule>
+
+	<GenRule GenDef="Object" Name="strEnum">I$reference DataType EffSchemaName$.$reference DataType Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="strInt16">Int16</GenRule>
+
+	<GenRule GenDef="Object" Name="strInt32">Int32</GenRule>
+
+	<GenRule GenDef="Object" Name="strInt64">Int64</GenRule>
+
+	<GenRule GenDef="Object" Name="strUInt16">UInt16</GenRule>
+
+	<GenRule GenDef="Object" Name="strUInt32">UInt32</GenRule>
+
+	<GenRule GenDef="Object" Name="strUInt64">UInt64</GenRule>
+
+	<GenRule GenDef="Object" Name="strFloat">Float</GenRule>
+
+	<GenRule GenDef="Object" Name="strDouble">Double</GenRule>
+
+	<GenRule GenDef="Object" Name="strNumber">Number</GenRule>
+
+	<GenRule GenDef="Object" Name="strXmlString">XmlString</GenRule>
+
+	<GenRule GenDef="Object" Name="strDate">Date</GenRule>
+
+	<GenRule GenDef="Object" Name="strTime">Time</GenRule>
+
+	<GenRule GenDef="Object" Name="strTimestamp">Timestamp</GenRule>
+
+	<GenRule GenDef="Object" Name="strTZDate">TZDate</GenRule>
+
+	<GenRule GenDef="Object" Name="strTZTime">TZTime</GenRule>
+
+	<GenRule GenDef="Object" Name="strTZTimestamp">TZTimestamp</GenRule>
+
+	<GenRule GenDef="Object" Name="strUuid">Uuid</GenRule>
+
+</RuleSet>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schema/SchemaSchema.hpp"
+	Revision="2.12"
+	Descr="C++18 specification of a $SchemaName$ schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSchemaHpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$SchemaHpp"
+		ExpansionKeyName="$SchemaName$SchemaHpp"
+		ExpansionFileName="$SchemaName$Schema.hpp"
+>#pragma once
+
+// Description: C++18 specification of a $SchemaName$ schema.
+
+$MssSourceLicense$
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+$poptop SchemaDef iterate SchemaRefs( each includeSchemaSchemaRefPublic empty empty )$
+namespace $CPlusNamespace$ {
+$iterate SchemaTables( each forwardDeclSchemaTablePKey empty empty )$
+$iterate SchemaTables( each forwardDeclSchemaTableHPKey empty empty )$
+$iterate SchemaTables( each forwardDeclSchemaTableBuff empty empty )$
+$iterate SchemaTables( each forwardDeclSchemaTableHBuff empty empty )$
+$iterate SchemaTables( each forwardDeclSchemaTableIndexKey empty empty )$
+$iterate SchemaTables( each forwardDeclISchemaTableTable empty empty )$
+}
+
+#include &lt;$lower SchemaName$/I$SchemaName$Schema.hpp&gt;
+$iterate SchemaRefs( first includeAuthConf empty includeAuthConf each empty )$
+#include &lt;$lower DefSchemaName$/I$DefSchemaName$TablePerms.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$Schema
+	: public virtual $CPlusNamespace$::I$SchemaName$Schema$iterate SchemaRefs( each commaNewlineSchemaSchemaImplementsInterface empty empty )$
+	{
+	protected:
+		$CPlusSecNamespace$::$SecSchemaName$Authorization* authorization;$iterate SchemaRefs( first declTablePermsMember each empty empty declTablePermsMember )$$iterate SchemaRefs( first declConfFileMember each empty empty declConfFileMember )$
+		std::string* jndiName;
+		std::string* schemaDbName;
+		std::string* lowerDbSchemaName;
+$iterate SchemaTables( each declSchemaTableTableMember )$
+	public:
+		static const std::string CLASS_NAME;
+$declSchemaMoreMethods$$declSchemaSchemaCommitControl$$iterate SchemaRefs( first declSchemaSchemaTablePermsAccessors each empty empty declSchemaSchemaTablePermsAccessors )$$declSchemaSchemaReleasePreparedStatements$$declSchemaSchemaGetSetDbSchemaNameMethods$	};
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="includeSchemaSchemaRefPublic">
+#include &lt;$lower reference RefSchema SchemaName$/I$reference RefSchema SchemaName$Public.hpp&gt;</GenRule>
+
+<GenRule GenDef="SchemaRef" Name="declTablePermsMember"
+	>$reference RefSchema declTablePermsMember$</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="declTablePermsMember">
+$CPlusNamespace$::I$SchemaName$TablePerms* tablePerms;</GenRule>
+
+<GenRule GenDef="SchemaRef" Name="declConfFileMember"
+	>$reference RefSchema declConfFileMember$</GenRule>
+
+<GenRule GenDef="SchemaDef" Name="declConfFileMember">
+$CPlusNamespace$::$SchemaName$ConfigurationFile* configuration;</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="includeAuthConf"
+		>$reference RefSchema includeAuthConf$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="includeAuthConf">
+#include &lt;$lower SchemaName$/$SchemaName$Authorization.hpp&gt;
+#include &lt;$lower SchemaName$/$SchemaName$ConfigurationFile.hpp&gt;</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="includeSchemaSchemaInterface">
+#include &lt;$lower reference RefSchema SchemaName$/I$reference RefSchema SchemaName$Schema.hpp&gt;</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="commaNewlineSchemaSchemaImplementsInterface">,
+	  public virtual $reference RefSchema CPlusNamespace$::I$reference RefSchema SchemaName$Schema</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaMoreMethods"
+		>$iterate SchemaRefs( first declSchemaSchemaConstructor each empty empty declSchemaSchemaConstructor )$<!--$declSchemaGetCFTipClientHandler$-->$iterate SchemaRefs( first declSchemaSchemaConfigurationFileAccessors each empty empty declSchemaSchemaConfigurationFileAccessors )$$declSchemaSchemaAuthorizationAccessors$$iterate SchemaRefs( first declSchemaSchemaJndiNameAccessors each empty empty declSchemaSchemaJndiNameAccessors )$$iterate SchemaRefs( first declSchemaSchemaConnectionMethods each empty empty declSchemaSchemaConnectionMethods )$$iterate SchemaRefs( first declSchemaSchemaNewSchema each empty empty declSchemaSchemaNewSchema )$$iterate SchemaRefs( first declSchemaFileImport each empty empty declSchemaFileImport )$$iterate Id16Generators( each declSchemaSchemaNextIdGen empty empty)$$iterate Id32Generators( each declSchemaSchemaNextIdGen empty empty)$$iterate Id64Generators( each declSchemaSchemaNextIdGen empty empty)$$iterate UuidGenerators( each declSchemaSchemaNextIdGen empty empty )$$iterate SchemaTables( each declSchemaSchemaTableMethods empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaGetCFTipClientHandler">
+		/**
+		 *	The majority of cases do not have a CFTipClientHandler
+		 *	associated with it's persistence declementation.
+		 *	Only the XMsg client declementations overload this
+		 *	to return the actual CFTipClientHandler associated
+		 *	with the connection instance.
+		 */
+		virtual CFTipClientHandler* getCFTipClientHandler();
+		virtual std::string getServerURL();
+		virtual void setServerURL( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaSchemaReleasePreparedStatements"
+		>$reference RefSchema declSchemaSchemaReleasePreparedStatements$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSchemaReleasePreparedStatements">
+		virtual void releasePreparedStatements();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaSchemaReleasePreparedStatements">
+		virtual void releasePreparedStatements();
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaSchemaGetSetDbSchemaNameMethods"
+		>$reference RefSchema declSchemaSchemaGetSetDbSchemaNameMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSchemaGetSetDbSchemaNameMethods">
+		virtual const std::string* getDbSchemaName() const;
+		virtual const std::string* getLowerDbSchemaName() const;
+		virtual void setDbSchemaName( const std::string&amp; argDbSchemaName );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaSchemaGetSetDbSchemaNameMethods">
+		virtual const std::string* getDbSchemaName() const;
+		virtual const std::string* getLowerDbSchemaName() const;
+		virtual void setDbSchemaName( std::string argDbSchemaName );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaSchemaCommitControl"
+		>$reference RefSchema declSchemaSchemaCommitControl$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSchemaCommitControl">
+		virtual bool isTransactionOpen() const;
+		virtual bool beginTransaction();
+		virtual void commit();
+		virtual void rollback();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaSchemaCommitControl">
+		virtual bool isTransactionOpen() const;
+		virtual bool beginTransaction();
+		virtual void commit();
+		virtual void rollback();
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="declSchemaSchemaNextIdGen">
+		virtual int16_t next$Name$();
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="declSchemaSchemaNextIdGen">
+		virtual int32_t next$Name$();
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="declSchemaSchemaNextIdGen">
+		virtual int64_t next$Name$();
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidGen" Name="declSchemaSchemaNextIdGen"></GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableTableMember"
+>		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Table* table$TableName$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaSchemaTableMethods"
+		>$declSchemaSchemaTableTableAccessors$</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaSchemaAuthorizationAccessors"
+		>$popto SchemaDef declSchemaSchemaAuthorizationAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSchemaAuthorizationAccessors">
+		virtual $CPlusSecNamespace$::$SecSchemaName$Authorization* getAuthorization() const;
+		virtual void setAuthorization( $CPlusSecNamespace$::$SecSchemaName$Authorization* value );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaSchemaTablePermsAccessors"
+		>$reference RefSchema declSchemaSchemaTablePermsAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSchemaTablePermsAccessors">
+		virtual $CPlusNamespace$::I$SchemaName$TablePerms* getTablePerms();
+		virtual void setTablePerms( $CPlusNamespace$::I$SchemaName$TablePerms* value );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaSchemaTableTableAccessors">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Table* getTable$TableName$();
+		virtual void setTable$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Table* value );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaFileImport"
+		>$reference RefSchema declSchemaFileImport$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaFileImport">
+		virtual std::string fileImport( const $CPlusSecNamespace$::$SecSchemaName$Authorization* auth, const std::string&amp; fileName, const std::string&amp; fileContent );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaFileImport">
+		virtual std::string fileImport( const $CPlusSecNamespace$::$popto SchemaDef SecSchemaName$Authorization* auth, const std::string&amp; fileName, const std::string&amp; fileContent );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaSchemaConstructor"
+		>$reference RefSchema declSchemaSchemaConstructor$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSchemaConstructor">
+		$poptop SchemaDef SchemaName$Schema();
+		$poptop SchemaDef SchemaName$Schema( $CPlusNamespace$::$SchemaName$ConfigurationFile* conf );
+		$poptop SchemaDef SchemaName$Schema( const std::string&amp; argJndiName );
+		virtual ~$poptop SchemaDef SchemaName$Schema();
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaSchemaNewSchema"
+		>$reference RefSchema declSchemaSchemaNewSchema$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSchemaNewSchema">
+		virtual $poptop SchemaDef CPlusNamespace$::I$poptop SchemaDef SchemaName$Schema* newSchema();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaSchemaNewSchema">
+		virtual $poptop SchemaDef CPlusNamespace$::I$poptop SchemaDef SchemaName$Schema* newSchema();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSchemaJndiNameAccessors">
+		virtual const std::string* getJndiName() const;
+		virtual void setJndiName( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaSchemaJndiNameAccessors">
+		virtual const std::string* getJndiName() const;
+		virtual void setJndiName( const std::string&amp; value );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaSchemaConnectionMethods"
+		>$reference RefSchema declSchemaSchemaConnectionMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSchemaConnectionMethods">
+		virtual bool isConnected();
+		virtual bool connect();
+		virtual bool connect( const std::string&amp; username, const std::string&amp; password );
+		virtual bool connect( const std::string&amp; loginId, const std::string&amp; password, const std::string&amp; clusterName, const std::string&amp; tenantName );
+		virtual void disconnect( bool doCommit );
+		virtual void logout( $CPlusSecNamespace$::$SecSchemaName$Authorization* auth );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaSchemaConnectionMethods">
+		virtual bool isConnected();
+		virtual bool connect();
+		virtual bool connect( const std::string&amp; username, const std::string&amp; password );
+		virtual bool connect( const std::string&amp; loginId, const std::string&amp; password, const std::string&amp; clusterName, const std::string&amp; tenantName );
+		virtual void disconnect( bool doCommit );
+		virtual void logout( $CPlusSecNamespace$::$SecSchemaName$Authorization* auth );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declSchemaSchemaConfigurationFileAccessors"
+		>$reference RefSchema declSchemaSchemaConfigurationFileAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSchemaConfigurationFileAccessors">
+		virtual $CPlusDefNamespace$::$DefSchemaName$ConfigurationFile* getConfigurationFile() const;
+		virtual void setConfigurationFile( $CPlusDefNamespace$::$DefSchemaName$ConfigurationFile* value );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaSchemaConfigurationFileAccessors">
+		virtual $popto SchemaDef CPlusDefNamespace$::$popto SchemaDef DefSchemaName$ConfigurationFile* getConfigurationFile() const;
+		virtual void setConfigurationFile( $popto SchemaDef CPlusDefNamespace$::$popto SchemaDef DefSchemaName$ConfigurationFile value );
+</GenRule>
+
+</RuleSet>

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+msscf"
+	Name="src/SchemaMssCF/SchemaMssCFEngine.java"
+	Revision="2.12"
+	Descr="Java 11 SchemaMssCFEngine">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaMssCFEngineJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$MssCF/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$MssCF"
+		ExpansionClassName="$SchemaName$MssCFEngineJava"
+		ExpansionKeyName="$SchemaName$MssCFEngineJava"
+		ExpansionFileName="$SchemaName$MssCFEngine.java">
+// Description: Java 11 MssCF CFEngine for $SchemaName$
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$MssCF;
+
+import java.sql.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cfcore.MssCF.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef importJavaPackageSchemaNameObj$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$
+import org.msscf.msscf.v2_13.cfcore.CFGenKbObj.*;
+
+public abstract class $SchemaName$MssCFEngine
+	extends MssCFEngine
+{
+	private static final long serialVersionUID = 1L;
+	public static final String ITEMNAME_TOP = "top";
+	protected I$SchemaName$SchemaObj $leadlower SchemaName$Schema = null;
+
+	public $SchemaName$MssCFEngine() {
+		super();
+		setTargetRuleName( ITEMNAME_TOP );
+	}
+
+	public abstract String fixGenDefName( String rawName );
+
+	public I$SchemaName$SchemaObj get$SchemaName$Schema() {
+		return( $leadlower SchemaName$Schema );
+	}
+
+	public void set$SchemaName$Schema( I$SchemaName$SchemaObj value ) {
+		$leadlower SchemaName$Schema = value;
+	}
+$implSchemaMssCFEngineMethods$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMssCFEngineMethods"
+		>$implSchemaMssCFEngineInit$$implSchemaMssCFEngineDefineFile$$implSchemaMssCFEngineDefineRule$$implSchemaMssCFEngineDefineTrunc$$implSchemaMssCFEngineBootstrap$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMssCFEngineInit">
+	public void init( String generatingBuild,
+		ICFGenKbSchemaObj argCFGenKbSchema,
+		ICFGenKbTenantObj argTenant,
+		I$SchemaName$SchemaObj arg$SchemaName$Schema,
+		String strRootGenDir )
+	{
+		set$SchemaName$Schema( arg$SchemaName$Schema );
+		init( generatingBuild, argCFGenKbSchema, argTenant, strRootGenDir );
+	}
+
+	public void init( String generatingBuild,
+		ICFGenKbSchemaObj argCFGenKbSchema,
+		ICFGenKbTenantObj argTenant,
+		String strRootGenDir )
+	{
+		super.init( generatingBuild, argCFGenKbSchema, argTenant, strRootGenDir );
+		setGenContext( getGenContextFactory().newGenContext( generatingBuild,
+			this,
+			strRootGenDir,
+			"any",
+			"Object",
+			"Object",
+			getTargetRuleName() ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMssCFEngineDefineFile">
+	public ICFGenKbGenFileObj defineFile(
+		String	definedNear,
+		String	toolsetName,
+		String	scopeDefClassName,
+		String	genDefClassName,
+		String	itemName,
+		String	expansionBody,
+		String	generateOnce,
+		String	sourceBundle,
+		String	moduleName,
+		String	basePackageName,
+		String	subPackageName,
+		String	expansionClassName,
+		String	expansionKeyName,
+		String	expansionFileName )
+	{
+		return(
+			super.defineFile( definedNear,
+				toolsetName,
+				fixGenDefName(scopeDefClassName),
+				fixGenDefName(genDefClassName),
+				itemName,
+				expansionBody,
+				generateOnce,
+				sourceBundle,
+				moduleName,
+				basePackageName,
+				subPackageName,
+				expansionClassName,
+				expansionKeyName,
+				expansionFileName) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMssCFEngineDefineRule">
+	public ICFGenKbGenRuleObj defineRule(
+		String	definedNear,
+		String	toolsetName,
+		String	scopeDefClassName,
+		String	genDefClassName,
+		String	itemName,
+		String	expansionBody )
+	{
+		return(
+			super.defineRule( definedNear,
+				toolsetName,
+				fixGenDefName(scopeDefClassName),
+				fixGenDefName(genDefClassName),
+				itemName,
+				expansionBody ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMssCFEngineDefineTrunc">
+	public ICFGenKbGenTruncObj defineTrunc(
+		String	definedNear,
+		String	toolsetName,
+		String	scopeDefClassName,
+		String	genDefClassName,
+		String	itemName,
+		String	expansionBody,
+		int		truncAt  )
+	{
+		return(
+			super.defineTrunc( definedNear,
+				toolsetName,
+				fixGenDefName(scopeDefClassName),
+				fixGenDefName(genDefClassName),
+				itemName,
+				expansionBody,
+				truncAt) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMssCFEngineBootstrap">
+	public void bootstrapDefClasses() {
+		ICFGenKbDefClassObj defClassObject = bootstrapDefClass( "Object", null );$iterate SchemaTables( each emitBootstrapDefClassRoot empty empty )$
+	}
+
+	public void bootstrapBindings() {
+		ICFGenKbGenBindObj bind = null;
+		ICFGenKbGenBindEditObj editBind = null;
+		ICFGenKbRuleCartObj ruleCart = this.getInternalRuleCart();
+		ICFGenKbRuleTypeObj ruleTypeBind = this.getRuleTypeTableObj().readRuleTypeByNameIdx("Bind");
+$iterate SchemaTables( each tableBindAttr empty empty )$
+	}
+
+	public void bootstrapIterators() {
+		ICFGenKbGenIteratorObj iterator = null;
+		ICFGenKbGenIteratorEditObj editIterator = null;
+		ICFGenKbRuleCartObj ruleCart = this.getInternalRuleCart();
+		ICFGenKbRuleTypeObj ruleTypeIterator = this.getRuleTypeTableObj().readRuleTypeByNameIdx("Iterator");
+$iterate SchemaTables( each tableBindIterators empty empty )$
+	}
+
+	public void bootstrapReferences() {
+		ICFGenKbGenReferenceObj refer = null;
+		ICFGenKbGenReferenceEditObj editRefer = null;
+		ICFGenKbRuleCartObj ruleCart = this.getInternalRuleCart();
+		ICFGenKbRuleTypeObj ruleTypeReference = this.getRuleTypeTableObj().readRuleTypeByNameIdx("Reference");
+$iterate SchemaTables( each tableBindRefer empty empty )$
+	}</GenRule>
+
+	<GenRule GenDef="Table" Name="emitBootstrapDefClassRoot"
+		>$switch HasSuperClassRelation yes empty default emitBootstrapDefClassWalkRoot$</GenRule>
+
+	<GenRule GenDef="Table" Name="emitBootstrapDefClassWalkRoot">
+		ICFGenKbDefClassObj defClass$TableName$ = bootstrapDefClass( "$TableName$", defClassObject );$iterate TableSubClasses( each emitBootstrapDefClassWalkTree empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="emitBootstrapDefClassWalkTree">
+		ICFGenKbDefClassObj defClass$TableName$ = bootstrapDefClass( "$TableName$", defClass$reference SuperClassRelation reference ToTable TableName$ );$iterate TableSubClasses( each emitBootstrapDefClassWalkTree empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBindRefer"
+		>$iterate Relation( each tableBindReferRelation empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="tableBindReferRelation"
+		>$switch RelationTypeTag
+			Lookup bindRefer
+			Master bindRefer
+			Parent bindRefer
+			Container bindRefer
+			Owner bindRefer
+			Details tableBindReferSubObject
+			Children tableBindReferSubObject
+			Components tableBindReferSubObject
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="tableBindReferSubObject"
+		>$switch IsToIndexUnique yes bindRefer default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindRefer">
+		refer = new $SchemaName$MssCFReference$popto Table Name$$Suffix$( this );
+		editRefer = (ICFGenKbGenReferenceEditObj)refer.beginEdit();
+		editRefer.setRequiredContainerCartridge( ruleCart );
+		editRefer.setRequiredLookupRuleType( ruleTypeReference );
+		editRefer.create();
+		editRefer = null;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBindIterators"
+	>$iterate Relation( each tableBindIterateRelation empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="tableBindIterateRelation"
+		>$switch RelationTypeTag
+			Lookup empty
+			Master empty
+			Parent empty
+			Container empty
+			Owner empty
+			Details relationSubObjectIterators
+			Children relationSubObjectIterators
+			Components relationSubObjectIterators
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="relationSubObjectIterators"
+		>$switch IsToIndexUnique yes empty default bindSchemaMssCFIterateTableSuffix$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindSchemaMssCFIterateTableSuffix">
+		iterator = new $SchemaName$MssCFIterate$popto Table Name$$Suffix$( this );
+		editIterator = (ICFGenKbGenIteratorEditObj)iterator.beginEdit();
+		editIterator.setRequiredContainerCartridge( ruleCart );
+		editIterator.setRequiredLookupRuleType( ruleTypeIterator );
+		editIterator.create();
+		editIterator = null;
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="tableBindRelation"
+		>$switch RelationTypeTag
+			Lookup optionalBindSchemaMssCFBindHasTableSuffix
+			Master optionalBindSchemaMssCFBindHasTableSuffix
+			Parent optionalBindSchemaMssCFBindHasTableSuffix
+			Container optionalBindSchemaMssCFBindHasTableSuffix
+			Owner optionalBindSchemaMssCFBindHasTableSuffix
+			Details tableBindRelationMaybeHasSubObject
+			Children tableBindRelationMaybeHasSubObject
+			Components tableBindRelationMaybeHasSubObject
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="tableBindRelationMaybeHasSubObject"
+		>$switch IsToIndexUnique yes optionalBindSchemaMssCFBindHasTableSuffix default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="optionalBindSchemaMssCFBindHasTableSuffix"
+		>$switch IsRequired yes empty default bindSchemaMssCFBindHasTableSuffix$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindSchemaMssCFBindHasTableSuffix">
+		bind = new $SchemaName$MssCFBindHas$popto Table Name$$Suffix$( this );
+		editBind = (ICFGenKbGenBindEditObj)bind.beginEdit();
+		editBind.setRequiredContainerCartridge( ruleCart );
+		editBind.setRequiredLookupRuleType( ruleTypeBind );
+		editBind.create();
+		editBind = null;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBindAttr"
+		>$switch HasSuperClassRelation no tableBaseBindAttr default tableSubClassBindAttr$$iterate Relation( each tableBindRelation empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBaseBindAttr"
+		>$tableBaseClassBindAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableSubClassBindAttr"
+		>$iterate Columns( each bindSchemaMssCFBindDataColumnBindAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBaseClassBindAttr"
+		>$iterate Columns( each bindSchemaMssCFBindColumnBindAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="bindSchemaMssCFBindDataColumnBindAttr"
+		>$switch ColumnInPrimaryIndex yes empty default bindSchemaMssCFBindColumnBindAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="bindSchemaMssCFBindColumnBindAttr">
+		bind = new $SchemaName$MssCFBind$TableName$$Name$( this );
+		editBind = (ICFGenKbGenBindEditObj)bind.beginEdit();
+		editBind.setRequiredContainerCartridge( ruleCart );
+		editBind.setRequiredLookupRuleType( ruleTypeBind );
+		editBind.create();
+		editBind = null;
+$optionalBindSchemaMssCFBindHasTableCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="optionalBindSchemaMssCFBindHasTableCol"
+		>$switch IsNullable yes bindSchemaMssCFBindHasTableCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="bindSchemaMssCFBindHasTableCol">
+		bind = new $SchemaName$MssCFBindHas$TableName$$Name$( this );
+		editBind = (ICFGenKbGenBindEditObj)bind.beginEdit();
+		editBind.setRequiredContainerCartridge( ruleCart );
+		editBind.setRequiredLookupRuleType( ruleTypeBind );
+		editBind.create();
+		editBind = null;
+</GenRule>
+
+</RuleSet>

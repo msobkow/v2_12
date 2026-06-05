@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus+msscf"
+	Name="libschemamsscf/SchemaMssCFEngine.cpp"
+	Revision="2.12"
+	Descr="C++18 SchemaMssCFEngine">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaMssCFEngineCPlus"
+		GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$reference ManufacturingSchema lower PackageName$msscf"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$MssCFEngineCPlus"
+		ExpansionKeyName="$SchemaName$MssCFEngineCPlus"
+		ExpansionFileName="$SchemaName$MssCFEngine.cpp">
+// Description: C++18 MssCF CFEngine for $SchemaName$
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;msscf/MssCFPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+
+#include &lt;$lower SchemaName$msscf/$SchemaName$MssCFEngine.hpp&gt;$iterate SchemaTables( each cfeincMakecfeincEngineInc empty empty )$
+namespace $CPlusNamespace$ {
+
+	const std::string $SchemaName$MssCFEngine::CLASS_NAME( "$SchemaName$MssCFEngine" );
+	const std::string $SchemaName$MssCFEngine::ITEMNAME_TOP( "top" );
+
+	$SchemaName$MssCFEngine::$SchemaName$MssCFEngine()
+	: cfcore::MssCFEngine()
+	{
+		$leadlower SchemaName$Schema = NULL;
+	}
+
+	$SchemaName$MssCFEngine::~$SchemaName$MssCFEngine() {
+	}
+
+	$CPlusNamespace$::I$SchemaName$SchemaObj* $SchemaName$MssCFEngine::get$SchemaName$Schema() {
+		return( $leadlower SchemaName$Schema );
+	}
+
+	void $SchemaName$MssCFEngine::set$SchemaName$Schema( $CPlusNamespace$::I$SchemaName$SchemaObj* value ) {
+		$leadlower SchemaName$Schema = value;
+	}
+$implSchemaMssCFEngineInit$$implSchemaMssCFEngineDefineFile$$implSchemaMssCFEngineDefineRule$$implSchemaMssCFEngineDefineTrunc$$implSchemaMssCFEngineBootstrap$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMssCFEngineInit">
+	void $SchemaName$MssCFEngine::init( const std::string&amp; generatingBuild,
+		cfcore::ICFGenKbSchemaObj* argCFGenKbSchema,
+		cfcore::ICFGenKbTenantObj* argTenant,
+		$CPlusNamespace$::I$SchemaName$SchemaObj* arg$SchemaName$Schema,
+		const std::string&amp; strRootGenDir )
+	{
+		set$SchemaName$Schema( arg$SchemaName$Schema );
+		init( generatingBuild, argCFGenKbSchema, argTenant, strRootGenDir );
+	}
+
+	void $SchemaName$MssCFEngine::init( const std::string&amp; generatingBuild,
+		cfcore::ICFGenKbSchemaObj* argCFGenKbSchema,
+		cfcore::ICFGenKbTenantObj* argTenant,
+		const std::string&amp; strRootGenDir )
+	{
+		cfcore::MssCFEngine::init( generatingBuild, argCFGenKbSchema, argTenant, strRootGenDir );
+		setGenContext( getGenContextFactory()-&gt;newGenContext( generatingBuild,
+			this,
+			strRootGenDir,
+			"any",
+			"Object",
+			"Object",
+			getTargetRuleName() ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMssCFEngineDefineFile">
+	cfcore::ICFGenKbGenFileObj* $SchemaName$MssCFEngine::defineFile(
+		const std::string&amp; definedNear,
+		const std::string&amp; toolsetName,
+		const std::string&amp; scopeDefClassName,
+		const std::string&amp; genDefClassName,
+		const std::string&amp; itemName,
+		const std::string&amp; expansionBody,
+		const std::string&amp; generateOnce,
+		const std::string&amp; sourceBundle,
+		const std::string&amp; moduleName,
+		const std::string&amp; basePackageName,
+		const std::string&amp; subPackageName,
+		const std::string&amp; expansionClassName,
+		const std::string&amp; expansionKeyName,
+		const std::string&amp; expansionFileName )
+	{
+		return(
+			cfcore::MssCFEngine::defineFile( definedNear,
+				toolsetName,
+				fixGenDefName( scopeDefClassName ),
+				fixGenDefName( genDefClassName ),
+				itemName,
+				expansionBody,
+				generateOnce,
+				sourceBundle,
+				moduleName,
+				basePackageName,
+				subPackageName,
+				expansionClassName,
+				expansionKeyName,
+				expansionFileName ) );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMssCFEngineDefineRule">
+	cfcore::ICFGenKbGenRuleObj* $SchemaName$MssCFEngine::defineRule(
+		const std::string&amp; definedNear,
+		const std::string&amp; toolsetName,
+		const std::string&amp; scopeDefClassName,
+		const std::string&amp; genDefClassName,
+		const std::string&amp; itemName,
+		const std::string&amp; expansionBody )
+	{
+		return(
+			cfcore::MssCFEngine::defineRule( definedNear,
+				toolsetName,
+				fixGenDefName( scopeDefClassName ),
+				fixGenDefName( genDefClassName ),
+				itemName,
+				expansionBody ) );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMssCFEngineDefineTrunc">
+	cfcore::ICFGenKbGenTruncObj* $SchemaName$MssCFEngine::defineTrunc(
+		const std::string&amp; definedNear,
+		const std::string&amp; toolsetName,
+		const std::string&amp; scopeDefClassName,
+		const std::string&amp; genDefClassName,
+		const std::string&amp; itemName,
+		const std::string&amp; expansionBody,
+		int truncAt )
+	{
+		return(
+			cfcore::MssCFEngine::defineTrunc( definedNear,
+				toolsetName,
+				fixGenDefName( scopeDefClassName ),
+				fixGenDefName( genDefClassName ),
+				itemName,
+				expansionBody,
+				truncAt ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMssCFEngineBootstrap">
+	void $SchemaName$MssCFEngine::bootstrapDefClasses() {
+		cfcore::ICFGenKbDefClassObj* defClassObject = bootstrapDefClass( "Object", NULL );$iterate SchemaTables( each emitBootstrapDefClassRoot empty empty )$
+	}
+
+	void $SchemaName$MssCFEngine::bootstrapBindings() {
+		static const std::string S_Bind( "Bind" );
+
+		cfcore::ICFGenKbGenBindObj* bind = NULL;
+		cfcore::ICFGenKbGenBindEditObj* editBind = NULL;
+		cfcore::ICFGenKbRuleCartObj* ruleCart = getInternalRuleCart();
+		cfcore::ICFGenKbRuleTypeObj* ruleTypeBind = getRuleTypeTableObj()-&gt;readRuleTypeByNameIdx( S_Bind );
+$iterate SchemaTables( each tableBindAttr empty empty )$
+	}
+
+	void $SchemaName$MssCFEngine::bootstrapIterators() {
+		static const std::string S_Iterator( "Iterator" );
+
+		cfcore::ICFGenKbGenIteratorObj* iterator = NULL;
+		cfcore::ICFGenKbGenIteratorEditObj* editIterator = NULL;
+		cfcore::ICFGenKbRuleCartObj* ruleCart = getInternalRuleCart();
+		cfcore::ICFGenKbRuleTypeObj* ruleTypeIterator = getRuleTypeTableObj()-&gt;readRuleTypeByNameIdx( S_Iterator );
+$iterate SchemaTables( each tableBindIterators empty empty )$
+	}
+
+	void $SchemaName$MssCFEngine::bootstrapReferences() {
+		static const std::string S_Reference( "Reference" );
+
+		cfcore::ICFGenKbGenReferenceObj* refer = NULL;
+		cfcore::ICFGenKbGenReferenceEditObj* editRefer = NULL;
+		cfcore::ICFGenKbRuleCartObj* ruleCart = getInternalRuleCart();
+		cfcore::ICFGenKbRuleTypeObj* ruleTypeReference = getRuleTypeTableObj()-&gt;readRuleTypeByNameIdx( S_Reference );
+$iterate SchemaTables( each tableBindRefer empty empty )$
+	}</GenRule>
+
+	<GenRule GenDef="Table" Name="emitBootstrapDefClassRoot"
+		>$switch HasSuperClassRelation yes empty default emitBootstrapDefClassWalkRoot$</GenRule>
+
+	<GenRule GenDef="Table" Name="emitBootstrapDefClassWalkRoot">
+		cfcore::ICFGenKbDefClassObj* defClass$TableName$ = bootstrapDefClass( "$TableName$", defClassObject );$iterate TableSubClasses( each emitBootstrapDefClassWalkTree empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="emitBootstrapDefClassWalkTree">
+		cfcore::ICFGenKbDefClassObj* defClass$TableName$ = bootstrapDefClass( "$TableName$", defClass$reference SuperClassRelation reference ToTable TableName$ );$iterate TableSubClasses( each emitBootstrapDefClassWalkTree empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBindRefer"
+		>$iterate Relation( each tableBindReferRelation empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="tableBindReferRelation"
+		>$switch RelationTypeTag
+			Lookup bindRefer
+			Master bindRefer
+			Parent bindRefer
+			Container bindRefer
+			Owner bindRefer
+			Details tableBindReferSubObject
+			Children tableBindReferSubObject
+			Components tableBindReferSubObject
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="tableBindReferSubObject"
+		>$switch IsToIndexUnique yes bindRefer default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindRefer">
+		refer = new $SchemaName$MssCFReference$popto Table Name$$Suffix$( this );
+		editRefer = dynamic_cast&lt;cfcore::ICFGenKbGenReferenceEditObj*&gt;( refer-&gt;beginEdit() );
+		editRefer-&gt;setRequiredContainerCartridge( ruleCart );
+		editRefer-&gt;setRequiredLookupRuleType( ruleTypeReference );
+		editRefer-&gt;create();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBindIterators"
+	>$iterate Relation( each tableBindIterateRelation empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="tableBindIterateRelation"
+		>$switch RelationTypeTag
+			Lookup empty
+			Master empty
+			Parent empty
+			Container empty
+			Owner empty
+			Details relationSubObjectIterators
+			Children relationSubObjectIterators
+			Components relationSubObjectIterators
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="relationSubObjectIterators"
+		>$switch IsToIndexUnique yes empty default bindSchemaMssCFIterateTableSuffix$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindSchemaMssCFIterateTableSuffix">
+		iterator = new $SchemaName$MssCFIterate$popto Table Name$$Suffix$( this );
+		editIterator = dynamic_cast&lt;cfcore::ICFGenKbGenIteratorEditObj*&gt;( iterator-&gt;beginEdit() );
+		editIterator-&gt;setRequiredContainerCartridge( ruleCart );
+		editIterator-&gt;setRequiredLookupRuleType( ruleTypeIterator );
+		editIterator-&gt;create();
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="tableBindRelation"
+		>$switch RelationTypeTag
+			Lookup optionalBindSchemaMssCFBindHasTableSuffix
+			Master optionalBindSchemaMssCFBindHasTableSuffix
+			Parent optionalBindSchemaMssCFBindHasTableSuffix
+			Container optionalBindSchemaMssCFBindHasTableSuffix
+			Owner optionalBindSchemaMssCFBindHasTableSuffix
+			Details tableBindRelationMaybeHasSubObject
+			Children tableBindRelationMaybeHasSubObject
+			Components tableBindRelationMaybeHasSubObject
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="tableBindRelationMaybeHasSubObject"
+		>$switch IsToIndexUnique yes optionalBindSchemaMssCFBindHasTableSuffix default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="optionalBindSchemaMssCFBindHasTableSuffix"
+		>$switch IsRequired yes empty default bindSchemaMssCFBindHasTableSuffix$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindSchemaMssCFBindHasTableSuffix">
+		bind = new $SchemaName$MssCFBindHas$popto Table Name$$Suffix$( this );
+		editBind = dynamic_cast&lt;cfcore::ICFGenKbGenBindEditObj*&gt;( bind-&gt;beginEdit() );
+		editBind-&gt;setRequiredContainerCartridge( ruleCart );
+		editBind-&gt;setRequiredLookupRuleType( ruleTypeBind );
+		editBind-&gt;create();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBindAttr"
+		>$switch HasSuperClassRelation no tableBaseBindAttr default tableSubClassBindAttr$$iterate Relation( each tableBindRelation empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBaseBindAttr"
+		>$tableBaseClassBindAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableSubClassBindAttr"
+		>$iterate Columns( each bindSchemaMssCFBindDataColumnBindAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBaseClassBindAttr"
+		>$iterate Columns( each bindSchemaMssCFBindColumnBindAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="bindSchemaMssCFBindDataColumnBindAttr"
+		>$switch ColumnInPrimaryIndex yes empty default bindSchemaMssCFBindColumnBindAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="bindSchemaMssCFBindColumnBindAttr">
+		bind = new $SchemaName$MssCFBind$TableName$$Name$( this );
+		editBind = dynamic_cast&lt;cfcore::ICFGenKbGenBindEditObj*&gt;( bind-&gt;beginEdit() );
+		editBind-&gt;setRequiredContainerCartridge( ruleCart );
+		editBind-&gt;setRequiredLookupRuleType( ruleTypeBind );
+		editBind-&gt;create();
+$optionalBindSchemaMssCFBindHasTableCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="optionalBindSchemaMssCFBindHasTableCol"
+		>$switch IsNullable yes bindSchemaMssCFBindHasTableCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="bindSchemaMssCFBindHasTableCol">
+		bind = new $SchemaName$MssCFBindHas$TableName$$Name$( this );
+		editBind = dynamic_cast&lt;cfcore::ICFGenKbGenBindEditObj*&gt;( bind-&gt;beginEdit() );
+		editBind-&gt;setRequiredContainerCartridge( ruleCart );
+		editBind-&gt;setRequiredLookupRuleType( ruleTypeBind );
+		editBind-&gt;create();
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="cfeincMakecfeincEngineInc"
+		>$switch HasSuperClassRelation yes tableSubClassEngineInc default tableBaseEngineInc$$iterate Relation( each relationEngineInc empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableSubClassEngineInc"
+		>$iterate Columns( each cfeincSchemaMssCFBindDataColumnEngineInc )$</GenRule>
+
+	<GenRule GenDef="Value" Name="cfeincSchemaMssCFBindDataColumnEngineInc"
+		>$switch ColumnInPrimaryIndex yes empty default cfeincSchemaMssCFBindColumnEngineInc$</GenRule>
+
+	<GenRule GenDef="Value" Name="cfeincSchemaMssCFBindColumnEngineInc"
+		>$cfeincSchemaMssCFBindTableColHPlus$$optionalCfeIncSchemaMssCFBindHasTableColHPlus$</GenRule>
+
+	<GenRule GenDef="Value" Name="optionalCfeIncSchemaMssCFBindHasTableColHPlus"
+		>$switch IsNullable yes cfeincSchemaMssCFBindHasTableColHPlus default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="cfeincSchemaMssCFBindTableColHPlus">
+#include &lt;$lower SchemaName$msscf/$SchemaName$MssCFBind$TableName$$Name$.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Value" Name="cfeincSchemaMssCFBindHasTableColHPlus">
+#include &lt;$lower SchemaName$msscf/$SchemaName$MssCFBindHas$TableName$$Name$.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBaseEngineInc"
+		>$iterate Columns( each cfeincSchemaMssCFBindColumnEngineInc )$</GenRule>
+
+	<GenRule GenDef="Table" Name="tableBaseClassEngineInc"
+		>$iterate Columns( each cfeincSchemaMssCFBindColumnEngineInc )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="relationEngineInc"
+		>$switch RelationTypeTag
+			Lookup refEngineInc
+			Master refEngineInc
+			Parent refEngineInc
+			Container refEngineInc
+			Owner refEngineInc
+			Details relationSubObjectEngineInc
+			Children relationSubObjectEngineInc
+			Components relationSubObjectEngineInc
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="relationSubObjectEngineInc"
+		>$switch IsToIndexUnique yes refEngineInc default cfeincSchemaMssCFIterateTableSuffixHPlus$</GenRule>
+
+	<GenRule GenDef="Relation" Name="cfeincSchemaMssCFIterateTableSuffixHPlus">
+#include &lt;$lower SchemaName$msscf/$SchemaName$MssCFIterate$popto Table TableName$$Suffix$.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Relation" Name="refEngineInc"
+		>$cfeincSchemaMssCFReferenceTableSuffixHPlus$$optionalCfeIncSchemaMssCFBindHasTableSuffixHPlus$</GenRule>
+
+	<GenRule GenDef="Relation" Name="cfeincSchemaMssCFReferenceTableSuffixHPlus">
+#include &lt;$lower SchemaName$msscf/$SchemaName$MssCFReference$popto Table Name$$Suffix$.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Relation" Name="optionalCfeIncSchemaMssCFBindHasTableSuffixHPlus"
+		>$switch IsRequired yes empty default cfeincSchemaMssCFBindHasTableSuffixHPlus$</GenRule>
+
+	<GenRule GenDef="Relation" Name="cfeincSchemaMssCFBindHasTableSuffixHPlus">
+#include &lt;$lower SchemaName$msscf/$SchemaName$MssCFBindHas$popto Table Name$$Suffix$.hpp&gt;</GenRule>
+
+</RuleSet>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+db2luw"
+	Name="src/SchemaDb2LUWSchemaPool.java"
+	Revision="2.12"
+	Descr="Java 11 implementation of a $SchemaName$ schema pool.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaDb2LUWSchemaPoolJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$Db2LUW/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$Db2LUW"
+		ExpansionClassName="$SchemaName$Db2LUWSchemaPoolJava"
+		ExpansionKeyName="$SchemaName$Db2LUWSchemaPoolJava"
+		ExpansionFileName="$SchemaName$Db2LUWSchemaPool.java"
+>// Description: Java 11 implementation of a DB/2 LUW $SchemaName$ schema pool.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$Db2LUW;
+
+import java.util.*;
+
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$importJavaPackageSchemaName$
+
+public class $SchemaName$Db2LUWSchemaPool
+extends $SchemaName$SchemaPool
+{$implSchemaDb2LUWSchemaPoolConstructor$$implSchemaDb2LUWSchemaPoolToBeOverloaded$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaDb2LUWSchemaPoolConstructor">
+	public $SchemaName$Db2LUWSchemaPool() {
+		setJndiName( "java:comp/env/$DbSchemaName$ConnectionPool" );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaDb2LUWSchemaPoolToBeOverloaded">
+	/**
+	 *	You need to overload the implementation of newInstance() to return
+	 *	connected instances of your backing store.
+	 */
+	public I$SchemaName$Schema newInstance() {
+		I$SchemaName$Schema inst = new $SchemaName$Db2LUWSchema();
+		return( inst );
+	}
+</GenRule>
+
+</RuleSet>

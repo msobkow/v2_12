@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schema/SchemaConfigurationFile.hpp"
+	Revision="2.12"
+	Descr="C++18 configuration file specification for schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaConfigurationFileHpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$ConfigurationFileHpp"
+		ExpansionKeyName="$SchemaName$ConfigurationFileHpp"
+		ExpansionFileName="$SchemaName$ConfigurationFile.hpp"
+>#pragma once
+
+// Description: C++18 configuration file specification for a $SchemaName$ schema.
+
+$MssSourceLicense$
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+$iterate SchemaRefs( first includeSchemaConfigurationFile each empty empty empty )$
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$ConfigurationFile$iterate SchemaRefs( first extendSchemaConfigurationFile each empty empty empty )$
+	{$iterate SchemaRefs( first ConfigurationFileExtendDefBaseBody each empty empty ConfigurationFileImplDefBaseBody )$	};
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="includeSchemaConfigurationFile">
+#include &lt;$lower SecSchemaName$/$SecSchemaName$ConfigurationFile.hpp&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ConfigurationFileExtendDefBaseBody">
+	public:
+		$poptop SchemaDef SchemaName$ConfigurationFile();
+		virtual ~$poptop SchemaDef SchemaName$ConfigurationFile();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="ConfigurationFileImplDefBaseBody">
+	protected:
+		std::string* fileName;
+		std::string* dbServer;
+		int32_t dbPort = -1;
+		std::string* dbDatabase;
+		std::string* dbUserName;
+		std::string* dbPassword;
+
+	public:
+		static const std::string CLASS_NAME;
+		static const std::string S_DBSERVER;
+		static const std::string S_DBPORT;
+		static const std::string S_DBDATABASE;
+		static const std::string S_DBUSERNAME;
+		static const std::string S_DBPASSWORD;
+$poptop SchemaDef declSchemaConfigurationFileMethods$
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="extendSchemaConfigurationFile"> : public $reference RefSchema CPlusNamespace$::$reference RefSchema SchemaName$ConfigurationFile</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaConfigurationFileMethods"
+		>$iterate SchemaRefs( empty reallyDeclSchemaConfigurationFileMethods each empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="reallyDeclSchemaConfigurationFileMethods"
+		>$reference RefSchema reallyDeclSchemaConfigurationFileMethods$</GenRule>
+
+	<GenRule GenDef="Object" Name="reallyDeclSchemaConfigurationFileMethods"
+		>$switch HasDefSchema yes reallyDerefDeclSchemaConfigurationFileMethods default empty empty empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="reallyDerefDeclSchemaConfigurationFileMethods"
+		>$reference DefSchema reallyDeclSchemaConfigurationFileMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="reallyDeclSchemaConfigurationFileMethods">
+	public:
+		$SecSchemaName$ConfigurationFile();
+		virtual ~$SecSchemaName$ConfigurationFile();
+
+		virtual std::string* getFileName() const;
+		virtual void setFileName( const std::string&amp; value );
+
+		virtual std::string* getDbServer() const;
+		virtual void setDbServer( const std::string&amp; value );
+
+		virtual int32_t getDbPort() const;
+		virtual void setDbPort( int32_t value );
+
+		virtual std::string* getDbDatabase() const;
+		virtual void setDbDatabase( const std::string&amp; value );
+
+		virtual std::string* getDbUserName() const;
+		virtual void setDbUserName( const std::string&amp; value );
+
+		virtual std::string* getDbPassword() const;
+		virtual void setDbPassword( const std::string&amp; value );
+
+		virtual bool load();
+		virtual bool save() const;</GenRule>
+
+</RuleSet>

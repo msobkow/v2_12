@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+jee"
+	Name="src/SchemaSMWar/SchemaSMWarDeleteDeviceHtml.java"
+	Revision="2.12"
+	Descr="Java 11 Sec Manager Delete Device Servlet">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSMWarDeleteDeviceHtmlJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$SMWar/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$SMWar"
+		ExpansionClassName="$SchemaName$SMWarDeleteDeviceHtmlJava"
+		ExpansionKeyName="$SchemaName$SMWarDeleteDeviceHtmlJava"
+		ExpansionFileName="$SchemaName$SMWarDeleteDeviceHtml.java">
+// Description: Java 11 Sec Manager Delete Device Servlet
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$SMWar;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.Iterator;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+import org.apache.commons.codec.binary.Base64;
+
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+
+/**
+ * Servlet implementation class $SchemaName$SMWarLoginHtml
+ */
+@WebServlet("/$SchemaName$SMWarDeleteDeviceHtml")
+public class $SchemaName$SMWarDeleteDeviceHtml extends HttpServlet {$SchemaSMWarDeleteDevicePart01$$SchemaSMWarDeleteDevicePart02$$SchemaSMWarDeleteDevicePart03$$SchemaSMWarDeleteDevicePart04$$SchemaSMWarDeleteDevicePart05$$SchemaSMWarDeleteDevicePart06$$SchemaSMWarDeleteDevicePart07$$SchemaSMWarDeleteDevicePart08$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarDeleteDevicePart01">
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public $SchemaName$SMWarDeleteDeviceHtml() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		final String S_ProcName="doGet";
+		I$SchemaName$SchemaObj schemaObj;
+		HttpSession sess = request.getSession( false );
+		if( sess == null ) {
+			sess = request.getSession( true );
+			schemaObj = new $SchemaName$SchemaPooledObj();
+			sess.setAttribute( "SchemaObj", schemaObj );
+		}
+		else {
+			schemaObj = (I$SchemaName$SchemaObj)sess.getAttribute( "SchemaObj" );
+			if( schemaObj == null ) {
+				response.sendRedirect( "$SchemaName$SMWarLoginHtml" );
+				return;
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarDeleteDevicePart02">
+		$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+		if( auth == null ) {
+			response.sendRedirect( "$SchemaName$SMWarLoginHtml" );
+			return;
+		}
+
+		String deviceName = request.getParameter( "DeviceName" );
+		if( ( deviceName == null ) || ( deviceName.length() &lt;= 0 ) ) {
+			response.sendRedirect( "$SchemaName$SMWarSecMainHtml" );
+			return;
+		}
+
+		I$SchemaName$Schema dbSchema = null;
+		try {
+			dbSchema = (I$SchemaName$Schema)$SchemaName$SchemaPool.getSchemaPool().getInstance();
+			schemaObj.setBackingStore( dbSchema );
+			schemaObj.beginTransaction();
+
+			I$SecSchemaName$ClusterObj secCluster = schemaObj.getClusterTableObj().readClusterByIdIdx( auth.getSecClusterId() );
+			if( secCluster == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"secCluster" );
+			}
+			String clusterDescription = secCluster.getRequiredDescription();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarDeleteDevicePart03">
+			I$SecSchemaName$SecUserObj secUser = schemaObj.getSecUserTableObj().readSecUserByIdIdx( auth.getSecUserId() );
+			response.setContentType( "text/html" );
+			PrintWriter out = response.getWriter();
+			out.println( "&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"&gt;" );
+			out.println( "&lt;HTML&gt;" );
+			out.println( "&lt;BODY&gt;" );
+			out.println( "&lt;form method=\"post\" formaction=\"$SchemaName$SMWarDeleteDeviceHtml\"&gt;" );
+			out.println( "&lt;H1 style=\"text-align:center\"&gt;" + clusterDescription + " Sec Manager&lt;/H1&gt;" );
+			out.println( "&lt;H2 style=\"text-align:center\"&gt;Delete device "
+					+ deviceName
+					+ " for "
+					+ secUser.getRequiredEMailAddress()
+					+ "&lt;/H2&gt;" );
+			out.println( "&lt;p style=\"text-align:center\"&gt;" );
+			out.println( "Are you sure you want to delete the following device?" );
+			out.println( "&lt;table style=\"width:90%\"&gt;" );
+			out.println( "&lt;tr&gt;&lt;th style=\"text-align:left\"&gt;Device Name:&lt;/th&gt;&lt;td&gt;&lt;input disabled type=\"text\" name=\"DeviceName\" value=\"" + deviceName + "\"/&gt;&lt;/td&gt;&lt;/tr&gt;");
+			out.println( "&lt;/table&gt;" );
+			out.println( "&lt;p style=\"text-align:center\"&gt;&lt;button type=\"submit\" name=\"Ok\"\"&gt;Delete Device&lt;/button&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;button type=\"button\" name=\"Cancel\"\" onclick=\"window.location.href='$SchemaName$SMWarSecMainHtml'\"&gt;Cancel&lt;/button&gt;" );
+			out.println( "&lt;/form&gt;" );
+			out.println( "&lt;/BODY&gt;" );
+			out.println( "&lt;/HTML&gt;" );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarDeleteDevicePart04">
+		}
+		catch( RuntimeException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught RuntimeException -- " + e.getMessage(),
+				e );
+		}
+		finally {
+			if( dbSchema != null ) {
+				try {
+					if( schemaObj.isTransactionOpen() ) { 
+						schemaObj.rollback();
+					}
+				}
+				catch( RuntimeException e ) {
+				}
+				schemaObj.setBackingStore( null );
+				$SchemaName$SchemaPool.getSchemaPool().releaseInstance( dbSchema );
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarDeleteDevicePart05">
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		final String S_ProcName = "doPost";
+
+		I$SchemaName$SchemaObj schemaObj;
+		HttpSession sess = request.getSession( false );
+		if( sess == null ) {
+			sess = request.getSession( true );
+			schemaObj = new $SchemaName$SchemaPooledObj();
+			sess.setAttribute( "SchemaObj", schemaObj );
+		}
+		else {
+			schemaObj = (I$SchemaName$SchemaObj)sess.getAttribute( "SchemaObj" );
+			if( schemaObj == null ) {
+				response.sendRedirect( "$SchemaName$SMWarLoginHtml" );
+				return;
+			}
+		}
+
+		$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+		if( auth == null ) {
+			response.sendRedirect( "$SchemaName$SMWarLoginHtml" );
+			return;
+		}
+
+		String deviceName = request.getParameter( "DeviceName" );
+		if( ( deviceName == null ) || ( deviceName.length() &lt;= 0 ) ) {
+			response.sendRedirect( "$SchemaName$SMWarSecMainHtml" );
+			return;
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarDeleteDevicePart06">
+		I$SchemaName$Schema dbSchema = null;
+		try {
+			dbSchema = (I$SchemaName$Schema)$SchemaName$SchemaPool.getSchemaPool().getInstance();
+			schemaObj.setBackingStore( dbSchema );
+			schemaObj.beginTransaction();
+			I$SecSchemaName$SecUserObj secUser = schemaObj.getSecUserTableObj().readSecUserByIdIdx( auth.getSecUserId() );
+			I$SecSchemaName$SecDeviceObj secDev = schemaObj.getSecDeviceTableObj().readSecDeviceByIdIdx( secUser.getRequiredSecUserId(), deviceName );
+			if( secDev == null ) {
+				response.sendRedirect( "$SchemaName$SMWarSecMainHtml" );
+				return;
+			}
+
+			I$SecSchemaName$ClusterObj systemCluster = schemaObj.getClusterTableObj().readClusterByUDomNameIdx( "system" );
+			I$SecSchemaName$TenantObj systemTenant = schemaObj.getTenantTableObj().readTenantByUNameIdx( systemCluster.getRequiredId(), "system" );
+			I$SecSchemaName$SecUserObj systemUser = schemaObj.getSecUserTableObj().readSecUserByULoginIdx( "system" );
+			I$SecSchemaName$SecSessionObj systemSession = schemaObj.getSecSessionTableObj().newInstance();
+			I$SecSchemaName$SecSessionEditObj editSystemSession = (I$SecSchemaName$SecSessionEditObj)systemSession.beginEdit();
+			editSystemSession.setRequiredContainerSecUser( systemUser );
+			editSystemSession.setRequiredStart( Calendar.getInstance() );
+			systemSession = editSystemSession.create();
+			editSystemSession = null;
+
+			$SecSchemaName$Authorization secAuth = new $SecSchemaName$Authorization();
+			secAuth.setSecCluster( systemCluster );
+			secAuth.setSecTenant( systemTenant );
+			secAuth.setSecSession( systemSession );
+			schemaObj.setAuthorization( secAuth );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarDeleteDevicePart07">
+			if( secDev == secUser.getOptionalLookupDefDev() ) {
+				I$SecSchemaName$SecUserEditObj editSecUser = secUser.beginEdit();
+				editSecUser.setOptionalLookupDefDev( null );
+				editSecUser.update();
+				editSecUser = null;
+			}
+
+			I$SecSchemaName$SecDeviceEditObj editDev = secDev.beginEdit();
+			editDev.deleteInstance();
+			editDev = null;
+
+			editSystemSession = (I$SecSchemaName$SecSessionEditObj)systemSession.beginEdit();
+			editSystemSession.setOptionalFinish( Calendar.getInstance() );
+			editSystemSession.update();
+			editSystemSession = null;
+
+			schemaObj.commit();
+
+			schemaObj.setAuthorization( auth );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarDeleteDevicePart08">
+			response.sendRedirect( "$SchemaName$SMWarSecMainHtml" );
+		}
+		catch( RuntimeException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught RuntimeException -- " + e.getMessage(),
+				e );
+		}
+		finally {
+			schemaObj.setAuthorization( auth );
+			if( dbSchema != null ) {
+				try {
+					if( schemaObj.isTransactionOpen() ) { 
+						schemaObj.rollback();
+					}
+				}
+				catch( RuntimeException e ) {
+				}
+				schemaObj.setBackingStore( null );
+				$SchemaName$SchemaPool.getSchemaPool().releaseInstance( dbSchema );
+			}
+		}
+	}</GenRule>
+
+</RuleSet>

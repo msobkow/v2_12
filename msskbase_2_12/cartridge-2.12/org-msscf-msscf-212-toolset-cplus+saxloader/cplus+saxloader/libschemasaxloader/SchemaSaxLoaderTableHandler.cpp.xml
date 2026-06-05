@@ -1,0 +1,2764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus+saxloader"
+	Name="libschemaxml/SchemaSaxLoaderTableHandler.cpp"
+	Revision="2.12"
+	Descr="C++18 XML SAX2 Element Handler implementation for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaSaxLoaderTableHandlerCPlus"
+		GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$reference ManufacturingSchema lower PackageName$saxloader"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$SaxLoader$TableName$HandlerCPlus"
+		ExpansionKeyName="$SchemaName$SaxLoader$TableName$HandlerCPlus"
+		ExpansionFileName="$SchemaName$SaxLoader$TableName$Handler.cpp">
+// Description: C++18 XML SAX2 Element Handler implementation for $TableName$
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+#include &lt;$lower SchemaName$saxloader/$SchemaName$SaxLoader.hpp&gt;
+#include &lt;$lower SchemaName$saxloader/$SchemaName$SaxLoader$TableName$Handler.hpp&gt;
+
+using namespace std;
+
+namespace $CPlusNamespace$ {
+
+	const std::string $SchemaName$SaxLoader$TableName$Handler::CLASS_NAME( "$SchemaName$SaxLoader$TableName$Handler" );
+	const std::string $SchemaName$SaxLoader$TableName$Handler::S_True( "true" );
+	const std::string $SchemaName$SaxLoader$TableName$Handler::S_False( "false" );
+	const std::string $SchemaName$SaxLoader$TableName$Handler::S_Yes( "yes" );
+	const std::string $SchemaName$SaxLoader$TableName$Handler::S_No( "no" );
+	const std::string $SchemaName$SaxLoader$TableName$Handler::S_0( "0" );
+	const std::string $SchemaName$SaxLoader$TableName$Handler::S_1( "1" );
+$implConstructSaxLoaderTableHandler$$implTableHandlerStartElement$$implTableHandlerEndElement$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="includeSchemaSchemaHpp">
+#include &lt;$lower reference RefSchema SchemaName$/$reference RefSchema SchemaName$Schema.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructSaxLoaderTableHandler">
+	$SchemaName$SaxLoader$TableName$Handler::$SchemaName$SaxLoader$TableName$Handler( $CPlusNamespace$::$SchemaName$SaxLoader* saxLoader )
+	: cflib::CFLibXmlCoreElementHandler( saxLoader )
+	{
+	}
+
+	$SchemaName$SaxLoader$TableName$Handler::~$SchemaName$SaxLoader$TableName$Handler() {
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerStartElement"
+		>$switch TableName
+			Cluster implTableHandlerStartClusterElement
+			Tenant implTableHandlerStartTenantElement
+			default implTableHandlerStartOtherElement$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerStartClusterElement">
+	void $SchemaName$SaxLoader$TableName$Handler::startElement (
+		const XMLCh* const uri,
+		const XMLCh* const localname,
+		const XMLCh* const qname,
+		const xercesc::Attributes&amp; attrs )
+	{
+		const static std::string S_ProcName( "startElement" );
+		const static std::string S_SpecificallyId( "Id" );
+		const static std::string S_Object( "object" );
+		const static std::string S_Uri( "uri" );
+		const static std::string S_LocalName( "localname" );
+		const static std::string S_GetParser( "getParser()" );
+		const static std::string S_GetParserGetSchemaObj( "getParser()-&gt;getSchemaObj()" );
+		const static std::string S_SchemaLocation( "schemaLocation" );
+		const static std::string S_QName( "qname" );$implTableHandlerStartElementAttrNames$
+		CFLIB_EXCEPTION_DECLINFO
+		const XMLCh* xmlchLocalName = NULL;
+		char* cLocalName = NULL;
+		std::string* attrLocalName = NULL;
+		const XMLCh* xmlchValue = NULL;
+		char* cValue = NULL;
+		std::string* cppValue = NULL;
+		char* cUri = NULL;
+		char* cQName = NULL;
+		cflib::CFLibXmlCoreContext* curContext = NULL;
+		$CPlusNamespace$::$SchemaName$SaxLoader* saxLoader = NULL;
+		$CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum loaderBehaviour;
+		$CPlusNamespace$::I$SchemaName$SchemaObj* schemaObj = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* tmpBuff = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* editBuff = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* edit$TableName$ = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* orig$TableName$ = NULL;
+		$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* useCluster = NULL;
+		cflib::CFLibXmlCoreContext* parentContext = NULL;
+		cflib::ICFLibAnyObj* scopeObj = NULL;
+		try {
+			if( ( uri == NULL ) || ( *uri == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					1,
+					S_Uri );
+			}
+			if( ( localname == NULL ) || ( *localname == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					2,
+					S_LocalName );
+			}
+			if( ( qname == NULL ) || ( *qname == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					3,
+					S_QName );
+			}
+			cUri = xercesc::XMLString::transcode( uri );
+			cLocalName = xercesc::XMLString::transcode( localname );
+			cQName = xercesc::XMLString::transcode( qname );
+			std::string cppUri( cUri );
+			std::string cppLocalName( cLocalName );
+			std::string cppQName( cQName );
+			xercesc::XMLString::release( &amp;cUri );
+			cUri = NULL;
+			xercesc::XMLString::release( &amp;cLocalName );
+			cLocalName = NULL;
+			xercesc::XMLString::release( &amp;cQName );
+			cQName = NULL;
+			if( cppQName != $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::GENDEFNAME ) {
+				std::string Msg( "Expected QName to be '" + $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::GENDEFNAME + "'" );
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					Msg );
+			}
+$implTableHandlerRetrieveSchemaObj$
+			curContext = getParser()-&gt;getCurContext();
+			if( curContext == NULL ) {
+				static const std::string S_CurContext( "getParser()-&gt;getCurContext" );
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_CurContext );
+			}
+
+			useCluster = saxLoader-&gt;getUseCluster();
+			if( useCluster == NULL ) {
+				const static std::string S_LoaderUseCluster( "saxLoader-&gt;useCluster" );
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_LoaderUseCluster );
+			}
+
+			curContext-&gt;setObj( useCluster );
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+cleanup:
+		if( attrLocalName != NULL ) {
+			delete attrLocalName;
+			attrLocalName = NULL;
+		}
+
+		if( cppValue != NULL ) {
+			delete cppValue;
+			cppValue = NULL;
+		}
+$CPlusSaxLoaderStartElement$
+		CFLIB_EXCEPTION_RETHROW_SAXEXCEPTION
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerStartTenantElement">
+	void $SchemaName$SaxLoader$TableName$Handler::startElement (
+		const XMLCh* const uri,
+		const XMLCh* const localname,
+		const XMLCh* const qname,
+		const xercesc::Attributes&amp; attrs )
+	{
+		const static std::string S_ProcName( "startElement" );
+		const static std::string S_SpecificallyId( "Id" );
+		const static std::string S_Object( "object" );
+		const static std::string S_Uri( "uri" );
+		const static std::string S_LocalName( "localname" );
+		const static std::string S_GetParser( "getParser()" );
+		const static std::string S_GetParserGetSchemaObj( "getParser()-&gt;getSchemaObj()" );
+		const static std::string S_SchemaLocation( "schemaLocation" );
+		const static std::string S_SaxLoaderUseTenant( "saxLoader-&gt;useTenant" );
+		const static std::string S_QName( "qname" );$implTableHandlerStartElementAttrNames$
+		CFLIB_EXCEPTION_DECLINFO
+		const XMLCh* xmlchLocalName = NULL;
+		char* cLocalName = NULL;
+		std::string* attrLocalName = NULL;
+		const XMLCh* xmlchValue = NULL;
+		char* cValue = NULL;
+		std::string* cppValue = NULL;
+		char* cUri = NULL;
+		char* cQName = NULL;
+		cflib::CFLibXmlCoreContext* curContext = NULL;
+		$CPlusNamespace$::$SchemaName$SaxLoader* saxLoader = NULL;
+		$CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum loaderBehaviour;
+		$CPlusNamespace$::I$SchemaName$SchemaObj* schemaObj = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* tmpBuff = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* editBuff = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* edit$TableName$ = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* orig$TableName$ = NULL;
+		$CPlusSecNamespace$::I$SecSchemaName$TenantObj* useTenant = NULL;
+		cflib::CFLibXmlCoreContext* parentContext = NULL;
+		cflib::ICFLibAnyObj* scopeObj = NULL;
+		try {
+			if( ( uri == NULL ) || ( *uri == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					1,
+					S_Uri );
+			}
+			if( ( localname == NULL ) || ( *localname == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					2,
+					S_LocalName );
+			}
+			if( ( qname == NULL ) || ( *qname == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					3,
+					S_QName );
+			}
+			cUri = xercesc::XMLString::transcode( uri );
+			cLocalName = xercesc::XMLString::transcode( localname );
+			cQName = xercesc::XMLString::transcode( qname );
+			std::string cppUri( cUri );
+			std::string cppLocalName( cLocalName );
+			std::string cppQName( cQName );
+			xercesc::XMLString::release( &amp;cUri );
+			cUri = NULL;
+			xercesc::XMLString::release( &amp;cLocalName );
+			cLocalName = NULL;
+			xercesc::XMLString::release( &amp;cQName );
+			cQName = NULL;
+			if( cppQName != $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::GENDEFNAME ) {
+				std::string Msg( "Expected QName to be '" + $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::GENDEFNAME + "'" );
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					Msg );
+			}
+$implTableHandlerRetrieveSchemaObj$
+			curContext = getParser()-&gt;getCurContext();
+			if( curContext == NULL ) {
+				static const std::string S_CurContext( "getParser()-&gt;getCurContext" );
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_CurContext );
+			}
+
+			useTenant = saxLoader-&gt;getUseTenant();
+			if( useTenant == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_SaxLoaderUseTenant );
+			}
+
+			curContext-&gt;setObj( useTenant );
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+cleanup:
+		if( attrLocalName != NULL ) {
+			delete attrLocalName;
+			attrLocalName = NULL;
+		}
+
+		if( cppValue != NULL ) {
+			delete cppValue;
+			cppValue = NULL;
+		}
+$CPlusSaxLoaderStartElement$
+		CFLIB_EXCEPTION_RETHROW_SAXEXCEPTION
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerStartOtherElement">
+	void $SchemaName$SaxLoader$TableName$Handler::startElement (
+		const XMLCh* const uri,
+		const XMLCh* const localname,
+		const XMLCh* const qname,
+		const xercesc::Attributes&amp; attrs )
+	{
+		const static std::string S_ProcName( "startElement" );
+		const static std::string S_SpecificallyId( "Id" );
+		const static std::string S_Object( "object" );
+		const static std::string S_Uri( "uri" );
+		const static std::string S_LocalName( "localname" );
+		const static std::string S_GetParser( "getParser()" );
+		const static std::string S_GetParserGetSchemaObj( "getParser()-&gt;getSchemaObj()" );
+		const static std::string S_SchemaLocation( "schemaLocation" );
+		const static std::string S_SaxLoaderUseTenant( "saxLoader-&gt;useTenant" );
+		const static std::string S_QName( "qname" );$implTableHandlerStartElementAttrNames$
+		CFLIB_EXCEPTION_DECLINFO
+		const XMLCh* xmlchLocalName = NULL;
+		char* cLocalName = NULL;
+		std::string* attrLocalName = NULL;
+		const XMLCh* xmlchValue = NULL;
+		char* cValue = NULL;
+		std::string* cppValue = NULL;
+		char* cUri = NULL;
+		char* cQName = NULL;
+		cflib::CFLibXmlCoreContext* curContext = NULL;
+		$CPlusNamespace$::$SchemaName$SaxLoader* saxLoader = NULL;
+		$CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum loaderBehaviour;
+		$CPlusNamespace$::I$SchemaName$SchemaObj* schemaObj = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* tmpBuff = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* editBuff = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* edit$TableName$ = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* orig$TableName$ = NULL;
+		cflib::CFLibXmlCoreContext* parentContext = NULL;
+		cflib::ICFLibAnyObj* scopeObj = NULL;
+		// Common XML Attributes
+		std::string* attrId = NULL;$switch PrimaryKeyIsConstEnum yes implTableHandlerDeclPKeyAttrs default empty$$implTableHandlerDeclAttrs$$implTableHandlerDeclareAttributes$
+		try {
+			if( ( uri == NULL ) || ( *uri == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					1,
+					S_Uri );
+			}
+			if( ( localname == NULL ) || ( *localname == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					2,
+					S_LocalName );
+			}
+			if( ( qname == NULL ) || ( *qname == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					3,
+					S_QName );
+			}$implTableHandlerStartOtherElementPart3$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerStartElementAttrNames"
+		>$switch HasSuperClassRelation yes implTableHandlerStartElementSuperAttrNames default implTableHandlerStartElementBaseAttrNames$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerStartElementSuperAttrNames"
+		>$reference SuperClassRelation reference ToTable implTableHandlerStartElementAttrNames$$iterate DataColumns( each implTableHandlerStartElementAttrName empty empty )$$iterate Relation( each implTableHandlerStartElementSuffixName empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerStartElementSuffixName"
+		>$switch Suffix SuperClass empty default implTableHandlerStartElementReallySuffixName$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerStartElementReallySuffixName">
+		static const std::string S_$Suffix$( "$Suffix$" );</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerStartElementBaseAttrNames"
+		>$iterate Columns( each implTableHandlerStartElementAttrName empty empty )$$iterate Relation( each implTableHandlerStartElementSuffixName empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerStartElementAttrName"
+		>$switch HasXmlElementName yes empty default implTableHandlerStartElementAttrNameForReal$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerStartElementAttrNameForReal">
+		static const std::string S_$Name$( "$Name$" );</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerStartOtherElementPart3">
+			cUri = xercesc::XMLString::transcode( uri );
+			cLocalName = xercesc::XMLString::transcode( localname );
+			cQName = xercesc::XMLString::transcode( qname );
+			std::string cppUri( cUri );
+			std::string cppLocalName( cLocalName );
+			std::string cppQName( cQName );
+			xercesc::XMLString::release( &amp;cUri );
+			cUri = NULL;
+			xercesc::XMLString::release( &amp;cLocalName );
+			cLocalName = NULL;
+			xercesc::XMLString::release( &amp;cQName );
+			cQName = NULL;
+			if( cppQName != $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::GENDEFNAME ) {
+				std::string Msg( "Expected QName to be '" + $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::GENDEFNAME + "'" );
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					Msg );
+			}
+			// Attribute Extraction
+			size_t numAttrs;
+			size_t idxAttr;$implTableHandlerRetrieveSchemaObj$$implTableHandlerConsEditBuff$$implTableHandlerExtractAttrs$$implTableHandlerCheckRequiredAttrs$$implTableHandlerPutNamedAttributes$$implTableHandlerConvertAttributes$$implTableHandlerGetScopeObj$$implTableHandlerResolveReferences$$switch HasInheritedLookupIndex yes implTableHandlerUseLoaderBehaviour default implTableHandlerMaybeAltIndexBehaviour$$implTableHandlerSaveObject$$CPlusSaxLoaderStartElement$
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+cleanup:
+		if( attrLocalName != NULL ) {
+			delete attrLocalName;
+			attrLocalName = NULL;
+		}
+
+		if( cppValue != NULL ) {
+			delete cppValue;
+			cppValue = NULL;
+		}
+$implTableHandlerReleaseNats$$switch PrimaryKeyIsConstEnum yes implTableHandlerReleasePKeyAttrs default empty$$implTableHandlerReleaseAttrs$
+		if( edit$TableName$ != NULL ) {
+			edit$TableName$-&gt;endEdit();
+			edit$TableName$ = NULL;
+		}
+
+		if( editBuff != NULL ) {
+			editBuff-&gt;endEdit();
+			editBuff = NULL;
+		}
+
+		if( tmpBuff != NULL ) {
+			if( tmpBuff-&gt;getIsNew() ) {
+				delete tmpBuff;
+			}
+			tmpBuff = NULL;
+		}
+
+		CFLIB_EXCEPTION_RETHROW_SAXEXCEPTION
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclPKeyAttrs">
+		// Primary Key Attributes for Constant Enum support$switch HasSuperClassRelation yes implTableHandlerDeclPKeyInhAttrs default implTableHandlerDeclPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclPKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implTableHandlerDeclNonIdPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclPKeyInhAttrs"
+		>$reference SuperclassRelation reference ToTable implTableHandlerDeclPKeyDecisionAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclPKeyDecisionAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerDeclPKeyInhAttrs default implTableHandlerDeclPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerDeclNonIdPKeyAttr"
+		>$switch Name Id empty default implTableHandlerDeclEmitPKeyAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerDeclEmitPKeyAttr">
+		std::string* attr$Name$ = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerMaybeAltIndexBehaviour"
+		>$switch HasAlternateIndex yes implTableHandlerUseAltLoaderBehaviour default implTableHandlerUseInsertBehaviour$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerConsEditBuff">
+			// Instantiate an edit buffer for the parsed information
+			tmpBuff = schemaObj-&gt;get$TableName$TableObj()-&gt;newInstance();
+			editBuff = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj*&gt;( tmpBuff-&gt;beginEdit() );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerEndElement">
+	void $SchemaName$SaxLoader$TableName$Handler::endElement(
+		const XMLCh* const uri,
+		const XMLCh* const localname,
+		const XMLCh* const qname )
+	{$implTableHandlerEndElementLogicForLateResolver$
+	}</GenRule>
+
+	<GenRule GenDef="Object" Name="yes">yes</GenRule>
+	<GenRule GenDef="Object" Name="no">no</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerEndElementLogicForLateResolver"
+		>$switch InheritsAnyLateResolvers yes implTableHandlerEndElementLogic default implTablehandlerEndElementLogicIfHasCustomCode$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTablehandlerEndElementLogicIfHasCustomCode"
+		>$switch CPlusSaxLoaderEndElement empty empty default implTableHandlerEndElementLogic$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerEndElementLogic">
+		static const std::string S_ProcName( "endElement" );
+		static const std::string S_Object( "Object" );$implTableHandlerEndElementAttrNames$
+		static const std::string S_GetParser( "getParser()" );
+		static const std::string S_GetParserGetSchemaObj( "getParser()-&gt;getSchemaObj()" );
+		static const std::string S_CurObj( "curObj" );
+		CFLIB_EXCEPTION_DECLINFO
+		cflib::CFLibXmlCoreContext* curContext = NULL;
+		$CPlusNamespace$::$SchemaName$SaxLoader* saxLoader = NULL;
+		$CPlusNamespace$::I$SchemaName$SchemaObj* schemaObj = NULL;
+		cflib::ICFLibAnyObj* curObj = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* origBuff = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* editBuff = NULL;$implTableHandlerDeclEndAttrs$$implTableHandlerDeclEndReferences$
+		try {$implTableHandlerRetrieveSchemaObj$
+			curContext = getParser()-&gt;getCurContext();
+			if( curContext == NULL ) {
+				static const std::string S_CurContext( "getParser()-&gt;getCurContext" );
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_CurContext );
+			}
+
+			curObj = curContext-&gt;getObj();
+			if( curObj == NULL ) {
+				static const std::string S_CurContextObj( "getParser()-&gt;getCurContext()-&gt;getObj()" );
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_CurContextObj );
+			}
+			else if( curObj-&gt;implementsClassCode( $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::CLASS_CODE ) ) {
+				origBuff = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( curObj );
+			}
+			else {
+				throw cflib::CFLibUnsupportedClassException( CLASS_NAME,
+					S_ProcName,
+					S_CurObj,
+					curObj,
+					"I$DefSchemaName$$TableName$Obj" );
+			}$implTableHandlerGetNamedAttrs$$implTableHandlerResolveEndNamedLookupRefs$
+			if( editBuff != NULL ) {
+				editBuff-&gt;update();
+				editBuff = NULL;
+			}$CPlusSaxLoaderEndElement$
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+cleanup:
+		if( editBuff != NULL ) {
+			editBuff-&gt;endEdit();
+			editBuff = NULL;
+		}$implTableHandlerReleaseEndAttrs$
+
+		CFLIB_EXCEPTION_RETHROW_SAXEXCEPTION</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerResolveEndNamedLookupRefs"
+		>$switch HasSuperClassRelation yes implTableHandlerResolveEndNamedLookupRefsSuper default implTableHandlerResolveEndNamedLookupRefsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerResolveEndNamedLookupRefsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerResolveEndNamedLookupRefs$$iterate Relation( each implTableHandlerMaybeResolveEndNamedRef empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerResolveEndNamedLookupRefsBase">$iterate Relation( each implTableHandlerMaybeResolveEndNamedRef empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeResolveEndNamedRef"
+		>$switch RelationTypeTag
+			Lookup implTableHandlerResolveEndNamedRefSingletonRelation
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveEndNamedRefSingletonRelation"
+		>$switch IsToIndexUnique yes implTableHandlerResolveEndNamedRefNonChainedRelation default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveEndNamedRefNonChainedRelation"
+		>$switch IsChainRelation yes empty default implTableHandlerResolveEndNamedRefNamedRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveEndNamedRefNamedRelation"
+		>$switch ToTableHasLookupIndex yes implTableHandlerResolveEndNamedRefLateResolverRelation default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveEndNamedRefLateResolverRelation"
+		>$switch IsLateResolver yes implTableHandlerResolveEndNamedRefRelation default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveEndNamedRefRelation"
+		>$switch ToTableHasQualTable yes implTableHandlerResolveEndNamedRefQualifiedRelation default implTableHandlerResolveEndNamedRefBasicRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveEndNamedRefQualifiedRelation">
+			// Lookup ref$Suffix$ by qualified name
+			if( ( attr$Suffix$ != NULL ) &amp;&amp; ( attr$Suffix$-&gt;length() &gt; 0 ) ) {
+				ref$Suffix$ = dynamic_cast&lt;$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj*&gt;( origBuff-&gt;getNamedObject( schemaObj-&gt;get$reference ToTable TableName$TableObj()-&gt;getObjQualifyingClassCode(),
+					*attr$Suffix$ ) );
+				if( ref$Suffix$ == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						"Resolve $Suffix$ reference qualified name \"" + *attr$Suffix$ + "\" to table $reference ToTable TableName$" );
+				}
+			}
+			else {
+				ref$Suffix$ = NULL;
+			}
+			// The comparison works because instance interfaces are always from the same schema object, with one instance per primary key
+			if( origBuff-&gt;get$OptionalOrRequired$$RelationTypeTag$$Suffix$() != ref$Suffix$ ) {
+				if( editBuff == NULL ) {
+					editBuff = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$EditObj*&gt;( origBuff-&gt;beginEdit() );
+				}
+				editBuff-&gt;set$OptionalOrRequired$$RelationTypeTag$$Suffix$( ref$Suffix$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveEndNamedRefBasicRelation">
+			// Lookup ref$Suffix$ by key name value attr
+			if( ( attr$Suffix$ != NULL ) &amp;&amp; ( attr$Suffix$-&gt;length() &gt; 0 ) ) {
+				ref$Suffix$ = schemaObj-&gt;get$reference ToTable TableName$TableObj()-&gt;read$reference ToTable TableName$By$reference ToTable reference InheritedLookupIndex Suffix$( $reference ToTable reference InheritedLookupIndex iterate Columns( each implTableHandlerResolveNamedRefPassArgComma last empty )$*attr$Suffix$ );
+				if( ref$Suffix$ == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						"Resolve $Suffix$ reference named \"" + *attr$Suffix$ + "\" to table $reference ToTable TableName$" );
+				}
+			}
+			else {
+				ref$Suffix$ = NULL;
+			}
+			// The comparison works because instance interfaces are always from the same schema object, with one instance per primary key
+			if( origBuff-&gt;get$OptionalOrRequired$$RelationTypeTag$$Suffix$() != ref$Suffix$ ) {
+				if( editBuff == NULL ) {
+					editBuff = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$EditObj*&gt;( origBuff-&gt;beginEdit() );
+				}
+				editBuff-&gt;set$OptionalOrRequired$$RelationTypeTag$$Suffix$( ref$Suffix$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerEndElementAttrNames"
+		>$switch HasSuperClassRelation yes implTableHandlerEndElementSuperAttrNames default implTableHandlerEndElementBaseAttrNames$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerEndElementSuperAttrNames"
+		>$reference SuperClassRelation reference ToTable implTableHandlerEndElementAttrNames$$iterate Relation( each implTableHandlerEndElementNamedLateResolverSuffixName empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerEndElementBaseAttrNames"
+		>$iterate Relation( each implTableHandlerEndElementNamedLateResolverSuffixName empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerEndElementNamedLateResolverSuffixName"
+		>$switch IsChainRelation yes empty default implTableHandlerEndElementNamedNamedSuffixName$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerEndElementNamedNamedSuffixName"
+		>$switch ToTableHasLookupIndex yes implTableHandlerEndElementNamedOnlyLateResolverSuffixName default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerEndElementNamedOnlyLateResolverSuffixName"
+		>$switch IsLateResolver yes implTableHandlerEndElementReallySuffixName default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerEndElementReallySuffixName">
+		static const std::string S_$Suffix$( "$Suffix$" );</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerGetNamedAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerGetNamedAttrsSuper default implTableHandlerGetNamedAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerGetNamedAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerGetNamedAttrs$$iterate Relation( each implTableHandlerMaybeGetNamedRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerGetNamedAttrsBase">$iterate Relation( each implTableHandlerMaybeGetNamedRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeGetNamedRelationAttr"
+		>$switch RelationTypeTag
+		Lookup implTableHandlerGetNonChainedNamedRelationAttr
+		default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerGetNonChainedNamedRelationAttr"
+		>$switch IsChainRelation yes empty default implTableHandlerGetNamedNamedRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerGetNamedNamedRelationAttr"
+		>$switch ToTableHasLookupIndex yes implTableHandlerGetNamedLateResolverRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerGetNamedLateResolverRelationAttr"
+		>$switch IsLateResolver yes implTableHandlerGetNamedRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerGetNamedRelationAttr">
+			try {
+				const std::string str$Suffix$ = curContext-&gt;getNamedTag( S_$Suffix$ );
+				attr$Suffix$ = new std::string( str$Suffix$ );
+			}
+			catch( ... ) {
+				attr$Suffix$ = NULL;
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclEndAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerDeclEndAttrsSuper default implTableHandlerDeclEndAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclEndAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerDeclEndAttrs$$iterate Relation( each implTableHandlerMaybeDeclRelationEndAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclEndAttrsBase"
+		>$iterate Relation( each implTableHandlerMaybeDeclRelationEndAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeDeclRelationEndAttr"
+		>$switch RelationTypeTag
+		Lookup implTableHandlerDeclSingletonRelationEndAttr
+		default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclSingletonRelationEndAttr"
+		>$switch IsToIndexUnique yes implTableHandlerDeclNonChainedRelationEndAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclNonChainedRelationEndAttr"
+		>$switch IsChainRelation yes empty default implTableHandlerDeclNamedNamedRelationEndAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclNamedNamedRelationEndAttr"
+		>$switch ToTableHasLookupIndex yes implTableHandlerDeclLateResolverRelationEndAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclLateResolverRelationEndAttr"
+		>$switch IsLateResolver yes implTableHandlerDeclRelationEndAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclRelationEndAttr">
+		std::string* attr$Suffix$ = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclEndReferences"
+		>$iterate Relation( each implTableHandlerMaybeDeclEndReference empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeDeclEndReference"
+		>$switch RelationTypeTag
+		Lookup implTableHandlerDeclNonChainEndRef
+		default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclNonChainEndRef"
+		>$switch IsChainRelation yes empty default implTableHandlerDeclEndLateResolverRef$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclEndLateResolverRef"
+		>$switch IsLateResolver yes implTableHandlerDeclEndRef default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclEndRef">
+		$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj* ref$Suffix$ = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleaseEndAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerReleaseEndAttrsSuper default implTableHandlerReleaseEndAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleaseEndAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerReleaseEndAttrs$$iterate Relation( each implTableHandlerMaybeReleaseRelationEndAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleaseEndAttrsBase"
+		>$iterate Relation( each implTableHandlerMaybeReleaseRelationEndAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeReleaseRelationEndAttr"
+		>$switch RelationTypeTag
+		Lookup implTableHandlerReleaseSingletonRelationEndAttr
+		default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerReleaseSingletonRelationEndAttr"
+		>$switch IsToIndexUnique yes implTableHandlerReleaseNonChainedRelationEndAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerReleaseNonChainedRelationEndAttr"
+		>$switch IsChainRelation yes empty default implTableHandlerReleaseNamedNamedRelationEndAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerReleaseNamedNamedRelationEndAttr"
+		>$switch ToTableHasLookupIndex yes implTableHandlerReleaseLateResolverRelationEndAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerReleaseLateResolverRelationEndAttr"
+		>$switch IsLateResolver yes implTableHandlerReleaseRelationEndAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerReleaseRelationEndAttr">
+		if( attr$Suffix$ != NULL ) {
+			delete attr$Suffix$;
+			attr$Suffix$ = NULL;
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclReferences"
+		>$iterate Relation( each implTableHandlerMaybeDeclReference empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeDeclReference"
+		>$switch RelationTypeTag
+		Lookup implTableHandlerDeclSingletonRef
+		Container implTableHandlerDeclSingletonRef
+		Master implTableHandlerDeclSingletonRef
+		Owner implTableHandlerDeclSingletonRef
+		Parent implTableHandlerDeclSingletonRef
+		default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclSingletonRef"
+		>$switch ToIndexIsUnique yes implTableHandlerDeclNonChainRef default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclNonChainRef"
+		>$switch IsChainRelation yes empty default implTableHandlerDeclRef$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclRef">
+		$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj* ref$Suffix$ = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerRetrieveSchemaObj">
+			saxLoader = dynamic_cast&lt;$CPlusNamespace$::$SchemaName$SaxLoader*&gt;( getParser() );
+			if( saxLoader == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_GetParser );
+			}
+
+			schemaObj = dynamic_cast&lt;$CPlusNamespace$::I$SchemaName$SchemaObj*&gt;( saxLoader-&gt;getSchemaObj() );
+			if( schemaObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_GetParserGetSchemaObj );
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerSaveObject">
+			curContext-&gt;setObj( orig$TableName$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerUseAltLoaderBehaviour">
+			loaderBehaviour = saxLoader-&gt;get$TableName$LoaderBehaviour();
+			orig$TableName$ = schemaObj-&gt;get$TableName$TableObj()-&gt;read$TableName$By$reference AlternateIndex Suffix$( $reference AlternateIndex
+			iterate Columns(
+				lone implTableHandlerReadByArg
+				each implTableHandlerReadByArgCommaNL
+				last implTableHandlerReadByArg )$ );$switch PrimaryKeyIsConstEnum yes implTableHandlerApplyPKeyAttrs default empty$
+			if( orig$TableName$ == NULL ) {
+				edit$TableName$ = editBuff;
+				editBuff = NULL;
+			}
+			else {
+				switch( loaderBehaviour ) {
+					case $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Insert:
+						edit$TableName$ = NULL;
+						editBuff-&gt;endEdit();
+						editBuff = NULL;
+						break;
+					case $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Update:
+						edit$TableName$ = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj*&gt;( orig$TableName$-&gt;beginEdit() );$implTableHandlerCopyAttrs$$implTableHandlerCopyNamedLookupRefs$
+						editBuff-&gt;endEdit();
+						editBuff = NULL;
+						break;
+					case $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Replace:
+						edit$TableName$ = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj*&gt;( orig$TableName$-&gt;beginEdit() );
+						edit$TableName$-&gt;deleteInstance();
+						edit$TableName$ = NULL;
+						orig$TableName$ = NULL;
+						edit$TableName$ = editBuff;
+						editBuff = NULL;
+						break;
+				}
+			}
+
+			if( edit$TableName$ != NULL ) {
+				if( orig$TableName$ != NULL ) {
+					edit$TableName$-&gt;update();
+				}
+				else {
+					orig$TableName$ = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( edit$TableName$-&gt;create() );
+				}
+				edit$TableName$ = NULL;
+			}
+
+			if( ! tmpBuff-&gt;getIsNew() ) {
+				tmpBuff = NULL;
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerUseLoaderBehaviour">
+			loaderBehaviour = saxLoader-&gt;get$TableName$LoaderBehaviour();
+			orig$TableName$ = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( schemaObj-&gt;get$TableName$TableObj()-&gt;read$TableName$By$reference InheritedLookupIndex Suffix$( $reference InheritedLookupIndex
+			iterate Columns(
+				lone implTableHandlerReadByArg
+				each implTableHandlerReadByArgCommaNL
+				last implTableHandlerReadByArg )$ ) );$switch PrimaryKeyIsConstEnum yes implTableHandlerApplyPKeyAttrs default empty$
+			if( orig$TableName$ == NULL ) {
+				edit$TableName$ = editBuff;
+				editBuff = NULL;
+			}
+			else {
+				switch( loaderBehaviour ) {
+					case $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Insert:
+						edit$TableName$ = NULL;
+						editBuff-&gt;endEdit();
+						editBuff = NULL;
+						break;
+					case $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Update:
+						edit$TableName$ = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj*&gt;( orig$TableName$-&gt;beginEdit() );$implTableHandlerCopyAttrs$$implTableHandlerCopyNamedLookupRefs$
+						editBuff-&gt;endEdit();
+						editBuff = NULL;
+						break;
+					case $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Replace:
+						edit$TableName$ = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj*&gt;( orig$TableName$-&gt;beginEdit() );
+						edit$TableName$-&gt;deleteInstance();
+						edit$TableName$ = NULL;
+						orig$TableName$ = NULL;
+						edit$TableName$ = editBuff;
+						editBuff = NULL;
+						break;
+				}
+			}
+
+			if( edit$TableName$ != NULL ) {
+				if( orig$TableName$ != NULL ) {
+					edit$TableName$-&gt;update();
+				}
+				else {
+					orig$TableName$ = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( edit$TableName$-&gt;create() );
+				}
+				edit$TableName$ = NULL;
+			}
+
+			if( ! tmpBuff-&gt;getIsNew() ) {
+				tmpBuff = NULL;
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerApplyPKeyAttrs"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implTableHandlerApplyPIndexColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerApplyPIndexColumn">
+		editBuff-&gt;getPKey()-&gt;set$OptionalOrRequired$$Name$( nat$Name$ );
+		editBuff-&gt;get$poptop Table TableName$Buff()-&gt;set$OptionalOrRequired$$Name$( nat$Name$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCopyAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerCopyAttrsSuper default implTableHandlerCopyAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCopyAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerCopyAttrs$$iterate Columns( each implTableHandlerCopyDataAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCopyAttrsBase">$iterate Columns( each implTableHandlerCopyDataAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCopyDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerCopyNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCopyNonIdAttr"
+		>$switch Name Id empty default implTableHandlerCopyAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCopyAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default implTableHandlerCopyAnAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCopyAnAttr"
+		>$switch IsNullable yes implTableHandlerCopyAnOptAttr default implTableHandlerCopyAnReqAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCopyAnOptAttr">
+						if( editBuff-&gt;is$OptionalOrRequired$$Name$Null() ) {
+							edit$poptop Table TableName$-&gt;set$OptionalOrRequired$$Name$Null();
+						}
+						else {
+							edit$poptop Table TableName$-&gt;set$OptionalOrRequired$$Name$Value( editBuff-&gt;get$OptionalOrRequired$$Name$Value() );
+						}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCopyAnReqAttr">
+						edit$poptop Table TableName$-&gt;set$OptionalOrRequired$$Name$( editBuff-&gt;get$OptionalOrRequired$$Name$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerApplyAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerApplyAttrsSuper default implTableHandlerApplyAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerApplyAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerApplyAttrs$
+				// $TableName$ References$implTableHandlerApplyReferences$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerApplyAttrsBase">
+				// Apply $TableName$ Attributes$iterate Columns( each implTableHandlerApplyNonIdPKeyAttr )$
+				// $TableName$ References$implTableHandlerApplyReferences$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerApplyNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyNonIdPKeyAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerApplyNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyNonIdAttr"
+		>$switch Name Id empty default implTableHandlerApplyAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implTableHandlerApplyAnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyAnAttr">
+				edit$poptop Table TableName$-&gt;set$OptionalOrRequired$$Name$( $implTableHandlerApplyAnAttrVar$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerApplyReferences"
+		>$iterate Relation( each implTableHandlerMaybeApplyRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeApplyRelationAttr"
+		>$switch RelationTypeTag
+		Superclass empty
+		Container implTableHandlerApplyRelationAttr
+		Owner implTableHandlerApplyRelationAttr
+		default implTableHandlerApplySingletonRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerApplySingletonRelationAttr"
+		>$switch IsToIndexUnique yes implTableHandlerApplyNonChainRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerApplyNonChainRelationAttr"
+		>$switch IsChainRelation yes empty default implTableHandlerApplyNamedRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerApplyNamedRelationAttr"
+		>$switch ToTableHasLookupIndex yes implTableHandlerApplyRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerApplyRelationAttr">
+				edit$poptop Table Name$-&gt;set$OptionalOrRequired$$RelationTypeTag$$Suffix$( ref$Suffix$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="ColumnInContainerOrNamedLookupRelation"
+		>$reference Column ColumnInContainerOrNamedLookupRelation$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerReadByArgCommaNL"
+		>$implTableHandlerReadByArg$,
+			</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerReadByArg"
+		>$switch IsNullable yes implTableHandlerReadByOptArg default implTableHandlerReadByReqArg$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerReadByReqArg"
+		>$switch ColumnInContainerOrNamedLookupRelation no implTableHandlerReadByEmitReqArg
+		default implTableHandlerReadByEmitRefReqArg$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerReadByOptArg"
+		>$switch ColumnInContainerOrNamedLookupRelation no implTableHandlerReadByEmitOptArg
+		default implTableHandlerReadByEmitRefOptArg$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerReadByEmitOptArg"
+		>editBuff-&gt;get$OptionalOrRequired$$Name$Reference()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerReadByEmitReqArg"
+		>editBuff-&gt;get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="Value" Name="GetterName"
+		>get$OptionalOrRequired$$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="GetterName"
+		>$reference Column GetterName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerReadByEmitRefOptArg"
+		>ref$reference OwnerContainerOrNamedLookupRelationCol reference Relation Suffix$-&gt;$reference OwnerContainerOrNamedLookupRelationCol reference ToCol GetterName$Reference()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerReadByEmitRefReqArg"
+		>ref$reference OwnerContainerOrNamedLookupRelationCol reference Relation Suffix$-&gt;$reference OwnerContainerOrNamedLookupRelationCol reference ToCol GetterName$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerReqReadByArgCommaNL"
+		>$implTableHandlerReadByArg$,
+			</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerUseInsertBehaviour">$switch PrimaryKeyIsConstEnum yes implTableHandlerApplyPKeyAttrs default empty$
+			edit$TableName$ = editBuff;
+			editBuff = NULL;
+			orig$TableName$ = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( edit$TableName$-&gt;create() );
+			edit$TableName$ = NULL;
+			tmpBuff = NULL;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerApplyInsertAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerApplyInsertAttrsSuper default implTableHandlerApplyInsertAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerApplyInsertAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerApplyInsertAttrs$
+			// Apply $TableName$ Attributes$iterate Columns( each implTableHandlerApplyDataInsertAttr )$
+			// Apply $TableName$ References$implTableHandlerApplyInsertReferences$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerApplyInsertAttrsBase">
+			// Apply $TableName$ Attributes$iterate Columns( each implTableHandlerApplyDataInsertAttr )$
+			// Apply $TableName$ References$implTableHandlerApplyInsertReferences$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerApplyInsertReferences"
+		>$iterate Relation( each implTableHandlerMaybeApplyRelationInsertAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyDataInsertAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerApplyNonIdInsertAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyNonIdInsertAttr"
+		>$switch Name Id empty default implTableHandlerApplyAnUnhiddenInsertAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyAnUnhiddenInsertAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implTableHandlerApplyAnInsertAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyAnInsertAttr">
+			edit$poptop Table TableName$-&gt;set$OptionalOrRequired$$Name$( $implTableHandlerApplyAnAttrVar$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyAnAttrVar"
+		>$switch BaseModelAtomClass
+		BlobDef implTableHandlerApplyNatVar
+		BoolDef implTableHandlerApplyNatVar
+		EnumDef implTableHandlerApplyNatVar
+		Id16Gen implTableHandlerApplyNatVar
+		Id32Gen implTableHandlerApplyNatVar
+		Id64Gen implTableHandlerApplyNatVar
+		Int16Def implTableHandlerApplyNatVar
+		Int32Def implTableHandlerApplyNatVar
+		Int64Def implTableHandlerApplyNatVar
+		UInt16Def implTableHandlerApplyNatVar
+		UInt32Def implTableHandlerApplyNatVar
+		UInt64Def implTableHandlerApplyNatVar
+		FloatDef implTableHandlerApplyNatVar
+		DoubleDef implTableHandlerApplyNatVar
+		NumberDef implTableHandlerApplyNatVar
+		DateDef implTableHandlerApplyDateTImeVar
+		TimeDef implTableHandlerApplyDateTimeVar
+		TimestampDef implTableHandlerApplyDateTimeVar
+		TZDateDef implTableHandlerApplyDateTimeVar
+		TZTimeDef implTableHandlerApplyDateTimeVar
+		TZTimestampDef implTableHandlerApplyDateTimeVar
+		UuidGen implTableHandlerApplyNatVar
+		UuidDef implTableHandlerApplyNatVar
+		StringDef implTableHandlerApplyAttrVar
+		TokenDef implTableHandlerApplyAttrVar
+		NmTokenDef implTableHandlerApplyAttrVar
+		NmTokensDef implTableHandlerApplyAttrVar
+		TextDef implTableHandlerApplyAttrVar
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyDateTimeVar"
+		>$switch IsNullable yes implTableHandlerApplyOptDateTimeVar default implTableHandlerApplyReqDateTimeVar$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyOptDateTimeVar"
+		>*nat$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyReqDateTimeVar"
+		>nat$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyNatVar"
+		>nat$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyAttrVar"
+		>attr$Name$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeApplyRelationInsertAttr"
+		>$switch RelationTypeTag
+		Superclass empty
+		Container implTableHandlerApplyRelationInsertAttr
+		Owner implTableHandlerApplyRelationInsertAttr
+		default implTableHandlerApplySingletonRelationInsertAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerApplySingletonRelationInsertAttr"
+		>$switch IsToIndexUnique yes implTableHandlerApplyNonChainedRelationInsertAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerApplyNonChainedRelationInsertAttr"
+		>$switch IsChainRelation yes empty default implTableHandlerApplyNamedRelationInsertAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerApplyNamedRelationInsertAttr"
+		>$switch ToTableHasLookupIndex yes implTableHandlerApplyRelationInsertAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerApplyRelationInsertAttr">
+			edit$poptop Table Name$-&gt;set$OptionalOrRequired$$RelationTypeTag$$Suffix$( ref$Suffix$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerDeclAttrsSuper default implTableHandlerDeclAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerDeclAttrs$
+		// $TableName$ Attributes$iterate Columns( each implTableHandlerDeclDataAttr )$$iterate Relation( each implTableHandlerMaybeDeclRelationAttr empty empty )$
+		// $TableName$ References$implTableHandlerDeclReferences$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclAttrsBase">
+		// $TableName$ Attributes$iterate Columns( each implTableHandlerDeclDataAttr )$$iterate Relation( each implTableHandlerMaybeDeclRelationAttr empty empty )$
+		// $TableName$ References$implTableHandlerDeclReferences$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerDeclDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerDeclNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerDeclNonIdAttr"
+		>$switch Name Id empty default implTableHandlerDeclAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerDeclAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default implTableHandlerDeclANonXmlElementNameAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerDeclANonXmlElementNameAttr"
+		>$switch HasXmlElementName yes empty default implTableHandlerDeclAnAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerDeclAnAttr">
+		std::string* attr$Name$ = NULL;</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeDeclRelationAttr"
+		>$switch RelationTypeTag
+		Superclass empty
+		Container empty
+		Owner empty
+		default implTableHandlerDeclSingletonRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="IsToIndexUnique"
+		>$reference ToIndex IsUnique$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclSingletonRelationAttr"
+		>$switch IsToIndexUnique yes implTableHandlerDeclNonChainedRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclNonChainedRelationAttr"
+		>$switch IsChainRelation yes empty default implTableHandlerDeclNamedRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclNamedRelationAttr"
+		>$switch ToTableHasLookupIndex yes implTableHandlerDeclRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerDeclRelationAttr">
+		std::string* attr$Suffix$ = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleaseAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerReleaseAttrsSuper default implTableHandlerReleaseAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleaseAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerReleaseAttrs$$iterate Columns( each implTableHandlerReleaseDataAttr )$$iterate Relation( each implTableHandlerMaybeReleaseRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleaseAttrsBase"
+		>$switch PrimaryKeyIsConstEnum yes implTableHandlerReleasePKeyAttrs default empty$$iterate Columns( each implTableHandlerReleaseDataAttr )$$iterate Relation( each implTableHandlerMaybeReleaseRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleasePKeyAttrs">$switch HasSuperClassRelation yes implTableHandlerReleasePKeyInhAttrs default implTableHandlerReleasePKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleasePKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implTableHandlerReleaseNonIdPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleasePKeyInhAttrs"
+		>$reference SuperclassRelation reference ToTable implTableHandlerReleasePKeyDecisionAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleasePKeyDecisionAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerReleasePKeyInhAttrs default implTableHandlerReleasePKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerReleaseNonIdPKeyAttr"
+		>$switch Name Id empty default implTableHandlerReleaseEmitPKeyAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerReleaseEmitPKeyAttr">
+		if( attr$Name$ != NULL ) {
+			delete attr$Name$;
+			attr$Name$ = NULL;
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerReleaseNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseNonIdAttr"
+		>$switch Name Id empty default implTableHandlerReleaseAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default implTableHandlerReleaseNonXmlElementNameAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseNonXmlElementNameAttr"
+		>$switch HasXmlElementName yes empty default implTableHandlerReleaseAnAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseAnAttr">
+		if( attr$Name$ != NULL ) {
+			delete attr$Name$;
+			attr$Name$ = NULL;
+		}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeReleaseRelationAttr"
+		>$switch RelationTypeTag
+		Superclass empty
+		Container empty
+		Owner empty
+		default implTableHandlerReleaseSingletonRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerReleaseSingletonRelationAttr"
+		>$switch IsToIndexUnique yes implTableHandlerReleaseNonChainedRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerReleaseNonChainedRelationAttr"
+		>$switch IsChainRelation yes empty default implTableHandlerReleaseNamedRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerReleaseNamedRelationAttr"
+		>$switch ToTableHasLookupIndex yes implTableHandlerReleaseRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerReleaseRelationAttr">
+		if( attr$Suffix$ != NULL ) {
+			delete attr$Suffix$;
+			attr$Suffix$ = NULL;
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerExtractAttrs">
+			// Extract Attributes
+			numAttrs = attrs.getLength();
+			for( idxAttr = 0; idxAttr &lt; numAttrs; idxAttr++ ) {
+				if( attrLocalName != NULL ) {
+					delete attrLocalName;
+					attrLocalName = NULL;
+				}
+				if( cppValue != NULL ) {
+					delete cppValue;
+					cppValue = NULL;
+				}
+				xmlchLocalName = attrs.getLocalName( idxAttr );
+				if( xmlchLocalName == NULL ) {
+					continue;
+				}
+				cLocalName = xercesc::XMLString::transcode( xmlchLocalName );
+				attrLocalName = new std::string( cLocalName );
+				xercesc::XMLString::release( &amp;cLocalName );
+				cLocalName = NULL;
+				xmlchValue = attrs.getValue( idxAttr );
+				if( xmlchValue == NULL ) {
+					cppValue = NULL;
+				}
+				else {
+					cValue = xercesc::XMLString::transcode( xmlchValue );
+					cppValue = new std::string( cValue );
+					xercesc::XMLString::release( &amp;cValue );
+					cValue = NULL;
+				}
+				if( *attrLocalName == S_SpecificallyId ) {
+					if( attrId != NULL ) {
+						throw cflib::CFLibUniqueIndexViolationException( CLASS_NAME,
+							S_ProcName,
+							*attrLocalName );
+					}
+					if( cppValue != NULL ) {
+						attrId = new std::string( *cppValue );
+					}
+				}$switch PrimaryKeyIsConstEnum yes implTableHandlerParsePKeyAttrs default empty$$implTableHandlerParseAttrs$
+				else if( *attrLocalName == S_SchemaLocation ) {
+					// ignored
+				}
+				else {
+					throw cflib::CFLibUnrecognizedAttributeException( CLASS_NAME,
+						S_ProcName,
+						getParser()-&gt;getLocationInfo(),
+						*attrLocalName );
+				}
+				if( cppValue != NULL ) {
+					delete cppValue;
+					cppValue = NULL;
+				}
+				if( attrLocalName != NULL ) {
+					delete attrLocalName;
+					attrLocalName = NULL;
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerParsePKeyAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerParsePKeyInhAttrs default implTableHandlerParsePKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerParsePKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implTableHandlerParseNonIdPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerParsePKeyInhAttrs"
+		>$reference SuperclassRelation reference ToTable implTableHandlerParsePKeyAttrs$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerParseNonIdPKeyAttr"
+		>$switch Name Id empty default implTableHandlerParseEmitPKeyAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerParseEmitPKeyAttr">
+				else if( *attrLocalName == S_$Name$ ) {
+					if( attr$Name$ != NULL ) {
+						throw cflib::CFLibUniqueIndexViolationException( CLASS_NAME,
+							S_ProcName,
+							*attrLocalName );
+					}
+					if( cppValue != NULL ) {
+						attr$Name$ = new std::string( *cppValue );
+					}
+					else {
+						attr$Name$ = NULL;
+					}
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerParseAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerParseAttrsSuper default implTableHandlerParseAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerParseAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerParseAttrs$$iterate Columns( each implTableHandlerParseDataAttr )$$iterate Relation( each implTableHandlerMaybeParseRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerParseAttrsBase">$iterate Columns( each implTableHandlerParseDataAttr )$$iterate Relation( each implTableHandlerMaybeParseRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerParseDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerParseNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerParseNonIdAttr"
+		>$switch Name Id empty default implTableHandlerParseAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerParseAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implTableHandlerParseANonXmlElementNameAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerParseANonXmlElementNameAttr"
+		>$switch HasXmlElementName yes empty default implTableHandlerParseAnAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerParseAnAttr">
+				else if( *attrLocalName == S_$Name$ ) {
+					if( attr$Name$ != NULL ) {
+						throw cflib::CFLibUniqueIndexViolationException( CLASS_NAME,
+							S_ProcName,
+							*attrLocalName );
+					}
+					if( cppValue != NULL ) {
+						attr$Name$ = new std::string( *cppValue );
+					}
+					else {
+						attr$Name$ = NULL;
+					}
+				}</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeParseRelationAttr"
+		>$switch RelationTypeTag
+		Superclass empty
+		Container empty
+		Owner empty
+		default implTableHandlerParseSingletonRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerParseSingletonRelationAttr"
+		>$switch IsToIndexUnique yes implTableHandlerParseNonChainedRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerParseNonChainedRelationAttr"
+		>$switch IsChainRelation yes empty default implTableHandlerParseNamedRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerParseNamedRelationAttr"
+		>$switch ToTableHasLookupIndex yes implTableHandlerParseRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerParseRelationAttr">
+				else if( *attrLocalName == S_$Suffix$ ) {
+					if( attr$Suffix$ != NULL ) {
+						throw cflib::CFLibUniqueIndexViolationException( CLASS_NAME,
+							S_ProcName,
+							*attrLocalName );
+					}
+					if( cppValue != NULL ) {
+						attr$Suffix$ = new std::string( *cppValue );
+					}
+					else {
+						attr$Suffix$ = NULL;
+					}
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCheckRequiredAttrs">
+			// Ensure that required attributes have values$switch PrimaryKeyIsConstEnum yes implTableHandlerCheckReqPKeyAttrs default empty$$implTableHandlerCheckReqAttrs$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCheckReqPKeyAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerCheckReqPKeyInhAttrs default implTableHandlerCheckReqPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCheckReqPKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implTableHandlerCheckReqEmitPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCheckReqPKeyInhAttrs"
+		>$reference SuperclassRelation reference ToTable implTableHandlerCheckReqPKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Value" Name="implHandlerCheckReqAnAttr"
+		>$switch IsNullable no implHandlerReallyCheckReqAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implHandlerReallyCheckReqAttr"
+		>$switch BaseModelAtomClass
+		StringDef implHandlerReallyCheckReqStringAttr
+		TextDef implHandlerReallyCheckReqStringAttr
+		NmTokenDef implHandlerReallyCheckReqStringAttr
+		NmTokensDef implHandlerReallyCheckReqStringAttr
+		TokenDef implHandlerReallyCheckReqStringAttr
+		default implHandlerReallyCheckReqValueAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implHandlerReallyCheckReqStringAttr">
+			if( attr$Name$ == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implHandlerReallyCheckReqValueAttr">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() &lt;= 0 ) ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerCheckReqEmitPKeyAttr"
+		>$reference Column implHandlerReallyCheckReqAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCheckReqAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerCheckReqAttrsSuper default implTableHandlerCheckReqAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCheckReqAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerCheckReqAttrs$$iterate Columns( each implTableHandlerCheckReqDataAttr )$$iterate Relation( each implTableHandlerMaybeCheckReqRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCheckReqAttrsBase">$iterate Columns( each implTableHandlerCheckReqNonIdPKeyAttr )$$iterate Relation( each implTableHandlerMaybeCheckReqRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCheckReqDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerCheckReqNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCheckReqNonIdPKeyAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerCheckReqNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCheckReqNonIdAttr"
+		>$switch Name Id empty default implTableHandlerCheckReqAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCheckReqAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implTableHandlerCheckReqAnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCheckReqAnAttr"
+		>$switch IsNullable no implTableHandlerCheckNonXmlElementNameAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerCheckNonXmlElementNameAttr"
+		>$switch HasXmlElementName yes empty default implHandlerReallyCheckReqAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeCheckReqRelationAttr"
+		>$switch RelationTypeTag
+		Superclass empty
+		Container empty
+		Owner empty
+		default implTableHandlerCheckReqSingletonRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerCheckReqSingletonRelationAttr"
+		>$switch IsToIndexUnique yes implTableHandlerCheckReqNonChainedRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerCheckReqNonChainedRelationAttr"
+		>$switch IsChainRelation yes empty default implTableHandlerCheckReqNamedRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerCheckReqNamedRelationAttr"
+		>$switch ToTableHasLookupIndex yes implTableHandlerCheckReqRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerCheckReqRelationAttr"
+		>$switch IsRequired yes implTableHandlerReallyCheckReqRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerReallyCheckReqRelationAttr">
+			if( ( attr$Suffix$ == NULL ) || ( attr$Suffix$-&gt;length() &lt;= 0 ) ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Suffix$ );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerPutNamedAttributes">
+			// Save named attributes to context
+			curContext = getParser()-&gt;getCurContext();
+			if( curContext == NULL ) {
+				static const std::string S_CurContext( "getParser()-&gt;getCurContext" );
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_CurContext );
+			}
+			if( attrId != NULL ) {
+				curContext-&gt;putNamedTag( S_SpecificallyId, *attrId );
+			}$implTableHandlerPutNamedAttrs$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerPutNamedAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerPutNamedAttrsSuper default implTableHandlerPutNamedAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerPutNamedAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerPutNamedAttrs$$iterate Columns( each implTableHandlerPutNamedDataAttr )$$iterate Relation( each implTableHandlerMaybePutNamedRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerPutNamedAttrsBase">$iterate Columns( each implTableHandlerPutNamedDataAttr )$$iterate Relation( each implTableHandlerMaybePutNamedRelationAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerPutNamedDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerPutNamedNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerPutNamedNonIdAttr"
+		>$switch Name Id empty default implTableHandlerPutNamedAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerPutNamedAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implTableHandlerPutNonXmlElementNameAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerPutNonXmlElementNameAttr"
+		>$switch HasXmlElementName yes empty default implTableHandlerPutNamedAnAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerPutNamedAnAttr">
+			if( attr$Name$ != NULL ) {
+				curContext-&gt;putNamedTag( S_$Name$, *attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybePutNamedRelationAttr"
+		>$switch RelationTypeTag
+		Superclass empty
+		Container empty
+		Owner empty
+		default implTableHandlerPutNamedSingletonRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerPutNamedSingletonRelationAttr"
+		>$switch IsToIndexUnique yes implTableHandlerPutNonChainedNamedRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerPutNonChainedNamedRelationAttr"
+		>$switch IsChainRelation yes empty default implTableHandlerPutNamedNamedRelationAttr$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerPutNamedNamedRelationAttr"
+		>$switch ToTableHasLookupIndex yes implTableHandlerPutNamedRelationAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerPutNamedRelationAttr">
+			if( attr$Suffix$ != NULL ) {
+				curContext-&gt;putNamedTag( S_$Suffix$, *attr$Suffix$ );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerGetScopeObj">
+			// Get the scope/container object
+
+			parentContext = curContext-&gt;getPrevContext();
+			if( parentContext != NULL ) {
+				scopeObj = parentContext-&gt;getObj();
+			}
+			else {
+				scopeObj = NULL;
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclareAttributes">$switch PrimaryKeyIsConstEnum yes implTableHandlerDeclarePKeyAttrs default implTableHandlerDeclareAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclarePKeyAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerDeclareInhPKeyAttrs default implTableHandlerDeclareBasePKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclareInhPKeyAttrs"
+		>$reference SuperclassRelation reference ToTable implTableHandlerDeclarePKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclareBasePKeyAttrs">
+		// Native value conversion variables$reference PrimaryKeyIndex iterate Columns( each implTableHandlerDeclareColPKeyAttrs )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerDeclareColPKeyAttrs"
+		>$reference Column implTableHandlerDeclareColPKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerDeclareColPKeyAttrs">
+		$declMemberAtomType$ nat$Name$$switch IsNullable yes implTableHandlerMaybeInitNull default implTableHandlerMaybeInitReq$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerMaybeInitNull"
+		>$switch BaseModelAtomClass
+			BlobDef implTableHandlerInitNull
+			BoolDef implTableHandlerInitNull
+			EnumDef implTableHandlerInitNull
+			NumberDef implTableHandlerInitNull
+			StringDef implTableHandlerInitNull
+			TokenDef implTableHandlerInitNull
+			NmTokenDef implTableHandlerInitNull
+			NmTokensDef implTableHandlerInitNull
+			TextDef implTableHandlerInitNull
+			UuidGen implTableHandlerInitUuid
+			UuidDef implTableHandlerInitUuid
+			default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerMaybeInitReq"
+		>$switch BaseModelAtomClass
+			NumberDef implTableHandlerInitNull
+			StringDef implTableHandlerInitNull
+			TokenDef implTableHandlerInitNull
+			NmTokenDef implTableHandlerInitNull
+			NmTokensDef implTableHandlerInitNull
+			TextDef implTableHandlerInitNull
+			UuidGen implTableHandlerInitUuid
+			UuidDef implTableHandlerInitUuid
+			default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclareAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerDeclareAttrsSuper default implTableHandlerDeclareAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclareAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerDeclareAttrs$$iterate Columns( each implTableHandlerDeclareDataAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerDeclareAttrsBase">$iterate Columns( each implTableHandlerDeclareDataAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerDeclareDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerDeclareNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerDeclareNonIdAttr"
+		>$switch Name Id empty default implTableHandlerDeclareAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerDeclareAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default implTableHandlerDeclareANonXmlElementNameAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerDeclareANonXmlElementNameAttr"
+		>$switch HasXmlElementName yes empty default implTableHandlerDeclareAnAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerDeclareAnAttr">
+		$declMemberAtomType$ nat$Name$$switch IsNullable yes implTableHandlerMaybeInitNull default implTableHandlerMaybeInitReq$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerInitUuid"
+		> = { 0 }</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerInitNull"
+		> = NULL</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerConvertAttributes">
+			// Convert string attributes to native C++18 types
+			// and apply the converted attributes to the editBuff
+$switch PrimaryKeyIsConstEnum yes implTableHandlerConvertPKeyAttrs default implTableHandlerConvertNatId$$implTableHandlerConvertAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerConvertPKeyAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerConvertInhPKeyAttrs default implTableHandlerConvertBasePKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerConvertInhPKeyAttrs"
+		>$reference SuperclassRelation reference ToTable implTableHandlerConvertPKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerConvertBasePKeyAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implTableHandlerConvertColPKeyAttrs )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerConvertColPKeyAttrs"
+		>$reference Column implTableHandlerConvertColPKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColPKeyAttrs"
+		>$switch BaseModelAtomClass
+			BlobDef implTableHandlerConvertColBlobValue
+			BoolDef implTableHandlerConvertColBoolValue
+			EnumDef implTableHandlerConvertColEnumValue
+			Int16Def implTableHandlerConvertColInt16Value
+			Int32Def implTableHandlerConvertColInt32Value
+			Int64Def implTableHandlerConvertColInt64Value
+			UInt16Def implTableHandlerConvertColUInt16Value
+			UInt32Def implTableHandlerConvertColUInt32Value
+			UInt64Def implTableHandlerConvertColUInt64Value
+			Id16Gen implTableHandlerConvertColInt16Value
+			Id32Gen implTableHandlerConvertColInt32Value
+			Id64Gen implTableHandlerConvertColInt64Value
+			FloatDef implTableHandlerConvertColFloatValue
+			DoubleDef implTableHandlerConvertColDoubleValue
+			NumberDef implTableHandlerConvertColNumberValue
+			StringDef implTableHandlerConvertColStringValue
+			TokenDef implTableHandlerConvertColTokenValue
+			NmTokenDef implTableHandlerConvertColNmTokenValue
+			NmTokensDef implTableHandlerConvertColNmTokensValue
+			TextDef implTableHandlerConvertColTextValue
+			DateDef implTableHandlerConvertColDateValue
+			TimeDef implTableHandlerConvertColTimeValue
+			TimestampDef implTableHandlerConvertColTimestampValue
+			TZDateDef implTableHandlerConvertColTZDateValue
+			TZTimeDef implTableHandlerConvertColTZTimeValue
+			TZTimestampDef implTableHandlerConvertColTZTimestampValue
+			UuidGen implTableHandlerConvertColUuidValue
+			UuidDef implTableHandlerConvertColUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$
+			editBuff-&gt;getPKey()-&gt;set$OptionalOrRequired$$Name$( nat$Name$ );
+			editBuff-&gt;get$poptop Table TableName$Buff()-&gt;set$OptionalOrRequired$$Name$( nat$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColBlobValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptBlobValue default implTableHandlerConvertColReqBlobValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptBlobValue">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$ = NULL;
+			}
+			else {
+				nat$Name$ = cflib::CFLibXmlUtil::parseBlob( *attr$Name$ );
+				if( nat$Name$ == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_$Name$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqBlobValue">
+			nat$Name$ = cflib::CFLibXmlUtil::parseBlob( *attr$Name$ );
+			if( nat$Name$ == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColBoolValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptBoolValue default implTableHandlerConvertColReqBoolValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqBoolValue">
+			if( ( *attr$Name$ == S_True ) || ( *attr$Name$ == S_Yes ) || ( *attr$Name$ == S_1 ) ) {
+				nat$Name$ = true;
+			}
+			else if( ( *attr$Name$ == S_False ) || ( *attr$Name$ == S_No ) || ( *attr$Name$ == S_0 ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptBoolValue">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$.setNull();
+			}
+			else if( ( *attr$Name$ == S_True ) || ( *attr$Name$ == S_Yes ) || ( *attr$Name$ == S_1 ) ) {
+				nat$Name$.setValue( true );
+			}
+			else if( ( *attr$Name$ == S_False ) || ( *attr$Name$ == S_No ) || ( *attr$Name$ == S_0 ) ) {
+				nat$Name$.setValue( false );
+			}
+			else {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColEnumValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptEnumValue default implTableHandlerConvertColReqEnumValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptEnumValue">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$ = NULL;
+			}
+			else {
+				nat$Name$ = $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::parse$reference DataType Name$( attr$Name$ );
+				if( nat$Name$ == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_$Name$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqEnumValue">
+			$reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$* p$Name$ = $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::parse$reference DataType Name$( attr$Name$ );
+			if( p$Name$ != NULL ) {
+				nat$Name$ = *p$Name$;
+			}
+			else {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColInt16Value"
+		>$switch IsNullable yes implTableHandlerConvertColOptInt16Value default implTableHandlerConvertColReqInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptInt16Value">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$.setNull();
+			}
+			else {
+				int16_t* value = cflib::CFLibXmlUtil::parseInt16( *attr$Name$ );
+				if( value != NULL ) {
+					nat$Name$.setValue( *value );
+					delete value;
+					value = NULL;
+				}
+				else {
+					nat$Name$.setNull();
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqInt16Value">
+			nat$Name$ = cflib::CFLibXmlUtil::evalInt16( *attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColInt32Value"
+		>$switch IsNullable yes implTableHandlerConvertColOptInt32Value default implTableHandlerConvertColReqInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptInt32Value">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$.setNull();
+			}
+			else {
+				int32_t* value = cflib::CFLibXmlUtil::parseInt32( *attr$Name$ );
+				if( value != NULL ) {
+					nat$Name$.setValue( *value );
+					delete value;
+					value = NULL;
+				}
+				else {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_$Name$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqInt32Value">
+			nat$Name$ = cflib::CFLibXmlUtil::evalInt32( *attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColInt64Value"
+		>$switch IsNullable yes implTableHandlerConvertColOptInt64Value default implTableHandlerConvertColReqInt64Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptInt64Value">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$.setNull();
+			}
+			else {
+				int64_t* value = cflib::CFLibXmlUtil::parseInt64( *attr$Name$ );
+				if( value != NULL ) {
+					nat$Name$.setValue( *value );
+					delete value;
+					value = NULL;
+				}
+				else {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_$Name$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqInt64Value">
+			nat$Name$ = cflib::CFLibXmlUtil::evalInt64( *attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColUInt16Value"
+		>$switch IsNullable yes implTableHandlerConvertColOptUInt16Value default implTableHandlerConvertColReqUInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptUInt16Value">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$.setNull();
+			}
+			else {
+				uint16_t* value = cflib::CFLibXmlUtil::parseUInt16( *attr$Name$ );
+				if( value != NULL ) {
+					nat$Name$.setValue( *value );
+					delete value;
+					value = NULL;
+				}
+				else {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_$Name$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqUInt16Value">
+			nat$Name$ = cflib::CFLibXmlUtil::evalUInt16( *attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColUInt32Value"
+		>$switch IsNullable yes implTableHandlerConvertColOptUInt32Value default implTableHandlerConvertColReqUInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptUInt32Value">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$.setNull();
+			}
+			else {
+				uint32_t* value = cflib::CFLibXmlUtil::parseUInt32( *attr$Name$ );
+				if( value != NULL ) {
+					nat$Name$.setValue( *value );
+					delete value;
+					value = NULL;
+				}
+				else {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_$Name$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqUInt32Value">
+			nat$Name$ = cflib::CFLibXmlUtil::evalUInt32( *attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColUInt64Value"
+		>$switch IsNullable yes implTableHandlerConvertColOptUInt64Value default implTableHandlerConvertColReqUInt64Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptUInt64Value">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$.setNull();
+			}
+			else {
+				uint64_t* value = cflib::CFLibXmlUtil::parseUInt64( *attr$Name$ );
+				if( value != NULL ) {
+					nat$Name$.setValue( *value );
+					delete value;
+					value = NULL;
+				}
+				else {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_$Name$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqUInt64Value">
+			nat$Name$ = cflib::CFLibXmlUtil::evalUInt64( *attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColFloatValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptFloatValue default implTableHandlerConvertColReqFloatValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptFloatValue">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$.setNull();
+			}
+			else {
+				float* value = cflib::CFLibXmlUtil::parseFloat( *attr$Name$ );
+				if( value != NULL ) {
+					nat$Name$.setValue( *value );
+					delete value;
+					value = NULL;
+				}
+				else {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_$Name$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqFloatValue">
+			nat$Name$ = cflib::CFLibXmlUtil::evalFloat( *attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColDoubleValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptDoubleValue default implTableHandlerConvertColReqDoubleValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptDoubleValue">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$.setNull();
+			}
+			else {
+				double* value = cflib::CFLibXmlUtil::parseDouble( *attr$Name$ );
+				if( value != NULL ) {
+					nat$Name$.setValue( *value );
+					delete value;
+					value = NULL;
+				}
+				else {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_$Name$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqDoubleValue">
+			nat$Name$ = cflib::CFLibXmlUtil::evalDouble( *attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColNumberValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptNumberValue default implTableHandlerConvertColReqNumberValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptNumberValue">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				nat$Name$ = NULL;
+			}
+			else {
+				nat$Name$ = cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;::parse( *attr$Name$ );
+				if( nat$Name$ == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_$Name$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqNumberValue">
+			nat$Name$ = cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;::parse( *attr$Name$ );
+			if( nat$Name$ == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColStringValue">
+			if( attr$Name$ != NULL ) {
+				nat$Name$ = new std::string( *attr$Name$ );
+			}
+			else {
+				nat$Name$ = NULL;
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColTokenValue">
+			if( attr$Name$ != NULL ) {
+				nat$Name$ = new std::string( *attr$Name$ );
+			}
+			else {
+				nat$Name$ = NULL;
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColNmTokenValue">
+			if( attr$Name$ != NULL ) {
+				nat$Name$ = new std::string( *attr$Name$ );
+			}
+			else {
+				nat$Name$ = NULL;
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColNmTokensValue">
+			if( attr$Name$ != NULL ) {
+				nat$Name$ = new std::string( *attr$Name$ );
+			}
+			else {
+				nat$Name$ = NULL;
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColTextValue">
+			if( attr$Name$ != NULL ) {
+				nat$Name$ = new std::string( *attr$Name$ );
+			}
+			else {
+				nat$Name$ = NULL;
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColDateValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptDateValue default implTableHandlerConvertColReqDateValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptDateValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::parseDate( *attr$Name$ );
+				}
+				else {
+					nat$Name$ = NULL;
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqDateValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::evalDate( *attr$Name$ );
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColTimeValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptTimeValue default implTableHandlerConvertColReqTimeValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptTimeValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::parseTime( *attr$Name$ );
+				}
+				else {
+					nat$Name$ = NULL;
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqTimeValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::evalTime( *attr$Name$ );
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColTimestampValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptTimestampValue default implTableHandlerConvertColReqTimestampValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptTimestampValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::parseTimestamp( *attr$Name$ );
+				}
+				else {
+					nat$Name$ = NULL;
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqTimestampValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::evalTimestamp( *attr$Name$ );
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColTZDateValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptTZDateValue default implTableHandlerConvertColReqTZDateValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptTZDateValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::parseTZDate( *attr$Name$ );
+				}
+				else {
+					nat$Name$ = NULL;
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqTZDateValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::evalTZDate( *attr$Name$ );
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColTZTimeValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptTZTimeValue default implTableHandlerConvertColReqTZTimeValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptTZTimeValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::parseTZTime( *attr$Name$ );
+				}
+				else {
+					nat$Name$ = NULL;
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqTZTimeValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::evalTZTime( *attr$Name$ );
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColTZTimestampValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptTZTimestampValue default implTableHandlerConvertColReqTZTimestampValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptTZTimestampValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::parseTZTimestamp( *attr$Name$ );
+				}
+				else {
+					nat$Name$ = NULL;
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqTZTimestampValue">
+			try {
+				if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+					nat$Name$ = cflib::CFLibXmlUtil::evalTZTimestamp( *attr$Name$ );
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$,
+					*attr$Name$ + cflib::CFLib::S_SPACE + exceptionInfo.getMessageText() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColUuidValue"
+		>$switch IsNullable yes implTableHandlerConvertColOptUuidValue default implTableHandlerConvertColReqUuidValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColReqUuidValue">
+			cflib::CFLib::uuidFromString( nat$Name$, attr$Name$-&gt;data() );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertColOptUuidValue">
+			if( ( attr$Name$ == NULL ) || ( attr$Name$-&gt;length() == 0 ) ) {
+				for( int i = 0; i &lt; 16; i++ ) {
+					nat$Name$[i] = 0;
+				}
+			}
+			else {
+				cflib::CFLib::uuidFromString( nat$Name$, attr$Name$-&gt;data() );
+			}</GenRule>
+
+
+	<GenRule GenDef="Table" Name="implTableHandlerConvertNatId">
+			cflib::CFLibNullableInt32 natId;
+			if( ( attrId != NULL ) &amp;&amp; ( attrId-&gt;length() &gt; 0 ) ) {
+				natId = cflib::CFLibXmlUtil::evalInt32( *attrId );
+			}
+			else {
+				natId.setNull();
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleaseNats"
+		>$switch HasSuperClassRelation yes implTableHandlerReleaseNatsSuper default implTableHandlerReleaseNatsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleaseNatsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerReleaseNats$$iterate Columns( each implTableHandlerReleaseDataNat )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReleaseNatsBase">$iterate Columns( each implTableHandlerReleaseDataNat )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseDataNat"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerReleaseNonIdNat$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseNonIdNat"
+		>$switch Name Id empty default implTableHandlerReleaseAnUnhiddenNat$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseAnUnhiddenNat"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default implTableHandlerReleaseNonXmlElementNameNat$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseNonXmlElementNameNat"
+		>$switch HasXmlElementName yes empty default implTableHandlerReleaseAnNat$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseAnNat"
+		>$switch IsNullable yes implTableHandlerReleaseAnOptNat default implTableHandlerReleaseAnReqNat$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseAnOptNat"
+		>$switch BaseModelAtomClass
+			BlobDef implTableHandlerReleaseNatObject
+			BoolDef empty
+			EnumDef empty
+			Int16Def empty
+			Int32Def empty
+			Int64Def empty
+			UInt16Def empty
+			UInt32Def empty
+			UInt64Def empty
+			Id16Gen empty
+			Id32Gen empty
+			Id64Gen empty
+			FloatDef empty
+			DoubleDef empty
+			NumberDef implTableHandlerReleaseNatObject
+			StringDef implTableHandlerReleaseNatObject
+			TokenDef implTableHandlerReleaseNatObject
+			NmTokenDef implTableHandlerReleaseNatObject
+			NmTokensDef implTableHandlerReleaseNatObject
+			TextDef implTableHandlerReleaseNatObject
+			DateDef implTableHandlerReleaseNatObject
+			TimeDef implTableHandlerReleaseNatObject
+			TimestampDef implTableHandlerReleaseNatObject
+			TZDateDef implTableHandlerReleaseNatObject
+			TZTimeDef implTableHandlerReleaseNatObject
+			TZTimestampDef implTableHandlerReleaseNatObject
+			UuidGen implTableHandlerReleaseNatUuidObject
+			UuidDef implTableHandlerReleaseNatUuidObject
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseAnReqNat"
+		>$switch BaseModelAtomClass
+			BlobDef implTableHandlerReleaseNatObject
+			BoolDef empty
+			EnumDef empty
+			Int16Def empty
+			Int32Def empty
+			Int64Def empty
+			UInt16Def empty
+			UInt32Def empty
+			UInt64Def empty
+			Id16Gen empty
+			Id32Gen empty
+			Id64Gen empty
+			FloatDef empty
+			DoubleDef empty
+			NumberDef implTableHandlerReleaseNatObject
+			StringDef implTableHandlerReleaseNatObject
+			TokenDef implTableHandlerReleaseNatObject
+			NmTokenDef implTableHandlerReleaseNatObject
+			NmTokensDef implTableHandlerReleaseNatObject
+			TextDef implTableHandlerReleaseNatObject
+			DateDef empty
+			TimeDef empty
+			TimestampDef empty
+			TZDateDef empty
+			TZTimeDef empty
+			TZTimestampDef empty
+			UuidGen implTableHandlerReleaseNatUuidObject
+			UuidDef implTableHandlerReleaseNatUuidObject
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseNatObject">
+		if( nat$Name$ != NULL ) {
+			delete nat$Name$;
+			nat$Name$ = NULL;
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerReleaseNatUuidObject"></GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerConvertAttrs"
+		>$switch HasSuperClassRelation yes implTableHandlerConvertAttrsSuper default implTableHandlerConvertAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerConvertAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerConvertAttrs$$iterate Columns( each implTableHandlerConvertDataAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerConvertAttrsBase">$iterate Columns( each implTableHandlerConvertDataAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implTableHandlerConvertNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertNonIdAttr"
+		>$switch Name Id empty default implTableHandlerConvertAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default implTableHandlerConvertNonXmlElementNameAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertNonXmlElementNameAttr"
+		>$switch HasXmlElementName yes empty default implTableHandlerConvertAnAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerConvertAnAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implTableHandlerConvertColBlobValue
+			BoolDef implTableHandlerConvertColBoolValue
+			EnumDef implTableHandlerConvertColEnumValue
+			Int16Def implTableHandlerConvertColInt16Value
+			Int32Def implTableHandlerConvertColInt32Value
+			Int64Def implTableHandlerConvertColInt64Value
+			UInt16Def implTableHandlerConvertColUInt16Value
+			UInt32Def implTableHandlerConvertColUInt32Value
+			UInt64Def implTableHandlerConvertColUInt64Value
+			Id16Gen implTableHandlerConvertColInt16Value
+			Id32Gen implTableHandlerConvertColInt32Value
+			Id64Gen implTableHandlerConvertColInt64Value
+			FloatDef implTableHandlerConvertColFloatValue
+			DoubleDef implTableHandlerConvertColDoubleValue
+			NumberDef implTableHandlerConvertColNumberValue
+			StringDef implTableHandlerConvertColStringValue
+			TokenDef implTableHandlerConvertColTokenValue
+			NmTokenDef implTableHandlerConvertColNmTokenValue
+			NmTokensDef implTableHandlerConvertColNmTokensValue
+			TextDef implTableHandlerConvertColTextValue
+			DateDef implTableHandlerConvertColDateValue
+			TimeDef implTableHandlerConvertColTimeValue
+			TimestampDef implTableHandlerConvertColTimestampValue
+			TZDateDef implTableHandlerConvertColTZDateValue
+			TZTimeDef implTableHandlerConvertColTZTimeValue
+			TZTimestampDef implTableHandlerConvertColTZTimestampValue
+			UuidGen implTableHandlerConvertColUuidValue
+			UuidDef implTableHandlerConvertColUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$$switch IsNullable yes implTableHandlerApplyOptAttrToEditBuff default implTableHandlerApplyReqAttrToEditBuff$
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyOptAttrToEditBuff"
+		>$switch BaseModelAtomClass
+		BlobDef implTableHandlerApplyOptPointerToEditBuff
+		BoolDef implTableHandlerApplyOptWrapperToEditBuff
+		EnumDef implTableHandlerApplyOptPointerToEditBuff
+		Int16Def implTableHandlerApplyOptWrapperToEditBuff
+		Int32Def implTableHandlerApplyOptWrapperToEditBuff
+		Int64Def implTableHandlerApplyOptWrapperToEditBuff
+		UInt16Def implTableHandlerApplyOptWrapperToEditBuff
+		UInt32Def implTableHandlerApplyOptWrapperToEditBuff
+		UInt64Def implTableHandlerApplyOptWrapperToEditBuff
+		Id16Gen implTableHandlerApplyOptWrapperToEditBuff
+		Id32Gen implTableHandlerApplyOptWrapperToEditBuff
+		Id64Gen implTableHandlerApplyOptWrapperToEditBuff
+		FloatDef implTableHandlerApplyOptWrapperToEditBuff
+		DoubleDef implTableHandlerApplyOptWrapperToEditBuff
+		NumberDef implTableHandlerApplyOptPointerToEditBuff
+		StringDef implTableHandlerApplyOptPointerToEditBuff
+		TokenDef implTableHandlerApplyOptPointerToEditBuff
+		NmTokenDef implTableHandlerApplyOptPointerToEditBuff
+		NmTokensDef implTableHandlerApplyOptPointerToEditBuff
+		TextDef implTableHandlerApplyOptPointerToEditBuff
+		DateDef implTableHandlerApplyOptDateTimeToEditBuff
+		TimeDef implTableHandlerApplyOptDateTimeToEditBuff
+		TimestampDef implTableHandlerApplyOptDateTimeToEditBuff
+		TZDateDef implTableHandlerApplyOptDateTimeToEditBuff
+		TZTimeDef implTableHandlerApplyOptDateTimeToEditBuff
+		TZTimestampDef implTableHandlerApplyOptDateTimeToEditBuff
+		UuidGen implTableHandlerApplyOptUuidToEditBuff
+		UuidDef implTableHandlerApplyOptUuidToEditBuff
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyOptPointerToEditBuff">
+			if( nat$Name$ != NULL ) {
+				editBuff-&gt;set$OptionalOrRequired$$Name$Value( *nat$Name$ );
+			}
+			else {
+				editBuff-&gt;set$OptionalOrRequired$$Name$Null();
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyOptUuidToEditBuff">
+			if( ( attr$Name$ != NULL ) &amp;&amp; ( attr$Name$-&gt;length() &gt; 0 ) ) {
+				editBuff-&gt;set$OptionalOrRequired$$Name$Value( nat$Name$ );
+			}
+			else {
+				editBuff-&gt;set$OptionalOrRequired$$Name$Null();
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyOptDateTimeToEditBuff">
+			if( attr$Name$ != NULL ) {
+				editBuff-&gt;set$OptionalOrRequired$$Name$Value( *nat$Name$ );
+			}
+			else {
+				editBuff-&gt;set$OptionalOrRequired$$Name$Null();
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyOptWrapperToEditBuff">
+			if( nat$Name$.isNull() ) {
+				editBuff-&gt;set$OptionalOrRequired$$Name$Null();
+			}
+			else {
+				editBuff-&gt;set$OptionalOrRequired$$Name$Value( nat$Name$.getValue() );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyReqAttrToEditBuff"
+		>$switch BaseModelAtomClass
+		BlobDef implTableHandlerApplyReqPointerToEditBuff
+		BoolDef implTableHandlerApplyReqValueToEditBuff
+		EnumDef implTableHandlerApplyReqValueToEditBuff
+		Int16Def implTableHandlerApplyReqValueToEditBuff
+		Int32Def implTableHandlerApplyReqValueToEditBuff
+		Int64Def implTableHandlerApplyReqValueToEditBuff
+		UInt16Def implTableHandlerApplyReqValueToEditBuff
+		UInt32Def implTableHandlerApplyReqValueToEditBuff
+		UInt64Def implTableHandlerApplyReqValueToEditBuff
+		Id16Gen implTableHandlerApplyReqValueToEditBuff
+		Id32Gen implTableHandlerApplyReqValueToEditBuff
+		Id64Gen implTableHandlerApplyReqValueToEditBuff
+		FloatDef implTableHandlerApplyReqValueToEditBuff
+		DoubleDef implTableHandlerApplyReqValueToEditBuff
+		NumberDef implTableHandlerApplyReqPointerToEditBuff
+		StringDef implTableHandlerApplyReqPointerToEditBuff
+		TokenDef implTableHandlerApplyReqPointerToEditBuff
+		NmTokenDef implTableHandlerApplyReqPointerToEditBuff
+		NmTokensDef implTableHandlerApplyReqPointerToEditBuff
+		TextDef implTableHandlerApplyReqPointerToEditBuff
+		DateDef implTableHandlerApplyReqValueToEditBuff
+		TimeDef implTableHandlerApplyReqValueToEditBuff
+		TimestampDef implTableHandlerApplyReqValueToEditBuff
+		TZDateDef implTableHandlerApplyReqValueToEditBuff
+		TZTimeDef implTableHandlerApplyReqValueToEditBuff
+		TZTimestampDef implTableHandlerApplyReqValueToEditBuff
+		UuidGen implTableHandlerApplyReqUuidToEditBuff
+		UuidDef implTableHandlerApplyReqUuidToEditBuff
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyReqPointerToEditBuff">
+			if( nat$Name$ == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$ );
+			}
+			editBuff-&gt;set$OptionalOrRequired$$Name$( *nat$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyReqUuidToEditBuff">
+			if( ( nat$Name$[0] == 0 ) &amp;&amp; ( nat$Name$[1] == 0 )
+				&amp;&amp; ( nat$Name$[2] == 0 ) &amp;&amp; ( nat$Name$[3] == 0 )
+				&amp;&amp; ( nat$Name$[4] == 0 ) &amp;&amp; ( nat$Name$[5] == 0 )
+				&amp;&amp; ( nat$Name$[6] == 0 ) &amp;&amp; ( nat$Name$[7] == 0 )
+				&amp;&amp; ( nat$Name$[8] == 0 ) &amp;&amp; ( nat$Name$[9] == 0 )
+				&amp;&amp; ( nat$Name$[10] == 0 ) &amp;&amp; ( nat$Name$[11] == 0 )
+				&amp;&amp; ( nat$Name$[12] == 0 ) &amp;&amp; ( nat$Name$[13] == 0 )
+				&amp;&amp; ( nat$Name$[14] == 0 ) &amp;&amp; ( nat$Name$[15] == 0 ) )
+			{
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_$Name$ );
+			}
+			editBuff-&gt;set$OptionalOrRequired$$Name$( nat$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableHandlerApplyReqValueToEditBuff">
+			editBuff-&gt;set$OptionalOrRequired$$Name$( nat$Name$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerResolveReferences">$switch HasContainer yes implTableHandlerResolveContainer default implTableHandlerMaybeClearOwner$$switch HasOwner yes implTableHandlerResolveOwner default empty$$implTableHandlerCopyToNarrowed$$implTableHandlerResolveNamedLookupRefs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerMaybeClearOwner"
+		>$switch HasOwner yes implTableHandlerClearOwner default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerClearOwner">
+			ref$reference OwnerRelation Suffix$ = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="ContainerIsRequired"
+		>$reference ContainerRelation IsRequired$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerResolveContainer"
+		>$switch ContainerIsRequired yes implTableHandlerResolveRequiredContainer default implTableHandlerResolveOptionalContainer$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerResolveRequiredContainer">
+			// Resolve and apply required Container reference
+
+			if( scopeObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					"scopeObj" );
+			}
+			else if( scopeObj-&gt;implementsClassCode( $reference ContainerRelation reference ToTable CPlusDefNamespace$::$reference ContainerRelation reference ToTable DefSchemaName$$reference ContainerRelation reference ToTable TableName$Buff::CLASS_CODE ) ) {
+				ref$reference ContainerRelation Suffix$ = dynamic_cast&lt;$reference ContainerRelation reference ToTable CPlusDefNamespace$::I$reference ContainerRelation reference ToTable DefSchemaName$$reference ContainerRelation reference ToTable TableName$Obj*&gt;( scopeObj );
+				editBuff-&gt;set$reference ContainerRelation OptionalOrRequired$$reference ContainerRelation RelationTypeTag$$reference ContainerRelation Suffix$( ref$reference ContainerRelation Suffix$ );$switch HasOwner yes implTableHandlerReadContainerOwner default empty$
+			}
+			else {
+				throw cflib::CFLibUnsupportedClassException( CLASS_NAME,
+					S_ProcName,
+					"scopeObj",
+					scopeObj,
+					"I$reference ContainerRelation reference ToTable SchemaName$$reference ContainerRelation reference ToTable TableName$Obj" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCopyToNarrowed"
+		>$switch HasContainer yes implTableHandlerCopyToNarrowedContainer default empty$$switch HasOwner yes implTableHandlerCopyToNarrowedOwner default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCopyToNarrowedContainer"
+		>$reference ContainerRelation implTableHandlerCopyToNarrowedRelation$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCopyToNarrowedOwner"
+		>$reference OwnerRelation implTableHandlerCopyToNarrowedRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerCopyToNarrowedRelation"
+		>$switch HasNarrowed yes implTableHandlerCopyToNarrowedRef default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerCopyToNarrowedRef">
+			ref$reference Narrowed Suffix$ = dynamic_cast&lt;$reference Narrowed reference ToTable CPlusDefNamespace$::I$reference Narrowed reference ToTable DefSchemaName$$reference Narrowed reference ToTable TableName$Obj*&gt;( ref$Suffix$ );$reference Narrowed implTableHandlerCopyToNarrowedRelation$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerResolveOptionalContainer">
+			// Resolve and apply optional Container reference
+
+			if( scopeObj == NULL ) {
+				ref$reference ContainerRelation Suffix$ = NULL;
+				editBuff-&gt;set$referenceContainerRelation OptionalOrRequired$$reference ContainerRelation RelationTypeTag$$reference ContainerRelation Suffix$( ref$reference ContainerRelation Suffix$ );$switch HasOwner yes implTableHandlerReadContainerOwner default empty$
+			}
+			else if( scopeObj-&gt;implementsClassCode( $reference ContainerRelation reference ToTable CPlusDefNamespace$::$reference ContainerRelation reference ToTable DefSchemaName$$reference ContainerRelation reference ToTable TableName$Buff::CLASS_CODE ) ) {
+				ref$reference ContainerRelation Suffix$ = dynamic_cast&lt;$reference ContainerRelation reference ToTable CPlusDefNamespace$::I$reference ContainerRelation reference ToTable DefSchemaName$$reference ContainerRelation reference ToTable TableName$Obj*&gt;( scopeObj );
+				editBuff-&gt;set$reference ContainerRelation OptionalOrRequired$$reference ContainerRelation RelationTypeTag$$reference ContainerRelation Suffix$( ref$reference ContainerRelation Suffix$ );$switch HasOwner yes implTableHandlerReadContainerOwner default empty$
+			}
+			else {
+				throw cflib::CFLibUnsupportedClassException( CLASS_NAME,
+					S_ProcName,
+					"scopeObj",
+					scopeObj,
+					"I$reference ContainerRelation reference ToTable SchemaName$$reference ContainerRelation reference ToTable TableName$Obj" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerReadContainerOwner">
+			ref$reference OwnerRelation Suffix$ = editBuff-&gt;get$reference OwnerRelation OptionalOrRequired$$reference OwnerRelation RelationTypeTag$$reference OwnerRelation Suffix$();</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerClearContainerOwner">
+			ref$reference OwnerRelation Suffix$ = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerResolveOwner">
+			// Resolve and apply Owner reference
+
+			if( ref$reference OwnerRelation Suffix$ == NULL ) {
+				if( scopeObj-&gt;implementsClassCode( $reference OwnerRelation reference ToTable CPlusDefNamespace$::$reference OwnerRelation reference ToTable DefSchemaName$$reference OwnerRelation reference ToTable TableName$Buff::CLASS_CODE ) ) {
+					ref$reference OwnerRelation Suffix$ = dynamic_cast&lt;$reference OwnerRelation reference ToTable CPlusDefNamespace$::I$reference OwnerRelation reference ToTable DefSchemaName$$reference OwnerRelation reference ToTable TableName$Obj*&gt;( scopeObj );
+					editBuff-&gt;set$reference OwnerRelation OptionalOrRequired$$reference OwnerRelation RelationTypeTag$$reference OwnerRelation Suffix$( ref$reference OwnerRelation Suffix$ );
+				}
+				else {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						"Owner&lt;$reference OwnerRelation Suffix$&gt;" );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerResolveNamedLookupRefs"
+		>$switch HasSuperClassRelation yes implTableHandlerResolveNamedLookupRefsSuper default implTableHandlerResolveNamedLookupRefsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerResolveNamedLookupRefsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerResolveNamedLookupRefs$$iterate Relation( each implTableHandlerMaybeResolveNamedRef empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerResolveNamedLookupRefsBase">$iterate Relation( each implTableHandlerMaybeResolveNamedRef empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeResolveNamedRef"
+		>$switch RelationTypeTag
+			Superclass empty
+			Container empty
+			Owner empty
+			default implTableHandlerResolveNamedRefSingletonRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveNamedRefSingletonRelation"
+		>$switch IsToIndexUnique yes implTableHandlerResolveNamedRefNonChainedRelation default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveNamedRefNonChainedRelation"
+		>$switch IsChainRelation yes empty default implTableHandlerResolveNamedRefNamedRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveNamedRefNamedRelation"
+		>$switch ToTableHasLookupIndex yes implTableHandlerResolveNamedNonLateReolverRefRelation default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="ToTableHasQualTable"
+		>$reference ToTable HasQualTable$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveNamedNonLateReolverRefRelation"
+		>$switch IsLateResolver yes empty default implTableHandlerFinallyResolveNamedRefRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerFinallyResolveNamedRefRelation"
+		>$switch ToTableHasQualTable yes implTableHandlerResolveNamedRefQualifiedRelation default implTableHandlerResolveNamedRefBasicRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveNamedRefQualifiedRelation">
+			// Lookup ref$Suffix$ by qualified name
+			if( ( attr$Suffix$ != NULL ) &amp;&amp; ( attr$Suffix$-&gt;length() &gt; 0 ) ) {
+				ref$Suffix$ = dynamic_cast&lt;$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj*&gt;( editBuff-&gt;getNamedObject( schemaObj-&gt;get$reference ToTable TableName$TableObj()-&gt;getObjQualifyingClassCode(),
+					*attr$Suffix$ ) );
+				if( ref$Suffix$ == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						"Resolve $Suffix$ reference qualified name \"" + *attr$Suffix$ + "\" to table $reference ToTable TableName$" );
+				}
+			}
+			else {
+				ref$Suffix$ = NULL;
+			}
+			editBuff-&gt;set$OptionalOrRequired$$RelationTypeTag$$Suffix$( ref$Suffix$ );
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerResolveNamedRefBasicRelation">
+			// Lookup ref$Suffix$ by key name value attr
+			if( ( attr$Suffix$ != NULL ) &amp;&amp; ( attr$Suffix$-&gt;length() &gt; 0 ) ) {
+				ref$Suffix$ = schemaObj-&gt;get$reference ToTable TableName$TableObj()-&gt;read$reference ToTable TableName$By$reference ToTable reference InheritedLookupIndex Suffix$( $reference ToTable reference InheritedLookupIndex iterate Columns( each implTableHandlerResolveNamedRefPassArgComma last empty )$*attr$Suffix$ );
+				if( ref$Suffix$ == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						"Resolve $Suffix$ reference named \"" + *attr$Suffix$ + "\" to table $reference ToTable TableName$" );
+				}
+			}
+			else {
+				ref$Suffix$ = NULL;
+			}
+			editBuff-&gt;set$OptionalOrRequired$$RelationTypeTag$$Suffix$( ref$Suffix$ );
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerResolveNamedRefPassArgComma"
+		>$switch IsNullable yes implTableHandlerResolveNamedRefPassOptArgComma default implTableHandlerResolveNamedRefPassReqArgComma$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerResolveNamedRefPassOptArgComma"
+		>editBuff-&gt;get$reference SatisfyWidestLookupColumn OptionalOrRequired$$reference SatisfyWidestLookupColumn Name$Reference(),
+					</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableHandlerResolveNamedRefPassReqArgComma"
+		>editBuff-&gt;get$reference SatisfyWidestLookupColumn OptionalOrRequired$$reference SatisfyWidestLookupColumn Name$$reference SatisfyWidestLookupColumn switch IsNullable yes implStrValue default empty$(),
+					</GenRule>
+
+	<GenRule GenDef="Object" Name="implStrValue"
+		>Value</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCopyNamedLookupRefs"
+		>$switch HasSuperClassRelation yes implTableHandlerCopyNamedLookupRefsSuper default implTableHandlerCopyNamedLookupRefsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCopyNamedLookupRefsSuper"
+		>$reference SuperClassRelation reference ToTable implTableHandlerCopyNamedLookupRefs$$iterate Relation( each implTableHandlerMaybeCopyNamedRef empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableHandlerCopyNamedLookupRefsBase">$iterate Relation( each implTableHandlerMaybeCopyNamedRef empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerMaybeCopyNamedRef"
+		>$switch RelationTypeTag
+		Superclass empty
+		Container empty
+		Owner empty
+		default implTableHandlerCopyNamedRefSingletonRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerCopyNamedRefSingletonRelation"
+		>$switch IsToIndexUnique yes implTableHandlerCopyNamedRefNonChainedRelation default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerCopyNamedRefNonChainedRelation"
+		>$switch IsChainRelation yes empty default implTableHandlerCopyNamedRefNamedRelation$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerCopyNamedRefNamedRelation"
+		>$switch ToTableHasLookupIndex yes implTableHandlerCopyNamedRefRelation default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableHandlerCopyNamedRefRelation">
+						edit$poptop Table TableName$-&gt;set$OptionalOrRequired$$RelationTypeTag$$Suffix$( editBuff-&gt;get$OptionalOrRequired$$RelationTypeTag$$Suffix$() );</GenRule>
+
+</RuleSet>

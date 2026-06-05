@@ -1,0 +1,3134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ *	Mark's Code Fractal CFSec 2.13 Security Services
+ *
+ *	Copyright 2016-2026 Mark Stephen Sobkow
+ *
+ *	This file is part of Mark's Code Fractal CFSec.
+ *
+ *	Licensed under the Apache License, Version 2.0 (the "License");
+ *	you may not use this file except in compliance with the License.
+ *	You may obtain a copy of the License at
+ *
+ *	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS,
+ *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *	See the License for the specific language governing permissions and
+ *	limitations under the License.
+ *-->
+<MSSBam
+		xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/mssbam-2.12.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/mssbam-2.12.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/mssbam-2.12.xsd"
+		Name="CFSec"
+		Revision="2.13"
+		Description="MSS Code Factory Security"
+		ProjectRoot="org.msscf.msscf.CFSec.2.13" >
+	<Tld Name="org" >
+		<TopDomain Name="msscf" >
+			<License Name="MssCFSecApacheV2"
+					Description="MSS Code Factory Apache 2.0 License for CFSec">
+Mark's Code Fractal CFSec 2.13 Security Services
+
+Copyright 2016-2026 Mark Stephen Sobkow
+
+This file is part of Mark's Code Fractal CFSec.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</License>
+			<TopProject Name="msscf" >
+				<SubProject Name="CFSec" >
+					<MajorVersion Name="2" >
+						<MinorVersion Name="13" >
+<SchemaDef Name="CFSec"
+		DbName="CFSec213"
+		Description="MSS Code Factory Security"
+		DefaultLicense="org.msscf.MssCFSecApacheV2"
+		CopyrightHolder="Mark Stephen Sobkow"
+		CopyrightPeriod="2016-2026"
+		AuthorEMail="mark.sobkow@gmail.com"
+		ProjectURL="http://msscf.org/"
+		PublishURI="https://msscf.sourceforge.io/org-msscf-msscf-CFSec-2-13-CFSec.xml" >
+
+	<EnumType Name="AuditActionEnum"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0" >
+		<EnumTag Name="Create" EnumCode="0" />
+		<EnumTag Name="Update" EnumCode="1" />
+		<EnumTag Name="Delete" EnumCode="2" />
+	</EnumType>
+
+	<Id64Gen Name="ClusterIdGen"
+			IsNullable="false"
+			DbName="ClusterIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Slice="105"
+			BlockSize="1" />
+
+	<StringType Name="DeviceName"
+			Label="Device Name"
+			IsNullable="false"
+			MaxLen="127"
+			InitValue="" />
+
+	<StringType Name="ISO6391LangCode"
+			IsNullable="false"
+			MaxLen="2"
+			InitValue="" />
+
+	<StringType Name="ISO6392LangCode"
+			IsNullable="false"
+			MaxLen="3"
+			InitValue="" />
+
+	<StringType Name="ISOCcyCode"
+			IsNullable="false"
+			MaxLen="3"
+			InitValue="" />
+
+	<Id16Gen Name="ISOCcyIdGen"
+			IsNullable="false"
+			DbName="ISOCcyIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Slice="101"
+			BlockSize="1" />
+
+	<StringType Name="ISOCtryCode"
+			IsNullable="false"
+			MaxLen="2"
+			InitValue="" />
+
+	<StringType Name="ISOCtryCode3"
+			IsNullable="false"
+			MaxLen="3"
+			InitValue="" />
+
+	<Id16Gen Name="ISOCtryIdGen"
+			IsNullable="false"
+			DbName="ISOCtryIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Slice="100"
+			BlockSize="1" />
+
+	<Id16Gen Name="ISOLangIdGen"
+			IsNullable="false"
+			DbName="ISOLangIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Slice="102"
+			BlockSize="1" />
+
+	<Id16Gen Name="ISOTZoneIdGen"
+			IsNullable="false"
+			DbName="ISOTZoneIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Slice="103"
+			BlockSize="1" />
+
+	<StringType Name="SHA512HexHash"
+			Label="SHA-2 512 Hash encoded in hexadecimal"
+			IsNullable="false"
+			MaxLen="256"
+			InitValue="" />
+
+	<UuidGen Name="SecSessionIdGen"
+			IsNullable="false"
+			InitValue="654dbba0-eda7-11e1-aff1-0800200c9a66"
+			Slice="113"
+			BlockSize="1" />
+
+	<UuidGen Name="SecUserIdGen"
+			IsNullable="false"
+			InitValue="654dbba0-eda7-11e1-aff1-0800200c9a66"
+			Slice="114"
+			BlockSize="1" />
+
+	<Id32Gen Name="ServiceTypeIdGen"
+			IsNullable="false"
+			DbName="ServiceTypeIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Slice="104"
+			BlockSize="1" />
+
+	<Id64Gen Name="TenantIdGen"
+			IsNullable="false"
+			DbName="TenantIdGenSeq"
+			MinValue="0"
+			InitValue="0"
+			Slice="106"
+			BlockSize="1" />
+
+	<Table Name="Cluster"
+			TableClassCode="a001"
+			DbName="clus"
+			ShortName="Clus"
+			Label="Cluster"
+			Description="A Cluster is an MSS Code Factory installation"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			LookupIndex="ClusterUDomNameIdx"
+			LoaderBehaviour="Insert"
+			SecScope="System" >
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ClusterIdGen" />
+		<StringCol Name="FullDomName"
+				Label="Full Domain Name"
+				IsNullable="false"
+				MaxLen="192"
+				InitValue="" />
+		<StringCol Name="Description"
+				Label="Cluster Description"
+				IsNullable="false"
+				MaxLen="128"
+				InitValue="" />
+		<PrimaryIndex Name="ClusterIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="cluster_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ClusterUDomNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="cluster_xufdname"
+				ShortName="UDom"
+				Suffix="UDomNameIdx"
+				Label="UDomNameIdx" >
+			<IndexCol Name="FullDomName" IsAscending="true" />
+		</Index>
+		<Index Name="ClusterUDescrNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="cluster_xudescr"
+				ShortName="UDescr"
+				Suffix="UDescrIdx"
+				Label="UDescrIdx" >
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+
+		<CafeTableObjInterface>
+	I$SecSchemaName$ClusterObj getSystemCluster();
+</CafeTableObjInterface>
+
+		<CafeTableObjImplementation>
+	public I$SecSchemaName$ClusterObj getSystemCluster() {
+		boolean transactionStarted = schema.beginTransaction();
+		I$SecSchemaName$ClusterObj clusterObj;
+		try {
+			clusterObj = readClusterByUDomNameIdx( &quot;system&quot; );
+			if( clusterObj == null ) {
+				clusterObj = newInstance();
+				I$SecSchemaName$ClusterEditObj clusterEdit = clusterObj.beginEdit();
+				clusterEdit.setRequiredFullDomName( &quot;system&quot; );
+				clusterObj = clusterEdit.create();
+				clusterEdit = null;
+			}
+			if( transactionStarted ) {
+				schema.commit();
+			}
+		}
+		catch( RuntimeException e ) {
+			if( transactionStarted ) {
+				try {
+					schema.rollback();
+				}
+				catch( Exception e2 ) {
+				}
+			}
+			throw e;
+		}
+		return( clusterObj );
+	}
+</CafeTableObjImplementation>
+
+		<CPlusTableObjInterface>
+	virtual $CPlusSecNamespace$::I$SecSchemaName$ClusterObj* getSystemCluster();
+</CPlusTableObjInterface>
+
+		<CPlusTableObjImplementation>
+	$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* $SchemaName$$TableName$TableObj::getSystemCluster() {
+		static const std::string S_System( &quot;system&quot; );
+		bool transactionStarted = schema-&gt;beginTransaction();
+		$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* clusterObj;
+		try {
+			clusterObj = readClusterByUDomNameIdx( S_System );
+			if( clusterObj == NULL ) {
+				clusterObj = readClusterByUDomNameIdx( S_System, true );
+				if( clusterObj == NULL ) {
+					clusterObj = newInstance();
+					$CPlusSecNamespace$::I$SecSchemaName$ClusterEditObj* clusterEdit = clusterObj-&gt;beginEdit();
+					clusterEdit-&gt;setRequiredFullDomName( S_System );
+					clusterEdit-&gt;setRequiredDescription( S_System );
+					clusterObj = clusterEdit-&gt;create();
+				}
+			}
+			if( transactionStarted ) {
+				schema-&gt;commit();
+			}
+		}
+		catch( std::exception&amp; e ) {
+			if( transactionStarted ) {
+				try {
+					schema-&gt;rollback();
+				}
+				catch( ... ) {
+				}
+			}
+			throw e;
+		}
+		return( clusterObj );
+	}
+</CPlusTableObjImplementation>
+
+		<HPlusTableObjInterface>
+	virtual $CPlusSecNamespace$::I$SecSchemaName$ClusterObj* getSystemCluster() = 0;
+</HPlusTableObjInterface>
+
+		<CSharpTableObjInterface>
+	virtual I$SecSchemaName$ClusterObj* getSystemCluster();
+</CSharpTableObjInterface>
+
+		<CSharpTableObjImplementation>
+	I$SecSchemaName$ClusterObj* $SchemaName$$TableName$TableObj::getSystemCluster() {
+		static const std::string S_System( &quot;system&quot; );
+		bool transactionStarted = schema-&gt;beginTransaction();
+		I$SecSchemaName$ClusterObj* clusterObj;
+		try {
+			clusterObj = readClusterByUDomNameIdx( S_System );
+			if( clusterObj == NULL ) {
+				clusterObj = readClusterByUDomNameIdx( S_System, true );
+				if( clusterObj == NULL ) {
+					clusterObj = newInstance();
+					I$SecSchemaName$ClusterEditObj* clusterEdit = clusterObj-&gt;beginEdit();
+					clusterEdit-&gt;setRequiredFullDomName( S_System );
+					clusterEdit-&gt;setRequiredDescription( S_System );
+					clusterObj = clusterEdit-&gt;create();
+				}
+			}
+			if( transactionStarted ) {
+				schema-&gt;commit();
+			}
+		}
+		catch( std::exception&amp; e ) {
+			if( transactionStarted ) {
+				try {
+					schema-&gt;rollback();
+				}
+				catch( ... ) {
+				}
+			}
+			throw e;
+		}
+		return( clusterObj );
+	}
+</CSharpTableObjImplementation>
+	</Table>
+
+	<Id64Gen Name="HostNodeIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Cluster"
+			Slice="116"
+			BlockSize="1" />
+
+	<Id32Gen Name="SecAppIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Cluster"
+			Slice="107"
+			BlockSize="1" />
+
+	<Id32Gen Name="SecFormIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Cluster"
+			Slice="108"
+			BlockSize="1" />
+
+	<Id64Gen Name="SecGroupFormIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Cluster"
+			Slice="112"
+			BlockSize="1" />
+
+	<Id32Gen Name="SecGroupIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Cluster"
+			Slice="109"
+			BlockSize="1" />
+
+	<Id64Gen Name="SecGrpIncIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Cluster"
+			Slice="111"
+			BlockSize="1" />
+
+	<Id64Gen Name="SecGrpMembIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Cluster"
+			Slice="110"
+			BlockSize="1" />
+
+	<Id64Gen Name="ServiceIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Cluster"
+			Slice="115"
+			BlockSize="1" />
+
+	<Table Name="HostNode"
+			TableClassCode="a002"
+			DbName="HostNode"
+			Label="Host Node"
+			Description="An installation cluster usually has many nodes"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			LookupIndex="HostNodeUHostNameIdx"
+			LoaderBehaviour="Update"
+			SecScope="Cluster" >
+		<TableCol Name="ClusterId"
+				Label="Cluster Id"
+				IsNullable="false"
+				DataType="ClusterIdGen" />
+		<TableCol Name="HostNodeId"
+				Label="Host Node Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="HostNodeIdGen" />
+		<StringCol Name="Description"
+				Label="Description"
+				IsNullable="false"
+				MaxLen="255"
+				InitValue="" />
+		<StringCol Name="HostName"
+				Label="Host Name"
+				IsNullable="false"
+				MaxLen="192"
+				InitValue="" />
+		<PrimaryIndex Name="HostNodeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="HostNode_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="HostNodeId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="HostNodeClusterIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="HostNode_xcluster"
+				ShortName="Clus"
+				Suffix="ClusterIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+		</Index>
+		<Index Name="HostNodeUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="HostNode_xudsc"
+				ShortName="UDescr"
+				Suffix="UDescrIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+		<Index Name="HostNodeUHostNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="HostNode_xhnm"
+				ShortName="HostNm"
+				Suffix="HostNameIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="HostName" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ISOCcy"
+			TableClassCode="a003"
+			DbName="iso_ccy"
+			Label="ISO Ccy"
+			Description="ISO Ccy is a global static lookup, replicated to all nodes"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ISOCcyCodeIdx"
+			LoaderBehaviour="Update"
+			SecScope="System" >
+		<TableCol Name="ISOCcyId"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ISOCcyIdGen" />
+		<TableCol Name="ISOCode"
+				IsNullable="false"
+				DbName="iso_code"
+				DataType="ISOCcyCode" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="ccy_name"
+				MaxLen="64"
+				InitValue="" />
+		<StringCol Name="UnitSymbol"
+				IsNullable="true"
+				DbName="unit_symbol"
+				MaxLen="4" />
+		<Int16Col Name="Precis"
+				IsNullable="false"
+				DbName="precis"
+				MinValue="0"
+				MaxValue="5"
+				InitValue="0" />
+		<PrimaryIndex Name="ISOCcyIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="isocurrency_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="Ccy Id Index" >
+			<IndexCol Name="ISOCcyId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ISOCcyCodeIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="isocurrency_xcode"
+				ShortName="CcyCd"
+				Suffix="CcyCdIdx"
+				Label="Ccy Code Index" >
+			<IndexCol Name="ISOCode" IsAscending="true" />
+		</Index>
+		<Index Name="ISOCcyNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="isocurrency_xuname"
+				ShortName="NameIdx"
+				Suffix="CcyNmIdx"
+				Label="Ccy Name Index" >
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ISOCtry"
+			TableClassCode="a004"
+			DbName="iso_cntry"
+			Label="ISO Ctry"
+			Description="ISO Ctry implements the ISO 3166 Codes as a global static lookup, replicated to all nodes"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ISOCtryCodeIdx"
+			LoaderBehaviour="Update"
+			SecScope="System" >
+		<TableCol Name="ISOCtryId"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ISOCtryIdGen" />
+		<TableCol Name="ISOCode"
+				IsNullable="false"
+				DbName="iso_code"
+				DataType="ISOCtryCode" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="country_name"
+				MaxLen="64"
+				InitValue="" />
+		<PrimaryIndex Name="ISOCtryIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="isocountry_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="CtryIdx" >
+			<IndexCol Name="ISOCtryId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ISOCtryCodeIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="isocountry_xcode"
+				ShortName="ISOCode"
+				Suffix="ISOCodeIdx"
+				Label="ISOCodeIdx" >
+			<IndexCol Name="ISOCode" IsAscending="true" />
+		</Index>
+		<Index Name="ISOCtryNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="isocountry_xuname"
+				ShortName="NameIdx"
+				Suffix="NameIdx"
+				Label="Name Index" >
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ISOCtryCcy"
+			TableClassCode="a005"
+			DbName="iso_cntryccy"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			AltIndex="ISOCtryCcyIdIdx"
+			LoaderBehaviour="Insert"
+			SecScope="System" >
+		<TableCol Name="ISOCtryId"
+				IsNullable="false"
+				DataType="ISOCtryIdGen" />
+		<TableCol Name="ISOCcyId"
+				IsNullable="false"
+				DataType="ISOCcyIdGen" />
+		<PrimaryIndex Name="ISOCtryCcyIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="isocountryccy_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="CtryCcyIdx" >
+			<IndexCol Name="ISOCtryId" IsAscending="true" />
+			<IndexCol Name="ISOCcyId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ISOCtryCcyCtryIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="isocountryccy_xcountry"
+				ShortName="Ctry"
+				Suffix="CtryIdx"
+				Label="CtryIdx" >
+			<IndexCol Name="ISOCtryId" IsAscending="true" />
+		</Index>
+		<Index Name="ISOCtryCcyCcyIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="isocountryccy_xccy"
+				ShortName="Ccy"
+				Suffix="CcyIdx"
+				Label="CcyIdx" >
+			<IndexCol Name="ISOCcyId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ISOCtryLang"
+			TableClassCode="a006"
+			DbName="iso_cntrylng"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			AltIndex="ISOCtryLangIdIdx"
+			LoaderBehaviour="Insert"
+			SecScope="System" >
+		<TableCol Name="ISOCtryId"
+				IsNullable="false"
+				DataType="ISOCtryIdGen" />
+		<TableCol Name="ISOLangId"
+				IsNullable="false"
+				DataType="ISOLangIdGen" />
+		<PrimaryIndex Name="ISOCtryLangIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="isocountrylang_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="CtryLangIdx" >
+			<IndexCol Name="ISOCtryId" IsAscending="true" />
+			<IndexCol Name="ISOLangId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ISOCtryLangCtryIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="isocountrylang_xcountry"
+				ShortName="Ctry"
+				Suffix="CtryIdx"
+				Label="CtryIdx" >
+			<IndexCol Name="ISOCtryId" IsAscending="true" />
+		</Index>
+		<Index Name="ISOCtryLangLangIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="isocountrylang_xlang"
+				ShortName="Lang"
+				Suffix="LangIdx"
+				Label="LangIdx" >
+			<IndexCol Name="ISOLangId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ISOLang"
+			TableClassCode="a007"
+			DbName="iso_lang"
+			Label="ISO Lang"
+			Description="ISO Lang is a global static lookup, replicated to all nodes"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ISOLang6392Idx"
+			LoaderBehaviour="Update"
+			SecScope="System" >
+		<TableCol Name="ISOLangId"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ISOLangIdGen" />
+		<TableCol Name="ISO6392Code"
+				IsNullable="false"
+				DbName="iso_code3"
+				DataType="ISO6392LangCode" />
+		<TableCol Name="ISO6391Code"
+				IsNullable="true"
+				DbName="iso_code2"
+				DataType="ISO6391LangCode" />
+		<StringCol Name="EnglishName"
+				IsNullable="false"
+				DbName="eng_name"
+				MaxLen="64"
+				InitValue="" />
+		<PrimaryIndex Name="ISOLangIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="isolang_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="LangIdIdx" >
+			<IndexCol Name="ISOLangId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ISOLang6392Idx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="isolang_x6392"
+				ShortName="Code3"
+				Suffix="Code3Idx"
+				Label="ISO 639-2 Index" >
+			<IndexCol Name="ISO6392Code" IsAscending="true" />
+		</Index>
+		<Index Name="ISOLang6391Idx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="isolang_x6391"
+				ShortName="Code2"
+				Suffix="Code2Idx"
+				Label="ISO 639-1 Index" >
+			<IndexCol Name="ISO6391Code" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ISOTZone"
+			TableClassCode="a008"
+			DbName="ISOTz"
+			ShortName="ISOTz"
+			Label="ISO Timezone"
+			Description="ISO Timezone is a global static lookup, replicated to all nodes"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ISOTZoneUTZNameIdx"
+			LoaderBehaviour="Update"
+			SecScope="System" >
+		<TableCol Name="ISOTZoneId"
+				Label="ISO Timezone Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ISOTZoneIdGen" />
+		<StringCol Name="Iso8601"
+				Label="ISO8601"
+				IsNullable="false"
+				MaxLen="6"
+				InitValue="" />
+		<StringCol Name="TZName"
+				Label="Timezone Name"
+				IsNullable="false"
+				MaxLen="64"
+				InitValue="" />
+		<Int16Col Name="TZHourOffset"
+				Label="Timezone Hour Offset"
+				IsNullable="false"
+				MinValue="-12"
+				MaxValue="12"
+				InitValue="0" />
+		<Int16Col Name="TZMinOffset"
+				Label="Timezone Minute Offset"
+				IsNullable="false"
+				MinValue="-59"
+				MaxValue="59"
+				InitValue="0" />
+		<StringCol Name="Description"
+				IsNullable="false"
+				MaxLen="128"
+				InitValue="" />
+		<BoolCol Name="Visible"
+				IsNullable="false"
+				InitValue="true" />
+		<PrimaryIndex Name="ISOTZoneIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="ITz_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="ISOTZoneId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ISOTZoneOffsetIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="ITz_xoffset"
+				ShortName="Offset"
+				Suffix="OffsetIdx" >
+			<IndexCol Name="TZHourOffset" IsAscending="true" />
+			<IndexCol Name="TZMinOffset" IsAscending="true" />
+		</Index>
+		<Index Name="ISOTZoneUTZNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="ITz_xuname"
+				ShortName="TZName"
+				Suffix="UTZNameIdx" >
+			<IndexCol Name="TZName" IsAscending="true" />
+		</Index>
+		<Index Name="ISOTZoneIso8601Idx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="ITz_xiso"
+				ShortName="Iso8601"
+				Suffix="Iso8601Idx" >
+			<IndexCol Name="Iso8601" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="SecApp"
+			TableClassCode="a009"
+			DbName="SecApp"
+			Label="Security Application"
+			Description="Each application has a particular JEE mount point on each node providing service"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			LookupIndex="SecAppUJEEMountIdx"
+			LoaderBehaviour="Update"
+			SecScope="Cluster" >
+		<TableCol Name="ClusterId"
+				Label="Cluster Id"
+				IsNullable="false"
+				DataType="ClusterIdGen" />
+		<TableCol Name="SecAppId"
+				Label="Security Application Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="SecAppIdGen" />
+		<StringCol Name="JEEMountName"
+				Label="JEE Mount Name"
+				IsNullable="false"
+				MaxLen="192"
+				InitValue="" />
+		<PrimaryIndex Name="SecAppIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecApp_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecAppId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="SecAppClusterIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecApp_xcluster"
+				ShortName="Clus"
+				Suffix="ClusterIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+		</Index>
+		<Index Name="SecAppUJEEMountIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecApp_xujeemnt"
+				ShortName="JEEMnt"
+				Suffix="UJEEMountIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="JEEMountName" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="SecDevice"
+			TableClassCode="a00a"
+			DbName="SecDev"
+			Label="Security Device"
+			Description="User device security configuration"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			LookupIndex="SecDeviceNameIdx"
+			LoaderBehaviour="Insert"
+			SecScope="System" >
+		<TableCol Name="SecUserId"
+				Label="Security User Id"
+				IsNullable="false"
+				DataType="SecUserIdGen" />
+		<TableCol Name="DevName"
+				Label="Device Name"
+				IsNullable="false"
+				DataType="DeviceName" />
+		<TextCol Name="PubKey"
+				Label="Device Public Key"
+				IsNullable="true"
+				MaxLen="10000" />
+		<PrimaryIndex Name="SecDeviceIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecDev_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="SecUserId" IsAscending="true" />
+			<IndexCol Name="DevName" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="SecDeviceNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecDev_nameidx"
+				ShortName="NameIdx"
+				Suffix="NameIdx" >
+			<IndexCol Name="SecUserId" IsAscending="true" />
+			<IndexCol Name="DevName" IsAscending="true" />
+		</Index>
+		<Index Name="SecDeviceUserIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecDev_usridx"
+				ShortName="UserIdx"
+				Suffix="UserIdx" >
+			<IndexCol Name="SecUserId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="SecForm"
+			TableClassCode="a00b"
+			DbName="SecForm"
+			Label="Security Form"
+			Description="Each form has a JEE servlet mapping name under the application mount point"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			LookupIndex="SecFormUJEEServletIdx"
+			LoaderBehaviour="Update"
+			SecScope="Cluster" >
+		<TableCol Name="ClusterId"
+				Label="Cluster Id"
+				IsNullable="false"
+				DataType="ClusterIdGen" />
+		<TableCol Name="SecFormId"
+				Label="Security Form Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="SecFormIdGen" />
+		<TableCol Name="SecAppId"
+				Label="Security Application Id"
+				IsNullable="false"
+				DataType="SecAppIdGen" />
+		<StringCol Name="JEEServletMapName"
+				Label="JEE Servlet Map Name"
+				IsNullable="false"
+				MaxLen="192"
+				InitValue="" />
+		<PrimaryIndex Name="SecFormIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecForm_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecFormId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="SecFormClusterIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecForm_xcluster"
+				ShortName="Clus"
+				Suffix="ClusterIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+		</Index>
+		<Index Name="SecFormSecAppIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecForm_xsecapp"
+				ShortName="SecApp"
+				Suffix="SecAppIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecAppId" IsAscending="true" />
+		</Index>
+		<Index Name="SecFormUJEEServletIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecForm_xujeesvlt"
+				ShortName="JEEServlet"
+				Suffix="UJEEServletIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecAppId" IsAscending="true" />
+			<IndexCol Name="JEEServletMapName" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="SecGroup"
+			TableClassCode="a00c"
+			DbName="SecGrp"
+			ShortName="Group"
+			Label="Security Group"
+			Description="Security groups in a cluster configuration gather user members, sub-groups, and form access grants"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="SecGroupUNameIdx"
+			LoaderBehaviour="Insert"
+			SecScope="Cluster" >
+		<TableCol Name="ClusterId"
+				Label="Cluster Id"
+				IsNullable="false"
+				DataType="ClusterIdGen" />
+		<TableCol Name="SecGroupId"
+				Label="Security Group Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="SecGroupIdGen" />
+		<StringCol Name="Name"
+				Label="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="64"
+				InitValue="" />
+		<BoolCol Name="IsVisible"
+				IsNullable="false"
+				InitValue="false" />
+		<PrimaryIndex Name="SecGroupIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecGroup_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecGroupId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="SecGroupClusterIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecGroup_xcluster"
+				ShortName="Clus"
+				Suffix="ClusterIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+		</Index>
+		<Index Name="SecGroupClusterVisIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecGroup_xclustervis"
+				ShortName="ClusVis"
+				Suffix="ClusterVisIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="IsVisible" IsAscending="true" />
+		</Index>
+		<Index Name="SecGroupUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecGroup_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="SecGroupForm"
+			TableClassCode="a00d"
+			DbName="SecGrpFrm"
+			ShortName="GroupForm"
+			Label="Security Group Form"
+			Description="Security group form existence grants members of the group access to the specified form"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			AltIndex="SecGroupFormUFormIdx"
+			LoaderBehaviour="Insert"
+			SecScope="Cluster" >
+		<TableCol Name="ClusterId"
+				Label="Cluster Id"
+				IsNullable="false"
+				DbName="ClusId"
+				DataType="ClusterIdGen" />
+		<TableCol Name="SecGroupFormId"
+				Label="Security Group Form Id"
+				IsNullable="false"
+				GenerateId="true"
+				DbName="SecGrpFrmId"
+				DataType="SecGroupFormIdGen" />
+		<TableCol Name="SecGroupId"
+				Label="Security Group Id"
+				IsNullable="false"
+				DbName="SecGrpId"
+				DataType="SecGroupIdGen" />
+		<TableCol Name="SecAppId"
+				Label="Security Application Id"
+				IsNullable="false"
+				DataType="SecAppIdGen" />
+		<TableCol Name="SecFormId"
+				Label="Security Form Id"
+				IsNullable="false"
+				DbName="SecFrmId"
+				DataType="SecFormIdGen" />
+		<PrimaryIndex Name="SecGroupFormIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecGroupForm_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecGroupFormId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="SecGroupFormClusterIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecGroupForm_xcluster"
+				ShortName="Clus"
+				Suffix="ClusterIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+		</Index>
+		<Index Name="SecGroupFormGroupIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecGroupForm_xgroup"
+				ShortName="Group"
+				Suffix="GroupIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecGroupId" IsAscending="true" />
+		</Index>
+		<Index Name="SecGroupFormAppIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecGroupForm_xapp"
+				ShortName="App"
+				Suffix="AppIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecAppId" IsAscending="true" />
+		</Index>
+		<Index Name="SecGroupFormFormIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecGroupForm_xform"
+				ShortName="Form"
+				Suffix="FormIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecFormId" IsAscending="true" />
+		</Index>
+		<Index Name="SecGroupFormUFormIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecGroupForm_xuform"
+				ShortName="UForm"
+				Suffix="UFormIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecGroupId" IsAscending="true" />
+			<IndexCol Name="SecFormId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="SecGrpInc"
+			TableClassCode="a00e"
+			DbName="SecInc"
+			ShortName="GrpInc"
+			Label="Security Group Include"
+			Description="Security groups can include other groups"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			AltIndex="SecGrpIncUIncludeIdx"
+			LoaderBehaviour="Insert"
+			SecScope="Cluster" >
+		<TableCol Name="ClusterId"
+				Label="Cluster Id"
+				IsNullable="false"
+				DbName="ClusId"
+				DataType="ClusterIdGen" />
+		<TableCol Name="SecGrpIncId"
+				Label="Security Group Include Id"
+				IsNullable="false"
+				GenerateId="true"
+				DbName="SecGrpIncId"
+				DataType="SecGrpIncIdGen" />
+		<TableCol Name="SecGroupId"
+				Label="Security Group Id"
+				IsNullable="false"
+				DbName="SecGrpId"
+				DataType="SecGroupIdGen" />
+		<TableCol Name="IncludeGroupId"
+				Label="Include Security Group Id"
+				IsNullable="false"
+				DbName="IncGrpId"
+				DataType="SecGroupIdGen" />
+		<PrimaryIndex Name="SecGrpIncIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecInclude_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecGrpIncId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="SecGrpIncClusterIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecInclude_xcluster"
+				ShortName="Clus"
+				Suffix="ClusterIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+		</Index>
+		<Index Name="SecGrpIncGroupIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecInclude_xgroup"
+				ShortName="Group"
+				Suffix="GroupIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecGroupId" IsAscending="true" />
+		</Index>
+		<Index Name="SecGrpIncIncludeIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecInclude_xinc"
+				ShortName="Include"
+				Suffix="IncludeIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="IncludeGroupId" IsAscending="true" />
+		</Index>
+		<Index Name="SecGrpIncUIncludeIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecInclude_xuinc"
+				ShortName="UInclude"
+				Suffix="UIncludeIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecGroupId" IsAscending="true" />
+			<IndexCol Name="IncludeGroupId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="SecGrpMemb"
+			TableClassCode="a00f"
+			DbName="SecMemb"
+			ShortName="GrpMemb"
+			Label="Security Group Member"
+			Description="Security group members tie the SecUser to specific groups"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			AltIndex="SecGrpMembUUserIdx"
+			LoaderBehaviour="Insert"
+			SecScope="Cluster" >
+		<TableCol Name="ClusterId"
+				Label="Cluster Id"
+				IsNullable="false"
+				DataType="ClusterIdGen" />
+		<TableCol Name="SecGrpMembId"
+				Label="Security Group Member Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="SecGrpMembIdGen" />
+		<TableCol Name="SecGroupId"
+				Label="Security Group Id"
+				IsNullable="false"
+				DataType="SecGroupIdGen" />
+		<TableCol Name="SecUserId"
+				Label="Security User Id"
+				IsNullable="false"
+				DataType="SecUserIdGen" />
+		<PrimaryIndex Name="SecGrpMembIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecMember_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecGrpMembId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="SecGrpMembClusterIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecMember_xcluster"
+				ShortName="Clus"
+				Suffix="ClusterIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+		</Index>
+		<Index Name="SecGrpMembGroupIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecMember_xgroup"
+				ShortName="Group"
+				Suffix="GroupIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecGroupId" IsAscending="true" />
+		</Index>
+		<Index Name="SecGrpMembUserIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecMember_xuser"
+				ShortName="User"
+				Suffix="UserIdx" >
+			<IndexCol Name="SecUserId" IsAscending="true" />
+		</Index>
+		<Index Name="SecGrpMembUUserIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecMember_xuuser"
+				ShortName="UUser"
+				Suffix="UUserIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="SecGroupId" IsAscending="true" />
+			<IndexCol Name="SecUserId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="SecSession"
+			TableClassCode="a010"
+			DbName="SecSess"
+			ShortName="Sess"
+			Label="Security Session"
+			Description="Security sessions are valid throughout the cluster"
+			IsInstantiable="true"
+			HasHistory="false"
+			HasAuditColumns="false"
+			PageData="true"
+			LoaderBehaviour="Insert"
+			SecScope="System" >
+		<TableCol Name="SecSessionId"
+				Label="Security Session Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="SecSessionIdGen" />
+		<TableCol Name="SecUserId"
+				Label="Security User Id"
+				IsNullable="false"
+				DataType="SecUserIdGen" />
+		<TableCol Name="SecDevName"
+				Label="Sesion Device Name"
+				IsNullable="true"
+				DbName="SecDevName"
+				DataType="DeviceName" />
+		<TimestampCol Name="Start"
+				IsNullable="false"
+				DbName="start_ts" />
+		<TimestampCol Name="Finish"
+				IsNullable="true"
+				DbName="finish_ts" />
+		<TableCol Name="SecProxyId"
+				Label="Security Proxy User Id"
+				IsNullable="true"
+				DataType="SecUserIdGen" />
+		<PrimaryIndex Name="SecSessionIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Session_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="SecSessionId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="SessionSecUserIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Session_xsecuser"
+				ShortName="SecUsr"
+				Suffix="SecUserIdx" >
+			<IndexCol Name="SecUserId" IsAscending="true" />
+		</Index>
+		<Index Name="SessionSecDevIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Session_xsecdev"
+				ShortName="SecDev"
+				Suffix="SecDevIdx" >
+			<IndexCol Name="SecUserId" IsAscending="true" />
+			<IndexCol Name="SecDevName" IsAscending="true" />
+		</Index>
+		<Index Name="SessionStartIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Session_xstart"
+				ShortName="Start"
+				Suffix="StartIdx" >
+			<IndexCol Name="SecUserId" IsAscending="true" />
+			<IndexCol Name="Start" IsAscending="true" />
+		</Index>
+		<Index Name="SessionFinishIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Session_xfnsh"
+				ShortName="Finish"
+				Suffix="FinishIdx" >
+			<IndexCol Name="SecUserId" IsAscending="true" />
+			<IndexCol Name="Finish" IsAscending="true" />
+		</Index>
+		<Index Name="SessionSecProxyIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Session_xproxy"
+				ShortName="SecProxy"
+				Suffix="SecProxyIdx" >
+			<IndexCol Name="SecProxyId" IsAscending="true" />
+		</Index>
+
+		<CafeTableObjInterface>
+	I$SecSchemaName$SecSessionObj getSystemSession();
+</CafeTableObjInterface>
+
+		<CafeTableObjImplementation>
+	public I$SecSchemaName$SecSessionObj getSystemSession() {
+		boolean transactionStarted = schema.beginTransaction();
+		I$SecSchemaName$SecUserObj userObj;
+		I$SecSchemaName$SecSessionObj sessionObj;
+		try {
+			userObj = schema.getSecUserTableObj().getSystemUser();
+			sessionObj = readSecSessionByStartIdx( userObj.getRequiredSecUserId(),
+				Calendar.getInstance() );
+			if( sessionObj == null ) {
+				sessionObj = newInstance();
+				I$SecSchemaName$SecSessionEditObj sessionEdit = sessionObj.beginEdit();
+				sessionEdit.setRequiredContainerSecUser( userObj );
+				sessionEdit.setRequiredStart( Calendar.getInstance() );
+				sessionEdit.setOptionalFinish( null );
+				sessionObj = sessionEdit.create();
+				sessionEdit = null;
+			}
+			if( transactionStarted ) {
+				schema.commit();
+			}
+		}
+		catch( RuntimeException e ) {
+			if( transactionStarted ) {
+				try {
+					schema.rollback();
+				}
+				catch( Exception e2 ) {
+				}
+			}
+			throw e;
+		}
+		return( sessionObj );
+	}
+</CafeTableObjImplementation>
+
+		<CPlusTableObjInterface>
+	virtual $CPlusSecNamespace$::I$SecSchemaName$SecSessionObj* getSystemSession();
+</CPlusTableObjInterface>
+
+		<CPlusTableObjImplementation>
+	static $CPlusSecNamespace$::I$SecSchemaName$SecSessionObj* S_systemSession = NULL;
+
+	$CPlusSecNamespace$::I$SecSchemaName$SecSessionObj* $SchemaName$$TableName$TableObj::getSystemSession() {
+		static const std::string S_ProcName( &quot;getSystemSession&quot; );
+		static const std::string S_UserObj( &quot;userObj&quot; );
+		bool transactionStarted = schema-&gt;beginTransaction();
+		$CPlusSecNamespace$::I$SecSchemaName$SecUserObj* userObj;
+		$CPlusSecNamespace$::I$SecSchemaName$SecSessionObj* sessionObj = S_systemSession;
+		try {
+			std::chrono::system_clock::time_point ts = cflib::CFLib::getUTCTimestampInstance();
+			userObj = schema-&gt;getSecUserTableObj()-&gt;getSystemUser();
+			if( userObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_UserObj );
+			}
+			if( sessionObj == NULL ) {
+				sessionObj = readSecSessionByStartIdx( userObj-&gt;getRequiredSecUserId(),
+					ts,
+					true );
+				if( sessionObj == NULL ) {
+					sessionObj = newInstance();
+					$CPlusSecNamespace$::I$SecSchemaName$SecSessionEditObj* sessionEdit = sessionObj-&gt;beginEdit();
+					sessionEdit-&gt;setRequiredContainerSecUser( userObj );
+					sessionEdit-&gt;setRequiredStart( ts );
+					sessionEdit-&gt;setOptionalFinishNull();
+					sessionObj = sessionEdit-&gt;create();
+					S_systemSession = sessionObj;
+				}
+			}
+			if( transactionStarted ) {
+				schema-&gt;commit();
+			}
+		}
+		catch( std::exception&amp; e ) {
+			if( transactionStarted ) {
+				try {
+					schema-&gt;rollback();
+				}
+				catch( ... ) {
+				}
+			}
+			throw e;
+		}
+		return( sessionObj );
+	}
+</CPlusTableObjImplementation>
+
+		<HPlusTableObjInterface>
+	virtual $CPlusSecNamespace$::I$SecSchemaName$SecSessionObj* getSystemSession() = 0;
+</HPlusTableObjInterface>
+
+		<CSharpTableObjInterface>
+	virtual I$SecSchemaName$SecSessionObj* getSystemSession();
+</CSharpTableObjInterface>
+
+		<CSharpTableObjImplementation>
+	static I$SecSchemaName$SecSessionObj* S_systemSession = NULL;
+
+	I$SecSchemaName$SecSessionObj* $SchemaName$$TableName$TableObj::getSystemSession() {
+		static const std::string S_ProcName( &quot;getSystemSession&quot; );
+		static const std::string S_UserObj( &quot;userObj&quot; );
+		bool transactionStarted = schema-&gt;beginTransaction();
+		I$SecSchemaName$SecUserObj* userObj;
+		I$SecSchemaName$SecSessionObj* sessionObj = S_systemSession;
+		try {
+			std::chrono::system_clock::time_point ts = cflib::CFLib::getUTCTimestampInstance();
+			userObj = schema-&gt;getSecUserTableObj()-&gt;getSystemUser();
+			if( userObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_UserObj );
+			}
+			if( sessionObj == NULL ) {
+				sessionObj = readSecSessionByStartIdx( userObj-&gt;getRequiredSecUserId(),
+					ts,
+					true );
+				if( sessionObj == NULL ) {
+					sessionObj = newInstance();
+					I$SecSchemaName$SecSessionEditObj* sessionEdit = sessionObj-&gt;beginEdit();
+					sessionEdit-&gt;setRequiredContainerSecUser( userObj );
+					sessionEdit-&gt;setRequiredStart( ts );
+					sessionEdit-&gt;setOptionalFinishNull();
+					sessionObj = sessionEdit-&gt;create();
+					S_systemSession = sessionObj;
+				}
+			}
+			if( transactionStarted ) {
+				schema-&gt;commit();
+			}
+		}
+		catch( std::exception&amp; e ) {
+			if( transactionStarted ) {
+				try {
+					schema-&gt;rollback();
+				}
+				catch( ... ) {
+				}
+			}
+			throw e;
+		}
+		return( sessionObj );
+	}
+</CSharpTableObjImplementation>
+	</Table>
+
+	<Table Name="SecUser"
+			TableClassCode="a011"
+			DbName="SecUser"
+			Label="Security User"
+			Description="Login and security information is global amongst the clusters"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			LookupIndex="SecUserLoginIdx"
+			LoaderBehaviour="Insert"
+			SecScope="System" >
+		<TableCol Name="SecUserId"
+				Label="Security User Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="SecUserIdGen" />
+		<StringCol Name="LoginId"
+				Label="Login Id"
+				IsNullable="false"
+				DbName="login_id"
+				MaxLen="32"
+				InitValue="" />
+		<StringCol Name="EMailAddress"
+				Label="EMail Address"
+				IsNullable="false"
+				DbName="email_addr"
+				MaxLen="192"
+				InitValue="" />
+		<UuidCol Name="EMailConfirmUuid"
+				Label="EMail Confirm UUID"
+				IsNullable="true"
+				DbName="em_confuuid" />
+		<TableCol Name="DfltDevUserId"
+				Label="Default Device Security User Id"
+				IsNullable="true"
+				DbName="DefDevUserId"
+				DataType="SecUserIdGen" />
+		<TableCol Name="DfltDevName"
+				Label="Default Device Name"
+				IsNullable="true"
+				DbName="DefDevName"
+				DataType="DeviceName" />
+		<TableCol Name="PasswordHash"
+				Label="Password Hash"
+				IsNullable="false"
+				DbName="pwd_hash"
+				DataType="SHA512HexHash" />
+		<UuidCol Name="PasswordResetUuid"
+				Label="Password Reset UUID"
+				IsNullable="true"
+				DbName="pwdrstuuid" />
+		<PrimaryIndex Name="SecUserIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecUser_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="SecUserId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="SecUserLoginIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="SecUser_xulogin"
+				ShortName="ULogin"
+				Suffix="ULoginIdx" >
+			<IndexCol Name="LoginId" IsAscending="true" />
+		</Index>
+		<Index Name="SecUserUEMailConfirmIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecUser_xemconf"
+				ShortName="EMailConf"
+				Suffix="EMConfIdx" >
+			<IndexCol Name="EMailConfirmUuid" IsAscending="true" />
+		</Index>
+		<Index Name="SecUserPasswordResetIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecUser_xpwdrst"
+				ShortName="PwdReset"
+				Suffix="PwdResetIdx" >
+			<IndexCol Name="PasswordResetUuid" IsAscending="true" />
+		</Index>
+		<Index Name="SecUserDefDevIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="SecUser_defdevidx"
+				ShortName="DefDevIdx"
+				Suffix="DefDevIdx" >
+			<IndexCol Name="DfltDevUserId" IsAscending="true" />
+			<IndexCol Name="DfltDevName" IsAscending="true" />
+		</Index>
+
+		<CafeTableObjInterface>
+	I$SecSchemaName$SecUserObj getSystemUser();
+</CafeTableObjInterface>
+
+		<CafeTableObjImplementation>
+	public I$SecSchemaName$SecUserObj getSystemUser() {
+		boolean transactionStarted = schema.beginTransaction();
+		I$SecSchemaName$SecUserObj secUserObj;
+		try {
+			secUserObj = schema.getSecUserTableObj().readSecUserByULoginIdx( &quot;system&quot; );
+			if( secUserObj == null ) {
+				secUserObj = newInstance();
+				I$SecSchemaName$SecUserEditObj secUserEdit = secUserObj.beginEdit();
+				secUserEdit.setRequiredEMailAddress( &quot;system&quot; );
+				secUserObj = secUserEdit.create();
+				secUserEdit = null;
+			}
+			if( transactionStarted ) {
+				schema.commit();
+			}
+		}
+		catch( RuntimeException e ) {
+			if( transactionStarted ) {
+				try {
+					schema.rollback();
+				}
+				catch( Exception e2 ) {
+				}
+			}
+			throw e;
+		}
+		return( secUserObj );
+	}
+</CafeTableObjImplementation>
+
+		<CPlusTableObjInterface>
+	virtual $CPlusSecNamespace$::I$SecSchemaName$SecUserObj* getSystemUser();
+</CPlusTableObjInterface>
+
+		<CPlusTableObjImplementation>
+	$CPlusSecNamespace$::I$SecSchemaName$SecUserObj* $SchemaName$$TableName$TableObj::getSystemUser() {
+		static const std::string S_System( &quot;system&quot; );
+		bool transactionStarted = schema-&gt;beginTransaction();
+		$CPlusSecNamespace$::I$SecSchemaName$SecUserObj* secUserObj;
+		try {
+			secUserObj = schema-&gt;getSecUserTableObj()-&gt;readSecUserByULoginIdx( S_System );
+			if( secUserObj == NULL ) {
+				secUserObj = schema-&gt;getSecUserTableObj()-&gt;readSecUserByULoginIdx( S_System, true );
+				if( secUserObj == NULL ) {
+					secUserObj = newInstance();
+					$CPlusSecNamespace$::I$SecSchemaName$SecUserEditObj* secUserEdit = secUserObj-&gt;beginEdit();
+					secUserEdit-&gt;setRequiredEMailAddress( S_System );
+					secUserObj = secUserEdit-&gt;create();
+				}
+			}
+			if( transactionStarted ) {
+				schema-&gt;commit();
+			}
+		}
+		catch( std::exception&amp; e ) {
+			if( transactionStarted ) {
+				try {
+					schema-&gt;rollback();
+				}
+				catch( ... ) {
+				}
+			}
+			throw e;
+		}
+		return( secUserObj );
+	}
+</CPlusTableObjImplementation>
+
+		<HPlusTableObjInterface>
+	virtual $CPlusSecNamespace$::I$SecSchemaName$SecUserObj* getSystemUser() = 0;
+</HPlusTableObjInterface>
+
+		<CSharpTableObjInterface>
+	virtual I$SecSchemaName$SecUserObj* getSystemUser();
+</CSharpTableObjInterface>
+
+		<CSharpTableObjImplementation>
+	I$SecSchemaName$SecUserObj* $SchemaName$$TableName$TableObj::getSystemUser() {
+		static const std::string S_System( &quot;system&quot; );
+		bool transactionStarted = schema-&gt;beginTransaction();
+		I$SecSchemaName$SecUserObj* secUserObj;
+		try {
+			secUserObj = schema-&gt;getSecUserTableObj()-&gt;readSecUserByULoginIdx( S_System );
+			if( secUserObj == NULL ) {
+				secUserObj = schema-&gt;getSecUserTableObj()-&gt;readSecUserByULoginIdx( S_System, true );
+				if( secUserObj == NULL ) {
+					secUserObj = newInstance();
+					I$SecSchemaName$SecUserEditObj* secUserEdit = secUserObj-&gt;beginEdit();
+					secUserEdit-&gt;setRequiredEMailAddress( S_System );
+					secUserObj = secUserEdit-&gt;create();
+				}
+			}
+			if( transactionStarted ) {
+				schema-&gt;commit();
+			}
+		}
+		catch( std::exception&amp; e ) {
+			if( transactionStarted ) {
+				try {
+					schema-&gt;rollback();
+				}
+				catch( ... ) {
+				}
+			}
+			throw e;
+		}
+		return( secUserObj );
+	}
+</CSharpTableObjImplementation>
+	</Table>
+
+	<Table Name="Service"
+			TableClassCode="a012"
+			DbName="HostSvc"
+			Label="Service"
+			Description="A Service runs on a Host Node"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			AltIndex="ServiceUTypeIdx"
+			LoaderBehaviour="Update"
+			SecScope="Cluster" >
+		<TableCol Name="ClusterId"
+				Label="Cluster Id"
+				IsNullable="false"
+				DataType="ClusterIdGen" />
+		<TableCol Name="ServiceId"
+				Label="Service Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ServiceIdGen" />
+		<TableCol Name="HostNodeId"
+				Label="Host Node Id"
+				IsNullable="false"
+				DataType="HostNodeIdGen" />
+		<TableCol Name="ServiceTypeId"
+				Label="Service Type Id"
+				IsNullable="false"
+				DataType="ServiceTypeIdGen" />
+		<Int16Col Name="HostPort"
+				Label="Host Port"
+				IsNullable="false"
+				MinValue="0"
+				InitValue="0" />
+		<PrimaryIndex Name="ServiceIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Service_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="ServiceId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ServiceClusterIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Service_xcluster"
+				ShortName="Clus"
+				Suffix="ClusterIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+		</Index>
+		<Index Name="ServiceHostNodeIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Service_xhost"
+				ShortName="XHost"
+				Suffix="HostIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="HostNodeId" IsAscending="true" />
+		</Index>
+		<Index Name="ServiceTypeIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Service_xtype"
+				ShortName="XType"
+				Suffix="TypeIdx" >
+			<IndexCol Name="ServiceTypeId" IsAscending="true" />
+		</Index>
+		<Index Name="ServiceUTypeIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Service_xutype"
+				ShortName="UType"
+				Suffix="UTypeIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="HostNodeId" IsAscending="true" />
+			<IndexCol Name="ServiceTypeId" IsAscending="true" />
+		</Index>
+		<Index Name="ServiceUHostPort"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Service_xuhpt"
+				ShortName="UPort"
+				Suffix="UHostPortIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="HostNodeId" IsAscending="true" />
+			<IndexCol Name="HostPort" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ServiceType"
+			TableClassCode="a013"
+			DbName="SvcType"
+			ShortName="SvcType"
+			Label="Service Type"
+			Description="Service Type is a global lookup"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ServiceTypeUDescrIdx"
+			LoaderBehaviour="Insert"
+			SecScope="System" >
+		<TableCol Name="ServiceTypeId"
+				Label="Service Type Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ServiceTypeIdGen" />
+		<StringCol Name="Description"
+				IsNullable="false"
+				MaxLen="50"
+				InitValue="" />
+		<PrimaryIndex Name="ServiceTypeIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="ServiceType_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="ServiceTypeId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ServiceTypeUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="ServiceType_xudsc"
+				ShortName="UDescr"
+				Suffix="UDescrIdx" >
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="SysCluster"
+			TableClassCode="a014"
+			DbName="sysclus"
+			ShortName="SysClus"
+			Label="Cluster"
+			Description="A Cluster is an MSS Code Factory installation"
+			IsInstantiable="true"
+			HasHistory="false"
+			HasAuditColumns="false"
+			LoaderBehaviour="Insert"
+			SecScope="System" >
+		<Int32Col Name="SingletonId"
+				Label="Singleton"
+				IsNullable="false"
+				DbName="sgltn_id"
+				MinValue="1"
+				MaxValue="1"
+				InitValue="1" />
+		<TableCol Name="ClusterId"
+				IsNullable="false"
+				DbName="sys_clus_id"
+				DataType="ClusterIdGen" />
+		<PrimaryIndex Name="SysClusterIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="syscluster_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="SingletonId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="SysClusterClusterIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="sysclus_xclus"
+				ShortName="ClusIdx"
+				Suffix="ClusterIdx"
+				Label="Cluster Index" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="Tenant"
+			TableClassCode="a015"
+			DbName="tenant"
+			ShortName="Tenant"
+			Label="Tenant"
+			Description="A Cluster can have any number of Tenants"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			LookupIndex="TenantUNameIdx"
+			LoaderBehaviour="Insert"
+			SecScope="System" >
+		<TableCol Name="ClusterId"
+				IsNullable="false"
+				DataType="ClusterIdGen" />
+		<TableCol Name="Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="TenantIdGen" />
+		<StringCol Name="TenantName"
+				IsNullable="false"
+				MaxLen="192"
+				InitValue="" />
+		<PrimaryIndex Name="TenantIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tenant_pk"
+				ShortName="PIdx"
+				Suffix="IdIdx"
+				Label="IdIdx" >
+			<IndexCol Name="Id" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="TenantClusterIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tenant_xcluster"
+				ShortName="Clus"
+				Suffix="ClusterIdx"
+				Label="ClusterIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+		</Index>
+		<Index Name="TenantUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="tenant_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx"
+				Label="UNameIdx" >
+			<IndexCol Name="ClusterId" IsAscending="true" />
+			<IndexCol Name="TenantName" IsAscending="true" />
+		</Index>
+
+		<CafeTableObjInterface>
+	I$SecSchemaName$TenantObj getSystemTenant();
+</CafeTableObjInterface>
+
+		<CafeTableObjImplementation>
+	public I$SecSchemaName$TenantObj getSystemTenant() {
+		boolean transactionStarted = schema.beginTransaction();
+		I$SecSchemaName$TenantObj tenantObj;
+		try {
+			I$SecSchemaName$ClusterObj clusterObj = schema.getClusterTableObj().getSystemCluster();
+			tenantObj = readTenantByUNameIdx( clusterObj.getRequiredId(), &quot;system&quot; );
+			if( tenantObj == null ) {
+				tenantObj = newInstance();
+				I$SecSchemaName$TenantEditObj tenantEdit = tenantObj.beginEdit();
+				tenantEdit.setRequiredContainerCluster( clusterObj );
+				tenantEdit.setRequiredTenantName( &quot;system&quot; );
+				tenantObj = tenantEdit.create();
+				tenantEdit = null;
+			}
+			if( transactionStarted ) {
+				schema.commit();
+			}
+		}
+		catch( RuntimeException e ) {
+			if( transactionStarted ) {
+				try {
+					schema.rollback();
+				}
+				catch( Exception e2 ) {
+				}
+			}
+			throw e;
+		}
+		return( tenantObj );
+	}
+</CafeTableObjImplementation>
+
+		<CPlusTableObjInterface>
+	virtual $CPlusSecNamespace$::I$SecSchemaName$TenantObj* getSystemTenant();
+</CPlusTableObjInterface>
+
+		<CPlusTableObjImplementation>
+	$CPlusSecNamespace$::I$SecSchemaName$TenantObj* $SchemaName$$TableName$TableObj::getSystemTenant() {
+		static const std::string S_System( &quot;system&quot; );
+		bool transactionStarted = schema-&gt;beginTransaction();
+		$CPlusSecNamespace$::I$SecSchemaName$TenantObj* tenantObj;
+		try {
+			$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* clusterObj = schema-&gt;getClusterTableObj()-&gt;getSystemCluster();
+			tenantObj = readTenantByUNameIdx( clusterObj-&gt;getRequiredId(), S_System );
+			if( tenantObj == NULL ) {
+				tenantObj = readTenantByUNameIdx( clusterObj-&gt;getRequiredId(), S_System, true );
+				if( tenantObj == NULL ) {
+					tenantObj = newInstance();
+					$CPlusSecNamespace$::I$SecSchemaName$TenantEditObj* tenantEdit = tenantObj-&gt;beginEdit();
+					tenantEdit-&gt;setRequiredContainerCluster( clusterObj );
+					tenantEdit-&gt;setRequiredTenantName( S_System );
+					tenantObj = tenantEdit-&gt;create();
+				}
+			}
+			if( transactionStarted ) {
+				schema-&gt;commit();
+			}
+		}
+		catch( std::exception&amp; e ) {
+			if( transactionStarted ) {
+				try {
+					schema-&gt;rollback();
+				}
+				catch( ... ) {
+				}
+			}
+			throw e;
+		}
+		return( tenantObj );
+	}
+</CPlusTableObjImplementation>
+
+		<HPlusTableObjInterface>
+	virtual $CPlusSecNamespace$::I$SecSchemaName$TenantObj* getSystemTenant() = 0;
+</HPlusTableObjInterface>
+
+		<CSharpTableObjInterface>
+	virtual I$SecSchemaName$TenantObj* getSystemTenant();
+</CSharpTableObjInterface>
+
+		<CSharpTableObjImplementation>
+	I$SecSchemaName$TenantObj* $SchemaName$$TableName$TableObj::getSystemTenant() {
+		static const std::string S_System( &quot;system&quot; );
+		bool transactionStarted = schema-&gt;beginTransaction();
+		I$SecSchemaName$TenantObj* tenantObj;
+		try {
+			I$SecSchemaName$ClusterObj* clusterObj = schema-&gt;getClusterTableObj()-&gt;getSystemCluster();
+			tenantObj = readTenantByUNameIdx( clusterObj-&gt;getRequiredId(), S_System );
+			if( tenantObj == NULL ) {
+				tenantObj = readTenantByUNameIdx( clusterObj-&gt;getRequiredId(), S_System, true );
+				if( tenantObj == NULL ) {
+					tenantObj = newInstance();
+					I$SecSchemaName$TenantEditObj* tenantEdit = tenantObj-&gt;beginEdit();
+					tenantEdit-&gt;setRequiredContainerCluster( clusterObj );
+					tenantEdit-&gt;setRequiredTenantName( S_System );
+					tenantObj = tenantEdit-&gt;create();
+				}
+			}
+			if( transactionStarted ) {
+				schema-&gt;commit();
+			}
+		}
+		catch( std::exception&amp; e ) {
+			if( transactionStarted ) {
+				try {
+					schema-&gt;rollback();
+				}
+				catch( ... ) {
+				}
+			}
+			throw e;
+		}
+		return( tenantObj );
+	}
+</CSharpTableObjImplementation>
+	</Table>
+
+	<Id32Gen Name="TSecGroupIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="117"
+			BlockSize="1" />
+
+	<Id64Gen Name="TSecGrpIncIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="119"
+			BlockSize="1" />
+
+	<Id64Gen Name="TSecGrpMembIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="118"
+			BlockSize="1" />
+
+	<Table Name="TSecGroup"
+			TableClassCode="a016"
+			DbName="TSecGrp"
+			ShortName="TSecGroup"
+			Label="Tenant Security Group"
+			Description="Tenant Security groups in a tenant gather user members, sub-groups, and form access grants"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="TSecGroupUNameIdx"
+			LoaderBehaviour="Insert"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				Label="Tenant Id"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="TSecGroupId"
+				Label="TSecurity Group Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="TSecGroupIdGen" />
+		<StringCol Name="Name"
+				Label="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="64"
+				InitValue="" />
+		<BoolCol Name="IsVisible"
+				IsNullable="false"
+				InitValue="false" />
+		<PrimaryIndex Name="TSecGroupIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="TSecGroup_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TSecGroupId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="TSecGroupTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="TSecGroup_xtenant"
+				ShortName="Tenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="TSecGroupTenantVisIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="TSecGroup_xtenantvis"
+				ShortName="TenantVis"
+				Suffix="TenantVisIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="IsVisible" IsAscending="true" />
+		</Index>
+		<Index Name="TSecGroupUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="TSecGroup_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="TSecGrpInc"
+			TableClassCode="a017"
+			DbName="TSecInc"
+			ShortName="TSecGrpInc"
+			Label="Tenant Security Group Include"
+			Description="Tenant Security groups can include other groups"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			AltIndex="TSecGrpIncUIncludeIdx"
+			LoaderBehaviour="Insert"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				Label="Tenant Id"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="TSecGrpIncId"
+				Label="TSecurity Group Include Id"
+				IsNullable="false"
+				GenerateId="true"
+				DbName="TSecGrpIncId"
+				DataType="TSecGrpIncIdGen" />
+		<TableCol Name="TSecGroupId"
+				Label="Tenant Security Group Id"
+				IsNullable="false"
+				DbName="TSecGrpId"
+				DataType="TSecGroupIdGen" />
+		<TableCol Name="IncludeGroupId"
+				Label="Include Tenant Security Group Id"
+				IsNullable="false"
+				DbName="IncGrpId"
+				DataType="TSecGroupIdGen" />
+		<PrimaryIndex Name="TSecGrpIncIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="TSecInclude_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TSecGrpIncId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="TSecGrpIncTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="TSecInclude_xtenant"
+				ShortName="Tenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="TSecGrpIncGroupIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="TSecInclude_xgroup"
+				ShortName="Group"
+				Suffix="GroupIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TSecGroupId" IsAscending="true" />
+		</Index>
+		<Index Name="TSecGrpIncIncludeIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="TSecInclude_xinc"
+				ShortName="Include"
+				Suffix="IncludeIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="IncludeGroupId" IsAscending="true" />
+		</Index>
+		<Index Name="TSecGrpIncUIncludeIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="TSecInclude_xuinc"
+				ShortName="UInclude"
+				Suffix="UIncludeIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TSecGroupId" IsAscending="true" />
+			<IndexCol Name="IncludeGroupId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="TSecGrpMemb"
+			TableClassCode="a018"
+			DbName="TSecMemb"
+			ShortName="TSecGrpMemb"
+			Label="Tenant Security Group Member"
+			Description="Tenant Security group members tie the SecUser to specific groups"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			PageData="true"
+			AltIndex="TSecGrpMembUUserIdx"
+			LoaderBehaviour="Insert"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				Label="Tenant Id"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="TSecGrpMembId"
+				Label="TSecurity Group Member Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="TSecGrpMembIdGen" />
+		<TableCol Name="TSecGroupId"
+				Label="TSecurity Group Id"
+				IsNullable="false"
+				DataType="TSecGroupIdGen" />
+		<TableCol Name="SecUserId"
+				Label="Security User Id"
+				IsNullable="false"
+				DataType="SecUserIdGen" />
+		<PrimaryIndex Name="TSecGrpMembIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="TSecMember_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TSecGrpMembId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="TSecGrpMembTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="TSecMember_xtenant"
+				ShortName="Tenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="TSecGrpMembGroupIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="TSecMember_xgroup"
+				ShortName="Group"
+				Suffix="GroupIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TSecGroupId" IsAscending="true" />
+		</Index>
+		<Index Name="TSecGrpMembUserIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="TSecMember_xuser"
+				ShortName="User"
+				Suffix="UserIdx" >
+			<IndexCol Name="SecUserId" IsAscending="true" />
+		</Index>
+		<Index Name="TSecGrpMembUUserIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="TSecMember_xuuser"
+				ShortName="UUser"
+				Suffix="UUserIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TSecGroupId" IsAscending="true" />
+			<IndexCol Name="SecUserId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<TableAddendum FromTable="Cluster">
+		<Relation Name="ClusterHostNode"
+				RelationType="Components"
+				DbName="clus_hostnode"
+				Label="Host Node"
+				Suffix="HostNode"
+				FromIndex="ClusterIdIdx"
+				ToIndex="HostNode.HostNodeClusterIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="ClusterId" />
+		</Relation>
+		<Relation Name="ClusterTenant"
+				RelationType="Components"
+				DbName="clus_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="ClusterIdIdx"
+				ToIndex="Tenant.TenantClusterIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="ClusterId" />
+		</Relation>
+		<Relation Name="ClusterSecApp"
+				RelationType="Components"
+				DbName="clus_secapp"
+				Label="Security Application"
+				Suffix="SecApp"
+				FromIndex="ClusterIdIdx"
+				ToIndex="SecApp.SecAppClusterIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="ClusterId" />
+		</Relation>
+		<Relation Name="ClusterSecGroup"
+				RelationType="Components"
+				DbName="clus_secgrp"
+				Label="Security Group"
+				Suffix="SecGroup"
+				FromIndex="ClusterIdIdx"
+				ToIndex="SecGroup.SecGroupClusterIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="ClusterId" />
+		</Relation>
+		<Relation Name="ClusterSysCluster"
+				RelationType="Components"
+				DbName="clus_sysclus"
+				Label="System Cluster"
+				Suffix="SysCluster"
+				FromIndex="ClusterIdIdx"
+				ToIndex="SysCluster.SysClusterClusterIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="ClusterId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="HostNode">
+		<Relation Name="HostNodeCluster"
+				RelationType="Container"
+				DbName="hostnode_clus"
+				Label="Cluster"
+				Suffix="Cluster"
+				FromIndex="HostNodeClusterIdx"
+				ToIndex="Cluster.ClusterIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="Id" />
+		</Relation>
+		<Relation Name="HostNodeService"
+				RelationType="Components"
+				DbName="hostnode_svc"
+				Label="Service"
+				Suffix="Service"
+				FromIndex="HostNodeIdIdx"
+				ToIndex="Service.ServiceHostNodeIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="HostNodeId" ToCol="HostNodeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ISOCcy">
+		<Relation Name="ISOCcyCountries"
+				RelationType="Children"
+				DbName="isoccy_cntrys"
+				Label="Ctry"
+				Suffix="Ctry"
+				FromIndex="ISOCcyIdIdx"
+				ToIndex="ISOCtryCcy.ISOCtryCcyCcyIdx"
+				IsRequired="false" >
+			<RelationCol Name="ISOCcyId" ToCol="ISOCcyId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ISOCtry">
+		<Relation Name="ISOCtryCcys"
+				RelationType="Components"
+				DbName="isocntry_ccy"
+				Label="Ccy"
+				Suffix="Ccy"
+				FromIndex="ISOCtryIdIdx"
+				ToIndex="ISOCtryCcy.ISOCtryCcyCtryIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="ISOCtryId" ToCol="ISOCtryId" />
+		</Relation>
+		<Relation Name="ISOCtryLangs"
+				RelationType="Components"
+				DbName="isocntry_lang"
+				Label="Lang"
+				Suffix="Lang"
+				FromIndex="ISOCtryIdIdx"
+				ToIndex="ISOCtryLang.ISOCtryLangCtryIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="ISOCtryId" ToCol="ISOCtryId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ISOCtryCcy">
+		<Relation Name="ISOCtryCcyCtry"
+				RelationType="Container"
+				DbName="isocntryccy_cntry"
+				Label="Ctry"
+				Suffix="Ctry"
+				FromIndex="ISOCtryCcyCtryIdx"
+				ToIndex="ISOCtry.ISOCtryIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ISOCtryId" ToCol="ISOCtryId" />
+		</Relation>
+		<Relation Name="ISOCtryCcyCcy"
+				RelationType="Parent"
+				DbName="isocntryccy_ccy"
+				Label="Ccy"
+				Suffix="Ccy"
+				FromIndex="ISOCtryCcyCcyIdx"
+				ToIndex="ISOCcy.ISOCcyIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ISOCcyId" ToCol="ISOCcyId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ISOCtryLang">
+		<Relation Name="ISOCtryLangCtry"
+				RelationType="Container"
+				DbName="isocntrylang_cntry"
+				Label="Ctry"
+				Suffix="Ctry"
+				FromIndex="ISOCtryLangCtryIdx"
+				ToIndex="ISOCtry.ISOCtryIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ISOCtryId" ToCol="ISOCtryId" />
+		</Relation>
+		<Relation Name="ISOCtryLangLang"
+				RelationType="Parent"
+				DbName="isocntrylang_lang"
+				Label="Lang"
+				Suffix="Lang"
+				FromIndex="ISOCtryLangLangIdx"
+				ToIndex="ISOLang.ISOLangIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ISOLangId" ToCol="ISOLangId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ISOLang">
+		<Relation Name="ISOLangCountries"
+				RelationType="Children"
+				DbName="isolan_countrys"
+				Label="Ctry"
+				Suffix="Ctry"
+				FromIndex="ISOLangIdIdx"
+				ToIndex="ISOCtryLang.ISOCtryLangLangIdx"
+				IsRequired="false" >
+			<RelationCol Name="ISOLangId" ToCol="ISOLangId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecApp">
+		<Relation Name="SecAppCluster"
+				RelationType="Container"
+				DbName="secapp_clus"
+				Label="Cluster"
+				Suffix="Cluster"
+				FromIndex="SecAppClusterIdx"
+				ToIndex="Cluster.ClusterIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="Id" />
+		</Relation>
+		<Relation Name="SecAppForm"
+				RelationType="Components"
+				DbName="secapp_form"
+				Label="Security Form"
+				Suffix="Form"
+				FromIndex="SecAppIdIdx"
+				ToIndex="SecForm.SecFormSecAppIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="SecAppId" ToCol="SecAppId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecDevice">
+		<Relation Name="SecDeviceSecUser"
+				RelationType="Container"
+				DbName="secdev_secuser"
+				Label="Security User"
+				Suffix="SecUser"
+				FromIndex="SecDeviceUserIdx"
+				ToIndex="SecUser.SecUserIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="SecUserId" ToCol="SecUserId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecForm">
+		<Relation Name="SecFormCluster"
+				RelationType="Owner"
+				DbName="secform_clus"
+				Label="Cluster"
+				Suffix="Cluster"
+				FromIndex="SecFormClusterIdx"
+				ToIndex="Cluster.ClusterIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="Id" />
+		</Relation>
+		<Relation Name="SecFormApplication"
+				RelationType="Container"
+				DbName="secform_app"
+				Label="Application"
+				Suffix="Application"
+				FromIndex="SecFormSecAppIdx"
+				ToIndex="SecApp.SecAppIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="SecAppId" ToCol="SecAppId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecGroup">
+		<Relation Name="SecGroupCluster"
+				RelationType="Container"
+				DbName="secgrp_clus"
+				Label="Cluster"
+				Suffix="Cluster"
+				FromIndex="SecGroupClusterIdx"
+				ToIndex="Cluster.ClusterIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="Id" />
+		</Relation>
+		<Relation Name="SecGrpInc"
+				RelationType="Components"
+				DbName="secgrp_inc"
+				Label="Sub Group"
+				Suffix="Include"
+				FromIndex="SecGroupIdIdx"
+				ToIndex="SecGrpInc.SecGrpIncGroupIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="SecGroupId" ToCol="SecGroupId" />
+		</Relation>
+		<Relation Name="SecGrpMemb"
+				RelationType="Components"
+				DbName="secgrp_memb"
+				Label="Group Member"
+				Suffix="Member"
+				FromIndex="SecGroupIdIdx"
+				ToIndex="SecGrpMemb.SecGrpMembGroupIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="SecGroupId" ToCol="SecGroupId" />
+		</Relation>
+		<Relation Name="SecGrpIncByGroup"
+				RelationType="Children"
+				DbName="secgrp_incbygrp"
+				Label="Included By Group"
+				Suffix="IncByGroup"
+				FromIndex="SecGroupIdIdx"
+				ToIndex="SecGrpInc.SecGrpIncIncludeIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="SecGroupId" ToCol="IncludeGroupId" />
+		</Relation>
+		<Relation Name="SecGroupForm"
+				RelationType="Components"
+				DbName="secgrp_form"
+				Label="Group Form Permission"
+				Suffix="Form"
+				FromIndex="SecGroupIdIdx"
+				ToIndex="SecGroupForm.SecGroupFormGroupIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="SecGroupId" ToCol="SecGroupId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecGroupForm">
+		<Relation Name="SecGroupFormCluster"
+				RelationType="Owner"
+				DbName="secgrpfrm_clus"
+				Label="Cluster"
+				Suffix="Cluster"
+				FromIndex="SecGroupFormClusterIdx"
+				ToIndex="Cluster.ClusterIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="Id" />
+		</Relation>
+		<Relation Name="SecGroupFormGroup"
+				RelationType="Container"
+				DbName="secgrpfrm_grp"
+				Label="Group"
+				Suffix="Group"
+				FromIndex="SecGroupFormGroupIdx"
+				ToIndex="SecGroup.SecGroupIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="SecGroupId" ToCol="SecGroupId" />
+		</Relation>
+		<Relation Name="SecGroupFormApp"
+				RelationType="Parent"
+				DbName="secgrpfrm_app"
+				Label="App"
+				Suffix="App"
+				FromIndex="SecGroupFormAppIdx"
+				ToIndex="SecApp.SecAppIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="SecAppId" ToCol="SecAppId" />
+		</Relation>
+		<Relation Name="SecGroupFormForm"
+				RelationType="Parent"
+				DbName="secgrpfrm_frm"
+				Label="Form"
+				Suffix="Form"
+				FromIndex="SecGroupFormFormIdx"
+				ToIndex="SecForm.SecFormIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="SecFormId" ToCol="SecFormId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecGrpInc">
+		<Relation Name="SecGrpIncCluster"
+				RelationType="Owner"
+				DbName="secgrpinc_clus"
+				Label="Cluster"
+				Suffix="Cluster"
+				FromIndex="SecGrpIncClusterIdx"
+				ToIndex="Cluster.ClusterIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="Id" />
+		</Relation>
+		<Relation Name="SecGrpIncGroup"
+				RelationType="Container"
+				DbName="secgrpinc_grp"
+				Label="Group"
+				Suffix="Group"
+				FromIndex="SecGrpIncGroupIdx"
+				ToIndex="SecGroup.SecGroupIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="SecGroupId" ToCol="SecGroupId" />
+		</Relation>
+		<Relation Name="SecGrpIncSubGroup"
+				RelationType="Parent"
+				DbName="secgrpinc_subgrp"
+				Label="SubGroup"
+				Suffix="SubGroup"
+				FromIndex="SecGrpIncIncludeIdx"
+				ToIndex="SecGroup.SecGroupIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="IncludeGroupId" ToCol="SecGroupId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecGrpMemb">
+		<Relation Name="SecGrpMembCluster"
+				RelationType="Owner"
+				DbName="secgrpmem_clus"
+				Label="Cluster"
+				Suffix="Cluster"
+				FromIndex="SecGrpMembClusterIdx"
+				ToIndex="Cluster.ClusterIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="Id" />
+		</Relation>
+		<Relation Name="SecGrpMembGroup"
+				RelationType="Container"
+				DbName="secgrpmem_grp"
+				Label="Group"
+				Suffix="Group"
+				FromIndex="SecGrpMembGroupIdx"
+				ToIndex="SecGroup.SecGroupIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="SecGroupId" ToCol="SecGroupId" />
+		</Relation>
+		<Relation Name="SecGrpMembUser"
+				RelationType="Parent"
+				DbName="secgrpmem_user"
+				Label="User"
+				Suffix="User"
+				FromIndex="SecGrpMembUserIdx"
+				ToIndex="SecUser.SecUserIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="SecUserId" ToCol="SecUserId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecSession">
+		<Relation Name="SecSessionUser"
+				RelationType="Container"
+				DbName="secsess_user"
+				Label="Security User"
+				Suffix="SecUser"
+				FromIndex="SessionSecUserIdx"
+				ToIndex="SecUser.SecUserIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="SecUserId" ToCol="SecUserId" />
+		</Relation>
+		<Relation Name="SecSessionProxy"
+				RelationType="Parent"
+				DbName="secsess_proxy"
+				Label="Security Proxy User"
+				Suffix="SecProxy"
+				FromIndex="SessionSecProxyIdx"
+				ToIndex="SecUser.SecUserIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="SecProxyId" ToCol="SecUserId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecUser">
+		<Relation Name="SecUserSecDev"
+				RelationType="Components"
+				DbName="secuser_secdev"
+				Label="Security Device"
+				Suffix="SecDev"
+				FromIndex="SecUserIdIdx"
+				ToIndex="SecDevice.SecDeviceUserIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="SecUserId" ToCol="SecUserId" />
+		</Relation>
+		<Relation Name="SecUserDefDev"
+				RelationType="Lookup"
+				DbName="secuser_defdev"
+				Label="Default Security Device"
+				Suffix="DefDev"
+				FromIndex="SecUserDefDevIdx"
+				ToIndex="SecDevice.SecDeviceIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="DfltDevUserId" ToCol="SecUserId" />
+			<RelationCol Name="DfltDevName" ToCol="DevName" />
+		</Relation>
+		<Relation Name="SecUserSecSession"
+				RelationType="Components"
+				DbName="secuser_secsess"
+				Label="Security Session"
+				Suffix="SecSess"
+				FromIndex="SecUserIdIdx"
+				ToIndex="SecSession.SessionSecUserIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="SecUserId" ToCol="SecUserId" />
+		</Relation>
+		<Relation Name="SecUserSecProxySession"
+				RelationType="Children"
+				DbName="secuser_secproxysess"
+				Label="Security Proxy Session"
+				Suffix="SecProxy"
+				FromIndex="SecUserIdIdx"
+				ToIndex="SecSession.SessionSecProxyIdx"
+				IsRequired="false" >
+			<RelationCol Name="SecUserId" ToCol="SecProxyId" />
+		</Relation>
+		<Relation Name="SecUserSecGrpMemb"
+				RelationType="Children"
+				DbName="secuser_secgrpmemb"
+				Label="Security Group Members"
+				Suffix="SecGrpMemb"
+				FromIndex="SecUserIdIdx"
+				ToIndex="SecGrpMemb.SecGrpMembUserIdx"
+				IsRequired="false" >
+			<RelationCol Name="SecUserId" ToCol="SecUserId" />
+		</Relation>
+		<Relation Name="SecUserTSecGrpMemb"
+				RelationType="Children"
+				DbName="secuser_tsecgrpmemb"
+				Label="Tenant Security Group Members"
+				Suffix="TSecGrpMemb"
+				FromIndex="SecUserIdIdx"
+				ToIndex="TSecGrpMemb.TSecGrpMembUserIdx"
+				IsRequired="false" >
+			<RelationCol Name="SecUserId" ToCol="SecUserId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Service">
+		<Relation Name="ServiceCluster"
+				RelationType="Owner"
+				DbName="svc_cluster"
+				Label="Cluster"
+				Suffix="Cluster"
+				FromIndex="ServiceClusterIdx"
+				ToIndex="Cluster.ClusterIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="Id" />
+		</Relation>
+		<Relation Name="ServiceHost"
+				RelationType="Container"
+				DbName="svs_svchost"
+				Label="Host"
+				Suffix="Host"
+				FromIndex="ServiceHostNodeIdx"
+				ToIndex="HostNode.HostNodeIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="ClusterId" ToCol="ClusterId" />
+			<RelationCol Name="HostNodeId" ToCol="HostNodeId" />
+		</Relation>
+		<Relation Name="ServiceSvcType"
+				RelationType="Parent"
+				DbName="svc_svctyp"
+				Label="Service Type"
+				Suffix="ServiceType"
+				FromIndex="ServiceTypeIdx"
+				ToIndex="ServiceType.ServiceTypeIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="ServiceTypeId" ToCol="ServiceTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ServiceType">
+		<Relation Name="ServiceTypeDeployed"
+				RelationType="Children"
+				DbName="svctyp_deployed"
+				Label="Deployed"
+				Suffix="Deployed"
+				FromIndex="ServiceTypeIdIdx"
+				ToIndex="Service.ServiceTypeIdx"
+				IsRequired="false" >
+			<RelationCol Name="ServiceTypeId" ToCol="ServiceTypeId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SysCluster">
+		<Relation Name="SysClusterCluster"
+				RelationType="Container"
+				DbName="sysclus_clus"
+				Label="Cluster"
+				Suffix="Cluster"
+				FromIndex="SysClusterClusterIdx"
+				ToIndex="Cluster.ClusterIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="Id" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TSecGroup">
+		<Relation Name="TSecGroupTenant"
+				RelationType="Container"
+				DbName="tsecgrp_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="TSecGroupTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="TSecGrpInc"
+				RelationType="Components"
+				DbName="tsecgrp_inc"
+				Label="Sub Group"
+				Suffix="Include"
+				FromIndex="TSecGroupIdIdx"
+				ToIndex="TSecGrpInc.TSecGrpIncGroupIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TSecGroupId" ToCol="TSecGroupId" />
+		</Relation>
+		<Relation Name="TSecGrpMemb"
+				RelationType="Components"
+				DbName="tsecgrp_memb"
+				Label="Group Member"
+				Suffix="Member"
+				FromIndex="TSecGroupIdIdx"
+				ToIndex="TSecGrpMemb.TSecGrpMembGroupIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TSecGroupId" ToCol="TSecGroupId" />
+		</Relation>
+		<Relation Name="TSecGrpIncByGroup"
+				RelationType="Children"
+				DbName="tsecgrp_incbygrp"
+				Label="Included By Group"
+				Suffix="IncByGroup"
+				FromIndex="TSecGroupIdIdx"
+				ToIndex="TSecGrpInc.TSecGrpIncIncludeIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TSecGroupId" ToCol="IncludeGroupId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TSecGrpInc">
+		<Relation Name="TSecGrpIncTenant"
+				RelationType="Owner"
+				DbName="tsecgrpinc_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="TSecGrpIncTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="TSecGrpIncGroup"
+				RelationType="Container"
+				DbName="tsecgrpinc_grp"
+				Label="Group"
+				Suffix="Group"
+				FromIndex="TSecGrpIncGroupIdx"
+				ToIndex="TSecGroup.TSecGroupIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TSecGroupId" ToCol="TSecGroupId" />
+		</Relation>
+		<Relation Name="TSecGrpIncSubGroup"
+				RelationType="Parent"
+				DbName="tsecgrpinc_subgrp"
+				Label="SubGroup"
+				Suffix="SubGroup"
+				FromIndex="TSecGrpIncIncludeIdx"
+				ToIndex="TSecGroup.TSecGroupIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="IncludeGroupId" ToCol="TSecGroupId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="TSecGrpMemb">
+		<Relation Name="TSecGrpMembTenant"
+				RelationType="Owner"
+				DbName="tsecgrpmemb_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="TSecGrpMembTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="TSecGrpMembGroup"
+				RelationType="Container"
+				DbName="tsecgrpmemb_grp"
+				Label="Group"
+				Suffix="Group"
+				FromIndex="TSecGrpMembGroupIdx"
+				ToIndex="TSecGroup.TSecGroupIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="TSecGroupId" ToCol="TSecGroupId" />
+		</Relation>
+		<Relation Name="TSecGrpMembUser"
+				RelationType="Parent"
+				DbName="tsecgrpmemb_user"
+				Label="User"
+				Suffix="User"
+				FromIndex="TSecGrpMembUserIdx"
+				ToIndex="SecUser.SecUserIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="SecUserId" ToCol="SecUserId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tenant">
+		<Relation Name="TenantCluster"
+				RelationType="Container"
+				DbName="tenant_clus"
+				Label="Cluster"
+				Suffix="Cluster"
+				FromIndex="TenantClusterIdx"
+				ToIndex="Cluster.ClusterIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="ClusterId" ToCol="Id" />
+		</Relation>
+		<Relation Name="TenantSecGroup"
+				RelationType="Components"
+				DbName="tenant_secgrp"
+				Label="Tenant Security Group"
+				Suffix="TSecGroup"
+				FromIndex="TenantIdIdx"
+				ToIndex="TSecGroup.TSecGroupTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecUser">
+		<ClearDep Name="ClearSecUserDefDev" ClearDepChain="SecUserDefDev" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Cluster">
+		<DelDep Name="DelHostNodes" DelDepChain="ClusterHostNode" />
+		<DelDep Name="DelTenants" DelDepChain="ClusterTenant" />
+		<DelDep Name="DelSecApps" DelDepChain="ClusterSecApp" />
+		<DelDep Name="DelSecAppForms" DelDepChain="ClusterSecApp.SecAppForm" />
+		<DelDep Name="DelSecGroups" DelDepChain="ClusterSecGroup" />
+		<DelDep Name="DelSecGrpIncs" DelDepChain="ClusterSecGroup.SecGrpInc" />
+		<DelDep Name="DelSecGrpMembs" DelDepChain="ClusterSecGroup.SecGrpMemb" />
+		<DelDep Name="DelSecGrpIncByGroup" DelDepChain="ClusterSecGroup.SecGrpIncByGroup" />
+		<DelDep Name="DelSecGroupForms" DelDepChain="ClusterSecGroup.SecGroupForm" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="HostNode">
+		<DelDep Name="DelServices" DelDepChain="HostNodeService" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="ISOCtry">
+		<DelDep Name="DelCtryCcys" DelDepChain="ISOCtryCcys" />
+		<DelDep Name="DelCtryLangs" DelDepChain="ISOCtryLangs" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecApp">
+		<DelDep Name="DelSecAppForms" DelDepChain="SecAppForm" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecGroup">
+		<DelDep Name="DelSecGrpIncs" DelDepChain="SecGrpInc" />
+		<DelDep Name="DelSecGrpMembs" DelDepChain="SecGrpMemb" />
+		<DelDep Name="DelSecGrpIncByGroup" DelDepChain="SecGrpIncByGroup" />
+		<DelDep Name="DelSecGroupForms" DelDepChain="SecGroupForm" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="SecUser">
+		<DelDep Name="DelSecDevices" DelDepChain="SecUserSecDev" />
+		<DelDep Name="DelSecProxySessions" DelDepChain="SecUserSecProxySession" />
+		<DelDep Name="DelSecSessions" DelDepChain="SecUserSecSession" />
+		<DelDep Name="DelSecGrpMembs" DelDepChain="SecUserSecGrpMemb" />
+		<DelDep Name="DelTSecGrpMembs" DelDepChain="SecUserTSecGrpMemb" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="TSecGroup">
+		<DelDep Name="DelGrpIncs" DelDepChain="TSecGrpInc" />
+		<DelDep Name="DelGrpMembs" DelDepChain="TSecGrpMemb" />
+		<DelDep Name="DelIncludedByGroup" DelDepChain="TSecGrpIncByGroup" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tenant">
+		<DelDep Name="DelTSecGroups" DelDepChain="TenantSecGroup" />
+		<DelDep Name="DelGrpIncs" DelDepChain="TenantSecGroup.TSecGrpInc" />
+		<DelDep Name="DelGrpMembs" DelDepChain="TenantSecGroup.TSecGrpMemb" />
+		<DelDep Name="DelIncludedByGroup" DelDepChain="TenantSecGroup.TSecGrpIncByGroup" />
+	</TableAddendum>
+</SchemaDef>
+						</MinorVersion>
+					</MajorVersion>
+				</SubProject>
+			</TopProject>
+		</TopDomain>
+	</Tld>
+</MSSBam>

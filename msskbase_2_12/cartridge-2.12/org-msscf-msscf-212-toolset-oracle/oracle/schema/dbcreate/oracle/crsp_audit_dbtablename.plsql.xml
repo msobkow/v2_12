@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory Core Expert System Rule Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	Licensed under the Apache License, Version 2.0 (the "License");
+ *	you may not use this file except in compliance with the License.
+ *	You may obtain a copy of the License at
+ *	
+ *		http://www.apache.org/licenses/LICENSE-2.0
+ *	
+ *	Unless required by applicable law or agreed to in writing, software
+ *	distributed under the License is distributed on an "AS IS" BASIS,
+ *	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *	See the License for the specific language governing permissions and
+ *	limitations under the License.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/crsp_audit_dbtablename.oracle"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPAuditDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="$dbadminfilename_CreateSPAuditDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPAuditDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPAuditDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+alter session set plsql_warnings = 'ENABLE:ALL';
+/
+
+create or replace procedure $lower DbSchemaName$.$sp_audit_dbtablename$($implOracleSPStandardArgs$$switch HasClassCode yes implOracleSPArgClassCode default empty$$implOracleSPAuditPKeyArgs$,
+	argAuditAction integer ) authid definer
+is
+	unrecognizedClassCode exception;
+	use_stamp $lower DbSchemaName$.$DbTableName$_h.auditstamp%type;
+begin
+	use_stamp := systimestamp;$switch HasClassCode yes implOracleSPAuditTableWithClassCode default implOracleSPAuditTableNoClassCode$
+end $sp_audit_dbtablename$;
+/
+
+show errors procedure $lower DbSchemaName$.$sp_audit_dbtablename$;
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implOracleSPArgClassCode">,
+	argClassCode varchar</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPAuditPKeyArgs"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implOracleSPAuditPKeyArg )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPAuditPKeyArg">,
+	$sparg_IndexCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPAuditTableNoClassCode">
+	insert into $lower DbSchemaName$.$DbTableName$_h ($reference PrimaryKeyIndex iterate Columns( each implOracleSPAuditInheritedIntoPKeyColumn )$
+				auditclusterid,
+				auditsessionid,
+				auditstamp,$implOracleSPAuditInheritedIntoDataColumnNameComma$
+				revision,
+				auditaction )
+		select$reference PrimaryKeyIndex iterate Columns( each implOracleSPAuditInheritedPKeyColumnNameComma )$
+				argAuditClusterId,
+				argAuditSessionId,
+				use_stamp,$implOracleSPAuditInheritedDataColumnNameComma$
+				$lower reference BaseClass ClassCode$.revision,
+				argAuditAction	
+		from $lower DbSchemaName$.$DbTableName$ $lower ClassCode$
+		where
+				$reference PrimaryKeyIndex iterate Columns( first implOracleSPAuditTableWhereAuditPKeyCol each implOracleSPAuditTableWhereAndAuditPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPAuditTableWithClassCode">
+	case argClassCode
+	when '$ClassCode$' then$implOracleSPAuditTableClassCodeBody$$iterate TableSubClasses( each implOracleSPAuditTableSubCode empty empty )$
+	else
+		raise unrecognizedClassCode;
+	end case;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPAuditTableSubCode">
+	when '$ClassCode$' then$implOracleSPAuditTableClassCodeBody$$iterate TableSubClasses( each implOracleSPAuditTableSubCode empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPAuditTableClassCodeBody">
+		insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implOracleSPAuditInheritedIntoPKeyColumn )$
+				classcode,
+				auditclusterid,
+				auditsessionid,
+				auditstamp,$implOracleSPAuditInheritedIntoDataColumnNameComma$
+				revision,
+				auditaction )
+			select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implOracleSPAuditInheritedPKeyColumnNameComma )$
+				$lower reference BaseClass ClassCode$.classcode,
+				argAuditClusterId,
+				argAuditSessionId,
+				use_stamp,$implOracleSPAuditInheritedDataColumnNameComma$
+				$lower reference BaseClass ClassCode$.revision,
+				argAuditAction	
+			from $lower DbSchemaName$.$DbTableName$ $lower ClassCode$$switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+			where
+				$reference BaseClass reference PrimaryKeyIndex iterate Columns( first implOracleSPAuditTableWhereAuditPKeyCol each implOracleSPAuditTableWhereAndAuditPKeyCol )$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPAuditTableWhereAuditPKeyCol"
+		>$lower reference Index reference Table ClassCode$.$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPAuditTableWhereAndAuditPKeyCol">
+				and $implOracleSPAuditTableWhereAuditPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPAuditInheritedIntoDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implOracleSPAuditInheritedIntoDataColumnNameCommaInh default implOracleSPAuditInheritedIntoDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPAuditInheritedIntoDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implOracleSPAuditInheritedIntoDataColumnNameComma$$iterate Columns( each implOracleSPAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPAuditInheritedIntoDataColumnNameCommaBase"
+		>$iterate Columns( each implOracleSPAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPAuditInheritedDataColumnEmitIntoDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implOracleSPAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPAuditInheritedIntoPKeyColumn"
+		>$reference Column implOracleSPAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPAuditInheritedIntoDataColumnReallyEmitDataColumn">
+				$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPAuditInheritedDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implOracleSPAuditInheritedDataColumnNameInhComma default implOracleSPAuditInheritedDataColumnNameBaseComma$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPAuditInheritedDataColumnNameInhComma"
+		>$reference SuperClassRelation reference ToTable implOracleSPAuditInheritedDataColumnNameComma$$iterate Columns( each implOracleSPAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPAuditInheritedDataColumnNameBaseComma"
+		>$iterate Columns( each implOracleSPAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implOracleSPAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implOracleSPAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implOracleSPAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implOracleSPAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPAuditInheritedDataColumnEmitNameComma">
+				$lower reference Table ClassCode$.$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPAuditInheritedPKeyColumnNameComma">
+				$lower reference Index reference Table ClassCode$.$DbColumnName$,</GenRule>
+
+</RuleSet>

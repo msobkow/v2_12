@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsg/SchemaXMsgRspnParser.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Message Parser for Schema">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaXMsgRspnParserJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgRspn/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgRspn"
+		ExpansionClassName="$SchemaName$XMsgRspnJava"
+		ExpansionKeyName="$SchemaName$XMsgRspnJava"
+		ExpansionFileName="$SchemaName$XMsgRspn.java"
+>// Description: Java 11 XML SAX Request Message  for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgRspn;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import org.xml.sax.*;
+import org.apache.commons.codec.binary.Base64;
+
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.Tip.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$$JavaXMsgRspnSchemaImport$$ReferencedJavaXMsgRspnSchemaImport$
+
+public class $SchemaName$XMsgRspn
+	extends CFLibXmlCoreSaxParser
+	implements ContentHandler,
+		ICFTipResponseHandler
+{$implSchemaXMsgRspnBody$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnBody">
+$implSchemaXMsgRspnSchemaConstants$
+	// The schema instance to load in to
+
+	private I$SchemaName$SchemaObj schemaObj = null;
+	private boolean deleted = false;
+	private RuntimeException exceptionRaised = null;
+	private Object lastObjectProcessed = null;
+	private Object sortedListOfObjects = null;
+	private String logContent = null;
+	private boolean dataChanged = false;
+	// Constructors
+$implSchemaXMsgRspnConstructor$$JavaXMsgRspnSchemaBody$$ReferencedJavaXMsgRspnSchemaBody$
+	// Element  instances
+$implSchemaXMsgRspnDeclRspnNoDataFound$$implSchemaXMsgRspnDeclRspnException$$implSchemaXMsgRspnDeclRspnFileLoaded$$implSchemaXMsgRspnDeclRspnLoggedIn$$implSchemaXMsgRspnDeclRspnLoggedOut$$implSchemaXMsgRspnDeclRspnServerProcExecuted$$iterate SchemaTables( each implSchemaXMsgRspnDeclElements )$$implSchemaXMsgRspnDeclRootElement$$implSchemaXMsgRspnDeclDocElement$
+	// Schema object accessors
+$implSchemaXMsgRspnImplSchemaObjAccessors$
+	// Result accessors
+$implSchemaXMsgRspnImplResultAccessors$
+	// Element  Resolver Factories
+$implSchemaXMsgRspnGetRspnNoDataFound$$implSchemaXMsgRspnGetRspnException$$implSchemaXMsgRspnGetRspnFileLoaded$$implSchemaXMsgRspnGetRspnLoggedIn$$implSchemaXMsgRspnGetRspnLoggedOut$$implSchemaXMsgRspnGetRspnServerProcExecuted$$iterate SchemaTables( each implSchemaXMsgRspnGetElements )$
+	// Root Element  Resolver Factory
+$implSchemaXMsgRspnGetRootElement$
+	// Root Element 
+$implSchemaXMsgRspnRootElement$
+	// Document Element  Resolver Factory
+$implSchemaXMsgRspnGetDocElement$
+	// Document Element 
+$implSchemaXMsgRspnDocElement$
+	// Parse an XML string's contents
+$implSchemaXMsgRspnParseStringContent$
+	// Parse a file
+$implSchemaXMsgRspnParseFile$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgRspnSchemaImport"
+		>$iterate SchemaRefs( each ApplyJavaXMsgRspnSchemaImport empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgRspnSchemaImport"
+		>$reference RefSchema JavaXMsgRspnSchemaImport$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgRspnSchemaBody"
+		>$iterate SchemaRefs( each ApplyJavaXMsgRspnSchemaBody empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgRspnSchemaBody"
+		>$reference RefSchema JavaXMsgRspnSchemaBody$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnImplResultAccessors"
+		>$implSchemaXMsgRspnImplResultLogContentAccessors$$implSchemaXMsgRspnImplResultDataChangedAccessors$$implSchemaXMsgRspnImplResultDeletedAccessors$$implSchemaXMsgRspnImplResultExceptionRaisedAccessors$$implSchemaXMsgRspnImplResultLastObjectProcessedAccessors$$implSchemaXMsgRspnImplResultListOfObjectsAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnImplResultDataChangedAccessors">
+	public boolean getDataChanged() {
+		return( dataChanged);
+	}
+
+	public void setDataChanged( boolean value ) {
+		dataChanged = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnImplResultLogContentAccessors">
+	public String getLogContent() {
+		return( logContent);
+	}
+
+	public void setLogContent( String value ) {
+		logContent = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnImplResultDeletedAccessors">
+	public boolean getDeleted() {
+		return( deleted );
+	}
+
+	public void setDeleted( boolean flag ) {
+		deleted = flag;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnImplResultExceptionRaisedAccessors">
+	public RuntimeException getExceptionRaised() {
+		return( exceptionRaised );
+	}
+
+	public void setExceptionRaised( RuntimeException obj ) {
+		exceptionRaised = obj;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnImplResultLastObjectProcessedAccessors">
+	public Object getLastObjectProcessed() {
+		return( lastObjectProcessed );
+	}
+
+	public void setLastObjectProcessed( Object obj ) {
+		lastObjectProcessed = obj;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnImplResultListOfObjectsAccessors">
+	public Object getListOfObjects() {
+		return( sortedListOfObjects );
+	}
+
+	public void setListOfObjects( Object obj ) {
+		sortedListOfObjects = obj;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnParseFile">
+	public void parse( String url ) {
+		deleted = false;
+		exceptionRaised = null;
+		lastObjectProcessed = null;
+		sortedListOfObjects = null;
+		logContent = null;
+		dataChanged = false;
+		super.parse( url );
+	}
+
+	public void parseFile( String url ) {
+		deleted = false;
+		exceptionRaised = null;
+		lastObjectProcessed = null;
+		sortedListOfObjects = null;
+		logContent = null;
+		dataChanged = false;
+		super.parse( url );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnParseStringContent">
+	public void parseStringContents( String str ) {
+		deleted = false;
+		exceptionRaised = null;
+		lastObjectProcessed = null;
+		sortedListOfObjects = null;
+		logContent = null;
+		dataChanged = false;
+		super.parseStringContents( str );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnSchemaConstants">
+	// The namespace URI of the supported schema
+	public final static String	SCHEMA_XMLNS = "$SchemaRspnNamespace$";
+
+	// The source for loading the supported schema
+	public final static String	SCHEMA_URI = "/opt/$lower reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference MinorVersion reference ParentMajVer Name$.0.$reference MinorVersion Name$/xsd/$lower EffectiveProjectName$-rspn.xsd";
+	public final static String	SCHEMA_ROOT_URI = "/xsd/$lower EffectiveProjectName$-rqst.rspn";$iterate SchemaRefs( each implSchemaXMsgRspnSchemaConstants empty empty )$
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaXMsgRspnSchemaConstants">
+	public final static String $upper reference RefSchema SchemaName$_XMLNS = "$reference RefSchema SchemaRspnNamespace$";
+	public final static String $upper reference RefSchema SchemaName$_URI = "/opt/$lower reference RefSchema reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference RefSchema reference MinorVersion reference ParentMajVer Name$.0.$reference RefSchema reference MinorVersion Name$/xsd/$lower reference RefSchema SchemaName$-rspn.xsd";
+	public final static String $upper reference RefSchema SchemaName$_ROOT_URI = "/xsd/$lower reference RefSchema SchemaName$-rspn.xsd";
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaXMsgRspnConstructorLoadXSD"></GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaRspnNamespace"
+		>uri://xsd/$lower SchemaName$rspn</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnConstructor"
+		>$implSchemaXMsgRspnConstructorVoid$$implSchemaXMsgRspnConstructorSchemaObj$$implSchemaXMsgRspnConstructorLogger$$implSchemaXMsgRspnConstructorSchemaObjLogger$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnConstructorVoid">
+	public $SchemaName$XMsgRspn() {
+		super();
+		setRootElementHandler( getSaxRspnRoot() );$iterate SchemaRefs( each implSchemaXMsgRspnConstructorLoadXSD empty empty )$
+		}
+		initParser();
+		setSchemaObj( null );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnConstructorSchemaObj">
+	public $SchemaName$XMsgRspn( $SchemaName$SchemaObj schemaObj ) {
+		super();
+		setRootElementHandler( getSaxRspnRoot() );$iterate SchemaRefs( each implSchemaXMsgRspnConstructorLoadXSD empty empty )$
+		}
+		initParser();
+		setSchemaObj( schemaObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnConstructorLogger">
+	public $SchemaName$XMsgRspn( ICFLibMessageLog logger ) {
+		super( logger );
+		setRootElementHandler( getSaxRspnRoot() );$iterate SchemaRefs( each implSchemaXMsgRspnConstructorLoadXSD empty empty )$
+		}
+		initParser();
+		setSchemaObj( null );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnConstructorSchemaObjLogger">
+	public $SchemaName$XMsgRspn( $SchemaName$SchemaObj schemaObj, ICFLibMessageLog logger ) {
+		super( logger );
+		setRootElementHandler( getSaxRspnRoot() );$iterate SchemaRefs( each implSchemaXMsgRspnConstructorLoadXSD empty empty )$
+		}
+		initParser();
+		setSchemaObj( schemaObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnImplSchemaObjAccessors">
+	// SchemaObj accessors
+
+	public I$SchemaName$SchemaObj getSchemaObj() {
+		return( schemaObj );
+	}
+
+	public void setSchemaObj( I$SchemaName$SchemaObj value ) {
+		schemaObj = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnDeclElements">
+
+	// $poptop Table TableName$ Response s$implSchemaXMsgRspnDeclTableRec$$implSchemaXMsgRspnDeclRspnCreated$$implSchemaXMsgRspnDeclRspnReadSingle$$implSchemaXMsgRspnDeclRspnReadList$$implSchemaXMsgRspnDeclRspnLocked$$implSchemaXMsgRspnDeclRspnUpdated$$implSchemaXMsgRspnDeclRspnDeleted$$iterate ServerMethods( each implSchemaXMsgRspnDeclRspnServerMethodExecuted empty empty )$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implSchemaXMsgRspnDeclRspnServerMethodExecuted"
+		></GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implSchemaXMsgRspnDeclRspnServerMethodExecuted">
+	private $SchemaName$XMsgRspn$reference ForTable TableName$$Name$Executed rspn$reference ForTable TableName$$Name$Executed = null;</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implSchemaXMsgRspnDeclRspnServerMethodExecuted">
+	private $SchemaName$XMsgRspn$reference ForTable TableName$$Name$Executed rspn$reference ForTable TableName$$Name$Executed = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnDeclTableRec">
+	private $SchemaName$XMsgRspn$poptop Table TableName$Rec rspn$poptop Table TableName$Rec = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnDeclRspnNoDataFound">
+	private $SchemaName$XMsgRspnNoDataFound rspnNoDataFound = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnDeclRspnException">
+	private $SchemaName$XMsgRspnException rspnException = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnDeclRspnFileLoaded">
+	private $SchemaName$XMsgRspnFileLoaded rspnFileLoaded = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnDeclRspnLoggedIn">
+	private $SchemaName$XMsgRspnLoggedIn rspnLoggedIn = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnDeclRspnLoggedOut">
+	private $SchemaName$XMsgRspnLoggedOut rspnLoggedOut = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnDeclRspnServerProcExecuted">
+	private $SchemaName$XMsgRspnServerProcExecuted rspnServerProcExecuted = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnDeclRspnReadSingle">
+	private $SchemaName$XMsgRspn$poptop Table TableName$ReadSingle rspn$poptop Table TableName$ReadSingle = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnDeclRspnReadList">
+	private $SchemaName$XMsgRspn$poptop Table TableName$ReadList rspn$poptop Table TableName$ReadList = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnDeclRspnLocked">
+	private $SchemaName$XMsgRspn$poptop Table TableName$Locked rspn$poptop Table TableName$Locked = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnDeclRspnUpdated">
+	private $SchemaName$XMsgRspn$poptop Table TableName$Updated rspn$poptop Table TableName$Updated = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnDeclRspnCreated">
+	private $SchemaName$XMsgRspn$poptop Table TableName$Created rspn$poptop Table TableName$Created = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnDeclRspnDeleted">
+	private $SchemaName$XMsgRspn$poptop Table TableName$Deleted rspn$poptop Table TableName$Deleted = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnDeclRootElement">
+	private $SchemaName$SaxRspnRoot saxRoot = null;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnDeclDocElement">
+	private $SchemaName$SaxRspnDoc saxDoc = null;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnGetElements">
+	// $poptop Table TableName$ Response s
+$implSchemaXMsgRspnGetRspnRec$$implSchemaXMsgRspnGetRspnCreated$$implSchemaXMsgRspnGetRspnReadSingle$$implSchemaXMsgRspnGetRspnReadList$$implSchemaXMsgRspnGetRspnLocked$$implSchemaXMsgRspnGetRspnUpdated$$implSchemaXMsgRspnGetRspnDeleted$$iterate ServerMethods( each implSchemaXMsgRspnGetRspnServerMethodExecuted empty empty )$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implSchemaXMsgRspnGetRspnServerMethodExecuted"
+		></GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implSchemaXMsgRspnGetRspnServerMethodExecuted">
+	protected $SchemaName$XMsgRspn$reference ForTable TableName$$Name$Executed getRspn$reference ForTable TableName$$Name$Executed() {
+		if( rspn$reference ForTable TableName$$Name$Executed == null ) {
+			rspn$reference ForTable TableName$$Name$Executed = new $SchemaName$XMsgRspn$reference ForTable TableName$$Name$Executed( this );$reference RetTable implSchemaXMsgRspnGetRspnServerMethodExecutedWireSubElement$
+		}
+		return( rspn$reference ForTable TableName$$Name$Executed );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implSchemaXMsgRspnGetRspnServerMethodExecuted">
+	protected $SchemaName$XMsgRspn$reference ForTable TableName$$Name$Executed getRspn$reference ForTable TableName$$Name$Executed() {
+		if( rspn$reference ForTable TableName$$Name$Executed == null ) {
+			rspn$reference ForTable TableName$$Name$Executed = new $SchemaName$XMsgRspn$reference ForTable TableName$$Name$Executed( this );$reference RetTable implSchemaXMsgRspnGetRspnServerMethodExecutedWireSubElement$
+		}
+		return( rspn$reference ForTable TableName$$Name$Executed );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnGetRspnServerMethodExecutedWireSubElement">
+			rspn$popto ServerMethod reference ForTable TableName$$popto ServerMethod Name$Executed.addElementHandler( "$TableName$", getRspn$TableName$Rec() );$iterate TableSubClasses( each implSchemaXMsgRspnGetRspnServerMethodExecutedWireSubElement empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnGetRspnRec">
+	protected $SchemaName$XMsgRspn$poptop Table TableName$Rec getRspn$poptop Table TableName$Rec() {
+		if( rspn$poptop Table TableName$Rec == null ) {
+			rspn$poptop Table TableName$Rec = new $SchemaName$XMsgRspn$poptop Table TableName$Rec( this );
+		}
+		return( rspn$poptop Table TableName$Rec );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnGetRspnNoDataFound">
+	protected $SchemaName$XMsgRspnNoDataFound getRspnNoDataFound() {
+		if( rspnNoDataFound == null ) {
+			rspnNoDataFound = new $SchemaName$XMsgRspnNoDataFound( this );
+		}
+		return( rspnNoDataFound );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnGetRspnException">
+	protected $SchemaName$XMsgRspnException getRspnException() {
+		if( rspnException == null ) {
+			rspnException = new $SchemaName$XMsgRspnException( this );
+		}
+		return( rspnException );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnGetRspnFileLoaded">
+	protected $SchemaName$XMsgRspnFileLoaded getRspnFileLoaded() {
+		if( rspnFileLoaded == null ) {
+			rspnFileLoaded = new $SchemaName$XMsgRspnFileLoaded( this );
+		}
+		return( rspnFileLoaded );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnGetRspnLoggedIn">
+	protected $SchemaName$XMsgRspnLoggedIn getRspnLoggedIn() {
+		if( rspnLoggedIn == null ) {
+			rspnLoggedIn = new $SchemaName$XMsgRspnLoggedIn( this );
+		}
+		return( rspnLoggedIn );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnGetRspnLoggedOut">
+	protected $SchemaName$XMsgRspnLoggedOut getRspnLoggedOut() {
+		if( rspnLoggedOut == null ) {
+			rspnLoggedOut = new $SchemaName$XMsgRspnLoggedOut( this );
+		}
+		return( rspnLoggedOut );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnGetRspnServerProcExecuted">
+	protected $SchemaName$XMsgRspnServerProcExecuted getRspnServerProcExecuted() {
+		if( rspnServerProcExecuted == null ) {
+			rspnServerProcExecuted = new $SchemaName$XMsgRspnServerProcExecuted( this );
+		}
+		return( rspnServerProcExecuted );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnGetRspnReadSingle">
+	protected $SchemaName$XMsgRspn$poptop Table TableName$ReadSingle getRspn$poptop Table TableName$ReadSingle() {
+		if( rspn$poptop Table TableName$ReadSingle == null ) {
+			rspn$poptop Table TableName$ReadSingle = new $SchemaName$XMsgRspn$poptop Table TableName$ReadSingle( this );$implSchemaXMsgRspnGetRspnReadSingleWireSubElement$
+		}
+		return( rspn$poptop Table TableName$ReadSingle );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnGetRspnReadSingleWireSubElement">
+			rspn$poptop Table TableName$ReadSingle.addElementHandler( "$TableName$", getRspn$TableName$Rec() );$iterate TableSubClasses( each implSchemaXMsgRspnGetRspnReadSingleWireSubElement empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnGetRspnReadList">
+	protected $SchemaName$XMsgRspn$poptop Table TableName$ReadList getRspn$poptop Table TableName$ReadList() {
+		if( rspn$poptop Table TableName$ReadList == null ) {
+			rspn$poptop Table TableName$ReadList = new $SchemaName$XMsgRspn$poptop Table TableName$ReadList( this );$implSchemaXMsgRspnGetRspnReadListWireSubElement$
+		}
+		return( rspn$poptop Table TableName$ReadList );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnGetRspnReadListWireSubElement">
+			rspn$poptop Table TableName$ReadList.addElementHandler( "$TableName$", getRspn$TableName$Rec() );$iterate TableSubClasses( each implSchemaXMsgRspnGetRspnReadListWireSubElement empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnGetRspnLocked">
+	protected $SchemaName$XMsgRspn$poptop Table TableName$Locked getRspn$poptop Table TableName$Locked() {
+		if( rspn$poptop Table TableName$Locked == null ) {
+			rspn$poptop Table TableName$Locked = new $SchemaName$XMsgRspn$poptop Table TableName$Locked( this );
+		}
+		return( rspn$poptop Table TableName$Locked );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnGetRspnCreated">
+	protected $SchemaName$XMsgRspn$poptop Table TableName$Created getRspn$poptop Table TableName$Created() {
+		if( rspn$poptop Table TableName$Created == null ) {
+			rspn$poptop Table TableName$Created = new $SchemaName$XMsgRspn$poptop Table TableName$Created( this );
+		}
+		return( rspn$poptop Table TableName$Created );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnGetRspnUpdated">
+	protected $SchemaName$XMsgRspn$poptop Table TableName$Updated getRspn$poptop Table TableName$Updated() {
+		if( rspn$poptop Table TableName$Updated == null ) {
+			rspn$poptop Table TableName$Updated = new $SchemaName$XMsgRspn$poptop Table TableName$Updated( this );
+		}
+		return( rspn$poptop Table TableName$Updated );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnGetRspnDeleted">
+	protected $SchemaName$XMsgRspn$poptop Table TableName$Deleted getRspn$poptop Table TableName$Deleted() {
+		if( rspn$poptop Table TableName$Deleted == null ) {
+			rspn$poptop Table TableName$Deleted = new $SchemaName$XMsgRspn$poptop Table TableName$Deleted( this );
+		}
+		return( rspn$poptop Table TableName$Deleted );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnGetRootElement">
+	protected $SchemaName$SaxRspnRoot getSaxRspnRoot() {
+		if( saxRoot == null ) {
+			saxRoot = new $SchemaName$SaxRspnRoot( this );
+			saxRoot.addElementHandler( "$SchemaName$Rspn", getSaxRspnDoc() );$iterate SchemaRefs( each implSchemaXMsgRspnGetRootElementWireRefSchema empty empty )$
+		}
+		return( saxRoot );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaXMsgRspnGetRootElementWireRefSchema">
+			saxRoot.addElementHandler( "$reference RefSchema SchemaName$Rspn", getSaxRspnDoc() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnGetDocElement">
+	protected $SchemaName$SaxRspnDoc getSaxRspnDoc() {
+		if( saxDoc == null ) {
+			saxDoc = new $SchemaName$SaxRspnDoc( this );$implSchemaXMsgRspnWireDocRspnNoDataFound$$implSchemaXMsgRspnWireDocRspnException$$implSchemaXMsgRspnWireDocRspnFileLoaded$$implSchemaXMsgRspnWireDocRspnLoggedIn$$implSchemaXMsgRspnWireDocRspnLoggedOut$$implSchemaXMsgRspnWireDocRspnServerProcExecuted$
+$iterate SchemaTables( each implSchemaXMsgRspnWireDocElements empty empty )$$JavaXMsgRspnSchemaWireParsers$$ReferencedJavaXMsgRspnSchemaWireParsers$
+		}
+		return( saxDoc );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgRspnSchemaWireParsers"
+		>$iterate SchemaRefs( each ApplyJavaXMsgRspnSchemaWireParsers empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgRspnSchemaWireParsers"
+		>$reference RefSchema JavaXMsgRspnSchemaWireParsers$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnWireDocElements">
+			// $poptop Table TableName$ Response s
+$implSchemaXMsgRspnWireDocRspnCreated$$implSchemaXMsgRspnWireDocRspnReadSingle$$implSchemaXMsgRspnWireDocRspnReadList$$implSchemaXMsgRspnWireDocRspnLocked$$implSchemaXMsgRspnWireDocRspnUpdated$$implSchemaXMsgRspnWireDocRspnDeleted$$iterate ServerMethods( each implSchemaXMsgRspnWireDocRspnServerMethodExecuted empty empty )$
+</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implSchemaXMsgRspnWireDocRspnServerMethodExecuted"
+		></GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implSchemaXMsgRspnWireDocRspnServerMethodExecuted">
+			saxDoc.addElementHandler( "Rspn$reference ForTable TableName$$Name$Executed", getRspn$reference ForTable TableName$$Name$Executed() );</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implSchemaXMsgRspnWireDocRspnServerMethodExecuted">
+			saxDoc.addElementHandler( "Rspn$reference ForTable TableName$$Name$Executed", getRspn$reference ForTable TableName$$Name$Executed() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnWireDocRspnNoDataFound">
+			saxDoc.addElementHandler( "RspnNoDataFound", getRspnNoDataFound() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnWireDocRspnException">
+			saxDoc.addElementHandler( "RspnException", getRspnException() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnWireDocRspnFileLoaded">
+			saxDoc.addElementHandler( "RspnFileLoaded", getRspnFileLoaded() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnWireDocRspnLoggedIn">
+			saxDoc.addElementHandler( "RspnLoggedIn", getRspnLoggedIn() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnWireDocRspnLoggedOut">
+			saxDoc.addElementHandler( "RspnLoggedOut", getRspnLoggedOut() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnWireDocRspnServerProcExecuted">
+			saxDoc.addElementHandler( "RspnServerProcExecuted", getRspnServerProcExecuted() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnWireDocRspnCreated">
+			saxDoc.addElementHandler( "Rspn$poptop Table TableName$Created", getRspn$poptop Table TableName$Created() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnWireDocRspnReadSingle">
+			saxDoc.addElementHandler( "Rspn$poptop Table TableName$ReadSingle", getRspn$poptop Table TableName$ReadSingle() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnWireDocRspnReadList">
+			saxDoc.addElementHandler( "Rspn$poptop Table TableName$ReadList", getRspn$poptop Table TableName$ReadList() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnWireDocRspnLocked">
+			saxDoc.addElementHandler( "Rspn$poptop Table TableName$Locked", getRspn$poptop Table TableName$Locked() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnWireDocRspnUpdated">
+			saxDoc.addElementHandler( "Rspn$poptop Table TableName$Updated", getRspn$poptop Table TableName$Updated() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaXMsgRspnWireDocRspnDeleted">
+			saxDoc.addElementHandler( "Rspn$poptop Table TableName$Deleted", getRspn$poptop Table TableName$Deleted() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnRootElement">
+	/*
+	 *	$SchemaName$SaxRspnRoot XML SAX Root Element  implementation
+	 */
+	public class $SchemaName$SaxRspnRoot
+		extends CFLibXmlCoreElementHandler
+	{$implConstructSaxRspnRoot$$implSaxRspnRootStartElement$$implSaxRspnRootEndElement$	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implConstructSaxRspnRoot">
+		public $SchemaName$SaxRspnRoot( $SchemaName$XMsgRspn xmsgRspn ) {
+			super( xmsgRspn );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRspnRootStartElement">
+		public void startElement(
+			String		uri,
+			String		localName,
+			String		qName,
+			Attributes	attrs )
+		throws SAXException
+		{
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRspnRootEndElement">
+		public void endElement(
+			String		uri,
+			String		localName,
+			String		qName )
+		throws SAXException
+		{
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXMsgRspnDocElement">
+	/*
+	 *	$SchemaName$SaxRspnDoc XML SAX Doc Element  implementation
+	 */
+	public class $SchemaName$SaxRspnDoc
+		extends CFLibXmlCoreElementHandler
+	{$implConstructSaxRspnDoc$$implSaxRspnDocStartElement$$implSaxRspnDocEndElement$	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implConstructSaxRspnDoc">
+		public $SchemaName$SaxRspnDoc( $SchemaName$XMsgRspn xmsgRspn ) {
+			super( xmsgRspn );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRspnDocStartElement">
+		public void startElement(
+			String		uri,
+			String		localName,
+			String		qName,
+			Attributes	attrs )
+		throws SAXException
+		{
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRspnDocEndElement">
+		public void endElement(
+			String		uri,
+			String		localName,
+			String		qName )
+		throws SAXException
+		{
+		}
+</GenRule>
+
+</RuleSet>

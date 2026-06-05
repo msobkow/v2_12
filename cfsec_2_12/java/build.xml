@@ -1,0 +1,258 @@
+<project name="CFSec2.12" default="all" basedir=".">
+	<description>
+		MSS Code Factory CFSec 2.12 Apache Ant Build Script
+	</description>
+	<property environment="env" />
+	<property name="pathtofx" location="${env.PATH_TO_FX}" />
+	<property name="build" location="build" />
+	<property name="bin" location="bin-v2_12" />
+	<property name="lib" location="bin-v2_12/lib" />
+	<property name="apachejars" location="../../stdjar-v2_12/apache.org" />
+	<property name="eclipsejars" location="../../stdjar-v2_12/eclipse.org" />
+	<property name="cfsecsrc" location="cfsec/src" />
+	<property name="cfsecramsrc" location="cfsecram/src" />
+	<property name="cfsecsaxloadersrc" location="cfsecsaxloader/src" />
+	<property name="cfsecjavafxsrc" location="cfsecjavafx/src" />
+	<property name="cfseccustsrc" location="cfseccust/src" />
+
+	<path id="Core.classpath">
+	</path>
+
+	<target name="init">
+		<tstamp/>
+		<mkdir dir="${bin}" />
+		<mkdir dir="${bin}/lib" />
+		<mkdir dir="${bin}/xsd" />
+		<copy todir="${lib}">
+			<fileset dir="${apachejars}">
+				<include name="commons-codec-1.14.jar" />
+				<include name="commons-io-2.6.jar" />
+				<include name="commons-logging-1.2.jar" />
+				<include name="log4j-1.2-api-2.13.0.jar" />
+				<include name="log4j-api-2.13.0.jar" />
+				<include name="log4j-core-2.13.0.jar" />
+				<include name="xercesImpl-2.12.1-xml-schema-1.1.jar" />
+				<include name="org.apache.httpcomponents.httpclient-4.5.11.jar" />
+				<include name="org.apache.httpcomponents.httpcore-4.4.13.jar" />
+			</fileset>
+			<fileset dir="${eclipsejars}">
+				<include name="org.eclipse.wst.xml.xpath2.processor_1.2.0.jar" />
+			</fileset>
+		</copy>
+		<move file="${lib}/commons-codec-1.14.jar" tofile="${lib}/org.apache.commons.codec.jar" />
+		<move file="${lib}/commons-io-2.6.jar" tofile="${lib}/org.apache.commons.io.jar" />
+		<move file="${lib}/commons-logging-1.2.jar" tofile="${lib}/org.apache.commons.logging.jar" />
+		<move file="${lib}/log4j-1.2-api-2.13.0.jar" tofile="${lib}/org.apache.logging.log4j.api.glue.jar" />
+		<move file="${lib}/log4j-api-2.13.0.jar" tofile="${lib}/org.apache.logging.log4j.jar" />
+		<move file="${lib}/log4j-core-2.13.0.jar" tofile="${lib}/org.apache.logging.log4j.core.jar" />
+		<move file="${lib}/xercesImpl-2.12.1-xml-schema-1.1.jar" tofile="${lib}/org.apache.xercesImpl.xml.schema.jar" />
+		<move file="${lib}/org.apache.httpcomponents.httpclient-4.5.11.jar" tofile="${lib}/org.apache.httpcomponents.httpclient.jar" />
+		<move file="${lib}/org.apache.httpcomponents.httpcore-4.4.13.jar" tofile="${lib}/org.apache.httpcomponents.httpcore.jar" />
+		<move file="${lib}/org.eclipse.wst.xml.xpath2.processor_1.2.0.jar" tofile="${lib}/org.eclipse.wst.xml.xpath2.processor.jar" />
+		<copy todir="${bin}">
+			<fileset dir="../../cflib_2_12/java/bin-v2_12">
+				<include name="org.msscf.msscf.cflib.CFLib.jar" />
+				<include name="org.msscf.msscf.cflib.CFLib.JavaFX.jar" />
+			</fileset>
+			<fileset dir="../../cfcore_2_12/java/bin-v2_12">
+				<include name="org.msscf.msscf.cfcore.jar" />
+			</fileset>
+		</copy>
+		<mkdir dir="${bin}/xsd" />
+		<copy todir="${bin}/xsd">
+			<fileset dir="../../cflib_2_12/java/cflib/xsd">
+				<include name="cftip-envelope.xsd" />
+				<include name="cftip-serverinfo.xsd" />
+			</fileset>
+			<fileset dir="../../cfcore_2_12/java/cfcore/xsd">
+				<include name="cfgenkb-2.12-cartridge.xsd" />
+				<include name="cfgenkb-2.12-ruleset.xsd" />
+				<include name="cfgenkb-2.12-toolset.xsd" />
+			</fileset>
+			<fileset dir="cfsecsaxloader/xsd">
+				<include name="cfsec-structured.xsd" />
+			</fileset>
+		</copy>
+		<mkdir dir="${build}" />
+		<mkdir dir="${build}/xsd" />
+		<copy todir="${build}/xsd">
+			<fileset dir="../../cflib_2_12/java/cflib/xsd">
+				<include name="cftip-envelope.xsd" />
+				<include name="cftip-serverinfo.xsd" />
+			</fileset>
+			<fileset dir="../../cfcore_2_12/java/cfcore/xsd">
+				<include name="cfgenkb-2.12-cartridge.xsd" />
+				<include name="cfgenkb-2.12-ruleset.xsd" />
+				<include name="cfgenkb-2.12-toolset.xsd" />
+			</fileset>
+			<fileset dir="cfsecsaxloader/xsd">
+				<include name="cfsec-structured.xsd" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- Build the core -->
+
+	<target name="compilecore" depends="init" description="Compile the core package">
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfsecsrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="corejar" depends="compilecore" description="Package the core jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfsec.jar" basedir="${build}/org.msscf.msscf.cfsec" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfsec/CFSec/*.class" />
+			<include name="org/msscf/msscf/cfsec/CFSecObj/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfsec" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFSec" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Build the SAX Ldr -->
+
+	<target name="compilesaxloader" depends="corejar" description="Compile the saxloader package">
+		<copy todir="${build}/xsd">
+			<fileset dir="cfsecsaxloader/xsd">
+				<include name="*.xsd" />
+			</fileset>
+		</copy>
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfsecsaxloadersrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="saxloaderjar" depends="compilesaxloader" description="Package the saxloader jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfsec.CFSecSaxLoader.jar" basedir="${build}/org.msscf.msscf.cfsec.CFSecSaxLoader" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfsec/CFSecSaxLoader/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfsec.CFSecSaxLoader" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFSec SAX Ldr" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Build the RAM Persistence Implementation -->
+
+	<target name="compileram" depends="saxloaderjar" description="Compile the ram package">
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfsecramsrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${bin}/org.msscf.msscf.cfsec.CFSecSaxLoader.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="ramjar" depends="compileram" description="Package the ram jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfsec.CFSecRam.jar" basedir="${build}/org.msscf.msscf.cfsec.CFSecRam" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfsec/CFSecRam/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfsec.CFSecRam" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFSec RAM Persistence Implementation" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Build the JavaFX GUI CRUD -->
+
+	<target name="compilejavafx" depends="corejar" description="Compile the javafx package">
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfsecjavafxsrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${pathtofx}:${bin}/org.msscf.msscf.cfsec.CFSecSaxLoader.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cflib.CFLib.JavaFX.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="javafxjar" depends="compilejavafx" description="Package the javafx jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfsec.CFSecJavaFX.jar" basedir="${build}/org.msscf.msscf.cfsec.CFSecJavaFX" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfsec/CFSecJavaFX/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfsec.CFSecJavaFX" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFSec JavaFX Implementation" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Build the JavaFX Cust User Interface -->
+
+	<target name="compilecust" depends="corejar,javafxjar" description="Compile the cust package">
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfseccustsrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${pathtofx}:${bin}/org.msscf.msscf.cfsec.CFSecJavaFX.jar:${bin}/org.msscf.msscf.cfsec.CFSecSaxLoader.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cflib.CFLib.JavaFX.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="custjar" depends="compilecust" description="Package the cust jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfseccust.CFSecCust.jar" basedir="${build}/org.msscf.msscf.cfseccust.CFSecCust" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfseccust/CFSecCust/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfseccust.CFSecCust" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFSec Cust JavaFX Implementation" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Tie all the code so far together-->
+
+	<target name="compileall" depends="compilecore,compilesaxloader,compileram,compilejavafx,compilecust">
+	</target>
+
+	<target name="deploy">
+		<copy todir="../../bin-v2_12">
+			<fileset dir="bin-v2_12">
+				<include name="org.msscf.msscf.cfsec.jar" />
+				<include name="org.msscf.msscf.cfsec.CFSecSaxLoader.jar" />
+				<include name="org.msscf.msscf.cfsec.CFSecMssCF.jar" />
+				<include name="org.msscf.msscf.cfsec.CFSecRam.jar" />
+				<include name="org.msscf.msscf.cfsec.CFSecJavaFX.jar" />
+				<include name="org.msscf.msscf.cfseccust.CFSecCust.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="alljars" depends="corejar,saxloaderjar,ramjar,javafxjar,custjar">
+	</target>
+
+	<!-- Clean up -->
+
+	<target name="clean">
+		<delete dir="${build}" />
+		<delete dir="${lib}" />
+		<delete dir="${bin}/xsd" />
+		<delete file="${bin}/org.msscf.msscf.cflib.CFLib.jar" />
+		<delete file="${bin}/org.msscf.msscf.cflib.CFLib.JavaFX.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfcore.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfsec.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfsec.CFSecSaxLoader.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfsec.CFSecMssCF.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfsec.CFSecRam.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfsec.CFSecJavaFX.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfseccust.CFSecCust.jar" />
+	</target>
+
+	<!-- Make It So! -->
+
+	<target name="all" depends="init,alljars,javafxjar,deploy" >
+	</target>
+
+</project>

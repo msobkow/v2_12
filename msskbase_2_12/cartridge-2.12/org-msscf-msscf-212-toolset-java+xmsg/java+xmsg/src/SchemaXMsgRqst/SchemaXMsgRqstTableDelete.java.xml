@@ -1,0 +1,1207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsg/SchemaXMsgRqstTableDelete.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Element  for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaXMsgRqstTableDeleteJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgRqst/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgRqst"
+		ExpansionClassName="$SchemaName$XMsgRqst$TableName$DeleteJava"
+		ExpansionKeyName="$SchemaName$XMsgRqst$TableName$DeleteJava"
+		ExpansionFileName="$SchemaName$XMsgRqst$TableName$Delete.java">
+// Description: Java 11 XML Message SAX Response Record Element  for $TableName$
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgRqst;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.xml.sax.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+import $lower JavaPackage$.$SchemaName$XMsg.*;
+
+/*
+ *	$SchemaName$XMsgRqst$TableName$Delete XML SAX Element  implementation
+ *	for $TableName$.
+ */
+public class $SchemaName$XMsgRqst$TableName$Delete
+	extends CFLibXmlCoreElementHandler
+{$implConstructXMsgRqstTableDelete$$implRqstTableDeleteStartElement$$implRqstTableDeleteEndElement$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implConstructXMsgRqstTableDelete">
+	public $SchemaName$XMsgRqst$TableName$Delete( $SchemaName$XMsgRqst xmsgRqst ) {
+		super( xmsgRqst );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteStartElement">
+	public void startElement(
+		String		uri,
+		String		localName,
+		String		qName,
+		Attributes	attrs )
+	throws SAXException
+	{
+		$SchemaName$XMsgSchemaMessageFormatter schemaFormatter = null;
+		try {
+			// Common XML Attributes
+			String	attrId = null;
+			String	attrRevision = null;$implRqstTableDeleteDeclPKeyAttrs$
+			// Attribute Extraction
+			String	attrLocalName;
+			int		numAttrs;
+			int		idxAttr;
+			final String S_ProcName = "startElement";
+			final String S_LocalName = "LocalName";
+
+			assert qName.equals( "Rqst$TableName$Delete" );
+$implRqstTableDeleteRetrieveSchemaObj$$implRqstTableDeleteConsPKey$$implRqstTableDeleteExtractAttrs$$implRqstTableDeleteCheckRequiredAttrs$$implRqstTableDeleteGetContext$$implRqstTableDeleteConvertAttributes$$implRqstTableDeleteDoDelete$
+		}
+		catch( RuntimeException e ) {
+			$SchemaName$XMsgRqst xmsgRqst = (($SchemaName$XMsgRqst)getParser());
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+			String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnException( "\n\t\t\t", e )
+				+	"\n"
+				+	schemaFormatter.formatRspnXmlPostamble();
+			xmsgRqst.resetResponse();
+			xmsgRqst.appendResponse( response );
+			xmsgRqst.setCaughtException( true );
+		}
+		catch( Error e ) {
+			$SchemaName$XMsgRqst xmsgRqst = (($SchemaName$XMsgRqst)getParser());
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+			String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+				+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnException( "\n\t\t\t", e )
+				+	"\n"
+				+	schemaFormatter.formatRspnXmlPostamble();
+			xmsgRqst.resetResponse();
+			xmsgRqst.appendResponse( response );
+			xmsgRqst.setCaughtException( true );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteDoDelete">
+			// Delete the object
+			I$SchemaName$$TableName$Obj read = ((I$SchemaName$$TableName$Obj)schemaObj.get$TableName$TableObj().read$TableName$( pkey ));
+			if( read != null ) {
+				if( read.get$TableName$Buff().getRequiredRevision() &gt; natRevision ) {
+					throw new CFLibCollisionDetectedException( getClass(),
+						S_ProcName,
+						"Collision detected preparing to delete $TableName$" );
+				}
+				else {
+					I$SchemaName$$TableName$EditObj editBuff = (I$SchemaName$$TableName$EditObj)read.beginEdit();
+					if( editBuff != null ) {
+						editBuff.deleteInstance();
+						editBuff = null;
+						String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+							+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RspnDeleted() +	"\n"
+							+	schemaFormatter.formatRspnXmlPostamble();
+						(($SchemaName$XMsgRqst)getParser()).appendResponse( response );
+					}
+					else {
+						throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"read.beginEdit()" );
+					}
+				}
+			}
+			else {
+				String response = schemaFormatter.formatRspnXmlPreamble() + "\n"
+					+	"\t" + $SchemaName$XMsgSchemaMessageFormatter.formatRspnNoDataFound() +	"\n"
+					+	schemaFormatter.formatRspnXmlPostamble();
+				(($SchemaName$XMsgRqst)getParser()).appendResponse( response );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteDeclPKeyAttrs">
+			// Primary Key Attributes for Constant Enum support$switch HasSuperClassRelation yes implRqstTableDeleteDeclPKeyInhAttrs default implRqstTableDeleteDeclPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteDeclPKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableDeleteDeclNonIdPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteDeclPKeyInhAttrs"
+		>$reference SuperClassRelation reference ToTable implRqstTableDeleteDeclPKeyDecisionAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteDeclPKeyDecisionAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableDeleteDeclPKeyInhAttrs default implRqstTableDeleteDeclPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableDeleteDeclNonIdPKeyAttr"
+		>$switch Name Id empty default implRqstTableDeleteDeclEmitPKeyAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableDeleteDeclEmitPKeyAttr">
+			String attr$Name$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteConsPKey">
+			// Instantiate a PKey buffer for the parsed information
+			$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey pkey = ((I$SchemaName$Schema)schemaObj.getBackingStore()).getFactory$reference BaseClass TableName$().newPKey();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteEndElement">
+	public void endElement(
+		String		uri,
+		String		localName,
+		String		qName )
+	throws SAXException
+	{
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteRetrieveSchemaObj">
+			$SchemaName$XMsgRqst xmsgRqst = ($SchemaName$XMsgRqst)getParser();
+			if( xmsgRqst == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser()" );
+			}
+
+			schemaFormatter = xmsgRqst.getSchemaMessageFormatter();
+
+			I$SchemaName$SchemaObj schemaObj = xmsgRqst.getSchemaObj();
+			if( schemaObj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser().getSchemaObj()" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteApplyPKeyAttrs"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implRqstTableDeleteApplyPIndexColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableDeleteApplyPIndexColumn">
+			pkey.set$OptionalOrRequired$$Name$( nat$Name$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteApplyInsertAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableDeleteApplyInsertAttrsSuper default implRqstTableDeleteApplyInsertAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteApplyInsertAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRqstTableDeleteApplyInsertAttrs$
+			// Apply $TableName$ Attributes$iterate Columns( each implRqstTableDeleteApplyDataInsertAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteApplyInsertAttrsBase">
+			// Apply $TableName$ Attributes$iterate Columns( each implRqstTableDeleteApplyDataInsertAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteApplyDataInsertAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRqstTableDeleteApplyNonIdInsertAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteApplyNonIdInsertAttr"
+		>$switch Name Id empty default implRqstTableDeleteApplyAnUnhiddenInsertAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteApplyAnUnhiddenInsertAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implRqstTableDeleteApplyAnInsertAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteApplyAnInsertAttr">
+			edit$poptop Table TableName$.set$OptionalOrRequired$$Name$( $implRqstTableDeleteApplyAnAttrVar$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteApplyAnAttrVar"
+		>$switch BaseModelAtomClass
+			BlobDef implRqstTableDeleteApplyNatVar
+			BoolDef implRqstTableDeleteApplyNatVar
+			EnumDef implRqstTableDeleteApplyNatVar
+			Id16Gen implRqstTableDeleteApplyNatVar
+			Id32Gen implRqstTableDeleteApplyNatVar
+			Id64Gen implRqstTableDeleteApplyNatVar
+			Int16Def implRqstTableDeleteApplyNatVar
+			Int32Def implRqstTableDeleteApplyNatVar
+			Int64Def implRqstTableDeleteApplyNatVar
+			UInt16Def implRqstTableDeleteApplyNatVar
+			UInt32Def implRqstTableDeleteApplyNatVar
+			UInt64Def implRqstTableDeleteApplyNatVar
+			FloatDef implRqstTableDeleteApplyNatVar
+			DoubleDef implRqstTableDeleteApplyNatVar
+			NumberDef implRqstTableDeleteApplyNatVar
+			DateDef implRqstTableDeleteApplyNatVar
+			TimeDef implRqstTableDeleteApplyNatVar
+			TimestampDef implRqstTableDeleteApplyNatVar
+			TZDateDef implRqstTableDeleteApplyNatVar
+			TZTimeDef implRqstTableDeleteApplyNatVar
+			TZTimestampDef implRqstTableDeleteApplyNatVar
+			UuidGen implRqstTableDeleteApplyNatVar
+			UuidDef implRqstTableDeleteApplyNatVar
+			StringDef implRqstTableDeleteApplyAttrVar
+			TokenDef implRqstTableDeleteApplyAttrVar
+			NmTokenDef implRqstTableDeleteApplyAttrVar
+			NmTokensDef implRqstTableDeleteApplyAttrVar
+			TextDef implRqstTableDeleteApplyAttrVar
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteApplyNatVar"
+		>nat$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteApplyAttrVar"
+		>attr$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteExtractAttrs">
+			// Extract Attributes
+			numAttrs = attrs.getLength();
+			for( idxAttr = 0; idxAttr &lt; numAttrs; idxAttr++ ) {
+				attrLocalName = attrs.getLocalName( idxAttr );
+				if( attrLocalName.equals( "Id" ) ) {
+					if( attrId != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrId = attrs.getValue( idxAttr );
+				}
+				else if( attrLocalName.equals( "Revision" ) ) {
+					if( attrRevision != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrRevision = attrs.getValue( idxAttr );
+				}$implRqstTableDeleteParsePKeyAttrs$
+				else if( attrLocalName.equals( "schemaLocation" ) ) {
+					// ignored
+				}
+				else {
+					throw new CFLibUnrecognizedAttributeException( getClass(),
+						S_ProcName,
+						getParser().getLocationInfo(),
+						attrLocalName );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteParsePKeyAttrs"
+		>$reference BaseClass implRqstTableDeleteParsePKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteParsePKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableDeleteParseEmitNonIdPKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableDeleteParseEmitNonIdPKeyAttr"
+		>$switch Name Id empty default implRqstTableDeleteParseEmitPKeyAttr$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableDeleteParseEmitPKeyAttr">
+				else if( attrLocalName.equals( "$Name$" ) ) {
+					if( attr$Name$ != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attr$Name$ = attrs.getValue( idxAttr );
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteCheckRequiredAttrs">
+			// Ensure that required attributes have values$implRqstTableDeleteCheckReqPKeyAttrs$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteCheckReqPKeyAttrs"
+		>$reference BaseClass implRqstTableDeleteCheckReqPKeyBaseAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteCheckReqPKeyBaseAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableDeleteCheckReqMaybeEmitPKeyAttr )$$implRqstTableDeleteCheckReqRevisionAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteCheckReqRevisionAttr">
+			if( ( attrRevision == null ) || ( attrRevision.length() &lt;= 0 ) ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Revision" );
+			}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableDeleteCheckReqMaybeEmitPKeyAttr"
+		>$switch IsNullable no implRqstTableDeleteCheckReqEmitPKeyAttr default empty$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableDeleteCheckReqEmitPKeyAttr">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$" );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteGetContext">
+			// Get current context
+			CFLibXmlCoreContext curContext = getParser().getCurContext();</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeletePutNamedAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableDeletePutNamedAttrsSuper default implRqstTableDeletePutNamedAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeletePutNamedAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRqstTableDeletePutNamedAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeletePutNamedAttrsBase">$reference PrimaryKeyIndex iterate Columns( each implRqstTableDeletePutNamedAnAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableDeletePutNamedAnAttr">
+			curContext.putNamedValue( "$Name$", attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteConvertAttributes">
+			// Convert string attributes to native Java types
+			// and apply the converted attributes to the editBuff.
+$implRqstTableDeleteConvertPKeyAttrs$$implRqstTableDeleteConvertRevisionAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteConvertRevisionAttr">
+			int natRevision = Integer.parseInt( attrRevision );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteConvertPKeyAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableDeleteConvertInhPKeyAttrs default implRqstTableDeleteConvertBasePKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteConvertInhPKeyAttrs"
+		>$reference SuperClassRelation reference ToTable implRqstTableDeleteConvertPKeyAttrs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteConvertBasePKeyAttrs"
+		>$reference PrimaryKeyIndex iterate Columns( each implRqstTableDeleteConvertColPKeyAttrs )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implRqstTableDeleteConvertColPKeyAttrs"
+		>$reference Column implRqstTableDeleteConvertColPKeyAttrs$
+			pkey.set$OptionalOrRequired$$Name$( nat$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColPKeyAttrs">
+			$implJavaAtomType$ nat$Name$;$switch BaseModelAtomClass
+			BlobDef implRqstTableDeleteConvertColBlobValue
+			BoolDef implRqstTableDeleteConvertColBoolValue
+			EnumDef implRqstTableDeleteConvertColEnumValue
+			Int16Def implRqstTableDeleteConvertColInt16Value
+			Int32Def implRqstTableDeleteConvertColInt32Value
+			Int64Def implRqstTableDeleteConvertColInt64Value
+			UInt16Def implRqstTableDeleteConvertColUInt16Value
+			UInt32Def implRqstTableDeleteConvertColUInt32Value
+			UInt64Def implRqstTableDeleteConvertColUInt64Value
+			Id16Gen implRqstTableDeleteConvertColInt16Value
+			Id32Gen implRqstTableDeleteConvertColInt32Value
+			Id64Gen implRqstTableDeleteConvertColInt64Value
+			FloatDef implRqstTableDeleteConvertColFloatValue
+			DoubleDef implRqstTableDeleteConvertColDoubleValue
+			NumberDef implRqstTableDeleteConvertColNumberValue
+			StringDef implRqstTableDeleteConvertColStringValue
+			TokenDef implRqstTableDeleteConvertColTokenValue
+			NmTokenDef implRqstTableDeleteConvertColNmTokenValue
+			NmTokensDef implRqstTableDeleteConvertColNmTokensValue
+			TextDef implRqstTableDeleteConvertColTextValue
+			DateDef implRqstTableDeleteConvertColDateValue
+			TimeDef implRqstTableDeleteConvertColTimeValue
+			TimestampDef implRqstTableDeleteConvertColTimestampValue
+			TZDateDef implRqstTableDeleteConvertColTZDateValue
+			TZTimeDef implRqstTableDeleteConvertColTZTimeValue
+			TZTimestampDef implRqstTableDeleteConvertColTZTimestampValue
+			UuidGen implRqstTableDeleteConvertColUuidValue
+			UuidDef implRqstTableDeleteConvertColUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$
+			pkey.set$OptionalOrRequired$$Name$( nat$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColBlobValue">
+			throw new RuntimeException( S_ProcName + "ERROR: Cannot use a BLOB as a PKey attribute!" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColBoolValue"
+		>$switch IsNullable yes implRqstTableDeleteConvertColOptBoolValue default implRqstTableDeleteConvertColReqBoolValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColReqBoolValue">
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColOptBoolValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() == 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = Boolean.valueOf( true );
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = Boolean.valueOf( false );
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColEnumValue"
+		>$switch IsNullable yes implRqstTableDeleteConvertColOptEnumValue default implRqstTableDeleteConvertColReqEnumValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColOptEnumValue">
+			nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColReqEnumValue">
+			nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColInt16Value"
+		>$switch IsNullable yes implRqstTableDeleteConvertColOptInt16Value default implRqstTableDeleteConvertColReqInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColOptInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColReqInt16Value">
+			nat$Name$ = Short.parseShort( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColInt32Value"
+		>$switch IsNullable yes implRqstTableDeleteConvertColOptInt32Value default implRqstTableDeleteConvertColReqInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColOptInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColReqInt32Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColInt64Value"
+		>$switch IsNullable yes implRqstTableDeleteConvertColOptInt64Value default implRqstTableDeleteConvertColReqInt64Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColOptInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColReqInt64Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColUInt16Value"
+		>$switch IsNullable yes implRqstTableDeleteConvertColOptUInt16Value default implRqstTableDeleteConvertColReqUInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColOptUInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColReqUInt16Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColUInt32Value"
+		>$switch IsNullable yes implRqstTableDeleteConvertColOptUInt32Value default implRqstTableDeleteConvertColReqUInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColOptUInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColReqUInt32Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColUInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", 19, 0, attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColFloatValue"
+		>$switch IsNullable yes implRqstTableDeleteConvertColOptFloatValue default implRqstTableDeleteConvertColReqFloatValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColOptFloatValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColReqFloatValue">
+			nat$Name$ = Float.parseFloat( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColDoubleValue"
+		>$switch IsNullable yes implRqstTableDeleteConvertColOptDoubleValue default implRqstTableDeleteConvertColReqDoubleValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColOptDoubleValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColReqDoubleValue">
+			nat$Name$ = Double.parseDouble( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColNumberValue">
+			nat$Name$ = CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", $Digits$, $Precis$, attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColStringValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColNmTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColNmTokensValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColTextValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColTZDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColTZTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColTZTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertColUuidValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}</GenRule>
+
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteConvertNatId">
+			Integer natId;
+			if( ( attrId != null ) &amp;&amp; ( attrId.length() &gt; 0 ) ) {
+				natId = Integer.valueOf( Integer.parseInt( attrId ) );
+			}
+			else {
+				natId = null;
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteConvertAttrs"
+		>$switch HasSuperClassRelation yes implRqstTableDeleteConvertAttrsSuper default implRqstTableDeleteConvertAttrsBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteConvertAttrsSuper"
+		>$reference SuperClassRelation reference ToTable implRqstTableDeleteConvertAttrs$$iterate Columns( each implRqstTableDeleteConvertDataAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRqstTableDeleteConvertAttrsBase">$iterate Columns( each implRqstTableDeleteConvertDataAttr )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertDataAttr"
+		>$switch ColumnInPrimaryIndex yes empty default implRqstTableDeleteConvertNonIdAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertNonIdAttr"
+		>$switch Name Id empty default implRqstTableDeleteConvertAnUnhiddenAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertAnUnhiddenAttr"
+		>$switch ColumnInContainerOrNamedLookupRelation no implRqstTableDeleteConvertAnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertAnAttr"
+		>$switch IsNullable yes implRqstTableDeleteConvertOptAttr default implRqstTableDeleteConvertReqAttr$		pkey.set$OptionalOrRequired$$Name$( nat$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRqstTableDeleteConvertReqBlob
+			BoolDef implRqstTableDeleteConvertReqBool
+			EnumDef implRqstTableDeleteConvertReqEnum
+			Id16Gen implRqstTableDeleteConvertReqInt16
+			Id32Gen implRqstTableDeleteConvertReqInt32
+			Id64Gen implRqstTableDeleteConvertReqInt64
+			Int16Def implRqstTableDeleteConvertReqInt16
+			Int32Def implRqstTableDeleteConvertReqInt32
+			Int64Def implRqstTableDeleteConvertReqInt64
+			UInt16Def implRqstTableDeleteConvertReqUInt16
+			UInt32Def implRqstTableDeleteConvertReqUInt32
+			UInt64Def implRqstTableDeleteConvertReqUInt64
+			FloatDef implRqstTableDeleteConvertReqFloat
+			DoubleDef implRqstTableDeleteConvertReqDouble
+			NumberDef implRqstTableDeleteConvertReqNumber
+			DateDef implRqstTableDeleteConvertReqDate
+			TimeDef implRqstTableDeleteConvertReqTime
+			TimestampDef implRqstTableDeleteConvertReqTimestamp
+			TZDateDef implRqstTableDeleteConvertReqTZDate
+			TZTimeDef implRqstTableDeleteConvertReqTZTime
+			TZTimestampDef implRqstTableDeleteConvertReqTZTimestamp
+			UuidGen implRqstTableDeleteConvertReqUuid
+			UuidDef implRqstTableDeleteConvertReqUuid
+			StringDef implRqstTableDeleteConvertReqString
+			TokenDef implRqstTableDeleteConvertReqString
+			NmTokenDef implRqstTableDeleteConvertReqString
+			NmTokensDef implRqstTableDeleteConvertReqString
+			TextDef implRqstTableDeleteConvertReqString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRqstTableDeleteConvertOptBlob
+			BoolDef implRqstTableDeleteConvertOptBool
+			EnumDef implRqstTableDeleteConvertOptEnum
+			Id16Gen implRqstTableDeleteConvertOptInt16
+			Id32Gen implRqstTableDeleteConvertOptInt32
+			Id64Gen implRqstTableDeleteConvertOptInt64
+			Int16Def implRqstTableDeleteConvertOptInt16
+			Int32Def implRqstTableDeleteConvertOptInt32
+			Int64Def implRqstTableDeleteConvertOptInt64
+			UInt16Def implRqstTableDeleteConvertOptUInt16
+			UInt32Def implRqstTableDeleteConvertOptUInt32
+			UInt64Def implRqstTableDeleteConvertOptUInt64
+			FloatDef implRqstTableDeleteConvertOptFloat
+			DoubleDef implRqstTableDeleteConvertOptDouble
+			NumberDef implRqstTableDeleteConvertOptNumber
+			DateDef implRqstTableDeleteConvertOptDate
+			TimeDef implRqstTableDeleteConvertOptTime
+			TimestampDef implRqstTableDeleteConvertOptTimestamp
+			TZDateDef implRqstTableDeleteConvertOptTZDate
+			TZTimeDef implRqstTableDeleteConvertOptTZTime
+			TZTimestampDef implRqstTableDeleteConvertOptTZTimestamp
+			UuidGen implRqstTableDeleteConvertOptUuid
+			UuidDef implRqstTableDeleteConvertOptUuid
+			StringDef implRqstTableDeleteConvertOptString
+			TokenDef implRqstTableDeleteConvertOptString
+			NmTokenDef implRqstTableDeleteConvertOptString
+			NmTokensDef implRqstTableDeleteConvertOptString
+			TextDef implRqstTableDeleteConvertOptString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqBlob">
+			byte[] nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqBool">
+			boolean nat$Name$;
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqInt16">
+			short nat$Name$ = Short.parseShort( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqInt32">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqInt64">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqUInt16">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqUInt32">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqUInt64">
+			BigDecimal nat$Name$ = CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", 19, 0, attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqFloat">
+			float nat$Name$ = Float.parseFloat( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqDouble">
+			double nat$Name$ = Double.parseDouble( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqNumber">
+			BigDecimal nat$Name$ = CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", $Digits$, $Precis$, attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqTZDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqTZTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqTZTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqUuid">
+			UUID nat$Name$ = UUID.fromString( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertReqString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptBlob">
+			byte[] nat$Name$;
+			if( attr$Name$ == null ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.length() &lt;= 0 ) {
+				nat$Name$ = new byte[0];
+			}
+			else {
+				nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptBool">
+			Boolean nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptInt16">
+			Short nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptInt32">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptInt64">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptUInt16">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptUInt32">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptUInt64">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", 19, 0, attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptFloat">
+			Float nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptDouble">
+			Double nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptNumber">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", $Digits$, $Precis$, attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptTZDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptTZTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptTZTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptUuid">
+			UUID nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRqstTableDeleteConvertOptString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+</RuleSet>

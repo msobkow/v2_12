@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schemaobj/EditObj.hpp"
+	Revision="2.12"
+	Descr="C++18 edit object instance specification">
+
+	<GenFile GenDef="Table" Name="fileEditObjHpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$obj"
+		ExpansionClassName="$SchemaName$$TableName$EditObjHpp"
+		ExpansionKeyName="$SchemaName$$TableName$EditObjHpp"
+		ExpansionFileName="$SchemaName$$TableName$EditObj.hpp"
+>#pragma once
+
+// Description: C++18 edit object instance specification for $SchemaName$ $TableName$.
+
+$MssSourceLicense$
+$declEditObjIncludeHeaders$
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$$TableName$EditObj$switch HasSuperClassRelation yes declSchemaTableEditObjSuperClassForm default declSchemaTableEditObjBaseForm$
+	{
+	public:
+		static const std::string CLASS_NAME;
+	protected:$switch HasSuperClassRelation no declEditObjAttrOrig default empty$$switch HasSuperClassRelation no declEditObjTableBuffAttr default empty$$switch HasSuperClassRelation no declObjAttrOptAuditColumns default empty$$HPlusEditObjMembers$
+	public:
+		$SchemaName$$TableName$EditObj( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* argOrig );
+		virtual ~$SchemaName$$TableName$EditObj();
+
+		virtual const std::string&amp; getClassName() const;
+$switch HasSuperClassRelation no declEditObjGetRequiredRevision default empty$$switch HasSuperClassRelation no declEditObjSetRequiredRevision default empty$$switch HasSuperClassRelation no declEditObjOptSetAuditColumns default empty$$declEditObjMethods$$HPlusEditObjImplementation$
+	};
+}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="declSchemaTableEditObjSuperClassForm">
+	: public $reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$EditObj,
+	  public virtual I$SchemaName$$TableName$EditObj$iterate TableRefs( each alsoExtendISchemaTableEditObj empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableEditObjBaseForm">
+	: public virtual I$SchemaName$$TableName$EditObj$iterate TableRefs( each alsoExtendISchemaTableEditObj empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="alsoIncludeSchemaTableEditObj">
+#include &lt;$lower reference SchemaDef SchemaName$obj/$reference SchemaDef SchemaName$$TableName$Obj.hpp&gt;
+#include &lt;$lower reference SchemaDef SchemaName$obj/$reference SchemaDef SchemaName$$TableName$EditObj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="alsoIncludeEditObjInheritSuperClass">$reference SuperClassRelation reference ToTable maybeIncludeEditObjInheritSuperClass$
+#include &lt;$lower reference SuperClassRelation reference ToTable SchemaName$obj/I$reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$Obj.hpp&gt;
+#include &lt;$lower reference SuperClassRelation reference ToTable SchemaName$obj/I$reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$EditObj.hpp&gt;
+#include &lt;$lower reference SuperClassRelation reference ToTable SchemaName$obj/$reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$Obj.hpp&gt;
+#include &lt;$lower reference SuperClassRelation reference ToTable SchemaName$obj/$reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$EditObj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeIncludeEditObjInheritSuperClass"
+		>$switch HasSuperClassRelation yes alsoIncludeEditObjInheritSuperClass default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetRequiredRevision">
+		virtual int32_t getRequiredRevision() const;</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjSetRequiredRevision">
+		virtual void setRequiredRevision( int32_t value );</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjIncludeHeaders">
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;$CPlusEditObjInclude$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeDeclEditObjGetScope"
+		>$switch ContainerStyle
+			Single declEditObjGetScopeViaSingleContainer
+			Multiple declEditObjGetScopeViaMultipleContainer
+			default maybeDeclEditObjGetScopeNull$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeDeclEditObjGetScopeNull"
+		>$switch HasSuperClassRelation no declEditObjGetScopeNull default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetScopeNull">
+		virtual cflib::ICFLibAnyObj* getScope();
+		virtual cflib::ICFLibAnyObj* getObjScope();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetScopeViaSingleContainer">
+		virtual cflib::ICFLibAnyObj* getScope();
+		virtual cflib::ICFLibAnyObj* getObjScope();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetScopeViaMultipleContainer">
+		virtual cflib::ICFLibAnyObj* getObjScope();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="includeEditObjInheritSuperClass">
+#include &lt;$lower reference SuperClassRelation reference ToTable SchemaName$obj/$reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$EditObj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjOptSetAuditColumns"
+		>$switch BaseHasAuditColumns yes declEditObjSetAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetAuditColumns">
+		virtual $CPlusSecNamespace$::I$SecSchemaName$SecUserObj* getCreatedBy();
+		virtual const std::chrono::system_clock::time_point&amp; getCreatedAt();
+		virtual $CPlusSecNamespace$::I$SecSchemaName$SecUserObj* getUpdatedBy();
+		virtual const std::chrono::system_clock::time_point&amp; getUpdatedAt();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjSetAuditColumns">$declEditObjGetAuditColumns$
+		virtual void setCreatedBy( $CPlusSecNamespace$::I$SecSchemaName$SecUserObj* value );
+		virtual void setCreatedAt( const std::chrono::system_clock::time_point&amp; value );
+		virtual void setUpdatedBy( $CPlusSecNamespace$::I$SecSchemaName$SecUserObj* value );
+		virtual void setUpdatedAt( const std::chrono::system_clock::time_point&amp; value );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjMethods"
+		>$declEditObjGetClassCode$$switch HasSuperClassRelation no declEditObjGetObjName default empty$$declEditObjGetGenDefName$$maybeDeclEditObjGetScope$$declEditObjGetObjQualifier$$declGetQualNamedObject$$declEditObjGetNamedObject$$declEditObjGetObjQualifiedName$$declEditObjGetObjFullName$$declEditObjRealize$$switch HasSuperClassRelation no declEditObjRead default empty$$switch HasChain yes declEditObjMoveUp default empty$$switch HasChain yes declEditObjMoveDown default empty$$declEditObjCreate$$declEditObjUpdate$$declEditObjDelete$$declEditObjTableAccessors$$switch HasSuperClassRelation no declEditObjEditAccessors default empty$$declEditObjEditAsAccessors$$declEditObjBeginEdit$$switch HasSuperClassRelation no declEditObjEndEdit default empty$$switch HasSuperClassRelation no declEditObjOrigAccessors default empty$$declEditObjOrigAsCast$$switch HasSuperClassRelation no declEditObjSchemaAccessors default empty$$declEditObjBuffAccessors$$declEditObjTableBuffAccessors$$switch HasSuperClassRelation no declEditObjPKeyAccessors default empty$$switch HasSuperClassRelation no declEditObjIsNewAccessors default empty$$declEditObjColumnAccessors$$maybeDeclEditObjNarrowedContainerAccessors$$iterate Relation( each declEditObjRelationAccessors empty empty )$$switch HasSuperClassRelation no declEditObjCopyPKeyToBuff default empty$$switch HasSuperClassRelation no declEditObjCopyBuffToPKey default empty$$declEditObjCopyBuffToOrig$$declEditObjCopyOrigToBuff$$iterate ServerMethods( each declCPlusEditObjServerMethod empty empty )$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declCPlusEditObjServerMethod"
+		>$switch IsInstanceMethod yes declCPlusEditObjInstServerProc default empty$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declCPlusEditObjInstServerProc">
+		virtual bool $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declCPlusEditObjServerMethod"
+		>$switch IsInstanceMethod yes declCPlusEditObjInstServerObjFunc default empty$</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declCPlusEditObjInstServerObjFunc">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$reference RetTable Name$Obj* $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declCPlusEditObjServerMethod"
+		>$switch IsInstanceMethod yes declCPlusEditObjInstServerListFunc default empty$</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declCPlusEditObjInstServerListFunc">
+		virtual std::vector&lt;$CPlusDefNamespace$::I$DefSchemaName$$reference RetTable Name$Obj*&gt; $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetObjQualifiedName">
+		virtual std::string getObjQualifiedName();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetNamedObject">
+		virtual cflib::ICFLibAnyObj* getNamedObject( const std::string&amp; objName );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetObjFullName">
+		virtual std::string getObjFullName();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetObjName">
+		virtual std::string getObjName();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetObjQualifier">
+		virtual cflib::ICFLibAnyObj* getObjQualifier( const classcode_t* qualifyingClass );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetGenDefName">
+		virtual const std::string getGenDefName();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjMoveUp">
+		virtual $reference Chain reference Table CPlusDefNamespace$::I$reference BaseClass DefSchemaName$$reference Chain reference Table TableName$Obj* moveUp();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjMoveDown">
+		virtual $reference Chain reference Table CPlusDefNamespace$::I$reference BaseClass DefSchemaName$$reference Chain reference Table TableName$Obj* moveDown();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjColumnAccessors"
+		>$switch HasSuperClassRelation yes declEditObjInhColumnAccessors default declEditObjBaseColumnAccessors$</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjInhColumnAccessors"
+		>$iterate Columns( each declEditObjColumnAccessors empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjBaseColumnAccessors"
+		>$iterate Columns( each declEditObjBaseColumnAccessors empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjGetClassCode">
+		virtual const classcode_t getClassCode() const;
+		virtual bool implementsClassCode( const classcode_t value ) const;
+		virtual std::string toString();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjBeginEdit">
+		virtual I$reference BaseClass DefSchemaName$$reference BaseClass TableName$EditObj* beginEdit();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjEndEdit">
+		virtual void endEdit();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjEditAccessors">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* getEdit();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjEditAsAccessors">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* get$TableName$Edit();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjAttrOrig">
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* orig;</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjOrigAccessors">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* getOrig();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjOrigAsCast">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* getOrigAs$TableName$();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjIsNewAccessors">
+		virtual bool getIsNew();
+		virtual void setIsNew( bool value );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjSchemaAccessors">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$SchemaObj* getSchema();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjTableAccessors">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$TableObj* get$TableName$Table();
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="declEditObjRelationAccessors"
+		>$switch RelationToIndexIsUnique yes maybeDeclEditObjRelationSingletonAccessors default maybeDeclEditObjRelationCollectionAccessors$</GenRule>
+
+	<GenRule GenDef="Relation" Name="maybeDeclEditObjRelationSingletonAccessors"
+		>$switch RelationTypeTag Superclass empty default declEditObjRelationSingletonAccessors$</GenRule>
+
+	<GenRule GenDef="Relation" Name="maybeDeclEditObjRelationCollectionAccessors"
+		>$switch RelationTypeTag Superclass empty default declEditObjRelationCollectionAccessors$</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjRelationCPlusOptional">?</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjNarrowedSingleContainerAccessors"
+		>$iterate ContainerRelations( lone declEditObjNarrowedSingleCAccessors each empty empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declEditObjNarrowedSingleCAccessors"
+		>$switch HasNarrowed yes declEditObjReallyNarrowedSingleCAccessors default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declEditObjReallyNarrowedSingleCAccessors"
+		>$reference Narrowed declEditObjNarrowedActualSingleCAccessors$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declEditObjNarrowedActualSingleCAccessors">
+		virtual void set$OptionalOrRequired$$RelationTypeTag$$Suffix$( $reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj* value );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjNarrowedMultipleContainerAccessors"
+		>$iterate ContainerRelations( first declEditObjNarrowedMultipleCAccessors each empty empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declEditObjNarrowedMultipleCAccessors"
+		>$switch HasNarrowed yes declEditObjReallyNarrowedMultipleCAccessors default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declEditObjReallyNarrowedMultipleCAccessors"
+		>$reference Narrowed declEditObjNarrowedActualMultipleCAccessors$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declEditObjNarrowedActualMultipleCAccessors">
+		virtual void set$OptionalOrRequired$$RelationTypeTag$$Suffix$( $reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj* value );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjInvokeMultipleByClass"
+		>$iterate ContainerRelations( each declEditObjInvokeMultipleByClass )$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeDeclEditObjNarrowedContainerAccessors"
+		>$switch ContainerStyle
+			Single maybeDeclEditObjNarrowedSingleContainerAccessors
+			Multiple maybeDeclEditObjNarrowedMultipleContainerAccessors
+			default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeDeclEditObjNarrowedSingleContainerAccessors"
+		>$switch DoesContainerRelationNarrow yes declEditObjNarrowedSingleContainerAccessors default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeDeclEditObjNarrowedMultipleContainerAccessors"
+		>$switch DoesContainerRelationNarrow yes declEditObjNarrowedMultipleContainerAccessors default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="DoesContainerRelationNarrow"
+		>$switch DoesContainerRelationNarrowInternal
+			Single DoesContainerRelationNarrowSingle
+			None ContainerNarrowNo
+			empty ContainerNarrowNo
+			default DoesContainerRelationNarrowMultiple$</GenRule>
+
+	<GenRule GenDef="Table" Name="DoesContainerRelationNarrowInternal"
+		>$iterate ContainerRelations( lone HasNarrowed empty ContainerNarrowNo each ContainerNarrowYada )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DoesContainerRelationNarrowMultiple"
+		>$iterate ContainerRelations( first HasNarrowed each empty empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="DoesContainerRelationNarrowSingle"
+		>$iterate ContainerRelations( lone HasNarrowed each empty empty empty )$</GenRule>
+
+	<GenRule GenDef="Object" Name="ContainerNarrowNo">no</GenRule>
+	<GenRule GenDef="Object" Name="ContainerNarrowYes">yes</GenRule>
+	<GenRule GenDef="Object" Name="ContainerNarrowYada">yada</GenRule>
+
+	<GenRule GenDef="Relation" Name="declEditObjRelationSingletonAccessors">
+		virtual $reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj* get$OptionalOrRequired$$RelationTypeTag$$Suffix$( bool forceRead = false );
+		virtual void set$OptionalOrRequired$$RelationTypeTag$$Suffix$( $reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj* value );
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="declEditObjRelationAccessorCheckIfColumnProvided"
+		>$switch declEditObjRelationAccessorsToColIsNullable yes empty default declEditObjRelationAccessorCheckIfReqColProvided$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="declEditObjRelationAccessorsToColIsNullable"
+		>$reference ToCol IsNullable$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declEditObjRelationCollectionAccessors">
+		virtual std::vector&lt;$reference ToTable CPlusDefNamespace$::I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj*&gt; get$OptionalOrRequired$$RelationTypeTag$$Suffix$( bool forceRead = false );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjBaseColumnAccessors"
+		>$switch ColumnInPrimaryIndex yes declEditObjColumnBaseROPKeyAccessor default declEditObjColumnDataAccessor$</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjColumnAccessors"
+		>$switch ColumnInPrimaryIndex yes empty default declEditObjColumnDataAccessor$</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjColumnDataAccessor"
+		>$switch ColumnInContainerOrNamedLookupRelation yes declEditObjColumnRODataAccessor default declEditObjColumnRWDataAccessor$</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjColumnBaseROPKeyAccessor"
+		>$switch ColumnInContainerOrNamedLookupRelation yes declEditObjColumnROPKeyAccessor default declEditObjColumnMaybeRWPKeyAccessor$</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjColumnMaybeRWPKeyAccessor"
+		>$switch GenerateId yes declEditObjColumnROPKeyAccessor default declEditObjColumnRWPKeyAccessor$</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjColumnROAccessor"
+		>$switch ColumnInPrimaryIndex yes declEditObjColumnROPKeyAccessor default declEditObjColumnRODataAccessor$</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjColumnROPKeyAccessor">$switch IsNullable yes declEditObjROPKeyIsColumnNull default empty$
+		virtual $declConstReqAtomType$ get$declColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$();
+		virtual $declConstReferenceAtomType$ get$declColumnAttrOptionality$$Name$Reference();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjColumnRWPKeyAccessor">$switch IsNullable yes declEditObjROPKeyIsColumnNull default empty$
+		virtual $declConstReqAtomType$ get$declColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$();
+		virtual $declConstReferenceAtomType$ get$declColumnAttrOptionality$$Name$Reference();$switch IsNullable yes declEditObjRWPKeySetColumnNull default empty$
+		virtual void set$declColumnAttrOptionality$$Name$( $declConstReqAtomType$ value );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjRWPKeySetColumnNull">
+		virtual void set$declColumnAttrOptionality$$Name$Null();</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjROPKeyIsColumnNull">
+		virtual bool is$declColumnAttrOptionality$$Name$Null();</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjRODataIsColumnNull">
+		virtual bool is$declColumnAttrOptionality$$Name$Null();</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjColumnRODataAccessor">$switch IsNullable yes declEditObjRODataIsColumnNull default empty$
+		virtual $declConstReqAtomType$ get$declColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$();
+		virtual $declConstReferenceAtomType$ get$declColumnAttrOptionality$$Name$Reference();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjColumnRWDataAccessor">$switch IsNullable yes declEditObjRODataIsColumnNull default empty$
+		virtual $declConstReqAtomType$ get$declColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$();
+		virtual $declConstReferenceAtomType$ get$declColumnAttrOptionality$$Name$Reference();$switch IsNullable yes declEditObjRWDataSetColumnNull default empty$
+		virtual void set$declColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( $declConstReqAtomType$ value );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declEditObjRWDataSetColumnNull">
+		virtual void set$declColumnAttrOptionality$$Name$Null();</GenRule>
+
+	<GenRule GenDef="Value" Name="declEditObjRWDataSetColumnNull">
+		virtual void set$declColumnAttrOptionality$$Name$Null();</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjTableBuffAttr">
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* buff;</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjPKeyAccessors">
+		virtual $reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey* getPKey();
+		virtual void setPKey( $reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey* value );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjRealize">
+		virtual I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj* realize();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjRead">
+		virtual $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* read( bool forceRead = false );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjCreate">
+		virtual I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj* create();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjCopyBuffToOrig">
+		virtual void copyBuffToOrig();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjCopyOrigToBuff">
+		virtual void copyOrigToBuff();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjUpdate">
+		virtual I$reference BaseClass DefSchemaName$$reference BaseClass TableName$EditObj* update();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjDelete">
+		virtual I$reference BaseClass DefSchemaName$$reference BaseClass TableName$EditObj* deleteInstance();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjCopyPKeyToBuff">
+		virtual void copyPKeyToBuff();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjCopyBuffToPKey">
+		virtual void copyBuffToPKey();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjBuffAccessors">
+		virtual $reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$Buff* getBuff();
+		virtual void setBuff( $CPlusDefNamespace$::$DefSchemaName$$reference BaseClass TableName$Buff* value );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declEditObjTableBuffAccessors">
+		inline $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* get$TableName$Buff() {
+			// Buff is always instantiated when constructed over an original object
+			return( static_cast&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt;( buff ) );
+		};
+
+		inline $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* get$TableName$EditBuff() {
+			// Buff is always instantiated when constructed over an original object
+			return( dynamic_cast&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt;( buff ) );
+		};
+</GenRule>
+
+</RuleSet>

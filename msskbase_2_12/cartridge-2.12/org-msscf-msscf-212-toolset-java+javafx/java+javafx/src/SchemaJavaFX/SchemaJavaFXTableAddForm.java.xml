@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+javafx"
+	Name="src/SchemaJavaFXTableAddForm.java"
+	Revision="2.12"
+	Descr="Java 11 JavaFX Add Form for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaJavaFXTableAddFormJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$JavaFX/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$JavaFX"
+		ExpansionClassName="$SchemaName$JavaFX$TableName$TableAddFormJava"
+		ExpansionKeyName="$SchemaName$JavaFX$TableName$TableAddFormJava"
+		ExpansionFileName="$SchemaName$JavaFX$TableName$AddForm.java"
+>// Description: Java 11 JavaFX Add Form implementation for $TableName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$JavaFX;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.JavaFX.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+
+/**
+ *	$SchemaName$JavaFX$TableName$AddForm JavaFX Add Form implementation
+ *	for $TableName$.
+ */
+public class $SchemaName$JavaFX$TableName$AddForm
+extends CFBorderPane
+implements I$DefSchemaName$JavaFX$TableName$PaneCommon,
+	ICFForm
+{
+	public static String S_FormName = "Add $EffLabel$";
+	protected ICFFormManager cfFormManager = null;
+	protected I$SchemaName$JavaFXSchema javafxSchema = null;
+	protected ICFFormClosedCallback formClosedCallback = null;
+	protected boolean allowSave = true;
+	protected CFSplitPane javafxAddPane = null;
+	protected CFButton buttonSave = null;
+	protected CFButton buttonCancel = null;
+	protected CFButton buttonClose = null;
+	protected ScrollPane scrollMenu = null;
+	protected CFHBox hboxMenu = null;
+$implConstructJavaFXTableAddForm$$implGetSetCFFormManager$$implSchemaJavaFXTableAddFormForceCancelAndClose$$implGetJavaFXSchema$$implAddFormGetSetJavaFXFocus$$implAddFormGetFrameHBoxMenu$$implSetPaneModeAddForm$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implSchemaJavaFXTableAddFormForceCancelAndClose">
+	public void forceCancelAndClose() {
+		I$DefSchemaName$$TableName$Obj focus = getJavaFXFocusAs$TableName$();
+		if( focus != null ) {
+			I$SchemaName$$TableName$EditObj editObj = (I$SchemaName$$TableName$EditObj)focus.getEdit();
+			if( editObj != null ) {
+				if( editObj.getIsNew() ) {
+					editObj.endEdit();
+					editObj = null;
+					setJavaFXFocus( null );
+					setPaneMode( CFPane.PaneMode.Unknown );
+				}
+				else {
+					editObj.endEdit();
+					editObj = null;
+					setPaneMode( CFPane.PaneMode.View );
+				}
+			}
+		}
+		if( cfFormManager != null ) {
+			if( cfFormManager.getCurrentForm() == this ) {
+				cfFormManager.closeCurrentForm();
+			}
+		}
+		if( formClosedCallback != null ) {
+			formClosedCallback.formClosed( null );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAddForm">
+	public void setPaneMode( CFPane.PaneMode value ) {
+		CFPane.PaneMode oldMode = getPaneMode();
+		if( oldMode == value ) {
+			return;
+		}
+		try {
+			super.setPaneMode( value );
+			((I$DefSchemaName$JavaFX$TableName$PaneCommon)javafxAddPane).setPaneMode( value );
+		}
+		catch( Throwable t ) {
+			super.setPaneMode( oldMode );
+			((I$DefSchemaName$JavaFX$TableName$PaneCommon)javafxAddPane).setPaneMode( oldMode );
+			throw t;
+		}
+		if( value == CFPane.PaneMode.View ) {$implSetPaneModeAddFormModeView$
+		}
+		else if( value == CFPane.PaneMode.Edit ) {$implSetPaneModeAddFormModeEdit$
+		}
+		else if( value == CFPane.PaneMode.Add ) {$implSetPaneModeAddFormModeAdd$
+		}
+		else {$implSetPaneModeAddFormModeOther$
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAddFormModeAdd">
+			if( buttonSave != null ) {
+				buttonSave.setDisable( false );
+			}
+			if( buttonCancel != null ) {
+				buttonCancel.setDisable( false );
+			}
+			if( buttonClose != null ) {
+				buttonClose.setDisable( false );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAddFormModeView">
+			if( buttonSave != null ) {
+				buttonSave.setDisable( true );
+			}
+			if( buttonCancel != null ) {
+				buttonCancel.setDisable( false );
+			}
+			if( buttonClose != null ) {
+				buttonClose.setDisable( true );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAddFormModeEdit">
+			if( buttonSave != null ) {
+				buttonSave.setDisable( false );
+			}
+			if( buttonCancel != null ) {
+				buttonCancel.setDisable( false );
+			}
+			if( buttonClose != null ) {
+				buttonClose.setDisable( false );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAddFormModeOther">
+			if( buttonSave != null ) {
+				buttonSave.setDisable( true );
+			}
+			if( buttonCancel != null ) {
+				buttonCancel.setDisable( false );
+			}
+			if( buttonClose != null ) {
+				buttonClose.setDisable( true );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableAddForm">
+	public $SchemaName$JavaFX$TableName$AddForm( ICFFormManager formManager, I$SchemaName$JavaFXSchema argSchema, I$DefSchemaName$$TableName$Obj argFocus, ICFFormClosedCallback closeCallback, boolean argAllowSave ) {
+		super();
+		final String S_ProcName = "construct-schema-focus";
+		allowSave = argAllowSave;
+		if( formManager == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"formManager" );
+		}
+		cfFormManager = formManager;
+		formClosedCallback = closeCallback;
+		if( argSchema == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"argSchema" );
+		}
+		// argFocus is optional; focus may be set later during execution as
+		// conditions of the runtime change.
+		javafxSchema = argSchema;
+		javaFXFocus = argFocus;
+		if( ( argFocus != null ) &amp;&amp; ( ! argFocus.getIsNew() ) ) {
+			argFocus = (I$SchemaName$$TableName$Obj)argFocus.read( true );
+			javaFXFocus = argFocus;
+		}
+		javafxAddPane = argSchema.get$TableName$Factory().newAddPane( cfFormManager, argFocus );
+
+		scrollMenu = new ScrollPane();
+		scrollMenu.setVbarPolicy( ScrollBarPolicy.NEVER );
+		scrollMenu.setHbarPolicy( ScrollBarPolicy.AS_NEEDED );
+		scrollMenu.setFitToHeight( true );
+		scrollMenu.setContent( getHBoxMenu() );
+
+		setTop( scrollMenu );
+		setCenter( javafxAddPane );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAddFormGetSetJavaFXFocus">
+	public ICFLibAnyObj getJavaFXFocus() {
+		ICFLibAnyObj obj;
+		if( javafxAddPane != null ) {
+			obj = javafxAddPane.getJavaFXFocus();
+		}
+		else {
+			obj = null;
+		}
+		return( obj );
+	}
+
+	public void setJavaFXFocus( ICFLibAnyObj value ) {
+		final String S_ProcName = "setJavaFXFocus";
+		if( ( value == null ) || ( value instanceof I$DefSchemaName$$TableName$Obj ) ) {
+			super.setJavaFXFocus( value );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				S_ProcName,
+				"value",
+				value,
+				"I$DefSchemaName$$TableName$Obj" );
+		}
+		((I$DefSchemaName$JavaFX$TableName$PaneCommon)javafxAddPane).setJavaFXFocus( value );
+		I$SchemaName$$TableName$Obj argFocus = (I$SchemaName$$TableName$Obj)value;
+		if( ( argFocus != null ) &amp;&amp; ( ! argFocus.getIsNew() ) ) {
+			argFocus = (I$SchemaName$$TableName$Obj)argFocus.read( true );
+			super.setJavaFXFocus( argFocus );
+		}
+	}
+
+	public I$DefSchemaName$$TableName$Obj getJavaFXFocusAs$TableName$() {
+		return( (I$DefSchemaName$$TableName$Obj)getJavaFXFocus() );
+	}
+
+	public void setJavaFXFocusAs$TableName$( I$DefSchemaName$$TableName$Obj value ) {
+		setJavaFXFocus( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAddFormGetFrameHBoxMenu">
+	public CFHBox getHBoxMenu() {
+		if( hboxMenu == null ) {
+			hboxMenu = new CFHBox( 10 );$implJavaFXAddFormMenuButtonSave$$implJavaFXAddFormMenuButtonClose$$implJavaFXAddFormMenuButtonCancel$
+		}
+		return( hboxMenu );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXAddFormMenuButtonSave">
+			buttonSave = new CFButton();
+			buttonSave.setMinWidth( 200 );
+			buttonSave.setText( "Save" );
+			buttonSave.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$DefSchemaName$$TableName$Obj focus = getJavaFXFocusAs$TableName$();
+						if( focus != null ) {
+							I$SchemaName$$TableName$EditObj editObj = (I$SchemaName$$TableName$EditObj)( focus.getEdit() );
+							if( editObj != null ) {
+								setPaneMode( CFPane.PaneMode.Update );
+							}
+							else {
+								throw new CFLibUsageException( getClass(),
+									S_ProcName,
+									"Cannot save an object that isn't being edited" );
+							}
+						}
+						// If an object was added, the focus will change to the persisted instance
+						focus = getJavaFXFocusAs$TableName$();
+						CFBorderPane frame = javafxSchema.get$TableName$Factory().newViewEditForm( cfFormManager, focus, formClosedCallback, true );
+						((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.View );
+						cfFormManager.closeCurrentForm();
+						cfFormManager.pushForm( frame );
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			if( allowSave ) {
+				hboxMenu.getChildren().add( buttonSave );
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXAddFormMenuButtonClose">
+			buttonClose = new CFButton();
+			buttonClose.setMinWidth( 200 );
+			buttonClose.setText( "Close" );
+			buttonClose.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$DefSchemaName$$TableName$Obj focus = getJavaFXFocusAs$TableName$();
+						if( focus != null ) {
+							I$SchemaName$$TableName$EditObj editObj = (I$SchemaName$$TableName$EditObj)( focus.getEdit() );
+							if( editObj != null ) {
+								setPaneMode( CFPane.PaneMode.Update );
+							}
+							else {
+								throw new CFLibUsageException( getClass(),
+									S_ProcName,
+									"Cannot save an object that isn't being edited" );
+							}
+						}
+						// If an object was added, the focus will change to the persisted instance
+						focus = getJavaFXFocusAs$TableName$();
+						cfFormManager.closeCurrentForm();
+						if( formClosedCallback != null ) {
+							formClosedCallback.formClosed( focus );
+						}
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonClose );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXAddFormMenuButtonCancel">
+			buttonCancel = new CFButton();
+			buttonCancel.setMinWidth( 200 );
+			buttonCancel.setText( "Cancel" );
+			buttonCancel.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$DefSchemaName$$TableName$Obj focus = getJavaFXFocusAs$TableName$();
+						if( focus != null ) {
+							I$SchemaName$$TableName$EditObj editObj = (I$SchemaName$$TableName$EditObj)focus.getEdit();
+							if( editObj != null ) {
+								if( editObj.getIsNew() ) {
+									editObj.endEdit();
+									editObj = null;
+									setJavaFXFocus( null );
+									setPaneMode( CFPane.PaneMode.Unknown );
+								}
+								else {
+									editObj.endEdit();
+									editObj = null;
+									setPaneMode( CFPane.PaneMode.View );
+								}
+							}
+						}
+						cfFormManager.closeCurrentForm();
+						if( formClosedCallback != null ) {
+							formClosedCallback.formClosed( null );
+						}
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonCancel );
+</GenRule>
+
+</RuleSet>

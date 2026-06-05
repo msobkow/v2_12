@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<ToolSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-toolset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-toolset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-toolset.xsd"
+	Name="mysql"
+	Revision="2.12"
+	Descr="MySQL">
+	<RuleSet Name="FileHeaders" />
+	<RuleSet Name="DefineMySqlAdminFiles" />
+	<RuleSet Name="schema/dbcreate/mysql/readme.txt" />
+	<RuleSet Name="schema/dbcreate/mysql/CommandParse" />
+	<RuleSet Name="schema/dbcreate/mysql/crdatabase_schema.bash" />
+	<RuleSet Name="schema/dbcreate/mysql/crdatabase_schema.bat" />
+	<RuleSet Name="schema/dbcreate/mysql/crdb_schema.bash" />
+	<RuleSet Name="schema/dbcreate/mysql/crdb_schema.bat" />
+	<RuleSet Name="schema/dbcreate/mysql/crtbl_schema.bash" />
+	<RuleSet Name="schema/dbcreate/mysql/crtbl_schema.bat" />
+	<RuleSet Name="schema/dbcreate/mysql/cridx_schema.bash" />
+	<RuleSet Name="schema/dbcreate/mysql/cridx_schema.bat" />
+	<RuleSet Name="schema/dbcreate/mysql/crrel_schema.bash" />
+	<RuleSet Name="schema/dbcreate/mysql/crrel_schema.bat" />
+	<RuleSet Name="schema/dbcreate/mysql/reorg_schema.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crtbl_table.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crtbl_table_h.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/cridx_index.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/cridx_h_index.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crrel_table.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crtbl_schema_idg16.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crtbl_schema_idg32.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crtbl_schema_idg64.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crtbl_table_idg16.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crtbl_table_idg32.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crtbl_table_idg64.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crrel_table_idg16.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crrel_table_idg32.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crrel_table_idg64.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crprocs_schema.bash" />
+	<RuleSet Name="schema/dbcreate/mysql/crprocs_schema.bat" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_bootstrap.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_next_schemaidgen.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_next_tableidgen.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_audit_dbtablename.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_create_dbtablename.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_lock_dbtablename.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_read_dbtablename.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_read_dbtablename_all.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_read_dbtablename_by_suffix.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_read_dbtablename_cc.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_read_dbtablename_cc_all.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_read_dbtablename_cc_by_suffix.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_page_dbtablename_all.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_page_dbtablename_by_suffix.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_update_dbtablename.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_moveup_dbtablename.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_movedown_dbtablename.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_delete_dbtablename.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_delete_dbtablename_by_suffix.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_is_system_user.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_is_cluster_user.mysql" />
+	<RuleSet Name="schema/dbcreate/mysql/crsp_is_tenant_user.mysql" />
+</ToolSet>

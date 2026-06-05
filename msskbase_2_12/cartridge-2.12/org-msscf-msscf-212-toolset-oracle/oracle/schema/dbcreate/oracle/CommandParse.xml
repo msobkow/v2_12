@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/CommandParse"
+	Revision="2.12"
+	Descr="Oracle Command Parse">
+
+	<GenRule GenDef="Object" Name="parseOracleArgs">
+#
+#	Initialize locals
+#
+orahost=""
+oraport=""
+orapwd=""
+oraservice=""
+orauser=""
+logfilename=""
+parmerrors=""
+TK_DUALCASE_IN_CASE_STATEMENTS=true
+
+#
+#	Parse the command line options
+#
+while [ -n "$$1" ]
+do
+	case "$$1" in
+
+		-L)
+			shift
+			logfilename=$$1
+			shift
+			;;
+
+		-H)
+			shift
+			orahost=$$1
+			shift
+			;;
+
+		-P)
+			shift
+			orapwd=$$1
+			shift
+			;;
+
+		-p)
+			shift
+			oraport=$$1
+			shift
+			;;
+
+		-S)
+			shift
+			oraservice=$$1
+			shift
+			;;
+
+		-U)
+			shift
+			orauser=$$1
+			shift
+			;;
+
+		*)
+			echo &gt;&amp;2 "ERROR: Option $$1 not recognized."
+			parmerrors="Y"
+			shift
+			;;
+	esac
+done
+</GenRule>
+
+	<GenRule GenDef="Object" Name="validateOracleArgs">
+#
+#	Validate parameters
+#
+
+if [ "$${orauser}" = "" ]; then
+	echo &gt;&amp;2 "ERROR: User must be specified with '-U username'"
+	parmerrors="Y"
+fi
+
+if [ "$${orapwd}" = "" ]; then
+	echo &gt;&amp;2 "ERROR: Password must be specified with '-P password'"
+	parmerrors="Y"
+fi
+
+if [ "$${parmerrors}" != "" ]; then
+	echo &gt;&amp;2 "ABORT: Cannot continue"
+	exit 1
+fi
+
+if [ "$${logfilename}" = "" ]; then
+	logfilename=`date +'$GenFileBaseName$-%Y%m%d_%Hh%M.log'`
+	echo "" &gt;$$logfilename
+fi
+
+if [ "$${orahost}" = "" ]; then
+	export sqlpluscmd="sqlplus $${orauser}/$${orapwd} "
+else
+	if [ "$${oraport}" = "" ]; then
+		if [ "$${oraservice}" = "" ]; then
+			export sqlpluscmd="sqlplus $${orauser}/$${orapwd}@//$${orahost} "
+		else
+			export sqlpluscmd="sqlplus $${orauser}/$${orapwd}@//$${orahost}/$${oraservice} "
+		fi
+	else
+		if [ "$${oraservice}" = "" ]; then
+			export sqlpluscmd="sqlplus $${orauser}/$${orapwd}@//$${orahost}:$${oraport} "
+		else
+			export sqlpluscmd="sqlplus $${orauser}/$${orapwd}@//$${orahost}:$${oraport}/$${oraservice} "
+		fi
+	fi
+fi
+</GenRule>
+
+</RuleSet>

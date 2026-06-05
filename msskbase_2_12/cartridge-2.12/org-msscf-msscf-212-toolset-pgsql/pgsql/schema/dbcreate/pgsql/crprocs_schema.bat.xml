@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="schema/dbcreate/pgsql/crprocs_schema.bat"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile GenDef="SchemaDef" Name="dbadminfile_CreateAllStoredProcsBat"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="pgsql"
+		ExpansionClassName="crprocs_$lower SchemaName$_bat"
+		ExpansionKeyName="crprocs_$lower SchemaName$_bat"
+		ExpansionFileName="$dbadminfilename_CreateAllStoredProcsBat$">@ECHO off
+REM
+REM	@(#) $GenPackageDir$/$GenFileName$
+$MssBatScriptLicense$
+$parsePgSqlArgsBat$$validatePgSqlArgsBat$
+$invoke_CreateSPIsSystemUserBat$$invoke_CreateSPIsClusterUserBat$$invoke_CreateSPIsTenantUserBat$$iterate Id16Generators( each invoke_CreateSPNextSchemaIdGenBat empty empty )$$iterate Id32Generators( each invoke_CreateSPNextSchemaIdGenBat empty empty )$$iterate Id64Generators( each invoke_CreateSPNextSchemaIdGenBat empty empty )$$iterate SchemaTables( each invoke_CreateTableIdGensBat )$
+$iterate SchemaTables( each invoke_CreateAuditProcsBat empty empty )$
+$iterate SchemaTables( each invoke_CreateStoredProcsBat empty empty )$
+$iterate SchemaTables( each invoke_CreateDeleteSuffixStoredProcsBat empty empty )$
+$invoke_CreateSPBootstrapBat$
+</GenFile>
+
+	<GenRule GenDef="Table" Name="invoke_CreateAuditProcsBat"
+		>$switch ThisHasChain yes reallyinvoke_CreateSPAuditDbTableNameBat default empty$</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="reallyinvoke_CreateSPAuditDbTableNameBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPAuditDbTableName$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateTableIdGensBat"
+		>$iterate DispensedId16Generators( each invoke_CreateSPNextTableIdGenBat empty empty )$$iterate DispensedId32Generators( each invoke_CreateSPNextTableIdGenBat empty empty )$$iterate DispensedId64Generators( each invoke_CreateSPNextTableIdGenBat empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateStoredProcsBat"
+		>$maybe_invoke_CreateSPCreateDbTableNameBat$$invoke_CreateSPLockDbTableNameBat$$invoke_CreateSPReadDbTableNameBat$$maybe_invoke_CreateSPReadDbTableNameCCBat$$invoke_CreateSPReadDbTableNameAllBat$$switch PageData yes invoke_CreateSPPageDbTableNameAllBat default empty$$maybe_invoke_CreateSPReadDbTableNameCCAllBat$$invoke_SPReadByIndexesBat$$maybe_invoke_CreateSPUpdateDbTableNameBat$$invoke_CreateSPDeleteDbTableNameBat$$switch HasChain yes invoke_CreateSPMoveUpDbTableNameBat default empty$$switch HasChain yes invoke_CreateSPMoveDownDbTableNameBat default empty$
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPMoveUpDbTableNameBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPMoveUpDbTableName$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPMoveDownDbTableNameBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPMoveDownDbTableName$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateDeleteSuffixStoredProcsBat"
+		>$invoke_CreateSPDeleteDbTableNameBySuffixBat$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateSPDeleteDbTableNameBySuffixBat"
+		>$switch HasSuperClassRelation yes invoke_CreateSPDeleteDbTableNameByInhSuffixBat default invoke_CreateSPDeleteDbTableNameByBaseSuffixBat$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateSPDeleteDbTableNameByInhSuffixBat"
+		>$reference SuperClassRelation reference ToTable invoke_CreateSPDeleteDbTableNameBySuffixBat$$iterate Index( each invoke_CreateSPDeleteDbTableNameByNonPrimarySuffixBat empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="invoke_CreateSPDeleteDbTableNameByNonPrimarySuffixBat"
+		>$switch IsPrimaryIndex yes empty default invoke_CreateSPDeleteDbTableNameBySuffixBat$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_CreateSPDeleteDbTableNameByBaseSuffixBat"
+		>$iterate Index( each invoke_CreateSPDeleteDbTableNameBySuffixBat )$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybe_invoke_CreateSPCreateDbTableNameBat"
+		>$switch InheritsBlob yes empty default invoke_CreateSPCreateDbTableNameBat$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybe_invoke_CreateSPUpdateDbTableNameBat"
+		>$switch InheritsBlob yes empty default invoke_CreateSPUpdateDbTableNameBat$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybe_invoke_CreateSPReadDbTableNameCCBat"
+		>$switch HasSubClasses yes invoke_CreateSPReadDbTableNameCCBat default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybe_invoke_CreateSPReadDbTableNameCCAllBat"
+		>$switch HasSubClasses yes invoke_CreateSPReadDbTableNameCCAllBat default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_SPReadByIndexesBat"
+		>$switch HasSuperClassRelation yes invoke_SPReadByInhIndexesBat default invoke_SPReadByBaseIndexesBat$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_SPReadByInhIndexesBat"
+		>$reference SuperClassRelation reference ToTable invoke_SPReadByIndexesBat$$iterate Index( each maybe_invoke_CreateSPReadDbTableNameBySuffixBat )$</GenRule>
+
+	<GenRule GenDef="Table" Name="invoke_SPReadByBaseIndexesBat"
+		>$iterate Index( each invoke_non_nullable_ReadBySuffixProcsBat )$</GenRule>
+
+	<GenRule GenDef="Index" Name="invoke_non_primary_nullable_ReadBySuffixProcsBat"
+		>$switch IsPrimaryIndex yes empty default invoke_non_nullable_ReadBySuffixProcsBat$</GenRule>
+
+	<GenRule GenDef="Index" Name="invoke_non_nullable_ReadBySuffixProcsBat"
+		>$invoke_non_nullable_CreateSPReadDbTableNameBySuffixBat$$invoke_non_nullable_CreateSPReadDbTableNameCCBySuffixBat$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="invoke_CreateSPBootstrapBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPBootstrap$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="invoke_CreateSPIsSystemUserBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPIsSystemUser$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="invoke_CreateSPIsClusterUserBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPIsClusterUser$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="invoke_CreateSPIsTenantUserBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPIsTenantUser$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule GenDef="Id16Gen" Name="invoke_CreateSPNextSchemaIdGenBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPNextSchemaIdGen$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+	<GenRule GenDef="Id32Gen" Name="invoke_CreateSPNextSchemaIdGenBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPNextSchemaIdGen$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+	<GenRule GenDef="Id64Gen" Name="invoke_CreateSPNextSchemaIdGenBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPNextSchemaIdGen$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule GenDef="Id16Gen" Name="invoke_CreateSPNextTableIdGenBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPNextTableIdGen$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+	<GenRule GenDef="Id32Gen" Name="invoke_CreateSPNextTableIdGenBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPNextTableIdGen$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+	<GenRule GenDef="Id64Gen" Name="invoke_CreateSPNextTableIdGenBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPNextTableIdGen$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="maybe_invoke_CreateSPReadDbTableNameBySuffixBat">$switch PageData yes maybe_invoke_CreateSPPageDbTableNameBySuffixBat default empty$$switch IsPrimaryIndex no invoke_CreateSPReadDbTableNameBySuffixBat default empty$</GenRule>
+
+	<GenRule GenDef="Index" Name="maybe_invoke_CreateSPPageDbTableNameBySuffixBat"
+		>$switch IsUnique yes empty default invoke_CreateSPPageDbTableNameBySuffixBat$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="invoke_non_nullable_CreateSPReadDbTableNameBySuffixBat">$invoke_CreateSPReadDbTableNameBySuffixBat$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="invoke_non_nullable_CreateSPReadDbTableNameCCBySuffixBat">$maybe_invoke_CreateSPReadDbTableNameCCBySuffixBat$</GenRule>
+
+	<GenRule GenDef="Index" Name="maybe_invoke_CreateSPReadDbTableNameCCBySuffixBat"
+		>$switch TopHasSubClasses yes invoke_CreateSPReadDbTableNameCCBySuffixBat default empty$</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPCreateDbTableNameBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPCreateDbTableName$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPLockDbTableNameBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPLockDbTableName$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPReadDbTableNameBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPReadDbTableName$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPReadDbTableNameAllBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPReadDbTableNameAll$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPPageDbTableNameAllBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPPageDbTableNameAll$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="invoke_CreateSPReadDbTableNameBySuffixBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPReadDbTableNameBySuffix$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="invoke_CreateSPPageDbTableNameBySuffixBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPPageDbTableNameBySuffix$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPReadDbTableNameCCBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPReadDbTableNameCC$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPReadDbTableNameCCAllBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPReadDbTableNameCCAll$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="invoke_CreateSPReadDbTableNameCCBySuffixBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPReadDbTableNameCCBySuffix$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPUpdateDbTableNameBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPUpdateDbTableName$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="invoke_CreateSPDeleteDbTableNameBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPDeleteDbTableName$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+	<GenRule GenDef="Index" Name="invoke_CreateSPDeleteDbTableNameBySuffixBat"
+		>psql -h %pghost% -d %pgdb% -U %pguser% -a -e -f $dbadminfilename_CreateSPDeleteDbTableNameBySuffix$ &gt;&gt;%logfilename% 2&gt;&amp;1
+</GenRule>
+
+</RuleSet>

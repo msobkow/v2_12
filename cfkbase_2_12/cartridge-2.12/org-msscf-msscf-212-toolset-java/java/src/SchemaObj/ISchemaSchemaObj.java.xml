@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/SchemaObj/ISchemaSchemaObj.java"
+	Revision="2.12"
+	Descr="Java 11 Schema Object interface">
+
+	<GenFile GenDef="SchemaDef" Name="fileISchemaSchemaObjJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$Obj"
+		ExpansionClassName="I$SchemaName$SchemaObjJava"
+		ExpansionKeyName="I$SchemaName$SchemaObjJava"
+		ExpansionFileName="I$SchemaName$SchemaObj.java"
+>// Description: Java 11 Schema Object interface for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$Obj;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$importJavaPackageSchemaName$$JavaSchemaObjImport$$ReferencedJavaSchemaObjImport$
+
+public interface I$SchemaName$SchemaObj$iterate SchemaRefs( first extendISchemaSchemaObj each commaNewlineISchemaSchemaObj empty empty )$
+{$iterate SchemaRefs( each empty empty declISchemaSchemaObj )$$iterate SchemaRefs( each empty empty declISchemaSchemaObjGetSetDbSchemaNameMethods )$$iterate SchemaRefs( each empty empty declISchemaSchemaObjTransactionMethods )$$iterate SchemaRefs( each empty empty declISchemaSchemaObjReleasePreparedStatements )$$iterate SchemaTables( each declISchemaSchemaObjTableObjAccessors empty empty )$$JavaSchemaObjInterface$$ReferencedJavaSchemaObjInterface$}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="extendISchemaSchemaObj">
+	extends I$reference RefSchema SchemaName$SchemaObj</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="commaNewlineISchemaSchemaObj">,
+		I$reference RefSchema SchemaName$SchemaObj</GenRule>
+
+	<GenRule GenDef="Object" Name="declISchemaSchemaObj">
+	$SecSchemaName$Authorization getAuthorization();
+	void setAuthorization( $SecSchemaName$Authorization value );
+
+	I$SecSchemaName$Schema getBackingStore();
+	void setBackingStore( I$SecSchemaName$Schema value );
+
+	String getSchemaName();
+
+	void setSecClusterName( String value );
+	I$SecSchemaName$ClusterObj getSecCluster();
+	void setSecCluster( I$SecSchemaName$ClusterObj value );
+
+	void setSecTenantName( String value );
+	I$SecSchemaName$TenantObj getSecTenant();
+	void setSecTenant( I$SecSchemaName$TenantObj value );
+
+	void setSecUserName( String value );
+	I$SecSchemaName$SecUserObj getSecUser();
+	void setSecUser( I$SecSchemaName$SecUserObj value );
+
+	void setSecSessionId( UUID value );
+	I$SecSchemaName$SecSessionObj getSecSession();
+	void setSecSession( I$SecSchemaName$SecSessionObj value );
+
+	boolean isConnected();
+	boolean connect();
+	boolean connect( String username, String password );
+	boolean connect( String clusterName, String tenantName, String secUserName, String password );
+	void disconnect( boolean doCommit );
+	void logout();
+
+	void minimizeMemory();
+
+	String fileImport( String fileName, String fileContent );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="extendSchemaSchemaObj">
+	extends $reference RefSchema SchemaName$SchemaObj</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="commaNewlineSchemaSchemaObj">,
+		$reference RefSchema SchemaName$SchemaObj</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="importJavaPackageSchemaNameObj"
+		>$reference RefSchema importJavaPackageSchemaNameObj$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="importJavaPackageSchemaNameObj">
+import $lower JavaExpandPackage$.$SchemaName$Obj.*;</GenRule>
+	<GenRule GenDef="Table" Name="importJavaPackageSchemaNameObj"
+		>$popto SchemaDef importJavaPackageSchemaNameObj$</GenRule>
+	<GenRule GenDef="Object" Name="importJavaPackageSchemaNameObj"
+		>$popto SchemaDef importJavaPackageSchemaNameObj$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaSchemaObjInterface"
+		>$iterate SchemaRefs( each ApplyJavaSchemaObjInterface empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaSchemaObjInterface"
+		>$reference RefSchema JavaSchemaObjInterface$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaSchemaObjImport"
+		>$iterate SchemaRefs( each ApplyJavaSchemaObjImport empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaSchemaObjImport"
+		>$reference RefSchema JavaSchemaObjImport$</GenRule>
+
+	<GenRule GenDef="Object" Name="declISchemaSchemaObjReleasePreparedStatements">
+	/**
+	 *	Release any prepared statements acquired by this connection.
+	 *	&lt;p&gt;
+	 *	Resets the prepared statements so they can acquire the new value of
+	 *	&lt;tt&gt;setDbSchemaName()&lt;/tt&gt;.
+	 */
+	void releasePreparedStatements();</GenRule>
+
+	<GenRule GenDef="Object" Name="declISchemaSchemaObjGetSetDbSchemaNameMethods">
+	/**
+	 *	When you first connect to a database, you can opt to specify a database
+	 *	name to be used by the session.
+	 */
+	String getDbSchemaName();
+
+	/**
+	 *	PostgreSQL coerces database schema names to lowercase for consistency.
+	 */
+	String getLowerDbSchemaName();
+
+	/**
+	 *	When you set the database name, the database-specific implementation
+	 *	of this method does a "commit; use database"-type sequence to change
+	 *	to the target database.  This should be specified globally for all
+	 *	database connections in a given cluster, so that all of
+	 *	the application implementation clients are using the same database instance
+	 *	regardless of what's been provided by the cust client implementation,
+	 *	be it as a Java application or a web interface written using JEE.
+	 */
+	void setDbSchemaName( String argDbSchemaName );
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declISchemaSchemaObjTransactionMethods">
+	/**
+	 *	If a transaction is already opened for the schema connection,
+	 *	return false.  If a new transaction is successfully opened,
+	 *	return true.  Otherwise throw a RuntimeException detailing
+	 *	why a transaction could not be initiated.
+	 *
+	 *	This permits the database persistence implementations to
+	 *	switch between participating in an existing transaction
+	 *	or implementing an implicit atomic transaction that is
+	 *	committed or rolled back before the method returns:
+	 *
+	 *		boolean txnInitiated = false;
+	 *		try {
+	 *			txnInitiated = schema.beginTransaction();
+	 *			... business logic and presentation code ...
+	 *			if( txnInitiated ) {
+	 *				schema.commit();
+	 *			}
+	 *		}
+	 *		catch( RuntimeException e ) {
+	 *			if( txnInitiated ) {
+	 *				try {
+	 *					schema.rollback();
+	 *				}
+	 *				catch( RuntimeException e ) {
+	 *				}
+	 *			}
+	 *			... report exception or throw exception with cause ...
+	 *		}
+	 *
+	 *	As the current web-form focused implementation will be managing
+	 *	the transactions in the Servlet page response, I don't need to
+	 *	implement the atomic transaction wrappers yet.
+	 */
+	boolean isTransactionOpen();
+	boolean beginTransaction();
+	void commit();
+	void rollback();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declISchemaSchemaObjTableObjAccessors"
+		>$switch HasDefSchema yes empty default reallyDeclISchemaSchemaObjTableObjAccessors$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyDeclISchemaSchemaObjTableObjAccessors">
+	/**
+	 *	Get the $TableName$ interface for the schema.
+	 *
+	 *	@return	The I$DefSchemaName$$TableName$TableObj interface implementation for the schema.
+	 */
+	I$DefSchemaName$$TableName$TableObj get$TableName$TableObj();
+</GenRule>
+
+</RuleSet>

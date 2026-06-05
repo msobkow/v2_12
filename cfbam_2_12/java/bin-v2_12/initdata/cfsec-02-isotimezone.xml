@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CFSec
+		xmlns="uri://cfsec/cfsecloader"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="uri://cfsec/cfsecloader file:../bin/xsd/cfsec-structured.xsd" >
+	<ISOTimezone Iso8601="-12:00" TZName="GMT-1200" TZHourOffset="-12" TZMinOffset="0" Description="GMT-12:00" Visible="true" />
+	<ISOTimezone Iso8601="-11:30" TZName="GMT-1130" TZHourOffset="-11" TZMinOffset="-30" Description="GMT-11:30" Visible="true" />
+	<ISOTimezone Iso8601="-11:00" TZName="GMT-1100" TZHourOffset="-11" TZMinOffset="0" Description="GMT-11:00" Visible="true" />
+	<ISOTimezone Iso8601="-10:30" TZName="GMT-1030" TZHourOffset="-10" TZMinOffset="-30" Description="GMT-10:30" Visible="true" />
+	<ISOTimezone Iso8601="-10:00" TZName="GMT-1000" TZHourOffset="-10" TZMinOffset="0" Description="GMT-10:00" Visible="true" />
+	<ISOTimezone Iso8601="-09:30" TZName="GMT-0930" TZHourOffset="-9" TZMinOffset="-30" Description="GMT-09:30" Visible="true" />
+	<ISOTimezone Iso8601="-09:00" TZName="GMT-0900" TZHourOffset="-9" TZMinOffset="0" Description="GMT-09:00" Visible="true" />
+	<ISOTimezone Iso8601="-08:30" TZName="GMT-0830" TZHourOffset="-8" TZMinOffset="-30" Description="GMT-08:30" Visible="true" />
+	<ISOTimezone Iso8601="-08:00" TZName="GMT-0800" TZHourOffset="-8" TZMinOffset="0" Description="GMT-08:00" Visible="true" />
+	<ISOTimezone Iso8601="-07:30" TZName="GMT-0730" TZHourOffset="-7" TZMinOffset="-30" Description="GMT-07:30" Visible="true" />
+	<ISOTimezone Iso8601="-07:00" TZName="GMT-0700" TZHourOffset="-7" TZMinOffset="0" Description="GMT-07:00" Visible="true" />
+	<ISOTimezone Iso8601="-06:30" TZName="GMT-0630" TZHourOffset="-6" TZMinOffset="-30" Description="GMT-06:30" Visible="true" />
+	<ISOTimezone Iso8601="-06:00" TZName="GMT-0600" TZHourOffset="-6" TZMinOffset="0" Description="GMT-06:00" Visible="true" />
+	<ISOTimezone Iso8601="-05:30" TZName="GMT-0530" TZHourOffset="-5" TZMinOffset="-30" Description="GMT-05:30" Visible="true" />
+	<ISOTimezone Iso8601="-05:00" TZName="GMT-0500" TZHourOffset="-5" TZMinOffset="0" Description="GMT-05:00" Visible="true" />
+	<ISOTimezone Iso8601="-04:30" TZName="GMT-0430" TZHourOffset="-4" TZMinOffset="-30" Description="GMT-04:30" Visible="true" />
+	<ISOTimezone Iso8601="-04:00" TZName="GMT-0400" TZHourOffset="-4" TZMinOffset="0" Description="GMT-04:00" Visible="true" />
+	<ISOTimezone Iso8601="-03:30" TZName="GMT-0330" TZHourOffset="-3" TZMinOffset="-30" Description="GMT-03:30" Visible="true" />
+	<ISOTimezone Iso8601="-03:00" TZName="GMT-0300" TZHourOffset="-3" TZMinOffset="0" Description="GMT-03:00" Visible="true" />
+	<ISOTimezone Iso8601="-02:30" TZName="GMT-0230" TZHourOffset="-2" TZMinOffset="-30" Description="GMT-02:30" Visible="true" />
+	<ISOTimezone Iso8601="-02:00" TZName="GMT-0200" TZHourOffset="-2" TZMinOffset="0" Description="GMT-02:00" Visible="true" />
+	<ISOTimezone Iso8601="-01:30" TZName="GMT-0130" TZHourOffset="-1" TZMinOffset="-30" Description="GMT-01:30" Visible="true" />
+	<ISOTimezone Iso8601="-01:00" TZName="GMT-0100" TZHourOffset="-1" TZMinOffset="0" Description="GMT-01:00" Visible="true" />
+	<ISOTimezone Iso8601="-00:30" TZName="GMT-0030" TZHourOffset="0" TZMinOffset="-30" Description="GMT-00:30" Visible="true" />
+	<ISOTimezone Iso8601="+00:00" TZName="GMT+0000" TZHourOffset="0" TZMinOffset="0" Description="GMT" Visible="true" />
+	<ISOTimezone Iso8601="+00:30" TZName="GMT+0030" TZHourOffset="0" TZMinOffset="30" Description="GMT+00:30" Visible="true" />
+	<ISOTimezone Iso8601="+01:00" TZName="GMT+0100" TZHourOffset="1" TZMinOffset="0" Description="GMT+01:00" Visible="true" />
+	<ISOTimezone Iso8601="+01:30" TZName="GMT+0130" TZHourOffset="1" TZMinOffset="30" Description="GMT+01:30" Visible="true" />
+	<ISOTimezone Iso8601="+02:00" TZName="GMT+0200" TZHourOffset="2" TZMinOffset="0" Description="GMT+02:00" Visible="true" />
+	<ISOTimezone Iso8601="+02:30" TZName="GMT+0230" TZHourOffset="2" TZMinOffset="30" Description="GMT+02:30" Visible="true" />
+	<ISOTimezone Iso8601="+03:00" TZName="GMT+0300" TZHourOffset="3" TZMinOffset="0" Description="GMT+03:00" Visible="true" />
+	<ISOTimezone Iso8601="+03:30" TZName="GMT+0330" TZHourOffset="3" TZMinOffset="30" Description="GMT+03:30" Visible="true" />
+	<ISOTimezone Iso8601="+04:00" TZName="GMT+0400" TZHourOffset="4" TZMinOffset="0" Description="GMT+04:00" Visible="true" />
+	<ISOTimezone Iso8601="+04:30" TZName="GMT+0430" TZHourOffset="4" TZMinOffset="30" Description="GMT+04:30" Visible="true" />
+	<ISOTimezone Iso8601="+05:00" TZName="GMT+0500" TZHourOffset="5" TZMinOffset="0" Description="GMT+05:00" Visible="true" />
+	<ISOTimezone Iso8601="+05:30" TZName="GMT+0530" TZHourOffset="5" TZMinOffset="30" Description="GMT+05:30" Visible="true" />
+	<ISOTimezone Iso8601="+06:00" TZName="GMT+0600" TZHourOffset="6" TZMinOffset="0" Description="GMT+06:00" Visible="true" />
+	<ISOTimezone Iso8601="+06:30" TZName="GMT+0630" TZHourOffset="6" TZMinOffset="30" Description="GMT+06:30" Visible="true" />
+	<ISOTimezone Iso8601="+07:00" TZName="GMT+0700" TZHourOffset="7" TZMinOffset="0" Description="GMT+07:00" Visible="true" />
+	<ISOTimezone Iso8601="+07:30" TZName="GMT+0730" TZHourOffset="7" TZMinOffset="30" Description="GMT+07:30" Visible="true" />
+	<ISOTimezone Iso8601="+08:00" TZName="GMT+0800" TZHourOffset="8" TZMinOffset="0" Description="GMT+08:00" Visible="true" />
+	<ISOTimezone Iso8601="+08:30" TZName="GMT+0830" TZHourOffset="8" TZMinOffset="30" Description="GMT+08:30" Visible="true" />
+	<ISOTimezone Iso8601="+09:00" TZName="GMT+0900" TZHourOffset="9" TZMinOffset="0" Description="GMT+09:00" Visible="true" />
+	<ISOTimezone Iso8601="+09:30" TZName="GMT+0930" TZHourOffset="9" TZMinOffset="30" Description="GMT+09:30" Visible="true" />
+	<ISOTimezone Iso8601="+10:00" TZName="GMT+1000" TZHourOffset="10" TZMinOffset="0" Description="GMT+10:00" Visible="true" />
+	<ISOTimezone Iso8601="+10:30" TZName="GMT+1030" TZHourOffset="10" TZMinOffset="30" Description="GMT+10:30" Visible="true" />
+	<ISOTimezone Iso8601="+11:00" TZName="GMT+1100" TZHourOffset="11" TZMinOffset="0" Description="GMT+11:00" Visible="true" />
+	<ISOTimezone Iso8601="+11:30" TZName="GMT+1130" TZHourOffset="11" TZMinOffset="30" Description="GMT+11:30" Visible="true" />
+	<ISOTimezone Iso8601="+12:00" TZName="GMT+1200" TZHourOffset="12" TZMinOffset="00" Description="GMT+12:00" Visible="true" />
+</CFSec>

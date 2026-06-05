@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="schema/dbcreate/pgsql/crdb_schema.bash"
+	Revision="2.12"
+	Descr="null">
+
+	<GenRule GenDef="SchemaDef" Name="dataseg_SchemaData1">$lower DbSchemaName$_data1</GenRule>
+
+	<GenRule GenDef="Object" Name="dataseg_SchemaData1">$popto SchemaDef dataseg_SchemaData1$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="dataseg_SchemaIdx1">$lower DbSchemaName$_idx1</GenRule>
+
+	<GenRule GenDef="Object" Name="dataseg_SchemaIdx1">$popto SchemaDef dataseg_SchemaIdx1$</GenRule>
+
+	<GenFile GenDef="SchemaDef" Name="dbadminfile_CreateDatabase"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="pgsql"
+		ExpansionClassName="crdb_$lower DbSchemaName$"
+		ExpansionKeyName="crdb_$lower DbSchemaName$"
+		ExpansionFileName="$dbadminfilename_CreateDatabase$">#!/bin/bash
+#
+#	@(#) $GenPackageDir$/$GenFileName$
+$MssBashScriptLicense$
+$CrDbSchemaBashInitLocals$
+$CrDbSchemaBashParseOptions$
+$CrDbSchemaBashValidateParameters$
+$CrDbSchemaBashCreateTablespaces$
+$CrDbSchemaBashCreateInstance$</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="CrDbSchemaBashInitLocals"
+>#
+#	Initialize locals
+#
+pgdatadir=""
+pgdb=""
+pghost=""
+pgport=""
+pgpwd=""
+pgsrv=""
+pguser=""
+logfilename=""
+parmerrors=""
+TK_DUALCASE_IN_CASE_STATEMENTS=true
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrDbSchemaBashParseOptions">
+#
+#	Parse the command line options
+#
+while [ -n "$$1" ]
+do
+	case "$$1" in
+
+		-D)
+			shift
+			pgdatadir=$$1
+			shift
+			;;
+
+		-d)
+			shift
+			pgdb=$$1
+			shift
+			;;
+
+		-L)
+			shift
+			logfilename=$$1
+			shift
+			;;
+
+		-H)
+			shift
+			pghost=$$1
+			shift
+			;;
+
+		-p)
+			shift
+			pgport=$$1
+			shift
+			;;
+
+		-P)
+			shift
+			pgpwd=$$1
+			shift
+			;;
+
+		-S)
+			shift
+			pgsrv=$$1
+			shift
+			;;
+
+		-U)
+			shift
+			pguser=$$1
+			shift
+			;;
+
+		*)
+			echo &gt;&amp;2 "ERROR: Option $$1 not recognized."
+			parmerrors="Y"
+			shift
+			;;
+	esac
+done
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrDbSchemaBashValidateParameters">
+#
+#	Validate parameters
+#
+
+if [ "$${pguser}" = "" ]; then
+	echo &gt;&amp;2 "WARNING: Postgres DBA login not specified with '-U username', using default 'postgres'"
+fi
+
+if [ "$${pgpwd}" = "" ]; then
+	echo &gt;&amp;2 "ERROR: Password must be specified with '-P password'"
+	parmerrors="Y"
+fi
+
+if [ "$${pghost}" = "" ]; then
+	echo &gt;&amp;2 "ERROR: Server hostname must be specified with '-H hostname'"
+	parmerrors="Y"
+fi
+
+if [ "$${pgdatadir}" = "" ]; then
+	echo &gt;&amp;2 "WARNING: Database data directory was not specified with '-D directory', tablespaces will not be created"
+fi
+
+if [ "$$parmerrors" != "" ]; then
+	echo &gt;&amp;2 "ABORT: Cannot continue"
+	exit 1
+fi
+
+if [ "$${logfilename}" = "" ]; then
+	logfilename=`date +'crdb_$lower DbSchemaName$-%Y%m%d_%Hh%M.log'`
+	echo "" &gt;$${logfilename}
+fi
+
+export PGPASSWORD="$${pgpwd}"
+
+if [ "$${pgport}" != "" ]; then
+	export PGPORT="--port=$${pgport} "
+	export PASSPGPORT="-p $${pgport} "
+else
+	export PGPORT=""
+	export PASSPGPORT=""
+fi
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrDbSchemaBashCreateTablespaces">
+#
+#	Create the tablespaces
+#
+
+if [ "$${pgdatadir}" != "" ]; then
+
+	need_dirs="N"
+
+	if [ ! -d $${pgdatadir} ]; then
+		need_dirs="Y"
+	fi
+
+	if [ ! -d $${pgdatadir}/$lower DbSchemaName$_data1 ]; then
+		need_dirs="Y"
+	fi
+
+	if [ ! -d $${pgdatadir}/$lower DbSchemaName$_idx1 ]; then
+		need_dirs="Y"
+	fi
+
+	if [ "$${need_dirs}" = "Y" ]; then
+		echo "Creating tablespace directories" | tee -a $${logfilename}
+
+		if [ "$${OS}" != "Windows_NT" ]; then
+			su $${pguser} --command="mkdir $${pgdatadir} $${pgdatadir}/$lower DbSchemaName$_data1 $${pgdatadir}/$lower DbSchemaName$_idx1"
+		else
+			runas /user:$${COMPUTERNAME}\\\\$${pguser} "mkdir $${pgdatadir} $${pgdatadir}/$lower DbSchemaName$_data1 $${pgdatadir}/$lower DbSchemaName$_idx1"
+		fi
+	fi
+
+	echo "" | tee -a $${logfilename}
+	echo "Creating tablespaces $lower DbSchemaName$_data1 and $lower DbSchemaName$_idx1" | tee -a $${logfilename}
+	psql -h $${pghost} $${PGPORT} -d template1 -U $${pguser} -a -e -c "create tablespace $lower DbSchemaName$_data1 location '$${pgdatadir}/$lower DbSchemaName$_data1'" &gt;&gt;$${logfilename} 2&gt;&amp;1
+
+	psql -h $${pghost} $${PGPORT} -d template1 -U $${pguser} -a -e -c "create tablespace $lower DbSchemaName$_idx1 location '$${pgdatadir}/$lower DbSchemaName$_idx1'" &gt;&gt;$${logfilename} 2&gt;&amp;1
+
+fi
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CrDbSchemaBashCreateInstance">
+#
+#	Recreate the database instance
+#
+echo "Recreating database $lower DbSchemaName$ ..." | tee -a $${logfilename}
+
+echo "" &gt;&gt;$${logfilename}
+echo "#" &gt;&gt;$${logfilename}
+echo "#	Drop database $lower DbSchemaName$" &gt;&gt;$${logfilename}
+echo "#" &gt;&gt;$${logfilename}
+
+psql -h $${pghost} $${PGPORT} -d template1 -U $${pguser} -a -e -c "drop database $lower DbSchemaName$" &gt;&gt;$${logfilename} 2&gt;&amp;1
+
+echo "" &gt;&gt;$${logfilename}
+echo "#" &gt;&gt;$${logfilename}
+echo "#	Create database $lower DbSchemaName$" &gt;&gt;$${logfilename}
+echo "#" &gt;&gt;$${logfilename}
+
+psql -h $${pghost} $${PGPORT} -d template1 -U $${pguser} -a -e -c "create database $lower DbSchemaName$ tablespace $lower DbSchemaName$_data1" &gt;&gt;$${logfilename} 2&gt;&amp;1
+
+./$dbadminfilename_CreateSchema$ -H $${pghost} $${PASSPGPORT} -d $lower DbSchemaName$ -U $${pguser} -P $${pgpwd} -L $${logfilename}
+</GenRule>
+
+</RuleSet>

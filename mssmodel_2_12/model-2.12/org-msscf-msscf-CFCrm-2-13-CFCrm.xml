@@ -1,0 +1,1224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ *	MSS Code Factory CFCrm 2.13 Contact Resource Management
+ *
+ *	Copyright 2020 Mark Stephen Sobkow
+ *
+ *		This file is part of MSS Code Factory.
+ *
+ *		MSS Code Factory is available under dual commercial license from Mark Stephen
+ *		Sobkow, or under the terms of the GNU General Public License, Version 3
+ *		or later.
+ *
+ *	    MSS Code Factory is free software: you can redistribute it and/or modify
+ *	    it under the terms of the GNU General Public License as published by
+ *	    the Free Software Foundation, either version 3 of the License, or
+ *	    (at your option) any later version.
+ *
+ *	    MSS Code Factory is distributed in the hope that it will be useful,
+ *	    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	    GNU General Public License for more details.
+ *
+ *	    You should have received a copy of the GNU General Public License
+ *	    along with MSS Code Factory.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Please contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ *-->
+<MSSBam
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/mssbam.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/mssbam.xsd http://msscf.org:8088/msscf/2.0.12/xsd/mssbam.xsd"
+		Name="CFCrm"
+		Revision="2.13"
+		Description="MSS Code Factory Customer Resource Management"
+		ProjectRoot="org.msscf.msscf.CFCrm.2.13" >
+	<Tld Name="org" >
+		<TopDomain Name="msscf" >
+			<License Name="MssCFCrmGPLv3"
+					Description="MSS Code Factory Dual Commercial/GNU General Public License V3 for CFCrm">
+MSS Code Factory CFCrm 2.13 Contact Resource Management
+
+Copyright 2020 Mark Stephen Sobkow
+
+	This file is part of MSS Code Factory.
+
+	MSS Code Factory is available under dual commercial license from Mark Stephen
+	Sobkow, or under the terms of the GNU General Public License, Version 3
+	or later.
+
+    MSS Code Factory is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    MSS Code Factory is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with MSS Code Factory.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
+
+Donations to support MSS Code Factory can be made at
+https://www.paypal.com/paypalme2/MarkSobkow
+
+Please contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.</License>
+			<TopProject Name="msscf" >
+				<SubProject Name="CFCrm" >
+					<MajorVersion Name="2" >
+						<MinorVersion Name="13" >
+<SchemaDef Name="CFCrm"
+		DbName="CFCrm213"
+		Description="MSS Code Factory Customer Resource Management"
+		DefaultLicense="org.msscf.MssCFCrmGPLv3"
+		CopyrightHolder="Mark Stephen Sobkow"
+		CopyrightPeriod="2020"
+		AuthorEMail="msobkow@sasktel.net"
+		ProjectURL="http://msscf.org/"
+		PublishURI="https://msscf.sourceforge.io/org-msscf-msscf-CFCrm-2-13-CFCrm.xml" >
+
+	<SchemaRef Name="CFSec"
+			RefModelName="org-msscf-msscf-CFSec-2-13-CFSec"
+			IncludeRoot="org.msscf.msscf.CFSec.2.13.CFSec" />
+
+	<Id64Gen Name="AddressIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="300"
+			BlockSize="1" />
+
+	<Id64Gen Name="AttachmentIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="301"
+			BlockSize="1" />
+
+	<Id64Gen Name="ContactIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="302"
+			BlockSize="1" />
+
+	<Id64Gen Name="ContactListIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="303"
+			BlockSize="1" />
+
+	<Id64Gen Name="ContactURLIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="304"
+			BlockSize="1" />
+
+	<EnumType Name="GenderEnum"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0" >
+		<EnumTag Name="Unknown" EnumCode="0" />
+		<EnumTag Name="Male" EnumCode="1" />
+		<EnumTag Name="Female" EnumCode="2" />
+		<EnumTag Name="TransMale" EnumCode="3" />
+		<EnumTag Name="TransFemale" EnumCode="4" />
+		<EnumTag Name="Neutered" EnumCode="5" />
+		<EnumTag Name="Spayed" EnumCode="6" />
+		<EnumTag Name="Other" EnumCode="7" />
+	</EnumType>
+
+	<Id64Gen Name="MemoIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="305"
+			BlockSize="1" />
+
+	<Id64Gen Name="PhoneIdGen"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Dispenser="Tenant"
+			Slice="306"
+			BlockSize="1" />
+
+	<EnumType Name="SalutationEnum"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0" >
+		<EnumTag Name="None" EnumCode="0" />
+		<EnumTag Name="Mr" EnumCode="1" />
+		<EnumTag Name="Mrs" EnumCode="2" />
+		<EnumTag Name="Miss" EnumCode="3" />
+		<EnumTag Name="Sir" EnumCode="4" />
+		<EnumTag Name="Madam" EnumCode="5" />
+		<EnumTag Name="Honorable" EnumCode="6" />
+	</EnumType>
+
+	<Table Name="Address"
+			TableClassCode="a201"
+			DbName="Address"
+			Label="Address"
+			Description="Addresses are details of a Contact"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="AddressUDescrIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="AddressId"
+				Label="Address Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="AddressIdGen" />
+		<TableCol Name="ContactId"
+				Label="Contact Id"
+				IsNullable="false"
+				DataType="ContactIdGen" />
+		<StringCol Name="Description"
+				IsNullable="false"
+				MaxLen="50"
+				InitValue="" />
+		<StringCol Name="AddrLine1"
+				Label="Address Line 1"
+				IsNullable="true"
+				MaxLen="50" />
+		<StringCol Name="AddrLine2"
+				Label="Address Line 2"
+				IsNullable="true"
+				MaxLen="50" />
+		<StringCol Name="City"
+				IsNullable="true"
+				MaxLen="50" />
+		<StringCol Name="State"
+				IsNullable="true"
+				MaxLen="5" />
+		<TableCol Name="CtryId"
+				Label="Ctry Id"
+				IsNullable="true"
+				DataType="ISOCtryIdGen" />
+		<StringCol Name="Zip"
+				IsNullable="true"
+				MaxLen="15" />
+		<PrimaryIndex Name="AddressIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Address_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="AddressId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="AddressTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Address_xtenant"
+				ShortName="Tenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="AddressContactIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Address_xctc"
+				ShortName="Contact"
+				Suffix="ContactIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+		</Index>
+		<Index Name="AddressUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Address_xudsc"
+				ShortName="UDescr"
+				Suffix="UDescrIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+		<Index Name="AddressCtryIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Address_xcntry"
+				ShortName="CtryIdx"
+				Suffix="CtryIdx" >
+			<IndexCol Name="CtryId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="Attachment"
+			TableClassCode="a202"
+			DbName="Attchmnt"
+			Label="Attachment"
+			Description="Attachments are details of a Contact"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="AttachmentUNameIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="AttachmentId"
+				Label="Attachment Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="AttachmentIdGen" />
+		<TableCol Name="ContactId"
+				Label="Contact Id"
+				IsNullable="false"
+				DataType="ContactIdGen" />
+		<StringCol Name="AttachmentName"
+				IsNullable="false"
+				MaxLen="128"
+				InitValue="" />
+		<StringCol Name="Description"
+				IsNullable="false"
+				MaxLen="512"
+				InitValue="" />
+		<PrimaryIndex Name="AttachmentIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Attachment_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="false" />
+			<IndexCol Name="AttachmentId" IsAscending="false" />
+		</PrimaryIndex>
+		<Index Name="AttachmentTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Attachment_xtenant"
+				ShortName="Tenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="AttachmentContactIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Attachment_xcontact"
+				ShortName="Contact"
+				Suffix="ContactIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+		</Index>
+		<Index Name="AttachmentUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Attachment_xuname"
+				ShortName="UName"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+			<IndexCol Name="AttachmentName" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="AttachmentData"
+			TableClassCode="a203"
+			DbName="AttchmntData"
+			Label="Attachment Data"
+			Description="Attachment data contains the attached file"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="AttachmentId"
+				Label="Attachment Id"
+				IsNullable="false"
+				DataType="AttachmentIdGen" />
+		<TableCol Name="ContactId"
+				Label="Contact Id"
+				IsNullable="false"
+				DataType="ContactIdGen" />
+		<BlobCol Name="Attach"
+				IsNullable="true"
+				MaxLen="1073741824" />
+		<PrimaryIndex Name="AttachmentDataIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="AttData_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="false" />
+			<IndexCol Name="AttachmentId" IsAscending="false" />
+		</PrimaryIndex>
+		<Index Name="AttachmentDataTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="AttData_xtenant"
+				ShortName="Tenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="AttachmentDataContactIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="AttData_xcontact"
+				ShortName="Contact"
+				Suffix="ContactIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="Contact"
+			TableClassCode="a204"
+			DbName="Contact"
+			Label="Contact"
+			Description="Contacts are components of ContactList"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ContactUFullNameIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				Label="Tenant Id"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="ContactId"
+				Label="Contact Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ContactIdGen" />
+		<TableCol Name="ContactListId"
+				Label="Contact List Id"
+				IsNullable="false"
+				DataType="ContactListIdGen" />
+		<TableCol Name="ISOTZoneId"
+				Label="ISO Timezone Id"
+				IsNullable="true"
+				DataType="ISOTZoneIdGen" />
+		<StringCol Name="FullName"
+				Label="Full Name"
+				IsNullable="false"
+				MaxLen="127"
+				InitValue="" />
+		<TableCol Name="Gender"
+				Label="Gender"
+				IsNullable="false"
+				DataType="GenderEnum" />
+		<StringCol Name="GenderOther"
+				Label="Gender Other"
+				IsNullable="true"
+				DbName="gend_oth"
+				MaxLen="32" />
+		<TableCol Name="Salutation"
+				Label="Salutation"
+				IsNullable="false"
+				DbName="salut"
+				DataType="SalutationEnum" />
+		<StringCol Name="SalutationOther"
+				Label="Sal. Other"
+				IsNullable="true"
+				DbName="salut_oth"
+				MaxLen="32" />
+		<StringCol Name="LastName"
+				Label="Last Name"
+				IsNullable="true"
+				MaxLen="80" />
+		<StringCol Name="FirstName"
+				Label="First Name"
+				IsNullable="true"
+				MaxLen="80" />
+		<StringCol Name="MiddleName"
+				Label="Middle Name"
+				IsNullable="true"
+				MaxLen="80" />
+		<StringCol Name="Nickname"
+				Label="Nickname"
+				IsNullable="true"
+				MaxLen="80" />
+		<StringCol Name="Custom"
+				Label="Custom 1"
+				IsNullable="true"
+				MaxLen="254" />
+		<StringCol Name="Custom2"
+				Label="Custom 2"
+				IsNullable="true"
+				MaxLen="254" />
+		<StringCol Name="Custom3"
+				Label="Custom 3"
+				IsNullable="true"
+				MaxLen="254" />
+		<PrimaryIndex Name="ContactIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Contact_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ContactTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Contact_xtenant"
+				ShortName="Tenant"
+				Suffix="ContTentIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="ContactContactListIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Contact_xctl"
+				ShortName="CtcList"
+				Suffix="ContListIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactListId" IsAscending="true" />
+		</Index>
+		<Index Name="ContactGenderIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Contact_xgender"
+				ShortName="GenderIdx"
+				Suffix="GenderIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactListId" IsAscending="true" />
+			<IndexCol Name="Gender" IsAscending="true" />
+		</Index>
+		<Index Name="ContactSalutationIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Contact_xsalut"
+				ShortName="SalutationIdx"
+				Suffix="SalutationIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactListId" IsAscending="true" />
+			<IndexCol Name="Salutation" IsAscending="true" />
+		</Index>
+		<Index Name="ContactUFullNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Contact_xufullname"
+				ShortName="FullName"
+				Suffix="FullNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactListId" IsAscending="true" />
+			<IndexCol Name="FullName" IsAscending="true" />
+		</Index>
+		<Index Name="ContactTimezoneIdx"
+				IsDbMapped="false"
+				IsUnique="false"
+				DbName="Contact_xtz"
+				ShortName="Timezone"
+				Suffix="TimezoneIdx" >
+			<IndexCol Name="ISOTZoneId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ContactList"
+			TableClassCode="a205"
+			DbName="CtcLst"
+			ShortName="CtctLst"
+			Label="Contact List"
+			Description="ContactLists are details of a Tenant"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ContactListUDescrIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="ContactListId"
+				Label="Contact List Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ContactListIdGen" />
+		<TableCol Name="TenantId"
+				Label="Tenant Id"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<StringCol Name="Description"
+				IsNullable="false"
+				MaxLen="50"
+				InitValue="" />
+		<PrimaryIndex Name="ContactListIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="ContactList_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactListId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ContactListTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="ContactList_xtenant"
+				ShortName="Tenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="ContactListUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="ContactList_xudsc"
+				ShortName="UDescr"
+				Suffix="UDescrIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="ContactURL"
+			TableClassCode="a206"
+			DbName="CtcURL"
+			Label="Contact URL"
+			Description="Contact URLs are details of a Contact"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="ContactURLUNameIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="ContactURLId"
+				Label="Contact URL Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="ContactURLIdGen" />
+		<TableCol Name="ContactId"
+				Label="Contact Id"
+				IsNullable="false"
+				DataType="ContactIdGen" />
+		<StringCol Name="Name"
+				IsNullable="false"
+				DbName="safe_name"
+				MaxLen="64"
+				InitValue="" />
+		<StringCol Name="URL"
+				IsNullable="false"
+				MaxLen="2000"
+				InitValue="" />
+		<PrimaryIndex Name="ContactURLIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="CtcURL_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactURLId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="ContactURLTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="CtcURL_xtenant"
+				ShortName="Tenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="ContactURLContactIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="CtcURL_xcontact"
+				ShortName="Contact"
+				Suffix="ContactIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+		</Index>
+		<Index Name="ContactURLUNameIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="CtcURL_xunam"
+				ShortName="UName"
+				Suffix="UNameIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+			<IndexCol Name="Name" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="Memo"
+			TableClassCode="a207"
+			DbName="Memo"
+			Label="Memo"
+			Description="Memos are details of a Contact"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="MemoUDescrIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="MemoId"
+				Label="Memo Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="MemoIdGen" />
+		<TableCol Name="ContactId"
+				Label="Contact Id"
+				IsNullable="false"
+				DataType="ContactIdGen" />
+		<StringCol Name="Description"
+				IsNullable="false"
+				MaxLen="50"
+				InitValue="" />
+		<PrimaryIndex Name="MemoIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Memo_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="MemoId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="MemoTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Memo_xtenant"
+				ShortName="Tenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="MemoContactIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Memo_xcontact"
+				ShortName="Contact"
+				Suffix="MemoContactIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+		</Index>
+		<Index Name="MemoUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Memo_xudsc"
+				ShortName="UDescr"
+				Suffix="UDescrIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="MemoData"
+			TableClassCode="a208"
+			DbName="MemoData"
+			Label="Memo Data"
+			Description="Memo data contains the actual memo text"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="MemoId"
+				Label="Memo Id"
+				IsNullable="false"
+				DataType="MemoIdGen" />
+		<TableCol Name="ContactId"
+				Label="Contact Id"
+				IsNullable="false"
+				DataType="ContactIdGen" />
+		<TextCol Name="MemoText"
+				IsNullable="false"
+				MaxLen="1073741824"
+				InitValue=""
+				XmlElementName="MemoText" />
+		<PrimaryIndex Name="MemoDataIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="MemoData_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="MemoId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="MemoDataTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="MemoData_xtenant"
+				ShortName="Tenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="MemoDataContactIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="MemoData_xcontact"
+				ShortName="Contact"
+				Suffix="MemoDataCtcIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<Table Name="Phone"
+			TableClassCode="a209"
+			DbName="Phone"
+			ShortName="Phn"
+			Label="Phone"
+			Description="Phones are details of a Contact"
+			IsInstantiable="true"
+			HasHistory="true"
+			HasAuditColumns="true"
+			LookupIndex="PhoneUPhoneNumberIdx"
+			LoaderBehaviour="Update"
+			SecScope="Tenant" >
+		<TableCol Name="TenantId"
+				IsNullable="false"
+				DataType="TenantIdGen" />
+		<TableCol Name="PhoneId"
+				Label="Phone Id"
+				IsNullable="false"
+				GenerateId="true"
+				DataType="PhoneIdGen" />
+		<TableCol Name="ContactId"
+				Label="Contact Id"
+				IsNullable="false"
+				DataType="ContactIdGen" />
+		<StringCol Name="Description"
+				IsNullable="false"
+				MaxLen="50"
+				InitValue="" />
+		<StringCol Name="PhoneNumber"
+				Label="Phone Number"
+				IsNullable="false"
+				MaxLen="20"
+				InitValue="" />
+		<PrimaryIndex Name="PhoneIdIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Phone_pidx"
+				ShortName="PIdx"
+				Suffix="IdIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="PhoneId" IsAscending="true" />
+		</PrimaryIndex>
+		<Index Name="PhoneTenantIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Phone_xtenant"
+				ShortName="Tenant"
+				Suffix="TenantIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+		</Index>
+		<Index Name="PhoneContactIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="Phone_xphdt"
+				ShortName="Contact"
+				Suffix="ContactIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+		</Index>
+		<Index Name="PhoneUDescrIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Phone_xudsc"
+				ShortName="UDescr"
+				Suffix="UDescrIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+			<IndexCol Name="Description" IsAscending="true" />
+		</Index>
+		<Index Name="PhoneUPhoneNumberIdx"
+				IsDbMapped="true"
+				IsUnique="true"
+				DbName="Phone_xuphn"
+				ShortName="UPhNum"
+				Suffix="UPhoneNumberIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="ContactId" IsAscending="true" />
+			<IndexCol Name="PhoneNumber" IsAscending="true" />
+		</Index>
+	</Table>
+
+	<TableAddendum FromTable="Address">
+		<Relation Name="AddressTenant"
+				RelationType="Owner"
+				DbName="addr_addrtenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="AddressTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="AddressContact"
+				RelationType="Container"
+				DbName="addr_addrctc"
+				Label="Contact"
+				Suffix="Contact"
+				FromIndex="AddressContactIdx"
+				ToIndex="Contact.ContactIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactId" ToCol="ContactId" />
+		</Relation>
+		<Relation Name="Ctry"
+				RelationType="Lookup"
+				DbName="addr_cntry"
+				Label="Ctry"
+				Suffix="Ctry"
+				FromIndex="AddressCtryIdx"
+				ToIndex="ISOCtry.ISOCtryIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="CtryId" ToCol="ISOCtryId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Attachment">
+		<Relation Name="AttachmentTenant"
+				RelationType="Owner"
+				DbName="attach_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="AttachmentTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="AttachmentContact"
+				RelationType="Container"
+				DbName="attach_ctct"
+				Label="Contact"
+				Suffix="Contact"
+				FromIndex="AttachmentContactIdx"
+				ToIndex="Contact.ContactIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactId" ToCol="ContactId" />
+		</Relation>
+		<Relation Name="Data"
+				RelationType="Components"
+				DbName="attach_data"
+				Label="Data"
+				Suffix="Data"
+				FromIndex="AttachmentIdIdx"
+				ToIndex="AttachmentData.AttachmentDataIdIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="AttachmentId" ToCol="AttachmentId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="AttachmentData">
+		<Relation Name="AttachmentDataTenant"
+				RelationType="Owner"
+				DbName="attdata_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="AttachmentDataTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="AttachmentDataAttachment"
+				RelationType="Container"
+				DbName="attdata_att"
+				Label="Attachment"
+				Suffix="Attachment"
+				FromIndex="AttachmentDataIdIdx"
+				ToIndex="Attachment.AttachmentIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="AttachmentId" ToCol="AttachmentId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Contact">
+		<Relation Name="ContactTenant"
+				RelationType="Owner"
+				DbName="ctct_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="ContactTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="ContactList"
+				RelationType="Container"
+				DbName="ctct_ctctlst"
+				Label="Contact List"
+				Suffix="ContactList"
+				FromIndex="ContactContactListIdx"
+				ToIndex="ContactList.ContactListIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactListId" ToCol="ContactListId" />
+		</Relation>
+		<Relation Name="Address"
+				RelationType="Components"
+				DbName="ctct_addr"
+				Label="Address"
+				Suffix="Address"
+				FromIndex="ContactIdIdx"
+				ToIndex="Address.AddressContactIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactId" ToCol="ContactId" />
+		</Relation>
+		<Relation Name="Phone"
+				RelationType="Components"
+				DbName="ctct_ph"
+				Label="Phone"
+				Suffix="Phone"
+				FromIndex="ContactIdIdx"
+				ToIndex="Phone.PhoneContactIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactId" ToCol="ContactId" />
+		</Relation>
+		<Relation Name="ContactURL"
+				RelationType="Components"
+				DbName="ctct_url"
+				Label="Contact URL"
+				Suffix="ContactURL"
+				FromIndex="ContactIdIdx"
+				ToIndex="ContactURL.ContactURLContactIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactId" ToCol="ContactId" />
+		</Relation>
+		<Relation Name="ContactTimezone"
+				RelationType="Lookup"
+				DbName="ctct_tz"
+				Label="Contact Timezone"
+				Suffix="ContactTimezone"
+				FromIndex="ContactTimezoneIdx"
+				ToIndex="ISOTZone.ISOTZoneIdIdx"
+				IsRequired="false" >
+			<RelationCol Name="ISOTZoneId" ToCol="ISOTZoneId" />
+		</Relation>
+		<Relation Name="Memo"
+				RelationType="Components"
+				DbName="ctct_memo"
+				Label="Memo"
+				Suffix="Memo"
+				FromIndex="ContactIdIdx"
+				ToIndex="Memo.MemoContactIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactId" ToCol="ContactId" />
+		</Relation>
+		<Relation Name="Attachment"
+				RelationType="Components"
+				DbName="ctct_att"
+				Label="Attachment"
+				Suffix="Attachment"
+				FromIndex="ContactIdIdx"
+				ToIndex="Attachment.AttachmentContactIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactId" ToCol="ContactId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ContactList">
+		<Relation Name="ContactListTenant"
+				RelationType="Container"
+				DbName="ctclst_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="ContactListTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="ContactListContact"
+				RelationType="Components"
+				DbName="ctclst_ctct"
+				Label="Contact"
+				Suffix="Contact"
+				FromIndex="ContactListIdIdx"
+				ToIndex="Contact.ContactContactListIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactListId" ToCol="ContactListId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="ContactURL">
+		<Relation Name="ContactURLTenant"
+				RelationType="Owner"
+				DbName="ctcurl_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="ContactURLTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="Contact"
+				RelationType="Container"
+				DbName="ctcurl_ctct"
+				Label="Contact"
+				Suffix="Contact"
+				FromIndex="ContactURLContactIdx"
+				ToIndex="Contact.ContactIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactId" ToCol="ContactId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Memo">
+		<Relation Name="MemoTenant"
+				RelationType="Owner"
+				DbName="memo_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="MemoTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="MemoContact"
+				RelationType="Container"
+				DbName="memo_ctct"
+				Label="Contact"
+				Suffix="Contact"
+				FromIndex="MemoContactIdx"
+				ToIndex="Contact.ContactIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactId" ToCol="ContactId" />
+		</Relation>
+		<Relation Name="MemoData"
+				RelationType="Components"
+				DbName="memo_data"
+				Label="Memo Data"
+				Suffix="MemoData"
+				FromIndex="MemoIdIdx"
+				ToIndex="MemoData.MemoDataIdIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="MemoId" ToCol="MemoId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="MemoData">
+		<Relation Name="MemoDataTenant"
+				RelationType="Owner"
+				DbName="memodata_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="MemoDataTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="MemoDataMemo"
+				RelationType="Container"
+				DbName="memodata_memo"
+				Label="Memo"
+				Suffix="Memo"
+				FromIndex="MemoDataIdIdx"
+				ToIndex="Memo.MemoIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="MemoId" ToCol="MemoId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Phone">
+		<Relation Name="PhoneTenant"
+				RelationType="Owner"
+				DbName="phn_tenant"
+				Label="Tenant"
+				Suffix="Tenant"
+				FromIndex="PhoneTenantIdx"
+				ToIndex="Tenant.TenantIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="Id" />
+		</Relation>
+		<Relation Name="Contact"
+				RelationType="Container"
+				DbName="phn_ctct"
+				Label="Contact"
+				Suffix="Contact"
+				FromIndex="PhoneContactIdx"
+				ToIndex="Contact.ContactIdIdx"
+				IsRequired="true" >
+			<RelationCol Name="TenantId" ToCol="TenantId" />
+			<RelationCol Name="ContactId" ToCol="ContactId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tenant">
+		<Relation Name="ContactList"
+				RelationType="Components"
+				DbName="tenant_ctclst"
+				Label="Contact List"
+				Suffix="CtcList"
+				FromIndex="TenantIdIdx"
+				ToIndex="ContactList.ContactListTenantIdx"
+				IsRequired="false"
+				IsXsdContainer="true" >
+			<RelationCol Name="Id" ToCol="TenantId" />
+		</Relation>
+	</TableAddendum>
+
+	<TableAddendum FromTable="Attachment">
+		<DelDep Name="DelData" DelDepChain="Data" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Contact">
+		<DelDep Name="DelAddresses" DelDepChain="Address" />
+		<DelDep Name="DelPhones" DelDepChain="Phone" />
+		<DelDep Name="DelURLs" DelDepChain="ContactURL" />
+		<DelDep Name="DelMemos" DelDepChain="Memo" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="ContactList">
+		<DelDep Name="DelContacts" DelDepChain="ContactListContact" />
+		<DelDep Name="DelAddresses" DelDepChain="ContactListContact.Address" />
+		<DelDep Name="DelPhones" DelDepChain="ContactListContact.Phone" />
+		<DelDep Name="DelURLs" DelDepChain="ContactListContact.ContactURL" />
+		<DelDep Name="DelMemos" DelDepChain="ContactListContact.Memo" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Memo">
+		<DelDep Name="DelData" DelDepChain="MemoData" />
+	</TableAddendum>
+
+	<TableAddendum FromTable="Tenant">
+		<DelDep Name="DelContactLists" DelDepChain="ContactList" />
+	</TableAddendum>
+</SchemaDef>
+						</MinorVersion>
+					</MajorVersion>
+				</SubProject>
+			</TopProject>
+		</TopDomain>
+	</Tld>
+</MSSBam>

@@ -1,0 +1,2608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+javafx"
+	Name="src/SchemaJavaFXTableAttrPane.java"
+	Revision="2.12"
+	Descr="Java 11 JavaFX Attribute Pane for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaJavaFXTableAttrPaneJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$JavaFX/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$JavaFX"
+		ExpansionClassName="$SchemaName$JavaFX$TableName$TableAttrPaneJava"
+		ExpansionKeyName="$SchemaName$JavaFX$TableName$TableAttrPaneJava"
+		ExpansionFileName="$SchemaName$JavaFX$TableName$AttrPane.java"
+>$SchemaJavaFXTableAttrPanePreamble$
+/**
+ *	$SchemaName$JavaFX$TableName$AttrPane JavaFX Attribute Pane implementation
+ *	for $TableName$.
+ */
+public class $SchemaName$JavaFX$TableName$AttrPane
+extends CFGridPane
+implements I$DefSchemaName$JavaFX$TableName$PaneCommon
+{
+	protected ICFFormManager cfFormManager = null;
+	protected I$SchemaName$JavaFXSchema javafxSchema = null;
+	boolean javafxIsInitializing = true;
+$declAttrPaneEnumObservableLists$$declAttrPaneParentClasses$$declAttrPaneLookupClasses$$declAttrPaneFieldClasses$$declAttrPaneParentWidgets$$declAttrPaneLookupWidgets$$declAttrPaneFields$
+$implConstructJavaFXTableAttrPane$$implGetSetCFFormManager$$implGetJavaFXSchema$$implAttrPaneGetSetJavaFXFocus$$implAttrPaneParentWidgets$$implAttrPaneLookupWidgets$$implAttrPaneFields$$implAttrPaneMethodPopulateFields$$implAttrPaneMethodPostFields$$implSetPaneModeAttrPane$$implAdjustComponentEnableStates$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="SchemaJavaFXTableAttrPanePreamble"
+>// Description: Java 11 JavaFX Attribute Pane implementation for $TableName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$JavaFX;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.Priority;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.JavaFX.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.JavaFX.CFReferenceEditor.ICFReferenceCallback;
+import org.apache.commons.codec.binary.Base64;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameJavaFX empty empty )$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAdjustComponentEnableStates">
+	public void adjustComponentEnableStates() {
+		CFPane.PaneMode mode = getPaneMode();
+		boolean isEditing;
+		switch( mode ) {
+			case Unknown:
+			case View:
+			case Delete:
+				isEditing = false;
+				break;
+			case Add:
+			case Edit:
+			case Update:
+				isEditing = true;
+				break;
+			default:
+				isEditing = false;
+				break;
+		}
+		if( isEditing ) {
+			I$DefSchemaName$$TableName$Obj focus = getJavaFXFocusAs$TableName$();
+			if( focus == null ) {
+				isEditing = false;
+			}
+			else if( null == focus.getEdit() ) {
+				isEditing = false;
+			}
+		}$wireAdjustEnableAttrPaneParentWidgets$$wireAdjustEnableAttrPaneLookupWidgets$$wireAdjustEnableAttrPaneFields$
+	}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireAdjustEnableAttrPaneChainRelFalseElseIsEditing"
+		>$switch IsChainRelation yes wireAdjustEnableAttrPaneFalse default wireAdjustEnableAttrPaneIsEditing$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireAdjustEnableAttrPaneFalse">false</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireAdjustEnableAttrPaneIsEditing">isEditing</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAdjustEnableAttrPaneParentWidgets"
+		>$switch HasSuperClassRelation yes wireAdjustEnableAttrPaneInhParentWidgets default wireAdjustEnableAttrPaneBaseParentWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAdjustEnableAttrPaneInhParentWidgets"
+		>$reference SuperClassRelation reference ToTable wireAdjustEnableAttrPaneParentWidgets$$iterate Relation( each wireAdjustEnableAttrPaneFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAdjustEnableAttrPaneBaseParentWidgets"
+		>$iterate Relation( each wireAdjustEnableAttrPaneFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireAdjustEnableAttrPaneFilterParentWidgets"
+		>$switch RelationTypeTag
+			Parent wireAdjustEnableAttrPaneEmitParentWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireAdjustEnableAttrPaneEmitParentWidgets"
+		>$switch IsChainRelation yes empty default reallyWireAdjustEnableAttrPaneEmitParentWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyWireAdjustEnableAttrPaneEmitParentWidgets">
+		if( javafxReferenceParent$Suffix$ != null ) {
+			javafxReferenceParent$Suffix$.setCustomDisable( ! $wireAdjustEnableAttrPaneChainRelFalseElseIsEditing$ );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAdjustEnableAttrPaneLookupWidgets"
+		>$switch HasSuperClassRelation yes wireAdjustEnableAttrPaneInhLookupWidgets default wireAdjustEnableAttrPaneBaseLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAdjustEnableAttrPaneInhLookupWidgets"
+		>$reference SuperClassRelation reference ToTable wireAdjustEnableAttrPaneLookupWidgets$$iterate Relation( each wireAdjustEnableAttrPaneFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAdjustEnableAttrPaneBaseLookupWidgets"
+		>$iterate Relation( each wireAdjustEnableAttrPaneFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireAdjustEnableAttrPaneFilterLookupWidgets"
+		>$switch RelationTypeTag
+			Lookup wireAdjustEnableAttrPaneEmitLookupWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireAdjustEnableAttrPaneEmitLookupWidgets"
+		>$switch IsChainRelation yes empty default reallyWireAdjustEnableAttrPaneEmitLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyWireAdjustEnableAttrPaneEmitLookupWidgets">
+		if( javafxReferenceLookup$Suffix$ != null ) {
+			javafxReferenceLookup$Suffix$.setCustomDisable( ! $wireAdjustEnableAttrPaneChainRelFalseElseIsEditing$ );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAdjustEnableAttrPaneFields"
+		>$switch HasSuperClassRelation yes wireAdjustEnableAttrPaneInhFields default wireAdjustEnableAttrPaneBaseFields$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAdjustEnableAttrPaneInhFields"
+		>$reference SuperClassRelation reference ToTable wireAdjustEnableAttrPaneFields$$iterate Columns( each wireAdjustEnableAttrPaneDataFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAdjustEnableAttrPaneDataFieldCol"
+		>$switch ColumnInPrimaryIndex yes empty default wireAdjustEnableAttrPaneMaybeFieldCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAdjustEnableAttrPaneBaseFields"
+		>$iterate Columns( each wireAdjustEnableAttrPaneMaybeFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAdjustEnableAttrPaneMaybeFieldCol"
+		>$switch BaseModelAtomClass BlobDef empty default wireAdjustEnableAttrPaneFieldCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAdjustEnableAttrPaneFieldCol"
+		>$switch ColumnInContainerOrNamedLookupRelation no wireAdjustEnableAttrPaneEmitFieldCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAdjustEnableAttrPaneEmitFieldCol"
+		>$switch ColumnInPrimaryIndex yes wireAdjustEnableAttrPaneEmitFieldColForceDisable default wireAdjustEnableAttrPaneEmitFieldColDoAdjust$</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAdjustEnableAttrPaneEmitFieldColForceDisable">
+		if( javafxEditor$Name$ != null ) {
+			javafxEditor$Name$.setDisable( true );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAdjustEnableAttrPaneEmitFieldColDoAdjust">
+		if( javafxEditor$Name$ != null ) {
+			javafxEditor$Name$.setDisable( ! isEditing );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAttrPane">
+	public void setPaneMode( CFPane.PaneMode value ) {
+		final String S_ProcName = "setPaneMode";
+		CFPane.PaneMode oldValue = getPaneMode();
+		if( oldValue == value ) {
+			return;
+		}
+		I$DefSchemaName$$TableName$Obj focus = getJavaFXFocusAs$TableName$();
+		if( ( value != CFPane.PaneMode.Unknown ) &amp;&amp; ( value != CFPane.PaneMode.View ) ) {
+			if( focus == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"javaFXFocus" );
+			}
+		}
+		I$DefSchemaName$$TableName$EditObj editObj;
+		if( focus != null ) {
+			editObj  = (I$DefSchemaName$$TableName$EditObj)focus.getEdit();
+		}
+		else {
+			editObj = null;
+		}
+		switch( value ) {
+			case Unknown:$implSetPaneModeAttrPaneSetToUnknown$
+				break;
+			case Add:$implSetPaneModeAttrPaneSetToAdd$
+				break;
+			case View:$implSetPaneModeAttrPaneSetToView$
+				break;
+			case Edit:$implSetPaneModeAttrPaneSetToEdit$
+				break;
+			case Update:$implSetPaneModeAttrPaneSetToUpdate$
+				break;
+			case Delete:$implSetPaneModeAttrPaneSetToDelete$
+				break;
+			default:$implSetPaneModeAttrPaneSetToUnknown$
+				break;
+		}
+		super.setPaneMode( value );
+		populateFields();
+		adjustComponentEnableStates();
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAttrPaneSetToUnknown">
+				switch( oldValue ) {
+					case Unknown:
+						break;
+					default:
+						if( editObj != null ) {
+							editObj.endEdit();
+							editObj = null;
+						}
+						break;
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAttrPaneSetToAdd">
+				switch( oldValue ) {
+					case Unknown:
+					case Add:
+					case View:
+						if( editObj == null ) {
+							if( focus != null ) {
+								if( ! focus.getIsNew() ) {
+									throw new CFLibUsageException( getClass(),
+										S_ProcName,
+										"Transitioning to PaneMode Add requires Focus.getIsNew() to be true" );
+								}
+								editObj = (I$DefSchemaName$$TableName$EditObj)focus.beginEdit();
+								if( editObj == null ) {
+									throw new CFLibUsageException( getClass(),
+										S_ProcName,
+										"Expected beginEdit() to return a new edition of the focus object" );
+								}
+							}
+							else {
+								throw new CFLibNullArgumentException( getClass(),
+									S_ProcName,
+									0,
+									"focus" );
+							}
+						}
+						break;
+					case Edit:
+						throw new CFLibUsageException( getClass(),
+							S_ProcName,
+							"Cannot transition PaneMode Edit to Add" );
+					case Update:
+						if( ( editObj == null ) || ( ! editObj.getIsNew() ) ) {
+							throw new CFLibUsageException( getClass(),
+								S_ProcName,
+								"Cannot transition PaneMode Update to Add" );
+						}
+						break;
+					case Delete:
+						throw new CFLibUsageException( getClass(),
+							S_ProcName,
+							"Cannot transition PaneMode Delete to Add" );
+					default:
+						throw new CFLibUsageException( getClass(),
+							S_ProcName,
+							"Cannot transition PaneMode default to Add" );
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAttrPaneSetToView">
+				switch( oldValue ) {
+					case Unknown:
+						break;
+					case View:
+						break;
+					case Edit:
+						break;
+					case Update:
+						break;
+					case Delete:
+						break;
+					default:
+						throw new CFLibUsageException( getClass(),
+							S_ProcName,
+							"Cannot transition PaneMode " + oldValue + " to View" );
+				}
+				if( editObj != null ) {
+					editObj.endEdit();
+					editObj = null;
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAttrPaneSetToEdit">
+				switch( oldValue ) {$implSetPaneModeAttrPaneSetToEditPartOne$$implSetPaneModeAttrPaneSetToEditPartTwo$
+					default:
+						throw new CFLibUsageException( getClass(),
+							S_ProcName,
+							"Cannot transition PaneMode " + oldValue + " to Edit" ); 
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAttrPaneSetToEditPartOne">
+					case Unknown:
+						if( editObj == null ) {
+							editObj = (I$DefSchemaName$$TableName$EditObj)focus.beginEdit();
+							if( editObj == null ) {
+								throw new CFLibUsageException( getClass(),
+									S_ProcName,
+									"Expected beginEdit() to return a new edition of the focus object" );
+							}
+						}
+						break;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAttrPaneSetToEditPartTwo">
+					case View:
+						if( editObj == null ) {
+							editObj = (I$DefSchemaName$$TableName$EditObj)focus.beginEdit();
+							if( editObj == null ) {
+								throw new CFLibUsageException( getClass(),
+									S_ProcName,
+									"Expected beginEdit() to return a new edition of the focus object" );
+							}
+						}
+						break;
+					case Edit:
+						if( editObj == null ) {
+							editObj = (I$DefSchemaName$$TableName$EditObj)focus.beginEdit();
+							if( editObj == null ) {
+								throw new CFLibUsageException( getClass(),
+									S_ProcName,
+									"Expected beginEdit() to return a new edition of the focus object" );
+							}
+						}
+						break;
+					case Update:
+						if( editObj == null ) {
+							throw new CFLibUsageException( getClass(),
+								S_ProcName,
+								"Cannot transition PaneMode " + oldValue + " to Edit" ); 
+						}
+						break;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAttrPaneSetToUpdate">
+				if( ( oldValue != CFPane.PaneMode.Edit ) &amp;&amp; ( oldValue != CFPane.PaneMode.Add ) ) {
+					throw new CFLibUsageException( getClass(),
+						S_ProcName,
+						"Cannot transition from mode " + oldValue + " to Update" );
+				}
+				super.setPaneMode( value );
+				if( editObj != null ) {
+					postFields();
+					if( editObj.getIsNew() ) {
+						focus = (I$SchemaName$$TableName$Obj)editObj.create();
+						setJavaFXFocus( focus );
+					}
+					else {
+						editObj.update();
+					}
+					editObj = null;
+				}
+				setPaneMode( CFPane.PaneMode.View );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAttrPaneSetToDelete">
+				switch( oldValue ) {$implSetPaneModeAttrPaneSetToDeletePartOne$$implSetPaneModeAttrPaneSetToDeletePartTwo$
+					default:
+						throw new CFLibUsageException( getClass(),
+							S_ProcName,
+							"Cannot transition PaneMode " + oldValue + " to Delete" ); 
+				}
+				editObj.deleteInstance();
+				editObj = null;
+				setJavaFXFocus( null );
+				setPaneMode( CFPane.PaneMode.Unknown );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAttrPaneSetToDeletePartOne">
+					case View:
+						if( focus != null ) {
+							if( editObj == null ) {
+								editObj = (I$DefSchemaName$$TableName$EditObj)focus.beginEdit();
+								if( editObj == null ) {
+									throw new CFLibUsageException( getClass(),
+										S_ProcName,
+										"Expected beginEdit() to return a new edition of the focus object" );
+								}
+							}
+						}
+						break;
+					case Edit:
+						if( focus != null ) {
+							if( editObj == null ) {
+								editObj = (I$DefSchemaName$$TableName$EditObj)focus.beginEdit();
+								if( editObj == null ) {
+									throw new CFLibUsageException( getClass(),
+										S_ProcName,
+										"Expected beginEdit() to return a new edition of the focus object" );
+								}
+							}
+						}
+						break;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeAttrPaneSetToDeletePartTwo">
+					case Update:
+						throw new CFLibUsageException( getClass(),
+							S_ProcName,
+							"Cannot transition PaneMode Update to Delete" ); 
+					case Delete:
+						if( editObj == null ) {
+							editObj = (I$DefSchemaName$$TableName$EditObj)focus.beginEdit();
+							if( editObj == null ) {
+								throw new CFLibUsageException( getClass(),
+									S_ProcName,
+									"Expected beginEdit() to return a new edition of the focus object" );
+							}
+						}
+						break;</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneFields"
+		>$switch HasSuperClassRelation yes declAttrPaneInhFields default declAttrPaneBaseFields$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneInhFields"
+		>$reference SuperClassRelation reference ToTable declAttrPaneFields$$iterate Columns( each declAttrPaneDataFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneDataFieldCol"
+		>$switch ColumnInPrimaryIndex yes empty default declAttrPaneMaybeFieldCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneBaseFields"
+		>$iterate Columns( each declAttrPaneMaybeFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneMaybeFieldCol"
+		>$switch BaseModelAtomClass BlobDef empty default declAttrPaneFieldCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneFieldCol"
+		>$switch ColumnInContainerOrNamedLookupRelation no declAttrPaneEmitFieldCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitFieldCol">
+	protected $Name$CFLabel javafxLabel$Name$ = null;
+	protected $Name$Editor javafxEditor$Name$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneFields"
+		>$switch HasSuperClassRelation yes implAttrPaneInhFields default implAttrPaneBaseFields$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneInhFields"
+		>$reference SuperClassRelation reference ToTable implAttrPaneFields$$iterate Columns( each implAttrPaneDataFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPaneDataFieldCol"
+		>$switch ColumnInPrimaryIndex yes empty default implAttrPaneMaybeFieldCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneBaseFields"
+		>$iterate Columns( each implAttrPaneMaybeFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPaneMaybeFieldCol"
+		>$switch BaseModelAtomClass BlobDef empty default implAttrPaneFieldCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPaneFieldCol"
+		>$switch ColumnInContainerOrNamedLookupRelation no implAttrPaneEmitFieldCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPaneEmitFieldCol">
+	public $Name$CFLabel getJavaFXLabel$Name$() {
+		if( javafxLabel$Name$ == null ) {
+			javafxLabel$Name$ = new $Name$CFLabel();
+		}
+		return( javafxLabel$Name$ );
+	}
+
+	public void setJavaFXLabel$Name$( $Name$CFLabel value ) {
+		javafxLabel$Name$ = value;
+	}
+
+	public $Name$Editor getJavaFXEditor$Name$() {
+		if( javafxEditor$Name$ == null ) {
+			javafxEditor$Name$ = new $Name$Editor();
+		}
+		return( javafxEditor$Name$ );
+	}
+
+	public void setJavaFXEditor$Name$( $Name$Editor value ) {
+		javafxEditor$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneParentWidgets"
+		>$switch HasSuperClassRelation yes declAttrPaneInhParentWidgets default declAttrPaneBaseParentWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneInhParentWidgets"
+		>$reference SuperClassRelation reference ToTable declAttrPaneParentWidgets$$iterate Relation( each declAttrPaneFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneBaseParentWidgets"
+		>$iterate Relation( each declAttrPaneFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declAttrPaneFilterParentWidgets"
+		>$switch RelationTypeTag
+			Parent declAttrPaneEmitParentWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declAttrPaneEmitParentWidgets"
+		>$switch IsChainRelation yes empty default reallyDeclAttrPaneEmitParentWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyDeclAttrPaneEmitParentWidgets">
+	protected I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj javafxParent$Suffix$Obj = null;
+	protected $Name$CFLabel javafxLabelParent$Suffix$ = null;
+	protected $Name$CFReferenceEditor javafxReferenceParent$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneParentWidgets"
+		>$switch HasSuperClassRelation yes implAttrPaneInhParentWidgets default implAttrPaneBaseParentWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneInhParentWidgets"
+		>$reference SuperClassRelation reference ToTable implAttrPaneParentWidgets$$iterate Relation( each implAttrPaneFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneBaseParentWidgets"
+		>$iterate Relation( each implAttrPaneFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPaneFilterParentWidgets"
+		>$switch RelationTypeTag
+			Parent implAttrPaneEmitParentWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPaneEmitParentWidgets"
+		>$switch IsChainRelation yes empty default reallyImplAttrPaneEmitParentWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyImplAttrPaneEmitParentWidgets">
+	public I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj getJavaFXParent$Suffix$Obj() {
+		return( javafxParent$Suffix$Obj );
+	}
+
+	public void setJavaFXParent$Suffix$Obj( I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj value ) {
+		javafxParent$Suffix$Obj = value;
+	}
+
+	public CFLabel getJavaFXLabelParent$Suffix$() {
+		if( javafxLabelParent$Suffix$ == null ) {
+			javafxLabelParent$Suffix$ = new $Name$CFLabel();
+		}
+		return( javafxLabelParent$Suffix$ );
+	}
+
+	public CFReferenceEditor getJavaFXReferenceParent$Suffix$() {
+		if( javafxReferenceParent$Suffix$ == null ) {
+			javafxReferenceParent$Suffix$ = new $Name$CFReferenceEditor();
+		}
+		return( javafxReferenceParent$Suffix$ );
+	}
+
+	public void setJavaFXReferenceParent$Suffix$( $Name$CFReferenceEditor value ) {
+		javafxReferenceParent$Suffix$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneLookupWidgets"
+		>$switch HasSuperClassRelation yes declAttrPaneInhLookupWidgets default declAttrPaneBaseLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneInhLookupWidgets"
+		>$reference SuperClassRelation reference ToTable declAttrPaneLookupWidgets$$iterate Relation( each declAttrPaneFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneBaseLookupWidgets"
+		>$iterate Relation( each declAttrPaneFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declAttrPaneFilterLookupWidgets"
+		>$switch RelationTypeTag
+			Lookup declAttrPaneEmitLookupWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declAttrPaneEmitLookupWidgets"
+		>$switch IsChainRelation yes empty default reallyDeclAttrPaneEmitLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyDeclAttrPaneEmitLookupWidgets">
+	protected I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj javafxLookup$Suffix$Obj = null;
+	protected $Name$CFLabel javafxLabelLookup$Suffix$ = null;
+	protected $Name$CFReferenceEditor javafxReferenceLookup$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneLookupWidgets"
+		>$switch HasSuperClassRelation yes implAttrPaneInhLookupWidgets default implAttrPaneBaseLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneInhLookupWidgets"
+		>$reference SuperClassRelation reference ToTable implAttrPaneLookupWidgets$$iterate Relation( each implAttrPaneFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneBaseLookupWidgets"
+		>$iterate Relation( each implAttrPaneFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPaneFilterLookupWidgets"
+		>$switch RelationTypeTag
+			Lookup implAttrPaneEmitLookupWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPaneEmitLookupWidgets"
+		>$switch IsChainRelation yes empty default reallyImplAttrPaneEmitLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyImplAttrPaneEmitLookupWidgets">
+	public I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj getJavaFXLookup$Suffix$Obj() {
+		return( javafxLookup$Suffix$Obj );
+	}
+
+	public void setJavaFXLookup$Suffix$Obj( I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj value ) {
+		javafxLookup$Suffix$Obj = value;
+	}
+
+	public CFLabel getJavaFXLabelLookup$Suffix$() {
+		if( javafxLabelLookup$Suffix$ == null ) {
+			javafxLabelLookup$Suffix$ = new $Name$CFLabel();
+		}
+		return( javafxLabelLookup$Suffix$ );
+	}
+
+	public CFReferenceEditor getJavaFXReferenceLookup$Suffix$() {
+		if( javafxReferenceLookup$Suffix$ == null ) {
+			javafxReferenceLookup$Suffix$ = new $Name$CFReferenceEditor();
+		}
+		return( javafxReferenceLookup$Suffix$ );
+	}
+
+	public void setJavaFXReferenceLookup$Suffix$( $Name$CFReferenceEditor value ) {
+		javafxReferenceLookup$Suffix$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetJavaFXSchema">
+	public I$SchemaName$JavaFXSchema getJavaFXSchema() {
+		return( javafxSchema );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneGetSetJavaFXFocus">
+	public void setJavaFXFocus( ICFLibAnyObj value ) {
+		final String S_ProcName = "setJavaFXFocus";
+		if( ( value == null ) || ( value instanceof I$DefSchemaName$$TableName$Obj ) ) {
+			super.setJavaFXFocus( value );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				S_ProcName,
+				"value",
+				value,
+				"I$DefSchemaName$$TableName$Obj" );
+		}
+		populateFields();
+		adjustComponentEnableStates();
+	}
+
+	public I$DefSchemaName$$TableName$Obj getJavaFXFocusAs$TableName$() {
+		return( (I$DefSchemaName$$TableName$Obj)getJavaFXFocus() );
+	}
+
+	public void setJavaFXFocusAs$TableName$( I$DefSchemaName$$TableName$Obj value ) {
+		setJavaFXFocus( value );
+	}
+
+	public I$DefSchemaName$$TableName$Obj getEffJavaFXFocus() {
+		I$DefSchemaName$$TableName$Obj eff = (I$DefSchemaName$$TableName$Obj)getJavaFXFocus();
+		if( eff != null ) {
+			if( null != eff.getEdit() ) {
+				eff = (I$DefSchemaName$$TableName$Obj)eff.getEdit();
+			}
+		}
+		return( eff );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableAttrPane">
+	public $SchemaName$JavaFX$TableName$AttrPane( ICFFormManager formManager, I$SchemaName$JavaFXSchema argSchema, I$DefSchemaName$$TableName$Obj argFocus ) {
+		super();
+		Control ctrl;
+		CFLabel label;
+		CFReferenceEditor reference;
+		final String S_ProcName = "construct-schema-focus";
+		if( formManager == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"formManager" );
+		}
+		cfFormManager = formManager;
+		if( argSchema == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"argSchema" );
+		}
+		// argFocus is optional; focus may be set later during execution as
+		// conditions of the runtime change.
+		javafxSchema = argSchema;
+		setJavaFXFocusAs$TableName$( argFocus );
+		setPadding( new Insets(5) );
+		setHgap( 5 );
+		setVgap( 5 );
+		setAlignment( Pos.CENTER );
+		ColumnConstraints column1 = new ColumnConstraints();
+		column1.setPercentWidth( 100 );
+		getColumnConstraints().addAll( column1 );
+		int gridRow = 0;$wireAttrPaneParentWidgets$$wireAttrPaneLookupWidgets$$wireAttrPaneFields$
+		populateFields();
+		adjustComponentEnableStates();
+		javafxIsInitializing = false;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAttrPaneParentWidgets"
+		>$switch HasSuperClassRelation yes wireAttrPaneInhParentWidgets default wireAttrPaneBaseParentWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAttrPaneInhParentWidgets"
+		>$reference SuperClassRelation reference ToTable wireAttrPaneParentWidgets$$iterate Relation( each wireAttrPaneFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAttrPaneBaseParentWidgets"
+		>$iterate Relation( each wireAttrPaneFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireAttrPaneFilterParentWidgets"
+		>$switch RelationTypeTag
+			Parent wireAttrPaneEmitParentWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireAttrPaneEmitParentWidgets"
+		>$switch IsChainRelation yes empty default reallyWireAttrPaneEmitParentWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyWireAttrPaneEmitParentWidgets">
+		label = getJavaFXLabelParent$Suffix$();
+		setHalignment( label, HPos.LEFT );
+		setValignment( label, VPos.BOTTOM );
+		add( label, 0, gridRow );
+		gridRow ++;
+
+		reference = getJavaFXReferenceParent$Suffix$();
+		setHalignment( reference, HPos.LEFT );
+		add( reference, 0, gridRow );
+		gridRow ++;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAttrPaneLookupWidgets"
+		>$switch HasSuperClassRelation yes wireAttrPaneInhLookupWidgets default wireAttrPaneBaseLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAttrPaneInhLookupWidgets"
+		>$reference SuperClassRelation reference ToTable wireAttrPaneLookupWidgets$$iterate Relation( each wireAttrPaneFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAttrPaneBaseLookupWidgets"
+		>$iterate Relation( each wireAttrPaneFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireAttrPaneFilterLookupWidgets"
+		>$switch RelationTypeTag
+			Lookup wireAttrPaneEmitLookupWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireAttrPaneEmitLookupWidgets"
+		>$switch IsChainRelation yes empty default reallyWireAttrPaneEmitLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyWireAttrPaneEmitLookupWidgets">
+		label = getJavaFXLabelLookup$Suffix$();
+		setHalignment( label, HPos.LEFT );
+		setValignment( label, VPos.BOTTOM );
+		add( label, 0, gridRow );
+		gridRow ++;
+
+		reference = getJavaFXReferenceLookup$Suffix$();
+		setHalignment( reference, HPos.LEFT );
+		add( reference, 0, gridRow );
+		gridRow ++;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAttrPaneFields"
+		>$switch HasSuperClassRelation yes wireAttrPaneInhFields default wireAttrPaneBaseFields$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAttrPaneInhFields"
+		>$reference SuperClassRelation reference ToTable wireAttrPaneFields$$iterate Columns( each wireAttrPaneDataFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAttrPaneDataFieldCol"
+		>$switch ColumnInPrimaryIndex no wireAttrPaneMaybeFieldCol default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireAttrPaneBaseFields"
+		>$iterate Columns( each wireAttrPaneMaybeFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAttrPaneMaybeFieldCol"
+		>$switch BaseModelAtomClass BlobDef empty default wireAttrPaneFieldCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAttrPaneFieldCol"
+		>$switch ColumnInContainerOrNamedLookupRelation no wireAttrPaneEmitFieldCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAttrPaneEmitFieldCol">
+		label = getJavaFXLabel$Name$();
+		setHalignment( label, HPos.LEFT );
+		setValignment( label, VPos.BOTTOM );
+		add( label, 0, gridRow );
+		gridRow ++;
+
+		ctrl = getJavaFXEditor$Name$();
+		setHalignment( ctrl, HPos.LEFT );
+		add( ctrl, 0, gridRow );
+		gridRow ++;
+</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAttrPaneEmitFieldColUseHeight">height</GenRule>
+	<GenRule GenDef="Value" Name="wireAttrPaneEmitFieldColUseTextHeight">textheight</GenRule>
+
+	<GenRule GenDef="Value" Name="wireAttrPaneEmitFieldColUseVSpacing">vspacing</GenRule>
+	<GenRule GenDef="Value" Name="wireAttrPaneEmitFieldColUseTextVSpacing">textvspacing</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneEnumObservableLists"
+		>$switch HasSuperClassRelation yes declAttrPaneInhEnumObservableLists default declAttrPaneBaseEnumObservableLists$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneInhEnumObservableLists"
+		>$reference SuperClassRelation reference ToTable declAttrPaneEnumObservableLists$$iterate Columns( each declAttrPaneDataEnumObservableList empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneDataEnumObservableList"
+		>$switch ColumnInPrimaryIndex no declAttrPaneEnumObservableList default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneBaseEnumObservableLists"
+		>$iterate Columns( each declAttrPaneEnumObservableList empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEnumObservableList"
+		>$switch ColumnInContainerOrNamedLookupRelation no declAttrPaneEmitEnumObservableList default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitEnumObservableList"
+		>$switch BaseModelAtomClass EnumDef reallyDeclAttrPaneEmitEnumObservableList default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="reallyDeclAttrPaneEmitEnumObservableList">
+	protected ObservableList&lt;String&gt; observableListOf$Name$ =
+		FXCollections.observableArrayList($switch IsNullable yes declAttrPaneEmitEnumObservableListNullElementComma default empty$$reference DataType iterate Tag( each declAttrPaneEmitEnumObservableListElementComma last declAttrPaneEmitEnumObservableListElementNoComma )$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitEnumObservableListNullElementComma">
+			"",</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="declAttrPaneEmitEnumObservableListElementComma">
+			"$Name$",</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="declAttrPaneEmitEnumObservableListElementNoComma">
+			"$Name$"</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneFieldClasses"
+		>$switch HasSuperClassRelation yes declAttrPaneInhFieldClasses default declAttrPaneBaseFieldClasses$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneInhFieldClasses"
+		>$reference SuperClassRelation reference ToTable declAttrPaneFieldClasses$$iterate Columns( each declAttrPaneDataFieldClass empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneDataFieldClass"
+		>$switch ColumnInPrimaryIndex no declAttrPaneFieldClass default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneBaseFieldClasses"
+		>$iterate Columns( each declAttrPaneFieldClass empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneFieldClass"
+		>$switch ColumnInContainerOrNamedLookupRelation no declAttrPaneEmitFieldClass default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitFieldClass"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef declAttrPaneEmitClassBool
+			EnumDef declAttrPaneEmitClassEnum
+			Int16Def declAttrPaneEmitClassInt16
+			Int32Def declAttrPaneEmitClassInt32
+			Int64Def declAttrPaneEmitClassInt64
+			UInt16Def declAttrPaneEmitClassUInt16
+			UInt32Def declAttrPaneEmitClassUInt32
+			UInt64Def declAttrPaneEmitClassUInt64
+			Id16Gen declAttrPaneEmitClassInt16
+			Id32Gen declAttrPaneEmitClassInt32
+			Id64Gen declAttrPaneEmitClassInt64
+			FloatDef declAttrPaneEmitClassFloat
+			DoubleDef declAttrPaneEmitClassDouble
+			NumberDef declAttrPaneEmitClassNumber
+			StringDef declAttrPaneEmitClassString
+			TokenDef declAttrPaneEmitClassToken
+			NmTokenDef declAttrPaneEmitClassNmToken
+			NmTokensDef declAttrPaneEmitClassNmTokens
+			TextDef declAttrPaneEmitClassText
+			DateDef declAttrPaneEmitClassDate
+			TimeDef declAttrPaneEmitClassTime
+			TimestampDef declAttrPaneEmitClassTimestamp
+			TZDateDef declAttrPaneEmitClassTZDate
+			TZTimeDef declAttrPaneEmitClassTZTime
+			TZTimestampDef declAttrPaneEmitClassTZTimestamp
+			UuidGen declAttrPaneEmitClassUuid
+			UuidDef declAttrPaneEmitClassUuid
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassBool">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFBoolEditor
+	{
+		public $Name$Editor() {
+			super();
+			setIsNullable( $declAttrPaneEmitIsNullableAsTrueFalse$ );
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitIsNullableAsTrueFalse"
+		>$switch IsNullable yes true default false$</GenRule>
+
+	<GenRule GenDef="Object" Name="true">true</GenRule>
+	<GenRule GenDef="Object" Name="false">false</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassInt16">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFInt16Editor
+	{
+		public $Name$Editor() {
+			super();$switch HasMinValue yes declAttrPaneEmitClassInt16SetMinValue default empty$$switch HasMaxValue yes declAttrPaneEmitClassInt16SetMaxValue default empty$
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassInt16SetMinValue">
+			setMinValue( $EffSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassInt16SetMaxValue">
+			setMaxValue( $EffSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassEnum">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends ComboBox&lt;String&gt;
+	{
+		public $Name$Editor() {
+			super();
+			setItems( observableListOf$Name$ );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassInt32">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFInt32Editor
+	{
+		public $Name$Editor() {
+			super();$switch HasMinValue yes declAttrPaneEmitClassInt32SetMinValue default empty$$switch HasMaxValue yes declAttrPaneEmitClassInt32SetMaxValue default empty$
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassInt32SetMinValue">
+			setMinValue( $EffSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassInt32SetMaxValue">
+			setMaxValue( $EffSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassInt64">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFInt64Editor
+	{
+		public $Name$Editor() {
+			super();$switch HasMinValue yes declAttrPaneEmitClassInt64SetMinValue default empty$$switch HasMaxValue yes declAttrPaneEmitClassInt64SetMaxValue default empty$
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassInt64SetMinValue">
+			setMinValue( $EffSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassInt64SetMaxValue">
+			setMaxValue( $EffSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassUInt16">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFUInt16Editor
+	{
+		public $Name$Editor() {
+			super();$switch HasMinValue yes declAttrPaneEmitClassUInt16SetMinValue default empty$$switch HasMaxValue yes declAttrPaneEmitClassUInt16SetMaxValue default empty$
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassUInt16SetMinValue">
+			setMinValue( $EffSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassUInt16SetMaxValue">
+			setMaxValue( $EffSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassUInt32">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFUInt32Editor
+	{
+		public $Name$Editor() {
+			super();$switch HasMinValue yes declAttrPaneEmitClassUInt32SetMinValue default empty$$switch HasMaxValue yes declAttrPaneEmitClassUInt32SetMaxValue default empty$
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassUInt32SetMinValue">
+			setMinValue( $EffSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassUInt32SetMaxValue">
+			setMaxValue( $EffSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassUInt64">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFUInt64Editor
+	{
+		public $Name$Editor() {
+			super();$switch HasMinValue yes declAttrPaneEmitClassUInt64SetMinValue default empty$$switch HasMaxValue yes declAttrPaneEmitClassUInt64SetMaxValue default empty$
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassUInt64SetMinValue">
+			setMinValue( $EffSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassUInt64SetMaxValue">
+			setMaxValue( $EffSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassFloat">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFFloatEditor
+	{
+		public $Name$Editor() {
+			super();$switch HasMinValue yes declAttrPaneEmitClassFloatSetMinValue default empty$$switch HasMaxValue yes declAttrPaneEmitClassFloatSetMaxValue default empty$
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassFloatSetMinValue">
+			setMinValue( $EffSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassFloatSetMaxValue">
+			setMaxValue( $EffSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassDouble">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFDoubleEditor
+	{
+		public $Name$Editor() {
+			super();$switch HasMinValue yes declAttrPaneEmitClassDoubleSetMinValue default empty$$switch HasMaxValue yes declAttrPaneEmitClassDoubleSetMaxValue default empty$
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassDoubleSetMinValue">
+			setMinValue( $EffSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassDoubleSetMaxValue">
+			setMaxValue( $EffSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassNumber">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFNumberEditor
+	{
+		public $Name$Editor() {
+			super( $Digits$, $Precis$ );$switch HasMinValue yes declAttrPaneEmitClassNumberSetMinValue default empty$$switch HasMaxValue yes declAttrPaneEmitClassNumberSetMaxValue default empty$
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassNumberSetMinValue">
+			setMinValue( $EffSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassNumberSetMaxValue">
+			setMaxValue( $EffSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassString">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFStringEditor
+	{
+		public $Name$Editor() {
+			super();
+			setMaxLen( $MaxLen$ );
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassToken">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFTokenEditor
+	{
+		public $Name$Editor() {
+			super();
+			setMaxLen( $MaxLen$ );
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassNmToken">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFNmTokenEditor
+	{
+		public $Name$Editor() {
+			super();
+			setMaxLen( $MaxLen$ );
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassNmTokens">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFNmTokensEditor
+	{
+		public $Name$Editor() {
+			super();
+			setMaxLen( $MaxLen$ );
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassText">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFTextEditor
+	{
+		public $Name$Editor() {
+			super();
+			setMaxLen( $MaxLen$ );
+			setFieldName( "$EffLabel$" );
+			setPrefHeight( $ShowLines$ * 20 );
+			setMinHeight( $ShowLines$ * 20 );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassDate">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFDateEditor
+	{
+		public $Name$Editor() {
+			super();
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassTime">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFTimeEditor
+	{
+		public $Name$Editor() {
+			super();
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassTimestamp">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFTimestampEditor
+	{
+		public $Name$Editor() {
+			super();
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassTZDate">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFTZDateEditor
+	{
+		public $Name$Editor() {
+			super();
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassTZTime">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFTZTimeEditor
+	{
+		public $Name$Editor() {
+			super();
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassTZTimestamp">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFTZTimestampEditor
+	{
+		public $Name$Editor() {
+			super();
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declAttrPaneEmitClassUuid">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+
+	protected class $Name$Editor
+		extends CFUuidEditor
+	{
+		public $Name$Editor() {
+			super();
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitReferenceCallback"
+		>$switch IsChainRelation yes empty default reallyClassAttrPaneEmitReferenceCallback$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classJavaFXTableAttrPaneListTabRefListPageData">
+	protected class PageData$RelationTypeTag$$Suffix$List
+	implements I$reference ToTable DefSchemaName$JavaFX$reference ToTable TableName$PageCallback
+	{
+		public PageData$RelationTypeTag$$Suffix$List() {
+		}
+
+		public List&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; pageData( $reference ToTable reference BaseClass reference PrimaryKeyIndex iterate Columns( first declOptPriorArg each declCommaOptPriorArg )$ )
+		{
+			java.util.List&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj> listOf$reference ToTable TableName$ = null;
+			I$poptop Table SchemaName$$poptop Table TableName$Obj focus = (I$poptop Table SchemaName$$poptop Table TableName$Obj)getEffJavaFXFocus();
+			if( focus != null ) {
+				I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();$classAttrPaneEmitActionLocatePageOfObj$
+			}
+			else {
+				listOf$reference ToTable TableName$ = new ArrayList&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt;();
+			}
+			return( listOf$reference ToTable TableName$  );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyClassAttrPaneEmitReferenceCallback">$switch ToTablePageData yes classJavaFXTableAttrPaneListTabRefListPageData default empty$
+	protected class $Name$ReferenceCallback
+	implements ICFReferenceCallback
+	{$implAttrPaneEmitReferenceCallbackMethodChose$$implAttrPaneEmitReferenceCallbackMethodView$
+	}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPaneEmitReferenceCallbackMethodChose">
+		public void chose( ICFLibAnyObj value ) {
+			final String S_ProcName = "chose";
+			Node cont;
+			I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+			I$poptop Table DefSchemaName$$poptop Table TableName$Obj focus = getEffJavaFXFocus();
+			I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj referencedObj = (I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj)javafxReference$RelationTypeTag$$Suffix$.getReferencedObject();$switch ToTablePageData yes classAttrPaneEmitActionCheckPageOfObj default implAttrPaneEmitReferenceCallbackResolveCollection$
+			CFBorderPane form = javafxSchema.get$reference ToTable TableName$Factory().newPickerForm( cfFormManager, referencedObj, null, $switch ToTablePageData yes implJavaFXTableAttrPanePickerPassNewPageCallback default implJavaFXTableAttrPanePickerPassCollection$, new Callback$Name$Chosen() );
+			((I$reference ToTable DefSchemaName$JavaFX$reference ToTable TableName$PaneCommon)form).setPaneMode( CFPane.PaneMode.View );
+			cfFormManager.pushForm( form );
+		}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPaneEmitReferenceCallbackResolveCollection">
+			java.util.List&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj> listOf$reference ToTable TableName$ = null;$classAttrPaneEmitActionLocateListOfObj$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableAttrPanePickerPassNewPageCallback"
+		>new PageData$RelationTypeTag$$Suffix$List()</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableAttrPanePickerPassCollection"
+		>cltn</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPaneEmitReferenceCallbackMethodView">
+		public void view( ICFLibAnyObj value ) {
+			final String S_ProcName = "actionPerformed";
+			I$poptop Table DefSchemaName$$poptop Table TableName$Obj focus = getEffJavaFXFocus();
+			if( focus != null ) {
+				I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj referencedObj = (I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj)javafxReference$RelationTypeTag$$Suffix$.getReferencedObject();
+				CFBorderPane form = null;
+				if( referencedObj != null ) {
+					String classCode = referencedObj.getClassCode();
+					if( "$reference ToTable ClassCode$".equals( classCode ) ) {
+						form = javafxSchema.get$reference ToTable TableName$Factory().newAddForm( cfFormManager, referencedObj, null, true );
+						I$reference ToTable EffSchemaName$JavaFX$reference ToTable TableName$PaneCommon spec = (I$reference ToTable EffSchemaName$JavaFX$reference ToTable TableName$PaneCommon)form;
+						spec.setJavaFXFocus( referencedObj );
+						spec.setPaneMode( CFPane.PaneMode.View );
+					}$reference ToTable iterate TableSubClasses( each classAttrPaneEmitActionViewReferencePerformedWalkSubClasses empty empty )$
+					else {
+						throw new CFLibUnsupportedClassException( getClass(),
+							S_ProcName,
+							"javaFXFocus",
+							focus,
+							"I$SchemaName$$reference ToTable TableName$Obj$reference ToTable iterate TableSubClasses( each commaNameSubClass empty empty )$" );
+					}
+					cfFormManager.pushForm( form );
+				}
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionViewReferencePerformedWalkSubClasses">
+					else if( "$ClassCode$".equals( classCode ) ) {
+						I$SchemaName$$TableName$Obj obj = (I$SchemaName$$TableName$Obj)referencedObj;
+						form = javafxSchema.get$TableName$Factory().newAddForm( cfFormManager, obj, null, true );
+						I$EffSchemaName$JavaFX$TableName$PaneCommon spec = (I$EffSchemaName$JavaFX$TableName$PaneCommon)form;
+						spec.setJavaFXFocus( referencedObj );
+						spec.setPaneMode( CFPane.PaneMode.View );
+					}$iterate TableSubClasses( each classAttrPaneEmitActionViewReferencePerformedWalkSubClasses empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitCallbackReferenceChosen"
+		>$switch IsChainRelation yes empty default reallyClassAttrPaneEmitCallbackReferenceChosen$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyClassAttrPaneEmitCallbackReferenceChosen">
+	protected class Callback$Name$Chosen
+	implements I$reference ToTable DefSchemaName$JavaFX$reference ToTable TableName$Chosen
+	{
+		public Callback$Name$Chosen() {
+		}
+
+		public void chose$reference ToTable TableName$( I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj value ) {
+			if( javafxReference$RelationTypeTag$$Suffix$ != null ) {
+				I$poptop Table DefSchemaName$$poptop Table TableName$Obj cur = getJavaFXFocusAs$poptop Table TableName$();
+				if( cur != null ) {
+					I$DefSchemaName$$poptop Table TableName$EditObj editObj = (I$SchemaName$$poptop Table TableName$EditObj)cur.getEdit();
+					if( null != editObj ) {
+						CFPane.PaneMode curMode = getPaneMode();
+						if( ( curMode == CFPane.PaneMode.Add ) || ( curMode == CFPane.PaneMode.Edit ) ) {
+							javafxReference$RelationTypeTag$$Suffix$.setReferencedObject( value );
+							editObj.set$OptionalOrRequired$$RelationTypeTag$$Suffix$( value );
+						}
+					}
+				}
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionLocatePageOfObj"
+		>$switch HasPopDep yes classAttrPaneEmitActionLocatePopPageOfObj default classAttrPaneEmitActionLocateNoPopPageOfObj$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionLocatePopPageOfObj"
+		>$reference PopTopDep classAttrPaneEmitActionLocatePopPageOfObj$</GenRule>
+
+	<GenRule GenDef="PopTopDep" Name="classAttrPaneEmitActionLocatePopPageOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChasePopPageOfObj default classAttrPaneEmitActionFoundPopPageOfObj$</GenRule>
+
+	<GenRule GenDef="PopTopDep" Name="classAttrPaneEmitActionFoundPopPageOfObj">
+			listOf$reference Relation reference ToTable TableName$ = schemaObj.get$reference Relation reference ToTable TableName$TableObj().page$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation reference FromIndex iterate Columns( first implJavaFXTableAttrPaneFocusPassCol each implJavaFXTableAttrPaneFocusPassCommaCol )$$reference Relation reference ToTable reference BaseClass reference PrimaryKeyIndex iterate Columns( each implJavaFXTableAttrPaneCommaPassPriorArg )$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableAttrPaneFocusPassCol"
+		>focus.get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableAttrPaneFocusPassCommaCol">,
+					$implJavaFXTableAttrPaneFocusPassCol$</GenRule>
+
+	<GenRule GenDef="PopTopDep" Name="classAttrPaneEmitActionChasePopPageOfObj">
+			I$reference Relation reference ToTable SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = (I$reference Relation reference ToTable SchemaName$$reference Relation reference ToTable TableName$Obj)focus.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return( null );
+			}$reference PopSubDep classAttrPaneEmitActionLocatePopPageOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep1" Name="classAttrPaneEmitActionLocatePopPageOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChasePopPageOfObj default classAttrPaneEmitActionFoundPopPageOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep1" Name="classAttrPaneEmitActionFoundPopPageOfObj">
+			listOf$reference Relation reference ToTable TableName$ = schemaObj.get$reference Relation reference ToTable TableName$TableObj().page$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation reference FromIndex iterate Columns( first implJavaFXTableAttrPanePopTopDepPassCol each implJavaFXTableAttrPanePopTopDepPassCommaCol )$$reference Relation reference ToTable reference BaseClass reference PrimaryKeyIndex iterate Columns( each implJavaFXTableAttrPaneCommaPassPriorArg )$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableAttrPanePopTopDepPassCol"
+		>ref$popto PopTopDep reference Relation Suffix$.get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableAttrPanePopTopDepPassCommaCol">,
+					$implJavaFXTableAttrPanePopTopDepPassCol$</GenRule>
+
+	<GenRule GenDef="PopSubDep1" Name="classAttrPaneEmitActionChasePopPageOfObj">
+			I$SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = ref$popto PopTopDep reference Relation Suffix$.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return( null );
+			}$reference PopSubDep classAttrPaneEmitActionLocatePopPageOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep2" Name="classAttrPaneEmitActionLocatePopPageOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChasePopPageOfObj default classAttrPaneEmitActionFoundPopPageOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep2" Name="classAttrPaneEmitActionFoundPopPageOfObj">
+			listOf$reference Relation reference ToTable TableName$ = schemaObj.get$reference Relation reference ToTable TableName$TableObj().page$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation reference FromIndex iterate Columns( first implJavaFXTableAttrPanePopSubDep1PassCol each implJavaFXTableAttrPanePopSubDep1PassCommaCol )$$reference Relation reference ToTable reference BaseClass reference PrimaryKeyIndex iterate Columns( each implJavaFXTableAttrPaneCommaPassPriorArg )$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableAttrPanePopSubDep1PassCol"
+		>ref$popto PopSubDep1 reference Relation Suffix$.get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableAttrPanePopSubDep1PassCommaCol">,
+					$implJavaFXTableAttrPanePopSubDep1PassCol$</GenRule>
+
+	<GenRule GenDef="PopSubDep2" Name="classAttrPaneEmitActionChasePopPageOfObj">
+			I$SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = ref$popto PopSubDep1 reference Relation Suffix$.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return( null );
+			}$reference PopSubDep classAttrPaneEmitActionLocatePopPageOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep3" Name="classAttrPaneEmitActionLocatePopPageOfObj">
+			listOf$reference Relation reference ToTable TableName$ = schemaObj.get$reference Relation reference ToTable TableName$TableObj().page$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation reference FromIndex iterate Columns( first implJavaFXTableAttrPanePopSubDep2PassCol each implJavaFXTableAttrPanePopSubDep2PassCommaCol )$$reference Relation reference ToTable reference BaseClass reference PrimaryKeyIndex iterate Columns( each implJavaFXTableAttrPaneCommaPassPriorArg )$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableAttrPanePopSubDep2PassCol"
+		>ref$popto PopSubDep2 reference Relation Suffix$.get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableAttrPanePopSubDep2PassCommaCol">,
+					$implJavaFXTableAttrPanePopSubDep2PassCol$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionLocateNoPopPageOfObj"
+		>$switch ToTableHasContainer yes classAttrPaneEmitActionLocateClusterTenantPageOfObj default classAttrPaneEmitActionLocateGlobalPageOfObj$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionLocateClusterTenantPageOfObj"
+		>$reference ToTable classAttrPaneEmitActionLocateClusterTenantPageOfObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionLocateClusterTenantPageOfObj"
+		>$switch ContainerTableName Cluster classAttrPaneEmitActionLocateClusterPageOfObj Tenant classAttrPaneEmitActionLocateTenantPageOfObj default classAttrPaneEmitActionDummyCollection$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionLocateGlobalPageOfObj"
+		>$reference ToTable classAttrPaneEmitActionLocateGlobalPageOfObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionLocateGlobalPageOfObj">
+			listOf$TableName$ = schemaObj.get$TableName$TableObj().pageAll$TableName$( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implJavaFXTableAttrPanePassPriorArg each implJavaFXTableAttrPaneCommaPassPriorArg )$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableAttrPanePassPriorArg"
+		>prior$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableAttrPaneCommaPassPriorArg">,
+					$implJavaFXTableAttrPanePassPriorArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionLocateTenantPageOfObj">
+			$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+			long containingTenantId = auth.getSecTenantId();
+			listOf$TableName$ = schemaObj.get$TableName$TableObj().page$TableName$ByTenantIdx( containingTenantId$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implJavaFXTableAttrPaneCommaPassPriorArg )$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionLocateClusterPageOfObj">
+			$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+			long containingClusterId = auth.getSecClusterId();
+			listOf$TableName$ = schemaObj.get$TableName$TableObj().page$TableName$ByClusterIdx( containingClusterId$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implJavaFXTableAttrPaneCommaPassPriorArg )$ );</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionMapToCollection">
+			if( listOf$reference ToTable TableName$ == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"listOf$reference ToTable TableName$" );
+			}
+			Collection&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj> cltn = listOf$reference ToTable TableName$;</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionMapToCollection"
+		>$popto Relation classAttrPaneEmitActionMapToCollection$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionDummyCollection">
+			Collection&lt;I$DefSchemaName$$TableName$Obj&gt; cltn = null;</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionLocateListOfObj"
+		>$switch HasPopDep yes classAttrPaneEmitActionLocatePopListOfObj default classAttrPaneEmitActionLocateNoPopListOfObj$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionLocatePopListOfObj"
+		>$reference PopTopDep classAttrPaneEmitActionLocatePopListOfObj$</GenRule>
+
+	<GenRule GenDef="PopTopDep" Name="classAttrPaneEmitActionLocatePopListOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChasePopListOfObj default classAttrPaneEmitActionFoundPopListOfObj$</GenRule>
+
+	<GenRule GenDef="PopTopDep" Name="classAttrPaneEmitActionFoundPopListOfObj">
+			listOf$reference Relation reference ToTable TableName$ = focus.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );$poptop Relation classAttrPaneEmitActionMapToCollection$</GenRule>
+
+	<GenRule GenDef="PopTopDep" Name="classAttrPaneEmitActionChasePopListOfObj">
+			I$reference Relation reference ToTable SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = (I$reference Relation reference ToTable SchemaName$$reference Relation reference ToTable TableName$Obj)focus.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return;
+			}$reference PopSubDep classAttrPaneEmitActionLocatePopListOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep1" Name="classAttrPaneEmitActionLocatePopListOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChasePopListOfObj default classAttrPaneEmitActionFoundPopListOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep1" Name="classAttrPaneEmitActionFoundPopListOfObj">
+			listOf$reference Relation reference ToTable TableName$ = ref$popto PopTopDep reference Relation Suffix$.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );$poptop Relation classAttrPaneEmitActionMapToCollection$</GenRule>
+
+	<GenRule GenDef="PopSubDep1" Name="classAttrPaneEmitActionChasePopListOfObj">
+			I$SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = ref$popto PopTopDep reference Relation Suffix$.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return;
+			}$reference PopSubDep classAttrPaneEmitActionLocatePopListOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep2" Name="classAttrPaneEmitActionLocatePopListOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChasePopListOfObj default classAttrPaneEmitActionFoundPopListOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep2" Name="classAttrPaneEmitActionFoundPopListOfObj">
+			listOf$reference Relation reference ToTable TableName$ = ref$popto PopSubDep1 reference Relation Suffix$.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );$poptop Relation classAttrPaneEmitActionMapToCollection$</GenRule>
+
+	<GenRule GenDef="PopSubDep2" Name="classAttrPaneEmitActionChasePopListOfObj">
+			I$SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = ref$popto PopSubDep1 reference Relation Suffix$.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return;
+			}$reference PopSubDep classAttrPaneEmitActionLocatePopListOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep3" Name="classAttrPaneEmitActionLocatePopListOfObj">
+			listOf$reference Relation reference ToTable TableName$ = ref$popto PopSubDep2 reference Relation Suffix$.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );$poptop Relation classAttrPaneEmitActionMapToCollection$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionLocateNoPopListOfObj"
+		>$switch ToTableHasContainer yes classAttrPaneEmitActionLocateClusterTenantListOfObj default classAttrPaneEmitActionLocateGlobalListOfObj$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionLocateClusterTenantListOfObj"
+		>$reference ToTable classAttrPaneEmitActionLocateClusterTenantListOfObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionLocateClusterTenantListOfObj"
+		>$switch ContainerTableName Cluster classAttrPaneEmitActionLocateClusterListOfObj Tenant classAttrPaneEmitActionLocateTenantListOfObj default classAttrPaneEmitActionDummyCollection$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionLocateGlobalListOfObj"
+		>$reference ToTable classAttrPaneEmitActionLocateGlobalListOfObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionLocateGlobalListOfObj">
+			listOf$TableName$ = schemaObj.get$TableName$TableObj().readAll$TableName$();$classAttrPaneEmitActionMapToCollection$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionLocateTenantListOfObj">
+			$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+			long containingTenantId = auth.getSecTenantId();
+			listOf$TableName$ = schemaObj.get$TableName$TableObj().read$TableName$ByTenantIdx( containingTenantId );$classAttrPaneEmitActionMapToCollection$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionLocateClusterListOfObj">
+			$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+			long containingClusterId = auth.getSecClusterId();
+			listOf$TableName$ = schemaObj.get$TableName$TableObj().read$TableName$ByClusterIdx( containingClusterId );$classAttrPaneEmitActionMapToCollection$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionCheckPageOfObj"
+		>$switch HasPopDep yes classAttrPaneEmitActionCheckPopPageOfObj default classAttrPaneEmitActionCheckNoPopPageOfObj$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionCheckPopPageOfObj"
+		>$reference PopTopDep classAttrPaneEmitActionCheckPopPageOfObj$</GenRule>
+
+	<GenRule GenDef="PopTopDep" Name="classAttrPaneEmitActionCheckPopPageOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChaseCheckPopPageOfObj default empty$</GenRule>
+
+	<GenRule GenDef="PopTopDep" Name="classAttrPaneEmitActionChaseCheckPopPageOfObj">
+			I$reference Relation reference ToTable SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = (I$reference Relation reference ToTable SchemaName$$reference Relation reference ToTable TableName$Obj)focus.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return;
+			}$reference PopSubDep classAttrPaneEmitActionCheckPopPageOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep1" Name="classAttrPaneEmitActionCheckPopPageOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChaseCheckPopPageOfObj default empty$</GenRule>
+
+	<GenRule GenDef="PopSubDep1" Name="classAttrPaneEmitActionChaseCheckPopPageOfObj">
+			I$SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = ref$popto PopTopDep reference Relation Suffix$.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return;
+			}$reference PopSubDep classAttrPaneEmitActionCheckPopPageOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep2" Name="classAttrPaneEmitActionCheckPopPageOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChaseCheckPopPageOfObj default empty$</GenRule>
+
+	<GenRule GenDef="PopSubDep2" Name="classAttrPaneEmitActionChaseCheckPopPageOfObj">
+			I$SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = ref$popto PopSubDep1 reference Relation Suffix$.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return;
+			}$reference PopSubDep classAttrPaneEmitActionCheckPopPageOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep3" Name="classAttrPaneEmitActionCheckPopPageOfObj"></GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionCheckNoPopPageOfObj"
+		>$switch ToTableHasContainer yes classAttrPaneEmitActionCheckClusterTenantPageOfObj default classAttrPaneEmitActionCheckGlobalPageOfObj$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionCheckClusterTenantPageOfObj"
+		>$reference ToTable classAttrPaneEmitActionCheckClusterTenantPageOfObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionCheckClusterTenantPageOfObj"
+		>$switch ContainerTableName Cluster classAttrPaneEmitActionCheckClusterPageOfObj Tenant classAttrPaneEmitActionCheckTenantPageOfObj default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionCheckGlobalPageOfObj"
+		>$reference ToTable classAttrPaneEmitActionCheckGlobalPageOfObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionCheckGlobalPageOfObj"></GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionCheckTenantPageOfObj"></GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionCheckClusterPageOfObj"></GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionCheckListOfObj"
+		>$switch HasPopDep yes classAttrPaneEmitActionCheckPopListOfObj default classAttrPaneEmitActionCheckNoPopListOfObj$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionCheckPopListOfObj"
+		>$reference PopTopDep classAttrPaneEmitActionCheckPopListOfObj$</GenRule>
+
+	<GenRule GenDef="PopTopDep" Name="classAttrPaneEmitActionCheckPopListOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChaseCheckPopListOfObj default empty$</GenRule>
+
+	<GenRule GenDef="PopTopDep" Name="classAttrPaneEmitActionChaseCheckPopListOfObj">
+			I$reference Relation reference ToTable SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = (I$reference Relation reference ToTable SchemaName$$reference Relation reference ToTable TableName$Obj)focus.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return;
+			}$reference PopSubDep classAttrPaneEmitActionCheckPopListOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep1" Name="classAttrPaneEmitActionCheckPopListOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChaseCheckPopListOfObj default empty$</GenRule>
+
+	<GenRule GenDef="PopSubDep1" Name="classAttrPaneEmitActionChaseCheckPopListOfObj">
+			I$SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = ref$popto PopTopDep reference Relation Suffix$.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return;
+			}$reference PopSubDep classAttrPaneEmitActionCheckPopListOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep2" Name="classAttrPaneEmitActionCheckPopListOfObj"
+		>$switch HasPopSubDep yes classAttrPaneEmitActionChaseCheckPopListOfObj default empty$</GenRule>
+
+	<GenRule GenDef="PopSubDep2" Name="classAttrPaneEmitActionChaseCheckPopListOfObj">
+			I$SchemaName$$reference Relation reference ToTable TableName$Obj ref$reference Relation Suffix$ = ref$popto PopSubDep1 reference Relation Suffix$.get$reference Relation OptionalOrRequired$$reference Relation RelationTypeTag$$reference Relation Suffix$( javafxIsInitializing );
+			if( ref$reference Relation Suffix$ == null ) {
+				CFConsole.message( "You must specify a $reference Relation EffLabel$ before selecting a $poptop Relation EffLabel$" );
+				return;
+			}$reference PopSubDep classAttrPaneEmitActionCheckPopListOfObj$</GenRule>
+
+	<GenRule GenDef="PopSubDep3" Name="classAttrPaneEmitActionCheckPopListOfObj"></GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionCheckNoPopListOfObj"
+		>$switch ToTableHasContainer yes classAttrPaneEmitActionCheckClusterTenantListOfObj default classAttrPaneEmitActionCheckGlobalListOfObj$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionCheckClusterTenantListOfObj"
+		>$reference ToTable classAttrPaneEmitActionCheckClusterTenantListOfObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionCheckClusterTenantListOfObj"
+		>$switch ContainerTableName Cluster classAttrPaneEmitActionCheckClusterListOfObj Tenant classAttrPaneEmitActionCheckTenantListOfObj default classAttrPaneEmitActionDummyCollection$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classAttrPaneEmitActionCheckGlobalListOfObj"
+		>$reference ToTable classAttrPaneEmitActionCheckGlobalListOfObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionCheckGlobalListOfObj"></GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionCheckTenantListOfObj"></GenRule>
+
+	<GenRule GenDef="Table" Name="classAttrPaneEmitActionCheckClusterListOfObj"></GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneParentClasses"
+		>$switch HasSuperClassRelation yes declAttrPaneInhParentClasses default declAttrPaneBaseParentClasses$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneInhParentClasses"
+		>$reference SuperClassRelation reference ToTable declAttrPaneParentClasses$$iterate Relation( each declAttrPaneFilterParentClasses empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneBaseParentClasses"
+		>$iterate Relation( each declAttrPaneFilterParentClasses empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declAttrPaneFilterParentClasses"
+		>$switch RelationTypeTag
+			Parent declAttrPaneEmitParentClasses
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declAttrPaneEmitParentClasses"
+		>$switch IsChainRelation yes empty default reallyDeclAttrPaneEmitParentClasses$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyDeclAttrPaneEmitParentClasses">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+$classAttrPaneEmitCallbackReferenceChosen$$classAttrPaneEmitReferenceCallback$
+	protected class $Name$CFReferenceEditor
+		extends CFReferenceEditor
+	{
+		public $Name$CFReferenceEditor() {
+			super( new $Name$ReferenceCallback() );
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneLookupClasses"
+		>$switch HasSuperClassRelation yes declAttrPaneInhLookupClasses default declAttrPaneBaseLookupClasses$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneInhLookupClasses"
+		>$reference SuperClassRelation reference ToTable declAttrPaneLookupClasses$$iterate Relation( each declAttrPaneFilterLookupClasses empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declAttrPaneBaseLookupClasses"
+		>$iterate Relation( each declAttrPaneFilterLookupClasses empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declAttrPaneFilterLookupClasses"
+		>$switch RelationTypeTag
+			Lookup declAttrPaneEmitLookupClasses
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declAttrPaneEmitLookupClasses"
+		>$switch IsChainRelation yes empty default reallyDeclAttrPaneEmitLookupClasses$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyDeclAttrPaneEmitLookupClasses">
+	protected class $Name$CFLabel
+		extends CFLabel
+	{
+		public $Name$CFLabel() {
+			super();
+			setText( "$EffLabel$" );
+		}
+	}
+$classAttrPaneEmitCallbackReferenceChosen$$classAttrPaneEmitReferenceCallback$
+	protected class $Name$CFReferenceEditor
+		extends CFReferenceEditor
+	{
+		public $Name$CFReferenceEditor() {
+			super( new $Name$ReferenceCallback() );
+			setFieldName( "$EffLabel$" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="CFEditorType"
+		>$switch BaseModelAtomClass
+			BlobDef CFEditorTypeBlob
+			BoolDef CFEditorTypeBool
+			EnumDef CFEditorTypeEnum
+			Int16Def CFEditorTypeInt16
+			Int32Def CFEditorTypeInt32
+			Int64Def CFEditorTypeInt64
+			UInt16Def CFEditorTypeUInt16
+			UInt32Def CFEditorTypeUInt32
+			UInt64Def CFEditorTypeUInt64
+			Id16Gen CFEditorTypeInt16
+			Id32Gen CFEditorTypeInt32
+			Id64Gen CFEditorTypeInt64
+			FloatDef CFEditorTypeFloat
+			DoubleDef CFEditorTypeDouble
+			NumberDef CFEditorTypeNumber
+			StringDef CFEditorTypeString
+			TokenDef CFEditorTypeToken
+			NmTokenDef CFEditorTypeNmToken
+			NmTokensDef CFEditorTypeNmTokens
+			TextDef CFEditorTypeText
+			DateDef CFEditorTypeDate
+			TimeDef CFEditorTypeTime
+			TimestampDef CFEditorTypeTimestamp
+			TZDateDef CFEditorTypeTZDate
+			TZTimeDef CFEditorTypeTZTime
+			TZTimestampDef CFEditorTypeTZTimestamp
+			UuidGen CFEditorTypeUuid
+			UuidDef CFEditorTypeUuid
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="CFEditorTypeBlob">CFBlobEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeBool">CFBoolEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeInt16">CFInt16Editor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeInt32">CFInt32Editor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeInt64">CFInt64Editor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeUInt16">CFUInt16Editor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeUInt32">CFUInt32Editor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeUInt64">CFUInt64Editor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeFloat">CFFloatEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeDouble">CFDoubleEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeNumber">CFNumberEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeString">CFStringEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeToken">CFTokenEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeNmToken">CFNmTokenEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeNmTokens">CFNmTokensEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeText">CFTextEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeDate">CFDateEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeTime">CFTimeEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeTimestamp">CFTimestampEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeTZDate">CFTZDateEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeTZTime">CFTZTimeEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeTZTimestamp">CFTZTimestampEditor</GenRule>
+	<GenRule GenDef="Value" Name="CFEditorTypeUuid">CFUuidEditor</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneMethodPopulateFields">
+	public void populateFields()
+	{
+		I$DefSchemaName$$TableName$Obj popObj = getEffJavaFXFocus();
+		if( getPaneMode() == CFPane.PaneMode.Unknown ) {
+			popObj = null;
+		}$implAttrPanePopulateParentWidgets$$implAttrPanePopulateLookupWidgets$$implAttrPanePopulateFields$	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePopulateParentWidgets"
+		>$switch HasSuperClassRelation yes implAttrPanePopulateInhParentWidgets default implAttrPanePopulateBaseParentWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePopulateInhParentWidgets"
+		>$reference SuperClassRelation reference ToTable implAttrPanePopulateParentWidgets$$iterate Relation( each implAttrPanePopulateFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePopulateBaseParentWidgets"
+		>$iterate Relation( each implAttrPanePopulateFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPanePopulateFilterParentWidgets"
+		>$switch RelationTypeTag
+			Parent implAttrPanePopulateEmitParentWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPanePopulateEmitParentWidgets"
+		>$switch IsChainRelation yes empty default reallyImplAttrPanePopulateEmitParentWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyImplAttrPanePopulateEmitParentWidgets">
+		if( popObj == null ) {
+			javafxParent$Suffix$Obj = null;
+		}
+		else {
+			javafxParent$Suffix$Obj = (I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj)popObj.get$OptionalOrRequired$Parent$Suffix$( javafxIsInitializing );
+		}
+		if( javafxReferenceParent$Suffix$ != null ) {
+			javafxReferenceParent$Suffix$.setReferencedObject( javafxParent$Suffix$Obj );
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePopulateLookupWidgets"
+		>$switch HasSuperClassRelation yes implAttrPanePopulateInhLookupWidgets default implAttrPanePopulateBaseLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePopulateInhLookupWidgets"
+		>$reference SuperClassRelation reference ToTable implAttrPanePopulateLookupWidgets$$iterate Relation( each implAttrPanePopulateFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePopulateBaseLookupWidgets"
+		>$iterate Relation( each implAttrPanePopulateFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPanePopulateFilterLookupWidgets"
+		>$switch RelationTypeTag
+			Lookup implAttrPanePopulateEmitLookupWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPanePopulateEmitLookupWidgets"
+		>$switch IsChainRelation yes empty default reallyImplAttrPanePopulateEmitLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyImplAttrPanePopulateEmitLookupWidgets">
+		if( popObj == null ) {
+			javafxLookup$Suffix$Obj = null;
+		}
+		else {
+			javafxLookup$Suffix$Obj = (I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj)popObj.get$OptionalOrRequired$Lookup$Suffix$( javafxIsInitializing );
+		}
+		if( javafxReferenceLookup$Suffix$ != null ) {
+			javafxReferenceLookup$Suffix$.setReferencedObject( javafxLookup$Suffix$Obj );
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePopulateFields"
+		>$switch HasSuperClassRelation yes implAttrPanePopulateInhFields default implAttrPanePopulateBaseFields$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePopulateInhFields"
+		>$reference SuperClassRelation reference ToTable implAttrPanePopulateFields$$iterate Columns( each implAttrPanePopulateDataFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateDataFieldCol"
+		>$switch ColumnInPrimaryIndex yes empty default implAttrPanePopulateMaybeFieldCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePopulateBaseFields"
+		>$iterate Columns( each implAttrPanePopulateMaybeFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateMaybeFieldCol"
+		>$switch BaseModelAtomClass BlobDef empty default implAttrPanePopulateFieldCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateFieldCol"
+		>$switch ColumnInContainerOrNamedLookupRelation no implAttrPanePopulateEmitFieldCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitFieldCol"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef implAttrPanePopulateEmitBool
+			EnumDef implAttrPanePopulateEmitEnum
+			Int16Def implAttrPanePopulateEmitInt16
+			Int32Def implAttrPanePopulateEmitInt32
+			Int64Def implAttrPanePopulateEmitInt64
+			UInt16Def implAttrPanePopulateEmitUInt16
+			UInt32Def implAttrPanePopulateEmitUInt32
+			UInt64Def implAttrPanePopulateEmitUInt64
+			Id16Gen implAttrPanePopulateEmitInt16
+			Id32Gen implAttrPanePopulateEmitInt32
+			Id64Gen implAttrPanePopulateEmitInt64
+			FloatDef implAttrPanePopulateEmitFloat
+			DoubleDef implAttrPanePopulateEmitDouble
+			NumberDef implAttrPanePopulateEmitNumber
+			StringDef implAttrPanePopulateEmitString
+			TokenDef implAttrPanePopulateEmitToken
+			NmTokenDef implAttrPanePopulateEmitNmToken
+			NmTokensDef implAttrPanePopulateEmitNmTokens
+			TextDef implAttrPanePopulateEmitText
+			DateDef implAttrPanePopulateEmitDate
+			TimeDef implAttrPanePopulateEmitTime
+			TimestampDef implAttrPanePopulateEmitTimestamp
+			TZDateDef implAttrPanePopulateEmitTZDate
+			TZTimeDef implAttrPanePopulateEmitTZTime
+			TZTimestampDef implAttrPanePopulateEmitTZTimestamp
+			UuidGen implAttrPanePopulateEmitUuid
+			UuidDef implAttrPanePopulateEmitUuid
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitBool">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setBooleanValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setBooleanValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitInt16">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setInt16Value( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setInt16Value( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitEnum">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setValue(
+				( popObj.get$OptionalOrRequired$$Name$() == null )
+					? null
+					: popObj.get$OptionalOrRequired$$Name$().toString() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitInt32">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setInt32Value( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setInt32Value( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitInt64">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setInt64Value( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setInt64Value( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitUInt16">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setUInt16Value( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setUInt16Value( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitUInt32">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setUInt32Value( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setUInt32Value( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitUInt64">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setUInt64Value( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setUInt64Value( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitFloat">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setFloatValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setFloatValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitDouble">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setDoubleValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setDoubleValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitNumber">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setNumberValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setNumberValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitString">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setStringValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setStringValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitToken">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setTokenValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setTokenValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitNmToken">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setNmTokenValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setNmTokenValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitNmTokens">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setNmTokensValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setNmTokensValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitText">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setTextValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setTextValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitDate">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setDateValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setDateValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitTime">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setTimeValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setTimeValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitTimestamp">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setTimestampValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setTimestampValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitTZDate">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setTZDateValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setTZDateValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitTZTime">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setTZTimeValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setTZTimeValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitTZTimestamp">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setTZTimestampValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setTZTimestampValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePopulateEmitUuid">
+		if( popObj == null ) {
+			getJavaFXEditor$Name$().setUuidValue( null );
+		}
+		else {
+			getJavaFXEditor$Name$().setUuidValue( popObj.get$OptionalOrRequired$$Name$() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPaneMethodPostFields">
+	public void postFields()
+	{
+		final String S_ProcName = "postFields";
+		I$DefSchemaName$$TableName$Obj focus = getJavaFXFocusAs$TableName$();
+		I$DefSchemaName$$TableName$EditObj editObj;
+		if( focus != null ) {
+			editObj = (I$DefSchemaName$$TableName$EditObj)(focus.getEdit());
+		}
+		else {
+			editObj = null;
+		}
+		if( editObj == null ) {
+			throw new CFLibUsageException( getClass(),
+				S_ProcName,
+				"Pane is unfocused or is not editing the focus object" );
+		}
+$implAttrPanePostParentWidgets$$implAttrPanePostLookupWidgets$$implAttrPanePostFields$	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePostParentWidgets"
+		>$switch HasSuperClassRelation yes implAttrPanePostInhParentWidgets default implAttrPanePostBaseParentWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePostInhParentWidgets"
+		>$reference SuperClassRelation reference ToTable implAttrPanePostParentWidgets$$iterate Relation( each implAttrPanePostFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePostBaseParentWidgets"
+		>$iterate Relation( each implAttrPanePostFilterParentWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPanePostFilterParentWidgets"
+		>$switch RelationTypeTag
+			Parent implAttrPanePostEmitParentWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPanePostEmitParentWidgets"
+		>$switch IsChainRelation yes empty default reallyImplAttrPanePostEmitParentWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyImplAttrPanePostEmitParentWidgets">
+		javafxParent$Suffix$Obj = (I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj)( javafxReferenceParent$Suffix$.getReferencedObject() );
+		editObj.set$OptionalOrRequired$Parent$Suffix$( javafxParent$Suffix$Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePostLookupWidgets"
+		>$switch HasSuperClassRelation yes implAttrPanePostInhLookupWidgets default implAttrPanePostBaseLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePostInhLookupWidgets"
+		>$reference SuperClassRelation reference ToTable implAttrPanePostLookupWidgets$$iterate Relation( each implAttrPanePostFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePostBaseLookupWidgets"
+		>$iterate Relation( each implAttrPanePostFilterLookupWidgets empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPanePostFilterLookupWidgets"
+		>$switch RelationTypeTag
+			Lookup implAttrPanePostEmitLookupWidgets
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implAttrPanePostEmitLookupWidgets"
+		>$switch IsChainRelation yes empty default reallyImplAttrPanePostEmitLookupWidgets$</GenRule>
+
+	<GenRule GenDef="Relation" Name="reallyImplAttrPanePostEmitLookupWidgets">
+		javafxLookup$Suffix$Obj = (I$reference ToTable EffSchemaName$$reference ToTable TableName$Obj)( javafxReferenceLookup$Suffix$.getReferencedObject() );
+		editObj.set$OptionalOrRequired$Lookup$Suffix$( javafxLookup$Suffix$Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePostFields"
+		>$switch HasSuperClassRelation yes implAttrPanePostInhFields default implAttrPanePostBaseFields$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePostInhFields"
+		>$reference SuperClassRelation reference ToTable implAttrPanePostFields$$iterate Columns( each implAttrPanePostDataFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostDataFieldCol"
+		>$switch ColumnInPrimaryIndex yes empty default implAttrPanePostMaybeFieldCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrPanePostBaseFields"
+		>$iterate Columns( each implAttrPanePostDataFieldCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostMaybeFieldCol"
+		>$switch BaseModelAtomClass BlobDef empty default implAttrPanePostFieldCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostFieldCol"
+		>$switch ColumnInContainerOrNamedLookupRelation no implAttrPanePostEmitFieldCol default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitFieldCol"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef implAttrPanePostEmitBool
+			EnumDef implAttrPanePostEmitEnum
+			Int16Def implAttrPanePostEmitInt16
+			Int32Def implAttrPanePostEmitInt32
+			Int64Def implAttrPanePostEmitInt64
+			UInt16Def implAttrPanePostEmitUInt16
+			UInt32Def implAttrPanePostEmitUInt32
+			UInt64Def implAttrPanePostEmitUInt64
+			Id16Gen implAttrPanePostEmitInt16
+			Id32Gen implAttrPanePostEmitInt32
+			Id64Gen implAttrPanePostEmitInt64
+			FloatDef implAttrPanePostEmitFloat
+			DoubleDef implAttrPanePostEmitDouble
+			NumberDef implAttrPanePostEmitNumber
+			StringDef implAttrPanePostEmitString
+			TokenDef implAttrPanePostEmitToken
+			NmTokenDef implAttrPanePostEmitNmToken
+			NmTokensDef implAttrPanePostEmitNmTokens
+			TextDef implAttrPanePostEmitText
+			DateDef implAttrPanePostEmitDate
+			TimeDef implAttrPanePostEmitTime
+			TimestampDef implAttrPanePostEmitTimestamp
+			TZDateDef implAttrPanePostEmitTZDate
+			TZTimeDef implAttrPanePostEmitTZTime
+			TZTimestampDef implAttrPanePostEmitTZTimestamp
+			UuidGen implAttrPanePostEmitUuid
+			UuidDef implAttrPanePostEmitUuid
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitBool">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getBooleanValue() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitInt16">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getInt16Value() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitEnum">
+		String str$lower Name$ = getJavaFXEditor$Name$().getValue();
+		I$reference DataType EffSchemaName$Schema.$reference DataType Name$ cur$lower Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( "$Name$", str$lower Name$ );
+		editObj.set$OptionalOrRequired$$Name$( cur$lower Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitInt32">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getInt32Value() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitInt64">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getInt64Value() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitUInt16">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getUInt16Value() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitUInt32">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getUInt32Value() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitUInt64">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getUInt64Value() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitFloat">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getFloatValue() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitDouble">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getDoubleValue() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitNumber">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getNumberValue() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitString"
+		>$switch IsNullable yes implAttrPanePostEmitOptionalString default implAttrPanePostEmitRequiredString$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitRequiredString">
+		if( getJavaFXEditor$Name$().getStringValue() == null ) {
+			editObj.set$OptionalOrRequired$$Name$( "" );
+		}
+		else {
+			editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getStringValue() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitOptionalString">
+		if( ( getJavaFXEditor$Name$().getStringValue() != null ) &amp;&amp; ( getJavaFXEditor$Name$().getStringValue().length() &lt;= 0 ) ) {
+			editObj.set$OptionalOrRequired$$Name$( null );
+		}
+		else {
+			editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getStringValue() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitToken"
+		>$switch IsNullable yes implAttrPanePostEmitOptionalToken default implAttrPanePostEmitRequiredToken$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitRequiredToken">
+		if( getJavaFXEditor$Name$().getTokenValue() == null ) {
+			editObj.set$OptionalOrRequired$$Name$( "" );
+		}
+		else {
+			editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getTokenValue() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitOptionalToken">
+		if( ( getJavaFXEditor$Name$().getTokenValue() != null ) &amp;&amp; ( getJavaFXEditor$Name$().getTokenValue().length() &lt;= 0 ) ) {
+			editObj.set$OptionalOrRequired$$Name$( null );
+		}
+		else {
+			editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getTokenValue() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitNmToken"
+		>$switch IsNullable yes implAttrPanePostEmitOptionalNmToken default implAttrPanePostEmitRequiredNmToken$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitRequiredNmToken">
+		if( getJavaFXEditor$Name$().getNmTokenValue() == null ) {
+			editObj.set$OptionalOrRequired$$Name$( "" );
+		}
+		else {
+			editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getNmTokenValue() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitOptionalNmToken">
+		if( ( getJavaFXEditor$Name$().getNmTokenValue() != null ) &amp;&amp; ( getJavaFXEditor$Name$().getNmTokenValue().length() &lt;= 0 ) ) {
+			editObj.set$OptionalOrRequired$$Name$( null );
+		}
+		else {
+			editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getNmTokenValue() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitNmTokens"
+		>$switch IsNullable yes implAttrPanePostEmitOptionalNmTokens default implAttrPanePostEmitRequiredNmTokens$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitRequiredNmTokens">
+		if( getJavaFXEditor$Name$().getNmTokensValue() == null ) {
+			editObj.set$OptionalOrRequired$$Name$( "" );
+		}
+		else {
+			editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getNmTokensValue() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitOptionalNmTokens">
+		if( ( getJavaFXEditor$Name$().getNmTokensValue() != null ) &amp;&amp; ( getJavaFXEditor$Name$().getNmTokensValue().length() &lt;= 0 ) ) {
+			editObj.set$OptionalOrRequired$$Name$( null );
+		}
+		else {
+			editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getNmTokensValue() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitText"
+		>$switch IsNullable yes implAttrPanePostEmitOptionalText default implAttrPanePostEmitRequiredText$</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitRequiredText">
+		if( getJavaFXEditor$Name$().getTextValue() == null ) {
+			editObj.set$OptionalOrRequired$$Name$( "" );
+		}
+		else {
+			editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getTextValue() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitOptionalText">
+		if( ( getJavaFXEditor$Name$().getTextValue() != null ) &amp;&amp; ( getJavaFXEditor$Name$().getTextValue().length() &lt;= 0 ) ) {
+			editObj.set$OptionalOrRequired$$Name$( null );
+		}
+		else {
+			editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getTextValue() );
+		}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitDate">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getDateValue() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitTime">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getTimeValue() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitTimestamp">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getTimestampValue() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitTZDate">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getTZDateValue() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitTZTime">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getTZTimeValue() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitTZTimestamp">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getTZTimestampValue() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implAttrPanePostEmitUuid">
+		editObj.set$OptionalOrRequired$$Name$( getJavaFXEditor$Name$().getUuidValue() );
+</GenRule>
+
+</RuleSet>

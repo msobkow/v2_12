@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+javafx"
+	Name="src/SchemaJavaFXTableEltTabPane.java"
+	Revision="2.12"
+	Descr="Java 11 JavaFX Element TabPane for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaJavaFXTableEltTabPaneJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$JavaFX/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$JavaFX"
+		ExpansionClassName="$SchemaName$JavaFX$TableName$TableEltTabPaneJava"
+		ExpansionKeyName="$SchemaName$JavaFX$TableName$TableEltTabPaneJava"
+		ExpansionFileName="$SchemaName$JavaFX$TableName$EltTabPane.java"
+>// Description: Java 11 JavaFX Element TabPane implementation for $TableName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$JavaFX;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import java.util.List;
+import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.JavaFX.*;
+import org.apache.commons.codec.binary.Base64;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+
+/**
+ *	$SchemaName$JavaFX$TableName$EltTabPane JavaFX Element TabPane implementation
+ *	for $TableName$.
+ */
+public class $SchemaName$JavaFX$TableName$EltTabPane
+extends CFTabPane
+implements I$DefSchemaName$JavaFX$TableName$PaneCommon
+{
+	protected ICFFormManager cfFormManager = null;
+	protected I$SchemaName$JavaFXSchema javafxSchema = null;
+	protected boolean javafxIsInitializing = true;$declTabGetJavaFXTableEltTabPaneSingletonViewAnAttr$$declTabGetJavaFXTableEltTabPaneListTabs$$declJavaFXTableEltTabPaneSingletonTabs$$declJavaFXTableEltTabPaneListTabs$
+$implConstructJavaFXTableEltTabPane$$implGetSetCFFormManager$$implGetJavaFXSchema$$implGetSetJavaFXFocusEltTabPane$$implJavaFXTableEltTabPaneSingletonTabs$$implJavaFXTableEltTabPaneListTabs$$implSetPaneModeEltTabPane$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implGetSetJavaFXFocusEltTabPane">
+	public void setJavaFXFocus( ICFLibAnyObj value ) {
+		final String S_ProcName = "setJavaFXFocus";
+		if( ( value == null ) || ( value instanceof I$DefSchemaName$$TableName$Obj ) ) {
+			super.setJavaFXFocus( value );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				S_ProcName,
+				"value",
+				value,
+				"I$DefSchemaName$$TableName$Obj" );
+		}
+	}
+
+	public void setJavaFXFocusAs$TableName$( I$DefSchemaName$$TableName$Obj value ) {
+		setJavaFXFocus( value );
+	}
+
+	public I$DefSchemaName$$TableName$Obj getJavaFXFocusAs$TableName$() {
+		return( (I$DefSchemaName$$TableName$Obj)getJavaFXFocus() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeEltTabPane">
+	public void setPaneMode( CFPane.PaneMode value ) {
+		CFPane.PaneMode oldMode = getPaneMode();
+		super.setPaneMode( value );$implSetPaneModeEltTabPaneSingletonTabs$$implSetPaneModeEltTabPaneListTabs$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeEltTabPaneSingletonTabs"
+		>$switch HasSuperClassRelation yes implSetPaneModeEltTabPaneSingletonInhTabs default implSetPaneModeEltTabPaneSingletonBaseTabs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeEltTabPaneSingletonBaseTabs"
+		>$iterate Relation( each implSetPaneModeEltTabPaneSingletonATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeEltTabPaneSingletonInhTabs"
+		>$reference SuperClassRelation reference ToTable implSetPaneModeEltTabPaneSingletonTabs$$iterate Relation( each implSetPaneModeEltTabPaneSingletonATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSetPaneModeEltTabPaneSingletonATab"
+		>$switch RelationTypeTag
+			Lookup empty
+			Children implSetPaneModeEltTabPaneSingletonTabRefViewAnAttr
+			Components implSetPaneModeEltTabPaneSingletonTabRefViewAnAttr
+			Details implSetPaneModeEltTabPaneSingletonTabRefViewAnAttr
+			Parent empty
+			Container empty
+			Owner empty
+			Master empty
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSetPaneModeEltTabPaneSingletonTabRefViewAnAttr"
+		>$switch ToIndexIsUnique yes implSetPaneModeEltTabPaneSingletonTabRefViewAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSetPaneModeEltTabPaneSingletonTabRefViewAttr">
+	if( tabView$RelationTypeTag$$Suffix$AttrPane != null ) {
+		((I$DefSchemaName$JavaFX$reference ToTable TableName$PaneCommon)tabView$RelationTypeTag$$Suffix$AttrPane).setPaneMode( CFPane.PaneMode.View );
+	}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeEltTabPaneListTabs"
+		>$switch HasSuperClassRelation yes implSetPaneModeEltTabPaneListInhTabs default implSetPaneModeEltTabPaneListBaseTabs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeEltTabPaneListBaseTabs"
+		>$iterate Relation( each implSetPaneModeEltTabPaneListATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeEltTabPaneListInhTabs"
+		>$reference SuperClassRelation reference ToTable implSetPaneModeEltTabPaneListTabs$$iterate Relation( each implSetPaneModeEltTabPaneListATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSetPaneModeEltTabPaneListATab"
+		>$switch RelationTypeTag
+			Children implSetPaneModeEltTabPaneListTabRefAListPane
+			Components implSetPaneModeEltTabPaneListTabRefAListPane
+			Details implSetPaneModeEltTabPaneListTabRefAListPane
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSetPaneModeEltTabPaneListTabRefAListPane"
+		>$switch ToIndexIsUnique no implSetPaneModeEltTabPaneListTabRefListPane default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implSetPaneModeEltTabPaneListTabRefListPane">
+		if( tabView$RelationTypeTag$$Suffix$ListPane != null ) {
+			((I$DefSchemaName$JavaFX$reference ToTable TableName$PaneCommon)tabView$RelationTypeTag$$Suffix$ListPane).setPaneMode( value );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableEltTabPaneSingletonTabs"
+		>$switch HasSuperClassRelation yes declJavaFXTableEltTabPaneSingletonInhTabs default declJavaFXTableEltTabPaneSingletonBaseTabs$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableEltTabPaneSingletonBaseTabs"
+		>$iterate Relation( each declJavaFXTableEltTabPaneSingletonATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableEltTabPaneSingletonInhTabs"
+		>$reference SuperClassRelation reference ToTable declJavaFXTableEltTabPaneSingletonTabs$$iterate Relation( each declJavaFXTableEltTabPaneSingletonATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableEltTabPaneSingletonATab"
+		>$switch RelationTypeTag
+			Lookup empty
+			Children declJavaFXTableEltTabPaneSingletonTabRefViewAnAttr
+			Components declJavaFXTableEltTabPaneSingletonTabRefViewAnAttr
+			Details declJavaFXTableEltTabPaneSingletonTabRefViewAnAttr
+			Parent empty
+			Container empty
+			Owner empty
+			Master empty
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableEltTabPaneSingletonTabRefViewAnAttr"
+		>$switch ToIndexIsUnique yes declJavaFXTableEltTabPaneSingletonTabRefViewAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableEltTabPaneSingletonTabRefViewAttr">
+	protected ScrollPane tabView$RelationTypeTag$$Suffix$AttrScrollPane = null;
+	protected CFGridPane tabView$RelationTypeTag$$Suffix$AttrPane = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableEltTabPaneListTabs"
+		>$switch HasSuperClassRelation yes declJavaFXTableEltTabPaneListInhTabs default declJavaFXTableEltTabPaneListBaseTabs$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableEltTabPaneListBaseTabs"
+		>$iterate Relation( each declJavaFXTableEltTabPaneListATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableEltTabPaneListInhTabs"
+		>$reference SuperClassRelation reference ToTable declJavaFXTableEltTabPaneListTabs$$iterate Relation( each declJavaFXTableEltTabPaneListATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableEltTabPaneListATab"
+		>$switch RelationTypeTag
+			Children declJavaFXTableEltTabPaneListTabRefAListPane
+			Components declJavaFXTableEltTabPaneListTabRefAListPane
+			Details declJavaFXTableEltTabPaneListTabRefAListPane
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableEltTabPaneListTabRefAListPane"
+		>$switch ToIndexIsUnique no declJavaFXTableEltTabPaneListTabRefListPane default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableEltTabPaneListTabRefListPane">
+	protected CFBorderPane tabView$RelationTypeTag$$Suffix$ListPane = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableEltTabPaneSingletonTabs"
+		>$switch HasSuperClassRelation yes implJavaFXTableEltTabPaneSingletonInhTabs default implJavaFXTableEltTabPaneSingletonBaseTabs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableEltTabPaneSingletonBaseTabs"
+		>$iterate Relation( each implJavaFXTableEltTabPaneSingletonATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableEltTabPaneSingletonInhTabs"
+		>$reference SuperClassRelation reference ToTable implJavaFXTableEltTabPaneSingletonTabs$$iterate Relation( each implJavaFXTableEltTabPaneSingletonATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableEltTabPaneSingletonATab"
+		>$switch RelationTypeTag
+			Lookup empty
+			Children implJavaFXTableEltTabPaneSingletonTabRefViewAnAttr
+			Components implJavaFXTableEltTabPaneSingletonTabRefViewAnAttr
+			Details implJavaFXTableEltTabPaneSingletonTabRefViewAnAttr
+			Parent empty
+			Container empty
+			Owner empty
+			Master empty
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableEltTabPaneSingletonTabRefViewAnAttr"
+		>$switch ToIndexIsUnique yes implJavaFXTableEltTabPaneSingletonTabRefViewAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableEltTabPaneSingletonTabRefViewAttr">
+	public ScrollPane getTabView$RelationTypeTag$$Suffix$AttrScrollPane() {
+		if( tabView$RelationTypeTag$$Suffix$AttrScrollPane == null ) {
+			I$poptop Table SchemaName$$poptop Table TableName$Obj focus = (I$poptop Table SchemaName$$poptop Table TableName$Obj)getJavaFXFocusAs$poptop Table TableName$();
+			I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj ref$Suffix$ =
+				( focus != null )
+					? focus.get$OptionalOrRequired$$RelationTypeTag$$Suffix$()
+					: null;
+			tabView$RelationTypeTag$$Suffix$AttrPane = javafxSchema.get$reference ToTable TableName$Factory().newAttrPane( cfFormManager, ref$Suffix$ );
+			tabView$RelationTypeTag$$Suffix$AttrScrollPane = new ScrollPane();
+			tabView$RelationTypeTag$$Suffix$AttrScrollPane.setFitToWidth( true );
+			tabView$RelationTypeTag$$Suffix$AttrScrollPane.setHbarPolicy( ScrollBarPolicy.NEVER );
+			tabView$RelationTypeTag$$Suffix$AttrScrollPane.setVbarPolicy( ScrollBarPolicy.AS_NEEDED );
+			tabView$RelationTypeTag$$Suffix$AttrScrollPane.setContent( tabView$RelationTypeTag$$Suffix$AttrPane );
+		}
+		return( tabView$RelationTypeTag$$Suffix$AttrScrollPane );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableEltTabPaneListTabs"
+		>$switch HasSuperClassRelation yes implJavaFXTableEltTabPaneListInhTabs default implJavaFXTableEltTabPaneListBaseTabs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableEltTabPaneListBaseTabs"
+		>$iterate Relation( each implJavaFXTableEltTabPaneListATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableEltTabPaneListInhTabs"
+		>$reference SuperClassRelation reference ToTable implJavaFXTableEltTabPaneListTabs$$iterate Relation( each implJavaFXTableEltTabPaneListATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableEltTabPaneListATab"
+		>$switch RelationTypeTag
+			Children implJavaFXTableEltTabPaneListTabRefAListPane
+			Components implJavaFXTableEltTabPaneListTabRefAListPane
+			Details implJavaFXTableEltTabPaneListTabRefAListPane
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableEltTabPaneListTabRefAListPane"
+		>$switch ToIndexIsUnique no implJavaFXTableEltTabPaneListTabRefListPane default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classJavaFXTableEltTabPaneListTabRefListRefreshCallbackEmpty">
+			// Use page data instead</GenRule>
+
+	<GenRule GenDef="Relation" Name="classJavaFXTableEltTabPaneListTabRefListRefreshCallbackBody">
+			Collection&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; dataCollection;
+			I$poptop Table SchemaName$$poptop Table TableName$Obj focus = (I$poptop Table SchemaName$$poptop Table TableName$Obj)getJavaFXFocusAs$poptop Table TableName$();
+			if( focus != null ) {
+				dataCollection = focus.get$OptionalOrRequired$$RelationTypeTag$$Suffix$( javafxIsInitializing );
+			}
+			else {
+				dataCollection = null;
+			}
+			CFBorderPane pane = getTabView$RelationTypeTag$$Suffix$ListPane();
+			I$SchemaName$JavaFX$reference ToTable TableName$PaneList jpList = (I$SchemaName$JavaFX$reference ToTable TableName$PaneList)pane;
+			jpList.setJavaFXDataCollection( dataCollection );</GenRule>
+
+	<GenRule GenDef="Relation" Name="classJavaFXTableEltTabPaneListTabRefListRefreshCallback">
+	protected class Refresh$RelationTypeTag$$Suffix$List
+	implements ICFRefreshCallback
+	{
+		public Refresh$RelationTypeTag$$Suffix$List() {
+		}
+
+		public void refreshMe() {$switch ToTablePageData yes classJavaFXTableEltTabPaneListTabRefListRefreshCallbackEmpty default classJavaFXTableEltTabPaneListTabRefListRefreshCallbackBody$
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableEltTabPaneListPassCol"
+		>focus.get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableEltTabPaneListPassCommaCol">,
+					$implJavaFXTableEltTabPaneListPassCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaFXTableEltTabPaneListPassPriorArg">,
+					prior$Name$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classJavaFXTableEltTabPaneListTabRefListPageData">
+	protected class PageData$RelationTypeTag$$Suffix$List
+	implements I$SchemaName$JavaFX$reference ToTable TableName$PageCallback
+	{
+		public PageData$RelationTypeTag$$Suffix$List() {
+		}
+
+		public List&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; pageData( $reference ToTable reference BaseClass reference PrimaryKeyIndex iterate Columns( first declOptPriorArg each declCommaOptPriorArg )$ )
+		{
+			List&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; dataList;
+			I$poptop Table SchemaName$$poptop Table TableName$Obj focus = (I$poptop Table SchemaName$$poptop Table TableName$Obj)getJavaFXFocusAs$poptop Table TableName$();
+			if( focus != null ) {
+				I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+				dataList = schemaObj.get$reference ToTable TableName$TableObj().page$reference ToTable TableName$By$reference ToIndex Suffix$( $reference FromIndex iterate Columns( first implJavaFXTableEltTabPaneListPassCol each implJavaFXTableEltTabPaneListPassCommaCol )$$reference ToTable reference BaseClass reference PrimaryKeyIndex iterate Columns( each implJavaFXTableEltTabPaneListPassPriorArg )$ );
+			}
+			else {
+				dataList = new ArrayList&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt;();
+			}
+			return( dataList );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="ToTablePageData"
+		>$reference ToTable PageData$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableEltTabPaneListTabRetrieveCollection">
+			Collection&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; dataCollection;
+			if( focus != null ) {
+				dataCollection = focus.get$OptionalOrRequired$$RelationTypeTag$$Suffix$( javafxIsInitializing );
+			}
+			else {
+				dataCollection = null;
+			}</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableEltTabPaneListPassNewPageCallback"
+		>new PageData$RelationTypeTag$$Suffix$List()</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableEltTabPaneListPassCollection"
+		>dataCollection</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableEltTabPaneListTabRefListPane">$classJavaFXTableEltTabPaneListTabRefListRefreshCallback$$switch ToTablePageData yes classJavaFXTableEltTabPaneListTabRefListPageData default empty$
+	public CFBorderPane getTabView$RelationTypeTag$$Suffix$ListPane() {
+		if( tabView$RelationTypeTag$$Suffix$ListPane == null ) {
+			I$poptop Table SchemaName$$poptop Table TableName$Obj focus = (I$poptop Table SchemaName$$poptop Table TableName$Obj)getJavaFXFocusAs$poptop Table TableName$();$switch ToTablePageData yes empty default implJavaFXTableEltTabPaneListTabRetrieveCollection$
+			$reference ToTable switch HasContainer yes implISchemaJavaFXTableContainerObjInterface default implISchemaJavaFXTableContainerAnyInterface$ javafxContainer;$switch ToTableHasContainer yes implJavaFXTableEltTabPaneListTabRefListPaneObjThis default implJavaFXTableEltTabPaneListTabRefListPaneObjNull$
+			tabView$RelationTypeTag$$Suffix$ListPane = javafxSchema.get$reference ToTable TableName$Factory().newListPane( cfFormManager, javafxContainer, null, $switch ToTablePageData yes implJavaFXTableEltTabPaneListPassNewPageCallback default implJavaFXTableEltTabPaneListPassCollection$, new Refresh$RelationTypeTag$$Suffix$List(), $reference ToTable switch HasChain yes implJavaFXTableEltTabPaneMaybePassTrue default implJavaFXTableEltTabPanePassFalse$ );
+		}
+		return( tabView$RelationTypeTag$$Suffix$ListPane );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableEltTabPaneMaybePassTrue"
+		>$popto Relation switch RelationTypeTag Components implJavaFXTableEltTabPanePassTrue default implJavaFXTableEltTabPanePassFalse$</GenRule>
+
+	<GenRule GenDef="Object" Name="implJavaFXTableEltTabPanePassTrue">true</GenRule>
+
+	<GenRule GenDef="Object" Name="implJavaFXTableEltTabPanePassFalse">false</GenRule>
+
+	<GenRule GenDef="Relation" Name="ToTableHasContainer"
+		>$reference ToTable HasContainer$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableEltTabPaneListTabRefListPaneObjThis">
+			if( ( focus != null ) &amp;&amp; ( focus instanceof $reference ToTable implISchemaJavaFXTableContainerObjInterface$ ) ) {
+				javafxContainer = ($reference ToTable implISchemaJavaFXTableContainerObjInterface$)focus;
+			}
+			else {
+				javafxContainer = null;
+			}</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableEltTabPaneListTabRefListPaneObjNull">
+			javafxContainer = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableEltTabPane">
+	public $SchemaName$JavaFX$TableName$EltTabPane( ICFFormManager formManager, I$SchemaName$JavaFXSchema argSchema, I$DefSchemaName$$TableName$Obj argFocus ) {
+		super();
+		final String S_ProcName = "construct-schema-focus";
+		if( formManager == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"formManager" );
+		}
+		cfFormManager = formManager;
+		if( argSchema == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"argSchema" );
+		}
+		// argFocus is optional; focus may be set later during execution as
+		// conditions of the runtime change.
+		javafxSchema = argSchema;
+		setJavaFXFocusAs$TableName$( argFocus );
+		// Wire the newly constructed Panes/Tabs to this TabPane$wireGetJavaFXTableEltTabPaneSingletonTabs$$wireGetJavaFXTableEltTabPaneListTabs$
+		javafxIsInitializing = false;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="wireGetJavaFXTableEltTabPaneSingletonTabs"
+		>$switch HasSuperClassRelation yes wireGetJavaFXTableEltTabPaneSingletonInhTabs default wireGetJavaFXTableEltTabPaneSingletonBaseTabs$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireGetJavaFXTableEltTabPaneSingletonBaseTabs"
+		>$iterate Relation( each wireGetJavaFXTableEltTabPaneSingletonATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireGetJavaFXTableEltTabPaneSingletonInhTabs"
+		>$reference SuperClassRelation reference ToTable wireGetJavaFXTableEltTabPaneSingletonTabs$$iterate Relation( each wireGetJavaFXTableEltTabPaneSingletonATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireGetJavaFXTableEltTabPaneSingletonATab"
+		>$switch RelationTypeTag
+			Lookup empty
+			Children wireGetJavaFXTableEltTabPaneSingletonTabRefViewAnAttr
+			Components wireGetJavaFXTableEltTabPaneSingletonTabRefViewAnAttr
+			Details wireGetJavaFXTableEltTabPaneSingletonTabRefViewAnAttr
+			Parent empty
+			Container empty
+			Owner empty
+			Master empty
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireGetJavaFXTableEltTabPaneSingletonTabRefViewAnAttr"
+		>$switch ToIndexIsUnique yes wireGetJavaFXTableEltTabPaneSingletonTabRefViewAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireGetJavaFXTableEltTabPaneSingletonTabRefViewAttr">
+		tab$RelationTypeTag$$Suffix$ = new CFTab();
+		tab$RelationTypeTag$$Suffix$.setText( LABEL_Tab$RelationTypeTag$$Suffix$Attr );
+		tab$RelationTypeTag$$Suffix$.setContent( getTabView$RelationTypeTag$$Suffix$AttrScrollPane() );
+		getTabs().add( tab$RelationTypeTag$$Suffix$ );</GenRule>
+
+	<GenRule GenDef="Relation" Name="EffRelationLabel"
+		>$switch HasShortDescription yes ShortDescription default inferRelationLabel$</GenRule>
+
+	<GenRule GenDef="Relation" Name="inferRelationLabel"
+		>$OptionalOrRequired$ $RelationTypeTag$ $EffLabel$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireGetJavaFXTableEltTabPaneListTabs"
+		>$switch HasSuperClassRelation yes wireGetJavaFXTableEltTabPaneListInhTabs default wireGetJavaFXTableEltTabPaneListBaseTabs$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireGetJavaFXTableEltTabPaneListBaseTabs"
+		>$iterate Relation( each wireGetJavaFXTableEltTabPaneListATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="wireGetJavaFXTableEltTabPaneListInhTabs"
+		>$reference SuperClassRelation reference ToTable wireGetJavaFXTableEltTabPaneListTabs$$iterate Relation( each wireGetJavaFXTableEltTabPaneListATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireGetJavaFXTableEltTabPaneListATab"
+		>$switch RelationTypeTag
+			Children wireGetJavaFXTableEltTabPaneListTabRefAListPane
+			Components wireGetJavaFXTableEltTabPaneListTabRefAListPane
+			Details wireGetJavaFXTableEltTabPaneListTabRefAListPane
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireGetJavaFXTableEltTabPaneListTabRefAListPane"
+		>$switch ToIndexIsUnique no wireGetJavaFXTableEltTabPaneListTabRefListPane default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="wireGetJavaFXTableEltTabPaneListTabRefListPane">
+		tab$RelationTypeTag$$Suffix$ = new CFTab();
+		tab$RelationTypeTag$$Suffix$.setText( LABEL_Tab$RelationTypeTag$$Suffix$List );
+		tab$RelationTypeTag$$Suffix$.setContent( getTabView$RelationTypeTag$$Suffix$ListPane() );
+		getTabs().add( tab$RelationTypeTag$$Suffix$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="declTabGetJavaFXTableEltTabPaneSingletonViewAnAttr"
+		>$switch HasSuperClassRelation yes declTabGetJavaFXTableEltTabPaneSingletonViewInhAttr default declTabGetJavaFXTableEltTabPaneSingletonViewBaseAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTabGetJavaFXTableEltTabPaneSingletonViewInhAttr"
+		>$reference SuperClassRelation reference ToTable declTabGetJavaFXTableEltTabPaneSingletonViewAnAttr$$iterate Relation( each declTabGetJavaFXTableEltTabPaneSingletonTabRefViewAnAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTabGetJavaFXTableEltTabPaneSingletonViewBaseAttr"
+		>$iterate Relation( each declTabGetJavaFXTableEltTabPaneSingletonTabRefViewAnAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declTabGetJavaFXTableEltTabPaneSingletonTabRefViewAnAttr"
+		>$switch ToIndexIsUnique yes declTabGetJavaFXTableEltTabPaneSingletonTabRefViewAttr default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declTabGetJavaFXTableEltTabPaneSingletonTabRefViewAttr"
+		>$switch RelationTypeTag
+			Lookup empty
+			Children declTabGetJavaFXTableEltTabPaneSingletonTabRefViewTheAttr
+			Components declTabGetJavaFXTableEltTabPaneSingletonTabRefViewTheAttr
+			Details declTabGetJavaFXTableEltTabPaneSingletonTabRefViewTheAttr
+			Parent empty
+			Container empty
+			Owner empty
+			Master empty
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declTabGetJavaFXTableEltTabPaneSingletonTabRefViewTheAttr">
+	public final String LABEL_Tab$RelationTypeTag$$Suffix$Attr = "$EffRelationLabel$";
+	protected CFTab tab$RelationTypeTag$$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declTabGetJavaFXTableEltTabPaneListTabs"
+		>$switch HasSuperClassRelation yes declTabGetJavaFXTableEltTabPaneListInhTabs default declTabGetJavaFXTableEltTabPaneListBaseTabs$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTabGetJavaFXTableEltTabPaneListBaseTabs"
+		>$iterate Relation( each declTabGetJavaFXTableEltTabPaneListATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTabGetJavaFXTableEltTabPaneListInhTabs"
+		>$reference SuperClassRelation reference ToTable declTabGetJavaFXTableEltTabPaneListTabs$$iterate Relation( each declTabGetJavaFXTableEltTabPaneListATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declTabGetJavaFXTableEltTabPaneListATab"
+		>$switch RelationTypeTag
+			Children declTabGetJavaFXTableEltTabPaneListTabRefAListPane
+			Components declTabGetJavaFXTableEltTabPaneListTabRefAListPane
+			Details declTabGetJavaFXTableEltTabPaneListTabRefAListPane
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declTabGetJavaFXTableEltTabPaneListTabRefAListPane"
+		>$switch ToIndexIsUnique no declTabGetJavaFXTableEltTabPaneListTabRefViewTheList default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declTabGetJavaFXTableEltTabPaneListTabRefViewTheList">
+	public final String LABEL_Tab$RelationTypeTag$$Suffix$List = "$EffRelationLabel$";
+	protected CFTab tab$RelationTypeTag$$Suffix$ = null;</GenRule>
+
+</RuleSet>

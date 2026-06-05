@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus+saxloader"
+	Name="libschemaxml/SchemaSaxLoaderTableAttrHandler.cpp"
+	Revision="2.12"
+	Descr="C++18 XML SAX2 Element Handler implementation for Table sub-element XmlElementName">
+
+	<GenFile GenDef="Value" Name="fileSchemaSaxLoaderTableAttrHandlerCPlus"
+		GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$reference ManufacturingSchema lower PackageName$saxloader"
+		SubPackageName=""
+		ExpansionClassName="$poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$HandlerCPlus"
+		ExpansionKeyName="$poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$HandlerCPlus"
+		ExpansionFileName="$poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler.cpp">
+// Description: C++18 XML SAX2 Element Handler implementation for $poptop Table TableName$ sub-element $XmlElementName$
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower poptop Table SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower poptop Table SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+#include &lt;$lower poptop Table SchemaName$saxloader/$poptop Table SchemaName$SaxLoader.hpp&gt;
+#include &lt;$lower poptop Table SchemaName$saxloader/$poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler.hpp&gt;
+
+using namespace std;
+
+namespace $CPlusNamespace$ {
+
+	const std::string $poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler::CLASS_NAME( "$poptop Table SchemaName$SaxLoader$poptop Table TableName$Handler" );
+$implConstructSaxLoaderTableAttrHandler$$implTableAttrHandlerStartElement$$implTableAttrHandlerEndElement$
+}
+</GenFile>
+
+	<GenRule GenDef="Value" Name="implConstructSaxLoaderTableAttrHandler">
+	$poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler::$poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler( $poptop Table CPlusNamespace$::$poptop Table SchemaName$SaxLoader* saxLoader )
+	: cflib::CFLibXmlCoreElementHandler( saxLoader )
+	{
+	}
+
+	$poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler::~$poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler() {
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableAttrHandlerStartElement">
+	void $poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler::startElement (
+		const XMLCh* const uri,
+		const XMLCh* const localname,
+		const XMLCh* const qname,
+		const xercesc::Attributes&amp; attrs )
+	{
+		const static std::string S_ProcName( "startElement" );
+		const static std::string S_SpecificallyId( "Id" );
+		const static std::string S_Object( "object" );
+		const static std::string S_Uri( "uri" );
+		const static std::string S_LocalName( "localname" );
+		const static std::string S_GetParser( "getParser()" );
+		const static std::string S_GetParserGetSchemaObj( "getParser()-&gt;getSchemaObj()" );
+		const static std::string S_SchemaLocation( "schemaLocation" );
+		const static std::string S_QName( "qname" );
+		const static std::string S_ScopeObj( "scopeObj" );
+		const static std::string S_XmlElementName( "$XmlElementName$" );
+		CFLIB_EXCEPTION_DECLINFO
+		const XMLCh* xmlchLocalName = NULL;
+		char* cLocalName = NULL;
+		std::string* attrLocalName = NULL;
+		const XMLCh* xmlchValue = NULL;
+		char* cValue = NULL;
+		std::string* cppValue = NULL;
+		char* cUri = NULL;
+		char* cQName = NULL;
+		cflib::CFLibXmlCoreContext* curContext = NULL;
+		$poptop Table CPlusNamespace$::$poptop Table SchemaName$SaxLoader* saxLoader = NULL;
+		$poptop Table CPlusNamespace$::I$poptop Table SchemaName$SchemaObj* schemaObj = NULL;
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* orig$TableName$ = NULL;
+		cflib::CFLibXmlCoreContext* parentContext = NULL;
+		cflib::ICFLibAnyObj* scopeObj = NULL;
+		// Common XML Attributes
+		std::string* attrId = NULL;
+		try {
+			if( ( uri == NULL ) || ( *uri == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					1,
+					S_Uri );
+			}
+			if( ( localname == NULL ) || ( *localname == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					2,
+					S_LocalName );
+			}
+			if( ( qname == NULL ) || ( *qname == 0 ) ) {
+				throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+					S_ProcName,
+					3,
+					S_QName );
+			}
+
+			cUri = xercesc::XMLString::transcode( uri );
+			cLocalName = xercesc::XMLString::transcode( localname );
+			cQName = xercesc::XMLString::transcode( qname );
+			std::string cppUri( cUri );
+			std::string cppLocalName( cLocalName );
+			std::string cppQName( cQName );
+			xercesc::XMLString::release( &amp;cUri );
+			cUri = NULL;
+			xercesc::XMLString::release( &amp;cLocalName );
+			cLocalName = NULL;
+			xercesc::XMLString::release( &amp;cQName );
+			cQName = NULL;
+			if( cppQName != S_XmlElementName ) {
+				std::string Msg( "Expected QName to be '" + S_XmlElementName + "'" );
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					Msg );
+			}
+
+			// Extract Attributes
+			size_t idxAttr;
+			size_t numAttrs;
+
+			numAttrs = attrs.getLength();
+			for( idxAttr = 0; idxAttr &lt; numAttrs; idxAttr++ ) {
+				if( attrLocalName != NULL ) {
+					delete attrLocalName;
+					attrLocalName = NULL;
+				}
+				if( cppValue != NULL ) {
+					delete cppValue;
+					cppValue = NULL;
+				}
+				xmlchLocalName = attrs.getLocalName( idxAttr );
+				if( xmlchLocalName == NULL ) {
+					continue;
+				}
+				cLocalName = xercesc::XMLString::transcode( xmlchLocalName );
+				attrLocalName = new std::string( cLocalName );
+				xercesc::XMLString::release( &amp;cLocalName );
+				cLocalName = NULL;
+				xmlchValue = attrs.getValue( idxAttr );
+				if( xmlchValue == NULL ) {
+					cppValue = NULL;
+				}
+				else {
+					cValue = xercesc::XMLString::transcode( xmlchValue );
+					cppValue = new std::string( cValue );
+					xercesc::XMLString::release( &amp;cValue );
+					cValue = NULL;
+				}
+				if( *attrLocalName == S_SpecificallyId ) {
+					if( attrId != NULL ) {
+						throw cflib::CFLibUniqueIndexViolationException( CLASS_NAME,
+							S_ProcName,
+							*attrLocalName );
+					}
+					if( cppValue != NULL ) {
+						attrId = new std::string( *cppValue );
+					}
+				}
+				else if( *attrLocalName == S_SchemaLocation ) {
+					// ignored
+				}
+				else {
+					throw cflib::CFLibUnrecognizedAttributeException( CLASS_NAME,
+						S_ProcName,
+						getParser()-&gt;getLocationInfo(),
+						*attrLocalName );
+				}
+				if( cppValue != NULL ) {
+					delete cppValue;
+					cppValue = NULL;
+				}
+				if( attrLocalName != NULL ) {
+					delete attrLocalName;
+					attrLocalName = NULL;
+				}
+			}
+
+			saxLoader = dynamic_cast&lt;$CPlusNamespace$::$SchemaName$SaxLoader*&gt;( getParser() );
+			if( saxLoader == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_GetParser );
+			}
+
+			schemaObj = dynamic_cast&lt;$CPlusNamespace$::I$SchemaName$SchemaObj*&gt;( saxLoader-&gt;getSchemaObj() );
+			if( schemaObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_GetParserGetSchemaObj );
+			}
+
+			curContext = getParser()-&gt;getCurContext();
+			if( curContext == NULL ) {
+				static const std::string S_CurContext( "getParser()-&gt;getCurContext" );
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_CurContext );
+			}
+
+			parentContext = curContext-&gt;getPrevContext();
+			if( parentContext != NULL ) {
+				scopeObj = parentContext-&gt;getObj();
+			}
+			else {
+				scopeObj = NULL;
+			}
+
+			if( scopeObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_ScopeObj );
+			}
+			else if( scopeObj-&gt;implementsClassCode( $poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff::CLASS_CODE ) ) {
+				orig$poptop Table TableName$ = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( scopeObj );
+			}
+			else {
+				throw cflib::CFLibUnsupportedClassException( CLASS_NAME,
+					S_ProcName,
+					S_ScopeObj,
+					scopeObj,
+					"I$poptop Table DefSchemaName$$poptop Table TableName$Obj" );
+			}
+
+			curContext-&gt;setObj( orig$poptop Table TableName$ );
+			
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+cleanup:
+		if( attrLocalName != NULL ) {
+			delete attrLocalName;
+			attrLocalName = NULL;
+		}
+
+		if( cppValue != NULL ) {
+			delete cppValue;
+			cppValue = NULL;
+		}
+
+		CFLIB_EXCEPTION_RETHROW_SAXEXCEPTION
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableAttrHandlerEndElement">
+	void $poptop Table SchemaName$SaxLoader$poptop Table TableName$$XmlElementName$Handler::endElement(
+		const XMLCh* const uri,
+		const XMLCh* const localname,
+		const XMLCh* const qname )
+	{
+		static const std::string S_ProcName( "endElement" );
+		static const std::string S_Object( "Object" );
+		static const std::string S_GetParser( "getParser()" );
+		static const std::string S_GetParserGetSchemaObj( "getParser()-&gt;getSchemaObj()" );
+		static const std::string S_CurObj( "curObj" );
+		static const std::string S_CurContext( "getParser()-&gt;getCurContext" );
+		static const std::string S_CurContextObj( "getParser()-&gt;getCurContext()-&gt;getObj()" );
+		static const std::string S_OnlySetOnceMsg( "Cannot specify $poptop Table TableName$ sub-element $XmlElementName$ more than once per object" );
+		CFLIB_EXCEPTION_DECLINFO
+		cflib::CFLibXmlCoreContext* curContext = NULL;
+		$poptop Table CPlusNamespace$::$poptop Table SchemaName$SaxLoader* saxLoader = NULL;
+		$poptop Table CPlusNamespace$::I$poptop Table SchemaName$SchemaObj* schemaObj = NULL;
+		cflib::ICFLibAnyObj* curObj = NULL;
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* origBuff = NULL;
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$EditObj* editBuff = NULL;
+		try {
+			saxLoader = dynamic_cast&lt;$poptop Table CPlusNamespace$::$poptop Table SchemaName$SaxLoader*&gt;( getParser() );
+			if( saxLoader == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_GetParser );
+			}
+
+			schemaObj = dynamic_cast&lt;$poptop Table CPlusNamespace$::I$poptop Table SchemaName$SchemaObj*&gt;( saxLoader-&gt;getSchemaObj() );
+			if( schemaObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_GetParserGetSchemaObj );
+			}
+
+			curContext = getParser()-&gt;getCurContext();
+			if( curContext == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_CurContext );
+			}
+
+			curObj = curContext-&gt;getObj();
+			if( curObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_CurContextObj );
+			}
+			else if( curObj-&gt;implementsClassCode( $poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff::CLASS_CODE ) ) {
+				origBuff = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( curObj );
+			}
+			else {
+				throw cflib::CFLibUnsupportedClassException( CLASS_NAME,
+					S_ProcName,
+					S_CurObj,
+					curObj,
+					"I$poptop Table DefSchemaName$$poptop Table TableName$Obj" );
+			}
+
+			editBuff = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$EditObj*&gt;( origBuff-&gt;beginEdit() );
+
+			std::string attrText = curContext-&gt;getElementText();$switch IsNullable yes implTableAttrHandlerApplyOptional default implTableAttrHandlerApplyRequired$
+
+			editBuff-&gt;update();
+			editBuff = NULL;
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+cleanup:
+		if( editBuff != NULL ) {
+			editBuff-&gt;endEdit();
+			editBuff = NULL;
+		}
+
+		CFLIB_EXCEPTION_RETHROW_SAXEXCEPTION
+	}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableAttrHandlerApplyOptional">
+		if( origBuff-&gt;is$OptionalOrRequired$$Name$Null() || origBuff-&gt;get$OptionalOrRequired$$Name$Value().empty() ) {
+			editBuff-&gt;set$OptionalOrRequired$$Name$Value( attrText );
+		}
+		else {
+			throw cflib::CFLibUsageException( CLASS_NAME,
+				S_ProcName,
+				S_OnlySetOnceMsg );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableAttrHandlerApplyRequired">
+		if( origBuff-&gt;get$OptionalOrRequired$$Name$().empty() ) {
+			editBuff-&gt;set$OptionalOrRequired$$Name$( attrText );
+		}
+		else {
+			throw cflib::CFLibUsageException( CLASS_NAME,
+				S_ProcName,
+				S_OnlySetOnceMsg );
+		}</GenRule>
+
+</RuleSet>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/Schema/SchemaSchemaPool.java"
+	Revision="2.12"
+	Descr="Java 11 implementation of a $SchemaName$ schema pool.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSchemaPoolJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$SchemaPoolJava"
+		ExpansionKeyName="$SchemaName$SchemaPoolJava"
+		ExpansionFileName="$SchemaName$SchemaPool.java"
+>// Description: Java 11 implementation of a $SchemaName$ schema pool.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$;
+
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$
+
+public class $SchemaName$SchemaPool$iterate SchemaRefs( first extendsSchemaSchemaPool each empty empty empty )$
+{$iterate SchemaRefs( first implSchemaSchemaPoolSubMembers empty implSchemaSchemaPoolBaseMembers each empty )$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSchemaPoolMembers"
+		>$reference RefSchema implSchemaSchemaPoolMembers$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolMembers"
+		>$iterate SchemaRefs( first derefImplSchemaSchemaPoolMembers each empty empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="derefImplSchemaSchemaPoolMembers"
+		>$reference RefSchema derefImplSchemaSchemaPoolSubMembers$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSchemaPoolSubMembers">
+$implSchemaSchemaPoolConstructorInvokeSuper$$reference RefSchema implSchemaSchemaPoolStaticSetterMethods$$reference RefSchema implSchemaSchemaPoolSetConfigurationFile$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolBaseMembers">
+$declSchemaSchemaPoolMembers$$implSchemaSchemaPoolBaseConstructor$$implSchemaSchemaPoolStaticMethods$$implSchemaSchemaPoolGetConfigurationFile$$implSchemaSchemaPoolInstanceAllocators$$implSchemaSchemaPoolToBeOverloaded$$implSchemaPoolConfigurationGetSetJndiName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaSchemaPoolBaseMembers">
+$popto SchemaDef implSchemaPoolBaseMembers$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="extendsSchemaSchemaPool">
+extends $reference RefSchema SchemaName$SchemaPool</GenRule>
+	<GenRule GenDef="SchemaDef" Name="extendsSchemaSchemaPool"
+		>$iterate SchemaRefs( first extendsSchemaSchemaPool each empty empty empty )$</GenRule>
+	<GenRule GenDef="Object" Name="extendsSchemaSchemaPool"
+		>$switch HasDefSchema yes extendsDerefSchemaSchemaPool default empty empty empty$</GenRule>
+	<GenRule GenDef="Object" Name="extendsDerefSchemaSchemaPool"
+		>$reference DefSchema extendsSchemaSchemaPool$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSchemaPoolMembers">
+	protected volatile static $SchemaName$SchemaPool schemaPool = null;$iterate SchemaRefs( empty declConfigurationFileConf first empty each empty )$$iterate SchemaRefs( first empty each empty empty declConfigurationFileInstances )$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declConfigurationFileInstances">
+	protected LinkedList&lt;I$SchemaName$Schema&gt; instances = new LinkedList&lt;I$SchemaName$Schema&gt;();</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declConfigurationFileInstances">
+	protected LinkedList&lt;I$reference RefSchema SchemaName$Schema&gt; instances = new LinkedList&lt;I$reference RefSchema SchemaName$Schema&gt;();</GenRule>
+
+	<GenRule GenDef="Object" Name="declConfigurationFileInstances">
+	protected LinkedList&lt;I$popto SchemaDef SchemaName$Schema&gt; instances = new LinkedList&lt;I$popto SchemaDef SchemaName$Schema&gt;();</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="declConfigurationFileConf">
+	protected String jndiName = null;
+	protected $reference RefSchema SchemaName$ConfigurationFile configFile = ($reference RefSchema SchemaName$ConfigurationFile)( super.getConfigurationFile() );</GenRule>
+
+	<GenRule GenDef="Object" Name="declConfigurationFileConf">
+	protected String jndiName = null;
+	protected $popto SchemaDef SchemaName$ConfigurationFile configFile = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolStaticMethods">
+	public static $SchemaName$SchemaPool getSchemaPool() {
+		return( schemaPool );
+	}
+
+	public static void setSchemaPool( $SchemaName$SchemaPool pool ) {$iterate SchemaRefs( first invokeSuperPool each empty empty invokeBasePool )$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolStaticSetterMethods">
+	public static void setSchemaPool( $SchemaName$SchemaPool pool ) {$iterate SchemaRefs( first invokeSuperPool each empty empty invokeBasePool )$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="invokeSuperPool">
+		super( pool );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="invokeBasePool">
+		if( schemaPool == null ) {
+			schemaPool = pool;
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="DefSchemaName"
+		>$reference RefSchema SchemaName$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DefSchemaName"
+		>$iterate SchemaRefs( first DefSchemaName each empty empty SchemaName )$</GenRule>
+
+	<GenRule GenDef="Object" Name="DefSchemaName"
+		>$switch HasDefSchema yes DerefDefSchemaName default MyDefSchemaName$</GenRule>
+
+	<GenRule GenDef="Object" Name="DerefDefSchemaName"
+		>$reference DefSchema SchemaName$</GenRule>
+
+	<GenRule GenDef="Object" Name="MyDefSchemaName"
+		>$popto SchemaDef SchemaName$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="SecSchemaName"
+		>$poptop SchemaDef SecSchemaName$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SecSchemaName"
+		>$iterate SchemaRefs( first UseSecSchemaName each empty empty SchemaName )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="UseSecSchemaName"
+		>$reference RefSchema SchemaName$</GenRule>
+
+	<GenRule GenDef="Object" Name="SecSchemaName"
+		>$poptop SchemaDef SecSchemaName$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolGetConfigurationFile">
+	public $DefSchemaName$ConfigurationFile getConfigurationFile() {
+		return( configFile );
+	}
+$implSchemaSchemaPoolSetConfigurationFile$
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolSetConfigurationFile">
+	public void setConfigurationFile( $SchemaName$ConfigurationFile value ) {
+		$iterate SchemaRefs( first implSchemaSchemaPoolSetConfigurationFileInvokeSuper empty implSchemaSchemaPoolSetConfigurationFileInvokeBase each empty )$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSchemaPoolSetConfigurationFile">
+	public void setConfigurationFileFile( $reference RefSchema SchemaName$ConfigurationFile value ) {$implSchemaSchemaPoolSetConfigurationFileInvokeSuper$
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaSchemaPoolSetConfigurationFileInvokeSuper">
+		super.setConfigurationFile( value );</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaSchemaPoolSetConfigurationFileInvokeBase">
+		configFile = value;</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaPoolConfigurationGetSetJndiName">
+	public String getJndiName() {
+		return( jndiName );
+	}
+
+	public void setJndiName( String value ) {
+		jndiName = value;
+		if( ( jndiName != null ) &amp;&amp; ( jndiName.length() &gt; 0 ) ) {
+			configFile = null;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="setConfigurationFileInvokeSuper">
+		super.setConfigurationFile( value );</GenRule>
+
+	<GenRule GenDef="Object" Name="setConfigurationFileInvokeBase">
+		final String S_ProcName="setConfigurationFile";
+		if( value == null ) {
+			throw new CFLibNullArgumentException( $popto SchemaDef SchemaName$SchemaPool.class,
+				S_ProcName,
+				1,
+				"value" );
+		}
+		configFile = value;
+		if( configFile != null ) {
+			jndiName = null;
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="getConfigurationFileInvokeSuper">
+		$reference RefSchema SchemaName$ConfigurationFile configFile = ($reference RefSchema SchemaName$ConfigurationFile)( super.getConfigurationFile() );
+		return( configFile );</GenRule>
+
+	<GenRule GenDef="Object" Name="getConfigurationFileInvokeBase">
+		return( configFile );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolBaseConstructor">
+	public $poptop SchemaDef SchemaName$SchemaPool() {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSchemaPoolConstructorInvokeSuper">
+	public $poptop SchemaDef SchemaName$SchemaPool() {
+		super();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolToBeOverloaded"
+		>$iterate SchemaRefs( first reallyImplSchemaPoolToBeOverloaded each empty empty reallyImplSchemaSchemaPoolToBeOverloaded )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="reallyImplSchemaSchemaPoolToBeOverloaded">
+	/**
+	 *	You need to overload the implementation of newInstance() to return
+	 *	connected instances of your backing store.
+	 */
+	public I$reference RefSchema DefSchemaName$Schema newInstance() {
+		I$reference RefSchema DefSchemaName$Schema retInst = new $reference RefSchema DefSchemaName$Schema();
+		return( retInst );
+	}
+
+	/**
+	 *	Overload disposeInstance().
+	 */
+	public void disposeInstance( I$reference RefSchema DefSchemaName$Schema inst ) {
+		try {
+			inst.disconnect( false );
+		}
+		catch( RuntimeException e ) {
+		}
+		if( instances != null ) {
+			if( ! instances.contains( inst ) ) {
+				instances.addFirst( inst );
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="reallyImplSchemaSchemaPoolToBeOverloaded">
+	/**
+	 *	You need to overload the implementation of newInstance() to return
+	 *	connected instances of your backing store.
+	 */
+	public I$DefSchemaName$Schema newInstance() {
+		I$DefSchemaName$Schema retInst = new $DefSchemaName$Schema();
+		return( retInst );
+	}
+
+	/**
+	 *	Overload disposeInstance().
+	 */
+	public void disposeInstance( I$DefSchemaName$Schema inst ) {
+		try {
+			inst.disconnect( false );
+		}
+		catch( RuntimeException e ) {
+		}
+		if( instances != null ) {
+			if( ! instances.contains( inst ) ) {
+				instances.addFirst( inst );
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolInstanceAllocators">
+	/**
+	 *	Retrieve an entry from the pool with a previously
+	 *	established database connection.
+	 */
+	public synchronized I$DefSchemaName$Schema getInstance() {
+		I$DefSchemaName$Schema retInst = null;
+		if( instances != null ) {
+			if( instances.isEmpty() ) {
+				retInst = newInstance();
+				retInst.setConfigurationFile( ($SchemaName$ConfigurationFile)getConfigurationFile() );
+				retInst.setJndiName( getJndiName() );
+				retInst.connect();
+			}
+			else {
+				retInst = instances.removeFirst();
+			}
+		}
+		else {
+			retInst = null;
+		}
+		return( retInst );
+	}
+
+	/**
+	 *	Return an entry to the pool.
+	 */
+	public synchronized void releaseInstance( I$DefSchemaName$Schema inst ) {
+		if( inst == null ) {
+			return;
+		}
+		inst.rollback();
+		if( instances != null ) {
+			if( ! instances.contains( inst ) ) {
+				instances.addFirst( inst );
+			}
+		}
+	}
+</GenRule>
+
+</RuleSet>

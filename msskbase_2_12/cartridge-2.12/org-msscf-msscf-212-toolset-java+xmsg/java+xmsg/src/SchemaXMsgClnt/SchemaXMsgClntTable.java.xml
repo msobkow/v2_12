@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsgClntTable.java"
+	Revision="2.12"
+	Descr="Java 11 XMsg Client DbIO implementation for Table">
+
+	<GenRule GenDef="IndexCol" Name="DbColumnName"
+		>$reference Column DbColumnName$</GenRule>
+
+	<GenFile GenDef="Table" Name="fileSchemaXMsgClntTableJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgClnt/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgClnt"
+		ExpansionClassName="$SchemaName$XMsgClnt$TableName$Java"
+		ExpansionKeyName="$SchemaName$XMsgClnt$TableName$Java"
+		ExpansionFileName="$SchemaName$XMsgClnt$TableName$.java"
+>$XMsgClntTablePreamble$
+public class $SchemaName$XMsgClnt$TableName$
+	implements I$SchemaName$$TableName$Table
+{
+	private $SchemaName$XMsgClntSchema schema;
+$implConstructXMsgClntTable$$iterate DispensedId16Generators( each implNextIdGen empty empty )$$iterate DispensedId32Generators( each implNextIdGen empty empty )$$iterate DispensedId64Generators( each implNextIdGen empty empty )$$implCreateTable$$implReadTableDerivedByPKey$$implLockTableDerivedByPKey$$implReadAllTableDerived$$implReadTableDerivedByIndexes$$implReadTableBuffByPKey$$implLockTableBuffByPKey$$implReadAllTableBuff$$switch PageData yes implPageAllTableBuff default empty$$implReadTableBuffByIndexes$$switch PageData yes implPageTableBuffByIndexes default empty$$implUpdateTable$$implDeleteTable$$switch HasChain yes implXMsgClntMoveUpTableBuff default empty$$switch HasChain yes implXMsgClntMoveDownTableBuff default empty$$implTableReleasePreparedStatements$$iterate ServerMethods( each implXMsgClntServerMethod empty empty )$$JavaXMsgClientTableBody$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implPageTableBuffByIndexes"
+		>$switch HasSuperClassRelation yes implPageTableBuffByInhIndexes default implPageTableBuffByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPageTableBuffByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implPageTableBuffByIndexes$$iterate Index( each implPageTableBuffByNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPageTableBuffByBaseIndexes"
+		>$iterate Index( each implPageTableBuffByIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadTableBuffByIndexes"
+		>$switch HasSuperClassRelation yes implReadTableBuffByInhIndexes default implReadTableBuffByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadTableBuffByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implReadTableBuffByIndexes$$iterate Index( each implReadTableBuffByNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadTableBuffByBaseIndexes"
+		>$iterate Index( each implReadTableBuffByIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="PageData"
+		>$poptop Table PageData$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadTableBuffByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implReadTableBuffByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implPageTableBuffByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default ifpagedata_implPageTableBuffByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="ifpagedata_implPageTableBuffByIndex"
+		>$switch PageData yes implPageTableBuffByIndex default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPageAllTableBuff">
+	/**
+	 *	Read a page of all the specific $TableName$ buffer instances.
+	 *
+	 *	@param	Authorization	The session authorization information.
+	 *
+	 *	@return All the specific $TableName$ instances in the database accessible for the Authorization.
+	 */
+	public $DefSchemaName$$TableName$Buff[] pageAllBuff( $SecSchemaName$Authorization Authorization$reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaOptPriorArg )$ )
+	{
+		final String S_ProcName = "pageAllBuff";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstPageAll( "\n\t\t\t"$reference BaseClass reference PrimaryKeyIndex iterate Columns( each passCommaPriorArg )$ )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		Object sortedListObj = responseHandler.getListOfObjects();$implReadManySortedMapToArray$
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="passCommaPriorArg">,
+							prior$Name$</GenRule>
+
+	<GenRule GenDef="Index" Name="implPageTableBuffByDuplicateIndex">
+	/**
+	 *	Read a page array of the specific $poptop Table TableName$ buffer instances identified by the duplicate key $Suffix$.
+	 *
+	 *	@param	Authorization	The session authorization information.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return An array of derived buffer instances for the specified key, potentially with 0 elements in the set.
+	 *
+	 *	@throws	CFLibNotSupportedException thrown by client-side implementations.
+	 */
+	public $DefSchemaName$$poptop Table TableName$Buff[] pageBuffBy$declReadTableSuffix$( $SecSchemaName$Authorization Authorization$iterate Columns( each declCommaColumnArg )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaOptPriorArg )$ )
+	{
+		final String S_ProcName = "pageBuffBy$declReadTableSuffix$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$poptop Table TableName$MessageFormatter.format$poptop Table TableName$RqstPageBy$Suffix$( "\n\t\t\t"$iterate Columns( each implXMsgClntCommaPassParm empty empty )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each passCommaPriorArg )$ )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		Object sortedListObj = responseHandler.getListOfObjects();$implReadManySortedMapToArray$
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgClntCommaPassParm">,
+						$Name$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implXMsgClntServerMethod"
+		>$switch IsInstanceMethod yes implXMsgClntInstServerProc default implXMsgClntClassServerProc$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implXMsgClntClassServerProc">
+	public boolean $leadlower Name$( I$DefSchemaName$SchemaObj schemaObj$iterate Params( each declServerMethodParam empty empty )$ ) {
+		final String S_ProcName = "$leadlower Name$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$Rqst$Name$( "\n\t\t\t"$iterate Params( each implXMsgClntServerProcPassParam empty empty )$ ) + "\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		boolean dataChanged = responseHandler.getDataChanged();
+		return( dataChanged );
+	}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="implXMsgClntServerProcPassParam">,
+							$leadlower Name$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implXMsgClntInstServerProc">
+	public boolean $leadlower Name$( I$DefSchemaName$SchemaObj schemaObj,
+		I$DefSchemaName$$TableName$Obj obj$iterate Params( each declServerMethodParam empty empty )$ )
+	{
+		final String S_ProcName = "$leadlower Name$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$Rqst$Name$( "\n\t\t\t",
+							obj$iterate Params( each implXMsgClntServerProcPassParam empty empty )$ ) + "\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		boolean dataChanged = responseHandler.getDataChanged();
+		return( dataChanged );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implXMsgClntServerMethod"
+		>$switch IsInstanceMethod yes implXMsgClntInstServerObjFunc default implXMsgClntClassServerObjFunc$</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implXMsgClntClassServerObjFunc">
+	public $reference RetTable DefSchemaName$$reference RetTable TableName$Buff $leadlower Name$( I$DefSchemaName$SchemaObj schemaObj$iterate Params( each declServerMethodParam empty empty )$ ) {
+		final String S_ProcName = "$leadlower Name$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$Rqst$Name$( "\n\t\t\t"$iterate Params( each implXMsgClntServerProcPassParam empty empty )$ ) + "\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		$reference RetTable DefSchemaName$$reference RetTable TableName$Buff buff = null;
+		Object lastObjectProcessed = responseHandler.getLastObjectProcessed();
+		if( lastObjectProcessed != null ) {
+			I$SchemaName$$reference RetTable TableName$Obj realised = null;
+			if( lastObjectProcessed instanceof I$SchemaName$$reference RetTable TableName$Obj ) {
+				realised = (I$SchemaName$$reference RetTable TableName$Obj)lastObjectProcessed;
+			}
+			else {
+				throw new CFLibUnsupportedClassException( getClass(),
+					S_ProcName,
+					"lastObjectProcessed",
+					lastObjectProcessed,
+					"I$SchemaName$$reference RetTable TableName$Obj" );
+			}
+			if( realised != null ) {
+				buff = realised.get$reference RetTable TableName$Buff();
+			}
+		}
+		return( buff );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implXMsgClntInstServerObjFunc">
+	public $reference RetTable DefSchemaName$$reference RetTable TableName$Buff $leadlower Name$( I$DefSchemaName$SchemaObj schemaObj,
+		I$DefSchemaName$$TableName$Obj obj$iterate Params( each declServerMethodParam empty empty )$ )
+	{
+		final String S_ProcName = "$leadlower Name$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$Rqst$Name$( "\n\t\t\t",
+							obj$iterate Params( each implXMsgClntServerProcPassParam empty empty )$ ) + "\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		$reference RetTable DefSchemaName$$reference RetTable TableName$Buff buff = null;
+		Object lastObjectProcessed = responseHandler.getLastObjectProcessed();
+		if( lastObjectProcessed != null ) {
+			I$SchemaName$$reference RetTable TableName$Obj realised = null;
+			if( lastObjectProcessed instanceof I$SchemaName$$reference RetTable TableName$Obj ) {
+				realised = (I$SchemaName$$reference RetTable TableName$Obj)lastObjectProcessed;
+			}
+			else {
+				throw new CFLibUnsupportedClassException( getClass(),
+					S_ProcName,
+					"lastObjectProcessed",
+					lastObjectProcessed,
+					"I$SchemaName$$reference RetTable TableName$Obj" );
+			}
+			if( realised != null ) {
+				buff = realised.get$reference RetTable TableName$Buff();
+			}
+		}
+		return( buff );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implXMsgClntServerMethod"
+		>$switch IsInstanceMethod yes implXMsgClntInstServerListFunc default implXMsgClntClassServerListFunc$</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implXMsgClntClassServerListFunc">
+	public $reference RetTable DefSchemaName$$reference RetTable TableName$Buff[] $leadlower Name$( I$DefSchemaName$SchemaObj schemaObj$iterate Params( each declServerMethodParam empty empty )$ ) {
+		final String S_ProcName = "$leadlower Name$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$Rqst$Name$( "\n\t\t\t"$iterate Params( each implXMsgClntServerProcPassParam empty empty )$ ) + "\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		Object sortedListObj = responseHandler.getListOfObjects();$implServerProcExecutedSortedMapToArray$
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerMethod" Name="implServerProcExecutedSortedMapToArray">
+		@SuppressWarnings("unchecked")
+		List&lt;I$reference RetTable DefSchemaName$$reference RetTable reference BaseClass TableName$Obj&gt; sortedList =
+			(List&lt;I$reference RetTable DefSchemaName$$reference RetTable reference BaseClass TableName$Obj&gt;)sortedListObj;
+		$reference RetTable DefSchemaName$$reference RetTable TableName$Buff arr[];
+		if( sortedList != null ) {
+			int sz = sortedList.size();
+			arr = new $reference RetTable DefSchemaName$$reference RetTable TableName$Buff[ sz ];
+			Iterator&lt;I$reference RetTable DefSchemaName$$reference RetTable reference BaseClass TableName$Obj&gt; iter = sortedList.iterator();
+			I$reference RetTable DefSchemaName$$reference RetTable TableName$Obj cur;
+			for( int idx = 0; idx &lt; sz; idx ++ ) {
+				cur = (I$reference RetTable DefSchemaName$$reference RetTable TableName$Obj)iter.next();
+				arr[idx] = cur.get$reference RetTable TableName$Buff();
+			}
+		}
+		else {
+			arr = new $reference RetTable DefSchemaName$$reference RetTable TableName$Buff[0];
+		}
+		return( arr );</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implXMsgClntInstServerListFunc">
+	public $reference RetTable DefSchemaName$$reference RetTable TableName$Buff[] $leadlower Name$( I$DefSchemaName$SchemaObj schemaObj,
+		I$DefSchemaName$$TableName$Obj obj$iterate Params( each declServerMethodParam empty empty )$ )
+	{
+		final String S_ProcName = "$leadlower Name$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$Rqst$Name$( "\n\t\t\t",
+							obj$iterate Params( each implXMsgClntServerProcPassParam empty empty )$ ) + "\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		Object sortedListObj = responseHandler.getListOfObjects();$implServerProcExecutedSortedMapToArray$
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgClntMovePassPKeyArg">,
+							$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgClntMoveUpTableBuff">
+	/**
+	 *	Move the specified buffer up in the chain (i.e. to the previous position.)
+	 *
+	 *	@return	The refreshed buffer after it has been moved
+	 */
+	public $DefSchemaName$$TableName$Buff moveBuffUp( $SecSchemaName$Authorization Authorization$reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaColumnArg )$,
+		int revision )
+	{
+		final String S_ProcName = "moveBuffUp$TableName$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstMoveUp( "\n\t\t\t"$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implXMsgClntMovePassPKeyArg )$,
+							revision ) + "\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$$implXMsgClntMoveTableBuffProcessResponse$
+		return( buff );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgClntMoveTableBuffProcessResponse">
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		$poptop Table DefSchemaName$$poptop Table TableName$Buff buff = null;
+		Object lastObjectProcessed = responseHandler.getLastObjectProcessed();
+		if( lastObjectProcessed != null ) {
+			I$SchemaName$$poptop Table TableName$Obj realised = null;
+			if( lastObjectProcessed instanceof I$SchemaName$$poptop Table TableName$Obj ) {
+				realised = (I$SchemaName$$poptop Table TableName$Obj)lastObjectProcessed;
+			}
+			else {
+				throw new CFLibUnsupportedClassException( getClass(),
+					S_ProcName,
+					"lastObjectProcessed",
+					lastObjectProcessed,
+					"I$SchemaName$$poptop Table TableName$Obj" );
+			}
+			if( realised != null ) {
+				buff = realised.get$poptop Table TableName$Buff();
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implXMsgClntMoveDownTableBuff">
+	/**
+	 *	Move the specified buffer down in the chain (i.e. to the next position.)
+	 *
+	 *	@return	The refreshed buffer after it has been moved
+	 */
+	public $DefSchemaName$$TableName$Buff moveBuffDown( $SecSchemaName$Authorization Authorization$reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaColumnArg )$,
+		int revision )
+	{
+		final String S_ProcName = "moveBuffDown$TableName$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstMoveDown( "\n\t\t\t"$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implXMsgClntMovePassPKeyArg )$,
+							revision ) + "\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$$implXMsgClntMoveTableBuffProcessResponse$
+		return( buff );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="XMsgClntTablePreamble"
+>// Description: Java 11 XMsg Client DbIO implementation for $TableName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgClnt;
+
+import java.lang.reflect.*;
+import java.math.*;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.naming.*;
+import javax.sql.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.Tip.*;
+import org.apache.commons.codec.binary.Base64;
+$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+import $lower JavaPackage$.$SchemaName$XMsg.*;
+import $lower JavaPackage$.$SchemaName$XMsgRspn.*;$JavaXMsgClientTableImport$
+
+/*
+ *	$SchemaName$XMsgClnt$TableName$ XMsg Client DbIO implementation
+ *	for $TableName$.
+ */</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="Suffix"
+		>$popto Index Suffix$</GenRule>
+	<GenRule GenDef="Value" Name="Suffix"
+		>$popto Index Suffix$</GenRule>
+
+	<GenRule GenDef="Object" Name="TopTableHasSubClasses"
+		>$poptop Table HasSubClasses$</GenRule>
+
+	<GenRule GenDef="Object" Name="implCommaColumnArg">,
+		$implColumnArg$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implColumnArg"
+		>$implJavaAtomType$ arg$Name$</GenRule>
+	<GenRule GenDef="Atom" Name="implColumnArg"
+		>$implJavaAtomType$ arg$Name$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implColumnArg"
+		>$reference Column implColumnArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableReleasePreparedStatements">
+	/**
+	 *	Release the prepared statements.
+	 *	&lt;p&gt;
+	 *	When the schema changes connections, the prepared statements
+	 *	have to be released because they contain connection-specific
+	 *	information for most databases.
+	 */
+	public void releasePreparedStatements() {
+		throw new CFLibNotSupportedException( getClass(),
+			"releasePreparedStatements" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructXMsgClntTable">
+	public $SchemaName$XMsgClnt$TableName$( $SchemaName$XMsgClntSchema argSchema ) {
+		schema = argSchema;
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implIndexColumnNameComma">$DbColumnName$, </GenRule>
+	<GenRule GenDef="IndexCol" Name="implIndexColumnName">$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implIndexColumnBindVar">?</GenRule>
+	<GenRule GenDef="IndexCol" Name="implIndexCommaColumnBindVar">, ?</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id16Gen" Name="implNextIdGen">
+	public short next$Name$( $SecSchemaName$Authorization Authorization,
+		$reference Dispenser reference BaseClass DefSchemaName$$reference Dispenser reference BaseClass TableName$PKey PKey )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"next$Name$" );
+	}
+$implNextIdGenViaAttributes$
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id16Gen" Name="implNextIdGenViaAttributes">
+	public short next$Name$( $SecSchemaName$Authorization Authorization$reference Dispenser reference BaseClass reference PrimaryKeyIndex iterate Columns( each implNextIdGenDeclAttr )$ )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"next$Name$" );
+	}</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id32Gen" Name="implNextIdGen">
+	public int next$Name$( $SecSchemaName$Authorization Authorization,
+		$reference Dispenser reference BaseClass DefSchemaName$$reference Dispenser reference BaseClass TableName$PKey PKey )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"next$Name$" );
+	}
+$implNextIdGenViaAttributes$
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id32Gen" Name="implNextIdGenViaAttributes">
+	public int next$Name$( $SecSchemaName$Authorization Authorization$reference Dispenser reference BaseClass reference PrimaryKeyIndex iterate Columns( each implNextIdGenDeclAttr )$ )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"next$Name$" );
+	}</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id64Gen" Name="implNextIdGen">
+	public long next$Name$( $SecSchemaName$Authorization Authorization,
+		$reference Dispenser reference BaseClass DefSchemaName$$reference Dispenser reference BaseClass TableName$PKey PKey )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"next$Name$" );
+	}
+$implNextIdGenViaAttributes$
+</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Id64Gen" Name="implNextIdGenViaAttributes">
+	public long next$Name$( $SecSchemaName$Authorization Authorization$reference Dispenser reference BaseClass reference PrimaryKeyIndex iterate Columns( each implNextIdGenDeclAttr )$ )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"next$Name$" );
+	}</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="UuidGen" Name="implNextIdGen">
+	public UUID next$Name$( $SecSchemaName$Authorization Authorization,
+		$reference Dispenser reference BaseClass DefSchemaName$$reference Dispenser reference BaseClass TableName$PKey pkey )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"next$Name$" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="BaseDefIsBaseTable"
+		>$reference BaseClass IsBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateTable">
+	public void create$TableName$( $SecSchemaName$Authorization Authorization,
+		$DefSchemaName$$TableName$Buff Buff )
+	{
+		final String S_ProcName = "create$TableName$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstCreate( "\n\t\t\t", Buff )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		Object lastObjectProcessed = responseHandler.getLastObjectProcessed();
+		if( lastObjectProcessed != null ) {
+			I$SchemaName$$TableName$Obj realised = null;
+			if( lastObjectProcessed instanceof I$SchemaName$$TableName$Obj ) {
+				realised = (I$SchemaName$$TableName$Obj)lastObjectProcessed;
+			}
+			else {
+				throw new CFLibUnsupportedClassException( getClass(),
+					S_ProcName,
+					"lastObjectProcessed",
+					lastObjectProcessed,
+					"I$SchemaName$$TableName$Obj" );
+			}
+			if( realised != null ) {
+				Buff.set( realised.get$TableName$Buff() );
+			}
+		}
+		else {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				0,
+				"responseHandler.getLastObjectProcessed()" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadTableDerivedByPKey">
+	public $poptop Table DefSchemaName$$poptop Table TableName$Buff readDerived( $SecSchemaName$Authorization Authorization,
+		$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey PKey )
+	{
+		final String S_ProcName = "readDerived";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstRead( "\n\t\t\t", PKey )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		$poptop Table DefSchemaName$$poptop Table TableName$Buff buff = null;
+		Object lastObjectProcessed = responseHandler.getLastObjectProcessed();
+		if( lastObjectProcessed != null ) {
+			I$SchemaName$$poptop Table TableName$Obj realised = null;
+			if( lastObjectProcessed instanceof I$SchemaName$$poptop Table TableName$Obj ) {
+				realised = (I$SchemaName$$poptop Table TableName$Obj)lastObjectProcessed;
+			}
+			else {
+				throw new CFLibUnsupportedClassException( getClass(),
+					S_ProcName,
+					"lastObjectProcessed",
+					lastObjectProcessed,
+					"I$SchemaName$$poptop Table TableName$Obj" );
+			}
+			if( realised != null ) {
+				buff = realised.get$poptop Table TableName$Buff();
+			}
+		}
+		return( buff );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implLockTableDerivedByPKey">
+	public $poptop Table DefSchemaName$$poptop Table TableName$Buff lockDerived( $SecSchemaName$Authorization Authorization,
+		$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey PKey )
+	{
+		final String S_ProcName = "lockDerived";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstLock( "\n\t\t\t", PKey )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		$poptop Table DefSchemaName$$poptop Table TableName$Buff buff = null;
+		Object lastObjectProcessed = responseHandler.getLastObjectProcessed();
+		if( lastObjectProcessed != null ) {
+			I$SchemaName$$poptop Table TableName$Obj realised = null;
+			if( lastObjectProcessed instanceof I$SchemaName$$poptop Table TableName$Obj ) {
+				realised = (I$SchemaName$$poptop Table TableName$Obj)lastObjectProcessed;
+			}
+			else {
+				throw new CFLibUnsupportedClassException( getClass(),
+					S_ProcName,
+					"lastObjectProcessed",
+					lastObjectProcessed,
+					"I$SchemaName$$poptop Table TableName$Obj" );
+			}
+			if( realised != null ) {
+				buff = realised.get$poptop Table TableName$Buff();
+			}
+		}
+		return( buff );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllTableDerived">
+	public $poptop Table DefSchemaName$$TableName$Buff[] readAllDerived( $SecSchemaName$Authorization Authorization ) {
+		final String S_ProcName = "readAllDerived";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstReadAll( "\n\t\t\t" )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		Object sortedListObj = responseHandler.getListOfObjects();$implReadManySortedMapToArray$
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadManySortedMapToArray"
+		>$poptop Table implReadManySortedMapToArray$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadManySortedMapToArray">
+		@SuppressWarnings("unchecked")
+		List&lt;I$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$Obj&gt; sortedList =
+			(List&lt;I$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$Obj&gt;)sortedListObj;
+		$DefSchemaName$$TableName$Buff arr[];
+		if( sortedList != null ) {
+			int sz = sortedList.size();
+			arr = new $DefSchemaName$$TableName$Buff[ sz ];
+			Iterator&lt;I$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$Obj&gt; iter = sortedList.iterator();
+			I$DefSchemaName$$TableName$Obj cur;
+			for( int idx = 0; idx &lt; sz; idx ++ ) {
+				cur = (I$DefSchemaName$$TableName$Obj)iter.next();
+				arr[idx] = cur.get$TableName$Buff();
+			}
+		}
+		else {
+			arr = new $DefSchemaName$$TableName$Buff[ 0 ];
+		}
+		return( arr );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadTableDerivedByIndexes"
+		>$switch HasSuperClassRelation yes implReadTableDerivedByInhIndexes default implReadTableDerivedByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadTableDerivedByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implReadTableDerivedByIndexes$$iterate Index( each implReadTableDerivedByNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadTableDerivedByBaseIndexes"
+		>$iterate Index( each implReadTableDerivedByIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadTableDerivedByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implReadTableDerivedByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadTableDerivedByIndex"
+		>$switch IsUnique
+			yes implReadTableDerivedByUniqueIndex
+			default implReadTableDerivedByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadTableDerivedByUniqueIndex">
+	public $poptop Table DefSchemaName$$poptop Table TableName$Buff readDerivedBy$Suffix$( $SecSchemaName$Authorization Authorization$iterate Columns( each implCommaColumnArg )$ )
+	{
+		final String S_ProcName = "readDerivedBy$Suffix$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$poptop Table TableName$MessageFormatter.format$poptop Table TableName$RqstRdBy$Suffix$( "\n\t\t\t"$iterate Columns( each implXMsgClntCommaPassArg empty empty )$ )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		$poptop Table DefSchemaName$$poptop Table TableName$Buff buff = null;
+		Object lastObjectProcessed = responseHandler.getLastObjectProcessed();
+		if( lastObjectProcessed != null ) {
+			I$SchemaName$$poptop Table TableName$Obj realised = null;
+			if( lastObjectProcessed instanceof I$SchemaName$$poptop Table TableName$Obj ) {
+				realised = (I$SchemaName$$poptop Table TableName$Obj)lastObjectProcessed;
+			}
+			else {
+				throw new CFLibUnsupportedClassException( getClass(),
+					S_ProcName,
+					"lastObjectProcessed",
+					lastObjectProcessed,
+					"I$SchemaName$$poptop Table TableName$Obj" );
+			}
+			if( realised != null ) {
+				buff = realised.get$poptop Table TableName$Buff();
+			}
+		}
+		return( buff );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implXMsgClntCommaPassArg">,
+							arg$Name$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadTableDerivedByDuplicateIndex">
+	public $poptop Table DefSchemaName$$poptop Table TableName$Buff[] readDerivedBy$Suffix$( $SecSchemaName$Authorization Authorization$iterate Columns( each implCommaColumnArg )$ )
+	{
+		final String S_ProcName = "readDerivedBy$Suffix$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$poptop Table TableName$MessageFormatter.format$poptop Table TableName$RqstRdBy$Suffix$( "\n\t\t\t"$iterate Columns( each implXMsgClntCommaPassArg empty empty )$ )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		Object sortedListObj = responseHandler.getListOfObjects();$implReadManySortedMapToArray$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadTableBuffByPKey">
+	public $DefSchemaName$$TableName$Buff readBuff( $SecSchemaName$Authorization Authorization,
+		$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey PKey )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"readBuff" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implLockTableBuffByPKey">
+	public $DefSchemaName$$TableName$Buff lockBuff( $SecSchemaName$Authorization Authorization,
+		$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey PKey )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"lockBuff" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllTableBuff">
+	public $DefSchemaName$$TableName$Buff[] readAllBuff( $SecSchemaName$Authorization Authorization ) {
+		final String S_ProcName = "readAllBuff";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstReadAll( "\n\t\t\t" )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		Object sortedListObj = responseHandler.getListOfObjects();$implReadManySortedMapToArray$
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadTableBuffByIndex"
+		>$switch IsUnique
+			yes implReadTableBuffByUniqueIndex
+			default implReadTableBuffByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implPageTableBuffByIndex"
+		>$switch IsUnique
+			yes empty
+			default maybe_implPageTableBuffByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="maybe_implPageTableBuffByDuplicateIndex"
+		>$switch PageData yes implPageTableBuffByDuplicateIndex default empty$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadTableBuffByUniqueIndex">
+	public $poptop Table DefSchemaName$$poptop Table TableName$Buff readBuffBy$Suffix$( $SecSchemaName$Authorization Authorization$iterate Columns( each implCommaColumnArg )$ )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"readBuffBy$Suffix$" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadTableBuffByDuplicateIndex">
+	public $poptop Table DefSchemaName$$poptop Table TableName$Buff[] readBuffBy$Suffix$( $SecSchemaName$Authorization Authorization$iterate Columns( each implCommaColumnArg )$ )
+	{
+		throw new CFLibNotSupportedException( getClass(),
+			"readBuffBy$Suffix$" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implUpdateTable">
+	public void update$TableName$( $SecSchemaName$Authorization Authorization,
+		$DefSchemaName$$TableName$Buff Buff )
+	{
+		final String S_ProcName = "update$TableName$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstUpdate( "\n\t\t\t", Buff )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		$poptop Table DefSchemaName$$poptop Table TableName$Buff buff = null;
+		Object lastObjectProcessed = responseHandler.getLastObjectProcessed();
+		if( lastObjectProcessed != null ) {
+			I$SchemaName$$poptop Table TableName$Obj realised = null;
+			if( lastObjectProcessed instanceof I$SchemaName$$poptop Table TableName$Obj ) {
+				realised = (I$SchemaName$$poptop Table TableName$Obj)lastObjectProcessed;
+			}
+			else {
+				throw new CFLibUnsupportedClassException( getClass(),
+					S_ProcName,
+					"lastObjectProcessed",
+					lastObjectProcessed,
+					"I$SchemaName$$poptop Table TableName$Obj" );
+			}
+			if( realised != null ) {
+				buff = realised.get$poptop Table TableName$Buff();
+			}
+		}
+		if( buff != null ) {
+			Buff.set( buff );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteTable">
+	public void delete$TableName$( $SecSchemaName$Authorization Authorization,
+		$DefSchemaName$$TableName$Buff Buff )
+	{
+		final String S_ProcName = "delete$TableName$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstDelete( "\n\t\t\t", Buff )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		boolean deleted = responseHandler.getDeleted();
+		if( ! deleted ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Server did not respond with a Deleted message" );
+		}
+	}
+$implDeleteTableByInheritedIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteTableByInheritedIndexes"
+		>$switch HasSuperClassRelation yes implDeleteTableByInhIndexes default implDeleteTableByBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteTableByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implDeleteTableByInheritedIndexes$$iterate Index( each implDeleteTableByNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteTableByBaseIndexes"
+		>$iterate Index( each implDeleteTableBySpecialIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implDeleteTableByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implDeleteTableByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implDeleteTableBySpecialIndex"
+		>$switch IsPrimaryIndex yes implDeleteTableByPrimaryIndex default implDeleteTableByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implDeleteTableByIndex">
+	public void delete$poptop Table TableName$By$Suffix$( $SecSchemaName$Authorization Authorization$iterate Columns( each implNextIdGenDeclAttr )$ )
+	{
+		final String S_ProcName = "delete$poptop Table TableName$By$Suffix$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$poptop Table TableName$MessageFormatter.format$poptop Table TableName$RqstDelBy$Suffix$( "\n\t\t\t"$iterate Columns( each implXMsgClntCommaPassArg empty empty )$ )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		boolean deleted = responseHandler.getDeleted();
+		if( ! deleted ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Server did not respond with a Deleted message" );
+		}
+	}
+
+	public void delete$poptop Table TableName$By$Suffix$( $SecSchemaName$Authorization Authorization,
+		$DefSchemaName$$TableName$By$Suffix$Key argKey )
+	{
+		delete$poptop Table TableName$By$Suffix$( Authorization$iterate Columns( each implDeleteCommaPassArgColumn )$ );
+	}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeleteCommaPassArgColumn">,
+			argKey.get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="Index" Name="implDeleteTableByPrimaryIndex">
+	public void delete$poptop Table TableName$By$Suffix$( $SecSchemaName$Authorization Authorization$iterate Columns( each implNextIdGenDeclAttr )$ )
+	{
+		final String S_ProcName = "delete$poptop Table TableName$By$Suffix$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstDelBy$Suffix$( "\n\t\t\t"$iterate Columns( each implCommaPassAttr empty empty )$ )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		boolean deleted = responseHandler.getDeleted();
+		if( ! deleted ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Server did not respond with a Deleted message" );
+		}
+	}
+
+	public void delete$poptop Table TableName$By$Suffix$( $SecSchemaName$Authorization Authorization,
+		$DefSchemaName$$TableName$PKey argKey )
+	{
+		delete$poptop Table TableName$By$Suffix$( Authorization$iterate Columns( each implDeleteCommaPassArgColumn )$ );
+	}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implCommaPassAttr">,
+							arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllTable">
+	public $DefSchemaName$$TableName$Buff[] readAll$TableName$( $SecSchemaName$Authorization Authorization ) {
+		final String S_ProcName = "readAll$TableName$";
+		String rqst = $SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPreamble() + "\n"
+			+	"\t" + $SchemaName$XMsg$TableName$MessageFormatter.format$TableName$RqstReadAll( "\n\t\t\t" )
+			+	"\n"
+			+	$SchemaName$XMsgSchemaMessageFormatter.formatRqstXmlPostamble();
+		try {
+			schema.getCFTipClientHandler().issueAppRequest( rqst );
+		}$CFTipClientHandlerCatchBlock$
+		ICFTipResponseHandler responseHandler = schema.getCFTipClientHandler().getResponseHandler();
+		RuntimeException exceptionRaised = responseHandler.getExceptionRaised();
+		if( exceptionRaised != null ) {
+			throw exceptionRaised;
+		}
+		Object sortedListObj = responseHandler.getListOfObjects();$implReadManySortedMapToArray$
+	}
+</GenRule>
+
+</RuleSet>

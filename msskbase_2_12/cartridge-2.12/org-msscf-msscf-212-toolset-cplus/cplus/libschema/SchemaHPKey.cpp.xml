@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/SchemaHPKey.cpp"
+	Revision="2.12"
+	Descr="C++18 implementation of a generic $SchemaName$ history primary key base object.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaHPKeyCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$HPKeyCpp"
+		ExpansionKeyName="$SchemaName$HPKeyCpp"
+		ExpansionFileName="$SchemaName$HPKey.cpp"
+>// Description: C++18 implementation of a generic $SchemaName$ history primary key base object.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+#include &lt;$lower SchemaName$/$SchemaName$HPKey.hpp&gt;
+
+namespace $CPlusNamespace$ {
+		const std::string $poptop SchemaDef SchemaName$HPKey::CLASS_NAME( "$SchemaName$HPKey" );
+$iterate SchemaRefs( first SchemaImplHPKeyExtendBaseDefBody each empty empty SchemaImplHPKeyImplBaseDefBody )$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implHPKeySValue">
+		const std::string $SchemaName$HPKey::S_VALUE( "value" );
+		const std::string $SchemaName$HPKey::S_VALUE_LENGTH( "value.length()" );
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="SchemaImplHPKeyExtendBaseDefBody">
+		$poptop SchemaDef SchemaName$HPKey::$poptop SchemaDef SchemaName$HPKey()
+		: $reference RefSchema SchemaName$HPKey()
+		{
+		}
+
+		$poptop SchemaDef SchemaName$HPKey::~$poptop SchemaDef SchemaName$HPKey()
+		{
+		}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="SchemaImplHPKeyImplBaseDefBody">$implHPKeySValue$$reference ManufacturingSchema implHPKeyConstructor$$reference ManufacturingSchema implAuditClusterIdGetterSetter$$reference ManufacturingSchema implAuditStampGetterSetter$$reference ManufacturingSchema implAuditActionIdGetterSetter$$reference ManufacturingSchema implHPKeyRevisionGetterSetter$$reference ManufacturingSchema implAuditSessionIdGetterSetter$$reference ManufacturingSchema implHPKeyGetHashCode$$reference ManufacturingSchema implHPKeyToString$$implHPKeyClassCodeGetterSetter$</GenRule>
+
+	<GenRule GenDef="Object" Name="implHPKeyClassCodeGetterSetter">
+		const std::string&amp; $poptop SchemaDef SchemaName$HPKey::getClassName() const {
+			return( CLASS_NAME );
+		}
+
+		const classcode_t $poptop SchemaDef SchemaName$HPKey::getClassCode() const {
+			return( classCode );
+		}
+
+		void $poptop SchemaDef SchemaName$HPKey::setClassCode( const classcode_t value ) {
+			classCode = value;
+		}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implHPKeyRevisionGetterSetter">
+		int32_t $SchemaName$HPKey::getRequiredRevision() const {
+			return( requiredRevision );
+		}
+
+		void $SchemaName$HPKey::setRequiredRevision( int32_t value ) {
+			requiredRevision = value;
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implHPKeyConstructor">
+		$poptop SchemaDef SchemaName$HPKey::$poptop SchemaDef SchemaName$HPKey() {
+			auditClusterId = 0L;
+			auditActionId = 0;
+			requiredRevision = 1;
+			for( int i = 0; i &lt; 16; i++ ) {
+				auditSessionId[i] = 0;
+			}
+		}
+
+		$poptop SchemaDef SchemaName$HPKey::~$poptop SchemaDef SchemaName$HPKey() {
+			for( int i = 0; i &lt; 16; i++ ) {
+				auditSessionId[i] = 0;
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditClusterIdGetterSetter">
+		int64_t $poptop SchemaDef SchemaName$HPKey::getAuditClusterId() const {
+			return( auditClusterId );
+		}
+
+		void $poptop SchemaDef SchemaName$HPKey::setAuditClusterId( int64_t value ) {
+			auditClusterId = value;
+		}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditStampGetterSetter">
+		const std::chrono::system_clock::time_point&amp; $poptop SchemaDef SchemaName$HPKey::getAuditStamp() const {
+			return( auditStamp );
+		}
+
+		void $poptop SchemaDef SchemaName$HPKey::setAuditStamp( const std::chrono::system_clock::time_point&amp; value ) {
+			auditStamp = value;
+		}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditActionIdGetterSetter">
+		int16_t $poptop SchemaDef SchemaName$HPKey::getAuditActionId() const {
+			return( auditActionId );
+		}
+
+		void $poptop SchemaDef SchemaName$HPKey::setAuditActionId( int16_t value ) {
+			auditActionId = value;
+		}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditSessionIdGetterSetter">
+		const uuid_ptr_t $poptop SchemaDef SchemaName$HPKey::getAuditSessionId() const {
+			return( auditSessionId );
+		}
+
+		void $poptop SchemaDef SchemaName$HPKey::setAuditSessionId( const uuid_ptr_t value ) {
+			uuid_copy( auditSessionId, value );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implHPKeyGetHashCode">
+		size_t $poptop SchemaDef SchemaName$HPKey::hashCode() const {
+			size_t hashCode = 0;
+			hashCode = hashCode + (int)( auditClusterId &amp; 0x7fffffff );
+			hashCode = hashCode + cflib::CFLib::hash( auditStamp );
+			hashCode = hashCode + auditActionId;
+			hashCode = hashCode + requiredRevision;
+			hashCode = hashCode + cflib::CFLib::hash( auditSessionId );
+			return( hashCode );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implHPKeyToString">
+		std::string $poptop SchemaDef SchemaName$HPKey::toString() {
+			static const std::string S_Space( " " );
+			static const std::string S_Preamble( "&lt;$SchemaName$HPKey" );
+			static const std::string S_Postamble( "/&gt;" );
+			static const std::string S_AuditClusterId( "AuditClusterId" );
+			static const std::string S_AuditStamp( "AuditStamp" );
+			static const std::string S_AuditActionId( "AuditActionId" );
+			static const std::string S_Revision( "Revision" );
+			static const std::string S_AuditSessionId( "AuditSessionId" );
+			std::string ret( S_Preamble );
+			ret.append( cflib::CFLibXmlUtil::formatRequiredInt64( &amp;S_Space, S_AuditClusterId, auditClusterId ) );
+			ret.append( cflib::CFLibXmlUtil::formatRequiredTZTimestamp( &amp;S_Space, S_AuditClusterId, auditStamp ) );
+			ret.append( cflib::CFLibXmlUtil::formatRequiredInt16( &amp;S_Space, S_AuditActionId, auditActionId ) );
+			ret.append( cflib::CFLibXmlUtil::formatRequiredInt32( &amp;S_Space, S_Revision, requiredRevision ) );
+			ret.append( cflib::CFLibXmlUtil::formatRequiredUuid( &amp;S_Space, S_AuditSessionId, auditSessionId ) );
+			ret.append( S_Postamble );
+			return( ret );
+		}
+</GenRule>
+
+</RuleSet>

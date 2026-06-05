@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+saxloader"
+	Name="src/SchemaSaxLoader/SchemaSaxLdr.java"
+	Revision="2.12"
+	Descr="Java 11 Command Line Interface common core for Schema SAX Loader Parser">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSaxLdrJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$SaxLoader/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$SaxLoader"
+		ExpansionClassName="$SchemaName$SaxLdrJava"
+		ExpansionKeyName="$SchemaName$SaxLdrJava"
+		ExpansionFileName="$SchemaName$SaxLdr.java"
+>// Description: Java 11 XML SAX Parser for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$SaxLoader;
+
+import java.io.File;
+import java.util.Calendar;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$importJavaPackageSchemaName$$iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$importJavaPackageSchemaNameObj$
+
+public class $SchemaName$SaxLdr
+{
+	protected ICFLibMessageLog log = null;
+	protected $SchemaName$SaxLoader saxLoader = null;
+	protected String clusterName = "system";
+	protected I$SecSchemaName$ClusterObj clusterObj = null;
+	protected String tenantName = "system";
+	protected static I$SecSchemaName$TenantObj tenantObj = null;
+	protected String secUserName = "system";
+	protected I$SecSchemaName$SecUserObj secUserObj = null;
+	protected I$SecSchemaName$SecSessionObj secSessionObj = null;
+	// Constructors
+$implSchemaSaxLdrConstructor$
+	// Accessors
+$implSchemaSaxLdrSaxLoaderAccessors$
+$implSchemaSaxLdrClusterAccessors$
+$implSchemaSaxLdrTenantAccessors$
+$implSchemaSaxLdrSecUserAccessors$
+$implSchemaSaxLdrSecSessionAccessors$
+	// Apply the loader options argument to the specified loader
+$implSchemaSaxLdrApplyLoaderOptions$
+	// Evaluate a loader options argument segment
+$implSchemaSaxLdrEvalLoaderSegment$
+	// Evaluate remaining arguments
+$implSchemaSaxLdrEvalRemaining$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrSaxLoaderAccessors">
+	public void setSaxLoader( $SchemaName$SaxLoader value ) {
+		saxLoader = value;
+	}
+
+	public $SchemaName$SaxLoader getSaxLoader() {
+		if( saxLoader == null ) {
+			saxLoader = new $SchemaName$SaxLoader( log );
+		}
+		return( saxLoader );
+	}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessors"
+		>$implSchemaSaxLdrClusterAccessorsPart01$$implSchemaSaxLdrClusterAccessorsPart02$$implSchemaSaxLdrClusterAccessorsPart03$$implSchemaSaxLdrClusterAccessorsPart04$$implSchemaSaxLdrClusterAccessorsPart05$$implSchemaSaxLdrClusterAccessorsPart06$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart01">
+	public void setClusterName( String value ) {
+		final String S_ProcName = "setClusterName";
+		I$SchemaName$SchemaObj schema = saxLoader.getSchemaObj();
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"value" );
+		}
+		else if( value.equals( "default" ) ) {
+			boolean transactionStarted = schema.beginTransaction();
+			try {
+				I$SecSchemaName$SysClusterObj sysCluster = schema.getSysClusterTableObj().readSysClusterByIdIdx( 1 );
+				if( sysCluster == null ) {
+					throw new CFLibNullArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"sysCluster" );
+				}
+				I$SecSchemaName$ClusterObj useCluster = sysCluster.getRequiredContainerCluster();
+				if( useCluster == null ) {
+					throw new CFLibNullArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"sysCluster.containerCluster" );
+				}
+				clusterName = value;
+				clusterObj = useCluster;
+				saxLoader.getSchemaObj().setSecCluster( useCluster );
+				if( transactionStarted ) {
+					schema.commit();
+				}
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart02">
+			catch( RuntimeException e ) {
+				if( transactionStarted ) {
+					try {
+						schema.rollback();
+					}
+					catch( Exception e2 ) {
+					}
+				}
+				throw e;
+			}
+		}
+		else if( value.equals( "system" ) ) {
+			boolean transactionStarted = schema.beginTransaction();
+			try {
+				I$SecSchemaName$ClusterObj useCluster = schema.getClusterTableObj().readClusterByUDomNameIdx( "system" );
+				if( useCluster == null ) {
+					throw new CFLibNullArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"readClusterByUDomName-system" );
+				}
+				clusterName = value;
+				clusterObj = useCluster;
+				saxLoader.getSchemaObj().setSecCluster( useCluster );
+				if( transactionStarted ) {
+					schema.commit();
+				}
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart03">
+			catch( RuntimeException e ) {
+				if( transactionStarted ) {
+					try {
+						schema.rollback();
+					}
+					catch( Exception e2 ) {
+					}
+				}
+				throw e;
+			}
+		}
+		else {
+			throw new CFLibUsageException( getClass(),
+				S_ProcName,
+				"Expected value to by 'default' or 'system'" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart04">
+	public String getClusterName() {
+		return( clusterName );
+	}
+
+	public I$SecSchemaName$ClusterObj getClusterObj() {
+		final String S_ProcName = "getClusterObj";
+		if( clusterObj == null ) {
+			I$SchemaName$SchemaObj schema = saxLoader.getSchemaObj();
+			if( clusterName.equals( "default" ) ) {
+				boolean transactionStarted = schema.beginTransaction();
+				try {
+					I$SecSchemaName$SysClusterObj sysCluster = schema.getSysClusterTableObj().readSysClusterByIdIdx( 1 );
+					if( sysCluster == null ) {
+						throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"sysCluster" );
+					}
+					I$SecSchemaName$ClusterObj useCluster = sysCluster.getRequiredContainerCluster();
+					if( useCluster == null ) {
+						throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"sysCluster.containerCluster" );
+					}
+					clusterObj = useCluster;
+					saxLoader.getSchemaObj().setSecCluster( useCluster );
+					if( transactionStarted ) {
+						schema.commit();
+					}
+				}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart05">
+				catch( RuntimeException e ) {
+					if( transactionStarted ) {
+						try {
+							schema.rollback();
+						}
+						catch( Exception e2 ) {
+						}
+					}
+					throw e;
+				}
+			}
+			else if( clusterName.equals( "system" ) ) {
+				boolean transactionStarted = schema.beginTransaction();
+				try {
+					I$SecSchemaName$ClusterObj useCluster = schema.getClusterTableObj().readClusterByUDomNameIdx( "system" );
+					if( useCluster == null ) {
+						throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"readClusterByUDomName-system" );
+					}
+					clusterObj = useCluster;
+					saxLoader.getSchemaObj().setSecCluster( useCluster );
+					if( transactionStarted ) {
+						schema.commit();
+					}
+				}
+				catch( RuntimeException e ) {
+					if( transactionStarted ) {
+						try {
+							schema.rollback();
+						}
+						catch( Exception e2 ) {
+						}
+					}
+					throw e;
+				}
+			}
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart06">
+		if( clusterObj == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				0,
+				"clusterObj" );
+		}
+		return( clusterObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessors"
+		>$implSchemaSaxLdrTenantAccessorsPart01$$implSchemaSaxLdrTenantAccessorsPart02$$implSchemaSaxLdrTenantAccessorsPart03$$implSchemaSaxLdrTenantAccessorsPart04$$implSchemaSaxLdrTenantAccessorsPart05$$implSchemaSaxLdrTenantAccessorsPart06$$implSchemaSaxLdrTenantAccessorsPart07$$implSchemaSaxLdrTenantAccessorsPart08$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart01">
+	public void setTenantName( String value ) {
+		final String S_ProcName = "setTenantName";
+		I$SchemaName$SchemaObj schema = saxLoader.getSchemaObj();
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"value" );
+		}
+		else if( value.equals( "system" ) ) {
+			boolean transactionStarted = schema.beginTransaction();
+			try {
+				I$SecSchemaName$TenantObj useTenant = schema.getTenantTableObj().readTenantByUNameIdx( clusterObj.getRequiredId(),
+					"system" );
+				if( useTenant == null ) {
+					throw new CFLibNullArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"readTenantByUNameIdx-" + clusterObj.getObjName() + "-system" );
+				}
+				tenantName = value;
+				tenantObj = useTenant;
+				saxLoader.getSchemaObj().setSecTenant( useTenant );
+				if( transactionStarted ) {
+					schema.commit();
+				}
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart02">
+			catch( RuntimeException e ) {
+				if( transactionStarted ) {
+					try {
+						schema.rollback();
+					}
+					catch( Exception e2 ) {
+					}
+				}
+				throw e;
+			}
+		}
+		else {
+			if( clusterObj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"clusterObj" );
+			}
+			if( clusterName.equals( "system" ) ) {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Cluster 'system' only supports the tenant 'system', not '" + value + "'" );
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart03">
+			boolean transactionStarted = schema.beginTransaction();
+			try {
+				I$SecSchemaName$TenantObj useTenant = schema.getTenantTableObj().readTenantByUNameIdx( clusterObj.getRequiredId(),
+					value );
+				if( useTenant == null ) {
+					throw new CFLibNullArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"readTenantByUNameIdx-" + clusterObj.getObjName() + "-" + value );
+				}
+				tenantName = value;
+				tenantObj = useTenant;
+				saxLoader.getSchemaObj().setSecTenant( useTenant );
+				if( transactionStarted ) {
+					schema.commit();
+				}
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart04">
+			catch( RuntimeException e ) {
+				if( transactionStarted ) {
+					try {
+						schema.rollback();
+					}
+					catch( Exception e2 ) {
+					}
+				}
+				throw e;
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart05">
+	public String getTenantName() {
+		return( tenantName );
+	}
+
+	public I$SecSchemaName$TenantObj getTenantObj() {
+		final String S_ProcName = "getTenantObj";
+		if( tenantObj == null ) {
+			I$SchemaName$SchemaObj schema = saxLoader.getSchemaObj();
+			if( tenantName == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					1,
+					"value" );
+			}
+			else if( tenantName.equals( "system" ) ) {
+				boolean transactionStarted = schema.beginTransaction();
+				try {
+					I$SecSchemaName$TenantObj useTenant = schema.getTenantTableObj().readTenantByUNameIdx( clusterObj.getRequiredId(),
+						"system" );
+					if( useTenant == null ) {
+						throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"readTenantByUNameIdx-" + clusterObj.getObjName() + "-system" );
+					}
+					tenantObj = useTenant;
+					saxLoader.getSchemaObj().setSecTenant( useTenant );
+					if( transactionStarted ) {
+						schema.commit();
+					}
+				}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart06">
+				catch( RuntimeException e ) {
+					if( transactionStarted ) {
+						try {
+							schema.rollback();
+						}
+						catch( Exception e2 ) {
+						}
+					}
+					throw e;
+				}
+			}
+			else {
+				if( clusterObj == null ) {
+					throw new CFLibNullArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"clusterObj" );
+				}
+				if( clusterName.equals( "system" ) ) {
+					throw new CFLibUsageException( getClass(),
+						S_ProcName,
+						"Cluster 'system' only supports the tenant 'system', not '" + tenantName + "'" );
+				}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart07">
+				boolean transactionStarted = schema.beginTransaction();
+				try {
+					I$SecSchemaName$TenantObj useTenant = schema.getTenantTableObj().readTenantByUNameIdx( clusterObj.getRequiredId(),
+						tenantName );
+					if( useTenant == null ) {
+						throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"readTenantByUNameIdx-" + clusterObj.getObjName() + "-" + tenantName );
+					}
+					tenantObj = useTenant;
+					saxLoader.getSchemaObj().setSecTenant( useTenant );
+					if( transactionStarted ) {
+						schema.commit();
+					}
+				}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart08">
+				catch( RuntimeException e ) {
+					if( transactionStarted ) {
+						try {
+							schema.rollback();
+						}
+						catch( Exception e2 ) {
+						}
+					}
+					throw e;
+				}
+			}
+		}
+		if( tenantObj == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				0,
+				"tenantObj-" + tenantName );
+		}
+		return( tenantObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrSecUserAccessors">
+	public void setSecUserName( String value ) {
+		secUserName = value;
+	}
+
+	public String getSecUserName() {
+		return( secUserName );
+	}
+
+	public I$SecSchemaName$SecUserObj getSecUserObj() {
+		if( secUserObj == null ) {
+			I$SchemaName$SchemaObj schema = saxLoader.getSchemaObj();
+			boolean transactionStarted = schema.beginTransaction();
+			try {
+				secUserObj = schema.getSecUserTableObj().readSecUserByULoginIdx( secUserName );
+				if( transactionStarted ) {
+					schema.commit();
+				}
+			}
+			catch( RuntimeException e ) {
+				if( transactionStarted ) {
+					try {
+						schema.rollback();
+					}
+					catch( Exception e2 ) {
+					}
+				}
+				throw e;
+			}
+		}
+		if( secUserObj == null ) {
+			throw new RuntimeException( "SecUser \"" + secUserName + "\" could not be found" );
+		}
+		return( secUserObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrSecSessionAccessors">
+	public I$SecSchemaName$SecSessionObj getSecSessionObj() {
+		if( secSessionObj == null ) {
+			I$SchemaName$SchemaObj schema = saxLoader.getSchemaObj();
+			boolean transactionStarted = schema.beginTransaction();
+			try {
+				getClusterObj();
+				getTenantObj();
+				getSecUserObj();
+				secSessionObj = schema.getSecSessionTableObj().newInstance();
+				I$SecSchemaName$SecSessionEditObj sessionEdit = secSessionObj.beginEdit();
+				sessionEdit.setRequiredContainerSecUser( secUserObj );
+				sessionEdit.setRequiredStart( Calendar.getInstance() );
+				sessionEdit.setOptionalFinish( null );
+				secSessionObj = sessionEdit.create();
+				sessionEdit = null;
+				if( transactionStarted ) {
+					schema.commit();
+				}
+			}
+			catch( RuntimeException e ) {
+				if( transactionStarted ) {
+					try {
+						schema.rollback();
+					}
+					catch( Exception e2 ) {
+					}
+				}
+				throw e;
+			}
+		}
+		return( secSessionObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrConstructor"
+		>$implSchemaSaxLdrConstructorVoid$$implSchemaSaxLdrConstructorLog$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrConstructorVoid">
+	public $SchemaName$SaxLdr() {
+		log = null;
+		getSaxLoader();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrConstructorLog">
+	public $SchemaName$SaxLdr( ICFLibMessageLog messageLog ) {
+		log = messageLog;
+		getSaxLoader();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrEvalRemaining">
+	public void evaluateRemainingArgs( String[] args, int consumed ) {
+		// This method gets overloaded to evaluate the database-specific
+		// connection arguments, if supported by a database specialization.
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrApplyLoaderOptions">
+	protected static void applyLoaderOptions( $SchemaName$SaxLoader loader, String loaderOptions ) {
+		final String S_ProcName = "$SchemaName$SaxLdr.applyLoaderOptions() ";
+		while( loaderOptions.length() &gt; 0 ) {
+			String evalSegment;
+			int sepIndex = loaderOptions.indexOf( File.pathSeparatorChar );
+			if( sepIndex &gt;= 0 ) {
+				evalSegment = loaderOptions.substring( 0, sepIndex );
+				if( loaderOptions.length() &gt; sepIndex + 1 ) {
+					loaderOptions = loaderOptions.substring( sepIndex + 1 );
+				}
+				else {
+					loaderOptions = "";
+				}
+			}
+			else {
+				evalSegment = loaderOptions;
+				loaderOptions = "";
+			}
+			evalLoaderSegment( loader, evalSegment );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrEvalLoaderSegment">
+	protected static void evalLoaderSegment( $SchemaName$SaxLoader loader, String evalSegment ) {
+		final String S_ProcName = "$SchemaName$SaxParserCLI.evalLoaderSegment() ";
+		int sepEquals = evalSegment.indexOf( '=' );
+		if( sepEquals &lt;= 0 ) {
+			throw new RuntimeException( S_ProcName + "ERROR: Expected segment to comprise &lt;TableName&gt;={*|Insert|Update|Replace}" );
+		}
+		String tableName = evalSegment.substring( 0, sepEquals );
+		String tableOption = evalSegment.substring( sepEquals + 1 );
+$iterate SchemaTables( first implSchemaSaxLdrEvalLoaderSegmentFirstTable
+	each implSchemaSaxLdrEvalLoaderSegmentEachTable
+ )$		else {
+			throw new RuntimeException( S_ProcName + "ERROR: Expected segment to comprise &lt;TableName&gt;={*|Insert|Update|Replace}" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLdrEvalLoaderSegmentFirstTable"
+>		if( tableName.equals( "$Name$" ) ) {
+			if( tableOption.equals( "*" ) ) {
+				// Leave at default
+			}
+			else if( tableOption.equals( "Insert" ) ) {
+				loader.set$Name$LoaderBehaviour( $SchemaName$SaxLoader.LoaderBehaviourEnum.Insert );
+			}
+			else if( tableOption.equals( "Update" ) ) {
+				loader.set$Name$LoaderBehaviour( $SchemaName$SaxLoader.LoaderBehaviourEnum.Update );
+			}
+			else if( tableOption.equals( "Replace" ) ) {
+				loader.set$Name$LoaderBehaviour( $SchemaName$SaxLoader.LoaderBehaviourEnum.Replace );
+			}
+			else {
+				throw new RuntimeException( S_ProcName + "ERROR: Expected segment to comprise &lt;TableName&gt;={*|Insert|Update|Replace}" );
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLdrEvalLoaderSegmentEachTable"
+>		else if( tableName.equals( "$Name$" ) ) {
+			if( tableOption.equals( "*" ) ) {
+				// Leave at default
+			}
+			else if( tableOption.equals( "Insert" ) ) {
+				loader.set$Name$LoaderBehaviour( $SchemaName$SaxLoader.LoaderBehaviourEnum.Insert );
+			}
+			else if( tableOption.equals( "Update" ) ) {
+				loader.set$Name$LoaderBehaviour( $SchemaName$SaxLoader.LoaderBehaviourEnum.Update );
+			}
+			else if( tableOption.equals( "Replace" ) ) {
+				loader.set$Name$LoaderBehaviour( $SchemaName$SaxLoader.LoaderBehaviourEnum.Replace );
+			}
+			else {
+				throw new RuntimeException( S_ProcName + "ERROR: Expected segment to comprise &lt;TableName&gt;={*|Insert|Update|Replace}" );
+			}
+		}
+</GenRule>
+
+</RuleSet>

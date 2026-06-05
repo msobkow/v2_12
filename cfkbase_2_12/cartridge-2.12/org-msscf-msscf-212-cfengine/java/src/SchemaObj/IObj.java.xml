@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/SchemaObj/IObj.java"
+	Revision="2.12"
+	Descr="Java 11 Table Object interface">
+
+	<GenFile GenDef="Table" Name="fileIObjJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema SchemaName$Obj"
+		ExpansionClassName="I$SchemaName$$TableName$ObjJava"
+		ExpansionKeyName="I$SchemaName$$TableName$ObjJava"
+		ExpansionFileName="I$SchemaName$$TableName$Obj.java"
+>// Description: Java 11 Object interface for $SchemaName$ $TableName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower SubProjectPackageName$.$SchemaName$Obj;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import $lower reference ManufacturingSchema SubProjectPackageName$.$SchemaName$.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$importJavaPackageSchemaName$$JavaObjImport$
+
+public interface I$SchemaName$$TableName$Obj$iterate TableRefs( first declIObjInheritSchemaTableObjAndSuperclass each declCommaIObjInheritSchemaTableObj empty maybeDeclIObjInheritSuperClass )$
+{$declIObjMethods$
+}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="declIObjMethods"
+		>$switch HasSuperClassRelation yes empty default declIObjGetClassCode$$switch HasSuperClassRelation yes empty default declIObjRealise$$switch HasSuperClassRelation yes empty default declIObjForget$$switch HasSuperClassRelation yes empty default declIObjRead$$switch ThisHasChain yes declIObjMoveUp default empty$$switch ThisHasChain yes declIObjMoveDown default empty$$switch HasSuperClassRelation yes empty default declIObjBeginEdit$$switch HasSuperClassRelation yes empty default declIObjEndEdit$$switch HasSuperClassRelation yes empty default declIObjEditAccessors$$declIObjEditAsAccessors$$declIObjTableAccessors$$switch HasSuperClassRelation no declIObjSchemaAccessors default empty$$switch HasSuperClassRelation no declIObjBuffAccessors default empty$$declIObjTableBuffAccessors$$switch HasSuperClassRelation no declIObjPKeyAccessors default empty$$switch HasSuperClassRelation no declIObjIsNewAccessors default empty$$iterate Columns( each declIObjColumnAccessors empty empty )$$iterate Relation( each declIObjRelationAccessors empty empty )$$switch HasSuperClassRelation yes empty default declIObjCopyPKeyToBuff$$switch HasSuperClassRelation yes empty default declIObjCopyBuffToPKey$$iterate ServerMethods( each declJavaObjServerMethod empty empty )$$JavaObjInterface$</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjInheritSchemaTableObjAndSuperclass">
+	extends I$reference SchemaDef SchemaName$$TableName$Obj$poptop Table switch HasSuperClassRelation yes alsoIObjInheritSuperClass default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="alsoIObjInheritSuperClass">,
+		I$reference SuperClassRelation reference ToTable SchemaName$$reference SuperClassRelation reference ToTable TableName$Obj</GenRule>
+
+	<GenRule GenDef="Table" Name="declCommaIObjInheritSchemaTableObj">,
+		I$reference SchemaDef SchemaName$$TableName$Obj</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeDeclIObjInheritSuperClass"
+		>$switch HasSuperClassRelation yes declIObjInheritSuperClass default MaybeExtendICFLibAnyObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjInheritSuperClass">
+	extends I$reference SuperClassRelation reference ToTable DefSchemaName$$reference SuperClassRelation reference ToTable TableName$Obj</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declJavaObjServerMethod"
+		>$switch IsInstanceMethod yes declJavaObjInstServerProc default empty$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declJavaObjInstServerProc">
+	boolean $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declJavaObjServerMethod"
+		>$switch IsInstanceMethod yes declJavaObjInstServerObjFunc default empty$</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declJavaObjInstServerObjFunc">
+	I$DefSchemaName$$reference RetTable Name$Obj $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declJavaObjServerMethod"
+		>$switch IsInstanceMethod yes declJavaObjInstServerListFunc default empty$</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declJavaObjInstServerListFunc">
+	List&lt;I$DefSchemaName$$reference RetTable Name$Obj&gt; $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjGetClassCode">
+	String getClassCode();$switch HasAuditColumns yes declIObjGetAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjGetAuditColumns">
+	/**
+	 *	Get the user who created this instance.
+	 *
+	 *	@return	The I$SecSchemaName$SecUserObj instance who created this instance.
+	 */
+	I$SecSchemaName$SecUserObj getCreatedBy();
+
+	/**
+	 *	Get the Calendar date-time this instance was created.
+	 *
+	 *	@return	The Calendar value for the create time of the instance.
+	 */
+	Calendar getCreatedAt();
+
+	/**
+	 *	Get the user who updated this instance.
+	 *
+	 *	@return	The I$SecSchemaName$SecUserObj instance who updated this instance.
+	 */
+	I$SecSchemaName$SecUserObj getUpdatedBy();
+
+	/**
+	 *	Get the Calendar date-time this instance was updated.
+	 *
+	 *	@return	The Calendar value for the create time of the instance.
+	 */
+	Calendar getUpdatedAt();</GenRule>
+
+	<GenRule GenDef="Object" Name="ImportCFCore">
+import org.msscf.msscf.v2_13.cfcore.MssCF.*;</GenRule>
+
+	<GenRule GenDef="Table" Name="MaybeExtendICFLibAnyObj"
+		>$ExtendICFLibAnyObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="ExtendICFLibAnyObj">
+	extends ICFLibAnyObj</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjBeginEdit">
+	/**
+	 *	Initialize and return a locked edition of this $TableName$ instance.
+	 *
+	 *	@return	The newly locked I$DefSchemaName$$TableName$EditObj edition of this instance.
+	 */
+	I$reference BaseClass DefSchemaName$$reference BaseClass TableName$EditObj beginEdit();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjEndEdit">
+	/**
+	 *	End this edition of this $TableName$ instance.
+	 *
+	 *	@throws	CFLibNotSupportedException if you try to end a read-only view.
+	 */
+	void endEdit();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjEditAccessors">
+	/**
+	 *	Get the current edition of this $TableName$ instance.
+	 *
+	 *	@return	The I$DefSchemaName$$TableName$EditObj edition of this instance.
+	 */
+	I$DefSchemaName$$TableName$EditObj getEdit();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjEditAsAccessors">
+	/**
+	 *	Get the current edition of this $TableName$ instance as a I$DefSchemaName$$TableName$EditObj.
+	 *
+	 *	@return	The I$DefSchemaName$$TableName$EditObj edition of this instance.
+	 */
+	I$DefSchemaName$$TableName$EditObj getEditAs$TableName$();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjIsNewAccessors">
+	/**
+	 *	Is this a new instance?
+	 *
+	 *	@return	True if this is a new instance, otherwise false if it has
+	 *		been read, locked, or created.
+	 */
+	boolean getIsNew();
+
+	/**
+	 *	Indicate whether this is a new instance.
+	 *	&lt;p&gt;
+	 *	This method should only be used by implementation internals.
+	 *
+	 *	@param	True if this is a new instance, otherwise false.
+	 */
+	void setIsNew( boolean value );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjSchemaAccessors">
+	/**
+	 *	Get the I$DefSchemaName$SchemaObj schema cache which manages this instance.
+	 *
+	 *	@return	I$DefSchemaName$SchemaObj schema cache which manages this instance.
+	 */
+	I$DefSchemaName$SchemaObj getSchema();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjTableAccessors">
+	/**
+	 *	Get the I$DefSchemaName$$TableName$TableObj table cache which manages this instance.
+	 *
+	 *	@return	I$DefSchemaName$$TableName$TableObj table cache which manages this instance.
+	 */
+	I$DefSchemaName$$TableName$TableObj get$TableName$Table();
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="declIObjRelationAccessors"
+		>$switch RelationToIndexIsUnique yes maybeDeclIObjRelationSingletonAccessors default maybeDeclIObjRelationCollectionAccessors$</GenRule>
+
+	<GenRule GenDef="Relation" Name="maybeDeclIObjRelationSingletonAccessors"
+		>$switch RelationTypeTag Superclass empty default declIObjRelationSingletonAccessors$</GenRule>
+
+	<GenRule GenDef="Relation" Name="maybeDeclIObjRelationCollectionAccessors"
+		>$switch RelationTypeTag Superclass empty default declIObjRelationCollectionAccessors$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declIObjRelationSingletonAccessors">
+	/**
+	 *	Get the $lower OptionalOrRequired$ I$reference ToTable SchemaName$$reference ToTable TableName$Obj instance referenced by the $Suffix$ key.
+	 *
+	 *	@return	The $lower OptionalOrRequired$ I$reference ToTable SchemaName$$reference ToTable TableName$Obj instance referenced by the $Suffix$ key.
+	 */
+	I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj get$OptionalOrRequired$$RelationTypeTag$$Suffix$();
+
+	/**
+	 *	Get the $lower OptionalOrRequired$ I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj instance referenced by the $Suffix$ key.
+	 *
+	 *	@return	The $lower OptionalOrRequired$ I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj instance referenced by the $Suffix$ key.
+	 */
+	I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj get$OptionalOrRequired$$RelationTypeTag$$Suffix$( boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="declIObjRelationCollectionAccessors">
+	/**
+	 *	Get the array of $lower OptionalOrRequired$ I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj array of instances referenced by the $Suffix$ key.
+	 *
+	 *	@return	The $lower OptionalOrRequired$ I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj[] array of instances referenced by the $Suffix$ key.
+	 */
+	List&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; get$OptionalOrRequired$$RelationTypeTag$$Suffix$();
+
+	/**
+	 *	Get the array of $lower OptionalOrRequired$ I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj array of instances referenced by the $Suffix$ key.
+	 *
+	 *	@return	The $lower OptionalOrRequired$ I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj[] array of instances referenced by the $Suffix$ key.
+	 */
+	List&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; get$OptionalOrRequired$$RelationTypeTag$$Suffix$( boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declIObjColumnAccessors"
+		>$switch ColumnInPrimaryIndex yes declIObjColumnBaseROPKeyAccessor default declIObjColumnDataAccessor$</GenRule>
+	<GenRule GenDef="Atom" Name="declIObjColumnAccessors"
+		>$switch ColumnInPrimaryIndex yes declIObjColumnBaseROPKeyAccessor default declIObjColumnDataAccessor$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declIObjColumnDataAccessor"
+		>$switch ColumnInAnyRelation yes declIObjColumnRODataAccessor default declIObjColumnRWDataAccessor$</GenRule>
+	<GenRule GenDef="Atom" Name="declIObjColumnDataAccessor"
+		>$switch ColumnInAnyRelation yes declIObjColumnRODataAccessor default declIObjColumnRWDataAccessor$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declIObjColumnBaseROPKeyAccessor"
+		>$switch HasSuperClassRelation no declIObjColumnROPKeyAccessor default empty$</GenRule>
+	<GenRule GenDef="Atom" Name="declIObjColumnBaseROPKeyAccessor"
+		>$switch HasSuperClassRelation no declIObjColumnROPKeyAccessor default empty$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declIObjColumnROAccessor"
+		>$switch ColumnInPrimaryIndex yes declIObjColumnROPKeyAccessor default declIObjColumnRODataAccessor$</GenRule>
+	<GenRule GenDef="Atom" Name="declIObjColumnROAccessor"
+		>$switch ColumnInPrimaryIndex yes declIObjColumnROPKeyAccessor default declIObjColumnRODataAccessor$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="declIObjColumnROPKeyAccessor">
+	/**
+	 *	Get the $lower implColumnAttrOptionality$ $implJavaAtomType$ attribute $Name$.
+	 *
+	 *	@return	The $lower implColumnAttrOptionality$ $implJavaAtomType$ attribute $Name$.
+	 */
+	$implJavaAtomType$ get$implColumnAttrOptionality$$Name$();
+</GenRule>
+
+	<GenRule GenDef="Atom" Name="declIObjColumnROPKeyAccessor">
+	/**
+	 *	Get the $lower implColumnAttrOptionality$ $implJavaAtomType$ attribute $Name$.
+	 *
+	 *	@return	The $lower implColumnAttrOptionality$ $implJavaAtomType$ attribute $Name$.
+	 */
+	$implJavaAtomType$ get$implColumnAttrOptionality$$Name$();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declIObjColumnRODataAccessor">
+	/**
+	 *	Get the $lower implColumnAttrOptionality$ $implJavaAtomType$ attribute $Name$.
+	 *
+	 *	@return	The $lower implColumnAttrOptionality$ $implJavaAtomType$ attribute $Name$.
+	 */
+	$implJavaAtomType$ get$implColumnAttrOptionality$$Name$();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declIObjColumnRWDataAccessor">
+	/**
+	 *	Get the $lower implColumnAttrOptionality$ $implJavaAtomType$ attribute $Name$.
+	 *
+	 *	@return	The $lower implColumnAttrOptionality$ $implJavaAtomType$ attribute $Name$.
+	 */
+	$implJavaAtomType$ get$implColumnAttrOptionality$$Name$();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjPKeyAccessors">
+	/**
+	 *	Get the primary key of this instance.
+	 *
+	 *	@return	$DefSchemaName$$TableName$PKey primary key for this instance.
+	 */
+	$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey getPKey();
+
+	/**
+	 *	Set the primary key of this instance.
+	 *	&lt;p&gt;
+	 *	This method should only be invoked by implementation internals.
+	 *
+	 *	@param $DefSchemaName$$TableName$PKey primary key value for this instance.
+	 */
+	void setPKey( $reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey value );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjRealise">
+	/**
+	 *	Realise this instance of a $TableName$.
+	 *
+	 *	@return	$DefSchemaName$$TableName$Obj instance which should be subsequently referenced.
+	 */
+	I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj realise();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjForget">
+	/**
+	 *	Forget this instance from the cache.
+	 *	&lt;p&gt;
+	 *	This method should only be invoked by implementation internals.
+	 */
+	void forget();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjCreate">
+	/**
+	 *	create() may return a different instance than the
+	 *	one used to invoke the operation.  All future references
+	 *	should be to the returned instance, not the original
+	 *	invoker.  You should lose all references to the original
+	 *	invoker.
+	 *
+	 *	@return	I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj the reference to the created and realised instance.
+	 */
+	I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj create();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjRead">
+	/**
+	 *	Re-read this instance by it's primary key.
+	 *
+	 *	@return	I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj the reference to the cached or read (realised) instance.
+	 */
+	I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj read();
+
+	/**
+	 *	Re-read this instance by it's primary key.
+	 *
+	 *	@return	I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj the reference to the cached or read (realised) instance.
+	 */
+	I$reference BaseClass DefSchemaName$$reference BaseClass TableName$Obj read( boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjMoveUp">
+	/**
+	 *	Move this object up in the chain and refresh the cache.
+	 *
+	 *	@return	I$reference BaseClass DefSchemaName$$TableName$Obj the reference to the moved and refreshed instance.
+	 */
+	I$reference BaseClass DefSchemaName$$TableName$Obj moveUp();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjMoveDown">
+	/**
+	 *	Move this object down in the chain and refresh the cache.
+	 *
+	 *	@return	I$reference BaseClass DefSchemaName$$TableName$Obj the reference to the moved and refreshed instance.
+	 */
+	I$reference BaseClass DefSchemaName$$TableName$Obj moveDown();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjUpdate">
+	/**
+	 *	Update this instance.
+	 *
+	 *	@throws	CFLibNotSupportedException if invoked on a read-only instance.
+	 */
+	void update();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjDelete">
+	/**
+	 *	Delete this instance.
+	 *
+	 *	@throws	CFLibNotSupportedException if invoked on a read-only instance.
+	 */
+	void deleteInstance();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjCopyPKeyToBuff">
+	/**
+	 *	Internal use only.
+	 */
+	void copyPKeyToBuff();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjCopyBuffToPKey">
+	/**
+	 *	Internal use only.
+	 */
+	void copyBuffToPKey();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjBuffAccessors">
+	/**
+	 *	Get the $DefSchemaName$$TableName$Buff instance which currently backs this instance.
+	 *	&lt;p&gt;
+	 *	This value &lt;i&gt;will&lt;/i&gt; change for read-only instances, so you should
+	 *	not hold on to the value as a reference anywhere outside the current call stack.
+	 *
+	 *	@return	$DefSchemaName$$TableName$Buff instance which currently backs this object.
+	 */
+	$DefSchemaName$$TableName$Buff getBuff();
+
+	/**
+	 *	Internal use only.
+	 */
+	void setBuff( $DefSchemaName$$TableName$Buff value );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declIObjTableBuffAccessors">
+	/**
+	 *	Get the $DefSchemaName$$TableName$Buff instance which currently backs this instance.
+	 *	&lt;p&gt;
+	 *	This value &lt;i&gt;will&lt;/i&gt; change for read-only instances, so you should
+	 *	not hold on to the value as a reference anywhere outside the current call stack.
+	 *
+	 *	@return	$DefSchemaName$$TableName$Buff instance which currently backs this object.
+	 */
+	$DefSchemaName$$TableName$Buff get$TableName$Buff();
+</GenRule>
+
+</RuleSet>

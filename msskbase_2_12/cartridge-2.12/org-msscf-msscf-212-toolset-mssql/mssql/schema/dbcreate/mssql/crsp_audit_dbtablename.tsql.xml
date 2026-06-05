@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mssql"
+	Name="schema/dbcreate/mssql/crsp_audit_dbtablename.sql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPAuditDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mssql"
+		ExpansionClassName="$dbadminfilename_CreateSPAuditDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPAuditDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPAuditDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+use $lower DbSchemaName$
+go
+
+create proc $sp_audit_dbtablename$$implMSSqlSPStandardArgs$$switch HasClassCode yes implMSSqlSPArgClassCode default empty$$implMSSqlSPAuditPKeyArgs$,
+	@argAuditAction int
+as
+begin$switch HasClassCode yes implMSSqlSPAuditTableWithClassCode default implMSSqlSPAuditTableNoClassCode$
+end
+go
+
+quit
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPArgClassCode">,
+	@argClassCode varchar(4)</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPAuditPKeyArgs"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMSSqlSPAuditPKeyArg )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPAuditPKeyArg">,
+	@arg$reference Column Name$ $reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPAuditTableNoClassCode">
+	insert into $lower DbSchemaName$..$DbTableName$_h ($reference PrimaryKeyIndex iterate Columns( each implMSSqlSPAuditInheritedIntoPKeyColumn )$
+				auditclusterid,
+				auditsessionid,
+				auditstamp,$implMSSqlSPAuditInheritedIntoDataColumnNameComma$
+				revision,
+				auditaction )
+		select$reference PrimaryKeyIndex iterate Columns( each implMSSqlSPAuditInheritedPKeyColumnNameComma )$
+				@argAuditClusterId,
+				@argAuditSessionId,
+				sysdatetime(),$implMSSqlSPAuditInheritedDataColumnNameComma$
+				$lower reference BaseClass ClassCode$.revision,
+				@argAuditAction	
+		from $lower DbSchemaName$..$DbTableName$ as $lower ClassCode$
+		where
+				$reference PrimaryKeyIndex iterate Columns( first implMSSqlSPAuditTableWhereAuditPKeyCol each implMSSqlSPAuditTableWhereAndAuditPKeyCol )$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPAuditTableWithClassCode">
+	if( @argClassCode = '$ClassCode$' )
+	begin$implMSSqlSPAuditTableClassCodeBody$$iterate TableSubClasses( each implMSSqlSPAuditTableSubCode empty empty )$
+	else begin
+		raiserror( 'Unrecognized class code attempting to audit object',
+			15,
+			1 )
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPAuditTableSubCode">
+	else if( @argClassCode = '$ClassCode$' )
+	begin$implMSSqlSPAuditTableClassCodeBody$$iterate TableSubClasses( each implMSSqlSPAuditTableSubCode empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPAuditTableClassCodeBody">
+		insert into $lower DbSchemaName$..$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMSSqlSPAuditInheritedIntoPKeyColumn )$
+				classcode,
+				auditclusterid,
+				auditsessionid,
+				auditstamp,$implMSSqlSPAuditInheritedIntoDataColumnNameComma$
+				revision,
+				auditaction )
+			select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMSSqlSPAuditInheritedPKeyColumnNameComma )$
+				$lower reference BaseClass ClassCode$.classcode,
+				@argAuditClusterId,
+				@argAuditSessionId,
+				sysdatetime(),$implMSSqlSPAuditInheritedDataColumnNameComma$
+				$lower reference BaseClass ClassCode$.revision,
+				@argAuditAction	
+			from $lower DbSchemaName$..$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$
+			where
+				$reference BaseClass reference PrimaryKeyIndex iterate Columns( first implMSSqlSPAuditTableWhereAuditPKeyCol each implMSSqlSPAuditTableWhereAndAuditPKeyCol )$
+	end</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPAuditTableWhereAuditPKeyCol"
+		>$lower reference Index reference Table ClassCode$.$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPAuditTableWhereAndAuditPKeyCol">
+				and $implMSSqlSPAuditTableWhereAuditPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPAuditInheritedIntoDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implMSSqlSPAuditInheritedIntoDataColumnNameCommaInh default implMSSqlSPAuditInheritedIntoDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPAuditInheritedIntoDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implMSSqlSPAuditInheritedIntoDataColumnNameComma$$iterate Columns( each implMSSqlSPAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPAuditInheritedIntoDataColumnNameCommaBase"
+		>$iterate Columns( each implMSSqlSPAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPAuditInheritedDataColumnEmitIntoDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implMSSqlSPAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPAuditInheritedIntoPKeyColumn"
+		>$reference Column implMSSqlSPAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPAuditInheritedIntoDataColumnReallyEmitDataColumn">
+				$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPAuditInheritedDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implMSSqlSPAuditInheritedDataColumnNameInhComma default implMSSqlSPAuditInheritedDataColumnNameBaseComma$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPAuditInheritedDataColumnNameInhComma"
+		>$reference SuperClassRelation reference ToTable implMSSqlSPAuditInheritedDataColumnNameComma$$iterate Columns( each implMSSqlSPAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPAuditInheritedDataColumnNameBaseComma"
+		>$iterate Columns( each implMSSqlSPAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implMSSqlSPAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implMSSqlSPAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implMSSqlSPAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implMSSqlSPAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPAuditInheritedDataColumnEmitNameComma">
+				$lower reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlSPAuditInheritedPKeyColumnNameComma">
+				$lower reference Index reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+</RuleSet>

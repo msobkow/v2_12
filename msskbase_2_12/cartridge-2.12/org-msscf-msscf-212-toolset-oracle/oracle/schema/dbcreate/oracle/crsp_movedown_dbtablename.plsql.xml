@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/crsp_movedown_dbtablename.oracle"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPMoveDownDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="$dbadminfilename_CreateSPMoveDownDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPMoveDownDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPMoveDownDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+alter session set plsql_warnings = 'ENABLE:ALL';
+/
+
+create or replace procedure $lower DbSchemaName$.$sp_movedown_dbtablename$(
+	retCursor out sys_refcursor,$implOracleSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaTableCol )$,
+	argRevision integer ) authid definer
+is$switch BaseHasHistory yes declOracleSPTableUseStamp default declOracleSPTableUseStampIfAudited$
+	permissionFlag integer;
+	isSystemUser integer;
+	permissionDenied exception;
+	expectedToAffectOneRow exception;
+	dataCollisionDetected exception;$reference Chain reference Table declOracleSPMoveDownTableContainerVars$$declOracleSPMoveDownTableChainLinkVars$$declSPOldVars$
+begin$switch BaseHasHistory yes implOracleSPTableInitStamp default implOracleSPTableInitStampIfAudited$$implOracleSPMoveDownBody$
+end $sp_movedown_dbtablename$;
+/
+
+show errors procedure $lower DbSchemaName$.$sp_movedown_dbtablename$;
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownBody"
+		>$reference Chain reference Table implOracleSPMoveDownTableFetchContainerKeys$$reference Chain reference Table implOracleSPMoveDownTableLatchContainer$$implOracleLockTables$$implOracleSPMoveDownDbTablenameValidateRevision$$switch SecScope None empty System implOracleSPMoveDownTableCheckSystem Cluster implOracleSPMoveDownTableCheckCluster Tenant implOracleSPMoveDownTableCheckTenant default error$$reference Chain reference Table implOracleSPMoveDownTableChainSelectChainLinks$$reference Chain reference Table implOracleSPMoveDownTableIfNextBegin$$reference Chain reference Table implOracleSPMoveDownTableUpdatePrev$$reference Chain reference Table implOracleSPMoveDownTableUpdateNext$$reference Chain reference Table implOracleSPMoveDownTableUpdateThis$$reference Chain reference Table implOracleSPMoveDownTableUpdateGNext$$reference Chain reference Table implOracleSPMoveDownTableIfNextEnd$$reference Chain reference Table implOracleSPMoveDownTableUnlatchContainer$
+	open retCursor for select
+$implOracleSelectTableColumns$,
+		$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$.$DbTableName$ $lower ClassCode$$switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownDbTablenameValidateRevision">
+	if argRevision != oldRevision
+	then
+		raise dataCollisionDetected;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableIfNextBegin">
+	if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implOracleSPMoveDownTableUpdateNextIfNotNull each empty )$ )
+	then</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableIfNextEnd">
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateTableAuditColumns3">,
+			updatedby = argAuditUserId,
+			updatedat = use_stamp</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateTableAuditColumns4">,
+				updatedby = argAuditUserId,
+				updatedat = use_stamp</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdatePrev">
+		if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implOracleSPMoveDownTableUpdatePrevIfNotNull each empty )$ )
+		then$switch ChainTableHasSuperClassRelation yes implOracleSPMoveDownTableUpdatePrevTwoTables default implOracleSPMoveDownTableUpdatePrevOneTable$$switch BaseHasHistory yes implOracleSPMoveDownTableUpdatePrevAuditUpdated default empty$
+		end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdatePrevOneTable">
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implOracleSPMoveDownTableUpdateTableAuditColumns4 default empty$$reference Chain reference NextRel iterate Columns( each implOracleSPMoveDownTableUpdatePrevWithNextCommaKey )$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWherePrevPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$;
+
+			if sql%rowcount != 1 then
+				raise expectedToAffectOneRow;
+			end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdatePrevWithNextKey"
+		>$reference FromCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdatePrevWithNextCommaKey">,
+				$implOracleSPMoveDownTableUpdatePrevWithNextKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateTableWherePrevPKeyCol"
+		>$reference ToCol DbColumnName$ = varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateTableWhereAndPrevPKeyCol">
+				and $implOracleSPMoveDownTableUpdateTableWherePrevPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdatePrevTwoTables">
+			update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implOracleSPMoveDownTableUpdateTableAuditColumns4 default empty$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWherePrevPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$;
+
+			if sql%rowcount != 1 then
+				raise expectedToAffectOneRow;
+			end if;
+
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				$reference Chain reference NextRel iterate Columns( first implOracleSPMoveDownTableUpdatePrevWithNextKey each implOracleSPMoveDownTableUpdatePrevWithNextCommaKey )$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWherePrevPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$;
+
+			if sql%rowcount != 1 then
+				raise expectedToAffectOneRow;
+			end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableUpdatePrevIfNotNull"
+		>varprev$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdatePrevAuditUpdated">
+			$lower poptop Table DbSchemaName$.aud_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+				argAuditUserId,
+				argAuditSessionId,
+				secClusterId,
+				secTenantId$reference Chain reference Table switch HasClassCode yes implOracleSPMoveDownTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implOracleSPMoveDownTableAuditUpdatedPrevPassArg )$,
+				1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdatePrevAuditPassClassCode">,
+				varprevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableAuditUpdatedPrevPassArg">,
+				varprev$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateNext">
+$switch ChainTableHasSuperClassRelation yes implOracleSPMoveDownTableUpdateNextTwoTables default implOracleSPMoveDownTableUpdateNextOneTable$$switch BaseHasHistory yes implOracleSPMoveDownTableUpdateNextAuditUpdated default empty$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateNextOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implOracleSPMoveDownTableUpdateTableAuditColumns3 default empty$$reference Chain reference PrevRel iterate Columns( each implOracleSPMoveDownTableUpdateNextWithPrevCommaKey )$$reference Chain reference NextRel iterate Columns( each implOracleSPMoveDownTableUpdateNextWithThisCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWhereNextPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$;
+
+		if sql%rowcount != 1 then
+			raise expectedToAffectOneRow;
+		end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateNextWithThisKey"
+		>$reference FromCol DbColumnName$ = arg$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateNextWithThisCommaKey">,
+			$implOracleSPMoveDownTableUpdateNextWithThisKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateNextWithPrevKey"
+		>$reference FromCol DbColumnName$ = varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateNextWithPrevCommaKey">,
+			$implOracleSPMoveDownTableUpdateNextWithPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateTableWhereNextPKeyCol"
+		>$reference ToCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateTableWhereAndNextPKeyCol">
+			and $implOracleSPMoveDownTableUpdateTableWhereNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateNextTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implOracleSPMoveDownTableUpdateTableAuditColumns3 default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWhereNextPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$;
+
+		if sql%rowcount != 1 then
+			raise expectedToAffectOneRow;
+		end if;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPMoveDownTableUpdateNextWithPrevKey each implOracleSPMoveDownTableUpdateNextWithPrevCommaKey )$$reference Chain reference NextRel iterate Columns( each implOracleSPMoveDownTableUpdateNextWithThisCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWhereNextPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$;
+
+		if sql%rowcount != 1 then
+			raise expectedToAffectOneRow;
+		end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableUpdateNextIfNotNull"
+		>varnext$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateNextAuditUpdated">
+		$lower poptop Table DbSchemaName$.aud_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implOracleSPMoveDownTableUpdateNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implOracleSPMoveDownTableAuditUpdatedNextPassArg )$,
+			1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateNextAuditPassClassCode">,
+			varnextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableAuditUpdatedNextPassArg">,
+			varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateThisOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implOracleSPMoveDownTableUpdateTableAuditColumns3 default empty$$reference Chain reference PrevRel iterate Columns( each implOracleSPMoveDownTableUpdateThisPrevWithCommaKey )$$reference Chain reference NextRel iterate Columns( each implOracleSPMoveDownTableUpdateThisNextWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWhereThisPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$;
+
+		if sql%rowcount != 1 then
+			raise expectedToAffectOneRow;
+		end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateThisPrevWithKey"
+		>$reference FromCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateThisPrevWithCommaKey">,
+			$implOracleSPMoveDownTableUpdateThisPrevWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateThisNextWithKey"
+		>$reference FromCol DbColumnName$ = gnext$reference ToCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateThisNextWithCommaKey">,
+			$implOracleSPMoveDownTableUpdateThisNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateTableWhereThisPKeyCol"
+		>$reference ToCol DbColumnName$ = arg$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateTableWhereAndThisPKeyCol">
+			and $implOracleSPMoveDownTableUpdateTableWhereThisPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateThisTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implOracleSPMoveDownTableUpdateTableAuditColumns3 default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWhereThisPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$;
+
+		if sql%rowcount != 1 then
+			raise expectedToAffectOneRow;
+		end if;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPMoveDownTableUpdateThisPrevWithKey each implOracleSPMoveDownTableUpdateThisPrevWithCommaKey )$$reference Chain reference NextRel iterate Columns( each implOracleSPMoveDownTableUpdateThisNextWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWhereThisPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$;
+
+		if sql%rowcount != 1 then
+			raise expectedToAffectOneRow;
+		end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateThisAuditUpdated">
+		$lower poptop Table DbSchemaName$.aud_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implOracleSPMoveDownTableUpdateThisAuditPassClassCode default empty$$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implOracleSPMoveDownTableAuditUpdatedThisPassArg )$,
+			1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateThisAuditPassClassCode">,
+			oldClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableAuditUpdatedThisPassArg">,
+			arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateGNext">
+		if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implOracleSPMoveDownTableUpdateGNextIfNotNull each empty )$ )
+		then$switch ChainTableHasSuperClassRelation yes implOracleSPMoveDownTableUpdateGNextTwoTables default implOracleSPMoveDownTableUpdateGNextOneTable$$switch BaseHasHistory yes implOracleSPMoveDownTableUpdateGNextAuditUpdated default empty$
+		end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateGNextOneTable">
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implOracleSPMoveDownTableUpdateTableAuditColumns4 default empty$$reference Chain reference PrevRel iterate Columns( each implOracleSPMoveDownTableUpdateGNextWithCommaKey )$
+			where
+				$reference Chain reference NextRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWhereGNextPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$;
+
+			if sql%rowcount != 1 then
+				raise expectedToAffectOneRow;
+			end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateGNextWithKey"
+		>$reference FromCol DbColumnName$ = arg$reference ToCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateGNextWithCommaKey">,
+				$implOracleSPMoveDownTableUpdateGNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateTableWhereGNextPKeyCol"
+		>$reference ToCol DbColumnName$ = gnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableUpdateTableWhereAndGNextPKeyCol">
+				and $implOracleSPMoveDownTableUpdateTableWhereGNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateGNextTwoTables">
+			update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implOracleSPMoveDownTableUpdateTableAuditColumns4 default empty$
+			where
+				$reference Chain reference NextRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWhereGNextPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$;
+
+			if sql%rowcount != 1 then
+				raise expectedToAffectOneRow;
+			end if;
+
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				$reference Chain reference PrevRel iterate Columns( first implOracleSPMoveDownTableUpdateGNextWithKey each implOracleSPMoveDownTableUpdateGNextWithCommaKey )$
+			where
+				$reference Chain reference NextRel iterate Columns( first implOracleSPMoveDownTableUpdateTableWhereGNextPKeyCol each implOracleSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$;
+
+			if sql%rowcount != 1 then
+				raise expectedToAffectOneRow;
+			end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableUpdateGNextIfNotNull"
+		>gnext$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateGNextAuditUpdated">
+			$lower poptop Table DbSchemaName$.aud_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+				argAuditUserId,
+				argAuditSessionId,
+				secClusterId,
+				secTenantId$reference Chain reference Table switch HasClassCode yes implOracleSPMoveDownTableUpdateGNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implOracleSPMoveDownTableAuditUpdatedGNextPassArg )$,
+				1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateGNextAuditPassClassCode">,
+				gnextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableAuditUpdatedGNextPassArg">,
+				gnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUpdateThis">$switch ChainTableHasSuperClassRelation yes implOracleSPMoveDownTableUpdateThisTwoTables default implOracleSPMoveDownTableUpdateThisOneTable$$switch BaseHasHistory yes implOracleSPMoveDownTableUpdateThisAuditUpdated default empty$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPMoveDownTableChainLinkVars"
+		>$switch HasClassCode yes declOracleSPMoveDownTableChainLinkClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declOracleSPMoveDownTableChainPrevVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declOracleSPMoveDownTableChainNextVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declOracleSPMoveDownTableChainGNextVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPMoveDownTableChainLinkClassCode">
+	varprevClassCode varchar(4);
+	varnextClassCode varchar(4);
+	gnextClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declOracleSPMoveDownTableChainGNextVar">
+	gnext$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declOracleSPMoveDownTableChainPrevVar">
+	varprev$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declOracleSPMoveDownTableChainNextVar">
+	varnext$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectLinks"
+		>$reference Chain reference Table implOracleSPMoveDownTableChainSelectChainLinks$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectChainLinks">
+	select$switch HasClassCode yes implOracleSPMoveDownTableChainSelectPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implOracleSPMoveDownTableChainSelectPrevKeyComma )$$switch HasClassCode yes implOracleSPMoveDownTableChainSelectNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implOracleSPMoveDownTableChainSelectNextKeyComma )$$switch HasClassCode yes implOracleSPMoveDownTableChainSelectGNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implOracleSPMoveDownTableChainSelectGNextKeyComma last implOracleSPMoveDownTableChainSelectGNextKey )$$implOracleSPMoveDownTableChainSelectChainLinksInto$$implOracleSPMoveDownTableChainSelectChainLinksFromWhere$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectChainLinksInto">
+	into$switch HasClassCode yes implOracleSPMoveDownTableChainSelectIntoPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implOracleSPMoveDownTableChainSelectIntoPrevKeyComma )$$switch HasClassCode yes implOracleSPMoveDownTableChainSelectIntoNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implOracleSPMoveDownTableChainSelectIntoNextKeyComma )$$switch HasClassCode yes implOracleSPMoveDownTableChainSelectIntoGNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implOracleSPMoveDownTableChainSelectIntoGNextKeyComma last implOracleSPMoveDownTableChainSelectIntoGNextKey )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectChainLinksFromWhere">
+	from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ $lower reference Chain reference Table ClassCode$$reference Chain reference Table switch HasSuperClassRelation yes implOracleSPMoveDownTableChainSelectInnerJoinSuper default empty$$implOracleSPMoveDownTableChainSelectOuterJoinLinkTables$
+	where
+		$reference Chain reference Table reference PrimaryKeyIndex iterate Columns( first implOracleSPMoveDownTableChainSelectWherePKey each implOracleSPMoveDownTableChainSelectWhereAndPKey )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectInnerJoinSuper">
+		inner join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implOracleSPMoveDownTableChainSelectOnKeySuper each implOracleSPMoveDownTableChainSelectOnKeyAndSuper )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOnKeySuper"
+		>$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = $lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOnKeyAndSuper">
+			and $implOracleSPMoveDownTableChainSelectOnKeySuper$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectWherePKey"
+		>$lower poptop Table reference Chain reference Table ClassCode$.$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectWhereAndPKey">
+		and $implOracleSPMoveDownTableChainSelectWherePKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectOuterJoinLinkTables">
+		left outer join $lower DbSchemaName$.$DbTableName$ prv$lower ClassCode$ on
+			$reference Chain reference PrevRel iterate Columns( first implOracleSPMoveDownTableChainSelectOJPrevKey each implOracleSPMoveDownTableChainSelectOJAndPrevKey )$$switch HasSuperClassRelation yes implOracleSPMoveDownTableChainSelectOuterJoinPrevSuper default empty$
+		left outer join $lower DbSchemaName$.$DbTableName$ nxt$lower ClassCode$ on
+			$reference Chain reference NextRel iterate Columns( first implOracleSPMoveDownTableChainSelectOJNextKey each implOracleSPMoveDownTableChainSelectOJAndNextKey )$$switch HasSuperClassRelation yes implOracleSPMoveDownTableChainSelectOuterJoinNextSuper default empty$$switch HasClassCode yes implOracleSPMoveDownTableChainSelectOuterJoinGNextTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectOuterJoinGNextTable">
+		left outer join $lower DbSchemaName$.$DbTableName$ gnxt$lower ClassCode$ on
+			$reference Chain reference NextRel iterate Columns( first implOracleSPMoveDownTableChainSelectOJGNextKey each implOracleSPMoveDownTableChainSelectOJAndGNextKey )$$switch HasSuperClassRelation yes implOracleSPMoveDownTableChainSelectOuterJoinGNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectOuterJoinGNextSuper">
+		left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ gnxt$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implOracleSPMoveDownTableChainSelectOuterJoinGNextSuperKey each implOracleSPMoveDownTableChainSelectOuterJoinGNextSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implOracleSPMoveDownTableChainSelectOuterJoinGNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOuterJoinGNextSuperKey"
+		>gnxt$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = gnxt$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOuterJoinGNextSuperAndKey">
+			and $implOracleSPMoveDownTableChainSelectOuterJoinGNextSuperKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectOuterJoinPrevSuper">
+		left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ prv$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implOracleSPMoveDownTableChainSelectOuterJoinPrevSuperKey each implOracleSPMoveDownTableChainSelectOuterJoinPrevSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implOracleSPMoveDownTableChainSelectOuterJoinPrevSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOuterJoinPrevSuperKey"
+		>prv$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = prv$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOuterJoinPrevSuperAndKey">
+			and $implOracleSPMoveDownTableChainSelectOuterJoinPrevSuperKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectOuterJoinNextSuper">
+		left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ nxt$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implOracleSPMoveDownTableChainSelectOuterJoinNextSuperKey each implOracleSPMoveDownTableChainSelectOuterJoinNextSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implOracleSPMoveDownTableChainSelectOuterJoinNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOuterJoinNextSuperKey"
+		>nxt$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = nxt$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOuterJoinNextSuperAndKey">
+			and $implOracleSPMoveDownTableChainSelectOuterJoinNextSuperKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOJGNextKey"
+		>gnxt$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$ = nxt$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOJAndGNextKey">
+			and $implOracleSPMoveDownTableChainSelectOJGNextKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOJPrevKey"
+		>prv$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOJAndPrevKey">
+			and $implOracleSPMoveDownTableChainSelectOJPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOJNextKey"
+		>nxt$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableChainSelectOJAndNextKey">
+			and $implOracleSPMoveDownTableChainSelectOJNextKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectGNextClassCodeComma">
+		gnxt$lower reference BaseClass ClassCode$.classcode as gnxtclasscode,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectPrevClassCodeComma">
+		prv$lower reference BaseClass ClassCode$.classcode as prvclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectGNextKeyComma">
+		nxt$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as gnxt$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectGNextKey">
+		nxt$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as gnxt$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectPrevKeyComma">
+		$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as prv$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectNextClassCodeComma">
+		nxt$lower reference Chain reference Table reference BaseClass ClassCode$.classcode as nxtclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectNextKey">
+		$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as nxt$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectNextKeyComma"
+		>$implOracleSPMoveDownTableChainSelectNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectIntoGNextClassCodeComma">
+		gnextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectIntoGNextKeyComma">
+		gnext$StripPrevNextColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectIntoGNextKey">
+		gnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectIntoPrevClassCodeComma">
+		varprevClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectIntoPrevKeyComma">
+		varprev$StripPrevNextColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableChainSelectIntoNextClassCodeComma">
+		varnextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectIntoNextKey">
+		varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableChainSelectIntoNextKeyComma"
+		>$implOracleSPMoveDownTableChainSelectIntoNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableFetchContainerKeys">
+	select$reference ContainerRelation iterate Columns( first implOracleSPMoveDownTableFetchContainerKeysColName each implOracleSPMoveDownTableFetchContainerKeysCommaColName )$
+	into$reference ContainerRelation iterate Columns( first implOracleSPMoveDownTableFetchContainerKeysIntoVar each implOracleSPMoveDownTableFetchContainerKeysCommaIntoVar )$
+	from $lower DbSchemaName$.$reference ContainerRelation reference FromTable DbTableName$
+	where$reference ContainerRelation reference FromTable reference PrimaryKeyIndex iterate Columns( first implOracleSPMoveDownTableFetchContainerKeysPassPKey each implOracleSPMoveDownTableFetchContainerKeysAndPassPKey )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableFetchContainerKeysColName">
+		$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableFetchContainerKeysCommaColName"
+		>,$implOracleSPMoveDownTableFetchContainerKeysColName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableFetchContainerKeysIntoVar">
+		var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableFetchContainerKeysCommaIntoVar"
+		>,$implOracleSPMoveDownTableFetchContainerKeysIntoVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableFetchContainerKeysPassPKey">
+		$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleSPMoveDownTableFetchContainerKeysAndPassPKey">
+		and $DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPMoveDownTableContainerVars"
+		>$switch DoesContainerRelationNarrow yes declOracleSPMoveDownTableChaseContainerVars default declOracleSPMoveDownTableActualContainerVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPMoveDownTableChaseContainerVars"
+		>$reference ContainerRelation reference Narrowed declOracleSPMoveDownTableContainerVars$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declOracleSPMoveDownTableContainerVars"
+		>$switch HasNarrowed yes declOracleSPMoveDownTableChaseContainerVars default declOracleSPMoveDownTableActualContainerVars$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declOracleSPMoveDownTableActualContainerVars"
+		>$iterate Columns( each declOracleSPMoveDownTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declOracleSPMoveDownTableChaseContainerVars"
+		>$reference Narrowed declOracleSPMoveDownTableContainerVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declOracleSPMoveDownTableActualContainerVars"
+		>$reference ContainerRelation iterate Columns( each declOracleSPMoveDownTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="declOracleSPMoveDownTableContainerVar">
+	var$reference FromCol Name$ $reference FromCol clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implOracleSPMoveDownTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableLatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision + 1
+	where
+		$popto Relation iterate Columns( first implOracleSPMoveDownTableLatchWhereArg each implOracleSPMoveDownTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableLatchWhereArg"
+		>$reference ToCol DbColumnName$ = var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implOracleSPMoveDownTableLatchWhereAndArg">
+		and $implOracleSPMoveDownTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implOracleSPMoveDownTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableUnlatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision - 1
+	where
+		$popto Relation iterate Columns( first implOracleSPMoveDownTableLatchWhereArg each implOracleSPMoveDownTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableArgSecClusterId">,
+	secClusterId</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableArgSecTenantId">,
+	secTenantId</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableCheckSystem">
+	permissionFlag := $lower DbSchemaName$.sp_is_system_user( argAuditUserId );
+	if( permissionFlag = 0 )
+	then
+		raise permissionDenied;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableCheckCluster">
+	if( old$reference ClusterIdColumn Name$ != secClusterId )
+	then
+		permissionFlag := $lower DbSchemaName$.sp_is_system_user( argAuditUserId );
+		if( permissionFlag = 0 )
+		then
+			raise permissionDenied;
+		end if;
+	end if;
+
+	permissionFlag := $lower DbSchemaName$.sp_is_cluster_user( old$reference ClusterIdColumn Name$,
+		'Update$Name$',
+		argAuditUserId );
+	if( permissionFlag = 0 )
+	then
+		raise permissionDenied;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPMoveDownTableCheckTenant">
+	if( old$reference TenantIdColumn Name$ != secTenantId )
+	then
+		permissionFlag := $lower DbSchemaName$.sp_is_system_user( argAuditUserId );
+		if( permissionFlag = 0 )
+		then
+			raise permissionDenied;
+		end if;
+	end if;
+
+	permissionFlag := $lower DbSchemaName$.sp_is_tenant_user( old$reference TenantIdColumn Name$,
+		'Update$Name$',
+		argAuditUserId );
+	if( permissionFlag = 0 )
+	then
+		raise permissionDenied;
+	end if;
+</GenRule>
+
+</RuleSet>

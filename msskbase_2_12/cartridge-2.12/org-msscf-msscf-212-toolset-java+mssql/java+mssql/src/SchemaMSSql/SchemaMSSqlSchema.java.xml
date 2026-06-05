@@ -1,0 +1,1978 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+mssql"
+	Name="src/SchemaMSSqlSchema.java"
+	Revision="2.12"
+	Descr="Java 11 MS SQL Server Developer Edition Jdbc DbIO implementation">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaMSSqlSchemaJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$MSSql/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$MSSql"
+		ExpansionClassName="$SchemaName$MSSqlSchemaJava"
+		ExpansionKeyName="$SchemaName$MSSqlSchemaJava"
+		ExpansionFileName="$SchemaName$MSSqlSchema.java"
+>// Description: Java 11 MS SQL Server Developer Edition Jdbc DbIO implementation for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$MSSql;
+
+import java.lang.reflect.*;
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import javax.naming.*;
+import javax.sql.*;
+import org.apache.commons.codec.binary.Base64;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$importJavaPackageSchemaName$$iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$importJavaPackageSchemaNameObj$
+import $lower JavaPackage$.$SchemaName$Obj.*;
+import $lower JavaPackage$.$SchemaName$SaxLoader.$SchemaName$SaxLoader;$JavaMSSqlSchemaObjImport$$ReferencedJavaMSSqlSchemaObjImport$
+
+public class $SchemaName$MSSqlSchema
+	extends $SchemaName$Schema
+	implements I$SchemaName$Schema
+{
+	protected Connection cnx;$iterate Id16Generators( each declSchemaMSSqlStmtNextIdGen empty empty )$$iterate Id32Generators( each declSchemaMSSqlStmtNextIdGen empty empty )$$iterate Id64Generators( each declSchemaMSSqlStmtNextIdGen empty empty )$
+	protected boolean inTransaction;$implSchemaMSSqlDeclStmtBeginTransaction$$JavaMSSqlSchemaObjMembers$$ReferencedJavaMSSqlSchemaObjMembers$
+$implSchemaMSSqlConstructor$$implSchemaMSSqlCnxAccessors$$implSchemaMSSqlIsConnected$$implSchemaMSSqlConnect$$implSchemaMSSqlDisconnect$$implSchemaMSSqlCommitControl$$implSchemaMSSqlIsSystemUser$$implSchemaMSSqlIsClusterUser$$implSchemaMSSqlIsTenantUser$$iterate Id16Generators( each implSchemaMSSqlNextIdGen empty empty )$$iterate Id32Generators( each implSchemaMSSqlNextIdGen empty empty )$$iterate Id64Generators( each implSchemaMSSqlNextIdGen empty empty )$$iterate UuidGenerators( each implSchemaMSSqlNextIdGen empty empty )$$implMSSqlSchemaFileImport$$implSchemaMSSqlSchemaMoreMethods$$JavaMSSqlSchemaObjImpl$$ReferencedJavaMSSqlSchemaObjImpl$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implMSSqlSchemaFileImport">
+	/**
+	 *	Import the contents of the specified file name
+	 *	and file contents by applying a SAX Loader parse.
+	 */
+	public String fileImport( $SecSchemaName$Authorization auth, String fileName, String fileContent ) {
+		final String S_ProcName = "fileImport";
+
+		if( isTransactionOpen() ) {
+			rollback();
+		}
+
+		try {
+			beginTransaction();
+
+			$SchemaName$SaxLoader saxLoader = new $SchemaName$SaxLoader();
+			I$SchemaName$SchemaObj schemaObj = new $SchemaName$SchemaObj();
+			schemaObj.setBackingStore( this );
+			saxLoader.setSchemaObj( schemaObj );
+			I$SecSchemaName$ClusterObj useCluster = schemaObj.getClusterTableObj().readClusterByIdIdx( auth.getSecClusterId() );
+			I$SecSchemaName$TenantObj useTenant = schemaObj.getTenantTableObj().readTenantByIdIdx( auth.getSecTenantId() );
+			CFLibCachedMessageLog runlog = new CFLibCachedMessageLog();
+			saxLoader.setLog( runlog );
+			saxLoader.setUseCluster( useCluster );
+			saxLoader.setUseTenant( useTenant );
+			saxLoader.parseStringContents( fileContent );
+			String logFileContent = runlog.getCacheContents();
+			if( logFileContent == null ) {
+				logFileContent = "";
+			}
+
+			commit();
+
+			return( logFileContent );
+		}
+		catch( RuntimeException e ) {
+			rollback();
+			throw e;
+		}
+		catch( Error e ) {
+			rollback();
+			throw e;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaMSSqlSchemaObjImport"
+		>$iterate SchemaRefs( each ApplyJavaMSSqlSchemaObjImport empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaMSSqlSchemaObjImport"
+		>$reference RefSchema JavaMSSqlSchemaObjImport$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaMSSqlSchemaObjMembers"
+		>$iterate SchemaRefs( each ApplyJavaMSSqlSchemaObjMembers empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaMSSqlSchemaObjMembers"
+		>$reference RefSchema JavaMSSqlSchemaObjMembers$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaMSSqlSchemaObjImpl"
+		>$iterate SchemaRefs( each ApplyJavaMSSqlSchemaObjImpl empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaMSSqlSchemaObjImpl"
+		>$reference RefSchema JavaMSSqlSchemaObjImpl$</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaMSSqlStmtNextIdGen">
+	protected PreparedStatement stmtSelectNext$Name$ = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlDeclStmtBeginTransaction">
+	protected PreparedStatement stmtBeginTransaction = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlSchemaMoreMethods"
+		>$implMSSqlSchemaReleasePreparedStatements$$implSchemaMSSqlGetQuotedString$$implSchemaMSSqlGetNullableString$$implSchemaMSSqlGetBlobString$$implSchemaMSSqlGetBoolString$$implSchemaMSSqlGetInt16String$$implSchemaMSSqlGetInt32String$$implSchemaMSSqlGetInt64String$$implSchemaMSSqlGetUInt16String$$implSchemaMSSqlGetUInt32String$$implSchemaMSSqlGetUInt64String$$implSchemaMSSqlGetFloatString$$implSchemaMSSqlGetDoubleString$$implSchemaMSSqlGetNumberString$$implSchemaMSSqlGetNullableInt32$$implSchemaMSSqlGetNullableInt16$$implSchemaMSSqlGetNullableUInt16$$implSchemaMSSqlGetNullableUInt32$$implSchemaMSSqlGetNullableUInt64$$implSchemaMSSqlGetNullableIntByte$$implSchemaMSSqlGetQuotedDateString$$implSchemaMSSqlGetQuotedTimeString$$implSchemaMSSqlGetQuotedTimestampString$$implSchemaMSSqlGetQuotedTZDateString$$implSchemaMSSqlGetQuotedTZTimeString$$implSchemaMSSqlGetQuotedTZTimestampString$$implSchemaMSSqlGetDateString$$implSchemaMSSqlGetTimeString$$implSchemaMSSqlGetTimestampString$$implSchemaMSSqlGetTZDateString$$implSchemaMSSqlGetTZTimeString$$implSchemaMSSqlGetTZTimestampString$$implSchemaMSSqlGetUuidString$$implSchemaMSSqlConvertDateString$$implSchemaMSSqlConvertTimeString$$implSchemaMSSqlConvertTimestampString$$implSchemaMSSqlConvertTZDateString$$implSchemaMSSqlConvertTZTimeString$$implSchemaMSSqlConvertTZTimestampString$$implSchemaMSSqlConvertUuidString$</GenRule>
+	<GenRule GenDef="Object" Name="implSchemaCheckOpenTransaction"
+		>$popto SchemaDef implSchemaCheckOpenTransaction$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaCheckOpenTransaction">
+		if( ! isTransactionOpen() ) {
+			throw new CFLibUsageException( getClass(),
+				S_ProcName,
+				"Transaction not open" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implMSSqlSchemaReleasePreparedStatements">
+	/**
+	 *	Release the prepared statements.
+	 *	&lt;p&gt;
+	 *	When the schema changes connections, the prepared statements
+	 *	have to be released because they contain connection-specific
+	 *	information for most databases.
+	 */
+	public void releasePreparedStatements() {
+		final String S_ProcName = "releasePreparedStatements";$implMSSqlSchemaReleaseStmtBeginTransaction$$iterate Id16Generators( each implMSSqlSchemaInvokeReleaseIdGenerator empty empty )$$iterate Id32Generators( each implMSSqlSchemaInvokeReleaseIdGenerator empty empty )$$iterate Id64Generators( each implMSSqlSchemaInvokeReleaseIdGenerator empty empty )$
+$iterate SchemaTables( each implMSSqlSchemaInvokeTableReleasePreparedStatements )$
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlSchemaInvokeReleaseIdGenerator">
+		if( stmtSelectNext$Name$ != null ) {
+			try {
+				stmtSelectNext$Name$.close();
+			}
+			catch( SQLException e ) {
+			}
+			stmtSelectNext$Name$ = null;
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implMSSqlSchemaReleaseStmtBeginTransaction">
+		if( stmtBeginTransaction != null ) {
+			try {
+				stmtBeginTransaction.close();
+			}
+			catch( SQLException e ) {
+			}
+			stmtBeginTransaction = null;
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSchemaInvokeTableReleasePreparedStatements">
+		if( ( table$TableName$ != null ) &amp;&amp; ( table$TableName$ instanceof $SchemaName$MSSql$TableName$Table ) ) {
+			$SchemaName$MSSql$TableName$Table table = ($SchemaName$MSSql$TableName$Table)table$TableName$;
+			table.releasePreparedStatements();
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlNewSchema">
+	public I$SchemaName$Schema newSchema() {
+		return( new $SchemaName$MSSqlSchema() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaMSSqlConstructTable">
+		table$TableName$ = new $SchemaName$MSSql$TableName$Table( this );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConstructor">
+	public $SchemaName$MSSqlSchema() {
+		super();
+		cnx = null;
+		inTransaction = false;$iterate SchemaTables( each implSchemaMSSqlConstructTable )$
+	}
+
+	public $SchemaName$MSSqlSchema( $SchemaName$ConfigurationFile conf ) {
+		super( conf );
+		cnx = null;
+		inTransaction = false;$iterate SchemaTables( each implSchemaMSSqlConstructTable )$
+		setDbSchemaName( conf.getDbDatabase() );
+	}
+
+	public $SchemaName$MSSqlSchema( String argJndiName ) {
+		super( argJndiName );
+		cnx = null;
+		inTransaction = false;$iterate SchemaTables( each implSchemaMSSqlConstructTable )$
+	}
+
+	public $SchemaName$MSSqlSchema( Connection argCnx ) {
+		super();
+		cnx = argCnx;
+		inTransaction = false;$iterate SchemaTables( each implSchemaMSSqlConstructTable )$
+		try {
+			cnx.setAutoCommit( false );
+			cnx.rollback();
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"$SchemaName$MSSqlSchema-constructor",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConnect">
+	public boolean connect() {
+		final String S_ProcName = "connect";
+		if( cnx != null ) {
+			return( false );
+		}
+$implSchemaMSSqlConnectEnsureConfiguration$$implSchemaMSSqlConnectEstablishJNDI$
+		throw new CFLibUsageException( getClass(),
+			S_ProcName,
+			"Neither configurationFile nor jndiName found, do not know how to connect to database" );
+	}
+$implSchemaMSSqlConnectUserPW$
+$implSchemaMSSqlConnectFull$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConnectUserPW">
+	public boolean connect( String username, String password ) {
+		final String S_ProcName = "connect";
+		if( cnx != null ) {
+			return( false );
+		}
+		if( ( username == null ) || ( username.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"username" );
+		}
+		if( password == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"password" );
+		}$implSchemaMSSqlConnectEnsureUserPWConfiguration$$implSchemaMSSqlConnectEstablishJNDI$
+		throw new CFLibUsageException( getClass(),
+			S_ProcName,
+			"configurationFile not found, do not know how to connect to database" );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConnectEnsureUserPWConfiguration">
+		if( configuration != null ) {
+			try {
+				Class.forName( "com.microsoft.sqlserver.jdbc.SQLServerDriver" );
+			}
+			catch( ClassNotFoundException e ) {
+				throw new CFLibRuntimeException( getClass(),
+					"connect",
+					"Could not load MS SQL Server Developer Edition driver",
+					e );
+			}
+			String dbServer = configuration.getDbServer();
+			int dbPort = configuration.getDbPort();
+			String dbDatabase = configuration.getDbDatabase();
+			String dbUserName = configuration.getDbUserName();
+			String dbPassword = configuration.getDbPassword();
+			String url =
+					"jdbc:sqlserver://" + dbServer
+				+	":" + Integer.toString( dbPort ) + ";";
+			Properties props = new Properties();
+			props.setProperty( "user", dbUserName );
+			props.setProperty( "password", dbPassword );
+			try {
+				cnx = DriverManager.getConnection( url, props );
+				cnx.setAutoCommit( false );
+				cnx.setTransactionIsolation( Connection.TRANSACTION_REPEATABLE_READ );
+				cnx.rollback();
+				setDbSchemaName( dbDatabase );
+			}
+			catch( SQLException e ) {
+				throw new CFLibDbException( getClass(),
+					S_ProcName + "&lt;&lt;connect&gt;&gt;",
+					e );
+			}$execMSSqlUseDatabase$
+			return( true );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConnectEnsureConfiguration">
+		if( configuration != null ) {
+			try {
+				Class.forName( "com.microsoft.sqlserver.jdbc.SQLServerDriver" );
+			}
+			catch( ClassNotFoundException e ) {
+				throw new CFLibRuntimeException( getClass(),
+					"connect",
+					"Could not load MS SQL Server Developer Edition driver",
+					e );
+			}
+			String dbServer = configuration.getDbServer();
+			int dbPort = configuration.getDbPort();
+			String dbDatabase = configuration.getDbDatabase();
+			String dbUserName = configuration.getDbUserName();
+			String dbPassword = configuration.getDbPassword();
+			String url =
+					"jdbc:sqlserver://" + dbServer
+				+	":" + Integer.toString( dbPort ) + ";";
+			Properties props = new Properties();
+			props.setProperty( "user", dbUserName );
+			props.setProperty( "password", dbPassword );
+			try {
+				cnx = DriverManager.getConnection( url, props );
+				cnx.setAutoCommit( false );
+				cnx.setTransactionIsolation( Connection.TRANSACTION_REPEATABLE_READ );
+				cnx.rollback();
+				setDbSchemaName( dbDatabase );
+			}
+			catch( SQLException e ) {
+				throw new CFLibDbException( getClass(),
+					S_ProcName + "&lt;&lt;connect&gt;&gt;",
+					e );
+			}$execMSSqlUseDatabase$
+			return( true );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="execMSSqlUseDatabase">
+			Statement stmtUseDatabase = null;
+			try {
+				stmtUseDatabase = cnx.createStatement();
+				stmtUseDatabase.executeUpdate( "use " + dbDatabase );
+			}
+			catch( SQLException e ) {
+				throw new CFLibDbException( getClass(),
+					S_ProcName + "&lt;&lt;useDatabase&gt;&gt;",
+					e );
+			}
+			finally {
+				if( stmtUseDatabase != null ) {
+					try {
+						stmtUseDatabase.close();
+					}
+					catch( SQLException e ) {
+					}
+					stmtUseDatabase = null;
+				}
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConnectEstablishJNDI">
+		if( ( ! isConnected() ) &amp;&amp; ( jndiName != null ) ) {
+			try {
+				Context ctx = new InitialContext();
+				DataSource ds = (DataSource)ctx.lookup( jndiName );
+				if( ds == null ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Could not get resolve DataSource \"" + jndiName + "\"" );
+				}
+				cnx = ds.getConnection();
+				if( cnx == null ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Could not get Connection from PooledConnection for ConnectionPoolDataSource \"" + jndiName + "\"" );
+				}
+				cnx.setAutoCommit( false );
+				cnx.setTransactionIsolation( Connection.TRANSACTION_REPEATABLE_READ );
+				cnx.rollback();
+			}
+			catch( NamingException e ) {
+				cnx = null;
+				throw new CFLibRuntimeException( getClass(),
+					S_ProcName + "&lt;&lt;jndiGetConnection&gt;&gt;",
+					"NamingException " + e.getMessage(),
+					e );
+			}
+			catch( SQLException e ) {
+				cnx = null;
+				inTransaction = false;
+				throw new CFLibDbException( getClass(),
+					S_ProcName + "&lt;&lt;jndiGetConnection&gt;&gt;",
+					e );
+			}
+			return( true );
+		}</GenRule>
+
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConnectFull">
+	public boolean connect( String loginId, String password, String clusterName, String tenantName ) {
+		final String S_ProcName = "connect-full";
+		if( cnx != null ) {
+			return( false );
+		}
+		if( ( loginId == null ) || ( loginId.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"loginId" );
+		}
+		if( password == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"password" );
+		}
+		if( configuration != null ) {
+			try {
+				Class.forName( "com.microsoft.sqlserver.jdbc.SQLServerDriver" );
+			}
+			catch( ClassNotFoundException e ) {
+				throw new CFLibRuntimeException( getClass(),
+					"connect",
+					"Could not load MS SQL Server Developer Edition driver",
+					e );
+			}
+			String dbServer = configuration.getDbServer();
+			int dbPort = configuration.getDbPort();
+			String dbDatabase = configuration.getDbDatabase();
+			String dbUserName = configuration.getDbUserName();
+			String dbPassword = configuration.getDbPassword();
+			String url =
+					"jdbc:sqlserver://" + dbServer
+				+	":" + Integer.toString( dbPort ) + ";";
+			Properties props = new Properties();
+			props.setProperty( "user", dbUserName );
+			props.setProperty( "password", dbPassword );
+			try {
+				cnx = DriverManager.getConnection( url, props );
+				cnx.setAutoCommit( false );
+				cnx.setTransactionIsolation( Connection.TRANSACTION_REPEATABLE_READ );
+				cnx.rollback();
+				setDbSchemaName( dbDatabase );
+			}
+			catch( SQLException e ) {
+				throw new CFLibDbException( getClass(),
+					S_ProcName + "&lt;&lt;connect&gt;&gt;",
+					e );
+			}$execMSSqlUseDatabase$
+			return( true );
+		}$implSchemaMSSqlConnectEstablishJNDI$
+		throw new CFLibUsageException( getClass(),
+			S_ProcName,
+			"configurationFile not found, do not know how to connect to database" );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlIsConnected">
+	public boolean isConnected() {
+		final String S_ProcName = "isConnected";
+		boolean retval;
+		if( cnx == null ) {
+			retval = false;
+		}
+		else {
+			try {
+				if( cnx.isClosed() ) {
+					retval = false;
+					cnx = null;
+					releasePreparedStatements();
+				}
+				else {
+					retval = true;
+				}
+			}
+			catch( SQLException e ) {
+				throw new CFLibDbException( getClass(),
+					S_ProcName,
+					e );
+			}
+		}
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlDisconnect">
+	public void disconnect( boolean doCommit ) {
+		final String S_ProcName = "disconnect";
+		if( cnx != null ) {
+			try {
+				if( ! cnx.isClosed() ) {
+					if( doCommit ) {
+						cnx.commit();
+					}
+					else {
+						cnx.rollback();
+					}
+					releasePreparedStatements();
+					cnx.close();
+				}
+			}
+			catch( SQLException e ) {
+				throw new CFLibDbException( getClass(),
+					S_ProcName,
+					e );
+			}
+			finally {
+				cnx = null;
+			}
+		}
+		releasePreparedStatements();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlCommitControl">
+	public boolean isTransactionOpen() {
+		return( inTransaction );
+	}
+
+	public boolean beginTransaction() {
+		if( inTransaction ) {
+			return( false );
+		}
+		try {
+			final String sql = "begin transaction";
+			if( stmtBeginTransaction == null ) {
+				stmtBeginTransaction = cnx.prepareStatement( sql );
+			}
+			stmtBeginTransaction.execute();
+			inTransaction = true;
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"beginTransaction",
+				e );
+		}
+		return( inTransaction );
+	}
+
+	public void commit() {
+		try {
+			cnx.commit();
+			inTransaction = false;
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"commit",
+				e );
+		}
+	}
+
+	public void rollback() {
+		try {
+			if( cnx != null ) {
+				cnx.rollback();
+			}
+			inTransaction = false;
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"rollback",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlCnxAccessors">
+	public Connection getCnx() {
+		return( cnx );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetQuotedString">
+	public static String getQuotedString(String val) {
+		if (val == null) {
+			return ("null");
+		}
+		else {
+			char c;
+			StringBuilder quoted = new StringBuilder();
+			quoted.append( "'" );
+			int len = val.length();
+			for (int i = 0; i &lt; len; i++)
+			{
+				if (val.charAt( i ) == '\'')
+				{
+					quoted.append("''");
+				}
+				else if (val.charAt( i ) == '\\\\') {
+					quoted.append("'||E'\\\\\\\\'||'");
+				}
+				else {
+					c = val.charAt( i );
+					if (   ( c == '0' )
+						|| ( c == '1' )
+						|| ( c == '2' )
+						|| ( c == '3' )
+						|| ( c == '4' )
+						|| ( c == '5' )
+						|| ( c == '6' )
+						|| ( c == '7' )
+						|| ( c == '8' )
+						|| ( c == '9' )
+						|| ( c == 'a' )
+						|| ( c == 'b' )
+						|| ( c == 'c' )
+						|| ( c == 'd' )
+						|| ( c == 'e' )
+						|| ( c == 'f' )
+						|| ( c == 'g' )
+						|| ( c == 'h' )
+						|| ( c == 'i' )
+						|| ( c == 'j' )
+						|| ( c == 'k' )
+						|| ( c == 'l' )
+						|| ( c == 'm' )
+						|| ( c == 'n' )
+						|| ( c == 'o' )
+						|| ( c == 'p' )
+						|| ( c == 'q' )
+						|| ( c == 'r' )
+						|| ( c == 's' )
+						|| ( c == 't' )
+						|| ( c == 'u' )
+						|| ( c == 'v' )
+						|| ( c == 'w' )
+						|| ( c == 'x' )
+						|| ( c == 'y' )
+						|| ( c == 'z' )
+						|| ( c == 'A' )
+						|| ( c == 'B' )
+						|| ( c == 'C' )
+						|| ( c == 'D' )
+						|| ( c == 'E' )
+						|| ( c == 'F' )
+						|| ( c == 'G' )
+						|| ( c == 'H' )
+						|| ( c == 'I' )
+						|| ( c == 'J' )
+						|| ( c == 'K' )
+						|| ( c == 'L' )
+						|| ( c == 'M' )
+						|| ( c == 'N' )
+						|| ( c == 'O' )
+						|| ( c == 'P' )
+						|| ( c == 'Q' )
+						|| ( c == 'R' )
+						|| ( c == 'S' )
+						|| ( c == 'T' )
+						|| ( c == 'U' )
+						|| ( c == 'V' )
+						|| ( c == 'W' )
+						|| ( c == 'X' )
+						|| ( c == 'Y' )
+						|| ( c == 'Z' )
+						|| ( c == ' ' )
+						|| ( c == '\t' )
+						|| ( c == '\r' )
+						|| ( c == '\n' )
+						|| ( c == '`' )
+						|| ( c == '~' )
+						|| ( c == '!' )
+						|| ( c == '@' )
+						|| ( c == '#' )
+						|| ( c == '$$' )
+						|| ( c == '%' )
+						|| ( c == '^' )
+						|| ( c == '&amp;' )
+						|| ( c == '*' )
+						|| ( c == '(' )
+						|| ( c == ')' )
+						|| ( c == '-' )
+						|| ( c == '_' )
+						|| ( c == '=' )
+						|| ( c == '+' )
+						|| ( c == '[' )
+						|| ( c == ']' )
+						|| ( c == '{' )
+						|| ( c == '}' )
+						|| ( c == '|' )
+						|| ( c == ';' )
+						|| ( c == ':' )
+						|| ( c == '"' )
+						|| ( c == '&lt;' )
+						|| ( c == '&gt;' )
+						|| ( c == ',' )
+						|| ( c == '.' )
+						|| ( c == '/' )
+						|| ( c == '?' ))
+					{
+						quoted.append(c);
+					}
+					else {
+//						Syslog.warn("\\t\\t\\tReplacing invalid character '" + c + "' with space");
+						quoted.append( ' ' );
+					}
+				}
+			}
+			quoted.append( "'" );
+			return (quoted.toString());
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetNullableString">
+	public static String getNullableString(ResultSet reader, int colidx) {
+		try {
+			String val = reader.getString( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( val );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MSSqlSchema.class,
+				"getNullableString",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetBlobString">
+	public static String getBlobString(byte[] val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( "'" + new String( Base64.encodeBase64( val ) ) + "'" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetBoolString">
+	public static String getBoolString(Boolean val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			if( val ) {
+				return( "'Y'" );
+			}
+			else {
+				return( "'N'" );
+			}
+		}
+	}
+
+	public static String getBoolString(boolean val) {
+		if( val ) {
+			return( "'Y'" );
+		}
+		else {
+			return( "'N'" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetInt16String">
+	public static String getInt16String(Short val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getInt16String(short val) {
+		return( Short.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetInt32String">
+	public static String getInt32String(Integer val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getInt32String(int val) {
+		return( Integer.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetInt64String">
+	public static String getInt64String(Long val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getInt64String(long val) {
+		return( Long.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetUInt16String">
+	public static String getUInt16String(Integer val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getUInt16String(int val) {
+		return( Integer.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetUInt32String">
+	public static String getUInt32String(Long val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getUInt32String(long val) {
+		return( Long.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetUInt64String">
+	public static String getUInt64String(BigDecimal val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetFloatString">
+	public static String getFloatString(Float val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getFloatString(float val) {
+		return( Float.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetDoubleString">
+	public static String getDoubleString(Double val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getDoubleString(double val) {
+		return( Double.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetNumberString">
+	public static String getNumberString(BigDecimal val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetNullableInt32">
+	public static Integer getNullableInt32(ResultSet reader, int colidx) {
+		try {
+			int val = reader.getInt( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Integer.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MSSqlSchema.class,
+				"getNullableInt32",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetNullableInt16">
+	public static Short getNullableInt16(ResultSet reader, int colidx) {
+		try {
+			short val = reader.getShort( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Short.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MSSqlSchema.class,
+				"getNullableInt64",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetNullableUInt16">
+	public static Integer getNullableUInt16(ResultSet reader, int colidx) {
+		try {
+			int val = reader.getInt( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Integer.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MSSqlSchema.class,
+				"getNullableUInt16",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetNullableUInt32">
+	public static Long getNullableUInt32(ResultSet reader, int colidx) {
+		try {
+			long val = reader.getLong( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Long.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MSSqlSchema.class,
+				"getNullableUInt32",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetNullableUInt64">
+	public static BigDecimal getNullableUInt64(ResultSet reader, int colidx) {
+		try {
+			String strval = reader.getString( colidx );
+			if( reader.wasNull() || ( strval == null ) || ( strval.length() &lt;=0 ) ) {
+				return(null);
+			}
+			else {
+				BigDecimal retval = new BigDecimal( strval );
+				return( retval );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MSSqlSchema.class,
+				"getNullableUInt64",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetNullableIntByte">
+	public static Byte getNullableByte(ResultSet reader, int colidx) {
+		try {
+			byte val = reader.getByte( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Byte.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MSSqlSchema.class,
+				"getNullableByte",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetDateString">
+	public static String getDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetTimeString">
+	public static String getTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetTimestampString">
+	public static String getTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetTZDateString">
+	public static String getTZDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetTZTimeString">
+	public static String getTZTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetTZTimestampString">
+	public static String getTZTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetQuotedDateString">
+	public static String getQuotedDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetQuotedTimeString">
+	public static String getQuotedTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetQuotedTimestampString">
+	public static String getQuotedTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetQuotedTZDateString">
+	public static String getQuotedTZDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetQuotedTZTimeString">
+	public static String getQuotedTZTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetQuotedTZTimestampString">
+	public static String getQuotedTZTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlGetUuidString">
+	public static String getUuidString(UUID val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			return( "'" + val.toString() + "'" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertDateString">
+	public static Calendar convertDateString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 8 ) {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertDateString",
+				"Value must be in YYYYMMDD format, \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 4 ) &gt;= '0') &amp;&amp; (val.charAt( 4 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 7 ) &gt;= '0') &amp;&amp; (val.charAt( 7 ) &lt;= '9')) )
+$implSchemaMSSqlConvertDateStringIfMatchElse$
+	}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertDateStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 4, 6 ) );
+			int day = Integer.parseInt( val.substring( 6, 8 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, 0 );
+			retval.set( Calendar.MINUTE, 0 );
+			retval.set( Calendar.SECOND, 0 );
+			Calendar local = new GregorianCalendar();
+			local.setTimeInMillis( retval.getTimeInMillis() );
+			return( local );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertDateString",
+				"Value must be in YYYYMMDD format, \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertTimeString">
+	public static Calendar convertTimeString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 8 ) {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertTimeString",
+				"Value must be in HH24:MI:SS format, \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 2 ) == ':')
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 4 ) &gt;= '0') &amp;&amp; (val.charAt( 4 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 5 ) == ':')
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 7 ) &gt;= '0') &amp;&amp; (val.charAt( 7 ) &lt;= '9')) )
+$implSchemaMSSqlConvertTimeStringIfMatchElse$
+	}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertTimeStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int hour = Integer.parseInt( val.substring( 0, 2 ) );
+			int minute = Integer.parseInt( val.substring( 3, 5 ) );
+			int second = Integer.parseInt( val.substring( 6, 8 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, 2000 );
+			retval.set( Calendar.MONTH, 0 );
+			retval.set( Calendar.DAY_OF_MONTH, 1 );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar local = new GregorianCalendar();
+			local.setTimeInMillis( retval.getTimeInMillis() );
+			return( local );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertTimeString",
+				"Value must be in HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertTimestampString">
+	public static Calendar convertTimestampString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertTimestampString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaMSSqlConvertTimestampStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertTimestampStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar local = new GregorianCalendar();
+			local.setTimeInMillis( retval.getTimeInMillis() );
+			return( local );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertTimestampString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertTZDateString">
+	public static Calendar convertTZDateString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertTZDateString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaMSSqlConvertTZDateStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertTZDateStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar utc = CFLibDbUtil.getUTCCalendar( retval );
+			return( utc );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertTZDateString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertTZTimeString">
+	public static Calendar convertTZTimeString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertTZTimeString",
+				"Value must be in YYYY-MM-DD HH24.MI.SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaMSSqlConvertTZTimeStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertTZTimeStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar utc = CFLibDbUtil.getUTCCalendar( retval );
+			return( utc );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertTZTimeString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertTZTimestampString">
+	public static Calendar convertTZTimestampString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertTZTimestampString",
+				"Value must be in YYYY-MM-DD-HH24.MI.SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaMSSqlConvertTZTimestampStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertTZTimestampStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar utc = CFLibDbUtil.getUTCCalendar( retval );
+			return( utc );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MSSqlSchema.class,
+				"convertTZTimestampString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlConvertUuidString">
+	public static UUID convertUuidString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else {
+			return( UUID.fromString( val ) );
+		}
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="implSchemaMSSqlNextIdGen">
+	public short next$Name$() {
+		final String S_ProcName = "next$Name$";
+		if( ! inTransaction ) {
+			throw new CFLibUsageException( getClass(),
+				S_ProcName,
+				"Not in a transaction" );
+		}
+		short nextId = -1;
+		ResultSet resultSet = null;
+		try {$implSchemaMSSqlNextIdGenBody$
+			if( resultSet.next() ) {
+				nextId = resultSet.getShort( 1 );
+				if( resultSet.next() ) {
+					resultSet.last();
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Did not expect multi-record response, " + resultSet.getRow() + " rows selected" );
+				}
+			}
+			return( nextId );
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"next$Name$",
+				e );
+		}
+		finally {
+			if( resultSet != null ) {
+				try {
+					resultSet.close();
+				}
+				catch( SQLException e ) {
+				}
+				resultSet = null;
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaMSSqlNextIdGenBody">
+			final String sql = "exec $sp_selnext_schemaidgen$";
+			if( stmtSelectNext$Name$ == null ) {
+				stmtSelectNext$Name$ = cnx.prepareStatement( sql );
+			}
+			stmtSelectNext$Name$.execute();
+			boolean moreResults = true;
+			while( resultSet == null ) {
+				try {
+					moreResults = stmtSelectNext$Name$.getMoreResults();
+				}
+				catch( SQLException e ) {
+					throw new CFLibDbException( getClass(),
+						S_ProcName,
+						e );
+				}
+				if( moreResults ) {
+					try {
+						resultSet = stmtSelectNext$Name$.getResultSet();
+					}
+					catch( SQLException e ) {
+					}
+				}
+				else if( -1 == stmtSelectNext$Name$.getUpdateCount() ) {
+					break;
+				}
+			}
+			if( resultSet == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"resultSet" );
+			}</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="implSchemaMSSqlNextIdGen">
+	public int next$Name$() {
+		final String S_ProcName = "next$Name$";
+		if( ! inTransaction ) {
+			throw new CFLibUsageException( getClass(),
+				S_ProcName,
+				"Not in a transaction" );
+		}
+		int nextId = -1;
+		Statement stmtNext = null;
+		ResultSet resultSet = null;
+		try {$implSchemaMSSqlNextIdGenBody$
+			if( resultSet.next() ) {
+				nextId = resultSet.getInt( 1 );
+				if( resultSet.next() ) {
+					resultSet.last();
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Did not expect multi-record response, " + resultSet.getRow() + " rows selected" );
+				}
+			}
+			return( nextId );
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"next$Name$",
+				e );
+		}
+		finally {
+			if( resultSet != null ) {
+				try {
+					resultSet.close();
+				}
+				catch( SQLException e ) {
+				}
+				resultSet = null;
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="implSchemaMSSqlNextIdGen">
+	public long next$Name$() {
+		final String S_ProcName = "next$Name$";
+		if( ! inTransaction ) {
+			throw new CFLibUsageException( getClass(),
+				S_ProcName,
+				"Not in a transaction" );
+		}
+		long nextId = -1;
+		Statement stmtNext = null;
+		ResultSet resultSet = null;
+		try {$implSchemaMSSqlNextIdGenBody$
+			if( resultSet.next() ) {
+				nextId = resultSet.getLong( 1 );
+				if( resultSet.next() ) {
+					resultSet.last();
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Did not expect multi-record response, " + resultSet.getRow() + " rows selected" );
+				}
+			}
+			return( nextId );
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"next$Name$",
+				e );
+		}
+		finally {
+			if( resultSet != null ) {
+				try {
+					resultSet.close();
+				}
+				catch( SQLException e ) {
+				}
+				resultSet = null;
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidGen" Name="implSchemaMSSqlNextIdGen">
+	public UUID next$Name$() {
+		UUID retval = UUID.randomUUID();
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlIsSystemUser">
+	public boolean isSystemUser( $SecSchemaName$Authorization Authorization ) {
+		final String S_ProcName = "isSystemUser";
+		if( ! inTransaction ) {
+			throw new CFLibUsageException( getClass(),
+				S_ProcName,
+				"Not in a transaction" );
+		}
+		CallableStatement stmtSecCheck = null;
+		try {
+			final String sql = "exec $sp_is_system_user$ ?, ?";
+			stmtSecCheck = cnx.prepareCall( sql );
+			stmtSecCheck.registerOutParameter( 1, java.sql.Types.INTEGER );
+			stmtSecCheck.setString( 2, Authorization.getSecUserId().toString() );
+			stmtSecCheck.execute();
+			int isAuthorized = stmtSecCheck.getInt( 1 );
+			if( isAuthorized == 0 ) {
+				return( false );
+			}
+			else {
+				return( true );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				S_ProcName,
+				e );
+		}
+		finally {
+			if( stmtSecCheck != null ) {
+				try {
+					stmtSecCheck.close();
+				}
+				catch( SQLException e ) {
+				}
+				stmtSecCheck = null;
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlIsClusterUser">
+	public boolean isClusterUser( $SecSchemaName$Authorization Authorization,
+		long clusterId,
+		String secGroupName )
+	{
+		final String S_ProcName = "isClusterUser";
+		if( ! inTransaction ) {
+			throw new CFLibUsageException( getClass(),
+				S_ProcName,
+				"Not in a transaction" );
+		}
+		CallableStatement stmtSecCheck = null;
+		try {
+			final String sql = "exec $sp_is_cluster_user$ ?, ?, ?, ?";
+			stmtSecCheck = cnx.prepareCall( sql );
+			stmtSecCheck.registerOutParameter( 1, java.sql.Types.INTEGER );
+			stmtSecCheck.setLong( 2, clusterId );
+			stmtSecCheck.setString( 3, secGroupName );
+			stmtSecCheck.setString( 4, Authorization.getSecUserId().toString() );
+			stmtSecCheck.execute();
+			int isAuthorized = stmtSecCheck.getInt( 1 );
+			if( isAuthorized == 0 ) {
+				return( false );
+			}
+			else {
+				return( true );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				S_ProcName,
+				e );
+		}
+		finally {
+			if( stmtSecCheck != null ) {
+				try {
+					stmtSecCheck.close();
+				}
+				catch( SQLException e ) {
+				}
+				stmtSecCheck = null;
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMSSqlIsTenantUser">
+	public boolean isTenantUser( $SecSchemaName$Authorization Authorization,
+		long tenantId,
+		String secGroupName )
+	{
+		final String S_ProcName = "isTenantUser";
+		if( ! inTransaction ) {
+			throw new CFLibUsageException( getClass(),
+				S_ProcName,
+				"Not in a transaction" );
+		}
+		CallableStatement stmtSecCheck = null;
+		try {
+			final String sql = "exec $sp_is_tenant_user$ ?, ?, ?, ?";
+			stmtSecCheck = cnx.prepareCall( sql );
+			stmtSecCheck.registerOutParameter( 1, java.sql.Types.INTEGER );
+			stmtSecCheck.setLong( 2, tenantId );
+			stmtSecCheck.setString( 3, secGroupName );
+			stmtSecCheck.setString( 4, Authorization.getSecUserId().toString() );
+			stmtSecCheck.execute();
+			int isAuthorized = stmtSecCheck.getInt( 1 );
+			if( isAuthorized == 0 ) {
+				return( false );
+			}
+			else {
+				return( true );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				S_ProcName,
+				e );
+		}
+		finally {
+			if( stmtSecCheck != null ) {
+				try {
+					stmtSecCheck.close();
+				}
+				catch( SQLException e ) {
+				}
+				stmtSecCheck = null;
+			}
+		}
+	}
+</GenRule>
+
+</RuleSet>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schema/SchemaTableHPKey.hpp"
+	Revision="2.12"
+	Descr="C++18 specification of a $TableName$ history primary key object.">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableHPKeyHpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$$TableName$HPKeyHpp"
+		ExpansionKeyName="$SchemaName$$TableName$HPKeyHpp"
+		ExpansionFileName="$SchemaName$$TableName$HPKey.hpp"
+>#pragma once
+
+// Description: C++18 specification of a $TableName$ history primary key object.
+
+$MssSourceLicense$
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+#include &lt;$lower SchemaName$/$SchemaName$HPKey.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Schema.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$$TableName$PKey;
+	class $SchemaName$$TableName$Buff;
+	class $SchemaName$$TableName$HBuff;
+
+	class $poptop SchemaDef SchemaName$$TableName$HPKey$switch HasDefSchema yes SchemaTableHPKeyExtendDefSchemaNameHPKey default SchemaTableHPKeyExtendSchemaHPKey$
+	{$switch HasDefSchema yes SchemaDeclTableHPKeyExtendDefBody default SchemaDeclTableHPKeyDeclDefBody$	};
+}
+
+$reference PrimaryKeyIndex declStdHPKeyComparison$
+</GenFile>
+
+	<GenRule GenDef="Index" Name="implStdHPKeyHash">
+	template&lt;&gt; struct hash&lt;$CPlusNamespace$::$SchemaName$$TableName$HPKey&gt; {
+		typedef $CPlusNamespace$::$SchemaName$$TableName$HPKey argument_type;
+		typedef size_t result_type;
+		result_type operator()(argument_type const&amp; s) const {
+			return( s.hashCode() );
+		}
+	};
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declHPKeySet">
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$HPKey operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$PKey&amp; src );
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$HPKey operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$HPKey&amp; src );
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$HPKey operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff&amp; src );
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$HPKey operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$HBuff&amp; src );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaDeclTableHPKeyExtendDefBody">
+	public:
+		static const std::string CLASS_NAME;
+		$poptop SchemaDef SchemaName$$TableName$HPKey();
+		virtual ~$poptop SchemaDef SchemaName$$TableName$HPKey();
+$declHPKeyComparison$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaDeclTableHPKeyDeclDefBody">
+	protected:
+$switch IsBaseTable yes declClassCodeColumnAttr default empty$$reference PrimaryKeyIndex iterate Columns( each declColumnAttr )$
+	public:
+		static const std::string CLASS_NAME;
+		static const std::string S_VALUE;
+$reference PrimaryKeyIndex declHPKeyConstructor$$reference PrimaryKeyIndex iterate Columns( each declColumnGetterSetter )$$reference PrimaryKeyIndex declGetHashCode$$reference PrimaryKeyIndex declToString$$reference PrimaryKeyIndex declHPKeyComparison$$declHPKeySet$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTableHPKeyExtendDefSchemaNameHPKey"> : public $CPlusDefNamespace$::$DefSchemaName$$TableName$HPKey</GenRule>
+	<GenRule GenDef="Table" Name="SchemaTableHPKeyExtendSchemaHPKey"> : public $SchemaName$HPKey</GenRule>
+
+	<GenRule GenDef="Index" Name="declHPKeyConstructor">
+		$SchemaName$$TableName$HPKey();
+		$SchemaName$$TableName$HPKey( const $SchemaName$$TableName$HPKey&amp; src );
+		virtual ~$poptop SchemaDef SchemaName$$TableName$HPKey();
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declHPKeyComparison"
+		>$declHPKeyComparisonLessThan$
+$declHPKeyComparisonLessOrEqual$
+$declHPKeyComparisonEqual$
+$declHPKeyComparisonNotEqual$
+$declHPKeyComparisonGreaterOrEqual$
+$declHPKeyComparisonGreaterThan$</GenRule>
+
+	<GenRule GenDef="Index" Name="declHPKeyComparisonLessThan">
+		bool operator &lt;( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator &lt;( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator &lt;( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &lt;( const $SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declHPKeyComparisonLessOrEqual">
+		bool operator &lt;=( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator &lt;=( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator &lt;=( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &lt;=( const $SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declHPKeyComparisonEqual">
+		bool operator ==( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator ==( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator ==( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator ==( const $SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declHPKeyComparisonNotEqual">
+		bool operator !=( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator !=( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator !=( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator !=( const $SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declHPKeyComparisonGreaterOrEqual">
+		bool operator &gt;=( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator &gt;=( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator &gt;=( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &gt;=( const $SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declHPKeyComparisonGreaterThan">
+		bool operator &gt;( const $SchemaName$$TableName$PKey&amp; rhs );
+		bool operator &gt;( const $SchemaName$$TableName$HPKey&amp; rhs );
+		bool operator &gt;( const $SchemaName$$TableName$HBuff&amp; rhs );
+		bool operator &gt;( const $SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implHPKeyHash">
+	template&lt;&gt; struct hash&lt;$CPlusNamespace$::$SchemaName$$TableName$HPKey&gt; {
+		typedef $CPlusNamespace$::$SchemaName$$TableName$HPKey argument_type;
+		typedef size_t result_type;
+		result_type operator()(argument_type const&amp; s) const {
+			return( s.hashCode() );
+		}
+	};
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHPKeyComparison">
+namespace std {
+$declStdHPKeyComparisonLessThan$
+$declStdHPKeyComparisonLessOrEqual$
+$declStdHPKeyComparisonEqual$
+$declStdHPKeyComparisonNotEqual$
+$declStdHPKeyComparisonGreaterOrEqual$
+$declStdHPKeyComparisonGreaterThan$
+$implStdHPKeyHash$
+}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHPKeyComparisonLessThan">
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHPKeyComparisonLessOrEqual">
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHPKeyComparisonEqual">
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHPKeyComparisonNotEqual">
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHPKeyComparisonGreaterOrEqual">
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declStdHPKeyComparisonGreaterThan">
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs );
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs );
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs );
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs );
+</GenRule>
+
+</RuleSet>

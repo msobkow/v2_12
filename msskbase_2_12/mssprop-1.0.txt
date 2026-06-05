@@ -1,0 +1,16 @@
+MSSProp10 - Mark Stephen Sobkow's Proprietary License, Version 1.0
+
+This Project is distributed under Mark Stephen Sobkow's Proprietary License,
+Version 1.0.
+
+This Project is proprietary code and is not available without a commercial
+commercial license from Mark Stephen Sobkow.
+
+Any use of This Project in any environment without a commercial license
+from Mark Stephen Sobkow is strictly forbidden.
+
+This Project is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.
+
+Please contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crtbl_table_h.sql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateTableH"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="crtbl_$lower DbTableName$_h"
+		ExpansionKeyName="crtbl_$lower DbTableName$_h"
+		ExpansionFileName="$dbadminfilename_CreateTableH$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+CREATE TABLE $lower DbSchemaName$.$lower DbHTableName$ ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each clause_CreateColComma )$$clause_CreateColRevisionComma$$clause_CreateColSessionIdComma$$poptop Table switch BaseHasClassCode yes dbadminfile_implTableHClassCodeColComma default empty$$dbadminfile_CreateTableHInheritedCols$$dbadminfile_CreateTableHAuditCodeComma$$dbadminfile_CreateTableHAuditStamp$ )	\\
+IN msidata1$RunSqlStmt$$switch HasPrimaryKey yes clause_HPrimaryKey default error$
+</GenFile>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="clause_HPrimaryKey">$reference PrimaryKeyIndex clause_CreateHPrimaryIndex$$reference PrimaryKeyIndex clause_HPrimaryKey$</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Index" Name="clause_CreateHPrimaryIndex">
+CREATE$clause_Unique$ INDEX $lower DbSchemaName$.$DbHIndexName$ ON $lower DbSchemaName$.$lower DbHTableName$ (	\\
+	auditclusterid,	\\
+	auditstamp,$iterate Columns( each clause_PrimaryIndexColComma )$,	\\
+	auditaction,	\\
+	revision )$RunSqlStmt$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="clause_CreateHPrimaryIndex">
+CREATE$clause_Unique$ INDEX $lower DbSchemaName$.$DbHIndexName$ ON $lower DbSchemaName$.$lower DbHTableName$ (	\\
+	auditclusterid,	\\
+	auditstamp,$iterate Columns( each clause_PrimaryIndexColComma last clause_PrimaryIndexCol )$,	\\
+	auditaction,	\\
+	revision )$RunSqlStmt$</GenRule>
+
+	<GenRule GenDef="Index" Name="clause_HPrimaryKey">
+ALTER TABLE $lower DbSchemaName$.$lower DbTableName$_h$ContSqlStmt$	ADD CONSTRAINT pk_$lower DbIndexName$_h PRIMARY KEY (	\\
+	auditclusterid,	\\
+	auditstamp,$iterate Columns( each clause_PKeyColComma )$	\\
+	auditaction,	\\
+	revision )$RunSqlStmt$</GenRule>
+
+	<GenRule GenDef="Table" Name="clause_CreateColRevisionComma"
+		>$clause_CreateColRevision$,</GenRule>
+
+	<GenRule GenDef="Table" Name="clause_CreateColSessionIdComma"
+		>$clause_CreateColSessionId$,</GenRule>
+
+	<GenRule GenDef="Table" Name="clause_CreateColSessionId">	\\
+	auditclusterid	BIGINT NOT NULL,	\\
+		CONSTRAINT chk_$lower poptop Table DbTableName$_h_auditcluster	\\
+			FOREIGN KEY ( auditclusterid )	\\
+			REFERENCES $lower DbSchemaName$.clus( id )	\\
+			ON DELETE CASCADE,	\\
+	auditsessionid	VARCHAR(36) NOT NULL,	\\
+		CONSTRAINT chk_$lower poptop Table DbTableName$_h_auditsession	\\
+			FOREIGN KEY ( auditsessionid )	\\
+			REFERENCES $lower DbSchemaName$.SecSess( secsessionid )	\\
+			ON DELETE CASCADE</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_CreateTableHAuditCodeComma"
+		>$dbadminfile_CreateTableHAuditCode$,</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_CreateTableHAuditCode">	\\
+	auditaction	SMALLINT NOT NULL</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_CreateTableHAuditStamp">	\\
+	auditstamp	TIMESTAMP NOT NULL</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_CreateTableHInheritedCols"
+		>$switch HasSuperClassRelation yes dbadminfile_TableHInhCols default dbadminfile_TableHBaseCols$</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_TableHInhCols"
+		>$reference SuperClassRelation reference ToTable dbadminfile_CreateTableHInheritedCols$$dbadminfile_TableHBaseCols$</GenRule>
+
+	<GenRule GenDef="Table" Name="dbadminfile_TableHBaseCols"
+		>$iterate Columns( each clause_CreateColNonPKColComma )$</GenRule>
+
+	<GenRule GenDef="Atom" Name="clause_CreateColNonPKColComma"
+		>$switch ColumnInPrimaryIndex yes empty default clause_CreateColComma$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="clause_CreateColNonPKColComma"
+		>$switch ColumnInPrimaryIndex yes empty default clause_CreateColComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="clause_CreateColNonPKColComma"
+		>$switch ColumnInPrimaryIndex yes empty default clause_CreateColComma$</GenRule>
+
+	<GenRule GenDef="Table" Name="clause_PrimaryHKey">$reference PrimaryKeyIndex clause_CreatePrimaryHIndex$$reference PrimaryKeyIndex clause_PrimaryHKey$</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Index" Name="clause_CreatePrimaryHIndex">
+CREATE UNIQUE INDEX $DbHIndexName$ ON $DbTableName$_h ($iterate Columns( each clause_PrimaryIndexColComma  )$	\\
+	revision )	$RunSqlStmt$</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="clause_CreatePrimaryHIndex">
+CREATE UNIQUE INDEX $DbHIndexName$ ON $DbTableName$_h ($iterate Columns( each clause_PrimaryIndexColComma )$	\\
+	revision )	$RunSqlStmt$</GenRule>
+
+	<GenRule GenDef="Index" Name="clause_PrimaryHKey">
+ALTER TABLE $DbTableName$_h	\\
+	ADD CONSTRAINT pk_$lower DbIndexName$_h PRIMARY KEY ($iterate Columns( each clause_PKeyHColComma empty empty after clause_CreatePKeyHColRevision )$ )$RunSqlStmt$</GenRule>
+
+	<GenRule ScopeDef="Index" GenDef="IndexCol" Name="clause_PKeyHColComma">$clause_PKeyHCol$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="clause_PKeyHCol">$clause_PKeyCol$</GenRule>
+
+	<GenRule GenDef="Object" Name="clause_CreatePKeyHColRevision"> revision</GenRule> 
+</RuleSet>

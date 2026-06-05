@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus+ram+loader"
+	Name="schemaramloader/schemaramloader.cpp"
+	Revision="2.12"
+	Descr="C++18 Implementation of a RAM loader">
+
+	<GenFile GenDef="SchemaDef" Name="fileschemaramloaderCPlus"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="$reference ManufacturingSchema lower PackageName$ramloader"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$RamLoaderCPlus"
+		ExpansionKeyName="$SchemaName$RamLoaderCPlus"
+		ExpansionFileName="$lower SchemaName$ramloader.cpp"
+>// Description: C++18 Implementation of a RAM $SchemaName$ loader.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+#include &lt;$lower SchemaName$obj/$SchemaName$SchemaObj.hpp&gt;
+#include &lt;$lower SchemaName$saxloader/$SchemaName$SaxLoaderPublic.hpp&gt;
+#include &lt;$lower SchemaName$ram/$SchemaName$RamSchema.hpp&gt;
+#include &lt;$SchemaName$RamLdr.hpp&gt;
+
+static const std::string CLASS_NAME( "$SchemaName$RamLoader" );
+
+int main( int argc, char* argv[] ) {
+
+	if( argc &lt; 1 ) {
+		std::cerr &lt;&lt; CLASS_NAME + " ERROR: Program name is not available\n";
+		return( 1 );
+	}
+	std::string S_ProcName( argv[0] );
+	static const std::string S_System( "system" );
+	CFLIB_EXCEPTION_DECLINFO
+
+	cflib::CFLib::init();
+
+	int retval = 0;
+
+	$CPlusNamespace$::I$SchemaName$Schema* $leadlower SchemaName$Schema = NULL;
+	$CPlusNamespace$::I$SchemaName$SchemaObj* $leadlower SchemaName$SchemaObj = NULL;
+	$CPlusNamespace$::$SchemaName$RamLdr* cli = NULL;
+	$CPlusNamespace$::$SchemaName$SaxLoader* loader = NULL;
+	$CPlusSecNamespace$::$SecSchemaName$Authorization* auth = NULL;
+	std::string* loaderOpts = NULL;
+	std::string* url = NULL;
+	if( argc &gt;= 3 ) {
+		try {
+			$leadlower SchemaName$Schema = new $CPlusNamespace$::$SchemaName$RamSchema();
+			$leadlower SchemaName$SchemaObj = new $CPlusNamespace$::$SchemaName$SchemaObj();
+			$leadlower SchemaName$SchemaObj-&gt;setBackingStore( $leadlower SchemaName$Schema );
+			cli = new $CPlusNamespace$::$SchemaName$RamLdr();
+			loader = cli-&gt;getSaxLoader();
+			loader-&gt;setSchemaObj( $leadlower SchemaName$SchemaObj );
+			loaderOpts = new std::string( argv[1] );
+			url = new std::string( argv[2] );
+			$leadlower SchemaName$Schema-&gt;connect( S_System, S_System, S_System, S_System );
+			$leadlower SchemaName$Schema-&gt;rollback();
+			$leadlower SchemaName$Schema-&gt;beginTransaction();
+			$leadlower SchemaName$SchemaObj-&gt;setSecCluster( $leadlower SchemaName$SchemaObj-&gt;getClusterTableObj()-&gt;getSystemCluster() );
+			$leadlower SchemaName$SchemaObj-&gt;setSecTenant( $leadlower SchemaName$SchemaObj-&gt;getTenantTableObj()-&gt;getSystemTenant() );
+			$leadlower SchemaName$SchemaObj-&gt;setSecSession( $leadlower SchemaName$SchemaObj-&gt;getSecSessionTableObj()-&gt;getSystemSession() );
+			auth = new $CPlusSecNamespace$::$SecSchemaName$Authorization();
+			auth-&gt;setSecCluster( *($leadlower SchemaName$SchemaObj-&gt;getSecCluster()) );
+			auth-&gt;setSecTenant( *($leadlower SchemaName$SchemaObj-&gt;getSecTenant()) );
+			auth-&gt;setSecSession( $leadlower SchemaName$SchemaObj-&gt;getSecSession() );
+			$leadlower SchemaName$SchemaObj-&gt;setAuthorization( auth );
+			cli-&gt;applyLoaderOptions( loader, *loaderOpts );
+			cli-&gt;evaluateRemainingArgs( argc, argv, 3 );
+			loader-&gt;setUseCluster( $leadlower SchemaName$SchemaObj-&gt;getSecCluster() );
+			loader-&gt;setUseTenant( $leadlower SchemaName$SchemaObj-&gt;getSecTenant() );
+			loader-&gt;parseFile( *url );
+			$leadlower SchemaName$Schema-&gt;commit();
+			$leadlower SchemaName$Schema-&gt;disconnect( true );
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+		if( ! CFLIB_EXCEPTION_EMPTY ) {
+			std::cerr &lt;&lt; S_ProcName + " SAXParseException : Could not parse XML file \\"" + *url + "\\": " + CFLIB_EXCEPTION_FORMATTEDMESSAGE + "\\n";
+		}
+		if( ( $leadlower SchemaName$Schema != NULL ) &amp;&amp; $leadlower SchemaName$Schema-&gt;isConnected() ) {
+			try {
+				$leadlower SchemaName$Schema-&gt;rollback();
+			}
+			catch ( ... ) {
+			}
+			try {
+				$leadlower SchemaName$Schema-&gt;disconnect( false );
+			}
+			catch( ... ) {
+			}
+		}
+		if( loader != NULL ) {
+			loader-&gt;setSchemaObj( NULL );
+			loader = NULL;
+		}
+		if( cli != NULL ) {
+			delete cli;
+			cli = NULL;
+		}
+		if( $leadlower SchemaName$SchemaObj != NULL ) {
+			$leadlower SchemaName$SchemaObj-&gt;setBackingStore( NULL );
+			try {
+				delete $leadlower SchemaName$SchemaObj;
+			}
+			catch( ... ) {
+			}
+			$leadlower SchemaName$SchemaObj = NULL;
+		}
+		if( $leadlower SchemaName$Schema != NULL ) {
+			if( $leadlower SchemaName$Schema-&gt;isConnected() ) {
+				try {
+					$leadlower SchemaName$Schema-&gt;rollback();
+				}
+				catch ( ... ) {
+				}
+				try {
+					$leadlower SchemaName$Schema-&gt;disconnect( false );
+				}
+				catch( ... ) {
+				}
+			}
+			try {
+				delete $leadlower SchemaName$Schema;
+			}
+			catch( ... ) {
+			}
+			$leadlower SchemaName$Schema = NULL;
+		}
+	}
+	else {
+		std::cerr &lt;&lt; S_ProcName + " ERROR: Expected at least two argument specifying the loader options and the name of the XML file to parse.  The first argument may be empty.\n";
+	}
+
+	if( auth != NULL ) {
+		delete auth;
+		auth = NULL;
+	}
+
+	if( url != NULL ) {
+		delete url;
+		url = NULL;
+	}
+
+	if( loaderOpts != NULL ) {
+		delete loaderOpts;
+		loaderOpts = NULL;
+	}
+
+	try {
+		cflib::CFLib::release();
+	}
+	catch( ... ) {
+	}
+
+	return( retval );
+}
+</GenFile>
+
+</RuleSet>

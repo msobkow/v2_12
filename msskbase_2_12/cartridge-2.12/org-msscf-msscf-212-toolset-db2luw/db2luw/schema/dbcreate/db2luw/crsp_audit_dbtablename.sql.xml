@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crsp_audit_dbtablename.sql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPAuditDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="$dbadminfilename_CreateSPAuditDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPAuditDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPAuditDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create or replace procedure $sp_audit_dbtablename$($implDb2LUWSPStandardArgs$$switch HasClassCode yes implDb2LUWSPArgClassCode default empty$$implDb2LUWSPAuditPKeyArgs$,	\\
+	argAuditAction integer )	\\
+modifies sql data	\\
+language sql	\\
+begin	\\
+	begin$switch HasClassCode yes implDb2LUWSPAuditTableWithClassCode default implDb2LUWSPAuditTableNoClassCode$	\\
+	end;	\\
+end
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPArgClassCode">,	\\
+	argClassCode varchar(4)</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPAuditPKeyArgs"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implDb2LUWSPAuditPKeyArg )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPAuditPKeyArg">,	\\
+	arg$reference Column Name$ $reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPAuditTableNoClassCode">	\\
+		insert into $lower DbSchemaName$.$DbTableName$_h ($reference PrimaryKeyIndex iterate Columns( each implDb2LUWSPAuditInheritedIntoPKeyColumn )$	\\
+					auditclusterid,	\\
+					auditsessionid,	\\
+					auditstamp,$implDb2LUWSPAuditInheritedIntoDataColumnNameComma$	\\
+					revision,	\\
+					auditaction )	\\
+			select$reference PrimaryKeyIndex iterate Columns( each implDb2LUWSPAuditInheritedPKeyColumnNameComma )$	\\
+					argAuditClusterId,	\\
+					argAuditSessionId,	\\
+					current timestamp,$implDb2LUWSPAuditInheritedDataColumnNameComma$	\\
+					$lower reference BaseClass ClassCode$.revision,	\\
+					argAuditAction		\\
+			from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$	\\
+			where	\\
+					$reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPAuditTableWhereAuditPKeyCol each implDb2LUWSPAuditTableWhereAndAuditPKeyCol )$;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPAuditTableWithClassCode">	\\
+		case argClassCode	\\
+		when '$ClassCode$' then$implDb2LUWSPAuditTableClassCodeBody$$iterate TableSubClasses( each implDb2LUWSPAuditTableSubCode empty empty )$	\\
+		else	\\
+			call raise_application_error( -20007, '$sp_audit_dbtablename$() Unrecognized class code attempting to audit object' );	\\
+		end case;	\\
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPAuditTableSubCode">	\\
+		when '$ClassCode$' then$implDb2LUWSPAuditTableClassCodeBody$$iterate TableSubClasses( each implDb2LUWSPAuditTableSubCode empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPAuditTableClassCodeBody">	\\
+			insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implDb2LUWSPAuditInheritedIntoPKeyColumn )$	\\
+					classcode,	\\
+					auditclusterid,	\\
+					auditsessionid,	\\
+					auditstamp,$implDb2LUWSPAuditInheritedIntoDataColumnNameComma$	\\
+					revision,	\\
+					auditaction )	\\
+				select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implDb2LUWSPAuditInheritedPKeyColumnNameComma )$	\\
+					$lower reference BaseClass ClassCode$.classcode,	\\
+					argAuditClusterId,	\\
+					argAuditSessionId,	\\
+					current timestamp,$implDb2LUWSPAuditInheritedDataColumnNameComma$	\\
+					$lower reference BaseClass ClassCode$.revision,	\\
+					argAuditAction		\\
+				from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$	\\
+				where	\\
+					$reference BaseClass reference PrimaryKeyIndex iterate Columns( first implDb2LUWSPAuditTableWhereAuditPKeyCol each implDb2LUWSPAuditTableWhereAndAuditPKeyCol )$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPAuditTableWhereAuditPKeyCol"
+		>$lower reference Index reference Table ClassCode$.$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPAuditTableWhereAndAuditPKeyCol">	\\
+					and $implDb2LUWSPAuditTableWhereAuditPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPAuditInheritedIntoDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implDb2LUWSPAuditInheritedIntoDataColumnNameCommaInh default implDb2LUWSPAuditInheritedIntoDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPAuditInheritedIntoDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implDb2LUWSPAuditInheritedIntoDataColumnNameComma$$iterate Columns( each implDb2LUWSPAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPAuditInheritedIntoDataColumnNameCommaBase"
+		>$iterate Columns( each implDb2LUWSPAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPAuditInheritedDataColumnEmitIntoDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implDb2LUWSPAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPAuditInheritedIntoPKeyColumn"
+		>$reference Column implDb2LUWSPAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPAuditInheritedIntoDataColumnReallyEmitDataColumn">	\\
+					$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPAuditInheritedDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implDb2LUWSPAuditInheritedDataColumnNameInhComma default implDb2LUWSPAuditInheritedDataColumnNameBaseComma$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPAuditInheritedDataColumnNameInhComma"
+		>$reference SuperClassRelation reference ToTable implDb2LUWSPAuditInheritedDataColumnNameComma$$iterate Columns( each implDb2LUWSPAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPAuditInheritedDataColumnNameBaseComma"
+		>$iterate Columns( each implDb2LUWSPAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implDb2LUWSPAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implDb2LUWSPAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implDb2LUWSPAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implDb2LUWSPAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDb2LUWSPAuditInheritedDataColumnEmitNameComma">	\\
+					$lower reference Table ClassCode$.$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPAuditInheritedPKeyColumnNameComma">	\\
+					$lower reference Index reference Table ClassCode$.$DbColumnName$,</GenRule>
+
+</RuleSet>

@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="schema/dbcreate/pgsql/crsp_update_dbtablename.pgsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPUpdateDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="pgsql"
+		ExpansionClassName="$dbadminfilename_CreateSPUpdateDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPUpdateDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPUpdateDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+$CrSpUpdateDbTablenamePgSqlPreamble$$switch HasChain yes implPgSqlSPTableLatchContainer default empty$$implPgSqlLockTables$
+$CrSpUpdateDbTablenamePgSqlValidateRevision$
+$CrSpUpdateDbTablenamePgSqlUpdateTable$$switch HasChain yes implPgSqlSPTableUnlatchContainer default empty$
+$CrSpUpdateDbTablenamePgSqlReturnUpdateRow$
+</GenFile>
+
+<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePgSqlPreamble">
+create or replace function $lower DbSchemaName$.$sp_update_dbtablename$($implPgSqlSPStandardArgs$,
+	$implPgSqlSPUpdateTableArgs$$implPgSqlSPUpdateTableArgRevision$ )
+returns setof $lower DbSchemaName$.$type_dbtablename_rec$ as $$$$
+declare
+	RowsAffected integer;$declSPOldVars$
+	permissionFlag boolean;
+begin$switch TableName SecSession empty default implPgSqlSPUpdateTableCheckPermissions$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPUpdateTableCheckPermissions"
+		>$switch SecScope None empty System implPgSqlSPUpdateTableCheckSystem Cluster implPgSqlSPUpdateTableCheckCluster Tenant implPgSqlSPUpdateTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPUpdateTableCheckSystem">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into permissionFlag;
+		if( permissionFlag = false )
+		then
+			raise exception 'Permission denied -- only system user can update $TableName$ records';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPUpdateTableCheckCluster">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_cluster_user( arg$reference ClusterIdColumn Name$,
+			'Update$Name$',
+			argAuditUserId )
+		into permissionFlag;
+		if( permissionFlag = false )
+		then
+			raise exception 'Permission denied -- User not found in cluster SecGroup for Update$TableName$';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPUpdateTableCheckTenant">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		select $lower DbSchemaName$.sp_is_tenant_user( arg$reference TenantIdColumn Name$,
+			'Update$Name$',
+			argAuditUserId )
+		into permissionFlag;
+		if( permissionFlag = false )
+		then
+			raise exception 'Permission denied -- User not found in tenant TSecGroup for Update$TableName$';
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPUpdateTableArgs"
+		>$switch HasSuperClassRelation yes implPgSqlSPUpdateTableSuperArgs default implPgSqlSPUpdateTableBaseArgs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPUpdateTableSuperArgs"
+		>$reference SuperClassRelation reference ToTable implPgSqlSPUpdateTableArgs$$iterate Columns( each implPgSqlSPCommaUpdateTableInsertDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSPCommaUpdateTableInsertDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPUpdateTableBaseArgs"
+		>$implPgSqlSPUpdateTableArgClassCode$$iterate Columns( each sparg_CommaTableCol )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlSPUpdateTableArgClassCode"
+		>argClassCode varchar(4)</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlSPUpdateTableArgRevision">,
+	argRevision integer</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePgSqlValidateRevision">
+	if argRevision != oldRevision
+	then
+		raise exception '$sp_update_dbtablename$() Data collision detected';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePgSqlUpdateTable"
+		>$switch HasSuperClassRelation yes CrSpUpdateDbTablenamePgSqlUpdateSuperTable default CrSpUpdateDbTablenamePgSqlUpdateBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="TableDefRawHasDataColumns"
+		>$iterate DataColumns( each empty empty no )$</GenRule>
+
+	<GenRule GenDef="Table" Name="HasDataColumns"
+		>$switch TableDefRawHasDataColumns no no default yes$</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePgSqlUpdateSuperTable">$reference SuperClassRelation reference ToTable CrSpUpdateDbTablenamePgSqlUpdateTable$$switch HasDataColumns yes CrSpUpdateDbTablenamePgSqlUpdateThisTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePgSqlUpdateThisTable">
+	update $lower DbSchemaName$.$DbTableName$
+	set
+$iterate DataColumns( first implPgSqlUpdateColumn each implPgSqlUpdateCommaColumn empty empty )$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implPgSqlLockWhereFragBindVar each implPgSqlLockWhereAndFragBindVar )$;
+$CrSpUpdateDbTablenamePgSqlVerifyUpdatedOne$</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePgSqlUpdateBaseTable">
+	update $lower DbSchemaName$.$DbTableName$
+	set
+$implPgSqlUpdateRevision$$switch HasAuditColumns yes implPgSqlUpdateAuditColumns default empty$$iterate DataColumns( each implPgSqlUpdateCommaColumn empty empty )$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implPgSqlLockWhereFragBindVar each implPgSqlLockWhereAndFragBindVar )$$implPgSqlUpdateWhereFragOldRevision$;
+$CrSpUpdateDbTablenamePgSqlVerifyUpdatedOne$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlUpdateAuditColumns">,
+		updatedby = argAuditUserId,
+		updatedat = now()</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePgSqlVerifyUpdatedOne">
+	get diagnostics RowsAffected = row_count;
+
+	if RowsAffected != 1
+	then
+		raise exception '$poptop Table sp_update_dbtablename$() Expected to affect one $DbTableName$ row, not %', RowsAffected;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePgSqlReturnUpdateRow">$switch BaseHasHistory yes CrSpUpdateDbTablenamePgSqlAuditUpdated default empty$
+	return query select
+$implPgSqlSelectTableColumns$,
+		$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;
+
+	return;
+end;
+$$$$ language plpgsql;</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePgSqlAuditUpdated"
+		>$switch BaseHasClassCode yes implCreateAuditTwoWithCC default implCreateAuditTwoNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditTwoNoCC">
+	insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			argRevision + 1,
+			1
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditTwoWithCC">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			classcode,
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.classcode,
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			argRevision + 1,
+			1
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlUpdateWhereAndFragBindVar">
+		and $implPgSqlUpdateWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlUpdateWhereFragBindVar"
+		>$switch IsNullable yes implPgSqlUpdateWhereFragBindOptVar
+			default implPgSqlUpdateWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlUpdateWhereFragBindOptVar"
+		>$reference Column implPgSqlUpdateWhereFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlUpdateWhereFragBindReqVar"
+		>$reference Column implPgSqlUpdateWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implPgSqlUpdateWhereFragBindOptBlobVar
+			BoolDef implPgSqlUpdateWhereFragBindOptBoolVar
+			EnumDef implPgSqlUpdateWhereFragBindOptEnumVar
+			Int16Def implPgSqlUpdateWhereFragBindOptInt16Var
+			Int32Def implPgSqlUpdateWhereFragBindOptInt32Var
+			Int64Def implPgSqlUpdateWhereFragBindOptInt64Var
+			UInt16Def implPgSqlUpdateWhereFragBindOptUInt16Var
+			UInt32Def implPgSqlUpdateWhereFragBindOptUInt32Var
+			UInt64Def implPgSqlUpdateWhereFragBindOptUInt64Var
+			Id16Gen implPgSqlUpdateWhereFragBindOptInt16Var
+			Id32Gen implPgSqlUpdateWhereFragBindOptInt32Var
+			Id64Gen implPgSqlUpdateWhereFragBindOptInt64Var
+			FloatDef implPgSqlUpdateWhereFragBindOptFloatVar
+			DoubleDef implPgSqlUpdateWhereFragBindOptDoubleVar
+			NumberDef implPgSqlUpdateWhereFragBindOptNumberVar
+			StringDef implPgSqlUpdateWhereFragBindOptStringVar
+			TokenDef implPgSqlUpdateWhereFragBindOptStringVar
+			NmTokenDef implPgSqlUpdateWhereFragBindOptStringVar
+			NmTokensDef implPgSqlUpdateWhereFragBindOptStringVar
+			TextDef implPgSqlUpdateWhereFragBindOptTextVar
+			DateDef implPgSqlUpdateWhereFragBindOptDateVar
+			TimeDef implPgSqlUpdateWhereFragBindOptTimeVar
+			TimestampDef implPgSqlUpdateWhereFragBindOptTimestampVar
+			TZDateDef implPgSqlUpdateWhereFragBindOptTZDateVar
+			TZTimeDef implPgSqlUpdateWhereFragBindOptTZTimeVar
+			TZTimestampDef implPgSqlUpdateWhereFragBindOptTZTimestampVar
+			UuidDef implPgSqlUpdateWhereFragBindOptUuidVar
+			UuidGen implPgSqlUpdateWhereFragBindOptUuidVar
+			default empty$</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implPgSqlUpdateWhereFragBindReqBlobVar
+			BoolDef implPgSqlUpdateWhereFragBindReqBoolVar
+			EnumDef implPgSqlUpdateWhereFragBindReqEnumVar
+			Int16Def implPgSqlUpdateWhereFragBindReqInt16Var
+			Int32Def implPgSqlUpdateWhereFragBindReqInt32Var
+			Int64Def implPgSqlUpdateWhereFragBindReqInt64Var
+			UInt16Def implPgSqlUpdateWhereFragBindReqUInt16Var
+			UInt32Def implPgSqlUpdateWhereFragBindReqUInt32Var
+			UInt64Def implPgSqlUpdateWhereFragBindReqUInt64Var
+			Id16Gen implPgSqlUpdateWhereFragBindReqInt16Var
+			Id32Gen implPgSqlUpdateWhereFragBindReqInt32Var
+			Id64Gen implPgSqlUpdateWhereFragBindReqInt64Var
+			FloatDef implPgSqlUpdateWhereFragBindReqFloatVar
+			DoubleDef implPgSqlUpdateWhereFragBindReqDoubleVar
+			NumberDef implPgSqlUpdateWhereFragBindReqNumberVar
+			StringDef implPgSqlUpdateWhereFragBindReqStringVar
+			TokenDef implPgSqlUpdateWhereFragBindReqStringVar
+			NmTokenDef implPgSqlUpdateWhereFragBindReqStringVar
+			NmTokensDef implPgSqlUpdateWhereFragBindReqStringVar
+			TextDef implPgSqlUpdateWhereFragBindReqTextVar
+			DateDef implPgSqlUpdateWhereFragBindReqDateVar
+			TimeDef implPgSqlUpdateWhereFragBindReqTimeVar
+			TimestampDef implPgSqlUpdateWhereFragBindReqTimestampVar
+			TZDateDef implPgSqlUpdateWhereFragBindReqTZDateVar
+			TZTimeDef implPgSqlUpdateWhereFragBindReqTZTimeVar
+			TZTimestampDef implPgSqlUpdateWhereFragBindReqTZTimestampVar
+			UuidDef implPgSqlUpdateWhereFragBindReqUuidVar
+			UuidGen implPgSqlUpdateWhereFragBindReqUuidVar
+			default empty$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="TableAlias"
+		>$lower reference Column reference Table ClassCode$</GenRule>
+
+	<GenRule GenDef="Value" Name="TableAlias"
+		>$lower reference Table ClassCode$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqBlobVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptBlobVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqBoolVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptBoolVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqEnumVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptEnumVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqInt16Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptInt16Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqInt32Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptInt32Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqInt64Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptInt64Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqUInt16Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptUInt16Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqUInt32Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptUInt32Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqUInt64Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptUInt64Var"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqFloatVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptFloatVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqDoubleVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptDoubleVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqNumberVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptNumberVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqStringVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptStringVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqTokenVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptTokenVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqNmTokenVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptNmTokenVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqNmTokensVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptNmTokensVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqTextVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptTextVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqDateVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptDateVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqTimeVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptTimeVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqTimestampVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptTimestampVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqTZDateVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptTZDateVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqTZTimeVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptTZTimeVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqTZTimestampVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptTZTimestampVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindReqUuidVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateWhereFragBindOptUuidVar"
+		>$TableAlias$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlUpdateWhereFragOldRevision">
+		and revision = oldRevision</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlUpdateWhereFragOldRevision">
+		and revision = oldRevision</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlUpdateWhereFragOldRevision">
+		and revision = oldRevision</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateCommaColumn"
+		>,
+$implPgSqlUpdateColumn$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateColumn"
+>		$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateCommaRevision"
+		>,
+$implPgSqlUpdateRevision$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlUpdateRevision"
+>		revision = argRevision + 1</GenRule>
+
+</RuleSet>

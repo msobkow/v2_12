@@ -1,0 +1,390 @@
+<project name="CFBam2.12" default="all" basedir=".">
+	<description>
+		MSS Code Factory CFBam 2.12 Apache Ant Build Script
+	</description>
+	<property environment="env" />
+	<property name="pathtofx" location="${env.PATH_TO_FX}" />
+	<property name="build" location="build" />
+	<property name="bin" location="bin-v2_12" />
+	<property name="lib" location="bin-v2_12/lib" />
+	<property name="apachejars" location="../../stdjar-v2_12/apache.org" />
+	<property name="eclipsejars" location="../../stdjar-v2_12/eclipse.org" />
+	<property name="cfbamsrc" location="cfbam/src" />
+	<property name="cfbamramsrc" location="cfbamram/src" />
+	<property name="cfbammsscfsrc" location="cfbammsscf/src" />
+	<property name="cfbamsaxloadersrc" location="cfbamsaxloader/src" />
+	<property name="cfbamsaxramloadersrc" location="cfbamsaxramloader/src" />
+	<property name="cfbamjavafxsrc" location="cfbamjavafx/src" />
+	<property name="cfbamcustsrc" location="cfbamcust/src" />
+	<property name="cfbamcusteditorsrc" location="cfbamcusteditor/src" />
+	<property name="cfbamcustxmlloadersrc" location="cfbamcustxmlloader/src" />
+	<property name="cfbamcustmssbamcfsrc" location="cfbamcustmssbamcf/src" />
+
+	<path id="Core.classpath">
+	</path>
+
+	<target name="init">
+		<tstamp/>
+		<mkdir dir="${bin}" />
+		<mkdir dir="${bin}/lib" />
+		<mkdir dir="${bin}/tomcatlib" />
+		<mkdir dir="${bin}/xsd" />
+		<copy todir="${lib}">
+			<fileset dir="${apachejars}">
+				<include name="commons-codec-1.14.jar" />
+				<include name="commons-io-2.6.jar" />
+				<include name="commons-logging-1.2.jar" />
+				<include name="log4j-1.2-api-2.13.0.jar" />
+				<include name="log4j-api-2.13.0.jar" />
+				<include name="log4j-core-2.13.0.jar" />
+				<include name="xercesImpl-2.12.1-xml-schema-1.1.jar" />
+				<include name="org.apache.httpcomponents.httpclient-4.5.11.jar" />
+				<include name="org.apache.httpcomponents.httpcore-4.4.13.jar" />
+			</fileset>
+			<fileset dir="${eclipsejars}">
+				<include name="org.eclipse.wst.xml.xpath2.processor_1.2.0.jar" />
+			</fileset>
+		</copy>
+		<move file="${lib}/commons-codec-1.14.jar" tofile="${lib}/org.apache.commons.codec.jar" />
+		<move file="${lib}/commons-io-2.6.jar" tofile="${lib}/org.apache.commons.io.jar" />
+		<move file="${lib}/commons-logging-1.2.jar" tofile="${lib}/org.apache.commons.logging.jar" />
+		<move file="${lib}/log4j-1.2-api-2.13.0.jar" tofile="${lib}/org.apache.logging.log4j.api.glue.jar" />
+		<move file="${lib}/log4j-api-2.13.0.jar" tofile="${lib}/org.apache.logging.log4j.jar" />
+		<move file="${lib}/log4j-core-2.13.0.jar" tofile="${lib}/org.apache.logging.log4j.core.jar" />
+		<move file="${lib}/xercesImpl-2.12.1-xml-schema-1.1.jar" tofile="${lib}/org.apache.xercesImpl.xml.schema.jar" />
+		<move file="${lib}/org.apache.httpcomponents.httpclient-4.5.11.jar" tofile="${lib}/org.apache.httpcomponents.httpclient.jar" />
+		<move file="${lib}/org.apache.httpcomponents.httpcore-4.4.13.jar" tofile="${lib}/org.apache.httpcomponents.httpcore.jar" />
+		<move file="${lib}/org.eclipse.wst.xml.xpath2.processor_1.2.0.jar" tofile="${lib}/org.eclipse.wst.xml.xpath2.processor.jar" />
+		<copy todir="${bin}">
+			<fileset dir="../../cflib_2_12/java/bin-v2_12">
+				<include name="org.msscf.msscf.cflib.CFLib.jar" />
+				<include name="org.msscf.msscf.cflib.CFLib.JavaFX.jar" />
+			</fileset>
+			<fileset dir="../../cfcore_2_12/java/bin-v2_12">
+				<include name="org.msscf.msscf.cfcore.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${bin}">
+			<fileset dir="../../cfsec_2_12/java/bin-v2_12">
+				<include name="org.msscf.msscf.cfsec.jar" />
+				<include name="org.msscf.msscf.cfsec.CFSecSaxLoader.jar" />
+				<include name="org.msscf.msscf.cfsec.CFSecJavaFX.jar" />
+				<include name="org.msscf.msscf.cfseccust.CFSecCust.jar" />
+			</fileset>
+			<fileset dir="../../cfint_2_12/java/bin-v2_12">
+				<include name="org.msscf.msscf.cfint.jar" />
+				<include name="org.msscf.msscf.cfint.CFIntSaxLoader.jar" />
+				<include name="org.msscf.msscf.cfint.CFIntJavaFX.jar" />
+				<include name="org.msscf.msscf.cfintcust.CFIntCust.jar" />
+			</fileset>
+		</copy>
+		<mkdir dir="${bin}/xsd" />
+		<copy todir="${bin}/xsd">
+			<fileset dir="../../cflib_2_12/java/cflib/xsd">
+				<include name="cftip-envelope.xsd" />
+				<include name="cftip-serverinfo.xsd" />
+			</fileset>
+			<fileset dir="../../cfcore_2_12/java/cfcore/xsd">
+				<include name="cfgenkb-2.12-cartridge.xsd" />
+				<include name="cfgenkb-2.12-ruleset.xsd" />
+				<include name="cfgenkb-2.12-toolset.xsd" />
+			</fileset>
+			<fileset dir="cfbamsaxloader/xsd">
+				<include name="cfbam-structured.xsd" />
+			</fileset>
+			<fileset dir="cfbamcustxmlloader/xsd">
+				<include name="mssbam-2.12.xsd" />
+			</fileset>
+		</copy>
+		<mkdir dir="${build}" />
+		<mkdir dir="${build}/xsd" />
+		<copy todir="${build}/xsd">
+			<fileset dir="../../cflib_2_12/java/cflib/xsd">
+				<include name="cftip-envelope.xsd" />
+				<include name="cftip-serverinfo.xsd" />
+			</fileset>
+			<fileset dir="../../cfcore_2_12/java/cfcore/xsd">
+				<include name="cfgenkb-2.12-cartridge.xsd" />
+				<include name="cfgenkb-2.12-ruleset.xsd" />
+				<include name="cfgenkb-2.12-toolset.xsd" />
+			</fileset>
+			<fileset dir="cfbamsaxloader/xsd">
+				<include name="cfbam-structured.xsd" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- Build the core -->
+
+	<target name="compilecore" depends="init" description="Compile the core package">
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfbamsrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${bin}/org.msscf.msscf.cfint.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="corejar" depends="compilecore" description="Package the core jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfbam.jar" basedir="${build}/org.msscf.msscf.cfbam" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfbam/CFBam/*.class" />
+			<include name="org/msscf/msscf/cfbam/CFBamObj/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfbam" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFBam" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Build the SAX Ldr -->
+
+	<target name="compilesaxloader" depends="corejar" description="Compile the saxloader package">
+		<copy todir="${build}/xsd">
+			<fileset dir="cfbamsaxloader/xsd">
+				<include name="*.xsd" />
+			</fileset>
+		</copy>
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfbamsaxloadersrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${bin}/org.msscf.msscf.cfbam.jar:${bin}/org.msscf.msscf.cfint.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="saxloaderjar" depends="compilesaxloader" description="Package the saxloader jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfbam.CFBamSaxLoader.jar" basedir="${build}/org.msscf.msscf.cfbam.CFBamSaxLoader" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfbam/CFBamSaxLoader/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfbam.CFBamSaxLoader" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFBam SAX Ldr" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Build the RAM Persistence Implementation -->
+
+	<target name="compileram" depends="saxloaderjar" description="Compile the ram package">
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfbamramsrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${bin}/org.msscf.msscf.cfbam.CFBamSaxLoader.jar:${bin}/org.msscf.msscf.cfbam.jar:${bin}/org.msscf.msscf.cfint.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="ramjar" depends="compileram" description="Package the ram jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfbam.CFBamRam.jar" basedir="${build}/org.msscf.msscf.cfbam.CFBamRam" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfbam/CFBamRam/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfbam.CFBamRam" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFBam RAM Persistence Implementation" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Build the MSS Code Factory Extensions -->
+
+	<target name="compilemsscf" depends="corejar" description="Compile the msscf package">
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfbammsscfsrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${bin}/org.msscf.msscf.cfbam.jar:${bin}/org.msscf.msscf.cfint.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cfcore.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="msscfjar" depends="compilemsscf" description="Package the msscf jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfbam.CFBamMssCF.jar" basedir="${build}/org.msscf.msscf.cfbam.CFBamMssCF" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfbam/CFBamMssCF/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfbam.CFBamMssCF" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFBam MSS Code Factory Extension" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Build the JavaFX GUI CRUD -->
+
+	<target name="compilejavafx" depends="corejar" description="Compile the javafx package">
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfbamjavafxsrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${pathtofx}:${bin}/org.msscf.msscf.cfbam.CFBamSaxLoader.jar:${bin}/org.msscf.msscf.cfbam.jar:${bin}/org.msscf.msscf.cfint.CFIntJavaFX.jar:${bin}/org.msscf.msscf.cfsec.CFSecJavaFX.jar:${bin}/org.msscf.msscf.cfint.CFIntSaxLoader.jar:${bin}/org.msscf.msscf.cfsec.CFSecSaxLoader.jar:${bin}/org.msscf.msscf.cfint.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cflib.CFLib.JavaFX.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="javafxjar" depends="compilejavafx" description="Package the javafx jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfbam.CFBamJavaFX.jar" basedir="${build}/org.msscf.msscf.cfbam.CFBamJavaFX" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfbam/CFBamJavaFX/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfbam.CFBamJavaFX" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFBam JavaFX Implementation" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Build the JavaFX Cust User Interface -->
+
+	<target name="compilecust" depends="corejar,javafxjar" description="Compile the cust package">
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfbamcustsrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${pathtofx}:${bin}/org.msscf.msscf.cfbam.CFBamJavaFX.jar:${bin}/org.msscf.msscf.cfbam.CFBamSaxLoader.jar:${bin}/org.msscf.msscf.cfbam.jar:${bin}/org.msscf.msscf.cfintcust.CFIntCust.jar:${bin}/org.msscf.msscf.cfseccust.CFSecCust.jar:${bin}/org.msscf.msscf.cfint.CFIntJavaFX.jar:${bin}/org.msscf.msscf.cfsec.CFSecJavaFX.jar:${bin}/org.msscf.msscf.cfint.CFIntSaxLoader.jar:${bin}/org.msscf.msscf.cfsec.CFSecSaxLoader.jar:${bin}/org.msscf.msscf.cfint.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cflib.CFLib.JavaFX.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="custjar" depends="compilecust" description="Package the cust jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfbamcust.CFBamCust.jar" basedir="${build}/org.msscf.msscf.cfbamcust.CFBamCust" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfbamcust/CFBamCust/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfbamcust.CFBamCust" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFBam Cust JavaFX Implementation" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Cust code -->
+
+	<target name="compilecustmssbamcf" depends="corejar,msscfjar" description="Compile the custmssbamcf package">
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfbamcustmssbamcfsrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${bin}/org.msscf.msscf.cfbam.CFBamMssCF.jar:${bin}/org.msscf.msscf.cfbam.jar:${bin}/org.msscf.msscf.cfint.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cfcore.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="custmssbamcfjar" depends="compilecustmssbamcf" description="Package the custmssbamcf jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfbamcust.MSSBamCF.jar" basedir="${build}/org.msscf.msscf.cfbamcust.MSSBamCF" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfbamcust/MSSBamCF/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfbamcust.MSSBamCF" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFBam Cust MSS Code Factory Extension" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="compilecustxmlloader" depends="corejar,msscfjar,custmssbamcfjar" description="Compile the custxmlloader package">
+		<copy todir="${build}/xsd">
+			<fileset dir="cfbamcustxmlloader/xsd">
+				<include name="*.xsd" />
+			</fileset>
+		</copy>
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfbamcustxmlloadersrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${bin}/org.msscf.msscf.cfbamcust.MSSBamCF.jar:${bin}/org.msscf.msscf.cfbam.CFBamMssCF.jar:${bin}/org.msscf.msscf.cfbam.jar:${bin}/org.msscf.msscf.cfint.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cfcore.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="custxmlloaderjar" depends="compilecustxmlloader" description="Package the custxmlloader jar">
+		<jar jarfile="${bin}/org.msscf.msscf.cfbamcust.CFBamXmlLoader.jar" basedir="${build}/org.msscf.msscf.cfbamcust.CFBamXmlLoader" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfbamcust/CFBamXmlLoader/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfbamcust.CFBamXmlLoader" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFBam Cust XML Ldr" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="compilecusteditor" depends="corejar,msscfjar,custmssbamcfjar,custxmlloaderjar" description="Compile the custeditor package">
+		<javac debug="true" fork="true" memoryinitialsize="1024m" memorymaximumsize="1024m" includeantruntime="false" modulesourcepath="${cfbamcusteditorsrc}" destdir="${build}" classpathref="Core.classpath" modulepath="${pathtofx}:${bin}/org.msscf.msscf.cfbam.CFBamRam.jar:${bin}/org.msscf.msscf.cfbamcust.CFBamXmlLoader.jar:${bin}/org.msscf.msscf.cfbamcust.MSSBamCF.jar:${bin}/org.msscf.msscf.cfbam.CFBamMssCF.jar:${bin}/org.msscf.msscf.cfbamcust.CFBamCust.jar:${bin}/org.msscf.msscf.cfintcust.CFIntCust.jar:${bin}/org.msscf.msscf.cfseccust.CFSecCust.jar:${bin}/org.msscf.msscf.cfbam.CFBamJavaFX.jar:${bin}/org.msscf.msscf.cfint.CFIntJavaFX.jar:${bin}/org.msscf.msscf.cfsec.CFSecJavaFX.jar:${bin}/org.msscf.msscf.cfbam.CFBamSaxLoader.jar:${bin}/org.msscf.msscf.cfint.CFIntSaxLoader.jar:${bin}/org.msscf.msscf.cfsec.CFSecSaxLoader.jar:${bin}/org.msscf.msscf.cfbam.jar:${bin}/org.msscf.msscf.cfint.jar:${bin}/org.msscf.msscf.cfsec.jar:${bin}/org.msscf.msscf.cfcore.jar:${bin}/org.msscf.msscf.cflib.CFLib.JavaFX.jar:${bin}/org.msscf.msscf.cflib.CFLib.jar:${lib}">
+			<compilerarg value="-Xlint:unchecked" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="custeditorjar" depends="compilecusteditor" description="Package the custeditor executable">
+		<jar jarfile="${bin}/org.msscf.msscf.cfbamcust.CFBamCustEditor.jar" basedir="${build}/org.msscf.msscf.cfbamcust.CFBamCustEditor" >
+			<include name="*.class" />
+			<include name="org/msscf/msscf/cfbamcust/CFBamCustEditor/*.class" />
+			<manifest>
+				<attribute name="Codebase" value="org.msscf.msscf.cfbamcust.CFBamCustEditor" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Vendor" value="Mark Stephen Sobkow" />
+				<attribute name="Implementation-Title" value="MSS Code Factory CFBam Cust Editor Executable" />
+				<attribute name="Implementation-Version" value="2.12" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Tie all the code so far together and copy the JARS to the WARs -->
+
+	<target name="compileall" depends="compilecore,compilesaxloader,compileram,compilemsscf,compilecustmssbamcf,compilecustxmlloader,compilejavafx,compilecust,compilecusteditor">
+	</target>
+
+	<target name="deploy">
+		<copy todir="../../bin-v2_12">
+			<fileset dir="./bin-v2_12">
+				<include name="org.msscf.msscf.cfbam.jar" />
+				<include name="org.msscf.msscf.cfbam.CFBamSaxLoader.jar" />
+				<include name="org.msscf.msscf.cfbam.CFBamMssCF.jar" />
+				<include name="org.msscf.msscf.cfbam.CFBamRam.jar" />
+				<include name="org.msscf.msscf.cfbam.CFBamSaxRamLdr.jar" />
+				<include name="org.msscf.msscf.cfbam.CFBamJavaFX.jar" />
+				<include name="org.msscf.msscf.cfbamcust.CFBamCust.jar" />
+				<include name="org.msscf.msscf.cfbamcust.CFBamCustEditor.jar" />
+				<include name="org.msscf.msscf.cfbamcust.CFBamXmlLoader.jar" />
+				<include name="org.msscf.msscf.cfbamcust.MSSBamCF.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="alljars" depends="corejar,saxloaderjar,ramjar,msscfjar,custmssbamcfjar,custxmlloaderjar,javafxjar,custjar,custeditorjar,deploy">
+	</target>
+
+	<!-- Clean up -->
+
+	<target name="clean">
+		<delete dir="${build}" />
+		<delete dir="${lib}" />
+		<delete dir="${bin}/xsd" />
+		<delete file="${bin}/org.msscf.msscf.cflib.CFLib.jar" />
+		<delete file="${bin}/org.msscf.msscf.cflib.CFLib.JavaFX.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfcore.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfsec.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfsec.CFSecSaxLoader.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfsec.CFSecJavaFX.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfseccust.CFSecCust.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfint.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfint.CFIntSaxLoader.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfint.CFIntJavaFX.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfintcust.CFIntCust.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfbam.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfbam.CFBamSaxLoader.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfbam.CFBamMssCF.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfbam.CFBamRam.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfbam.CFBamSaxRamLdr.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfbam.CFBamJavaFX.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfbamcust.CFBamCust.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfbamcust.CFBamCustEditor.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfbamcust.CFBamXmlLoader.jar" />
+		<delete file="${bin}/org.msscf.msscf.cfbamcust.MSSBamCF.jar" />
+	</target>
+
+	<!-- Make It So! -->
+
+	<target name="all" depends="init,alljars,javafxjar,custjar,custeditorjar" >
+	</target>
+
+</project>

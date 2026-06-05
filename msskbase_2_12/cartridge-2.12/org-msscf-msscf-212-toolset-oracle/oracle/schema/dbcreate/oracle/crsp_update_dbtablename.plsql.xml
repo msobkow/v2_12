@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/crsp_update_dbtablename.plsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPUpdateDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="$dbadminfilename_CreateSPUpdateDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPUpdateDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPUpdateDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+alter session set plsql_warnings = 'ENABLE:ALL';
+/
+
+$CrSpUpdateDbTablenamePlsqlPreamble$$switch HasChain yes implOracleSPTableLatchContainer default empty$$implOracleLockTables$$CrSpUpdateDbTablenamePlsqlValidateRevision$$CrSpUpdateDbTablenamePlsqlUpdateTable$$switch HasChain yes implOracleSPTableUnlatchContainer default empty$$CrSpUpdateDbTablenamePlsqlReturnUpdateRow$
+/
+
+show errors procedure $lower DbSchemaName$.$sp_update_dbtablename$;
+</GenFile>
+
+<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePlsqlPreamble">
+create or replace procedure $lower DbSchemaName$.$sp_update_dbtablename$(
+	retCursor out sys_refcursor,$implOracleSPStandardArgs$$implOracleSPUpdateTableArgs$$implOracleSPUpdateTableArgRevision$ ) authid definer
+is$switch BaseHasHistory yes declOracleSPTableUseStamp default declOracleSPTableUseStampIfAudited$$declSPOldVars$
+	dataCollision exception;
+	dataUpdateFailed exception;
+	permissionDenied exception;
+	permissionFlag integer;
+begin$switch BaseHasHistory yes implOracleSPTableInitStamp default implOracleSPTableInitStampIfAudited$$switch TableName SecSession empty default implOracleSPUpdateTableCheckPermissions$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPUpdateTableCheckPermissions"
+		>$switch SecScope None empty System implOracleSPUpdateTableCheckSystem Cluster implOracleSPUpdateTableCheckCluster Tenant implOracleSPUpdateTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPUpdateTableCheckSystem">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		permissionFlag := $lower DbSchemaName$.sp_is_system_user( argAuditUserId );
+		if( permissionFlag = 0 )
+		then
+			raise permissionDenied;
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPUpdateTableCheckCluster">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		permissionFlag := $lower DbSchemaName$.sp_is_cluster_user( arg$reference ClusterIdColumn DbColumnName$,
+			'Update$Name$',
+			argAuditUserId );
+		if( permissionFlag = 0 )
+		then
+			raise permissionDenied;
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPUpdateTableCheckTenant">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		permissionFlag := $lower DbSchemaName$.sp_is_tenant_user( arg$reference TenantIdColumn Name$,
+			'Update$Name$',
+			argAuditUserId );
+		if( permissionFlag = 0 )
+		then
+			raise permissionDenied;
+		end if;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPUpdateTableArgs"
+		>$switch HasSuperClassRelation yes implOracleSPUpdateTableSuperArgs default implOracleSPUpdateTableBaseArgs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPUpdateTableSuperArgs"
+		>$reference SuperClassRelation reference ToTable implOracleSPUpdateTableArgs$$iterate Columns( each implOracleSPCommaUpdateTableInsertDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOracleSPCommaUpdateTableInsertDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleSPUpdateTableBaseArgs"
+		>$implOracleSPUpdateTableArgClassCode$$iterate Columns( each sparg_CommaTableCol )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleSPUpdateTableArgClassCode">,
+	argClassCode varchar2</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleSPUpdateTableArgRevision">,
+	argRevision integer</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePlsqlValidateRevision">
+	if argRevision != oldRevision
+	then
+		raise dataCollision;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePlsqlUpdateTable"
+		>$switch HasSuperClassRelation yes CrSpUpdateDbTablenamePlsqlUpdateSuperTable default CrSpUpdateDbTablenamePlsqlUpdateBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="TableDefRawHasDataColumns"
+		>$iterate DataColumns( each empty empty no )$</GenRule>
+
+	<GenRule GenDef="Table" Name="HasDataColumns"
+		>$switch TableDefRawHasDataColumns no no default yes$</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePlsqlUpdateSuperTable">$reference SuperClassRelation reference ToTable CrSpUpdateDbTablenamePlsqlUpdateTable$$switch HasDataColumns yes CrSpUpdateDbTablenamePlsqlUpdateThisTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePlsqlUpdateThisTable">
+	update $lower DbSchemaName$.$DbTableName$
+	set
+$iterate DataColumns( first implOracleUpdateColumn each implOracleUpdateCommaColumn empty empty )$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implOracleUpdateWhereFragBindVar each implOracleUpdateWhereAndFragBindVar )$;
+$CrSpUpdateDbTablenamePlsqlVerifyUpdatedOne$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePlsqlUpdateBaseTable">
+	update $lower DbSchemaName$.$DbTableName$
+	set
+$implOracleUpdateRevision$$switch HasAuditColumns yes implOracleUpdateAuditColumns default empty$$iterate DataColumns( each implOracleUpdateCommaColumn empty empty )$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implOracleUpdateWhereFragBindVar each implOracleUpdateWhereAndFragBindVar )$$implOracleUpdateWhereFragOldRevision$;
+$CrSpUpdateDbTablenamePlsqlVerifyUpdatedOne$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implOracleUpdateAuditColumns">,
+		updatedby = argAuditUserId,
+		updatedat = use_stamp</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePlsqlVerifyUpdatedOne">
+	if sql%rowcount != 1 then
+		raise dataUpdateFailed;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameOracleAuditUpdated"
+		>$switch BaseHasClassCode yes implCreateAuditTwoWithCC default implCreateAuditTwoNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditTwoNoCC">
+	insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			revision,
+			auditclusterid,
+			auditsessionid,$implAuditInheritedIntoDataColumnNameComma$
+			auditaction,
+			auditstamp )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			argRevision + 1 as revision,
+			argAuditClusterId,
+			argAuditSessionId,$implAuditInheritedDataColumnNameComma$
+			1,
+			use_stamp
+		from $lower DbSchemaName$.$DbTableName$ $lower ClassCode$$switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditTwoWithCC">
+	if( argClassCode = '$poptop Table ClassCode$' )
+	then
+		insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			classcode,
+			revision,
+			auditclusterid,
+			auditsessionid,$implAuditInheritedIntoDataColumnNameComma$
+			auditaction,
+			auditstamp )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.classcode,
+			argRevision + 1 as revision,
+			argAuditClusterId,
+			argAuditSessionId,$implAuditInheritedDataColumnNameComma$
+			1,
+			use_stamp
+		from $lower DbSchemaName$.$DbTableName$ $lower ClassCode$$switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenamePlsqlReturnUpdateRow">$switch BaseHasHistory yes CrSpUpdateDbTablenameOracleAuditUpdated default empty$
+	open retCursor for select
+$implOracleSelectTableColumns$,
+		$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$.$DbTableName$ $lower ClassCode$$switch HasSuperClassRelation yes implOracleClassCodeJoinSuperTable default empty$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implOracleIndexColumnWhereFragBindVar each implOracleIndexColumnWhereAndFragBindVar )$;
+end $sp_update_dbtablename$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleUpdateWhereAndFragBindVar">
+		and $implOracleUpdateWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleUpdateWhereFragBindVar"
+		>$switch IsNullable yes implOracleUpdateWhereFragBindOptVar
+			default implOracleUpdateWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleUpdateWhereFragBindOptVar"
+		>$reference Column implOracleUpdateWhereFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implOracleUpdateWhereFragBindReqVar"
+		>$reference Column implOracleUpdateWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implOracleUpdateWhereFragBindOptBlobVar
+			BoolDef implOracleUpdateWhereFragBindOptBoolVar
+			EnumDef implOracleUpdateWhereFragBindOptEnumVar
+			Int16Def implOracleUpdateWhereFragBindOptInt16Var
+			Int32Def implOracleUpdateWhereFragBindOptInt32Var
+			Int64Def implOracleUpdateWhereFragBindOptInt64Var
+			UInt16Def implOracleUpdateWhereFragBindOptUInt16Var
+			UInt32Def implOracleUpdateWhereFragBindOptUInt32Var
+			UInt64Def implOracleUpdateWhereFragBindOptUInt64Var
+			Id16Gen implOracleUpdateWhereFragBindOptInt16Var
+			Id32Gen implOracleUpdateWhereFragBindOptInt32Var
+			Id64Gen implOracleUpdateWhereFragBindOptInt64Var
+			FloatDef implOracleUpdateWhereFragBindOptFloatVar
+			DoubleDef implOracleUpdateWhereFragBindOptDoubleVar
+			NumberDef implOracleUpdateWhereFragBindOptNumberVar
+			StringDef implOracleUpdateWhereFragBindOptStringVar
+			TokenDef implOracleUpdateWhereFragBindOptStringVar
+			NmTokenDef implOracleUpdateWhereFragBindOptStringVar
+			NmTokensDef implOracleUpdateWhereFragBindOptStringVar
+			TextDef implOracleUpdateWhereFragBindOptTextVar
+			DateDef implOracleUpdateWhereFragBindOptDateVar
+			TimeDef implOracleUpdateWhereFragBindOptTimeVar
+			TimestampDef implOracleUpdateWhereFragBindOptTimestampVar
+			TZDateDef implOracleUpdateWhereFragBindOptTZDateVar
+			TZTimeDef implOracleUpdateWhereFragBindOptTZTimeVar
+			TZTimestampDef implOracleUpdateWhereFragBindOptTZTimestampVar
+			UuidDef implOracleUpdateWhereFragBindOptUuidVar
+			UuidGen implOracleUpdateWhereFragBindOptUuidVar
+			default empty$</GenRule>
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implOracleUpdateWhereFragBindReqBlobVar
+			BoolDef implOracleUpdateWhereFragBindReqBoolVar
+			EnumDef implOracleUpdateWhereFragBindReqEnumVar
+			Int16Def implOracleUpdateWhereFragBindReqInt16Var
+			Int32Def implOracleUpdateWhereFragBindReqInt32Var
+			Int64Def implOracleUpdateWhereFragBindReqInt64Var
+			UInt16Def implOracleUpdateWhereFragBindReqUInt16Var
+			UInt32Def implOracleUpdateWhereFragBindReqUInt32Var
+			UInt64Def implOracleUpdateWhereFragBindReqUInt64Var
+			Id16Gen implOracleUpdateWhereFragBindReqInt16Var
+			Id32Gen implOracleUpdateWhereFragBindReqInt32Var
+			Id64Gen implOracleUpdateWhereFragBindReqInt64Var
+			FloatDef implOracleUpdateWhereFragBindReqFloatVar
+			DoubleDef implOracleUpdateWhereFragBindReqDoubleVar
+			NumberDef implOracleUpdateWhereFragBindReqNumberVar
+			StringDef implOracleUpdateWhereFragBindReqStringVar
+			TokenDef implOracleUpdateWhereFragBindReqStringVar
+			NmTokenDef implOracleUpdateWhereFragBindReqStringVar
+			NmTokensDef implOracleUpdateWhereFragBindReqStringVar
+			TextDef implOracleUpdateWhereFragBindReqTextVar
+			DateDef implOracleUpdateWhereFragBindReqDateVar
+			TimeDef implOracleUpdateWhereFragBindReqTimeVar
+			TimestampDef implOracleUpdateWhereFragBindReqTimestampVar
+			TZDateDef implOracleUpdateWhereFragBindReqTZDateVar
+			TZTimeDef implOracleUpdateWhereFragBindReqTZTimeVar
+			TZTimestampDef implOracleUpdateWhereFragBindReqTZTimestampVar
+			UuidDef implOracleUpdateWhereFragBindReqUuidVar
+			UuidGen implOracleUpdateWhereFragBindReqUuidVar
+			default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqBlobVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptBlobVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqBoolVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptBoolVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqEnumVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptEnumVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqInt16Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptInt16Var"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqInt32Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptInt32Var"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqInt64Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptInt64Var"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqUInt16Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptUInt16Var"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqUInt32Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptUInt32Var"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqUInt64Var"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptUInt64Var"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqFloatVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptFloatVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqDoubleVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptDoubleVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqNumberVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptNumberVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqStringVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptStringVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqTokenVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptTokenVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqNmTokenVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptNmTokenVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqNmTokensVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptNmTokensVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqTextVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptTextVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqDateVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptDateVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqTimeVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptTimeVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqTimestampVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptTimestampVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqTZDateVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptTZDateVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqTZTimeVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptTZTimeVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqTZTimestampVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptTZTimestampVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindReqUuidVar"
+		>$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragBindOptUuidVar"
+		>( ( ( arg$DbColumnName$ is null ) and ( $DbColumnName$ is null ) )
+				or ( ( arg$DbColumnName$ is not null ) and ( $DbColumnName$ = arg$DbColumnName$ ) ) )</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateWhereFragOldRevision">
+		and revision = argRevision</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateCommaColumn"
+		>,
+$implOracleUpdateColumn$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateColumn"
+>		$DbColumnName$ = arg$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateCommaRevision"
+		>,
+$implOracleUpdateRevision$</GenRule>
+
+	<GenRule GenDef="Object" Name="implOracleUpdateRevision"
+>		revision = argRevision + 1</GenRule>
+
+</RuleSet>

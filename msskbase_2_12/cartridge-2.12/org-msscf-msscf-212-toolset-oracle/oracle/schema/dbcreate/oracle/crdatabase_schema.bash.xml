@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/crdatabase_schema.bash"
+	Revision="2.12"
+	Descr="Oracle Create Schema bash script">
+
+	<GenFile GenDef="SchemaDef" Name="dbadminfile_CreateSchema"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="crdatabase_$lower DbSchemaName$"
+		ExpansionKeyName="crdatabase_$lower DbSchemaName$"
+		ExpansionFileName="$dbadminfilename_CreateSchema$">#!/bin/bash
+#
+#	@(#) $GenPackageDir$/$GenFileName$
+$MssBashScriptLicense$
+$parseOracleArgs$$validateOracleArgs$
+echo "Creating schema $DbSchemaName$ in database $${oradb} for $${orauser}"
+echo "Creating schema $DbSchemaName$ in database $${oradb} for $${orauser}" &gt;&gt;$${logfilename}
+
+echo "create schema $lower DbSchemaName$" | $${sqlpluscmd} &gt;&gt;$${logfilename} 2&gt;&amp;1
+
+if [ "$${orahost}" = "" ]; then
+	export clioptions=""
+else
+	export clioptions="-H $${orahost}"
+fi
+
+$exec_CreateAllTables$$exec_CreateAllIndexes$$exec_CreateAllRelations$$exec_CreateAllSequences$$exec_CreateAllStoredProcs$$exec_LoadAllData$$exec_CreateAllTriggers$
+exit 0
+
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="exec_CreateAllTables">
+#
+#	Create the database tables
+#
+if [ -f ./$dbadminfilename_CreateAllTables$ ]; then
+	echo "	Creating database tables ..."
+	echo "" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	echo "#	Executing script $dbadminfilename_CreateAllTables$" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	./$dbadminfilename_CreateAllTables$ $${clioptions} -U $${orauser} -P $${orapwd} -L $${logfilename}
+fi
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="exec_CreateAllIndexes">
+#
+#	Create the database indexes
+#
+if [ -f ./$dbadminfilename_CreateAllIndexes$ ]; then
+	echo "	Creating database indexes ..."
+	echo "#" &gt;&gt;$${logfilename}
+	echo "#	Executing script $dbadminfilename_CreateAllIndexes$" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	./$dbadminfilename_CreateAllIndexes$ $${clioptions} -U $${orauser} -P $${orapwd} -L $${logfilename}
+fi
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="exec_CreateAllRelations">
+#
+#	Create the database relations
+#
+if [ -f ./$dbadminfilename_CreateAllRelations$ ]; then
+	echo "	Creating database relations ..."
+	echo "" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	echo "#	Executing script $dbadminfilename_CreateAllRelations$" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	./$dbadminfilename_CreateAllRelations$ $${clioptions} -U $${orauser} -P $${orapwd} -L $${logfilename}
+fi
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="exec_CreateAllSequences">
+#
+#	Create the database sequences
+#
+if [ -f ./$dbadminfilename_CreateAllSequences$ ]; then
+	echo "	Creating database sequences..."
+	echo "" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	echo "#	Executing script $dbadminfilename_CreateAllSequences$" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	./$dbadminfilename_CreateAllSequences$ $${clioptions} -U $${orauser} -P $${orapwd} -L $${logfilename}
+fi
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="exec_CreateAllStoredProcs">
+#
+#	Create the database stored procedures
+#
+if [ -f ./$dbadminfilename_CreateAllStoredProcs$ ]; then
+	echo "	Creating database stored procedures..."
+	echo "" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	echo "#	Executing script $dbadminfilename_CreateAllStoredProcs$" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	./$dbadminfilename_CreateAllStoredProcs$ $${clioptions} -U $${orauser} -P $${orapwd} -L $${logfilename}
+fi
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="exec_LoadAllData">
+#
+#	Load initial data
+#
+if [ -f ./$dbadminfilename_LoadAllData$ ]; then
+	echo "	Loading initial data ..."
+	echo "" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	echo "#	Executing script $dbadminfilename_LoadAllData$" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	./$dbadminfilename_LoadAllData$ $${clioptions} -U $${orauser} -P $${orapwd} -L $${logfilename}
+fi
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="exec_CreateAllTriggers">
+#
+#	Create the database triggers
+#
+if [ -f ./$dbadminfilename_CreateAllTriggers$ ]; then
+	echo "	Creating database triggers ..."
+	echo "" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	echo "#	Executing script $dbadminfilename_CreateAllTriggers$" &gt;&gt;$${logfilename}
+	echo "#" &gt;&gt;$${logfilename}
+	./$dbadminfilename_CreateAllTriggers$ $${clioptions} -U $${orauser} -P $${orapwd} -L $${logfilename}
+fi
+</GenRule>
+
+</RuleSet>

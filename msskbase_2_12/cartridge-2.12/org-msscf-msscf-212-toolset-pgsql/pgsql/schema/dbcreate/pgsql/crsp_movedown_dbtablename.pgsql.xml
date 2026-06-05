@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="schema/dbcreate/pgsql/crsp_movedown_dbtablename.pgsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPMoveDownDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="pgsql"
+		ExpansionClassName="$dbadminfilename_CreateSPMoveDownDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPMoveDownDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPMoveDownDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create or replace function $lower DbSchemaName$.$sp_movedown_dbtablename$($implPgSqlSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaIndexCol )$$sparg_Revision$ )
+returns setof $lower DbSchemaName$.$type_dbtablename_rec$ as $$$$
+declare
+	RowsAffected integer;
+	cur record;
+	subret boolean;$reference Chain reference Table declPgSqlSPMoveDownTableContainerVars$$declPgSqlSPMoveDownTableChainLinkVars$$declSPOldVars$$switch SecScope None empty System implPgSqlSPMoveDownTableDeclPermFlag Cluster implPgSqlSPMoveDownTableDeclPermFlag Tenant implPgSqlSPMoveDownTableDeclPermFlag default error$
+begin$implPgSqlSPMoveDownBody$
+end;
+$$$$ language plpgsql;
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownBody"
+		>$reference Chain reference Table implPgSqlSPMoveDownTableFetchContainerKeys$$reference Chain reference Table implPgSqlSPMoveDownTableLatchContainer$$implPgSqlLockTables$$implPgSqlSPMoveDownDbTablenameValidateRevision$$switch SecScope None empty System implPgSqlSPMoveDownTableCheckSystem Cluster implPgSqlSPMoveDownTableCheckCluster Tenant implPgSqlSPMoveDownTableCheckTenant default error$$reference Chain reference Table implPgSqlSPMoveDownTableChainSelectChainLinks$$reference Chain reference Table implPgSqlSPMoveDownTableIfNextBegin$$reference Chain reference Table implPgSqlSPMoveDownTableUpdatePrev$$reference Chain reference Table implPgSqlSPMoveDownTableUpdateNext$$reference Chain reference Table implPgSqlSPMoveDownTableUpdateThis$$reference Chain reference Table implPgSqlSPMoveDownTableUpdateGNext$$reference Chain reference Table implPgSqlSPMoveDownTableIfNextEnd$$reference Chain reference Table implPgSqlSPMoveDownTableUnlatchContainer$
+	return query select
+$implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+	where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;
+
+	return;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownDbTablenameValidateRevision">
+	if argRevision != oldRevision
+	then
+		raise exception '$sp_movedown_dbtablename$() Data collision detected';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableIfNextBegin">
+	if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implPgSqlSPMoveDownTableUpdateNextIfNotNull each empty )$ )
+	then</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableIfNextEnd">
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateTableAuditColumns3">,
+			updatedby = argAuditUserId,
+			updatedat = now()</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateTableAuditColumns4">,
+				updatedby = argAuditUserId,
+				updatedat = now()</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdatePrev">
+		if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implPgSqlSPMoveDownTableUpdatePrevIfNotNull each empty )$ )
+		then$switch ChainTableHasSuperClassRelation yes implPgSqlSPMoveDownTableUpdatePrevTwoTables default implPgSqlSPMoveDownTableUpdatePrevOneTable$$switch BaseHasHistory yes implPgSqlSPMoveDownTableUpdatePrevAuditUpdated default empty$
+		end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdatePrevOneTable">
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implPgSqlSPMoveDownTableUpdateTableAuditColumns4 default empty$$reference Chain reference NextRel iterate Columns( each implPgSqlSPMoveDownTableUpdatePrevWithNextCommaKey )$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWherePrevPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$;
+
+			get diagnostics RowsAffected = row_count;
+
+			if RowsAffected != 1
+			then
+				raise exception '$sp_movedown_dbtablename$() Expected to affect one previous row, not %', RowsAffected;
+			end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdatePrevWithNextKey"
+		>$reference FromCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdatePrevWithNextCommaKey">,
+				$implPgSqlSPMoveDownTableUpdatePrevWithNextKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateTableWherePrevPKeyCol"
+		>$reference ToCol DbColumnName$ = varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol">
+				and $implPgSqlSPMoveDownTableUpdateTableWherePrevPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdatePrevTwoTables">
+			update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implPgSqlSPMoveDownTableUpdateTableAuditColumns4 default empty$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWherePrevPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$;
+
+			get diagnostics RowsAffected = row_count;
+
+			if RowsAffected != 1
+			then
+				raise exception '$sp_movedown_dbtablename$() Expected to affect one previous base row, not %', RowsAffected;
+			end if;
+
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				$reference Chain reference NextRel iterate Columns( first implPgSqlSPMoveDownTableUpdatePrevWithNextKey each implPgSqlSPMoveDownTableUpdatePrevWithNextCommaKey )$
+			where
+				$reference Chain reference PrevRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWherePrevPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndPrevPKeyCol )$;
+
+			get diagnostics RowsAffected = row_count;
+
+			if RowsAffected != 1
+			then
+				raise exception '$sp_movedown_dbtablename$() Expected to affect one previous chain row, not %', RowsAffected;
+			end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableUpdatePrevIfNotNull"
+		>varprev$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdatePrevAuditUpdated">
+			select $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+				argAuditUserId,
+				argAuditSessionId,
+				secClusterId,
+				secTenantId$reference Chain reference Table switch HasClassCode yes implPgSqlSPMoveDownTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implPgSqlSPMoveDownTableAuditUpdatedPrevPassArg )$,
+				1 )
+			into subret;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdatePrevAuditPassClassCode">,
+				varprevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableAuditUpdatedPrevPassArg">,
+				varprev$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateNext">
+$switch ChainTableHasSuperClassRelation yes implPgSqlSPMoveDownTableUpdateNextTwoTables default implPgSqlSPMoveDownTableUpdateNextOneTable$$switch BaseHasHistory yes implPgSqlSPMoveDownTableUpdateNextAuditUpdated default empty$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateNextOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implPgSqlSPMoveDownTableUpdateTableAuditColumns3 default empty$$reference Chain reference PrevRel iterate Columns( each implPgSqlSPMoveDownTableUpdateNextWithPrevCommaKey )$$reference Chain reference NextRel iterate Columns( each implPgSqlSPMoveDownTableUpdateNextWithThisCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWhereNextPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$;
+
+		get diagnostics RowsAffected = row_count;
+
+		if RowsAffected != 1
+		then
+			raise exception '$sp_movedown_dbtablename$() Expected to affect one next row, not %', RowsAffected;
+		end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateNextWithThisKey"
+		>$reference FromCol DbColumnName$ = arg$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateNextWithThisCommaKey">,
+			$implPgSqlSPMoveDownTableUpdateNextWithThisKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateNextWithPrevKey"
+		>$reference FromCol DbColumnName$ = varprev$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateNextWithPrevCommaKey">,
+			$implPgSqlSPMoveDownTableUpdateNextWithPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateTableWhereNextPKeyCol"
+		>$reference ToCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol">
+			and $implPgSqlSPMoveDownTableUpdateTableWhereNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateNextTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implPgSqlSPMoveDownTableUpdateTableAuditColumns3 default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWhereNextPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$;
+
+		get diagnostics RowsAffected = row_count;
+
+		if RowsAffected != 1
+		then
+			raise exception '$sp_movedown_dbtablename$() Expected to affect one next base row, not %', RowsAffected;
+		end if;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPMoveDownTableUpdateNextWithPrevKey each implPgSqlSPMoveDownTableUpdateNextWithPrevCommaKey )$$reference Chain reference NextRel iterate Columns( each implPgSqlSPMoveDownTableUpdateNextWithThisCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWhereNextPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndNextPKeyCol )$;
+
+		get diagnostics RowsAffected = row_count;
+
+		if RowsAffected != 1
+		then
+			raise exception '$sp_movedown_dbtablename$() Expected to affect one next chain row, not %', RowsAffected;
+		end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableUpdateNextIfNotNull"
+		>varnext$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateNextAuditUpdated">
+		select $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implPgSqlSPMoveDownTableUpdateNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implPgSqlSPMoveDownTableAuditUpdatedNextPassArg )$,
+			1 )
+		into subret;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateNextAuditPassClassCode">,
+			varnextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableAuditUpdatedNextPassArg">,
+			varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateThisOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implPgSqlSPMoveDownTableUpdateTableAuditColumns3 default empty$$reference Chain reference PrevRel iterate Columns( each implPgSqlSPMoveDownTableUpdateThisPrevWithCommaKey )$$reference Chain reference NextRel iterate Columns( each implPgSqlSPMoveDownTableUpdateThisNextWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWhereThisPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$;
+
+		get diagnostics RowsAffected = row_count;
+
+		if RowsAffected != 1
+		then
+			raise exception '$sp_movedown_dbtablename$() Expected to affect one obj row, not %', RowsAffected;
+		end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateThisPrevWithKey"
+		>$reference FromCol DbColumnName$ = varnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateThisPrevWithCommaKey">,
+			$implPgSqlSPMoveDownTableUpdateThisPrevWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateThisNextWithKey"
+		>$reference FromCol DbColumnName$ = gnext$reference ToCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateThisNextWithCommaKey">,
+			$implPgSqlSPMoveDownTableUpdateThisNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateTableWhereThisPKeyCol"
+		>$reference ToCol DbColumnName$ = arg$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol">
+			and $implPgSqlSPMoveDownTableUpdateTableWhereThisPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateThisTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implPgSqlSPMoveDownTableUpdateTableAuditColumns3 default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWhereThisPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$;
+
+		get diagnostics RowsAffected = row_count;
+
+		if RowsAffected != 1
+		then
+			raise exception '$sp_movedown_dbtablename$() Expected to affect one obj base row, not %', RowsAffected;
+		end if;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPMoveDownTableUpdateThisPrevWithKey each implPgSqlSPMoveDownTableUpdateThisPrevWithCommaKey )$$reference Chain reference NextRel iterate Columns( each implPgSqlSPMoveDownTableUpdateThisNextWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWhereThisPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndThisPKeyCol )$;
+
+		get diagnostics RowsAffected = row_count;
+
+		if RowsAffected != 1
+		then
+			raise exception '$sp_movedown_dbtablename$() Expected to affect one obj chain row, not %', RowsAffected;
+		end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateThisAuditUpdated">
+		select $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implPgSqlSPMoveDownTableUpdateThisAuditPassClassCode default empty$$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implPgSqlSPMoveDownTableAuditUpdatedThisPassArg )$,
+			1 )
+		into subret;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateThisAuditPassClassCode">,
+			oldClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableAuditUpdatedThisPassArg">,
+			arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateGNext">
+		if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implPgSqlSPMoveDownTableUpdateGNextIfNotNull each empty )$ )
+		then$switch ChainTableHasSuperClassRelation yes implPgSqlSPMoveDownTableUpdateGNextTwoTables default implPgSqlSPMoveDownTableUpdateGNextOneTable$$switch BaseHasHistory yes implPgSqlSPMoveDownTableUpdateGNextAuditUpdated default empty$
+		end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateGNextOneTable">
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implPgSqlSPMoveDownTableUpdateTableAuditColumns4 default empty$$reference Chain reference PrevRel iterate Columns( each implPgSqlSPMoveDownTableUpdateGNextWithCommaKey )$
+			where
+				$reference Chain reference NextRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWhereGNextPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$;
+
+			get diagnostics RowsAffected = row_count;
+
+			if RowsAffected != 1
+			then
+				raise exception '$sp_movedown_dbtablename$() Expected to affect one grandnext row, not %', RowsAffected;
+			end if;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateGNextWithKey"
+		>$reference FromCol DbColumnName$ = arg$reference ToCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateGNextWithCommaKey">,
+				$implPgSqlSPMoveDownTableUpdateGNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateTableWhereGNextPKeyCol"
+		>$reference ToCol DbColumnName$ = gnext$reference FromCol StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol">
+				and $implPgSqlSPMoveDownTableUpdateTableWhereGNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateGNextTwoTables">
+			update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+			set
+				revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implPgSqlSPMoveDownTableUpdateTableAuditColumns4 default empty$
+			where
+				$reference Chain reference NextRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWhereGNextPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$;
+
+			get diagnostics RowsAffected = row_count;
+
+			if RowsAffected != 1
+			then
+				raise exception '$sp_movedown_dbtablename$() Expected to affect one grandnext base row, not %', RowsAffected;
+			end if;
+
+			update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+			set
+				$reference Chain reference PrevRel iterate Columns( first implPgSqlSPMoveDownTableUpdateGNextWithKey each implPgSqlSPMoveDownTableUpdateGNextWithCommaKey )$
+			where
+				$reference Chain reference NextRel iterate Columns( first implPgSqlSPMoveDownTableUpdateTableWhereGNextPKeyCol each implPgSqlSPMoveDownTableUpdateTableWhereAndGNextPKeyCol )$;
+
+			get diagnostics RowsAffected = row_count;
+
+			if RowsAffected != 1
+			then
+				raise exception '$sp_movedown_dbtablename$() Expected to affect one grandnext chain row, not %', RowsAffected;
+			end if;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableUpdateGNextIfNotNull"
+		>gnext$StripPrevNextColumnName$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateGNextAuditUpdated">
+			select $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+				argAuditUserId,
+				argAuditSessionId,
+				secClusterId,
+				secTenantId$reference Chain reference Table switch HasClassCode yes implPgSqlSPMoveDownTableUpdateGNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implPgSqlSPMoveDownTableAuditUpdatedGNextPassArg )$,
+				1 )
+			into subret;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateGNextAuditPassClassCode">,
+				gnextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableAuditUpdatedGNextPassArg">,
+				gnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUpdateThis">$switch ChainTableHasSuperClassRelation yes implPgSqlSPMoveDownTableUpdateThisTwoTables default implPgSqlSPMoveDownTableUpdateThisOneTable$$switch BaseHasHistory yes implPgSqlSPMoveDownTableUpdateThisAuditUpdated default empty$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPMoveDownTableChainLinkVars"
+		>$switch HasClassCode yes declPgSqlSPMoveDownTableChainLinkClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declPgSqlSPMoveDownTableChainPrevVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declPgSqlSPMoveDownTableChainNextVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declPgSqlSPMoveDownTableChainGNextVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPMoveDownTableChainLinkClassCode">
+	varprevClassCode varchar(4);
+	varnextClassCode varchar(4);
+	gnextClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declPgSqlSPMoveDownTableChainGNextVar">
+	gnext$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declPgSqlSPMoveDownTableChainPrevVar">
+	varprev$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declPgSqlSPMoveDownTableChainNextVar">
+	varnext$StripPrevNextColumnName$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectLinks"
+		>$reference Chain reference Table implPgSqlSPMoveDownTableChainSelectChainLinks$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectChainLinks">
+	select$switch HasClassCode yes implPgSqlSPMoveDownTableChainSelectPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implPgSqlSPMoveDownTableChainSelectPrevKeyComma )$$switch HasClassCode yes implPgSqlSPMoveDownTableChainSelectNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implPgSqlSPMoveDownTableChainSelectNextKeyComma )$$switch HasClassCode yes implPgSqlSPMoveDownTableChainSelectGNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implPgSqlSPMoveDownTableChainSelectGNextKeyComma last implPgSqlSPMoveDownTableChainSelectGNextKey )$$implPgSqlSPMoveDownTableChainSelectChainLinksInto$$implPgSqlSPMoveDownTableChainSelectChainLinksFromWhere$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectChainLinksInto">
+	into$switch HasClassCode yes implPgSqlSPMoveDownTableChainSelectIntoPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implPgSqlSPMoveDownTableChainSelectIntoPrevKeyComma )$$switch HasClassCode yes implPgSqlSPMoveDownTableChainSelectIntoNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implPgSqlSPMoveDownTableChainSelectIntoNextKeyComma )$$switch HasClassCode yes implPgSqlSPMoveDownTableChainSelectIntoGNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implPgSqlSPMoveDownTableChainSelectIntoGNextKeyComma last implPgSqlSPMoveDownTableChainSelectIntoGNextKey )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectChainLinksFromWhere">
+	from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ $lower reference Chain reference Table ClassCode$$reference Chain reference Table switch HasSuperClassRelation yes implPgSqlSPMoveDownTableChainSelectInnerJoinSuper default empty$$implPgSqlSPMoveDownTableChainSelectOuterJoinLinkTables$
+	where
+		$reference Chain reference Table reference PrimaryKeyIndex iterate Columns( first implPgSqlSPMoveDownTableChainSelectWherePKey each implPgSqlSPMoveDownTableChainSelectWhereAndPKey )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectInnerJoinSuper">
+		inner join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ $lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implPgSqlSPMoveDownTableChainSelectOnKeySuper each implPgSqlSPMoveDownTableChainSelectOnKeyAndSuper )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOnKeySuper"
+		>$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = $lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOnKeyAndSuper">
+			and $implPgSqlSPMoveDownTableChainSelectOnKeySuper$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectWherePKey"
+		>$lower poptop Table reference Chain reference Table ClassCode$.$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectWhereAndPKey">
+		and $implPgSqlSPMoveDownTableChainSelectWherePKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectOuterJoinLinkTables">
+		left outer join $lower DbSchemaName$.$DbTableName$ prv$lower ClassCode$ on
+			$reference Chain reference PrevRel iterate Columns( first implPgSqlSPMoveDownTableChainSelectOJPrevKey each implPgSqlSPMoveDownTableChainSelectOJAndPrevKey )$$switch HasSuperClassRelation yes implPgSqlSPMoveDownTableChainSelectOuterJoinPrevSuper default empty$
+		left outer join $lower DbSchemaName$.$DbTableName$ nxt$lower ClassCode$ on
+			$reference Chain reference NextRel iterate Columns( first implPgSqlSPMoveDownTableChainSelectOJNextKey each implPgSqlSPMoveDownTableChainSelectOJAndNextKey )$$switch HasSuperClassRelation yes implPgSqlSPMoveDownTableChainSelectOuterJoinNextSuper default empty$$switch HasClassCode yes implPgSqlSPMoveDownTableChainSelectOuterJoinGNextTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectOuterJoinGNextTable">
+		left outer join $lower DbSchemaName$.$DbTableName$ gnxt$lower ClassCode$ on
+			$reference Chain reference NextRel iterate Columns( first implPgSqlSPMoveDownTableChainSelectOJGNextKey each implPgSqlSPMoveDownTableChainSelectOJAndGNextKey )$$switch HasSuperClassRelation yes implPgSqlSPMoveDownTableChainSelectOuterJoinGNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectOuterJoinGNextSuper">
+		left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ gnxt$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implPgSqlSPMoveDownTableChainSelectOuterJoinGNextSuperKey each implPgSqlSPMoveDownTableChainSelectOuterJoinGNextSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implPgSqlSPMoveDownTableChainSelectOuterJoinGNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOuterJoinGNextSuperKey"
+		>gnxt$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = gnxt$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOuterJoinGNextSuperAndKey">
+			and $implPgSqlSPMoveDownTableChainSelectOuterJoinGNextSuperKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectOuterJoinPrevSuper">
+		left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ prv$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implPgSqlSPMoveDownTableChainSelectOuterJoinPrevSuperKey each implPgSqlSPMoveDownTableChainSelectOuterJoinPrevSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implPgSqlSPMoveDownTableChainSelectOuterJoinPrevSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOuterJoinPrevSuperKey"
+		>prv$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = prv$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOuterJoinPrevSuperAndKey">
+			and $implPgSqlSPMoveDownTableChainSelectOuterJoinPrevSuperKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectOuterJoinNextSuper">
+		left outer join $lower DbSchemaName$.$reference SuperClassRelation reference ToTable DbTableName$ nxt$lower reference SuperClassRelation reference ToTable ClassCode$ on $reference SuperClassRelation iterate Columns( first implPgSqlSPMoveDownTableChainSelectOuterJoinNextSuperKey each implPgSqlSPMoveDownTableChainSelectOuterJoinNextSuperAndKey )$$reference SuperClassRelation reference ToTable switch HasSuperClassRelation yes implPgSqlSPMoveDownTableChainSelectOuterJoinNextSuper default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOuterJoinNextSuperKey"
+		>nxt$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$ = nxt$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOuterJoinNextSuperAndKey">
+			and $implPgSqlSPMoveDownTableChainSelectOuterJoinNextSuperKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOJGNextKey"
+		>gnxt$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$ = nxt$lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOJAndGNextKey">
+			and $implPgSqlSPMoveDownTableChainSelectOJGNextKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOJPrevKey"
+		>prv$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOJAndPrevKey">
+			and $implPgSqlSPMoveDownTableChainSelectOJPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOJNextKey"
+		>nxt$lower reference ToCol reference Index reference Table ClassCode$.$reference ToCol DbColumnName$ = $lower reference FromCol reference Index reference Table ClassCode$.$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableChainSelectOJAndNextKey">
+			and $implPgSqlSPMoveDownTableChainSelectOJNextKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectGNextClassCodeComma">
+		gnxt$lower reference BaseClass ClassCode$.classcode as gnxtclasscode,</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectPrevClassCodeComma">
+		prv$lower reference BaseClass ClassCode$.classcode as prvclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectGNextKeyComma">
+		nxt$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as gnxt$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectGNextKey">
+		nxt$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as gnxt$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectPrevKeyComma">
+		$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as prv$DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectNextClassCodeComma">
+		nxt$lower reference Chain reference Table reference BaseClass ClassCode$.classcode as nxtclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectNextKey">
+		$lower popto Table reference Chain reference Table ClassCode$.$DbColumnName$ as nxt$DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectNextKeyComma"
+		>$implPgSqlSPMoveDownTableChainSelectNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectIntoGNextClassCodeComma">
+		gnextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectIntoGNextKeyComma">
+		gnext$StripPrevNextColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectIntoGNextKey">
+		gnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectIntoPrevClassCodeComma">
+		varprevClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectIntoPrevKeyComma">
+		varprev$StripPrevNextColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableChainSelectIntoNextClassCodeComma">
+		varnextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectIntoNextKey">
+		varnext$StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableChainSelectIntoNextKeyComma"
+		>$implPgSqlSPMoveDownTableChainSelectIntoNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableFetchContainerKeys">
+	select$reference ContainerRelation iterate Columns( first implPgSqlSPMoveDownTableFetchContainerKeysColName each implPgSqlSPMoveDownTableFetchContainerKeysCommaColName )$
+	into$reference ContainerRelation iterate Columns( first implPgSqlSPMoveDownTableFetchContainerKeysIntoVar each implPgSqlSPMoveDownTableFetchContainerKeysCommaIntoVar )$
+	from $lower DbSchemaName$.$reference ContainerRelation reference FromTable DbTableName$
+	where$reference ContainerRelation reference FromTable reference PrimaryKeyIndex iterate Columns( first implPgSqlSPMoveDownTableFetchContainerKeysPassPKey each implPgSqlSPMoveDownTableFetchContainerKeysAndPassPKey )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableFetchContainerKeysColName">
+		$reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableFetchContainerKeysCommaColName"
+		>,$implPgSqlSPMoveDownTableFetchContainerKeysColName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableFetchContainerKeysIntoVar">
+		var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableFetchContainerKeysCommaIntoVar"
+		>,$implPgSqlSPMoveDownTableFetchContainerKeysIntoVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableFetchContainerKeysPassPKey">
+		$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPMoveDownTableFetchContainerKeysAndPassPKey">
+		and $DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPMoveDownTableContainerVars"
+		>$declPgSqlSPMoveDownTableActualContainerVars$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declPgSqlSPMoveDownTableActualContainerVars"
+		>$iterate Columns( each declPgSqlSPMoveDownTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declPgSqlSPMoveDownTableActualContainerVars"
+		>$reference ContainerRelation iterate Columns( each declPgSqlSPMoveDownTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="declPgSqlSPMoveDownTableContainerVar">
+	var$reference FromCol Name$ $reference FromCol clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implPgSqlSPMoveDownTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableLatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision + 1
+	where
+		$popto Relation iterate Columns( first implPgSqlSPMoveDownTableLatchWhereArg each implPgSqlSPMoveDownTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableLatchWhereArg"
+		>$reference ToCol DbColumnName$ = var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implPgSqlSPMoveDownTableLatchWhereAndArg">
+		and $implPgSqlSPMoveDownTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implPgSqlSPMoveDownTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableUnlatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision - 1
+	where
+		$popto Relation iterate Columns( first implPgSqlSPMoveDownTableLatchWhereArg each implPgSqlSPMoveDownTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableArgSecClusterId">,
+	secClusterId</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableArgSecTenantId">,
+	secTenantId</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableDeclPermFlag">
+	permissionFlag boolean;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableCheckSystem">
+	select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into permissionFlag;
+	if( permissionFlag = false )
+	then
+		raise exception 'Permission denied -- only system user can movedown $TableName$ records';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableCheckCluster">
+	if( old$reference ClusterIdColumn Name$ != secClusterId )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+		into permissionFlag;
+		if( permissionFlag = false )
+		then
+			raise exception 'Permission denied -- Data is not owned by logged in cluster';
+		end if;
+	end if;
+
+	select $lower DbSchemaName$.sp_is_cluster_user( old$reference ClusterIdColumn Name$,
+		'Update$Name$',
+		argAuditUserId )
+	into permissionFlag;
+	if( permissionFlag = false )
+	then
+		raise exception 'Permission denied -- User not found in cluster SecGroup for Update$TableName$';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPMoveDownTableCheckTenant">
+	if( old$reference TenantIdColumn Name$ != secTenantId )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+		into permissionFlag;
+		if( permissionFlag = false )
+		then
+			raise exception 'Permission denied -- Data is not owned by logged in tenant';
+		end if;
+	end if;
+
+	select $lower DbSchemaName$.sp_is_tenant_user( old$reference TenantIdColumn Name$,
+		'Update$Name$',
+		argAuditUserId )
+	into permissionFlag;
+	if( permissionFlag = false )
+	then
+		raise exception 'Permission denied -- User not found in tenant TSecGroup for Update$TableName$';
+	end if;
+</GenRule>
+
+</RuleSet>

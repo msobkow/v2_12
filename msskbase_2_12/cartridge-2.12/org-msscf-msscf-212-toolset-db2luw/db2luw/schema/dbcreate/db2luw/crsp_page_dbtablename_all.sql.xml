@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="db2luw"
+	Name="schema/dbcreate/db2luw/crsp_page_dbtablename_all.sql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPPageDbTableNameAll"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="db2luw"
+		ExpansionClassName="$dbadminfilename_CreateSPPageDbTableNameAll$"
+		ExpansionKeyName="$dbadminfilename_CreateSPPageDbTableNameAll$"
+		ExpansionFileName="$dbadminfilename_CreateSPPageDbTableNameAll$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create or replace procedure $sp_page_dbtablename_all$($implDb2LUWSPStandardArgs$$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implDb2LUWSPSpecPriorArg )$ )	\\
+dynamic result sets 1	\\
+language sql	\\
+begin	\\
+	declare permissionFlag integer;	\\
+	declare isSystemUser integer;$implSPPageDbTableNameAllDeclCursors$	\\
+	begin$switch TableName Cluster empty Tenant empty SecUser empty SecSession empty default implDb2LUWSPReadEnforceSec$$implDb2LUWSPPageTableImplBody$	\\
+	end;	\\
+end
+</GenFile>
+	<GenRule GenDef="Table" Name="implSPPageDbTableNameAllDeclCursors">	\\
+	declare syscurs cursor with return to client for	\\
+		select$implDb2LUWSelectTableColumns$,	\\
+			$lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$implSPReadTableOrderByDescendingPKey$$implSPReadTableFetchFirst$;	\\
+	declare syspage cursor with return to client for	\\
+		select$implDb2LUWSelectTableColumns$,	\\
+			$lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQueryBeforePrior default restrictWhereBeforePrior$$implSPReadTableOrderByDescendingPKey$$implSPReadTableFetchFirst$;$implSPPageDbTableNameAllDeclCursorsPart2$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPPageDbTableNameAllDeclCursorsPart2">	\\
+	declare usercurs cursor with return to client for	\\
+		select$implDb2LUWSelectTableColumns$,	\\
+			$lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictClassReadQueryMaybeSec default maybeRestrictReadSec$$implSPReadTableOrderByDescendingPKey$$implSPReadTableFetchFirst$;	\\
+	declare userpage cursor with return to client for	\\
+		select$implDb2LUWSelectTableColumns$,	\\
+			$lower reference BaseClass ClassCode$.revision as revision	\\
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implDb2LUWClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictClassReadQueryMaybeSecBeforePrior default maybeRestrictReadSecBeforePrior$$implSPReadTableOrderByDescendingPKey$$implSPReadTableFetchFirst$;</GenRule>
+
+	<GenRule GenDef="Object" Name="implSPReadTableFetchFirst">	\\
+		fetch first 25 rows only</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictClassReadQueryMaybeSecBeforePrior">	\\
+		where	\\
+			$lower reference BaseClass ClassCode$.ClassCode = '$poptop Table ClassCode$'$restrictAndBeforePrior$$poptop Table implDb2LUWReadRestrictSec$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRestrictReadTenantBeforePrior"
+		>$implRestrictReadTenant$$restrictAndBeforePrior$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRestrictReadClusterBeforePrior"
+		>$implRestrictReadCluster$$restrictAndBeforePrior$</GenRule>
+
+
+	<GenRule GenDef="Table" Name="maybeRestrictReadSecBeforePrior"
+		>$switch SecScope None restrictWhereBeforePrior System restrictWhereBeforePrior Cluster implRestrictReadClusterBeforePrior Tenant implRestrictReadTenantBeforePrior default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPPageTableImplBodySystem">	\\
+		if( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implDb2LUWPriorNotNull each implDb2LUWAndPriorNotNull )$ )	\\
+		then	\\
+			open syspage;	\\
+		end if;	\\
+		if( not ( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implDb2LUWPriorNotNull each implDb2LUWAndPriorNotNull )$ ) )	\\
+		then	\\
+			open syscurs;	\\
+		end if;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWPriorNotNull"
+		>( prior$Name$ is not null )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWAndPriorNotNull"
+		> and $implDb2LUWPriorNotNull$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPPageTableImplBodyRestrict">	\\
+		set( isSystemUser ) = ( sp_is_system_user( argAuditUserId ) );	\\
+		if( ( isSystemUser = 1 ) and ( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implDb2LUWPriorNotNull each implDb2LUWAndPriorNotNull )$ ) )	\\
+		then	\\
+			open syspage;	\\
+		end if;	\\
+		if( ( isSystemUser = 1 ) and ( not ( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implDb2LUWPriorNotNull each implDb2LUWAndPriorNotNull )$ ) ) )	\\
+		then	\\
+			open syscurs;	\\
+		end if;	\\
+		if( ( isSystemUser = 0 ) and ( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implDb2LUWPriorNotNull each implDb2LUWAndPriorNotNull )$ ) )	\\
+		then	\\
+			open userpage;	\\
+		end if;	\\
+		if( ( isSystemUser = 0 ) and ( not ( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implDb2LUWPriorNotNull each implDb2LUWAndPriorNotNull )$ ) ) )	\\
+		then	\\
+			open usercurs;	\\
+		end if;</GenRule>
+
+	<GenRule GenDef="Index" Name="implDb2LUWSPPageTableImplBody"
+		>$poptop Table implDb2LUWSPPageTableImplBody$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDb2LUWSPPageTableImplBody"
+		>$switch TableName Cluster implDb2LUWSPPageTableImplBodySystem Tenant implDb2LUWSPPageTableImplBodySystem SecUser implDb2LUWSPPageTableImplBodySystem SecSession implDb2LUWSPPageTableImplBodySystem default evalDb2LUWSPPageTableImplBodySysOrRestrict$</GenRule>
+
+	<GenRule GenDef="Table" Name="evalDb2LUWSPPageTableImplBodySysOrRestrict"
+		>$switch SecScope None implDb2LUWSPPageTableImplBodySystem System implDb2LUWSPPageTableImplBodySystem default implDb2LUWSPPageTableImplBodyRestrict$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDb2LUWSPSpecPriorArg">,	\\
+	in prior$Name$ $clause_SPColType$</GenRule>
+
+	<GenRule GenDef="Object" Name="clauseEmitWhere">	\\
+			where </GenRule>
+
+	<GenRule GenDef="Object" Name="restrictQueryWhereBeforePrior"
+		>$clauseEmitWhere$$restrictBeforePrior$</GenRule>
+
+	<GenRule GenDef="Object" Name="emitLParen">( </GenRule>
+	<GenRule GenDef="Object" Name="emitRParen"> )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="emitAndPriorEquals">	\\
+					and $emitPriorEquals$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="emitAndPriorLess">	\\
+					and $emitPriorLess$</GenRule>
+
+	<GenRule GenDef="Object" Name="emitOr">	\\
+				or </GenRule>
+
+	<GenRule GenDef="IndexCol" Name="emitPriorEquals"
+		>( $lower reference Index reference Table ClassCode$.$DbColumnName$ = prior$Name$ )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="emitPriorLess"
+		>( $lower reference Index reference Table ClassCode$.$DbColumnName$ &lt; prior$Name$ )</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictBaseReadQueryByClassCodeBeforePrior"
+		>$switch IsBaseTable yes restrictReadQueryByClassCodeAndBeforePrior default restrictQueryWhereBeforePrior $</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictReadAllQueryWhereBeforePrior"
+		>$switch HasSuperClassRelation yes restrictReadQueryByClassCodeAndBeforePrior default restrictBaseReadQueryByClassCodeAndBeforePrior$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictBaseReadQueryByClassCodeAndBeforePrior"
+		>$switch IsBaseTable yes restrictReadQueryByClassCode default clauseEmitWhere$
+			and $restrictBeforePrior$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictReadQueryByClassCodeAndBeforePrior"
+		>$restrictReadQueryByClassCode$	\\
+			and $restrictBeforePrior$</GenRule>
+
+	<GenRule GenDef="Index" Name="restrictAndBeforePrior"
+		>$poptop Table restrictAndBeforePrior$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictAndBeforePrior">	\\
+			and $restrictBeforePriorCore$</GenRule>
+
+	<GenRule GenDef="Index" Name="restrictBeforePrior"
+		>$poptop Table restrictBeforePrior$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictBeforePrior">	\\
+			$restrictBeforePriorCore$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictWhereBeforePrior">	\\
+		where $restrictBeforePriorCore$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictBeforePriorCore"
+			>( $reference BaseClass reference PrimaryKeyIndex spread Columns( before emitLParen after emitRParen first emitPriorEquals each emitAndPriorEquals last emitAndPriorLess lone emitPriorLess between emitOr )$ )</GenRule>
+
+</RuleSet>

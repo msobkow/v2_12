@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="Top"
+	Revision="2.12"
+	Descr="Top level rules for building files">
+
+	<GenRule GenDef="MinorVersion" Name="top"
+		>$iterate SchemaDef( each schemaFiles )$</GenRule>
+
+	<GenRule ScopeDef="MinorVersion" GenDef="SchemaDef" Name="schemaFiles"
+		>$validatePageData$$fileSchemaCPlusGitIgnore$$fileSchemaCoreGitIgnore$$fileLibSchemaDotGitIgnore$$fileCleanSchemaWslBash$$fileBuildSchemaWslBash$$fileCompileSchemaWslBash$$fileInstallSchemaWslBash$$fileConfigureAC$$fileMakefileAM$$fileSchemaISchemaHpp$$fileSchemaISchemaCpp$$fileSchemaSchemaHpp$$fileSchemaSchemaCpp$$fileSchemaISchemaPublicHpp$$fileSchemaISchemaPublicCpp$$fileSchemaAuthorizationHpp$$fileSchemaAuthorizationCpp$$fileSchemaITablePermsHpp$$fileSchemaITablePermsCpp$$fileISchemaSchemaObjHpp$$fileISchemaSchemaObjCpp$$fileISchemaObjPublicHpp$$fileISchemaObjPublicCpp$$fileSchemaSchemaObjHpp$$fileSchemaSchemaObjCpp$$fileSchemaRamSchemaHPlus$$fileSchemaRamSchemaCPlus$$fileSchemaRamPublicHPlus$$fileSchemaRamPublicCPlus$$iterate SchemaTables( each tableFiles )$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="validatePageData"
+		>$iterate SchemaTables( each validatePageData )$</GenRule>
+	<GenRule GenDef="Table" Name="validatePageData"
+		>$switch PageData yes checkPageDataNoSubclasses default empty$</GenRule>
+	<GenRule GenDef="Table" Name="checkPageDataNoSubclasses"
+		>$switch HasSubClasses no checkPageDataNormalizedKey default FailAssertPageDataNotAllowedForTablesWithSubclasses$</GenRule>
+	<GenRule GenDef="Table" Name="checkPageDataNormalizedKey"
+		>$reference BaseClass reference PrimaryKeyIndex checkPageDataNormalizedKey$</GenRule>
+	<GenRule GenDef="Index" Name="checkPageDataNormalizedKey"
+		>$iterate Columns( each checkPageDataNormalizedKey )$</GenRule>
+	<GenRule GenDef="IndexCol" Name="checkPageDataNormalizedKey"
+		>$switch IsNullable no empty default FailAssertPageDataNotAllowedForPrimaryKeyWithOptionalColumns$</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="tableFiles"
+		>$tableFilesNoDefSchema$$fileSchemaTableTableHpp$$fileSchemaTableTableCpp$$fileSchemaTableObjHpp$$fileSchemaTableObjCpp$$fileISchemaTableObjHpp$$fileISchemaTableObjCpp$$fileIObjHpp$$fileIObjCpp$$fileIEditObjHpp$$fileIEditObjCpp$$fileObjHpp$$fileObjCpp$$fileEditObjHpp$$fileEditObjCpp$$fileSchemaRamTableTableHPlus$$fileSchemaRamTableTableCPlus$$iterate DispensedId16Generators( first fileSchemaRamTableId16GenHPlus each empty empty empty )$$iterate DispensedId32Generators( first fileSchemaRamTableId32GenHPlus each empty empty empty )$$iterate DispensedId64Generators( first fileSchemaRamTableId64GenHPlus each empty empty empty )$$iterate DispensedId16Generators( first fileSchemaRamTableId16GenCPlus each empty empty empty )$$iterate DispensedId32Generators( first fileSchemaRamTableId32GenCPlus each empty empty empty )$$iterate DispensedId64Generators( first fileSchemaRamTableId64GenCPlus each empty empty empty )$</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Table" Name="tableFilesNoDefSchema"
+		>$switch HasSuperClassRelation no fileSchemaTablePKeyHpp default empty$$switch HasSuperClassRelation no fileSchemaTablePKeyCpp default empty$$fileSchemaTableBuffHpp$$fileSchemaTableBuffCpp$$indexFilesNoDefSchema$</GenRule>
+
+	<GenRule GenDef="Table" Name="indexFilesNoDefSchema"
+		>$iterate Index( each indexFilesNoDefSchema )$</GenRule>
+
+	<GenRule GenDef="Index" Name="indexFilesNoDefSchema"
+		>$switch IsPrimaryIndex no fileSchemaTableIndexKeyHpp default empty$$switch IsPrimaryIndex no fileSchemaTableIndexKeyCpp default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="ContainerStyle">$popto TableDef ContainerStyle$</GenRule>
+	<GenRule GenDef="Table" Name="ContainerStyle"
+		>$switch ContainerStyleInternal
+			Single ContainerStyleSingle
+			None ContainerStyleNone
+			empty ContainerStyleMultiple
+			default ContainerStyleMultiple$</GenRule>
+
+	<GenRule GenDef="Table" Name="ContainerStyleInternal"
+		>$iterate ContainerRelations( lone ContainerStyleSingle empty ContainerStyleNone each ContainerStyleYada )$</GenRule>
+
+	<GenRule GenDef="Object" Name="ContainerStyleYada">Yada</GenRule>
+	<GenRule GenDef="Object" Name="ContainerStyleSingle">Single</GenRule>
+	<GenRule GenDef="Object" Name="ContainerStyleNone">None</GenRule>
+	<GenRule GenDef="Object" Name="ContainerStyleMultiple">Multiple</GenRule>
+
+</RuleSet>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="oracle"
+	Name="schema/dbcreate/oracle/cridx_index.plsql"
+	Revision="2.12"
+	Descr="Oracle Create Index PL/SQL Script">
+
+	<GenFile ScopeDef="Table" GenDef="Index" Name="dbadminfile_CreateIndex"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="oracle"
+		ExpansionClassName="cridx_$lower DbIndexName$"
+		ExpansionKeyName="cridx_$lower DbIndexName$"
+		ExpansionFileName="$dbadminfilename_CreateIndex$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+CREATE$switch IsUnique yes clause_Unique default empty$ INDEX $DbIndexName$ ON $lower DbSchemaName$.$DbTableName$ ($iterate Columns( each clause_IndexColComma last clause_IndexCol )$ )
+	TABLESPACE $lower DbSchemaName$_idx1$RunSqlStmt$
+</GenFile>
+
+	<GenRule ScopeDef="Table" GenDef="Index" Name="clause_Unique"> UNIQUE</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Index" Name="clause_Unique"> UNIQUE</GenRule>
+
+	<GenRule ScopeDef="Index" GenDef="IndexCol" Name="clause_IndexColComma">$clause_IndexCol$,</GenRule>
+
+	<GenRule ScopeDef="Index" GenDef="IndexCol" Name="clause_IndexCol">
+	$lower reference Column DbColumnName$$clause_SpecifySorting$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="clause_SpecifySorting"
+		> $switch IsAscending yes emit_SpecifyAscending default emit_SpecifyDescending$</GenRule>
+
+	<GenRule GenDef="Object" Name="emit_SpecifyAscending">ASC</GenRule>
+	<GenRule GenDef="Object" Name="emit_SpecifyDescending">DESC</GenRule>
+
+</RuleSet>

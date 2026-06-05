@@ -1,0 +1,2080 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/SchemaTableHPKey.cpp"
+	Revision="2.12"
+	Descr="C++18 implementation of a $TableName$ history primary key object.">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableHPKeyCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$$TableName$HPKeyCpp"
+		ExpansionKeyName="$SchemaName$$TableName$HPKeyCpp"
+		ExpansionFileName="$SchemaName$$TableName$HPKey.cpp"
+>// Description: C++18 implementation of a $TableName$ history primary key object.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+#include &lt;$lower SchemaName$/$SchemaName$HPKey.hpp&gt;
+#include &lt;$lower SchemaName$/$SchemaName$$TableName$PKey.hpp&gt;
+#include &lt;$lower SchemaName$/$SchemaName$$TableName$HPKey.hpp&gt;
+#include &lt;$lower SchemaName$/$SchemaName$$TableName$Buff.hpp&gt;
+#include &lt;$lower SchemaName$/$SchemaName$$TableName$HBuff.hpp&gt;
+
+namespace $CPlusNamespace$ {
+$switch HasDefSchema yes SchemaTableHPKeyExtendDefBody default SchemaTableHPKeyImplDefBody$}
+$reference PrimaryKeyIndex implStdHPKeyComparison$
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implHPKeySet">
+	$SchemaName$$TableName$HPKey $SchemaName$$TableName$HPKey::operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$PKey&amp; src ) {$reference PrimaryKeyIndex iterate Columns( each implBuffSetCopyCol )$
+		return( *this );
+	}
+
+	$SchemaName$$TableName$HPKey $SchemaName$$TableName$HPKey::operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$HPKey&amp; src ) {$reference PrimaryKeyIndex iterate Columns( each implBuffSetCopyCol )$
+		return( *this );
+	}
+
+	$SchemaName$$TableName$HPKey $SchemaName$$TableName$HPKey::operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff&amp; src ) {$reference PrimaryKeyIndex iterate Columns( each implBuffSetCopyCol )$
+		return( *this );
+	}
+
+	$SchemaName$$TableName$HPKey $SchemaName$$TableName$HPKey::operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$HBuff&amp; src ) {$reference PrimaryKeyIndex iterate Columns( each implBuffSetCopyCol )$
+		return( *this );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTableHPKeyExtendDefBody">
+	const std::string $SchemaName$$TableName$HPKey::CLASS_NAME( "$SchemaName$$TableName$HPKey" );
+
+	$poptop SchemaDef SchemaName$$TableName$HPKey::$poptop SchemaDef SchemaName$$TableName$HPKey()
+	: $switch HasDefSchema yes SchemaTableHPKeyConstructDefSchemaNameHPKey default SchemaTableHPKeyConstructSchemaHPKey$ {$reference PrimaryKeyIndex iterate Columns( each implConstructorInitAttr )$
+	}
+
+	$poptop SchemaDef SchemaName$$TableName$HPKey::$poptop SchemaDef SchemaName$$TableName$HPKey( const $poptop SchemaDef SchemaName$$TableName$HPKey&amp; src )
+	: $switch HasDefSchema yes SchemaTableHPKeyConstructDefSchemaNameHPKey default SchemaTableHPKeyConstructSchemaHPKey$ {$reference PrimaryKeyIndex iterate Columns( each implConstructorInitAttr )$$reference PrimaryKeyIndex iterate Columns( each implBuffSetCopyCol )$
+	}
+
+	$poptop SchemaDef SchemaName$$TableName$HPKey::~$poptop SchemaDef SchemaName$$TableName$HPKey() {$reference PrimaryKeyIndex iterate Columns( each implDestructorDestructAttr )$
+	}
+$implHPKeyComparison$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTableHPKeyImplDefBody">
+	const std::string $SchemaName$$TableName$HPKey::CLASS_NAME( "$SchemaName$$TableName$HPKey" );
+	const std::string $SchemaName$$TableName$HPKey::S_VALUE( "value" );
+$reference PrimaryKeyIndex implHPKeyConstructor$$reference PrimaryKeyIndex iterate Columns( each implHPKeyColumnGetterSetter )$$reference PrimaryKeyIndex implHPKeyGetHashCode$$reference PrimaryKeyIndex implHPKeyToString$$reference PrimaryKeyIndex implHPKeyComparison$$implHPKeySet$</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTableHPKeyConstructDefSchemaNameHPKey">$CPlusDefNamespace$::$DefSchemaName$$TableName$HPKey()</GenRule>
+	<GenRule GenDef="Object" Name="SchemaTableHPKeyConstructSchemaHPKey">$SchemaName$HPKey()</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTableHPKeyClassSuper"
+	>$switch HasDefSchema yes SchemaTableHPKeyClassSuperDefSchemaNameHPKey default SchemaTableHPKeyClassSuperSchemaHPKey$</GenRule>
+	<GenRule GenDef="Table" Name="SchemaTableHPKeyClassSuperDefSchemaNameHPKey">$CPlusDefNamespace$::$DefSchemaName$$TableName$HPKey</GenRule>
+	<GenRule GenDef="Object" Name="SchemaTableHPKeyClassSuperSchemaHPKey">$SchemaName$HPKey</GenRule>
+
+	<GenRule GenDef="Index" Name="implHPKeyConstructor">
+	$SchemaName$$TableName$HPKey::$SchemaName$$TableName$HPKey()
+	: $switch HasDefSchema yes SchemaTableHPKeyConstructDefSchemaNameHPKey default SchemaTableHPKeyConstructSchemaHPKey$
+	{$iterate Columns( each implConstructorInitAttr )$
+	}
+
+	$SchemaName$$TableName$HPKey::$SchemaName$$TableName$HPKey( const $SchemaName$$TableName$HPKey&amp; src )
+	: $switch HasDefSchema yes SchemaTableHPKeyConstructDefSchemaNameHPKey default SchemaTableHPKeyConstructSchemaHPKey$
+	{$iterate Columns( each implConstructorInitAttr )$$iterate Columns( each implBuffSetCopyCol )$
+	}
+
+	$SchemaName$$TableName$HPKey::~$poptop SchemaDef SchemaName$$TableName$HPKey() {$iterate Columns( each implDestructorDestructAttr )$
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implHPKeyGetHashCode">
+	size_t $SchemaName$$TableName$HPKey::hashCode() const {
+		size_t hashCode = $popto Table SchemaTableHPKeyClassSuper$::hashCode();$iterate Columns( each implGetHashCodeAttr )$
+		return( hashCode );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implHPKeyToString">
+	std::string $SchemaName$$TableName$HPKey::toString() {
+		static const std::string S_Space( " " );
+		static const std::string S_Preamble( "&lt;$SchemaName$HPKey" );
+		static const std::string S_Postamble( "/&gt;" );
+		static const std::string S_AuditClusterId( "AuditClusterId" );
+		static const std::string S_AuditStamp( "AuditStamp" );
+		static const std::string S_AuditActionId( "AuditActionId" );
+		static const std::string S_Revision( "Revision" );
+		static const std::string S_AuditSessionId( "AuditSessionId" );$iterate Columns( each implToStringAttrName )$
+		std::string ret( S_Preamble );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredInt64( &amp;S_Space, S_AuditClusterId, auditClusterId ) );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredTZTimestamp( &amp;S_Space, S_AuditClusterId, auditStamp ) );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredInt16( &amp;S_Space, S_AuditActionId, auditActionId ) );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredInt32( &amp;S_Space, S_Revision, requiredRevision ) );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredUuid( &amp;S_Space, S_AuditSessionId, auditSessionId ) );$iterate Columns( each implToStringEmitXmlAttr )$
+		ret.append( S_Postamble );
+		return( ret );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implHPKeyColumnGetterSetter"
+	>$reference Column implHPKeyColumnGetterSetter$</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyColumnGetterSetter"
+	>$switch IsNullable yes implHPKeyOptGetterSetter default implHPKeyReqGetterSetter$</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqGetterSetter"
+	>$switch BaseModelAtomClass
+		BlobDef implHPKeyReqBlobGetterSetter
+		BoolDef implHPKeyReqBoolGetterSetter
+		EnumDef implHPKeyReqEnumGetterSetter
+		Id16Gen implHPKeyReqInt16GetterSetter
+		Id32Gen implHPKeyReqInt32GetterSetter
+		Id64Gen implHPKeyReqInt64GetterSetter
+		Int16Def implHPKeyReqInt16GetterSetter
+		Int32Def implHPKeyReqInt32GetterSetter
+		Int64Def implHPKeyReqInt64GetterSetter
+		UInt16Def implHPKeyReqUInt16GetterSetter
+		UInt32Def implHPKeyReqUInt32GetterSetter
+		UInt64Def implHPKeyReqUInt64GetterSetter
+		FloatDef implHPKeyReqFloatGetterSetter
+		DoubleDef implHPKeyReqDoubleGetterSetter
+		NumberDef implHPKeyReqNumberGetterSetter
+		DateDef implHPKeyReqDateGetterSetter
+		TimeDef implHPKeyReqTimeGetterSetter
+		TimestampDef implHPKeyReqTimestampGetterSetter
+		TZDateDef implHPKeyReqTZDateGetterSetter
+		TZTimeDef implHPKeyReqTZTimeGetterSetter
+		TZTimestampDef implHPKeyReqTZTimestampGetterSetter
+		UuidGen implHPKeyReqUuidGetterSetter
+		UuidDef implHPKeyReqUuidGetterSetter
+		StringDef implHPKeyReqStringGetterSetter
+		TokenDef implHPKeyReqTokenGetterSetter
+		NmTokenDef implHPKeyReqNmTokenGetterSetter
+		NmTokensDef implHPKeyReqNmTokensGetterSetter
+		TextDef implHPKeyReqTextGetterSetter
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqBlobGetterSetter">
+	const std::vector&lt;cflib::BYTE&gt;&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::vector&lt;cflib::BYTE&gt;* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::vector&lt;cflib::BYTE&gt;&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );
+		static const std::string S_ValueSize( "value.size()" );
+		if( value.size() > $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN ) {
+			throw cflib::CFLibArgumentOverflowException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_ValueSize,
+				value.size(),
+				$SchemaName$$TableName$Buff::$upper Name$_MAX_LEN );
+		}
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::vector&lt;cflib::BYTE&gt;( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqBoolGetterSetter">
+	const bool $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const bool value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqEnumGetterSetter">
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqInt16GetterSetter">
+	const int16_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const int16_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const int16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqInt32GetterSetter">
+	const int32_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const int32_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const int32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqInt64GetterSetter">
+	const int64_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const int64_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const int64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqUInt16GetterSetter">
+	const uint16_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uint16_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const uint16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqUInt32GetterSetter">
+	const uint32_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uint32_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const uint32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqUInt64GetterSetter">
+	const uint64_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uint64_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const uint64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqFloatGetterSetter">
+	const float $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const float* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const float value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqDoubleGetterSetter">
+	const double $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const double* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const double value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqNumberGetterSetter">
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const cflib::CFLibGenericBigDecimal&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqDateGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqTimeGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqTimestampGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqTZDateGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqTZTimeGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqTZTimestampGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqUuidGetterSetter">
+	const uuid_ptr_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uuid_ptr_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const uuid_ptr_t value ) {
+		uuid_copy( $lower implColumnAttrOptionality$$Name$, value );
+	}
+
+	void $SchemaName$$TableName$HPKey::generate$implColumnAttrOptionality$$Name$() {
+		uuid_generate_random( $lower implColumnAttrOptionality$$Name$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqStringGetterSetter">
+	const std::string&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqTokenGetterSetter">
+	const std::string&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqNmTokenGetterSetter">
+	const std::string&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqNmTokensGetterSetter">
+	const std::string&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyReqTextGetterSetter">
+	const std::string&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptGetterSetter"
+	>$switch BaseModelAtomClass
+		BlobDef implHPKeyOptBlobGetterSetter
+		BoolDef implHPKeyOptBoolGetterSetter
+		EnumDef implHPKeyOptEnumGetterSetter
+		Id16Gen implHPKeyOptInt16GetterSetter
+		Id32Gen implHPKeyOptInt32GetterSetter
+		Id64Gen implHPKeyOptInt64GetterSetter
+		Int16Def implHPKeyOptInt16GetterSetter
+		Int32Def implHPKeyOptInt32GetterSetter
+		Int64Def implHPKeyOptInt64GetterSetter
+		UInt16Def implHPKeyOptUInt16GetterSetter
+		UInt32Def implHPKeyOptUInt32GetterSetter
+		UInt64Def implHPKeyOptUInt64GetterSetter
+		FloatDef implHPKeyOptFloatGetterSetter
+		DoubleDef implHPKeyOptDoubleGetterSetter
+		NumberDef implHPKeyOptNumberGetterSetter
+		DateDef implHPKeyOptDateGetterSetter
+		TimeDef implHPKeyOptTimeGetterSetter
+		TimestampDef implHPKeyOptTimestampGetterSetter
+		TZDateDef implHPKeyOptTZDateGetterSetter
+		TZTimeDef implHPKeyOptTZTimeGetterSetter
+		TZTimestampDef implHPKeyOptTZTimestampGetterSetter
+		UuidGen implHPKeyOptUuidGetterSetter
+		UuidDef implHPKeyOptUuidGetterSetter
+		StringDef implHPKeyOptStringGetterSetter
+		TokenDef implHPKeyOptTokenGetterSetter
+		NmTokenDef implHPKeyOptNmTokenGetterSetter
+		NmTokensDef implHPKeyOptNmTokensGetterSetter
+		TextDef implHPKeyOptTextGetterSetter
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptBlobGetterSetter">
+	const std::vector&lt;cflib::BYTE&gt;&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::vector&lt;cflib::BYTE&gt;* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::vector&lt;cflib::BYTE&gt;&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ValueSize( "value.size()" );
+		if( value.size() > $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN ) {
+			throw cflib::CFLibArgumentOverflowException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_ValueSize,
+				value.size(),
+				$SchemaName$$TableName$Buff::$upper Name$_MAX_LEN );
+		}
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::vector&lt;cflib::BYTE&gt;( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptBoolGetterSetter">
+	const bool $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const bool* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const bool value ) {
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptEnumGetterSetter">
+	const const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			$lower implColumnAttrOptionality$$Name$ = new I$reference DataType EffSchemaName$Schema::$reference DataType Name$;
+		}
+		*$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptInt16GetterSetter">
+	const int16_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const int16_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const int16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptInt32GetterSetter">
+	const int32_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const int32_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const int32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptInt64GetterSetter">
+	const int64_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const int64_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const int64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptUInt16GetterSetter">
+	const uint16_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const uint16_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const uint16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptUInt32GetterSetter">
+	const uint32_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const uint32_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const uint32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptUInt64GetterSetter">
+	const uint64_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const uint64_t* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const uint64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptFloatGetterSetter">
+	const float $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const float* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const float value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptDoubleGetterSetter">
+	const double $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const double* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const double value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptNumberGetterSetter">
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const cflib::CFLibGenericBigDecimal&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		std::string fieldName( CLASS_NAME );
+		fieldName.append( S_ColumnName );
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;::coerce( fieldName, value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptDateGetterSetter">
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptTimeGetterSetter">
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptTimestampGetterSetter">
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptTZDateGetterSetter">
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptTZTimeGetterSetter">
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptTZTimestampGetterSetter">
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptUuidGetterSetter">
+	const uuid_ptr_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		if( is$implColumnAttrOptionality$$Name$Null() ) {
+			return( NULL );
+		}
+		else {
+			return( $lower implColumnAttrOptionality$$Name$ );
+		}
+	}
+
+	const uuid_ptr_t $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( is$implColumnAttrOptionality$$Name$Null() ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		for( int i = 0; i &lt; 16; i ++ ) {
+			if( $lower implColumnAttrOptionality$$Name$[ i ] != 0 ) {
+				return( false );
+			}
+		}
+		return( true );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		for( int i = 0; i &lt; 16; i ++ ) {
+			$lower implColumnAttrOptionality$$Name$[i] = 0;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const uuid_ptr_t value ) {
+		uuid_copy( $lower implColumnAttrOptionality$$Name$, *value );
+	}
+
+	void $SchemaName$$TableName$HPKey::generate$implColumnAttrOptionality$$Name$() {
+		uuid_generate_random( $lower implColumnAttrOptionality$$Name$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptStringGetterSetter">
+	const std::string* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptTokenGetterSetter">
+	const std::string* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptNmTokenGetterSetter">
+	const std::string* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptNmTokensGetterSetter">
+	const std::string* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implHPKeyOptTextGetterSetter">
+	const std::string* $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string&amp; $SchemaName$$TableName$HPKey::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $SchemaName$$TableName$HPKey::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$HPKey::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implHPKeyComparison"
+	>$implHPKeyComparisonLessThan$
+$implHPKeyComparisonLessOrEqual$
+$implHPKeyComparisonEqual$
+$implHPKeyComparisonNotEqual$
+$implHPKeyComparisonGreaterOrEqual$
+$implHPKeyComparisonGreaterThan$
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditComparisonLessThan">
+		if( getAuditClusterId() &gt; rhs.getAuditClusterId() ) {
+			return( false );
+		}
+		else if( getAuditClusterId() &lt; rhs.getAuditClusterId() ) {
+			return( true );
+		}
+		if( getAuditStamp() &gt; rhs.getAuditStamp() ) {
+			return( false );
+		}
+		else if( getAuditStamp() &lt; rhs.getAuditStamp() ) {
+			return( true );
+		}
+		if( getAuditActionId() &gt;= rhs.getAuditActionId() ) {
+			return( false );
+		}
+		else if( getAuditActionId() &lt;= rhs.getAuditActionId() ) {
+			return( true );
+		}
+		if( getRequiredRevision() &gt;= rhs.getRequiredRevision() ) {
+			return( false );
+		}
+		else if( getRequiredRevision() &lt;= rhs.getRequiredRevision() ) {
+			return( true );
+		}
+		if( getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( false );
+			}
+			const uuid_ptr_t lhuuid = getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) &gt; 0 ) {
+				return( false );
+			}
+			else if( uuid_compare( lhuuid, rhuuid ) &lt; 0 ) {
+				return( true );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( false );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implHPKeyComparisonLessThan">
+	bool $SchemaName$$TableName$HPKey::operator &lt;( const $SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implLessThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &lt;( const $SchemaName$$TableName$HPKey&amp; rhs ) {$implAuditComparisonLessThan$$iterate Columns( each implLessThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &lt;( const $SchemaName$$TableName$HBuff&amp; rhs ) {$implAuditComparisonLessThan$$iterate Columns( each implLessThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &lt;( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implLessThanCmpAttr )$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditComparisonLessOrEqual">
+		if( getAuditClusterId() &gt; rhs.getAuditClusterId() ) {
+			return( false );
+		}
+		else if( getAuditClusterId() &lt; rhs.getAuditClusterId() ) {
+			return( true );
+		}
+		if( getAuditStamp() &gt; rhs.getAuditStamp() ) {
+			return( false );
+		}
+		else if( getAuditStamp() &lt; rhs.getAuditStamp() ) {
+			return( true );
+		}
+		if( getAuditActionId() &gt; rhs.getAuditActionId() ) {
+			return( false );
+		}
+		else if( getAuditActionId() &lt; rhs.getAuditActionId() ) {
+			return( true );
+		}
+		if( getRequiredRevision() &gt; rhs.getRequiredRevision() ) {
+			return( false );
+		}
+		else if( getRequiredRevision() &lt; rhs.getRequiredRevision() ) {
+			return( true );
+		}
+		if( getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( false );
+			}
+			const uuid_ptr_t lhuuid = getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) &gt; 0 ) {
+				return( false );
+			}
+			else if( uuid_compare( lhuuid, rhuuid ) &lt; 0 ) {
+				return( true );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( false );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implHPKeyComparisonLessOrEqual">
+	bool $SchemaName$$TableName$HPKey::operator &lt;=( const $SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &lt;=( const $SchemaName$$TableName$HPKey&amp; rhs ) {$implAuditComparisonLessOrEqual$$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &lt;=( const $SchemaName$$TableName$HBuff&amp; rhs ) {$implAuditComparisonLessOrEqual$$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &lt;=( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditComparisonEqual">
+		if( getAuditClusterId() != rhs.getAuditClusterId() ) {
+			return( false );
+		}
+		if( getAuditStamp() != rhs.getAuditStamp() ) {
+			return( false );
+		}
+		if( getAuditActionId() != rhs.getAuditActionId() ) {
+			return( false );
+		}
+		if( getRequiredRevision() != rhs.getRequiredRevision() ) {
+			return( false );
+		}
+		if( getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( false );
+			}
+			const uuid_ptr_t lhuuid = getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) != 0 ) {
+				return( false );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( false );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implHPKeyComparisonEqual">
+	bool $SchemaName$$TableName$HPKey::operator ==( const $SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator ==( const $SchemaName$$TableName$HPKey&amp; rhs ) {$implAuditComparisonEqual$$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator ==( const $SchemaName$$TableName$HBuff&amp; rhs ) {$implAuditComparisonEqual$$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator ==( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditComparisonNotEqual">
+		if( getAuditClusterId() != rhs.getAuditClusterId() ) {
+			return( true );
+		}
+		if( getAuditStamp() != rhs.getAuditStamp() ) {
+			return( true );
+		}
+		if( getAuditActionId() != rhs.getAuditActionId() ) {
+			return( true );
+		}
+		if( getRequiredRevision() != rhs.getRequiredRevision() ) {
+			return( true );
+		}
+		if( getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( true );
+			}
+			const uuid_ptr_t lhuuid = getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) != 0 ) {
+				return( true );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( true );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implHPKeyComparisonNotEqual">
+	bool $SchemaName$$TableName$HPKey::operator !=( const $SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implNotEqualCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator !=( const $SchemaName$$TableName$HPKey&amp; rhs ) {$implAuditComparisonNotEqual$$iterate Columns( each implNotEqualCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator !=( const $SchemaName$$TableName$HBuff&amp; rhs ) {$implAuditComparisonNotEqual$$iterate Columns( each implNotEqualCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator !=( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implNotEqualCmpAttr )$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditComparisonGreaterOrEqual">
+		if( getAuditClusterId() &lt; rhs.getAuditClusterId() ) {
+			return( false );
+		}
+		else if( getAuditClusterId() &gt; rhs.getAuditClusterId() ) {
+			return( true );
+		}
+		if( getAuditStamp() &lt; rhs.getAuditStamp() ) {
+			return( false );
+		}
+		else if( getAuditStamp() &gt; rhs.getAuditStamp() ) {
+			return( true );
+		}
+		if( getAuditActionId() &lt; rhs.getAuditActionId() ) {
+			return( false );
+		}
+		else if( getAuditActionId() &gt; rhs.getAuditActionId() ) {
+			return( true );
+		}
+		if( getRequiredRevision() &lt; rhs.getRequiredRevision() ) {
+			return( false );
+		}
+		else if( getRequiredRevision() &gt; rhs.getRequiredRevision() ) {
+			return( true );
+		}
+		if( getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( true );
+			}
+			const uuid_ptr_t lhuuid = getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) &lt; 0 ) {
+				return( false );
+			}
+			else if( uuid_compare( lhuuid, rhuuid ) &gt; 0 ) {
+				return( true );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( false );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implHPKeyComparisonGreaterOrEqual">
+	bool $SchemaName$$TableName$HPKey::operator &gt;=( const $SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &gt;=( const $SchemaName$$TableName$HPKey&amp; rhs ) {$implAuditComparisonGreaterOrEqual$$iterate Columns( each implGreaterOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &gt;=( const $SchemaName$$TableName$HBuff&amp; rhs ) {$implAuditComparisonGreaterOrEqual$$iterate Columns( each implGreaterOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &gt;=( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpAttr )$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Object" Name="implAuditComparisonGreaterThan">
+		if( getAuditClusterId() &lt; rhs.getAuditClusterId() ) {
+			return( false );
+		}
+		else if( getAuditClusterId() &gt; rhs.getAuditClusterId() ) {
+			return( true );
+		}
+		if( getAuditStamp() &lt; rhs.getAuditStamp() ) {
+			return( false );
+		}
+		else if( getAuditStamp() &gt; rhs.getAuditStamp() ) {
+			return( true );
+		}
+		if( getAuditActionId() &lt; rhs.getAuditActionId() ) {
+			return( false );
+		}
+		else if( getAuditActionId() &gt; rhs.getAuditActionId() ) {
+			return( true );
+		}
+		if( getRequiredRevision() &lt; rhs.getRequiredRevision() ) {
+			return( false );
+		}
+		else if( getRequiredRevision() &gt; rhs.getRequiredRevision() ) {
+			return( true );
+		}
+		if( getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( true );
+			}
+			const uuid_ptr_t lhuuid = getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) &lt; 0 ) {
+				return( false );
+			}
+			else if( uuid_compare( lhuuid, rhuuid ) &gt; 0 ) {
+				return( true );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( false );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implHPKeyComparisonGreaterThan">
+	bool $SchemaName$$TableName$HPKey::operator &gt;( const $SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implGreaterThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &gt;( const $SchemaName$$TableName$HPKey&amp; rhs ) {$implAuditComparisonGreaterThan$$iterate Columns( each implGreaterThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &gt;( const $SchemaName$$TableName$HBuff&amp; rhs ) {$implAuditComparisonGreaterThan$$iterate Columns( each implGreaterThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$HPKey::operator &gt;( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implGreaterThanCmpAttr )$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdHPKeyComparison">
+namespace std {
+$implStdHPKeyComparisonLessThan$
+$implStdHPKeyComparisonLessOrEqual$
+$implStdHPKeyComparisonEqual$
+$implStdHPKeyComparisonNotEqual$
+$implStdHPKeyComparisonGreaterOrEqual$
+$implStdHPKeyComparisonGreaterThan$
+}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implStdAuditComparisonLessThan">
+		if( lhs.getAuditClusterId() &gt; rhs.getAuditClusterId() ) {
+			return( false );
+		}
+		else if( lhs.getAuditClusterId() &lt; rhs.getAuditClusterId() ) {
+			return( true );
+		}
+		if( lhs.getAuditStamp() &gt; rhs.getAuditStamp() ) {
+			return( false );
+		}
+		else if( lhs.getAuditStamp() &lt; rhs.getAuditStamp() ) {
+			return( true );
+		}
+		if( lhs.getAuditActionId() &gt; rhs.getAuditActionId() ) {
+			return( false );
+		}
+		else if( lhs.getAuditActionId() &lt; rhs.getAuditActionId() ) {
+			return( true );
+		}
+		if( lhs.getRequiredRevision() &gt; rhs.getRequiredRevision() ) {
+			return( false );
+		}
+		else if( lhs.getRequiredRevision() &lt; rhs.getRequiredRevision() ) {
+			return( true );
+		}
+		if( lhs.getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( false );
+			}
+			const uuid_ptr_t lhuuid = lhs.getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) &gt; 0 ) {
+				return( false );
+			}
+			else if( uuid_compare( lhuuid, rhuuid ) &lt; 0 ) {
+				return( true );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( false );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdHPKeyComparisonLessThan">
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implLessThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs ) {$implStdAuditComparisonLessThan$$iterate Columns( each implLessThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$implStdAuditComparisonLessThan$$iterate Columns( each implLessThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implLessThanCmpLhsAttr )$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Object" Name="implStdAuditComparisonLessOrEqual">
+		if( lhs.getAuditClusterId() != rhs.getAuditClusterId() ) {
+			return( false );
+		}
+		if( lhs.getAuditStamp() != rhs.getAuditStamp() ) {
+			return( false );
+		}
+		if( lhs.getAuditActionId() != rhs.getAuditActionId() ) {
+			return( false );
+		}
+		if( lhs.getRequiredRevision() != rhs.getRequiredRevision() ) {
+			return( false );
+		}
+		if( lhs.getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( false );
+			}
+			const uuid_ptr_t lhuuid = lhs.getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) != 0 ) {
+				return( false );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( false );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdHPKeyComparisonLessOrEqual">
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs ) {$implStdAuditComparisonLessOrEqual$$iterate Columns( each implLessOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$implStdAuditComparisonLessOrEqual$$iterate Columns( each implLessOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpLhsAttr )$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Object" Name="implStdAuditComparisonEqual">
+		if( lhs.getAuditClusterId() != rhs.getAuditClusterId() ) {
+			return( false );
+		}
+		if( lhs.getAuditStamp() != rhs.getAuditStamp() ) {
+			return( false );
+		}
+		if( lhs.getAuditActionId() != rhs.getAuditActionId() ) {
+			return( false );
+		}
+		if( lhs.getRequiredRevision() != rhs.getRequiredRevision() ) {
+			return( false );
+		}
+		if( lhs.getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( false );
+			}
+			const uuid_ptr_t lhuuid = lhs.getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) != 0 ) {
+				return( false );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( false );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdHPKeyComparisonEqual">
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs ) {$implStdAuditComparisonEqual$$iterate Columns( each implEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$implStdAuditComparisonEqual$$iterate Columns( each implEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implEqualCmpLhsAttr )$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Object" Name="implStdAuditComparisonNotEqual">
+		if( lhs.getAuditClusterId() != rhs.getAuditClusterId() ) {
+			return( true );
+		}
+		if( lhs.getAuditStamp() != rhs.getAuditStamp() ) {
+			return( true );
+		}
+		if( lhs.getAuditActionId() != rhs.getAuditActionId() ) {
+			return( true );
+		}
+		if( lhs.getRequiredRevision() != rhs.getRequiredRevision() ) {
+			return( true );
+		}
+		if( lhs.getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( true );
+			}
+			const uuid_ptr_t lhuuid = lhs.getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) != 0 ) {
+				return( true );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( true );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdHPKeyComparisonNotEqual">
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implNotEqualCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs ) {$implStdAuditComparisonNotEqual$$iterate Columns( each implNotEqualCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$implStdAuditComparisonNotEqual$$iterate Columns( each implNotEqualCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implNotEqualCmpLhsAttr )$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Object" Name="implStdAuditComparisonGreaterOrEqual">
+		if( lhs.getAuditClusterId() &lt; rhs.getAuditClusterId() ) {
+			return( false );
+		}
+		else if( lhs.getAuditClusterId() &gt; rhs.getAuditClusterId() ) {
+			return( true );
+		}
+		if( lhs.getAuditStamp() &lt; rhs.getAuditStamp() ) {
+			return( false );
+		}
+		else if( lhs.getAuditStamp() &gt; rhs.getAuditStamp() ) {
+			return( true );
+		}
+		if( lhs.getAuditActionId() &lt; rhs.getAuditActionId() ) {
+			return( false );
+		}
+		else if( lhs.getAuditActionId() &gt; rhs.getAuditActionId() ) {
+			return( true );
+		}
+		if( lhs.getRequiredRevision() &lt; rhs.getRequiredRevision() ) {
+			return( false );
+		}
+		else if( lhs.getRequiredRevision() &gt; rhs.getRequiredRevision() ) {
+			return( true );
+		}
+		if( lhs.getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( true );
+			}
+			const uuid_ptr_t lhuuid = lhs.getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) &lt; 0 ) {
+				return( false );
+			}
+			else if( uuid_compare( lhuuid, rhuuid ) &gt; 0 ) {
+				return( true );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( false );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdHPKeyComparisonGreaterOrEqual">
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs ) {$implStdAuditComparisonGreaterOrEqual$$iterate Columns( each implGreaterOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$implStdAuditComparisonGreaterOrEqual$$iterate Columns( each implGreaterOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpLhsAttr )$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Object" Name="implStdAuditComparisonGreaterThan">
+		if( lhs.getAuditClusterId() &lt; rhs.getAuditClusterId() ) {
+			return( false );
+		}
+		else if( lhs.getAuditClusterId() &gt; rhs.getAuditClusterId() ) {
+			return( true );
+		}
+		if( lhs.getAuditStamp() &lt; rhs.getAuditStamp() ) {
+			return( false );
+		}
+		else if( lhs.getAuditStamp() &gt; rhs.getAuditStamp() ) {
+			return( true );
+		}
+		if( lhs.getAuditActionId() &lt; rhs.getAuditActionId() ) {
+			return( false );
+		}
+		else if( lhs.getAuditActionId() &gt; rhs.getAuditActionId() ) {
+			return( true );
+		}
+		if( lhs.getRequiredRevision() &lt; rhs.getRequiredRevision() ) {
+			return( false );
+		}
+		else if( lhs.getRequiredRevision() &gt; rhs.getRequiredRevision() ) {
+			return( true );
+		}
+		if( lhs.getAuditSessionId() != NULL ) {
+			if( rhs.getAuditSessionId() == NULL ) {
+				return( true );
+			}
+			const uuid_ptr_t lhuuid = lhs.getAuditSessionId();
+			const uuid_ptr_t rhuuid = rhs.getAuditSessionId();
+			if( uuid_compare( lhuuid, rhuuid ) &lt; 0 ) {
+				return( false );
+			}
+			else if( uuid_compare( lhuuid, rhuuid ) &gt; 0 ) {
+				return( true );
+			}
+		}
+		else {
+			if( rhs.getAuditSessionId() != NULL ) {
+				return( false );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdHPKeyComparisonGreaterThan">
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$PKey&amp; rhs ) {$iterate Columns( each implGreaterThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; rhs ) {$implStdAuditComparisonGreaterThan$$iterate Columns( each implGreaterThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$implStdAuditComparisonGreaterThan$$iterate Columns( each implGreaterThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$HPKey&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implGreaterThanCmpLhsAttr )$
+		return( false );
+	}</GenRule>
+
+</RuleSet>

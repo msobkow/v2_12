@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schema/SchemaClientConfigurationFile.hpp"
+	Revision="2.12"
+	Descr="C++18 client configuration file implementation for a schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaClientConfigurationFileCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$ClientConfigurationFileCpp"
+		ExpansionKeyName="$SchemaName$ClientConfigurationFileCpp"
+		ExpansionFileName="$SchemaName$ClientConfigurationFile.cpp"
+>// Description: C++18 client configuration file implementation for a $SchemaName$ schema.
+
+$MssSourceLicense$
+
+#include &lt;fstream&gt;
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+#include &lt;$lower SchemaName$/$SchemaName$ClientConfigurationFile.hpp&gt;
+
+namespace $CPlusNamespace$ {
+$iterate SchemaRefs( first implClientConfigurationFileExtendDefBaseBody each empty empty implClientConfigurationFileImplDefBaseBody )$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="implClientConfigurationFileExtendDefBaseBody">
+	$poptop SchemaDef SchemaName$ClientConfigurationFile::$poptop SchemaDef SchemaName$ClientConfigurationFile()
+	: $CPlusSecNamespace$::$SecSchemaName$ClientConfigurationFile()
+	{
+	}
+
+	$poptop SchemaDef SchemaName$ClientConfigurationFile::~$poptop SchemaDef SchemaName$ClientConfigurationFile() {
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implClientConfigurationFileImplDefBaseBody">
+	const std::string $poptop SchemaDef SchemaName$ClientConfigurationFile::CLASS_NAME( "$poptop SchemaDef SchemaName$ClientConfigurationFile" );
+	const std::string $poptop SchemaDef SchemaName$ClientConfigurationFile::S_KEYSTORE( "KeyStore" );
+	const std::string $poptop SchemaDef SchemaName$ClientConfigurationFile::S_DEVICENAME( "DeviceName" );
+	const std::string $poptop SchemaDef SchemaName$ClientConfigurationFile::S_SERVERURLPREFIX( "ServerURL" );
+
+	$poptop SchemaDef SchemaName$ClientConfigurationFile::$poptop SchemaDef SchemaName$ClientConfigurationFile() {
+		fileName = NULL;
+		keyStore = NULL;
+		deviceName = NULL;
+		serverURLUsed = 0;
+		int32_t i;
+		for( i = 0; i &lt; 20; i++ ) {
+			serverURL[i] = NULL;
+		}
+	}
+
+	$poptop SchemaDef SchemaName$ClientConfigurationFile::~$poptop SchemaDef SchemaName$ClientConfigurationFile() {
+		if( fileName != NULL ) {
+			delete fileName;
+			fileName = NULL;
+		}
+		if( keyStore != NULL ) {
+			delete keyStore;
+			keyStore = NULL;
+		}
+		if( deviceName != NULL ) {
+			delete deviceName;
+			deviceName = NULL;
+		}
+		int32_t i;
+		for( i = 0; i &lt; 20; i++ ) {
+			if( serverURL[i] != NULL ) {
+				delete serverURL[i];
+				serverURL[i] = NULL;
+			}
+		}
+	}
+
+	std::string* $poptop SchemaDef SchemaName$ClientConfigurationFile::getFileName() const {
+		return( fileName );
+	}
+
+	void $poptop SchemaDef SchemaName$ClientConfigurationFile::setFileName( const std::string&amp; value ) {
+		if( fileName != NULL ) {
+			delete fileName;
+			fileName = NULL;
+		}
+		fileName = new std::string( value );
+	}
+
+	std::string* $poptop SchemaDef SchemaName$ClientConfigurationFile::getKeyStore() const {
+		return( keyStore );
+	}
+
+	void $poptop SchemaDef SchemaName$ClientConfigurationFile::setKeyStore( const std::string&amp; value ) {
+		if( keyStore != NULL ) {
+			delete keyStore;
+			keyStore = NULL;
+		}
+
+		keyStore = new std::string( value );
+	}
+
+	std::string* $poptop SchemaDef SchemaName$ClientConfigurationFile::getDeviceName() const {
+		return( deviceName );
+	}
+
+	void $poptop SchemaDef SchemaName$ClientConfigurationFile::setDeviceName( const std::string&amp; value ) {
+		if( deviceName != NULL ) {
+			delete deviceName;
+			deviceName = NULL;
+		}
+		deviceName = new std::string( value );
+	}
+
+	const std::string* $poptop SchemaDef SchemaName$ClientConfigurationFile::getLatestServerURL() const {
+		const std::string* retval;
+		if( serverURLUsed &gt; 0 ) {
+			retval = serverURL[0];
+		}
+		else {
+			retval = NULL;
+		}
+		return( retval );
+	}
+
+	int32_t $poptop SchemaDef SchemaName$ClientConfigurationFile::getServerURLUsed() const {
+		return( serverURLUsed );
+	}
+
+	std::string** $popto SchemaDef SchemaName$ClientConfigurationFile::getServerURLArray() {
+		return( serverURL );
+	}
+
+	void $poptop SchemaDef SchemaName$ClientConfigurationFile::setLatestServerURL( const std::string&amp; value ) {
+		static const std::string S_ProcName( "setLatestServerURL" );
+		static const std::string S_Value( "value" );
+		if( value.length() &lt;= 0 ) {
+			throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_Value );
+		}
+		std::string* workset[20];
+		int32_t i;
+		for( i = 0; i &lt; 20; i++ ) {
+			workset[i] = NULL;
+		}
+		size_t idx;
+		workset[0] = new std::string( value );
+		idx = 1;
+		for( i = 0; i &lt; serverURLUsed; i++ ) {
+			if( *serverURL[i] == value ) {
+				delete serverURL[i];
+				serverURL[i] = NULL;
+			}
+			else {
+				if( idx &lt; 20 - 1 ) {
+					workset[idx++] = serverURL[i];
+				}
+				else {
+					delete serverURL[i];
+					serverURL[i] = NULL;
+				}
+			}
+		}
+		if( idx &gt;= 20 ) {
+			delete workset[idx];
+			workset[idx] = NULL;
+			idx --;
+		}
+		for( i = 0; i &lt; 20; i++ ) {
+			serverURL[i] = workset[i];
+		}
+		serverURL[20] = NULL;
+		save();
+	}
+
+	bool $poptop SchemaDef SchemaName$ClientConfigurationFile::load() {
+		static const std::string S_ProcName( "load" );
+		static const std::string S_FileName( "FileName" );
+		static const std::string S_UnrecognizedTag( "Attribute tag not recognized" );
+		static const std::string S_MissingTags( "One or more tags are missing" );
+
+		if( ( fileName == NULL ) || ( fileName-&gt;length() &lt;= 0 ) ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_FileName );
+		}
+
+		std::basic_ifstream&lt;char&gt; file;
+		file.open( *fileName, std::_Ios_Openmode::_S_in );
+		if( ! file.is_open() ) {
+			return( false );
+		}
+
+		int32_t i;
+		int32_t j;
+		std::string line;
+		std::string::size_type posEquals;
+		std::string tag;
+		std::string value;
+		std::string digits;
+		int32_t* iValue;
+		for( i = 0; i &lt; 20; i++ ) {
+			if( serverURL[i] != NULL ) {
+				delete serverURL[i];
+				serverURL[i] = NULL;
+			}
+		}
+		serverURLUsed = 0;
+
+		while( getline( file, line ) ) {
+			if( line.length() &gt; 0 ) {
+				if( line.at( 0 ) != '#' ) {
+					posEquals = line.find( '=' );
+					if( posEquals &lt;= 0 ) {
+						return( false );
+					}
+					tag = line.substr( 0, posEquals - 1 );
+					value = line.substr( posEquals + 1 );
+					if( tag == S_DEVICENAME ) {
+						setDeviceName( value );
+					}
+					else if( tag == S_KEYSTORE ) {
+						setKeyStore( value );
+					}
+					else if( ( tag.length() &gt; S_SERVERURLPREFIX.length() ) &amp;&amp; ( S_SERVERURLPREFIX == tag.substr( 0, S_SERVERURLPREFIX.length() ) ) ) {
+						digits = value.substr( S_SERVERURLPREFIX.length() );
+						iValue = cflib::CFLibXmlUtil::parseInt32( digits );
+						if( iValue != NULL ) {
+							if( ( *iValue &gt;= 0 ) &amp;&amp; ( *iValue &lt; 20 ) ) {
+								if( serverURL[*iValue] != NULL ) {
+									delete serverURL[*iValue];
+									serverURL[*iValue] = NULL;
+								}
+								serverURL[*iValue] = new std::string( value );
+							}
+							delete iValue;
+							iValue = NULL;
+						}
+					}
+					else {
+						file.close();
+						throw cflib::CFLibRuntimeException( CLASS_NAME,
+							S_ProcName,
+							S_UnrecognizedTag );
+					}
+				}
+			}
+		}
+
+		file.close();
+
+		if( ( deviceName == NULL ) || ( keyStore == NULL ) ) {
+			throw cflib::CFLibRuntimeException( CLASS_NAME,
+				S_ProcName,
+				S_MissingTags );
+		}
+
+		for( i = 0; i &lt; 20; i++ ) {
+			if( serverURL[i] != NULL ) {
+				serverURLUsed = i + 1;
+			}
+			else {
+				while( serverURL[i] == NULL ) {
+					for( j = i + 1; j &lt; 20; j++ ) {
+						if( serverURL[j] != NULL ) {
+							break;
+						}
+					}
+					if( j &lt; 20 ) {
+						for( j = i; j &lt; 20 - 1; j++ ) {
+							serverURL[j] = serverURL[j+1];
+						}
+					}
+					else {
+						break;
+					}
+					if( serverURL[i] != NULL ) {
+						serverURLUsed = i + 1;
+					}
+				}
+			}
+		}
+
+		return( true );
+	}
+
+	bool $poptop SchemaDef SchemaName$ClientConfigurationFile::save() const {
+		static const std::string S_ProcName( "save" );
+		static const std::string S_FileName( "FileName" );
+		static const std::string S_Equal( "=" );
+		static const std::string S_Newline( "\n" );
+		static const std::string S_MissingAttributes( "One or more attributes have not been set" );
+
+		if( ( fileName == NULL ) || ( fileName-&gt;length() &lt;= 0 ) ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_FileName );
+		}
+
+		if( ( deviceName == NULL ) || ( keyStore == NULL ) ) {
+			throw cflib::CFLibRuntimeException( CLASS_NAME,
+				S_ProcName,
+				S_MissingAttributes );
+		}
+
+		std::basic_ofstream&lt;char&gt; file;
+		file.open( *fileName, std::_Ios_Openmode::_S_trunc );
+		if( ! file.is_open() ) {
+			return( false );
+		}
+
+		std::string line;
+		std::chrono::system_clock::time_point timestamp = cflib::CFLib::getUTCTimestampInstance();
+
+		line.append( "# " );
+		line.append( cflib::CFLibXmlUtil::formatTimestamp( timestamp ) );
+		line.append( S_Newline );
+		file.write( line.data(), line.length() );
+
+		line.clear();
+		line.append( S_DEVICENAME );
+		line.append( S_Equal );
+		line.append( *deviceName );
+		line.append( S_Newline );
+		file.write( line.data(), line.length() );
+
+		line.clear();
+		line.append( S_KEYSTORE);
+		line.append( S_Equal );
+		line.append( *keyStore );
+		line.append( S_Newline );
+		file.write( line.data(), line.length() );
+
+		int32_t i;
+		for( i = 0; i &lt; serverURLUsed; i++ ) {
+			line.clear();
+			line.append( S_SERVERURLPREFIX );
+			line.append( cflib::CFLibXmlUtil::formatInt32( i ) );
+			line.append( S_Equal );
+			line.append( *serverURL[i] );
+			line.append( S_Newline );
+			file.write( line.data(), line.length() );
+		}
+
+		file.close();
+
+		return( true );
+	}
+</GenRule>
+
+</RuleSet>

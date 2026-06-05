@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mssql"
+	Name="schema/dbcreate/mssql/crsp_update_dbtablename.tsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPUpdateDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mssql"
+		ExpansionClassName="$dbadminfilename_CreateSPUpdateDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPUpdateDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPUpdateDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+$CrSpUpdateDbTablenameMSSqlPreamble$$switch HasChain yes implMSSqlSPTableLatchContainer default empty$$implMSSqlSPUpdateTableCheckPermissions$$implMSSqlLockTables$$implMSSqlFetchIntoOld$$CrSpUpdateDbTablenameMSSqlValidateRevision$$implMSSqlSPUpdateTableCheckOwner$$CrSpUpdateDbTablenameMSSqlUpdateTable$$switch BaseHasHistory yes implMSSqlUpdateLogAudit default empty$$switch HasChain yes implMSSqlSPTableUnlatchContainer default empty$$CrSpUpdateDbTablenameMSSqlReturnUpdateRow$
+
+quit
+</GenFile>
+
+<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMSSqlPreamble">
+use $lower DbSchemaName$
+go
+
+create proc $sp_update_dbtablename$$implMSSqlSPStandardArgs$,
+	$implMSSqlSPUpdateTableArgs$$implMSSqlSPUpdateTableArgRevision$
+as$declSPOldVars$$switch HasAuditColumns yes implMSSqlSPTableDeclOldAuditColumns default empty$$switch SecScope None empty System implMSSqlSPTableDeclPermFlag Cluster implMSSqlSPTableDeclPermFlag Tenant implMSSqlSPTableDeclPermFlag default error$
+begin
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPTableDeclOldAuditColumns">
+	declare @oldAuditCreatedAt datetime2
+	declare @oldAuditCreatedBy varchar(36)
+	declare @oldAuditUpdatedAt datetime2
+	declare @oldAuditUpdatedBy varchar(36)</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPUpdateTableCheckOwner">
+$switch SecScope None empty System empty Cluster implMSSqlSPUpdateTableCheckOwnerCluster Tenant implMSSqlSPUpdateTableCheckOwnerTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPUpdateTableCheckOwnerCluster">
+	if( @argClassCode = '$poptop Table ClassCode$' )
+	begin
+		if( @arg$reference ClusterIdColumn Name$ != @old$reference ClusterIdColumn Name$ )
+		begin
+			raiserror( 'Permission denied -- $reference ClusterIdColumn Name$ cannot be updated for $TableName$',
+				15,
+				1 )
+		end
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPUpdateTableCheckOwnerTenant">
+	if( @argClassCode = '$poptop Table ClassCode$' )
+	begin
+		if( @arg$reference TenantIdColumn Name$ != @old$reference TenantIdColumn Name$ )
+		begin
+			raiserror( 'Permission denied -- $reference TenantIdColumn Name$ cannot be updated for $TableName$',
+				15,
+				1 )
+		end
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPUpdateTableCheckPermissions"
+		>$switch SecScope None empty System implMSSqlSPUpdateTableCheckSystem Cluster implMSSqlSPUpdateTableCheckCluster Tenant implMSSqlSPUpdateTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPUpdateTableCheckSystem">
+	if( @argClassCode = '$poptop Table ClassCode$' )
+	begin
+		exec sp_is_system_user @permissionFlag output, @argAuditUserId
+		if( @permissionFlag = 0 )
+		begin
+			raiserror( 'Permission denied -- only system user can update $TableName$ records',
+				15,
+				1 )
+		end
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPUpdateTableCheckCluster">
+	if( @argClassCode = '$poptop Table ClassCode$' )
+	begin
+		exec sp_is_cluster_user @permissionFlag output, @arg$reference ClusterIdColumn Name$, 'Delete$TableName$', @argAuditUserId
+		if( @permissionFlag = 0 )
+		begin
+			raiserror( 'Permission denied -- User not found in cluster SecGroup for Update$TableName$',
+				15,
+				1 )
+		end
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPUpdateTableCheckTenant">
+	if( @argClassCode = '$poptop Table ClassCode$' )
+	begin
+		exec sp_is_tenant_user @permissionFlag output, @arg$reference TenantIdColumn Name$, 'Update$TableName$', @argAuditUserId
+		if( @permissionFlag = 0 )
+		begin
+			raiserror( 'Permission denied -- User not found in tenant TSecGroup for Update$TableName$',
+				15,
+				1 )
+		end
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlUpdateLogAudit"
+		>$switch BaseHasClassCode yes implCreateAuditUpdateThreeWithCC default implCreateAuditUpdateThreeNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditUpdateThreeNoCC">
+	insert into $lower DbSchemaName$..$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			@argAuditClusterId,
+			@argAuditSessionId,
+			sysdatetime(),$implAuditInheritedDataColumnNameComma$
+			$reference BaseClass lower ClassCode$.revision,
+			1
+		from $lower DbSchemaName$..$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implMSSqlIndexColumnWhereFragBindVar each implMSSqlIndexColumnWhereAndFragBindVar )$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditUpdateThreeWithCC">
+	if( @oldClassCode = '$poptop Table ClassCode$' )
+	begin
+		insert into $lower DbSchemaName$..$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			classcode,
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.classcode,
+			@argAuditClusterId,
+			@argAuditSessionId,
+			sysdatetime(),$implAuditInheritedDataColumnNameComma$
+			$reference BaseClass lower ClassCode$.revision,
+			1
+		from $lower DbSchemaName$..$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implMSSqlIndexColumnWhereFragBindVar each implMSSqlIndexColumnWhereAndFragBindVar )$
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPUpdateTableArgs"
+		>$switch HasSuperClassRelation yes implMSSqlSPUpdateTableSuperArgs default implMSSqlSPUpdateTableBaseArgs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPUpdateTableSuperArgs"
+		>$reference SuperClassRelation reference ToTable implMSSqlSPUpdateTableArgs$$iterate Columns( each implMSSqlSPCommaUpdateTableInsertDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMSSqlSPCommaUpdateTableInsertDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default sparg_CommaTableCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMSSqlSPUpdateTableBaseArgs"
+		>$implMSSqlSPUpdateTableArgClassCode$$iterate Columns( each sparg_CommaTableCol )$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlSPUpdateTableArgClassCode"
+		>@argClassCode $DbSchemaName$ClassCode</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlSPUpdateTableArgRevision">,
+	@argRevision integer</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMSSqlValidateRevision">
+	if @argRevision != @oldRevision
+	begin
+		raiserror( '$sp_update_dbtablename$() Data collision detected',
+			15,
+			1 )
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMSSqlUpdateTable"
+		>$switch HasSuperClassRelation yes CrSpUpdateDbTablenameMSSqlUpdateSuperTable default CrSpUpdateDbTablenameMSSqlUpdateBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="TableDefRawHasDataColumns"
+		>$iterate DataColumns( each empty empty no )$</GenRule>
+
+	<GenRule GenDef="Table" Name="HasDataColumns"
+		>$switch TableDefRawHasDataColumns no no default yes$</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMSSqlUpdateSuperTable">$reference SuperClassRelation reference ToTable CrSpUpdateDbTablenameMSSqlUpdateTable$$switch HasDataColumns yes CrSpUpdateDbTablenameMSSqlUpdateThisInhTable default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMSSqlUpdateThisInhTable">
+	update $lower DbSchemaName$..$DbTableName$
+	set
+$iterate DataColumns( first implMSSqlUpdateColumn each implMSSqlUpdateCommaColumn empty empty )$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMSSqlUpdateWhereFragBindVar each implMSSqlUpdateWhereAndFragBindVar )$
+
+	if @@rowcount != 1
+	begin
+		raiserror( '$sp_update_dbtablename$() Data collision detected',
+			15,
+			1 )
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMSSqlUpdateBaseTable">
+	update $lower DbSchemaName$..$DbTableName$
+	set
+$implMSSqlUpdateRevision$$iterate DataColumns( each implMSSqlUpdateCommaColumn empty empty )$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMSSqlUpdateWhereFragBindVar each implMSSqlUpdateWhereAndFragBindVar )$$implMSSqlUpdateWhereFragOldRevision$
+
+	if @@rowcount != 1
+	begin
+		raiserror( '$sp_update_dbtablename$() Data collision detected',
+			15,
+			1 )
+	end
+</GenRule>
+
+	<GenRule GenDef="Table" Name="CrSpUpdateDbTablenameMSSqlReturnUpdateRow">
+	select$implMSSqlSelectTableColumns$,
+		$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$..$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMSSqlClassCodeJoinSuperTable default empty$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMSSqlIndexColumnWhereFragBindVar each implMSSqlIndexColumnWhereAndFragBindVar )$
+end
+go
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlUpdateWhereAndFragBindVar">
+		and $implMSSqlUpdateWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlUpdateWhereFragBindVar"
+		>$switch IsNullable yes implMSSqlUpdateWhereFragBindOptVar
+			default implMSSqlUpdateWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlUpdateWhereFragBindOptVar"
+		>$reference Column implMSSqlUpdateWhereFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMSSqlUpdateWhereFragBindReqVar"
+		>$reference Column implMSSqlUpdateWhereFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implMSSqlUpdateWhereFragBindOptBlobVar
+			BoolDef implMSSqlUpdateWhereFragBindOptBoolVar
+			EnumDef implMSSqlUpdateWhereFragBindOptEnumVar
+			Int16Def implMSSqlUpdateWhereFragBindOptInt16Var
+			Int32Def implMSSqlUpdateWhereFragBindOptInt32Var
+			Int64Def implMSSqlUpdateWhereFragBindOptInt64Var
+			UInt16Def implMSSqlUpdateWhereFragBindOptUInt16Var
+			UInt32Def implMSSqlUpdateWhereFragBindOptUInt32Var
+			UInt64Def implMSSqlUpdateWhereFragBindOptUInt64Var
+			Id16Gen implMSSqlUpdateWhereFragBindOptInt16Var
+			Id32Gen implMSSqlUpdateWhereFragBindOptInt32Var
+			Id64Gen implMSSqlUpdateWhereFragBindOptInt64Var
+			FloatDef implMSSqlUpdateWhereFragBindOptFloatVar
+			DoubleDef implMSSqlUpdateWhereFragBindOptDoubleVar
+			NumberDef implMSSqlUpdateWhereFragBindOptNumberVar
+			StringDef implMSSqlUpdateWhereFragBindOptStringVar
+			TokenDef implMSSqlUpdateWhereFragBindOptStringVar
+			NmTokenDef implMSSqlUpdateWhereFragBindOptStringVar
+			NmTokensDef implMSSqlUpdateWhereFragBindOptStringVar
+			TextDef implMSSqlUpdateWhereFragBindOptTextVar
+			DateDef implMSSqlUpdateWhereFragBindOptDateVar
+			TimeDef implMSSqlUpdateWhereFragBindOptTimeVar
+			TimestampDef implMSSqlUpdateWhereFragBindOptTimestampVar
+			TZDateDef implMSSqlUpdateWhereFragBindOptTZDateVar
+			TZTimeDef implMSSqlUpdateWhereFragBindOptTZTimeVar
+			TZTimestampDef implMSSqlUpdateWhereFragBindOptTZTimestampVar
+			UuidDef implMSSqlUpdateWhereFragBindOptUuidVar
+			UuidGen implMSSqlUpdateWhereFragBindOptUuidVar
+			default empty$</GenRule>
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implMSSqlUpdateWhereFragBindReqBlobVar
+			BoolDef implMSSqlUpdateWhereFragBindReqBoolVar
+			EnumDef implMSSqlUpdateWhereFragBindReqEnumVar
+			Int16Def implMSSqlUpdateWhereFragBindReqInt16Var
+			Int32Def implMSSqlUpdateWhereFragBindReqInt32Var
+			Int64Def implMSSqlUpdateWhereFragBindReqInt64Var
+			UInt16Def implMSSqlUpdateWhereFragBindReqUInt16Var
+			UInt32Def implMSSqlUpdateWhereFragBindReqUInt32Var
+			UInt64Def implMSSqlUpdateWhereFragBindReqUInt64Var
+			Id16Gen implMSSqlUpdateWhereFragBindReqInt16Var
+			Id32Gen implMSSqlUpdateWhereFragBindReqInt32Var
+			Id64Gen implMSSqlUpdateWhereFragBindReqInt64Var
+			FloatDef implMSSqlUpdateWhereFragBindReqFloatVar
+			DoubleDef implMSSqlUpdateWhereFragBindReqDoubleVar
+			NumberDef implMSSqlUpdateWhereFragBindReqNumberVar
+			StringDef implMSSqlUpdateWhereFragBindReqStringVar
+			TokenDef implMSSqlUpdateWhereFragBindReqStringVar
+			NmTokenDef implMSSqlUpdateWhereFragBindReqStringVar
+			NmTokensDef implMSSqlUpdateWhereFragBindReqStringVar
+			TextDef implMSSqlUpdateWhereFragBindReqTextVar
+			DateDef implMSSqlUpdateWhereFragBindReqDateVar
+			TimeDef implMSSqlUpdateWhereFragBindReqTimeVar
+			TimestampDef implMSSqlUpdateWhereFragBindReqTimestampVar
+			TZDateDef implMSSqlUpdateWhereFragBindReqTZDateVar
+			TZTimeDef implMSSqlUpdateWhereFragBindReqTZTimeVar
+			TZTimestampDef implMSSqlUpdateWhereFragBindReqTZTimestampVar
+			UuidDef implMSSqlUpdateWhereFragBindReqUuidVar
+			UuidGen implMSSqlUpdateWhereFragBindReqUuidVar
+			default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqBlobVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptBlobVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqBoolVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptBoolVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqEnumVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptEnumVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqInt16Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptInt16Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqInt32Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptInt32Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqInt64Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptInt64Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqUInt16Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptUInt16Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqUInt32Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptUInt32Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqUInt64Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptUInt64Var"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqFloatVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptFloatVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqDoubleVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptDoubleVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqNumberVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptNumberVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqStringVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptStringVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqTokenVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptTokenVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqNmTokenVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptNmTokenVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqNmTokensVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptNmTokensVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqTextVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptTextVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqDateVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptDateVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqTimeVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptTimeVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqTimestampVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptTimestampVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqTZDateVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptTZDateVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqTZTimeVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptTZTimeVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqTZTimestampVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptTZTimestampVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindReqUuidVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragBindOptUuidVar"
+		>$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateWhereFragOldRevision">
+		and revision = @argRevision</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateCommaColumn"
+		>,
+$implMSSqlUpdateColumn$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateColumn"
+>		$lower DbColumnName$ = @arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateCommaRevision"
+		>,
+$implMSSqlUpdateRevision$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMSSqlUpdateRevision"
+>		revision = @argRevision + 1</GenRule>
+
+</RuleSet>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+jee"
+	Name="src/SchemaSMWar/SchemaSMWarUtil.java"
+	Revision="2.12"
+	Descr="Java 11 Sec Manager Utilities">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSMWarUtilJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$SMWar/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$SMWar"
+		ExpansionClassName="$SchemaName$SMWarUtilJava"
+		ExpansionKeyName="$SchemaName$SMWarUtilJava"
+		ExpansionFileName="$SchemaName$SMWarUtil.java">
+// Description: Java 11 Sec Manager Utilities
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$SMWar;
+
+import java.io.*;
+import java.security.*;
+import java.util.*;
+
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.naming.*;
+
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+
+public class $SchemaName$SMWarUtil {$SchemaSMWarUtilPart01$$SchemaSMWarUtilPart02$$SchemaSMWarUtilPart03$$SchemaSMWarUtilPart04$$SchemaSMWarUtilPart05$$SchemaSMWarUtilPart06$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarUtilPart01">
+	private static final long serialVersionUID = 1L;
+
+	protected String smtpUsername = null;
+	protected String smtpPassword = null;
+
+	public $SchemaName$SMWarUtil() {
+		super();
+	}
+
+	public void sendEMailToUser(
+		I$SecSchemaName$SecUserObj toUser,
+		String msgSubject,
+		String msgBody )
+	throws
+		IOException,
+		MessagingException,
+		NamingException
+	{
+
+		final String S_ProcName = "sendEMailToUser";
+
+		Properties props = System.getProperties();
+
+		Context ctx = new InitialContext();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarUtilPart02">
+		String smtpHost = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpHost");
+		if( ( smtpHost == null ) || ( smtpHost.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"JNDI lookup for $SchemaName$SmtpHost" );
+		}
+
+		String smtpStrPort = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpPort");
+		if( ( smtpStrPort == null ) || ( smtpStrPort.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"JNDI lookup for $SchemaName$SmtpPort" );
+		}
+
+		int smtpPort = Integer.parseInt( smtpStrPort );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarUtilPart03">
+		String smtpEnableSMTPS = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpEnableSMTPS");
+		if( ( smtpEnableSMTPS == null ) || ( smtpEnableSMTPS.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"JNDI lookup for $SchemaName$SmtpEnableSMTPS" );
+		}
+
+		boolean enableSMTPS;
+		if( smtpEnableSMTPS.equals( "true" ) ) {
+			enableSMTPS = true;
+		}
+		else if( smtpEnableSMTPS.equals( "false" ) ) {
+			enableSMTPS = false;
+		}
+		else {
+			throw new CFLibUsageException( getClass(),
+				S_ProcName,
+				"$SchemaName$SmtpEnableSMTPS must be true or false, not \"" + smtpEnableSMTPS + "\"" );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarUtilPart04">
+		String smtpEmailFrom = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpEmailFrom");
+		if( ( smtpEmailFrom == null ) || ( smtpEmailFrom.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"JNDI lookup for $SchemaName$SmtpEmailFrom" );
+		}
+
+		smtpUsername = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpUsername");
+		if( ( smtpUsername == null ) || ( smtpUsername.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"JNDI lookup for $SchemaName$SmtpUsername" );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarUtilPart05">
+		smtpPassword = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpPassword");
+		if( ( smtpPassword == null ) || ( smtpPassword.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"JNDI lookup for $SchemaName$SmtpPassword" );
+		}
+
+		Session emailSess = Session.getInstance( props,
+			new Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication( smtpUsername, smtpPassword );
+				}
+			} );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarUtilPart06">
+		MimeMessage msg = new MimeMessage( emailSess );
+		msg.setFrom( new InternetAddress( smtpEmailFrom ) );
+		InternetAddress mailTo[] = InternetAddress.parse( toUser.getRequiredEMailAddress(), false );
+		msg.setRecipient( Message.RecipientType.TO, mailTo[0] );
+		msg.setSubject( ( msgSubject != null ) ? msgSubject : "No subject" );
+		msg.setSentDate( new Date() );
+		msg.setContent( msgBody, "text/html" );
+		msg.saveChanges();
+
+		if( enableSMTPS ) {
+			// As per suggestion fromm http://stackoverflow.com/questions/10005937/javamail-sender-address-rejected-access-denied
+			Transport transport = emailSess.getTransport( "smtps" );
+			transport.connect( smtpHost, smtpPort, smtpUsername, smtpPassword );
+			transport.sendMessage( msg, msg.getAllRecipients() );
+			transport.close();
+		}
+		else {
+			Transport.send( msg );
+		}
+	}
+</GenRule>
+
+</RuleSet>

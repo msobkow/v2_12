@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/Schema/SchemaSchema.java"
+	Revision="2.12"
+	Descr="Java 11 implementation of a $SchemaName$ schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSchemaJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$SchemaJava"
+		ExpansionKeyName="$SchemaName$SchemaJava"
+		ExpansionFileName="$SchemaName$Schema.java"
+>// Description: Java 11 implementation of a $SchemaName$ schema.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$;
+
+import java.lang.reflect.*;
+import java.net.*;
+import java.rmi.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.Tip.CFTipClientHandler;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$
+
+public class $SchemaName$Schema
+	implements I$SchemaName$Schema$iterate SchemaRefs( each commaNewlineSchemaSchemaImplementsInterface empty empty )$
+{
+	protected $SecSchemaName$Authorization authorization;
+	protected I$DefSchemaName$TablePerms tablePerms;
+	protected $DefSchemaName$ConfigurationFile configuration;
+	protected String jndiName;
+	protected String schemaDbName = "$DbSchemaName$";
+	protected String lowerDbSchemaName = schemaDbName.toLowerCase();
+$iterate Types( empty empty each implSchemaParseEnum )$
+$iterate SchemaTables( each declSchemaTableTableMember )$
+$iterate SchemaTables( each declSchemaTableFactoryMember )$
+$implSchemaMoreMethods$$implSchemaCommitControl$$implSchemaTablePermsAccessors$$implSchemaXmlEncodeString$$implSchemaReleasePreparedStatements$$implSchemaSchemaGetSetDbSchemaNameMethods$}
+</GenFile>
+
+	<GenRule GenDef="EnumDef" Name="implSchemaParseEnum"
+		>$switch HasDefSchema yes empty default reallyImplSchemaParseEnum$</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="reallyImplSchemaParseEnum"
+		>$implSchemaParseEnumParse$$implSchemaParseEnumOrdinal$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaParseEnum"></GenRule>
+
+	<GenRule GenDef="EnumDef" Name="implSchemaParseEnumParse">
+	static HashMap&lt;String,$Name$&gt; lookup$Name$ = null;
+
+	public static $Name$ parse$Name$( String value ) {
+		$Name$ retval = parse$Name$( $SchemaName$Schema.class.getName(), value );
+		return( retval );
+	}
+
+	public static $Name$ parse$Name$( String fieldOrClassName, String value ) {
+		final String S_ProcName = "parse$Name$";
+		if( lookup$Name$ == null ) {
+			HashMap&lt;String,$Name$&gt; newMap = new HashMap&lt;String,$Name$&gt;();$iterate Tag( each implSchemaParseEnumAddTagToMap )$
+			lookup$Name$ = newMap;
+		}
+		$Name$ retval;
+		if( ( value == null ) || ( value.length() &lt;= 0 ) ) {
+			retval = null;
+		}
+		else {
+			retval = lookup$Name$.get( value );
+			if( retval == null ) {
+				throw new CFLibInvalidArgumentException( fieldOrClassName,
+					S_ProcName,
+					1,
+					"value",
+					"Invalid enum limb argument " + value );
+			}
+		}
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="implSchemaParseEnumAddTagToMap">
+			newMap.put( "$Name$", $popto EnumDef Name$.$Name$ );</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="implSchemaParseEnumOrdinal">
+	static HashMap&lt;Integer,$Name$&gt; lookupOrdinal$Name$ = null;
+
+	public static $Name$ ordinalTo$Name$( String fieldOrClassName, Short value ) {
+		$Name$ retval;
+		if( value == null ) {
+			retval = null;
+		}
+		else {
+			retval = ordinalTo$Name$( fieldOrClassName, Integer.valueOf( value.shortValue() ) );
+		}
+		return( retval );
+	}
+
+	public static $Name$ ordinalTo$Name$( Short value ) {
+		$Name$ retval;
+		if( value == null ) {
+			retval = null;
+		}
+		else {
+			retval = ordinalTo$Name$( Integer.valueOf( value.shortValue() ) );
+		}
+		return( retval );
+	}
+
+	public static $Name$ ordinalTo$Name$( Integer value ) {
+		$Name$ retval;
+		if( value == null ) {
+			retval = null;
+		}
+		else {
+			retval = ordinalTo$Name$( $SchemaName$Schema.class.getName(), Integer.valueOf( value.shortValue() ) );
+		}
+		return( retval );
+	}
+
+	public static $Name$ ordinalTo$Name$( String fieldOrClassName, Integer value ) {
+		final String S_ProcName = "ordinalTo$Name$";
+		if( lookupOrdinal$Name$ == null ) {
+			HashMap&lt;Integer,$Name$&gt; newMap = new HashMap&lt;Integer,$Name$&gt;();$iterate Tag( each implSchemaParseEnumAddOrdinalTagToMap )$
+			lookupOrdinal$Name$ = newMap;
+		}
+		$Name$ retval;
+		if( value == null ) {
+			retval = null;
+		}
+		else {
+			retval = lookupOrdinal$Name$.get( value );
+			if( retval == null ) {
+				throw new CFLibInvalidArgumentException( fieldOrClassName,
+					S_ProcName,
+					1,
+					"value",
+					"Invalid enum ordinal argument " + value.toString() );
+			}
+		}
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="implSchemaParseEnumAddOrdinalTagToMap">
+			newMap.put( Integer.valueOf( $popto EnumDef Name$.$Name$.ordinal() ), $popto EnumDef Name$.$Name$ );</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="commaNewlineSchemaSchemaImplementsInterface">,
+		I$reference RefSchema SchemaName$Schema</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMoreMethods"
+		>$implSchemaSchemaConstructor$$implSchemaGetCFTipClientHandler$$iterate SchemaRefs( first implSchemaConfigurationFileAccessors each empty empty implSchemaConfigurationFileAccessors )$$implSchemaAuthorizationAccessors$$iterate SchemaRefs( first implSchemaJndiNameAccessors each empty empty implSchemaJndiNameAccessors )$$iterate SchemaRefs( first implSchemaConnectionMethods each empty empty implSchemaConnectionMethods )$$iterate SchemaRefs( first implSchemaNewSchema each empty empty implSchemaNewSchema )$$iterate SchemaRefs( first implSchemaFileImport each empty empty implSchemaFileImport )$$iterate Id16Generators( each implNextIdGen empty empty)$$iterate Id32Generators( each implNextIdGen empty empty)$$iterate Id64Generators( each implNextIdGen empty empty)$$iterate UuidGenerators( each implNextIdGen empty empty )$$iterate SchemaTables(
+						each implTableMethods empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaGetCFTipClientHandler">
+	/**
+	 *	The majority of cases do not have a CFTipClientHandler
+	 *	associated with it's persistence implementation.
+	 *	Only the XMsg client implementations overload this
+	 *	to return the actual CFTipClientHandler associated
+	 *	with the connection instance.
+	 */
+	public CFTipClientHandler getCFTipClientHandler() {
+		return( null );
+	}
+
+	public String getServerURL() {
+		return( null );
+	}
+
+	public void setServerURL( String value ) {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaReleasePreparedStatements"
+		>$reference RefSchema implSchemaReleasePreparedStatements$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaReleasePreparedStatements">
+	/**
+	 *	Release any prepared statements bound to this database instance, such
+	 *	that the value of schemaDbName has to be re-evaluated for all future
+	 *	invocations.
+	 */
+	public void releasePreparedStatements() {
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaReleasePreparedStatements">
+	/**
+	 *	Release any prepared statements bound to this database instance, such
+	 *	that the value of schemaDbName has to be re-evaluated for all future
+	 *	invocations.
+	 */
+	public void releasePreparedStatements() {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSchemaGetSetDbSchemaNameMethods"
+		>$reference RefSchema implSchemaSchemaGetSetDbSchemaNameMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaGetSetDbSchemaNameMethods">
+	/**
+	 *	When you first connect to a database, you can opt to specify a database
+	 *	schema name to be used by the session.  The implementation code must always
+	 *	be dynamically based on the invocation of &lt;tt&gt;String getDbSchemaName()&lt;/tt&gt;
+	 *	at runtime.
+	 *	&lt;p&gt;
+	 *	The initial value is defined by the implementing schema model which has inherited
+	 *	the expression of the current schema model being expanded.  That is, it is specified
+	 *	in the DbSchemaName attribute of a SchemaDef instance.
+	 */
+	public String getDbSchemaName() {
+		return( schemaDbName );
+	}
+
+	public String getLowerDbSchemaName() {
+		return( lowerDbSchemaName );
+	}
+
+	/**
+	 *	The database is expected to override this implementation and invoke the
+	 *	&lt;tt&gt;super.setDbSchemaName( String argDbSchemaName )&lt;/tt&gt; early
+	 *	on in the implementation of the cust body.  You should let the exceptions
+	 *	which can be thrown by this implementation pass unimpeded.
+	 *	&lt;pg&gt;
+	 *	When you set the database schema name, the database-specific implementation
+	 *	of this method does a "commit; use database"-type sequence to change
+	 *	to the target database.  This should be specified globally for all
+	 *	database connections in a given cluster, so that all of
+	 *	the application implementation clients are using the same database instance
+	 *	regardless of what's been provided by the cust client implementation,
+	 *	be it as a Java application or a web interface written using JEE.
+	 */
+	public void setDbSchemaName( String argDbSchemaName ) {
+		final String S_ProcName = "setDbSchemaName";
+		if( ( argDbSchemaName == null ) || ( argDbSchemaName.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"argDbSchemaName" );
+		}
+		schemaDbName = argDbSchemaName;
+		lowerDbSchemaName = schemaDbName.toLowerCase();
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaSchemaGetSetDbSchemaNameMethods">
+	/**
+	 *	When you first connect to a database, you can opt to specify a database
+	 *	schema name to be used by the session.  The implementation code must always
+	 *	be dynamically based on the invocation of &lt;tt&gt;String getDbSchemaName()&lt;/tt&gt;
+	 *	at runtime.
+	 *	&lt;p&gt;
+	 *	The initial value is defined by the implementing schema model which has inherited
+	 *	the expression of the current schema model being expanded.  That is, it is specified
+	 *	in the DbSchemaName attribute of a SchemaDef instance.
+	 */
+	public String getDbSchemaName() {
+		return( schemaDbName );
+	}
+
+	public String getLowerDbSchemaName() {
+		return( lowerDbSchemaName );
+	}
+
+	/**
+	 *	The database is expected to override this implementation and invoke the
+	 *	&lt;tt&gt;super.setDbSchemaName( String argDbSchemaName )&lt;/tt&gt; early
+	 *	on in the implementation of the cust body.  You should let the exceptions
+	 *	which can be thrown by this implementation pass unimpeded.
+	 *	&lt;pg&gt;
+	 *	When you set the database schema name, the database-specific implementation
+	 *	of this method does a "commit; use database"-type sequence to change
+	 *	to the target database.  This should be specified globally for all
+	 *	database connections in a given cluster, so that all of
+	 *	the application implementation clients are using the same database instance
+	 *	regardless of what's been provided by the cust client implementation,
+	 *	be it as a Java application or a web interface written using JEE.
+	 */
+	public void setDbSchemaName( String argDbSchemaName ) {
+		final String S_ProcName = "setDbSchemaName";
+		if( ( argDbSchemaName == null ) || ( argDbSchemaName.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"argDbSchemaName" );
+		}
+		schemaDbName = argDbSchemaName;
+		lowerDbSchemaName = schemaDbName.toLowerCase();
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaInvokeReleasePreparedStatements">
+		if( table$TableName$ != null ) {
+			table$TableName$.releasePreparedStatements();
+		}</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaCommitControl"
+		>$reference RefSchema implSchemaCommitControl$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaCommitControl">
+	public boolean isTransactionOpen() {
+		throw new CFLibMustOverrideException( getClass(), "isTransactionOpen" );
+	}
+
+	public boolean beginTransaction() {
+		throw new CFLibMustOverrideException( getClass(), "beginTransaction" );
+	}
+
+	public void commit() {
+		throw new CFLibMustOverrideException( getClass(), "commit" );
+	}
+
+	public void rollback() {
+		throw new CFLibMustOverrideException( getClass(), "rollback" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaCommitControl">
+	public boolean isTransactionOpen() {
+		throw new CFLibMustOverrideException( getClass(), "isTransactionOpen" );
+	}
+
+	public boolean beginTransaction() {
+		throw new CFLibMustOverrideException( getClass(), "beginTransaction" );
+	}
+
+	public void commit() {
+		throw new CFLibMustOverrideException( getClass(), "commit" );
+	}
+
+	public void rollback() {
+		throw new CFLibMustOverrideException( getClass(), "rollback" );
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="implNextIdGen">
+	public short next$Name$() {
+		throw new CFLibNotImplementedYetException( getClass(), "next$Name$" );
+	}
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="implNextIdGen">
+	public int next$Name$() {
+		throw new CFLibNotImplementedYetException( getClass(), "next$Name$" );
+	}
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="implNextIdGen">
+	public long next$Name$() {
+		throw new CFLibNotImplementedYetException( getClass(), "next$Name$" );
+	}
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidGen" Name="implNextIdGen">
+	public UUID next$Name$() {
+		UUID retval = UUID.randomUUID();
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableTableMember"
+>	protected I$DefSchemaName$$TableName$Table table$TableName$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declSchemaTableFactoryMember"
+>	protected I$DefSchemaName$$TableName$Factory factory$TableName$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMethods"
+		>$implSchemaTableTableAccessors$$implSchemaTableFactoryAccessors$</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaAuthorizationAccessors"
+		>$popto SchemaDef implSchemaAuthorizationAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaAuthorizationAccessors">
+	public $SecSchemaName$Authorization getAuthorization() {
+		return( authorization );
+	}
+
+	public void setAuthorization( $SecSchemaName$Authorization value ) {
+		authorization = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaTablePermsAccessors">
+	public I$DefSchemaName$TablePerms getTablePerms() {
+		return( tablePerms );
+	}
+
+	public void setTablePerms( I$DefSchemaName$TablePerms value ) {
+		tablePerms = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableTableAccessors">
+	public I$DefSchemaName$$TableName$Table getTable$TableName$() {
+		return( table$TableName$ );
+	}
+
+	public void setTable$TableName$( I$DefSchemaName$$TableName$Table value ) {
+		table$TableName$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaFileImport"
+		>$reference RefSchema implSchemaFileImport$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaFileImport">
+	/**
+	 *	Import the contents of the specified file name
+	 *	and file contents by applying a SAX Loader parse.
+	 */
+	public String fileImport( $SecSchemaName$Authorization auth, String fileName, String fileContent ) {
+		final String S_ProcName = "fileImport";
+		throw new CFLibNotImplementedYetException( getClass(),
+			S_ProcName,
+			"You must overload this method to apply a SAX Parser to the file contents" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaFileImport">
+	/**
+	 *	Import the contents of the specified file name
+	 *	and file contents by applying a SAX Loader parse.
+	 */
+	public String fileImport( $popto SchemaDef SecSchemaName$Authorization auth, String fileName, String fileContent ) {
+		final String S_ProcName = "fileImport";
+		throw new CFLibNotImplementedYetException( getClass(),
+			S_ProcName,
+			"You must overload this method to apply a SAX Parser to the file contents" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableFactoryAccessors">
+	public I$DefSchemaName$$TableName$Factory getFactory$TableName$() {
+		return( factory$TableName$ );
+	}
+
+	public void setFactory$TableName$( I$DefSchemaName$$TableName$Factory value ) {
+		factory$TableName$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaSchemaConstructor">
+	public $poptop SchemaDef SchemaName$Schema() {
+		configuration = null;
+		jndiName = null;
+$poptop SchemaDef iterate SchemaTables( each initSchemaTableTableMember )$
+$poptop SchemaDef iterate SchemaTables( each initSchemaTableFactoryMember )
+$	}
+
+	public $poptop SchemaDef SchemaName$Schema( $poptop SchemaDef DefSchemaName$ConfigurationFile conf ) {
+		if( conf == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"$poptop SchemaDef SchemaName$Schema-constructor",
+				1,
+				"conf" );
+		}
+		configuration = conf;
+		jndiName = null;
+$poptop SchemaDef iterate SchemaTables( each initSchemaTableTableMember )$
+$poptop SchemaDef iterate SchemaTables( each initSchemaTableFactoryMember )
+$	}
+
+	public $poptop SchemaDef SchemaName$Schema( String argJndiName ) {
+		if( ( argJndiName == null ) || ( argJndiName.length() &lt;= 0 ) ) {
+			throw new CFLibEmptyArgumentException( getClass(),
+				"$poptop SchemaDef SchemaName$Schema-constructor",
+				1,
+				"argJndiName" );
+		}
+		configuration = null;
+		jndiName = argJndiName;
+$poptop SchemaDef iterate SchemaTables( each initSchemaTableTableMember )$
+$poptop SchemaDef iterate SchemaTables( each initSchemaTableFactoryMember )
+$	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaNewSchema"
+		>$reference RefSchema implSchemaNewSchema$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaNewSchema">
+	public I$poptop SchemaDef SchemaName$Schema newSchema() {
+		throw new CFLibMustOverrideException( getClass(), "newSchema" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaNewSchema">
+	public I$poptop SchemaDef SchemaName$Schema newSchema() {
+		throw new CFLibMustOverrideException( getClass(), "newSchema" );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaJndiNameAccessors">
+	public String getJndiName() {
+		return( jndiName );
+	}
+
+	public void setJndiName( String value ) {
+		if( ( value == null ) || ( value.length() &lt;= 0 ) ) {
+			jndiName = null;
+		}
+		else {
+			configuration = null;
+			jndiName = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaJndiNameAccessors">
+	public String getJndiName() {
+		return( jndiName );
+	}
+
+	public void setJndiName( String value ) {
+		if( ( value == null ) || ( value.length() &lt;= 0 ) ) {
+			jndiName = null;
+		}
+		else {
+			configuration = null;
+			jndiName = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaConnectionMethods"
+		>$reference RefSchema implSchemaConnectionMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaConnectionMethods">
+	public boolean isConnected() {
+		throw new CFLibMustOverrideException( getClass(), "isConnected" );
+	}
+
+	public boolean connect() {
+		throw new CFLibMustOverrideException( getClass(), "connect" );
+	}
+
+	public boolean connect( String username, String password ) {
+		throw new CFLibMustOverrideException( getClass(), "connect-userpw" );
+	}
+
+	public boolean connect( String loginId, String password, String clusterName, String tenantName ) {
+		throw new CFLibMustOverrideException( getClass(), "connect-full" );
+	}
+
+	public void disconnect( boolean doCommit ) {
+		throw new CFLibMustOverrideException( getClass(), "disconnect" );
+	}
+
+	public void logout( $SecSchemaName$Authorization auth ) {
+		throw new CFLibMustOverrideException( getClass(), "logout" );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaConnectionMethods">
+	public boolean isConnected() {
+		throw new CFLibMustOverrideException( getClass(), "isConnected" );
+	}
+
+	public boolean connect() {
+		throw new CFLibMustOverrideException( getClass(), "connect" );
+	}
+
+	public boolean connect( String username, String password ) {
+		throw new CFLibMustOverrideException( getClass(), "connect-userpw" );
+	}
+
+	public boolean connect( String loginId, String password, String clusterName, String tenantName ) {
+		throw new CFLibMustOverrideException( getClass(), "connect-full" );
+	}
+
+	public void disconnect( boolean doCommit ) {
+		throw new CFLibMustOverrideException( getClass(), "disconnect" );
+	}
+
+	public void logout( $SecSchemaName$Authorization auth ) {
+		throw new CFLibMustOverrideException( getClass(), "logout" );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaConfigurationFileAccessors"
+		>$reference RefSchema implSchemaConfigurationFileAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaConfigurationFileAccessors">
+	public $DefSchemaName$ConfigurationFile getConfigurationFile() {
+		return( configuration );
+	}
+
+	public void setConfigurationFile( $DefSchemaName$ConfigurationFile value ) {
+		if( value == null ) {
+			configuration = null;
+		}
+		else {
+			configuration = value;
+			jndiName = null;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaConfigurationFileAccessors">
+	public $popto SchemaDef DefSchemaName$ConfigurationFile getConfigurationFile() {
+		return( configuration );
+	}
+
+	public void setConfigurationFile( $popto SchemaDef DefSchemaName$ConfigurationFile value ) {
+		if( value == null ) {
+			configuration = null;
+		}
+		else {
+			configuration = value;
+			jndiName = null;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="initSchemaTableTableMember">
+		table$TableName$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="initSchemaTableFactoryMember">
+		factory$TableName$ = new $SchemaName$$TableName$DefaultFactory();</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaXmlEncodeString">
+	public static String xmlEncodeString( String val ) {
+		StringBuffer buff = new StringBuffer();
+		int len = val.length();
+		for( int idx = 0; idx &lt; len; idx ++ ) {
+			char c = val.charAt( idx );
+			switch( c ) {
+				case '&amp;':
+					buff.append( "&amp;amp;" );
+					break;
+				case '&lt;':
+					buff.append( "&amp;lt;" );
+					break;
+				case '&gt;':
+					buff.append( "&amp;gt;" );
+					break;
+				case '"':
+					buff.append( "&amp;quot;" );
+					break;
+				case '\\'':
+					buff.append( "&amp;apos;" );
+					break;
+				default:
+					buff.append( c );
+					break;
+			}
+		}
+		return( buff.toString() );
+	}
+</GenRule>
+
+</RuleSet>

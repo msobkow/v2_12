@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus+saxloader"
+	Name="libschemaxml/schemaxml/SchemaSaxLdr.hpp"
+	Revision="2.12"
+	Descr="C++18 XML Command Line Interface common core specification for Schema">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSaxLdrHPlus"
+		GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$reference ManufacturingSchema lower PackageName$saxloader"
+		SubPackageName="$lower poptop SchemaDef SchemaName$saxloader"
+		ExpansionClassName="$SchemaName$SaxLdrHPlus"
+		ExpansionKeyName="$SchemaName$SaxLdrHPlus"
+		ExpansionFileName="$SchemaName$SaxLdr.hpp"
+>#pragma once
+
+// Description: C++18 XML Command Line Interface common core specification for $SchemaName$.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+namespace $CPlusSecNamespace$ {
+	class I$SecSchemaName$ClusterObj;
+	class I$SecSchemaName$TenantObj;
+	class I$SecSchemaName$SecUserObj;
+	class I$SecSchemaName$SecSessionObj;
+}
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$SaxLoader;
+
+	class $SchemaName$SaxLdr
+	{
+	protected:
+		cflib::ICFLibMessageLog* log;
+		$CPlusNamespace$::$SchemaName$SaxLoader* saxLoader;
+		std::string* clusterName;
+		$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* clusterObj;
+		std::string* tenantName;
+		$CPlusSecNamespace$::I$SecSchemaName$TenantObj* tenantObj;
+		std::string* secUserName;
+		$CPlusSecNamespace$::I$SecSchemaName$SecUserObj* secUserObj;
+		$CPlusSecNamespace$::I$SecSchemaName$SecSessionObj* secSessionObj;
+	public:
+		const static std::string CLASS_NAME;
+		const static std::string S_SYSTEM;
+		const static std::string S_UnhandledException;
+$declSchemaSaxLdrConstructor$
+$declSchemaSaxLdrSaxLoaderAccessors$
+$declSchemaSaxLdrClusterAccessors$
+$declSchemaSaxLdrTenantAccessors$
+$declSchemaSaxLdrSecUserAccessors$
+$declSchemaSaxLdrSecSessionAccessors$
+$declSchemaSaxLdrApplyLoaderOptions$
+$declSchemaSaxLdrEvalLoaderSegment$
+$declSchemaSaxLdrEvalRemaining$
+	};
+}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="includeDefSchemaTablePKey"
+		>$switch HasSuperClassRelation yes empty default reallyIncludeDefSchemaTablePKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyIncludeDefSchemaTablePKey">
+#include &lt;$lower DefSchemaName$/$DefSchemaName$$TableName$PKey.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeDefSchemaTableBuff">
+#include &lt;$lower DefSchemaName$/$DefSchemaName$$TableName$Buff.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeISchemaTableObj">
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$Obj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeISchemaTableEditObj">
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$EditObj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeISchemaTableTableObj">
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$TableObj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSaxLdrSaxLoaderAccessors">
+		void setSaxLoader( $CPlusNamespace$::$SchemaName$SaxLoader* value );
+		$SchemaName$SaxLoader* getSaxLoader();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSaxLdrClusterAccessors">
+		void setClusterName( const std::string&amp; value );
+		const std::string&amp; getClusterName() const;
+		$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* getClusterObj();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSaxLdrTenantAccessors">
+		void setTenantName( const std::string&amp; value );
+		const std::string&amp; getTenantName() const;
+		$CPlusSecNamespace$::I$SecSchemaName$TenantObj* getTenantObj();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSaxLdrSecUserAccessors">
+		void setSecUserName( const std::string&amp; value );
+		const std::string&amp; getSecUserName() const;
+		$CPlusSecNamespace$::I$SecSchemaName$SecUserObj* getSecUserObj();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSaxLdrSecSessionAccessors">
+		$CPlusSecNamespace$::I$SecSchemaName$SecSessionObj* getSecSessionObj();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSaxLdrConstructor"
+			>$declSchemaSaxLdrConstructorVoid$$declSchemaSaxLdrConstructorLog$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSaxLdrConstructorVoid">
+		$SchemaName$SaxLdr();
+		virtual ~$SchemaName$SaxLdr();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSaxLdrConstructorLog">
+		$SchemaName$SaxLdr( cflib::ICFLibMessageLog* messageLog );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSaxLdrEvalRemaining">
+		virtual void evaluateRemainingArgs( size_t argc, char* argv[], size_t consumed );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSaxLdrApplyLoaderOptions">
+		static void applyLoaderOptions( $CPlusNamespace$::$SchemaName$SaxLoader* loader, const std::string&amp; loaderOptions );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaSaxLdrEvalLoaderSegment">
+		static void evalLoaderSegment( $CPlusNamespace$::$SchemaName$SaxLoader* loader, const std::string&amp; evalSegment );
+</GenRule>
+
+</RuleSet>

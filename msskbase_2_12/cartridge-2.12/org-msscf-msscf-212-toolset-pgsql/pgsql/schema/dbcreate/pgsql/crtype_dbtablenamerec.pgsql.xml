@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="schema/dbcreate/pgsql/crtype_dbtablenamerec.pgsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateDbTableNameRecType"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="pgsql"
+		ExpansionClassName="$dbadminfilename_CreateDbTableNameRecType$"
+		ExpansionKeyName="$dbadminfilename_CreateDbTableNameRecType$"
+		ExpansionFileName="$dbadminfilename_CreateDbTableNameRecType$" >--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create type $lower DbSchemaName$.$type_dbtablename_rec$ as (
+$implPgSqlSpecTypeTableColumns$,
+		revision integer );
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implPgSqlSpecTypeTableColumns"
+		>$switch HasSuperClassRelation yes implPgSqlSpecTypeSuperTable default implPgSqlSpecTypeBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSpecTypeSuperTable"
+		>$reference SuperClassRelation reference ToTable implPgSqlSpecTypeTableColumns$$iterate Columns( each implPgSqlSpecTypeFragCommaDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlSpecTypeFragCommaDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implPgSqlTableColumnSpecTypeFragCommaColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSpecTypeBaseTable"
+		>$switch IsBaseTable yes implPgSqlSpecTypeBaseTableWithCC default implPgSqlSpecTypeBaseTableNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSpecTypeBaseTableWithCC"
+>		ClassCode varchar$switch HasAuditColumns yes implPgSqlSpecTypeCommaAuditColumns default empty$$iterate Columns( each implPgSqlTableColumnSpecTypeFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSpecTypeBaseTableNoCC"
+>		$switch HasAuditColumns yes implPgSqlSpecTypeNoCCAuditColumns default implPgSqlSpecTypeNoCCNoAuditColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSpecTypeNoCCNoAuditColumns">$iterate Columns( first implPgSqlTableColumnSpecTypeFragDbName each implPgSqlTableColumnSpecTypeFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSpecTypeNoCCAuditColumns"
+		>createdby varchar,
+		createdat text,
+		updatedby varchar,
+		updatedat text$iterate Columns( each implPgSqlTableColumnSpecTypeFragCommaColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSpecTypeCommaAuditColumns">,
+		createdby varchar,
+		createdat text,
+		updatedby varchar,
+		updatedat text</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragCommaColumn">,
+		$implPgSqlTableColumnSpecTypeFragDbName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameBlob"
+		>$lower DbColumnName$ bytea</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameBool"
+		>$lower DbColumnName$ boolean</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameEnum"
+		>$lower DbColumnName$ smallint</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameInt16"
+		>$lower DbColumnName$ smallint</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameInt32"
+		>$lower DbColumnName$ integer</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameInt64"
+		>$lower DbColumnName$ bigint</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameUInt16"
+		>$lower DbColumnName$ integer</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameUInt32"
+		>$lower DbColumnName$ bigint</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameUInt64"
+		>$lower DbColumnName$ text</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameFloat"
+		>$lower DbColumnName$ real</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameDouble"
+		>$lower DbColumnName$ double precision</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameNumber"
+		>$lower DbColumnName$ text</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameString"
+		>$lower DbColumnName$ varchar</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameToken"
+		>$lower DbColumnName$ varchar</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameNmToken"
+		>$lower DbColumnName$ varchar</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameNmTokens"
+		>$lower DbColumnName$ varchar</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameText"
+		>$lower DbColumnName$ text</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameDate"
+		>$lower DbColumnName$ text</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameTime"
+		>$lower DbColumnName$ text</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameTimestamp"
+		>$lower DbColumnName$ text</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameTZDate"
+		>$lower DbColumnName$ text</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameTZTime"
+		>$lower DbColumnName$ text</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameTZTimestamp"
+		>$lower DbColumnName$ text</GenRule>
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbNameUuid"
+		>$lower DbColumnName$ varchar</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlTableColumnSpecTypeFragDbName"
+>$switch BaseModelAtomClass
+			BlobDef implPgSqlTableColumnSpecTypeFragDbNameBlob
+			BoolDef implPgSqlTableColumnSpecTypeFragDbNameBool
+			EnumDef implPgSqlTableColumnSpecTypeFragDbNameEnum
+			Int16Def implPgSqlTableColumnSpecTypeFragDbNameInt16
+			Int32Def implPgSqlTableColumnSpecTypeFragDbNameInt32
+			Int64Def implPgSqlTableColumnSpecTypeFragDbNameInt64
+			UInt16Def implPgSqlTableColumnSpecTypeFragDbNameUInt16
+			UInt32Def implPgSqlTableColumnSpecTypeFragDbNameUInt32
+			UInt64Def implPgSqlTableColumnSpecTypeFragDbNameUInt64
+			Id16Gen implPgSqlTableColumnSpecTypeFragDbNameInt16
+			Id32Gen implPgSqlTableColumnSpecTypeFragDbNameInt32
+			Id64Gen implPgSqlTableColumnSpecTypeFragDbNameInt64
+			FloatDef implPgSqlTableColumnSpecTypeFragDbNameFloat
+			DoubleDef implPgSqlTableColumnSpecTypeFragDbNameDouble
+			NumberDef implPgSqlTableColumnSpecTypeFragDbNameNumber
+			StringDef implPgSqlTableColumnSpecTypeFragDbNameString
+			TokenDef implPgSqlTableColumnSpecTypeFragDbNameToken
+			NmTokenDef implPgSqlTableColumnSpecTypeFragDbNameNmToken
+			NmTokensDef implPgSqlTableColumnSpecTypeFragDbNameNmTokens
+			TextDef implPgSqlTableColumnSpecTypeFragDbNameText
+			DateDef implPgSqlTableColumnSpecTypeFragDbNameDate
+			TimeDef implPgSqlTableColumnSpecTypeFragDbNameTime
+			TimestampDef implPgSqlTableColumnSpecTypeFragDbNameTimestamp
+			TZDateDef implPgSqlTableColumnSpecTypeFragDbNameTZDate
+			TZTimeDef implPgSqlTableColumnSpecTypeFragDbNameTZTime
+			TZTimestampDef implPgSqlTableColumnSpecTypeFragDbNameTZTimestamp
+			UuidDef implPgSqlTableColumnSpecTypeFragDbNameUuid
+			UuidGen implPgSqlTableColumnSpecTypeFragDbNameUuid
+			default empty$</GenRule>
+
+</RuleSet>

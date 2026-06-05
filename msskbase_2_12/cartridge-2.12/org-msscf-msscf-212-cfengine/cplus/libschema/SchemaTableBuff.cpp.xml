@@ -1,0 +1,2557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/SchemaTableBuff.cpp"
+	Revision="2.12"
+	Descr="C++18 implementation of a $TableName$ buffer object.">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableBuffCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$$TableName$BuffCpp"
+		ExpansionKeyName="$SchemaName$$TableName$BuffCpp"
+		ExpansionFileName="$SchemaName$$TableName$Buff.cpp"
+>// Description: C++18 implementation for a $TableName$ buffer object.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+$includeBuffIndexHeaders$
+#include &lt;$lower DefSchemaName$/$DefSchemaName$Schema.hpp&gt;
+
+namespace $CPlusNamespace$ {
+$switch HasSuperClassRelation yes empty default implBuffSValue$$implBuffStaticClassCode$$switch HasSuperClassRelation yes implBuffNonPrimaryColNames default implBuffColNames$$switch HasSuperClassRelation no implBuffOptAuditColumns default empty$$implSchemaTableBuffColumns$$implSchemaTableBuffMinValues$$implSchemaTableBuffMaxValues$$implSchemaTableBuffMaxLens$
+$switch HasSuperClassRelation yes implSchemaTableBuffInhConstruct default implSchemaTableBuffBaseConstruct$$implBuffClone$$implBuffGetClassCode$$implBuffImplementsClassCode$$switch HasSuperClassRelation no implBuffColumnGetterSetters default implBuffDataGetterSetters$$switch HasSuperClassRelation no implBuffRevisionGetterSetter default empty$$implBuffGetHashCode$$implBuffSet$$implBuffComparison$$implBuffToString$}
+$implStdBuffComparison$
+</GenFile>
+
+	<GenRule GenDef="Table" Name="declGetRequiredRevision">
+		virtual int32_t getRequiredRevision() const;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declGetClassCode">
+		virtual const classcode_t getClassCode() const;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declImplementsClassCode">
+		virtual bool implementsClassCode( const classcode_t value ) const;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffImplementsClassCode">
+	bool $SchemaName$$TableName$Buff::implementsClassCode( const classcode_t argClassCode ) {$switch HasSuperClassRelation yes implBuffImplementsSuperClassCode default implBuffImplementsThisClassCode$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffImplementsSuperClassCode">
+		if( argClassCode == CLASS_CODE ) {
+			return( true );
+		}
+		else {
+			return( $reference SuperClassRelation reference ToTable CPlusDefNamespace$::$reference SuperClassRelation reference ToTable DefSchemaName$$reference SuperClassRelation reference ToTable TableName$Buff::implementsClassCode( argClassCode ) );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffImplementsThisClassCode">
+		if( argClassCode == CLASS_CODE ) {
+			return( true );
+		}
+		else {
+			return( false );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffClone">
+	cflib::ICFLibCloneableObj* $SchemaName$$TableName$Buff::clone() {
+		$SchemaName$$TableName$Buff* copy = new $SchemaName$$TableName$Buff();
+		*copy = *this;
+		cflib::ICFLibCloneableObj* retval = dynamic_cast&lt;cflib::ICFLibCloneableObj*&gt;( copy );
+		return( retval );
+	}
+</GenRule>
+
+
+	<GenRule GenDef="Table" Name="ClassSuperClassTableBuff">$switch HasDefSchema yes ClassSchemaTableBuff default ClassSchemaTableBuffSuperBuff$</GenRule>
+
+	<GenRule GenDef="Table" Name="includeBuffIndexHeaders"
+		>$switch HasSuperClassRelation yes includeBuffInhIndexHeaders default includeBuffBaseIndexHeaders$</GenRule>
+
+	<GenRule GenDef="Table" Name="includeBuffInhIndexHeaders"
+		>$reference SuperClassRelation reference ToTable includeBuffIndexHeaders$$iterate Index( each includeNonPrimarySchemaTableIndexKeyHeader )$</GenRule>
+
+	<GenRule GenDef="Table" Name="includeBuffBaseIndexHeaders"
+		>$iterate Index( each includeNonPrimarySchemaTableIndexKeyHeader )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffToString">
+	std::string $SchemaName$$TableName$Buff::toString() {
+		static const std::string S_Space( " " );
+		static const std::string S_Preamble( "&lt;$SchemaName$$TableName$Buff" );
+		static const std::string S_Postamble( "/&gt;" );
+		static const std::string S_Revision( "Revision" );$reference BaseClass maybeImplBuffToStringAuditColumnName$$implBuffToStringColumnNames$
+		std::string ret( S_Preamble );$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implToStringEmitXmlAttr empty empty )$$reference BaseClass maybeImplBuffToStringAuditColumn$
+		ret.append( cflib::CFLibXmlUtil::formatRequiredInt32( &amp;S_Space, S_Revision, getRequiredRevision() ) );$implBuffToStringColumn$
+		ret.append( S_Postamble );
+		return( ret );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffToStringColumnNames"
+		>$switch HasSuperClassRelation yes implBuffToStringInhColumnNames default implBuffToStringBaseColumnNames$</GenRule>
+	<GenRule GenDef="Table" Name="implBuffToStringInhColumnNames"
+		>$reference SuperClassRelation reference ToTable implBuffToStringColumnNames$$iterate DataColumns( each implToStringAttrName empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implBuffToStringBaseColumnNames"
+		>$iterate Columns( each implToStringAttrName empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffToStringColumn"
+		>$switch HasSuperClassRelation yes implBuffToStringInhColumn default implBuffToStringBaseColumn$</GenRule>
+	<GenRule GenDef="Table" Name="implBuffToStringInhColumn"
+		>$reference SuperClassRelation reference ToTable implBuffToStringColumn$$iterate DataColumns( each implToStringEmitXmlAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implBuffToStringBaseColumn"
+		>$iterate DataColumns( each implToStringEmitXmlAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplBuffToStringAuditColumn"
+		>$switch BaseHasAuditColumns yes implBuffToStringAuditColumn default empty$</GenRule>
+	<GenRule GenDef="Table" Name="implBuffToStringAuditColumn">
+		ret.append( cflib::CFLibXmlUtil::formatRequiredUuid( &amp;S_Space, S_CreatedBy, getCreatedByUserId() ) );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredTZTimestamp( &amp;S_Space, S_CreatedAt, getCreatedAt() ) );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredUuid( &amp;S_Space, S_UpdatedBy, getUpdatedByUserId() ) );
+		ret.append( cflib::CFLibXmlUtil::formatRequiredTZTimestamp( &amp;S_Space, S_UpdatedAt, getUpdatedAt() ) );</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplBuffToStringAuditColumnName"
+		>$switch BaseHasAuditColumns yes implBuffToStringAuditColumnName default empty$</GenRule>
+	<GenRule GenDef="Table" Name="implBuffToStringAuditColumnName">
+		static const std::string S_CreatedBy( "CreatedBy" );
+		static const std::string S_CreatedAt( "CreatedAt" );
+		static const std::string S_UpdatedBy( "UpdatedBy" );
+		static const std::string S_UpdatedAt( "UpdatedAt" );</GenRule>
+	<GenRule GenDef="Table" Name="implBuffSValue">
+	const std::string $SchemaName$$TableName$Buff::S_VALUE( "value" );
+	const std::string $SchemaName$$TableName$Buff::S_VALUE_LENGTH( "value.length()" );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="includeNonPrimarySchemaTableIndexKeyHeader"
+		>$switch IsPrimaryIndex yes empty default includeSchemaTableIndexKeyHeader$</GenRule>
+
+	<GenRule GenDef="Index" Name="includeSchemaTableIndexKeyHeader">
+#include &lt;$lower DefSchemaName$/$DefSchemaName$$TableName$By$Suffix$Key.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Object" Name="implBuffRevisionGetterSetter">
+	int32_t $SchemaName$$TableName$Buff::getRequiredRevision() const {
+		return( requiredRevision );
+	}
+
+	void $SchemaName$$TableName$Buff::setRequiredRevision( int32_t value ) {
+		requiredRevision = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implEitherBuffDataOrColumnAttr"
+		>$switch HasSuperClassRelation yes implBuffDataAttr default implBuffColumnAttr$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableBuffMinValues"
+		>$iterate Columns( each maybeBuffImplMinValue empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableBuffMaxValues"
+		>$iterate Columns( each maybeImplBuffMaxValue empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableBuffMaxLens"
+		>$iterate Columns( each maybeImplBuffMaxLen empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableBuffColumns"
+		>$iterate Columns( each maybeBuffImplInitValue empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffOptAuditColumns"
+		>$switch BaseHasAuditColumns yes implBuffDeclInitAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffDeclInitAuditColumns">
+	const char* $SchemaName$$TableName$Buff::S_INIT_CREATEDBY = "654dbba0-eda7-11e1-aff1-0800200c9a66";
+	const char* $SchemaName$$TableName$Buff::S_INIT_UPDATEDBY = "654dbba0-eda7-11e1-aff1-0800200c9a66";</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeBuffImplInitValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef implBuffInitValueIfSpecified
+			EnumDef implBuffInitValue
+			Id16Gen implBuffInitValue
+			Id32Gen implBuffInitValue 
+			Id64Gen implBuffInitValue
+			Int16Def implBuffInitValue
+			Int32Def implBuffInitValue
+			Int64Def implBuffInitValue
+			UInt16Def implBuffInitValue
+			UInt32Def implBuffInitValue
+			UInt64Def implBuffInitValue
+			FloatDef implBuffInitValueIfSpecified
+			DoubleDef implBuffInitValueIfSpecified
+			NumberDef implBuffInitValue
+			DateDef implBuffInitValueIfSpecified
+			TimeDef implBuffInitValueIfSpecified
+			TimestampDef implBuffInitValueIfSpecified
+			TZDateDef implBuffInitValueIfSpecified
+			TZTimeDef implBuffInitValueIfSpecified
+			TZTimestampDef implBuffInitValueIfSpecified
+			UuidGen empty
+			UuidDef empty
+			StringDef implBuffInitValueIfSpecified
+			TokenDef implBuffInitValueIfSpecified
+			NmTokenDef implBuffInitValueIfSpecified
+			NmTokensDef implBuffInitValueIfSpecified
+			TextDef implBuffInitValueIfSpecified
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInitValueIfSpecified"
+		>$switch HasInitValue yes implBuffInitValue default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeBuffImplMinValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef empty
+			EnumDef implBuffMinValue
+			Id16Gen implBuffMinValueIfSpecified
+			Id32Gen implBuffMinValueIfSpecified
+			Id64Gen implBuffMinValueIfSpecified
+			Int16Def implBuffMinValueIfSpecified
+			Int32Def implBuffMinValueIfSpecified
+			Int64Def implBuffMinValueIfSpecified
+			UInt16Def implBuffMinValueIfSpecified
+			UInt32Def implBuffMinValueIfSpecified
+			UInt64Def implBuffMinValueIfSpecified
+			FloatDef implBuffMinValueIfSpecified
+			DoubleDef implBuffMinValueIfSpecified
+			NumberDef implBuffMinValueIfSpecified
+			DateDef empty
+			TimeDef empty
+			TimestampDef empty
+			TZDateDef empty
+			TZTimeDef empty
+			TZTimestampDef empty
+			UuidGen empty
+			UuidDef empty
+			StringDef empty
+			TokenDef empty
+			NmTokenDef empty
+			NmTokensDef empty
+			TextDef empty
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffMinValueIfSpecified"
+		>$switch HasMinValue yes implBuffMinValue default empty$</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeImplBuffMaxValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef empty
+			EnumDef implBuffMaxValue
+			Id16Gen implBuffMaxValueIfSpecified
+			Id32Gen implBuffMaxValueIfSpecified 
+			Id64Gen implBuffMaxValueIfSpecified
+			Int16Def implBuffMaxValueIfSpecified
+			Int32Def implBuffMaxValueIfSpecified
+			Int64Def implBuffMaxValueIfSpecified
+			UInt16Def implBuffMaxValueIfSpecified
+			UInt32Def implBuffMaxValueIfSpecified
+			UInt64Def implBuffMaxValueIfSpecified
+			FloatDef implBuffMaxValueIfSpecified
+			DoubleDef implBuffMaxValueIfSpecified
+			NumberDef implBuffMaxValueIfSpecified
+			DateDef empty
+			TimeDef empty
+			TimestampDef empty
+			TZDateDef empty
+			TZTimeDef empty
+			TZTimestampDef empty
+			UuidGen empty
+			UuidDef empty
+			StringDef empty
+			TokenDef empty
+			NmTokenDef empty
+			NmTokensDef empty
+			TextDef empty
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeImplBuffMaxLen"
+		>$switch BaseModelAtomClass
+			BlobDef implBuffMaxLen
+			BoolDef empty
+			EnumDef empty
+			Id16Gen empty
+			Id32Gen empty
+			Id64Gen empty
+			Int16Def empty
+			Int32Def empty
+			Int64Def empty
+			UInt16Def empty
+			UInt32Def empty
+			UInt64Def empty
+			FloatDef empty
+			DoubleDef empty
+			NumberDef empty
+			DateDef empty
+			TimeDef empty
+			TimestampDef empty
+			TZDateDef empty
+			TZTimeDef empty
+			TZTimestampDef empty
+			UuidGen empty
+			UuidDef empty
+			StringDef implBuffMaxLen
+			TokenDef implBuffMaxLen
+			NmTokenDef implBuffMaxLen
+			NmTokensDef implBuffMaxLen
+			TextDef implBuffMaxLen
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffMaxValueIfSpecified"
+		>$switch HasMaxValue yes implBuffMaxValue default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffStaticClassCode">
+	const std::string $SchemaName$$TableName$Buff::GENDEFNAME( "$TableName$" );
+	const classcode_t $SchemaName$$TableName$Buff::CLASS_CODE = 0x$ClassCode$L;
+	const std::string $SchemaName$$TableName$Buff::CLASS_NAME( "$SchemaName$$TableName$Buff" );</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffNonPrimaryColNames"
+		>$iterate Columns( each implBuffNonPrimaryColName empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffColNames"
+		>$iterate Columns( each implBuffColName empty empty )$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implBuffNonPrimaryColName"
+		>$switch ColumnInPrimaryIndex yes empty default implBuffColName$</GenRule>
+	<GenRule GenDef="TableCol" Name="implBuffNonPrimaryColName"
+		>$switch ColumnInPrimaryIndex yes empty default implBuffColName$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implBuffColName">
+		const std::string $SchemaName$$TableName$Buff::COLNAME_$upper Name$( "$Name$" );</GenRule>
+	<GenRule GenDef="TableCol" Name="implBuffColName">
+		const std::string $SchemaName$$TableName$Buff::COLNAME_$upper Name$( "$Name$" );</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffGetClassCode">
+	const std::string&amp; $SchemaName$$TableName$Buff::getClassName() const {
+		return( CLASS_NAME );
+	}
+
+	const classcode_t $SchemaName$$TableName$Buff::getClassCode() const {
+		return( CLASS_CODE );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffColumnAttr"
+		>$switch HasSuperClassRelation no implBuffOptAuditColumnAttr default empty$$iterate Columns( each implColumnAttr )$</GenRule>
+	<GenRule GenDef="Table" Name="implBuffDataAttr"
+		>$iterate DataColumns( each implColumnAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffOptAuditColumnAttr"
+		>$switch BaseHasAuditColumns yes implBuffAuditColumnAttr default empty$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implBuffColumnGetterSetter"
+		>$reference Column implBuffColumnGetterSetter$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffColumnGetterSetters"
+		>$switch HasSuperClassRelation no implBuffColumnOptAuditGetterSetters default empty$$iterate Columns( each implBuffColumnGetterSetter )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffColumnOptAuditGetterSetters"
+		>$switch BaseHasAuditColumns yes implBuffColumnAuditGetterSetters default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffColumnAuditGetterSetters">
+	const uuid_ptr_t $SchemaName$$TableName$Buff::getCreatedByUserId() const {
+		return( createdByUserId );
+	}
+
+	void $SchemaName$$TableName$Buff::setCreatedByUserId( const uuid_ptr_t value ) {
+		uuid_copy( createdByUserId, value );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::getCreatedAt() const {
+		return( createdAt );
+	}
+
+	void $SchemaName$$TableName$Buff::setCreatedAt( const std::chrono::system_clock::time_point&amp; value ) {
+		createdAt = value;
+	}
+
+	const uuid_ptr_t $SchemaName$$TableName$Buff::getUpdatedByUserId() const {
+		return( updatedByUserId );
+	}
+
+	void $SchemaName$$TableName$Buff::setUpdatedByUserId( const uuid_ptr_t value ) {
+		uuid_copy( updatedByUserId, value );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::getUpdatedAt() const {
+		return( updatedAt );
+	}
+
+	void $SchemaName$$TableName$Buff::setUpdatedAt( const std::chrono::system_clock::time_point&amp; value ) {
+		updatedAt = value;
+	}</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffDataGetterSetters"
+		>$iterate DataColumns( each implBuffColumnGetterSetter empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffInheritSuper"> : public $SchemaName$$reference SuperClassRelation reference ToTable TableName$Buff</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableBuffBaseConstruct">
+	$SchemaName$$TableName$Buff::$poptop SchemaDef SchemaName$$TableName$Buff()$switch HasSuperClassRelation yes invokeSchemaTableBuffConstructSuper default invokeSchemaTableBuffConstructCloneable$
+	{$implBuffConstructorInitColumns$
+	}
+
+	$SchemaName$$TableName$Buff::$poptop SchemaDef SchemaName$$TableName$Buff( const $SchemaName$$TableName$Buff&amp; src )$switch HasSuperClassRelation yes invokeSchemaTableBuffConstructSuper default invokeSchemaTableBuffConstructCloneable$
+	{$implBuffConstructorInitColumns$$implBuffSetColumns$
+	}
+
+	$SchemaName$$TableName$Buff::~$poptop SchemaDef SchemaName$$TableName$Buff() {$switch HasSuperClassRelation yes implBuffDestructorDestructDataColumns default implBuffDestructorDestructColumns$$switch HasSuperClassRelation no implBuffOptDestructAuditColumns default empty$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffInitAuditColumnAttr">
+		for( int i = 0; i &lt; 16; i++ ) {
+			createdByUserId[i] = 0;
+		}
+		createdAt = cflib::CFLib::getUTCTimestampInstance();
+		for( int i = 0; i &lt; 16; i++ ) {
+			updatedByUserId[i] = 0;
+		}
+		updatedAt = cflib::CFLib::getUTCTimestampInstance();</GenRule>
+
+	<GenRule GenDef="Table" Name="invokeSchemaTableBuffConstructCloneable">
+	: cflib::ICFLibCloneableObj()</GenRule>
+
+	<GenRule GenDef="Table" Name="invokeSchemaTableBuffConstructSuper"
+		>$switch HasSuperClassRelation yes invokeSchemaTableBuffConstructSuperclass default invokeSchemaTableBuffConstructNamespace$</GenRule>
+	<GenRule GenDef="Table" Name="invokeSchemaTableBuffConstructSuperclass">
+	: $reference SuperClassRelation reference ToTable CPlusDefNamespace$::$reference SuperClassRelation reference ToTable DefSchemaName$$reference SuperClassRelation reference ToTable TableName$Buff()</GenRule>
+	<GenRule GenDef="Table" Name="invokeSchemaTableBuffConstructNamespace">
+	: $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff()</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffOptDestructAuditColumns"
+		>$switch BaseHasAuditColumns yes implBuffOptDestructDeleteAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffOptDestructDeleteAuditColumns">
+		for( int i = 0; i &lt; 16; i++ ) {
+			createdByUserId[i] = 0;
+		}
+		for( int i = 0; i &lt; 16; i++ ) {
+			updatedByUserId[i] = 0;
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableBuffInhConstruct">
+	$poptop SchemaDef SchemaName$$TableName$Buff::$poptop SchemaDef SchemaName$$TableName$Buff()
+	: $reference SuperClassRelation reference ToTable EffSchemaName$$reference SuperClassRelation reference ToTable TableName$Buff()
+	{$implBuffConstructorInitDataColumns$
+	}
+
+	$poptop SchemaDef SchemaName$$TableName$Buff::$poptop SchemaDef SchemaName$$TableName$Buff( const $poptop SchemaDef SchemaName$$TableName$Buff&amp; src )
+	: $reference SuperClassRelation reference ToTable EffSchemaName$$reference SuperClassRelation reference ToTable TableName$Buff()
+	{$implBuffConstructorInitDataColumns$$implBuffSetColumns$
+	}
+
+	$poptop SchemaDef SchemaName$$TableName$Buff::~$poptop SchemaDef SchemaName$$TableName$Buff() {$implBuffDestructorDeleteMaybeColumns$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffDestructorDeleteMaybeColumns"
+		>$switch HasSuperClassRelation yes implBuffDestructorDeleteDataColumns default implBuffDestructorDeleteColumns$$switch HasSuperClassRelation no implBuffOptDestructAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffDestructorDeleteDataColumns"
+		>$iterate DataColumns( each implDestructorDestructAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffDestructorDeleteColumns"
+		>$iterate Columns( each implDestructorDestructAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffConstructorInitDataColumns"
+		>$iterate DataColumns( each implConstructorInitAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffConstructorInitColumns"
+		>$switch HasSuperClassRelation yes empty default implBuffConstructorInitRevision$$switch HasSuperClassRelation yes empty default implBuffConstructorInitAuditColumnsIfRequired$$iterate Columns( each implConstructorInitAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffConstructorInitRevision">
+		requiredRevision = 1;</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffConstructorInitAuditColumnsIfRequired"
+		>$switch BaseHasAuditColumns yes implBuffInitAuditColumnAttr default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffDestructorDestructDataColumns"
+		>$iterate DataColumns( each implDestructorDestructAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffDestructorDestructColumns"
+		>$iterate Columns( each implDestructorDestructAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffGetHashCode">
+	size_t $SchemaName$$TableName$Buff::hashCode() const {$switch ClassSuperClassTableBuff empty justBuffHashCode default superBuffHashCode$
+		return( hashCode );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="justBuffHashCode">
+		size_t hashCode = 0L;$switch HasSuperClassRelation no implBuffGetHashCodeColumns default implBuffGetHashCodeData$</GenRule>
+
+	<GenRule GenDef="Table" Name="superBuffHashCode">
+		size_t hashCode = $ClassSuperClassTableBuff$::hashCode();$switch HasSuperClassRelation no implBuffGetHashCodeColumns default implBuffGetHashCodeData$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffGetHashCodeOptAuditColumns"
+		>$switch BaseHasAuditColumns yes implBuffGetHashCodeAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffGetHashCodeAuditColumns">
+		hashCode = hashCode + cflib::CFLib::hash( getCreatedByUserId() );
+		hashCode = hashCode + cflib::CFLib::hash( getCreatedAt() );
+		hashCode = hashCode + cflib::CFLib::hash( getUpdatedByUserId() );
+		hashCode = hashCode + cflib::CFLib::hash( getUpdatedAt() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffGetHashCodeColumns"
+		>$iterate Columns( each implGetHashCodeAttr )$</GenRule>
+	<GenRule GenDef="Table" Name="implBuffGetHashCodeData"
+		>$iterate DataColumns( each implGetHashCodeAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetColumns"
+		>$switch HasSuperClassRelation yes implBuffSetInhColumns default implBuffSetBaseColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetBaseColumns"
+		>$implBuffSetCopyPKey$$implBuffSetOptAuditColumns$$implBuffSetCopyRevision$$iterate DataColumns( each implBuffSetCopyDataCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetInhColumns"
+		>$reference SuperClassRelation reference ToTable implBuffSetColumns$$iterate DataColumns( each implBuffSetCopyDataCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetHColumns"
+		>$switch HasSuperClassRelation yes implBuffSetInhHColumns default implBuffSetBaseHColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetBaseHColumns"
+		>$implBuffSetCopyPKey$$implBuffSetCopyRevision$$iterate DataColumns( each implBuffSetCopyDataCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetInhHColumns"
+		>$reference SuperClassRelation reference ToTable implBuffSetHColumns$$iterate DataColumns( each implBuffSetCopyDataCol empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSet">
+	$SchemaName$$TableName$Buff $SchemaName$$TableName$Buff::operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff&amp; src ) {$implBuffSetColumns$
+		return( *this );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetOptAuditColumns"
+		>$switch BaseHasAuditColumns yes implBuffSetAuditColumns default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetAuditColumns">
+		setCreatedByUserId( src.getCreatedByUserId() );
+		setCreatedAt( src.getCreatedAt() );
+		setUpdatedByUserId( src.getUpdatedByUserId() );
+		setUpdatedAt( src.getUpdatedAt() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetCopyPKey"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implBuffSetCopyPKeyCol )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetCopyRevision">
+		setRequiredRevision( src.getRequiredRevision() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffSetInvokeSuper">
+		super.set$reference SuperClassRelation reference ToTable TableName$Buff( src );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implBuffSetCopyDataCol"
+		>$reference Column implBuffSetCopyDataCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffSetCopyDataCol"
+		>$switch ColumnInPrimaryIndex yes empty default implBuffSetCopyCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implBuffSetCopyCol"
+		>$reference Column implBuffSetCopyCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffSetCopyCol"
+		>$switch IsNullable yes implBuffSetCopyOptCol default implBuffSetCopyReqCol$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffSetCopyReqCol">
+		set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( src.get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffSetCopyOptCol">
+		if( src.is$implColumnAttrOptionality$$Name$Null() ) {
+			set$implColumnAttrOptionality$$Name$Null();
+		}
+		else {
+			set$implColumnAttrOptionality$$Name$Value( src.get$implColumnAttrOptionality$$Name$Value() );
+		}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implBuffSetCopyPKeyCol">
+		set$implColumnAttrOptionality$$reference Column Name$( src.get$implColumnAttrOptionality$$reference Column Name$() );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffColumnGetterSetter"
+		>$switch IsNullable yes implBuffOptGetterSetter default implBuffReqGetterSetter$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqGetterSetter"
+		>$switch BaseModelAtomClass
+			BlobDef implBuffReqBlobGetterSetter
+			BoolDef implBuffReqBoolGetterSetter
+			EnumDef implBuffReqEnumGetterSetter
+			Id16Gen implBuffReqInt16GetterSetter
+			Id32Gen implBuffReqInt32GetterSetter
+			Id64Gen implBuffReqInt64GetterSetter
+			Int16Def implBuffReqInt16GetterSetter
+			Int32Def implBuffReqInt32GetterSetter
+			Int64Def implBuffReqInt64GetterSetter
+			UInt16Def implBuffReqUInt16GetterSetter
+			UInt32Def implBuffReqUInt32GetterSetter
+			UInt64Def implBuffReqUInt64GetterSetter
+			FloatDef implBuffReqFloatGetterSetter
+			DoubleDef implBuffReqDoubleGetterSetter
+			NumberDef implBuffReqNumberGetterSetter
+			DateDef implBuffReqDateGetterSetter
+			TimeDef implBuffReqTimeGetterSetter
+			TimestampDef implBuffReqTimestampGetterSetter
+			TZDateDef implBuffReqTZDateGetterSetter
+			TZTimeDef implBuffReqTZTimeGetterSetter
+			TZTimestampDef implBuffReqTZTimestampGetterSetter
+			UuidGen implBuffReqUuidGetterSetter
+			UuidDef implBuffReqUuidGetterSetter
+			StringDef implBuffReqStringGetterSetter
+			TokenDef implBuffReqTokenGetterSetter
+			NmTokenDef implBuffReqNmTokenGetterSetter
+			NmTokensDef implBuffReqNmTokensGetterSetter
+			TextDef implBuffReqTextGetterSetter
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqBlobGetterSetter">
+	const std::vector&lt;cflib::BYTE&gt;&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::vector&lt;cflib::BYTE&gt;* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::vector&lt;cflib::BYTE&gt;&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$" );
+		static const std::string S_ValueLength( "value-&gt;length" );
+		if( value.size() > $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN ) {
+			throw cflib::CFLibArgumentOverflowException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_ValueLength,
+				value-&gt;length,
+				$SchemaName$$TableName$Buff::$upper Name$_MAX_LEN );
+		}
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::vector&lt;cflib::BYTE&gt;( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqBoolGetterSetter">
+	const bool $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const bool value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqEnumGetterSetter">
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqInt16GetterSetter">
+	const int16_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const int16_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const int16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqInt32GetterSetter">
+	const int32_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const int32_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const int32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqInt64GetterSetter">
+	const int64_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const int64_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const int64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqUInt16GetterSetter">
+	const uint16_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uint16_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const uint16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqUInt32GetterSetter">
+	const uint32_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uint32_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const uint32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqUInt64GetterSetter">
+	const uint64_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uint64_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const uint64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqFloatGetterSetter">
+	const float $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const float* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const float value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqDoubleGetterSetter">
+	const double $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const double* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const double value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqNumberGetterSetter">
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const cflib::CFLibGenericBigDecimal&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqDateGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqTimeGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqTimestampGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqTZDateGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqTZTimeGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqTZTimestampGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqUuidGetterSetter">
+	const uuid_ptr_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uuid_ptr_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const uuid_ptr_t value ) {
+		uuid_copy( $lower implColumnAttrOptionality$$Name$, value );
+	}
+
+	void $SchemaName$$TableName$Buff::generate$implColumnAttrOptionality$$Name$() {
+		uuid_generate_random( $lower implColumnAttrOptionality$$Name$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqStringGetterSetter">
+	const std::string&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqTokenGetterSetter">
+	const std::string&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqNmTokenGetterSetter">
+	const std::string&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqNmTokensGetterSetter">
+	const std::string&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffReqTextGetterSetter">
+	const std::string&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptGetterSetter"
+	>$switch BaseModelAtomClass
+		BlobDef implBuffOptBlobGetterSetter
+		BoolDef implBuffOptBoolGetterSetter
+		EnumDef implBuffOptEnumGetterSetter
+		Id16Gen implBuffOptInt16GetterSetter
+		Id32Gen implBuffOptInt32GetterSetter
+		Id64Gen implBuffOptInt64GetterSetter
+		Int16Def implBuffOptInt16GetterSetter
+		Int32Def implBuffOptInt32GetterSetter
+		Int64Def implBuffOptInt64GetterSetter
+		UInt16Def implBuffOptUInt16GetterSetter
+		UInt32Def implBuffOptUInt32GetterSetter
+		UInt64Def implBuffOptUInt64GetterSetter
+		FloatDef implBuffOptFloatGetterSetter
+		DoubleDef implBuffOptDoubleGetterSetter
+		NumberDef implBuffOptNumberGetterSetter
+		DateDef implBuffOptDateGetterSetter
+		TimeDef implBuffOptTimeGetterSetter
+		TimestampDef implBuffOptTimestampGetterSetter
+		TZDateDef implBuffOptTZDateGetterSetter
+		TZTimeDef implBuffOptTZTimeGetterSetter
+		TZTimestampDef implBuffOptTZTimestampGetterSetter
+		UuidGen implBuffOptUuidGetterSetter
+		UuidDef implBuffOptUuidGetterSetter
+		StringDef implBuffOptStringGetterSetter
+		TokenDef implBuffOptTokenGetterSetter
+		NmTokenDef implBuffOptNmTokenGetterSetter
+		NmTokensDef implBuffOptNmTokensGetterSetter
+		TextDef implBuffOptTextGetterSetter
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptBlobGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::vector&lt;cflib::BYTE&gt;&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::vector&lt;cflib::BYTE&gt;* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::vector&lt;cflib::BYTE&gt;&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_Size( "value-&gt;size()" );
+		if( value.size() > $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN ) {
+			throw cflib::CFLibArgumentOverflowException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_Size,
+				value.size(),
+				$SchemaName$$TableName$Buff::$upper Name$_MAX_LEN );
+		}
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::vector&lt;cflib::BYTE&gt;( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptBoolGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	const bool $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const bool* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const bool value ) {
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptEnumGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			$lower implColumnAttrOptionality$$Name$ = new I$reference DataType EffSchemaName$Schema::$reference DataType Name$;
+		}
+		*$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptInt16GetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	const int16_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const int16_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const int16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptInt32GetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	const int32_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const int32_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const int32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptInt64GetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	const int64_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const int64_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const int64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptUInt16GetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	const uint16_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const uint16_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const uint16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptUInt32GetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	const uint32_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const uint32_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const uint32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptUInt64GetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	const uint64_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const uint64_t* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const uint64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptFloatGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	const float $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const float* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const float value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptDoubleGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	const double $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const double* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const double value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptNumberGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const cflib::CFLibGenericBigDecimal&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		std::string fieldName( CLASS_NAME );
+		fieldName.append( S_ColumnName );
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;::coerce( fieldName, value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptDateGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptTimeGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptTimestampGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptTZDateGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptTZTimeGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptTZTimestampGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::chrono::system_clock::time_point&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptUuidGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		for( int i = 0; i &lt; 16; i ++ ) {
+			if( $lower implColumnAttrOptionality$$Name$[ i ] != 0 ) {
+				return( false );
+			}
+		}
+		return( true );
+	}
+
+	const uuid_ptr_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( is$implColumnAttrOptionality$$Name$Null() ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uuid_ptr_t $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		if( is$implColumnAttrOptionality$$Name$Null() ) {
+			return( NULL );
+		}
+		else {
+			return( $lower implColumnAttrOptionality$$Name$ );
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		for( int i = 0; i &lt; 16; i ++ ) {
+			$lower implColumnAttrOptionality$$Name$[i] = 0;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const uuid_ptr_t value ) {
+		uuid_copy( $lower implColumnAttrOptionality$$Name$, value );
+	}
+
+	void $SchemaName$$TableName$Buff::generate$implColumnAttrOptionality$$Name$() {
+		uuid_generate_random( $lower implColumnAttrOptionality$$Name$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptStringGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::string&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptTokenGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::string&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptNmTokenGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::string&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptNmTokensGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::string&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffOptTextGetterSetter">
+	const bool $SchemaName$$TableName$Buff::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	const std::string&amp; $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $SchemaName$$TableName$Buff::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $SchemaName$$TableName$Buff::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffComparison"
+	>$implBuffComparisonLessThan$
+$implBuffComparisonLessOrEqual$
+$implBuffComparisonEqual$
+$implBuffComparisonNotEqual$
+$implBuffComparisonGreaterOrEqual$
+$implBuffComparisonGreaterThan$</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffNonPrimaryComparisonLessThanIndex"
+	>$switch IsPrimaryIndex yes empty default implBuffComparisonLessThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffComparisonLessThanIndex">
+	bool $SchemaName$$TableName$Buff::operator &lt;( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implLessThanCmpAttr )$
+		return( false );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implComparisonInhColumnsLessThan"
+	>$switch HasSuperClassRelation yes implComparisonSuperColumnsLessThan default implComparisonBaseColumnsLessThan$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonSuperColumnsLessThan"
+	>$reference SuperClassRelation reference ToTable implComparisonInhColumnsLessThan$$iterate DataColumns( each implLessThanCmpAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonBaseColumnsLessThan"
+	>$iterate Columns( each implLessThanCmpAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffComparisonLessThan">$iterate Index( each implBuffNonPrimaryComparisonLessThanIndex empty empty )$
+	bool $SchemaName$$TableName$Buff::operator &lt;( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implLessThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$Buff::operator &lt;( const $SchemaName$$TableName$Buff&amp; rhs ) {$implComparisonInhColumnsLessThan$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffNonPrimaryComparisonLessOrEqualIndex"
+	>$switch IsPrimaryIndex yes empty default implBuffComparisonLessOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffComparisonLessOrEqualIndex">
+	bool $SchemaName$$TableName$Buff::operator &lt;=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implComparisonInhColumnsLessOrEqual"
+	>$switch HasSuperClassRelation yes implComparisonSuperColumnsLessOrEqual default implComparisonBaseColumnsLessOrEqual$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonSuperColumnsLessOrEqual"
+	>$reference SuperClassRelation reference ToTable implComparisonInhColumnsLessOrEqual$$iterate DataColumns( each implLessOrEqualCmpAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonBaseColumnsLessOrEqual"
+	>$iterate Columns( each implLessOrEqualCmpAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffComparisonLessOrEqual">$iterate Index( each implBuffNonPrimaryComparisonLessOrEqualIndex empty empty )$
+	bool $SchemaName$$TableName$Buff::operator &lt;=( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$Buff::operator &lt;=( const $SchemaName$$TableName$Buff&amp; rhs ) {$implComparisonInhColumnsLessOrEqual$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffNonPrimaryComparisonEqualIndex"
+	>$switch IsPrimaryIndex yes empty default implBuffComparisonEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffComparisonEqualIndex">
+	bool $SchemaName$$TableName$Buff::operator ==( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implEqualCmpAttr )$
+		return( true );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implComparisonInhColumnsEqual"
+	>$switch HasSuperClassRelation yes implComparisonSuperColumnsEqual default implComparisonBaseColumnsEqual$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonSuperColumnsEqual"
+	>$reference SuperClassRelation reference ToTable implComparisonInhColumnsEqual$$iterate DataColumns( each implEqualCmpAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonBaseColumnsEqual"
+	>$iterate Columns( each implEqualCmpAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffComparisonEqual">$iterate Index( each implBuffNonPrimaryComparisonEqualIndex empty empty )$
+	bool $SchemaName$$TableName$Buff::operator ==( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$Buff::operator ==( const $SchemaName$$TableName$Buff&amp; rhs ) {$implComparisonInhColumnsEqual$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffNonPrimaryComparisonNotEqualIndex"
+	>$switch IsPrimaryIndex yes empty default implBuffComparisonNotEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffComparisonNotEqualIndex">
+	bool $SchemaName$$TableName$Buff::operator !=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implNotEqualCmpAttr )$
+		return( false );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implComparisonInhColumnsNotEqual"
+	>$switch HasSuperClassRelation yes implComparisonSuperColumnsNotEqual default implComparisonBaseColumnsNotEqual$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonSuperColumnsNotEqual"
+	>$reference SuperClassRelation reference ToTable implComparisonInhColumnsNotEqual$$iterate DataColumns( each implNotEqualCmpAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonBaseColumnsNotEqual"
+	>$iterate Columns( each implNotEqualCmpAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffComparisonNotEqual">$iterate Index( each implBuffNonPrimaryComparisonNotEqualIndex empty empty )$
+	bool $SchemaName$$TableName$Buff::operator !=( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implNotEqualCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$Buff::operator !=( const $SchemaName$$TableName$Buff&amp; rhs ) {$implComparisonInhColumnsNotEqual$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffNonPrimaryComparisonGreaterOrEqualIndex"
+	>$switch IsPrimaryIndex yes empty default implBuffComparisonGreaterOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffComparisonGreaterOrEqualIndex">
+	bool $SchemaName$$TableName$Buff::operator &gt;=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpAttr )$
+		return( true );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implComparisonInhColumnsGreaterOrEqual"
+	>$switch HasSuperClassRelation yes implComparisonSuperColumnsGreaterOrEqual default implComparisonBaseColumnsGreaterOrEqual$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonSuperColumnsGreaterOrEqual"
+	>$reference SuperClassRelation reference ToTable implComparisonInhColumnsGreaterOrEqual$$iterate DataColumns( each implGreaterOrEqualCmpAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonBaseColumnsGreaterOrEqual"
+	>$iterate Columns( each implGreaterOrEqualCmpAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffComparisonGreaterOrEqual">$iterate Index( each implBuffNonPrimaryComparisonGreaterOrEqualIndex empty empty )$
+	bool $SchemaName$$TableName$Buff::operator &gt;=( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implGreaterOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$Buff::operator &gt;=( const $SchemaName$$TableName$Buff&amp; rhs ) {$implComparisonInhColumnsGreaterOrEqual$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffNonPrimaryComparisonGreaterThanIndex"
+	>$switch IsPrimaryIndex yes empty default implBuffComparisonGreaterThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implBuffComparisonGreaterThanIndex">
+	bool $SchemaName$$TableName$Buff::operator &gt;( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implGreaterThanCmpAttr )$
+		return( false );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implComparisonInhColumnsGreaterThan"
+	>$switch HasSuperClassRelation yes implComparisonSuperColumnsGreaterThan default implComparisonBaseColumnsGreaterThan$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonSuperColumnsGreaterThan"
+	>$reference SuperClassRelation reference ToTable implComparisonInhColumnsGreaterThan$$iterate DataColumns( each implGreaterThanCmpAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implComparisonBaseColumnsGreaterThan"
+	>$iterate Columns( each implGreaterThanCmpAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implBuffComparisonGreaterThan">$iterate Index( each implBuffNonPrimaryComparisonGreaterThanIndex empty empty )$
+	bool $SchemaName$$TableName$Buff::operator &gt;( const $SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implGreaterThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$Buff::operator &gt;( const $SchemaName$$TableName$Buff&amp; rhs ) {$implComparisonInhColumnsGreaterThan$
+		return( false );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implStdBuffComparison">
+namespace std {
+$implStdBuffComparisonLessThan$
+$implStdBuffComparisonLessOrEqual$
+$implStdBuffComparisonEqual$
+$implStdBuffComparisonNotEqual$
+$implStdBuffComparisonGreaterOrEqual$
+$implStdBuffComparisonGreaterThan$
+}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffNonPrimaryComparisonLessThanIndex"
+	>$switch IsPrimaryIndex yes empty default implStdBuffComparisonLessThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffComparisonLessThanIndex">
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implLessThanCmpLhsAttr )$
+		return( true );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implLhsComparisonInhColumnsLessThan"
+		>$switch HasSuperClassRelation yes implLhsComparisonSuperColumnsLessThan default implLhsComparisonBaseColumnsLessThan$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonSuperColumnsLessThan"
+		>$reference SuperClassRelation reference ToTable implLhsComparisonInhColumnsLessThan$$iterate DataColumns( each implLessThanCmpLhsAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonBaseColumnsLessThan"
+		>$iterate Columns( each implLessThanCmpLhsAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implStdBuffComparisonLessThan">$iterate Index( each implStdBuffNonPrimaryComparisonLessThanIndex empty empty )$
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implLessThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$implLhsComparisonInhColumnsLessThan$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffNonPrimaryComparisonLessOrEqualIndex"
+		>$switch IsPrimaryIndex yes empty default implStdBuffComparisonLessOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffComparisonLessOrEqualIndex">
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpLhsAttr )$
+		return( true );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implLhsComparisonInhColumnsLessOrEqual"
+		>$switch HasSuperClassRelation yes implLhsComparisonSuperColumnsLessOrEqual default implLhsComparisonBaseColumnsLessOrEqual$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonSuperColumnsLessOrEqual"
+		>$reference SuperClassRelation reference ToTable implLhsComparisonInhColumnsLessOrEqual$$iterate DataColumns( each implLessOrEqualCmpLhsAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonBaseColumnsLessOrEqual"
+		>$iterate Columns( each implLessOrEqualCmpLhsAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implStdBuffComparisonLessOrEqual">$iterate Index( each implStdBuffNonPrimaryComparisonLessOrEqualIndex empty empty )$
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implLessOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$implLhsComparisonInhColumnsLessOrEqual$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffNonPrimaryComparisonEqualIndex"
+		>$switch IsPrimaryIndex yes empty default implStdBuffComparisonEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffComparisonEqualIndex">
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implEqualCmpLhsAttr )$
+		return( true );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implLhsComparisonInhColumnsEqual"
+		>$switch HasSuperClassRelation yes implLhsComparisonSuperColumnsEqual default implLhsComparisonBaseColumnsEqual$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonSuperColumnsEqual"
+		>$reference SuperClassRelation reference ToTable implLhsComparisonInhColumnsEqual$$iterate DataColumns( each implEqualCmpLhsAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonBaseColumnsEqual"
+		>$iterate Columns( each implEqualCmpLhsAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implStdBuffComparisonEqual">$iterate Index( each implStdBuffNonPrimaryComparisonEqualIndex empty empty )$
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$implLhsComparisonInhColumnsEqual$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffNonPrimaryComparisonNotEqualIndex"
+		>$switch IsPrimaryIndex yes empty default implStdBuffComparisonNotEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffComparisonNotEqualIndex">
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implNotEqualCmpLhsAttr )$
+		return( false );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implLhsComparisonInhColumnsNotEqual"
+		>$switch HasSuperClassRelation yes implLhsComparisonSuperColumnsNotEqual default implLhsComparisonBaseColumnsNotEqual$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonSuperColumnsNotEqual"
+		>$reference SuperClassRelation reference ToTable implLhsComparisonInhColumnsNotEqual$$iterate DataColumns( each implNotEqualCmpLhsAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonBaseColumnsNotEqual"
+		>$iterate Columns( each implNotEqualCmpLhsAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implStdBuffComparisonNotEqual">$iterate Index( each implStdBuffNonPrimaryComparisonNotEqualIndex empty empty )$
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implNotEqualCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$implLhsComparisonInhColumnsNotEqual$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffNonPrimaryComparisonGreaterOrEqualIndex"
+		>$switch IsPrimaryIndex yes empty default implStdBuffComparisonGreaterOrEqualIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffComparisonGreaterOrEqualIndex">
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpLhsAttr )$
+		return( true );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implLhsComparisonInhColumnsGreaterOrEqual"
+		>$switch HasSuperClassRelation yes implLhsComparisonSuperColumnsGreaterOrEqual default implLhsComparisonBaseColumnsGreaterOrEqual$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonSuperColumnsGreaterOrEqual"
+		>$reference SuperClassRelation reference ToTable implLhsComparisonInhColumnsGreaterOrEqual$$iterate DataColumns( each implGreaterOrEqualCmpLhsAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonBaseColumnsGreaterOrEqual"
+		>$iterate Columns( each implGreaterOrEqualCmpLhsAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implStdBuffComparisonGreaterOrEqual">$iterate Index( each implStdBuffNonPrimaryComparisonGreaterOrEqualIndex empty empty )$
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implGreaterOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$implLhsComparisonInhColumnsGreaterOrEqual$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffNonPrimaryComparisonGreaterThanIndex"
+		>$switch IsPrimaryIndex yes empty default implStdBuffComparisonGreaterThanIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdBuffComparisonGreaterThanIndex">
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implGreaterThanCmpLhsAttr )$
+		return( false );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implLhsComparisonInhColumnsGreaterThan"
+		>$switch HasSuperClassRelation yes implLhsComparisonSuperColumnsGreaterThan default implLhsComparisonBaseColumnsGreaterThan$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonSuperColumnsGreaterThan"
+		>$reference SuperClassRelation reference ToTable implLhsComparisonInhColumnsGreaterThan$$iterate DataColumns( each implGreaterThanCmpLhsAttr empty empty )$</GenRule>
+	<GenRule GenDef="Table" Name="implLhsComparisonBaseColumnsGreaterThan"
+		>$iterate Columns( each implGreaterThanCmpLhsAttr )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implStdBuffComparisonGreaterThan">$iterate Index( each implStdBuffNonPrimaryComparisonGreaterThanIndex empty empty )$
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$reference BaseClass TableName$PKey&amp; rhs ) {$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implGreaterThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$implLhsComparisonInhColumnsGreaterThan$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffMinValue"
+	>$switch BaseModelAtomClass
+		BlobDef implBuffBlobMinValue
+		BoolDef implBuffBoolMinValue
+		EnumDef implBuffEnumMinValue
+		Id16Gen implBuffInt16MinValue
+		Id32Gen implBuffInt32MinValue
+		Id64Gen implBuffInt64MinValue
+		Int16Def implBuffInt16MinValue
+		Int32Def implBuffInt32MinValue
+		Int64Def implBuffInt64MinValue
+		UInt16Def implBuffUInt16MinValue
+		UInt32Def implBuffUInt32MinValue
+		UInt64Def implBuffUInt64MinValue
+		FloatDef implBuffFloatMinValue
+		DoubleDef implBuffDoubleMinValue
+		NumberDef implBuffNumberMinValue
+		DateDef implBuffDateMinValue
+		TimeDef implBuffTimeMinValue
+		TimestampDef implBuffTimestampMinValue
+		TZDateDef implBuffTZDateMinValue
+		TZTimeDef implBuffTZTimeMinValue
+		TZTimestampDef implBuffTZTimestampMinValue
+		UuidGen empty
+		UuidDef empty
+		StringDef implBuffStringMinValue
+		TokenDef implBuffTokenMinValue
+		NmTokenDef implBuffNmTokenMinValue
+		NmTokensDef implBuffNmTokensMinValue
+		TextDef implBuffTextMinValue
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffMaxValue"
+	>$switch BaseModelAtomClass
+		BlobDef implBuffBlobMaxValue
+		BoolDef implBuffBoolMaxValue
+		EnumDef implBuffEnumMaxValue
+		Id16Gen implBuffInt16MaxValue
+		Id32Gen implBuffInt32MaxValue
+		Id64Gen implBuffInt64MaxValue
+		Int16Def implBuffInt16MaxValue
+		Int32Def implBuffInt32MaxValue
+		Int64Def implBuffInt64MaxValue
+		UInt16Def implBuffUInt16MaxValue
+		UInt32Def implBuffUInt32MaxValue
+		UInt64Def implBuffUInt64MaxValue
+		FloatDef implBuffFloatMaxValue
+		DoubleDef implBuffDoubleMaxValue
+		NumberDef implBuffNumberMaxValue
+		DateDef implBuffDateMaxValue
+		TimeDef implBuffTimeMaxValue
+		TimestampDef implBuffTimestampMaxValue
+		TZDateDef implBuffTZDateMaxValue
+		TZTimeDef implBuffTZTimeMaxValue
+		TZTimestampDef implBuffTZTimestampMaxValue
+		UuidGen empty
+		UuidDef empty
+		StringDef implBuffStringMaxValue
+		TokenDef implBuffStringMaxValue
+		NmTokenDef implBuffStringMaxValue
+		NmTokensDef implBuffStringMaxValue
+		TextDef implBuffStringMaxValue
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffMaxLen"
+	>$switch BaseModelAtomClass
+		BlobDef implBuffBlobMaxLen
+		BoolDef implBuffBoolMaxLen
+		EnumDef implBuffEnumMaxLen
+		Id16Gen implBuffInt16MaxLen
+		Id32Gen implBuffInt32MaxLen
+		Id64Gen implBuffInt64MaxLen
+		Int16Def implBuffInt16MaxLen
+		Int32Def implBuffInt32MaxLen
+		Int64Def implBuffInt64MaxLen
+		UInt16Def implBuffUInt16MaxLen
+		UInt32Def implBuffUInt32MaxLen
+		UInt64Def implBuffUInt64MaxLen
+		FloatDef implBuffFloatMaxLen
+		DoubleDef implBuffDoubleMaxLen
+		NumberDef implBuffNumberMaxLen
+		DateDef implBuffDateMaxLen
+		TimeDef implBuffTimeMaxLen
+		TimestampDef implBuffTimestampMaxLen
+		TZDateDef implBuffTZDateMaxLen
+		TZTimeDef implBuffTZTimeMaxLen
+		TZTimestampDef implBuffTZTimestampMaxLen
+		UuidGen empty
+		UuidDef empty
+		StringDef implBuffStringMaxLen
+		TokenDef implBuffStringMaxLen
+		NmTokenDef implBuffStringMaxLen
+		NmTokensDef implBuffStringMaxLen
+		TextDef implBuffStringMaxLen
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInitValue"
+	>$switch BaseModelAtomClass
+		BlobDef implBuffBlobInitValue
+		BoolDef implBuffBoolInitValue
+		EnumDef implBuffEnumInitValue
+		Id16Gen implBuffInt16InitValue
+		Id32Gen implBuffInt32InitValue
+		Id64Gen implBuffInt64InitValue
+		Int16Def implBuffInt16InitValue
+		Int32Def implBuffInt32InitValue
+		Int64Def implBuffInt64InitValue
+		UInt16Def implBuffUInt16InitValue
+		UInt32Def implBuffUInt32InitValue
+		UInt64Def implBuffUInt64InitValue
+		FloatDef implBuffFloatInitValue
+		DoubleDef implBuffDoubleInitValue
+		NumberDef implBuffNumberInitValue
+		DateDef implBuffDateInitValue
+		TimeDef implBuffTimeInitValue
+		TimestampDef implBuffTimestampInitValue
+		TZDateDef implBuffTZDateInitValue
+		TZTimeDef implBuffTZTimeInitValue
+		TZTimestampDef implBuffTZTimestampInitValue
+		UuidGen empty
+		UuidDef empty
+		StringDef implBuffStringInitValue
+		TokenDef implBuffTokenInitValue
+		NmTokenDef implBuffNmTokenInitValue
+		NmTokensDef implBuffNmTokensInitValue
+		TextDef implBuffTextInitValue
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffBlobMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffBlobMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffBlobMaxLen">
+	const std::vector&lt;cflib::BYTE&gt;::size_type $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN = $MaxLen$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffBlobInitValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffBoolMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffBoolMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffBoolMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffBoolInitValue">
+	const bool $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = $switch InitValue yes true default false$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffEnumMinValue">
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $SchemaName$$TableName$Buff::$upper Name$_MIN_VALUE = $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$::$reference DataType iterate Tag( first implBuffEnumMinValueEmitTagName each empty )$;</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="implBuffEnumMinValueEmitTagName"
+	>$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffEnumMaxValue">
+	const I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $SchemaName$$TableName$Buff::$upper Name$_MAX_VALUE = I$reference DataType EffSchemaName$Schema::$reference DataType Name$::$reference DataType iterate Tag( last implPKeyEmitTagName each empty )$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffEnumMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffEnumInitValue"
+	>$switch IsNullable yes empty default reallyImplBuffEnumInitValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="reallyImplBuffEnumInitValue">
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = $implPKeyEnumInitValueAlways$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffEnumInitValueAlways"
+	>$switch HasInitValue yes implBuffEnumInitValueConvertOrdinal default implPKeyEnumInitValueUseFirst$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffEnumInitValueConvertOrdinal"
+	>$reference DataType EffSchemaName$Schema::ordinalTo$reference DataType Name$( $InitValue$ )</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffEnumInitValueUseFirst"
+	>$reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$::$reference DataType iterate Tag( first implBuffEnumInitValueUseFirstTagName each empty )$</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="implBuffEnumInitValueUseFirstTagName"
+	>$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt16MinValue">
+	const int16_t $SchemaName$$TableName$Buff::$upper Name$_MIN_VALUE = (int16_t)$MinValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt16MaxValue">
+	const int16_t $SchemaName$$TableName$Buff::$upper Name$_MAX_VALUE = (int16_t)$MaxValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt16MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt16InitValue">
+	const int16_t $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = (int16_t)$switch HasInitValue yes InitValue default Zero$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt32MinValue">
+	const int $SchemaName$$TableName$Buff::$upper Name$_MIN_VALUE = $MinValue$L;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt32MaxValue">
+	const int $SchemaName$$TableName$Buff::$upper Name$_MAX_VALUE = $MaxValue$L;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt32MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt32InitValue">
+	const int $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = $switch HasInitValue yes InitValue default Zero$L;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt64MinValue">
+	const int64_t $SchemaName$$TableName$Buff::$upper Name$_MIN_VALUE = $MinValue$LL;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt64MaxValue">
+	const int64_t $SchemaName$$TableName$Buff::$upper Name$_MAX_VALUE = $MaxValue$LL;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt64MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffInt64InitValue">
+	const int64_t $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = $switch HasInitValue yes InitValue default Zero$LL;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt16MinValue">
+	const uint16_t $SchemaName$$TableName$Buff::$upper Name$_MIN_VALUE = $MinValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt16MaxValue">
+	const uint16_t $SchemaName$$TableName$Buff::$upper Name$_MAX_VALUE = $MaxValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt16MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt16InitValue">
+	const uint16_t $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = $switch HasInitValue yes InitValue default Zero$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt32MinValue">
+	const uint32_t $SchemaName$$TableName$Buff::$upper Name$_MIN_VALUE = $MinValue$UL;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt32MaxValue">
+	const uint32_t $SchemaName$$TableName$Buff::$upper Name$_MAX_VALUE = $MaxValue$UL;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt32MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt32InitValue">
+	const uint32_t $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = $switch HasInitValue yes InitValue default Zero$UL;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt64MinValue">
+	const uint64_t $SchemaName$$TableName$Buff::$upper Name$_MIN_VALUE = $MinValue$ULL;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt64MaxValue">
+	const uint64_t $SchemaName$$TableName$Buff::$upper Name$_MAX_VALUE = $MaxValue$ULL;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt64MaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUInt64InitValue">
+	const uint64_t $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = $switch HasInitValue yes InitValue default Zero$ULL;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffFloatMinValue">
+	const float $SchemaName$$TableName$Buff::$upper Name$_MIN_VALUE = (float)$MinValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffFloatMaxValue">
+	const float $SchemaName$$TableName$Buff::$upper Name$_MAX_VALUE = (float)$MaxValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffFloatMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffFloatInitValue">
+	const float $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = (float)$switch HasInitValue yes InitValue default Zero$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffDoubleMinValue">
+	const double $SchemaName$$TableName$Buff::$upper Name$_MIN_VALUE = $MinValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffDoubleMaxValue">
+	const double $SchemaName$$TableName$Buff::$upper Name$_MAX_VALUE = $MaxValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffDoubleMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffDoubleInitValue">
+	const double $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = $switch HasInitValue yes InitValue default Zero$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNumberMinValue">
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $SchemaName$$TableName$Buff::$upper Name$_MIN_VALUE = * new cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;( "$MinValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNumberMaxValue">
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $SchemaName$$TableName$Buff::$upper Name$_MAX_VALUE = * new cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;( "$MaxValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNumberMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNumberInitValue">
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = * new cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;( "$switch HasInitValue yes InitValue default Zero$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffDateMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffDateMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffDateMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffDateInitValue">
+	std::chrono::system_clock::time_point $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = cflib::CFLib::getUTCGregorianCalendarInstance( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTimeMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTimeMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTimeMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTimeInitValue">
+	std::chrono::system_clock::time_point $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = cflib::CFLib::getUTCGregorianCalendarInstance( 1970, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTimestampMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTimestampMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTimestampMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTimestampInitValue">
+	std::chrono::system_clock::time_point $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = cflib::CFLib::getUTCGregorianCalendarInstance( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZDateMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZDateMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZDateMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZDateInitValue">
+	std::chrono::system_clock::time_point $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = cflib::CFLib::getUTCGregorianCalendarInstance( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZTimeMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZTimeMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZTimeMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZTimeInitValue">
+	std::chrono::system_clock::time_point $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = cflib::CFLib::getUTCGregorianCalendarInstance( 1970, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZTimestampMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZTimestampMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZTimestampMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTZTimestampInitValue">
+	std::chrono::system_clock::time_point $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE = cflib::CFLib::getUTCGregorianCalendarInstance( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUuidMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUuidMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUuidMaxLen"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffUuidInitValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffStringMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffStringMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffStringMaxLen">
+	const std::string::size_type $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN = $MaxLen$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffStringInitValue">
+	const std::string $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE( "$InitValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTokenMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTokenMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTokenMaxLen">
+	const std::string::size_type $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN = $MaxLen$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTokenInitValue">
+	const std::string $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE( "$InitValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNmTokenMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNmTokenMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNmTokenMaxLen">
+	const std::string::size_type $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN = $MaxLen$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNmTokenInitValue">
+	const std::string $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE( "$InitValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNmTokensMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNmTokensMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNmTokensMaxLen">
+	const std::string::size_type $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN = $MaxLen$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffNmTokensInitValue">
+	const std::string $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE( "$InitValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTextMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTextMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTextMaxLen">
+	const std::string::size_type $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN = $MaxLen$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implBuffTextInitValue">
+	const std::string $SchemaName$$TableName$Buff::$upper Name$_INIT_VALUE( "$InitValue$" );</GenRule>
+
+</RuleSet>

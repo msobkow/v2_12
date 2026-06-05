@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+jee"
+	Name="src/SchemaXMsgSrvWar/SchemaXMsgSrvWarRequestXml.java"
+	Revision="2.12"
+	Descr="Java 11 XMsg Server Add Device Servlet">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaXMsgSrvWarRequestXmlJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgSrvWar/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgSrvWar"
+		ExpansionClassName="$SchemaName$XMsgSrvWarRequestXmlJava"
+		ExpansionKeyName="$SchemaName$XMsgSrvWarRequestXmlJava"
+		ExpansionFileName="$SchemaName$XMsgSrvWarRequestXml.java">
+// Description: Java 11 XMsg Server Add Device Servlet
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgSrvWar;
+
+import java.io.*;
+import java.nio.charset.Charset;
+import java.security.*;
+import java.util.*;
+
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.output.WriterOutputStream;
+
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.ICFLibMessageLog;
+import org.msscf.msscf.v2_13.cflib.CFLib.Tip.CFTipEnvelopeHandler;
+import org.msscf.msscf.v2_13.cflib.CFLib.Tip.CFTipServerInfo;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+import $lower JavaPackage$.$SchemaName$XMsgRqst.$SchemaName$XMsgRqst;
+
+/**
+ * Servlet implementation class $SchemaName$XMsgSrvWarRequestXml
+ */
+@WebServlet("/$SchemaName$XMsgSrvWarRequestXml")
+public class $SchemaName$XMsgSrvWarRequestXml extends HttpServlet {$SchemaXMsgSrvWarRequestPart01$$SchemaXMsgSrvWarRequestPart02$$SchemaXMsgSrvWarRequestPart03$$SchemaXMsgSrvWarRequestPart04$$SchemaXMsgSrvWarRequestPart05$$SchemaXMsgSrvWarRequestPart06$$SchemaXMsgSrvWarRequestPart07$$SchemaXMsgSrvWarRequestPart08$$SchemaXMsgSrvWarRequestPart09$$SchemaXMsgSrvWarRequestPart10$$SchemaXMsgSrvWarRequestPart11$$SchemaXMsgSrvWarRequestPart12$$SchemaXMsgSrvWarRequestPart13$$SchemaXMsgSrvWarRequestPart14$$SchemaXMsgSrvWarRequestPart15$$SchemaXMsgSrvWarRequestPart16$$SchemaXMsgSrvWarRequestPart17$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart01">
+	private static final long serialVersionUID = 1L;
+
+	protected MessageLogHandler log = new MessageLogHandler();
+	protected PrintWriter printWriter = null;
+	protected PrintStream printStream = null;
+	protected int indent = 0;
+
+	public class MessageLogHandler implements ICFLibMessageLog {
+
+		public MessageLogHandler() {
+			printWriter = null;
+			printStream = null;
+			indent = 0;
+		}
+
+		public void setPrintWriter( PrintWriter value ) {
+			if( value == null ) {
+				printWriter = null;
+				printStream = null;
+				indent = 0;
+			}
+			else {
+				indent = 0;
+				printWriter = value;
+				WriterOutputStream writerOutputStream = new WriterOutputStream( printWriter, Charset.forName( "UTF-8" ) );
+				printStream = new PrintStream( writerOutputStream );
+			}
+		}
+
+		public String getBacklog() {
+			return( null );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart02">
+		public PrintStream getPrintStream() {
+			if( printStream == null ) {
+				WriterOutputStream writerOutputStream = new WriterOutputStream( printWriter, Charset.forName( "UTF-8" ) );
+				printStream = new PrintStream( writerOutputStream );
+			}
+			return( printStream );
+		}
+
+		public int getMessageLogIndent() {
+			return indent;
+		}
+
+		public void indent() {
+			indent ++;
+		}
+
+		public void dedent() {
+			if( indent > 0 ) {
+				indent --;
+			}
+			else {
+				indent = 0;
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart03">
+		public void message(String msg) {
+
+			if( msg == null ) {
+				return;
+			}
+
+			StringBuffer buff = new StringBuffer();
+
+			Calendar cal = Calendar.getInstance();
+			String stamp = String.format( "%1$$tY-%1$$tm-%1$$td %1$$tH:%1$$tM:%1$$tS.%1$$tL ", cal );
+			buff.append( stamp );
+
+			int			i;
+			for( i = 0; i &lt; indent; i ++ ) {
+				buff.append( "\t" );
+			}
+			buff.append( msg );
+			if( ! msg.endsWith( "\n" ) ) {
+				buff.append( "\n" );
+			}
+
+			if( printStream != null ) {
+				printStream.append( buff.toString() );
+				printStream.flush();
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart04">
+		public void openLogFile(String fileName) throws FileNotFoundException {
+			throw new CFLibNotImplementedYetException( getClass(),
+				"openLogFile" );
+		}
+
+		public void closeLogFile() {
+			throw new CFLibNotImplementedYetException( getClass(),
+					"openLogFile" );
+		}
+	}
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public $SchemaName$XMsgSrvWarRequestXml() {
+		super();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart05">
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		final String S_ProcName="doGet";
+		I$SchemaName$SchemaObj schemaObj;
+		HttpSession sess = request.getSession( false );
+		if( sess == null ) {
+			sess = request.getSession( true );
+			schemaObj = new $SchemaName$SchemaPooledObj();
+			sess.setAttribute( "SchemaObj", schemaObj );
+		}
+		else {
+			schemaObj = (I$SchemaName$SchemaObj)sess.getAttribute( "SchemaObj" );
+			if( schemaObj == null ) {
+				schemaObj = new $SchemaName$SchemaPooledObj();
+				sess.setAttribute( "SchemaObj", schemaObj );
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart06">
+		CFTipServerInfo serverInfo = $SchemaName$XMsgSrvWarApplicationListener.getServerInfo();
+
+		CFTipEnvelopeHandler envelopeHandler = (CFTipEnvelopeHandler)sess.getAttribute( "CFTipEnvelopeHandler" );
+		if( envelopeHandler == null ) {
+			envelopeHandler = new CFTipEnvelopeHandler();
+			envelopeHandler.setLog( log );
+			$SchemaName$XMsgRqst requestHandler = new $SchemaName$XMsgRqst();
+			requestHandler.setSchemaObj( schemaObj );
+			envelopeHandler.setRequestHandler( requestHandler );
+			envelopeHandler.setServerInfo( serverInfo );
+			sess.setAttribute( "CFTipEnvelopeHandler", envelopeHandler );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart07">
+		I$SchemaName$Schema dbSchema = null;
+		try {
+			dbSchema = (I$SchemaName$Schema)$SchemaName$SchemaPool.getSchemaPool().getInstance();
+			schemaObj.setBackingStore( dbSchema );
+			schemaObj.beginTransaction();
+
+			I$SecSchemaName$SysClusterObj sysCluster = schemaObj.getSysClusterTableObj().readSysClusterByIdIdx( 1, false );
+			if( sysCluster == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"SysCluster" );
+			}
+
+			I$SecSchemaName$ClusterObj secCluster = sysCluster.getRequiredContainerCluster();
+			if( secCluster == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"SysCluster.Cluster" );
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart08">
+			if( null == serverInfo.getClusterDescr() ) {
+				serverInfo.setClusterDescr( secCluster.getRequiredDescription() );
+				serverInfo.setClusterURL( secCluster.getRequiredFullDomName() );
+			}
+
+			String clusterDescription = serverInfo.getClusterDescr();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart09">
+			response.setContentType( "text/html" );
+			PrintWriter out = response.getWriter();
+			out.println( "&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"&gt;" );
+			out.println( "&lt;HTML&gt;" );
+			out.println( "&lt;BODY&gt;" );
+			out.println( "&lt;form method=\"post\" formaction=\"$SchemaName$XMsgSrvWarRequestXml\"&gt;" );
+			out.println( "&lt;H1 style=\"text-align:center\"&gt;" + clusterDescription + " XMsg Server&lt;/H1&gt;" );
+			out.println( "&lt;H2 style=\"text-align:center\"&gt; Enter a CFTipEnvelopeHandler XML request message to process&lt;/H2&gt;" );
+			out.println( "&lt;p&gt;" );
+			out.println( "&lt;table style=\"width:90%\"&gt;" );
+			out.println( "&lt;tr&gt;&lt;th style=\"text-align:left\"&gt;Message Body:&lt;/th&gt;&lt;td&gt;&lt;textarea name=\"MessageBody\" cols=\"60\" rows=\"10\"&gt;&lt;/textarea&gt;&lt;/td&gt;&lt;/tr&gt;");
+			out.println( "&lt;/table&gt;" );
+			out.println( "&lt;p style=\"text-align:center\"&gt;&lt;button type=\"submit\" name=\"Ok\"\"&gt;Submit Request&lt;/button&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;button type=\"button\" name=\"Cancel\"\" onclick=\"window.location.href='$SchemaName$XMsgSrvWarRequestXml'\"&gt;Cancel;&lt;/button&gt;" );
+			out.println( "&lt;/form&gt;" );
+			out.println( "&lt;/BODY&gt;" );
+			out.println( "&lt;/HTML&gt;" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart10">
+		finally {
+			if( dbSchema != null ) {
+				try {
+					if( schemaObj.isTransactionOpen() ) { 
+						schemaObj.rollback();
+					}
+					schemaObj.minimizeMemory();
+				}
+				catch( RuntimeException e ) {
+				}
+				schemaObj.setBackingStore( null );
+				$SchemaName$SchemaPool.getSchemaPool().releaseInstance( dbSchema );
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart11">
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		final String S_ProcName = "doPost";
+
+		I$SchemaName$SchemaObj schemaObj;
+		HttpSession sess = request.getSession( false );
+		if( sess == null ) {
+			sess = request.getSession( true );
+			schemaObj = new $SchemaName$SchemaPooledObj();
+			sess.setAttribute( "SchemaObj", schemaObj );
+		}
+		else {
+			schemaObj = (I$SchemaName$SchemaObj)sess.getAttribute( "SchemaObj" );
+			if( schemaObj == null ) {
+				schemaObj = new $SchemaName$SchemaPooledObj();
+				sess.setAttribute( "SchemaObj", schemaObj );
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart12">
+		CFTipServerInfo serverInfo = $SchemaName$XMsgSrvWarApplicationListener.getServerInfo();
+
+		CFTipEnvelopeHandler envelopeHandler = (CFTipEnvelopeHandler)sess.getAttribute( "CFTipEnvelopeHandler" );
+		if( envelopeHandler == null ) {
+			envelopeHandler = new CFTipEnvelopeHandler();
+			envelopeHandler.setLog( log );
+			$SchemaName$XMsgRqst requestHandler = new $SchemaName$XMsgRqst();
+			requestHandler.setSchemaObj( schemaObj );
+			envelopeHandler.setRequestHandler( requestHandler );
+			envelopeHandler.setServerInfo( serverInfo );
+			sess.setAttribute( "CFTipEnvelopeHandler", envelopeHandler );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart13">
+		String clusterDescription = "";
+
+		I$SchemaName$Schema dbSchema = null;
+		try {
+			dbSchema = (I$SchemaName$Schema)$SchemaName$SchemaPool.getSchemaPool().getInstance();
+			schemaObj.setBackingStore( dbSchema );
+			schemaObj.beginTransaction();
+
+			I$SecSchemaName$SysClusterObj sysCluster = schemaObj.getSysClusterTableObj().readSysClusterByIdIdx( 1, false );
+			if( sysCluster == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"SysCluster" );
+			}
+
+			I$SecSchemaName$ClusterObj secCluster = sysCluster.getRequiredContainerCluster();
+			if( secCluster == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"SysCluster.Cluster" );
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart14">
+			if( serverInfo.getClusterDescr() == null ) {
+				serverInfo.setClusterDescr( secCluster.getRequiredDescription() );
+				serverInfo.setClusterURL( secCluster.getRequiredFullDomName() );
+			}
+
+			clusterDescription = serverInfo.getClusterDescr();
+
+			// envelopeHandler.setLog( log );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart15">
+			String messageBody = request.getParameter( "MessageBody" );
+			if( ( messageBody == null ) || ( messageBody.length() &lt;= 0 ) ) {
+				response.setContentType( "text/html" );
+				PrintWriter out = response.getWriter();
+				out.println( "&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"&gt;" );
+				out.println( "&lt;HTML&gt;" );
+				out.println( "&lt;BODY&gt;" );
+				out.println( "&lt;form method=\"post\" formaction=\"$SchemaName$XMsgSrvWarRequestXml\"&gt;" );
+				out.println( "&lt;H1 style=\"text-align:center\"&gt;" + clusterDescription + " XMsg Server&lt;/H1&gt;" );
+				out.println( "&lt;H2 style=\"text-align:center\"&gt; Enter a CFTipEnvelopeHandler XML request message to process&lt;/H2&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "&lt;table style=\"width:90%\"&gt;" );
+				out.println( "&lt;tr&gt;&lt;th style=\"text-align:left\"&gt;Message Body:&lt;/th&gt;&lt;td&gt;&lt;textarea name=\"MessageBody\" cols=\"60\" rows=\"10\"&gt;&lt;/textarea&gt;&lt;/td&gt;&lt;/tr&gt;");
+				out.println( "&lt;/table&gt;" );
+				out.println( "&lt;p style=\"text-align:center\"&gt;&lt;button type=\"submit\" name=\"Ok\"\"&gt;Submit Request&lt;/button&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;button type=\"button\" name=\"Cancel\"\" onclick=\"window.location.href='$SchemaName$XMsgSrvWarRequestXml'\"&gt;Cancel;&lt;/button&gt;" );
+				out.println( "&lt;/form&gt;" );
+				out.println( "&lt;/BODY&gt;" );
+				out.println( "&lt;/HTML&gt;" );
+				return;
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart16">
+			PrintWriter out = response.getWriter();
+			log.setPrintWriter( out );
+			envelopeHandler.parseStringContents( messageBody );
+			response.setContentType( "text/plain" );
+			String rspnBase64EncodedEncryptedSessionBlock = envelopeHandler.getResponse();
+			out.append( rspnBase64EncodedEncryptedSessionBlock );
+			out.flush();
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaXMsgSrvWarRequestPart17">
+		finally {
+			if( dbSchema != null ) {
+				try {
+					if( schemaObj.isTransactionOpen() ) { 
+						schemaObj.rollback();
+					}
+					schemaObj.minimizeMemory();
+				}
+				catch( RuntimeException e ) {
+				}
+				schemaObj.setBackingStore( null );
+				$SchemaName$SchemaPool.getSchemaPool().releaseInstance( dbSchema );
+			}
+		}
+	}</GenRule>
+
+</RuleSet>

@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+jee"
+	Name="src/SchemaSMWar/SchemaSMWarCancelEMailAddressHtml.java"
+	Revision="2.12"
+	Descr="Java 11 Sec Manager Cancel EMail Address Servlet">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSMWarCancelEMailAddressHtmlJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$SMWar/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$SMWar"
+		ExpansionClassName="$SchemaName$SMWarCancelEMailAddressHtmlJava"
+		ExpansionKeyName="$SchemaName$SMWarCancelEMailAddressHtmlJava"
+		ExpansionFileName="$SchemaName$SMWarCancelEMailAddressHtml.java">
+// Description: Java 11 Sec Manager Cancel EMail Address Servlet
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$SMWar;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.UUID;
+
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+import org.apache.commons.codec.binary.Base64;
+
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+
+/**
+ * Servlet implementation class $SchemaName$SMWarCancelEMailAddressHtml
+ */
+@WebServlet("/$SchemaName$SMWarCancelEMailAddressHtml")
+public class $SchemaName$SMWarCancelEMailAddressHtml extends HttpServlet {$SchemaSMWarCancelEMailAddressPart01$$SchemaSMWarCancelEMailAddressPart02$$SchemaSMWarCancelEMailAddressPart03$$SchemaSMWarCancelEMailAddressPart04$$SchemaSMWarCancelEMailAddressPart05$$SchemaSMWarCancelEMailAddressPart06$$SchemaSMWarCancelEMailAddressPart07$$SchemaSMWarCancelEMailAddressPart08$$SchemaSMWarCancelEMailAddressPart09$$SchemaSMWarCancelEMailAddressPart10$$SchemaSMWarCancelEMailAddressPart11$$SchemaSMWarCancelEMailAddressPart12$$SchemaSMWarCancelEMailAddressPart13$$SchemaSMWarCancelEMailAddressPart14$$SchemaSMWarCancelEMailAddressPart15$$SchemaSMWarCancelEMailAddressPart16$$SchemaSMWarCancelEMailAddressPart17$$SchemaSMWarCancelEMailAddressPart18$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart01">
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public $SchemaName$SMWarCancelEMailAddressHtml() {
+		super();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart02">
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		final String S_ProcName="doGet";
+		I$SchemaName$SchemaObj schemaObj;
+		HttpSession sess = request.getSession( false );
+		if( sess == null ) {
+			sess = request.getSession( true );
+			schemaObj = new $SchemaName$SchemaPooledObj();
+			sess.setAttribute( "SchemaObj", schemaObj );
+		}
+		else {
+			schemaObj = (I$SchemaName$SchemaObj)sess.getAttribute( "SchemaObj" );
+			if( schemaObj == null ) {
+				schemaObj = new $SchemaName$SchemaPooledObj();
+				sess.setAttribute( "SchemaObj", schemaObj );
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart03">
+		I$SchemaName$Schema dbSchema = null;
+		try {
+			$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+			if( auth != null ) {
+				response.sendRedirect( "$SchemaName$SMWarSecMainHtml" );
+				return;
+			}
+
+			dbSchema = (I$SchemaName$Schema)$SchemaName$SchemaPool.getSchemaPool().getInstance();
+			schemaObj.setBackingStore( dbSchema );
+			schemaObj.beginTransaction();
+			I$SecSchemaName$SecUserObj systemUser = schemaObj.getSecUserTableObj().readSecUserByULoginIdx( "system" );
+			String passwordHash = systemUser.getRequiredPasswordHash();
+			if( ( passwordHash == null ) || ( passwordHash.length() &lt;= 0 ) || passwordHash.equals( "bootstrap" ) ) {
+				response.sendRedirect( "$SchemaName$SMWarSetSystemPasswordHtml" );
+				return;
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart04">
+			I$SecSchemaName$SysClusterObj sysCluster = schemaObj.getSysClusterTableObj().readSysClusterByIdIdx( 1, false );
+			if( sysCluster == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"sysCluster" );
+			}
+
+			I$SecSchemaName$ClusterObj resolvedCluster = sysCluster.getRequiredContainerCluster();
+			if( resolvedCluster == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					"resolvedCluster" );
+			}
+			String clusterDomName = resolvedCluster.getRequiredFullDomName();
+			String clusterDescription = resolvedCluster.getRequiredDescription();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart05">
+			String confirmationUUIDStr = (String)request.getParameter( "ConfirmationUUID" );
+			if( ( confirmationUUIDStr == null ) || ( confirmationUUIDStr.length() &lt;= 0 ) ) {
+				response.setContentType( "text/html" );
+				PrintWriter out = response.getWriter();
+				out.println( "&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"&gt;" );
+				out.println( "&lt;HTML&gt;" );
+				out.println( "&lt;BODY&gt;" );
+				out.println( "&lt;form method=\"post\" formaction=\"$SchemaName$SMWarConfirmEMailAddressHtml\"&gt;" );
+				out.println( "&lt;H1 style=\"text-align:center\"&gt;" + clusterDescription + " Sec Manager&lt;/H1&gt;" );
+				out.println( "&lt;H2 style=\"text-align:center\"&gt;ERROR&lt;/H2&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "&lt;center&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "The ConfirmationUUID parameter was missing in your request.  Please use the link provided by your confirmation email." );
+				out.println( "&lt;/BODY&gt;" );
+				out.println( "&lt;/HTML&gt;" );
+				return;
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart06">
+			UUID confirmationUUID = UUID.fromString( confirmationUUIDStr );
+			if( confirmationUUID == null ) {
+				response.setContentType( "text/html" );
+				PrintWriter out = response.getWriter();
+				out.println( "&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"&gt;" );
+				out.println( "&lt;HTML&gt;" );
+				out.println( "&lt;BODY&gt;" );
+				out.println( "&lt;form method=\"post\" formaction=\"$SchemaName$SMWarConfirmEMailAddressHtml\"&gt;" );
+				out.println( "&lt;H1 style=\"text-align:center\"&gt;" + clusterDescription + " Sec Manager&lt;/H1&gt;" );
+				out.println( "&lt;H2 style=\"text-align:center\"&gt;ERROR&lt;/H2&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "&lt;center&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "Invalid ConfirmationUUID \"" + confirmationUUIDStr + "\".  Please use the link provided by your confirmation email." );
+				out.println( "&lt;/BODY&gt;" );
+				out.println( "&lt;/HTML&gt;" );
+				return;
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart07">
+			I$SecSchemaName$SecUserObj cancelUser = null;
+			Iterator&lt;I$SecSchemaName$SecUserObj&gt; secUserForUUID = schemaObj.getSecUserTableObj().readSecUserByEMConfIdx( confirmationUUID ).iterator();
+			if( secUserForUUID.hasNext() ) {
+				cancelUser = secUserForUUID.next();
+				if( secUserForUUID.hasNext() ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Multiple SecUser instances found for ConfirmationUUID \"" + confirmationUUIDStr + "\"" );
+				}
+			}
+			else {
+				response.setContentType( "text/html" );
+				PrintWriter out = response.getWriter();
+				out.println( "&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"&gt;" );
+				out.println( "&lt;HTML&gt;" );
+				out.println( "&lt;BODY&gt;" );
+				out.println( "&lt;form method=\"post\" formaction=\"$SchemaName$SMWarConfirmEMailAddressHtml\"&gt;" );
+				out.println( "&lt;H1 style=\"text-align:center\"&gt;" + clusterDescription + " Sec Manager&lt;/H1&gt;" );
+				out.println( "&lt;H2 style=\"text-align:center\"&gt;ERROR&lt;/H2&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "&lt;center&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "Invalid ConfirmationUUID \"" + confirmationUUIDStr + "\".  Please use the link provided by your confirmation email." );
+				out.println( "&lt;/BODY&gt;" );
+				out.println( "&lt;/HTML&gt;" );
+				return;
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart08">
+			I$SecSchemaName$ClusterObj systemCluster = schemaObj.getClusterTableObj().readClusterByUDomNameIdx( "system" );
+			I$SecSchemaName$TenantObj systemTenant = schemaObj.getTenantTableObj().readTenantByUNameIdx( systemCluster.getRequiredId(), "system" );
+			I$SecSchemaName$SecSessionObj systemSession = schemaObj.getSecSessionTableObj().newInstance();
+			I$SecSchemaName$SecSessionEditObj editSystemSession = (I$SecSchemaName$SecSessionEditObj)systemSession.beginEdit();
+			editSystemSession.setRequiredContainerSecUser( systemUser );
+			editSystemSession.setRequiredStart( Calendar.getInstance() );
+			systemSession = editSystemSession.create();
+			editSystemSession = null;
+
+			auth = new $SecSchemaName$Authorization();
+			auth.setSecCluster( systemCluster );
+			auth.setSecTenant( systemTenant );
+			auth.setSecSession( systemSession );
+			schemaObj.setAuthorization( auth );
+
+			I$SecSchemaName$SecUserEditObj editCancelUser = cancelUser.beginEdit();
+			editCancelUser.deleteInstance();
+			editCancelUser = null;
+
+			editSystemSession = (I$SecSchemaName$SecSessionEditObj)systemSession.beginEdit();
+			editSystemSession.setOptionalFinish( Calendar.getInstance() );
+			editSystemSession.update();
+			editSystemSession = null;
+
+			schemaObj.commit();
+
+			schemaObj.setAuthorization( null );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart09">
+			response.setContentType( "text/html" );
+			PrintWriter out = response.getWriter();
+			out.println( "&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"&gt;" );
+			out.println( "&lt;HTML&gt;" );
+			out.println( "&lt;BODY&gt;" );
+			out.println( "&lt;form method=\"post\" formaction=\"$SchemaName$SMWarConfirmEMailAddressHtml\"&gt;" );
+			out.println( "&lt;H1 style=\"text-align:center\"&gt;" + clusterDescription + " Sec Manager&lt;/H1&gt;" );
+			out.println( "&lt;H2 style=\"text-align:center\"&gt;Account creation for " + cancelUser.getRequiredEMailAddress() + " cancelled.&lt;/H2&gt;" );
+			out.println( "&lt;p&gt;" );
+			out.println( "&lt;center&gt;" );
+			out.println( "&lt;table style=\"width:75%\"&gt;" );
+			out.println( "&lt;tr&gt;&lt;td colSpan=\"2\" style=\"text-align:center\"&gt;Take me to the " + clusterDescription + " Sec Manager &lt;A HRef=\"$SchemaName$SMWarLoginHtml\"&gt;Log In&lt;/A&gt; page.&lt;/td&gt;&lt;/tr&gt;" );
+			out.println( "&lt;/table&gt;" );
+			out.println( "&lt;/center&gt;" );
+			out.println( "&lt;/form&gt;" );
+			out.println( "&lt;/BODY&gt;" );
+			out.println( "&lt;/HTML&gt;" );
+		}
+		catch( RuntimeException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught RuntimeException -- " + e.getMessage(),
+				e );
+		}
+		finally {
+			if( dbSchema != null ) {
+				try {
+					if( schemaObj.isTransactionOpen() ) { 
+						schemaObj.rollback();
+					}
+				}
+				catch( RuntimeException e ) {
+				}
+				schemaObj.setBackingStore( null );
+				$SchemaName$SchemaPool.getSchemaPool().releaseInstance( dbSchema );
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart10">
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		final String S_ProcName = "doPost";
+
+		I$SchemaName$SchemaObj schemaObj;
+		HttpSession sess = request.getSession( false );
+		if( sess == null ) {
+			sess = request.getSession( true );
+			schemaObj = new $SchemaName$SchemaPooledObj();
+			sess.setAttribute( "SchemaObj", schemaObj );
+		}
+		else {
+			schemaObj = (I$SchemaName$SchemaObj)sess.getAttribute( "SchemaObj" );
+			if( schemaObj == null ) {
+				schemaObj = new $SchemaName$SchemaPooledObj();
+				sess.setAttribute( "SchemaObj", schemaObj );
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart11">
+		I$SchemaName$Schema dbSchema = null;
+		try {
+			$SecSchemaName$Authorization auth = schemaObj.getAuthorization();
+			if( auth != null ) {
+				response.sendRedirect( "$SchemaName$SMWarSecMainHtml" );
+				return;
+			}
+
+			dbSchema = (I$SchemaName$Schema)$SchemaName$SchemaPool.getSchemaPool().getInstance();
+			schemaObj.setBackingStore( dbSchema );
+			schemaObj.beginTransaction();
+			I$SecSchemaName$SecUserObj systemUser = schemaObj.getSecUserTableObj().readSecUserByULoginIdx( "system" );
+			String passwordHash = systemUser.getRequiredPasswordHash();
+			if( ( passwordHash == null ) || ( passwordHash.length() &lt;= 0 ) || passwordHash.equals( "bootstrap" ) ) {
+				response.sendRedirect( "$SchemaName$SMWarSetSystemPasswordHtml" );
+				return;
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart12">
+			I$SecSchemaName$SysClusterObj sysCluster = schemaObj.getSysClusterTableObj().readSysClusterByIdIdx( 1, false );
+			if( sysCluster == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"sysCluster" );
+			}
+
+			I$SecSchemaName$ClusterObj resolvedCluster = sysCluster.getRequiredContainerCluster();
+			resolvedCluster = sysCluster.getRequiredContainerCluster();
+			if( resolvedCluster == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					"resolvedCluster" );
+			}
+			String clusterDomName = resolvedCluster.getRequiredFullDomName();
+			String clusterDescription = resolvedCluster.getRequiredDescription();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart13">
+			String confirmationUUIDStr = (String)request.getParameter( "ConfirmationUUID" );
+			if( ( confirmationUUIDStr == null ) || ( confirmationUUIDStr.length() &lt;= 0 ) ) {
+				response.setContentType( "text/html" );
+				PrintWriter out = response.getWriter();
+				out.println( "&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"&gt;" );
+				out.println( "&lt;HTML&gt;" );
+				out.println( "&lt;BODY&gt;" );
+				out.println( "&lt;form method=\"post\" formaction=\"$SchemaName$SMWarConfirmEMailAddressHtml\"&gt;" );
+				out.println( "&lt;H1 style=\"text-align:center\"&gt;" + clusterDescription + " Sec Manager&lt;/H1&gt;" );
+				out.println( "&lt;H2 style=\"text-align:center\"&gt;ERROR&lt;/H2&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "&lt;center&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "The ConfirmationUUID parameter was missing in your request.  Please use the link provided by your confirmation email." );
+				out.println( "&lt;/BODY&gt;" );
+				out.println( "&lt;/HTML&gt;" );
+				return;
+			}
+
+			UUID confirmationUUID = UUID.fromString( confirmationUUIDStr );
+			if( confirmationUUID == null ) {
+				response.setContentType( "text/html" );
+				PrintWriter out = response.getWriter();
+				out.println( "&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"&gt;" );
+				out.println( "&lt;HTML&gt;" );
+				out.println( "&lt;BODY&gt;" );
+				out.println( "&lt;form method=\"post\" formaction=\"$SchemaName$SMWarConfirmEMailAddressHtml\"&gt;" );
+				out.println( "&lt;H1 style=\"text-align:center\"&gt;" + clusterDescription + " Sec Manager&lt;/H1&gt;" );
+				out.println( "&lt;H2 style=\"text-align:center\"&gt;ERROR&lt;/H2&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "&lt;center&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "Invalid ConfirmationUUID \"" + confirmationUUIDStr + "\".  Please use the link provided by your confirmation email." );
+				out.println( "&lt;/BODY&gt;" );
+				out.println( "&lt;/HTML&gt;" );
+				return;
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart14">
+			I$SecSchemaName$SecUserObj cancelUser = null;
+			Iterator&lt;I$SecSchemaName$SecUserObj&gt; secUserForUUID = schemaObj.getSecUserTableObj().readSecUserByEMConfIdx( confirmationUUID ).iterator();
+			if( secUserForUUID.hasNext() ) {
+				cancelUser = secUserForUUID.next();
+				if( secUserForUUID.hasNext() ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Multiple SecUser instances found for ConfirmationUUID \"" + confirmationUUIDStr + "\"" );
+				}
+			}
+			else {
+				response.setContentType( "text/html" );
+				PrintWriter out = response.getWriter();
+				out.println( "&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"&gt;" );
+				out.println( "&lt;HTML&gt;" );
+				out.println( "&lt;BODY&gt;" );
+				out.println( "&lt;form method=\"post\" formaction=\"$SchemaName$SMWarConfirmEMailAddressHtml\"&gt;" );
+				out.println( "&lt;H1 style=\"text-align:center\"&gt;" + clusterDescription + " Sec Manager&lt;/H1&gt;" );
+				out.println( "&lt;H2 style=\"text-align:center\"&gt;ERROR&lt;/H2&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "&lt;center&gt;" );
+				out.println( "&lt;p&gt;" );
+				out.println( "Invalid ConfirmationUUID \"" + confirmationUUIDStr + "\".  Please use the link provided by your confirmation email." );
+				out.println( "&lt;/BODY&gt;" );
+				out.println( "&lt;/HTML&gt;" );
+				return;
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart15">
+			I$SecSchemaName$ClusterObj systemCluster = schemaObj.getClusterTableObj().readClusterByUDomNameIdx( "system" );
+			I$SecSchemaName$TenantObj systemTenant = schemaObj.getTenantTableObj().readTenantByUNameIdx( systemCluster.getRequiredId(), "system" );
+			I$SecSchemaName$SecSessionObj systemSession = schemaObj.getSecSessionTableObj().newInstance();
+			I$SecSchemaName$SecSessionEditObj editSystemSession = (I$SecSchemaName$SecSessionEditObj)systemSession.beginEdit();
+			editSystemSession.setRequiredContainerSecUser( systemUser );
+			editSystemSession.setRequiredStart( Calendar.getInstance() );
+			systemSession = editSystemSession.create();
+			editSystemSession = null;
+
+			auth = new $SecSchemaName$Authorization();
+			auth.setSecCluster( systemCluster );
+			auth.setSecTenant( systemTenant );
+			auth.setSecSession( systemSession );
+			schemaObj.setAuthorization( auth );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart16">
+			I$SecSchemaName$SecUserEditObj editCancelUser = cancelUser.beginEdit();
+			editCancelUser.deleteInstance();
+			editCancelUser = null;
+
+			editSystemSession = (I$SecSchemaName$SecSessionEditObj)systemSession.beginEdit();
+			editSystemSession.setOptionalFinish( Calendar.getInstance() );
+			editSystemSession.update();
+			editSystemSession = null;
+
+			schemaObj.commit();
+
+			schemaObj.setAuthorization( null );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart17">
+			response.setContentType( "text/html" );
+			PrintWriter out = response.getWriter();
+			out.println( "&lt;!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"&gt;" );
+			out.println( "&lt;HTML&gt;" );
+			out.println( "&lt;BODY&gt;" );
+			out.println( "&lt;form method=\"post\" formaction=\"$SchemaName$SMWarConfirmEMailAddressHtml\"&gt;" );
+			out.println( "&lt;H1 style=\"text-align:center\"&gt;" + clusterDescription + " Sec Manager&lt;/H1&gt;" );
+			out.println( "&lt;H2 style=\"text-align:center\"&gt;Account creation for " + cancelUser.getRequiredEMailAddress() + " cancelled.&lt;/H2&gt;" );
+			out.println( "&lt;p&gt;" );
+			out.println( "&lt;center&gt;" );
+			out.println( "&lt;table style=\"width:75%\"&gt;" );
+			out.println( "&lt;tr&gt;&lt;td colSpan=\"2\" style=\"text-align:center\"&gt;Take me to the " + clusterDescription + " Sec Manager &lt;A HRef=\"$SchemaName$SMWarLoginHtml\"&gt;Log In&lt;/A&gt; page.&lt;/td&gt;&lt;/tr&gt;" );
+			out.println( "&lt;/table&gt;" );
+			out.println( "&lt;/center&gt;" );
+			out.println( "&lt;/form&gt;" );
+			out.println( "&lt;/BODY&gt;" );
+			out.println( "&lt;/HTML&gt;" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarCancelEMailAddressPart18">
+		catch( RuntimeException e ) {
+			throw new CFLibRuntimeException( getClass(),
+				S_ProcName,
+				"Caught RuntimeException -- " + e.getMessage(),
+				e );
+		}
+		finally {
+			if( dbSchema != null ) {
+				try {
+					if( schemaObj.isTransactionOpen() ) { 
+						schemaObj.rollback();
+					}
+				}
+				catch( RuntimeException e ) {
+				}
+				schemaObj.setBackingStore( null );
+				$SchemaName$SchemaPool.getSchemaPool().releaseInstance( dbSchema );
+			}
+		}
+	}</GenRule>
+
+</RuleSet>

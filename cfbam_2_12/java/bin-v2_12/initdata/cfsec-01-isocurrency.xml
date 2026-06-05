@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CFSec
+		xmlns="uri://cfsec/cfsecloader"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="uri://cfsec/cfsecloader file:../bin/xsd/cfsec-structured.xsd" >
+	<ISOCurrency ISOCode="AED" Name="Arab Emirates Dirham" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="AFN" Name="Afghanistan Afghani" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="ALL" Name="Albanian Lek" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="AMD" Name="Armenian Dram" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="ANG" Name="Netherlands Antillean Guilder" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="AOA" Name="Angolan Kwanza" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="ARS" Name="Argentine Peso" UnitSymbol="&#8369;" Precis="2" />
+	<ISOCurrency ISOCode="AUD" Name="Australian Dollar" UnitSymbol="&#8371;" Precis="2" />
+	<ISOCurrency ISOCode="AWG" Name="Aruban Guilder" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="AZN" Name="Azerbaijan New Manat" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BAM" Name="Marka" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BBD" Name="Barbados Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BDT" Name="Bangladeshi Taka" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BGN" Name="Bulgarian Lev" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BHD" Name="Bahraini Dinar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BIF" Name="Burundi Franc" UnitSymbol="&#8355;" Precis="0" />
+	<ISOCurrency ISOCode="BMD" Name="Bermudian Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BND" Name="Brunei Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BOB" Name="Boliviano" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BRL" Name="Brazilian Real" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BSD" Name="Bahamian Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BTN" Name="Bhutan Ngultrum" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BWP" Name="Botswana Pula" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="BYR" Name="Belarussian Ruble" UnitSymbol="&#36;" Precis="0" />
+	<ISOCurrency ISOCode="BZD" Name="Belize Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="CAD" Name="Canadian Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="CDF" Name="Francs" UnitSymbol="&#8355;" Precis="0" />
+	<ISOCurrency ISOCode="CHF" Name="Swiss Franc" UnitSymbol="&#8355;" Precis="0" />
+	<ISOCurrency ISOCode="CLP" Name="Chilean Peso" UnitSymbol="&#8369;" Precis="2" />
+	<ISOCurrency ISOCode="CNY" Name="Yuan Renminbi" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="COP" Name="Colombian Peso" UnitSymbol="&#8369;" Precis="2" />
+	<ISOCurrency ISOCode="CRC" Name="Costa Rican Colon" UnitSymbol="&#8353;" Precis="2" />
+	<ISOCurrency ISOCode="CUP" Name="Cuban Peso" UnitSymbol="&#8369;" Precis="2" />
+	<ISOCurrency ISOCode="CVE" Name="Cape Verde Escudo" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="CZK" Name="Czech Koruna" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="DJF" Name="Djibouti Franc" UnitSymbol="&#8355;" Precis="0" />
+	<ISOCurrency ISOCode="DKK" Name="Danish Krone" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="DOP" Name="Dominican Peso" UnitSymbol="&#8369;" Precis="2" />
+	<ISOCurrency ISOCode="DZD" Name="Algerian Dinar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="ECS" Name="Ecuador Sucre" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="EGP" Name="Egyptian Pound" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="ERN" Name="Eritrean Nakfa" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="ETB" Name="Ethiopian Birr" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="EUR" Name="Euro" UnitSymbol="&#8364;" Precis="2" />
+	<ISOCurrency ISOCode="FJD" Name="Fiji Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="FKP" Name="Falkland Islands Pound" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="GBP" Name="Pounds" UnitSymbol="&#163;" Precis="2" />
+	<ISOCurrency ISOCode="GEL" Name="Georgian Lari" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="GGP" Name="Pound Sterling" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="GHS" Name="Ghanaian Cedi" UnitSymbol="&#8373;" Precis="2" />
+	<ISOCurrency ISOCode="GIP" Name="Gibraltar Pound" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="GMD" Name="Gambian Dalasi" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="GNF" Name="Guinea Franc" UnitSymbol="&#8355;" Precis="0" />
+	<ISOCurrency ISOCode="GWP" Name="Guinea-Bissau Peso" UnitSymbol="&#8369;" Precis="2" />
+	<ISOCurrency ISOCode="GYD" Name="Guyana Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="HKD" Name="Hong Kong Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="HNL" Name="Honduran Lempira" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="HRK" Name="Croatian Kuna" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="HTG" Name="Haitian Gourde" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="HUF" Name="Hungarian Forint" UnitSymbol="&#36;" Precis="0" />
+	<ISOCurrency ISOCode="IDR" Name="Indonesian Rupiah" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="ILS" Name="Israeli New Shekel" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="INR" Name="Indian Rupee" UnitSymbol="&#8377;" Precis="2" />
+	<ISOCurrency ISOCode="IQD" Name="Iraqi Dinar" UnitSymbol="&#36;" Precis="3" />
+	<ISOCurrency ISOCode="IRR" Name="Iranian Rial" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="ISK" Name="Iceland Krona" UnitSymbol="&#36;" Precis="0" />
+	<ISOCurrency ISOCode="JMD" Name="Jamaican Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="JOD" Name="Jordanian Dinar" UnitSymbol="&#36;" Precis="3" />
+	<ISOCurrency ISOCode="JPY" Name="Japanese Yen" UnitSymbol="&#165;" Precis="0" />
+	<ISOCurrency ISOCode="KES" Name="Kenyan Shilling" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="KGS" Name="Som" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="KHR" Name="Kampuchean Riel" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="KMF" Name="Comoros Franc" UnitSymbol="&#8355;" Precis="0" />
+	<ISOCurrency ISOCode="KPW" Name="North Korean Won" UnitSymbol="&#8361;" Precis="2" />
+	<ISOCurrency ISOCode="KRW" Name="Korean Won" UnitSymbol="&#8361;" Precis="0" />
+	<ISOCurrency ISOCode="KWD" Name="Kuwaiti Dinar" UnitSymbol="&#36;" Precis="3" />
+	<ISOCurrency ISOCode="KYD" Name="Cayman Islands Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="KZT" Name="Kazakhstan Tenge" UnitSymbol="&#8376;" Precis="2" />
+	<ISOCurrency ISOCode="LAK" Name="Lao Kip" UnitSymbol="&#8365;" Precis="2" />
+	<ISOCurrency ISOCode="LBP" Name="Lebanese Pound" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="LKR" Name="Sri Lanka Rupee" UnitSymbol="&#8360;" Precis="2" />
+	<ISOCurrency ISOCode="LRD" Name="Liberian Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="LSL" Name="Lesotho Loti" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="LTL" Name="Lithuanian Litas" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="LVL" Name="Latvian Lats" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="LYD" Name="Libyan Dinar" UnitSymbol="&#36;" Precis="3" />
+	<ISOCurrency ISOCode="MAD" Name="Moroccan Dirham" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="MDL" Name="Moldovan Leu" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="MGF" Name="Malagasy Franc" UnitSymbol="&#8355;" Precis="0" />
+	<ISOCurrency ISOCode="MKD" Name="Denar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="MMK" Name="Myanmar Kyat" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="MNT" Name="Mongolian Tugrik" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="MOP" Name="Macau Pataca" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="MRO" Name="Mauritanian Ouguiya" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="MUR" Name="Mauritius Rupee" UnitSymbol="&#8360;" Precis="2" />
+	<ISOCurrency ISOCode="MVR" Name="Maldive Rufiyaa" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="MWK" Name="Malawi Kwacha" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="MXN" Name="Mexican Nuevo Peso" UnitSymbol="&#8369;" Precis="2" />
+	<ISOCurrency ISOCode="MYR" Name="Malaysian Ringgit" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="MZN" Name="Mozambique Metical" UnitSymbol="&#36;" Precis="0" />
+	<ISOCurrency ISOCode="NAD" Name="Namibian Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="NGN" Name="Nigerian Naira" UnitSymbol="&#8358;" Precis="2" />
+	<ISOCurrency ISOCode="NIO" Name="Nicaraguan Cordoba Oro" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="NOK" Name="Norwegian Krone" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="NPR" Name="Nepalese Rupee" UnitSymbol="&#8360;" Precis="2" />
+	<ISOCurrency ISOCode="NZD" Name="New Zealand Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="OMR" Name="Omani Rial" UnitSymbol="&#36;" Precis="3" />
+	<ISOCurrency ISOCode="PAB" Name="Panamanian Balboa" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="PEN" Name="Peruvian Nuevo Sol" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="PGK" Name="Papua New Guinea Kina" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="PHP" Name="Philippine Peso" UnitSymbol="&#8369;" Precis="2" />
+	<ISOCurrency ISOCode="PKR" Name="Pakistan Rupee" UnitSymbol="&#8360;" Precis="2" />
+	<ISOCurrency ISOCode="PLN" Name="Polish Zloty" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="PYG" Name="Paraguay Guarani" UnitSymbol="&#8370;" Precis="0" />
+	<ISOCurrency ISOCode="QAR" Name="Qatari Rial" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="QTQ" Name="Guatemalan Quetzal" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="RON" Name="Romanian New Leu" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="RSD" Name="Dinar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="RUB" Name="Russian Ruble" UnitSymbol="&#36;" Precis="0" />
+	<ISOCurrency ISOCode="RWF" Name="Rwanda Franc" UnitSymbol="&#8355;" Precis="0" />
+	<ISOCurrency ISOCode="SAR" Name="Saudi Riyal" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="SBD" Name="Solomon Islands Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="SCR" Name="Seychelles Rupee" UnitSymbol="&#8360;" Precis="2" />
+	<ISOCurrency ISOCode="SDG" Name="Sudanese Pound" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="SEK" Name="Swedish Krona" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="SGD" Name="Singapore Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="SHP" Name="St. Helena Pound" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="SLL" Name="Sierra Leone Leone" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="SOS" Name="Somali Shilling" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="SRD" Name="Surinam Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="SSP" Name="South Sudan Pound" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="STD" Name="Dobra" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="SVC" Name="El Salvador Colon" UnitSymbol="&#8353;" Precis="2" />
+	<ISOCurrency ISOCode="SYP" Name="Syrian Pound" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="SZL" Name="Swaziland Lilangeni" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="THB" Name="Thai Baht" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="TJS" Name="Tajik Somoni" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="TMT" Name="Manat" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="TND" Name="Tunisian Dollar" UnitSymbol="&#36;" Precis="3" />
+	<ISOCurrency ISOCode="TOP" Name="Tongan Pa'anga" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="TRY" Name="Turkish Lira" UnitSymbol="&#8356;" Precis="2" />
+	<ISOCurrency ISOCode="TTD" Name="Trinidad and Tobago Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="TWD" Name="Taiwan Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="TZS" Name="Tanzanian Shilling" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="UAH" Name="Ukraine Hryvnia" UnitSymbol="&#8372;" Precis="2" />
+	<ISOCurrency ISOCode="UGX" Name="Uganda Shilling" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="USD" Name="US Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="UYU" Name="Uruguayan Peso" UnitSymbol="&#8369;" Precis="2" />
+	<ISOCurrency ISOCode="UZS" Name="Uzbekistan Sum" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="VEF" Name="Venezuelan Bolivar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="VND" Name="Vietnamese Dong" UnitSymbol="&#8363;" Precis="2" />
+	<ISOCurrency ISOCode="VUV" Name="Vanuatu Vatu" UnitSymbol="&#36;" Precis="0" />
+	<ISOCurrency ISOCode="WST" Name="Samoan Tala" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="XAF" Name="CFA Franc BEAC" UnitSymbol="&#8355;" Precis="0" />
+	<ISOCurrency ISOCode="XCD" Name="East Caribbean Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="XCD" Name="East Carribean Dollar" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="XOF" Name="CFA Franc BCEAO" UnitSymbol="&#8355;" Precis="0" />
+	<ISOCurrency ISOCode="XPF" Name="CFP Franc" UnitSymbol="&#8355;" Precis="0" />
+	<ISOCurrency ISOCode="YER" Name="Yemeni Rial" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="ZAR" Name="South African Rand" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="ZMW" Name="Zambian Kwacha" UnitSymbol="&#36;" Precis="2" />
+	<ISOCurrency ISOCode="ZWD" Name="Zimbabwe Dollar" UnitSymbol="&#36;" Precis="2" />
+</CFSec>

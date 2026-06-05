@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mssql"
+	Name="schema/dbcreate/mssql/crdb_rules.tsql"
+	Revision="2.12"
+	Descr="Microsoft SQL Server Developer Edition Create Database Rules T-SQL Script">
+
+	<GenFile GenDef="SchemaDef" Name="dbadminfile_CreateRules"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mssql"
+		ExpansionClassName="crrules_$lower DbSchemaName$"
+		ExpansionKeyName="crrules_$lower DbSchemaName$"
+		ExpansionFileName="$dbadminfilename_CreateRules$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+use $lower DbSchemaName$
+go
+$iterate Types( each mssql_AddRule empty empty )$
+quit
+</GenFile>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Atom" Name="DbRuleName">rul_$DbSchemaName$$DbColumnName$</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="BlobDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="BoolDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="EnumDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Int16Def" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Int32Def" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Int64Def" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="UInt16Def" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="UInt32Def" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="UInt64Def" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="FloatDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="DoubleDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="NumberDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="StringDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="TokenDef" Name="mssql_AddRule"></GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="NmTokenDef" Name="mssql_AddRule"></GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="NmTokensDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="TextDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="DateDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="TimeDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="TimestampDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="TZDateDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="TZTimeDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="TZTimestampDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidDef" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidGen" Name="mssql_AddRule"></GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Value" Name="mssql_AddRule">$error_unsupported_type$($BaseModelAtomClass$)</GenRule>
+
+</RuleSet>

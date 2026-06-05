@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+saxloader"
+	Name="src/SchemaSaxLoader/SchemaSaxLoaderTableAttr.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Element Handler for Table.Column as whitespace-preserve sub-element text XmlElementName">
+
+	<GenFile GenDef="Value" Name="fileSchemaSaxLoaderTableAttrJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$SaxLoader/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$SaxLoader"
+		ExpansionClassName="$SchemaName$SaxLoader$TableName$$XmlElementName$Java"
+		ExpansionKeyName="$SchemaName$SaxLoader$TableName$$XmlElementName$Java"
+		ExpansionFileName="$SchemaName$SaxLoader$TableName$$XmlElementName$.java">
+// Description: Java 11 XML SAX Element Handler for $TableName$.$Name$ as the whitespace-preserve sub-element $XmlElementName$
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$SaxLoader;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.xml.sax.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+
+/*
+ *	$SchemaName$SaxLoader$TableName$$XmlElementName$ element handler for the whitespace-preserve
+ *	sub-element of $TableName$ to specify the value of $TableName$.$Name$.
+ */
+public class $SchemaName$SaxLoader$TableName$$XmlElementName$
+	extends CFLibXmlCoreElementHandler
+{$implConstructSaxLoaderTableAttr$$implTableAttrStartElement$$implTableAttrEndElement$}
+</GenFile>
+
+	<GenRule GenDef="Value" Name="implConstructSaxLoaderTableAttr">
+	public $SchemaName$SaxLoader$TableName$$XmlElementName$( $SchemaName$SaxLoader saxLoader ) {
+		super( saxLoader );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableAttrStartElement">
+	public void startElement(
+		String		uri,
+		String		localName,
+		String		qName,
+		Attributes	attrs )
+	throws SAXException
+	{
+		final String S_ProcName = "startElement";
+		I$SchemaName$$TableName$Obj origBuff = null;
+		// Common XML Attributes
+		String attrId = null;
+		// Attribute Extraction
+		String attrLocalName;
+		int numAttrs;
+		int idxAttr;
+		final String S_LocalName = "LocalName";
+		try {
+			assert qName.equals( "$XmlElementName$" );
+
+			$SchemaName$SaxLoader saxLoader = ($SchemaName$SaxLoader)getParser();
+			if( saxLoader == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser()" );
+			}
+
+			I$SchemaName$SchemaObj schemaObj = saxLoader.getSchemaObj();
+			if( schemaObj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser().getSchemaObj()" );
+			}
+
+			// Extract Attributes
+			numAttrs = attrs.getLength();
+			for( idxAttr = 0; idxAttr &lt; numAttrs; idxAttr++ ) {
+				attrLocalName = attrs.getLocalName( idxAttr );
+				if( attrLocalName.equals( "Id" ) ) {
+					if( attrId != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrId = attrs.getValue( idxAttr );
+				}
+				else if( attrLocalName.equals( "schemaLocation" ) ) {
+					// ignored
+				}
+				else {
+					throw new CFLibUnrecognizedAttributeException( getClass(),
+						S_ProcName,
+						getParser().getLocationInfo(),
+						attrLocalName );
+				}
+			}
+
+			// Save named attributes to context
+			CFLibXmlCoreContext curContext = getParser().getCurContext();
+			curContext.putNamedValue( "Id", attrId );
+
+			// Get the scope/container object
+
+			CFLibXmlCoreContext parentContext = curContext.getPrevContext();
+			Object scopeObj;
+			if( parentContext != null ) {
+				scopeObj = parentContext.getNamedValue( "Object" );
+			}
+			else {
+				scopeObj = null;
+			}
+
+			if( scopeObj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"scopeObj" );
+			}
+			else if( scopeObj instanceof I$SchemaName$$TableName$Obj ) {
+				origBuff = (I$SchemaName$$TableName$Obj)scopeObj;
+			}
+			else {
+				throw new CFLibUnsupportedClassException( getClass(),
+					S_ProcName,
+					"scopeObj",
+					scopeObj,
+					"I$SchemaName$$TableName$Obj" );
+			}
+
+			curContext.putNamedValue( "Object", origBuff );
+		}
+		catch( Error e ) {
+			throw new SAXException( "Near " + getParser().getLocationInfo() + ": Caught and rethrew " + e.getClass().getName() + " - " + e.getMessage() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableAttrEndElement">
+	public void endElement(
+		String		uri,
+		String		localName,
+		String		qName )
+	throws SAXException
+	{
+		final String S_ProcName = "endElement";
+		I$SchemaName$$TableName$Obj origBuff = null;
+		I$SchemaName$$TableName$EditObj editBuff = null;
+		try {
+			$SchemaName$SaxLoader saxLoader = ($SchemaName$SaxLoader)getParser();
+			if( saxLoader == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser()" );
+			}
+
+			I$SchemaName$SchemaObj schemaObj = saxLoader.getSchemaObj();
+			if( schemaObj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser().getSchemaObj()" );
+			}
+
+			CFLibXmlCoreContext curContext = getParser().getCurContext();
+			Object obj = curContext.getNamedValue( "Object" );
+			if( obj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"obj" );
+			}
+			else if( obj instanceof I$SchemaName$$TableName$Obj ) {
+				origBuff = (I$SchemaName$$TableName$Obj)obj;
+			}
+			else {
+				throw new CFLibUnsupportedClassException( getClass(),
+					S_ProcName,
+					"obj",
+					obj,
+					"I$SchemaName$$TableName$Obj" );
+			}
+
+			String attrText = curContext.getElementText();
+			if( attrText == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"curContext.getElementText" );
+			}
+$switch IsNullable yes implTableAttrEndOptionalAttr default implTableAttrEndRequiredAttr$
+			if( editBuff != null ) {
+				editBuff.update();
+				editBuff = null;
+			}
+		}
+		catch( RuntimeException e ) {
+			if( editBuff != null ) {
+				editBuff.endEdit();
+				editBuff = null;
+			}
+			throw new SAXException( "Near " + getParser().getLocationInfo() + ": Caught and rethrew " + e.getClass().getName() + " - " + e.getMessage(),
+				e );
+		}
+		catch( Error e ) {
+			if( editBuff != null ) {
+				editBuff.endEdit();
+				editBuff = null;
+			}
+			throw new SAXException( "Near " + getParser().getLocationInfo() + ": Caught and rethrew " + e.getClass().getName() + " - " + e.getMessage() );
+		}
+		if( editBuff != null ) {
+			editBuff.endEdit();
+			editBuff = null;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableAttrEndOptionalAttr">
+			if( editBuff == null ) {
+				editBuff = (I$poptop Table SchemaName$$poptop Table TableName$EditObj)origBuff.beginEdit();
+			}
+			if( ( origBuff.get$OptionalOrRequired$$Name$() == null ) || ( origBuff.get$OptionalOrRequired$$Name$().length() &lt;= 0 ) ) {
+				editBuff.set$OptionalOrRequired$$Name$( attrText );
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Cannot specify $poptop Table TableName$ sub-element $XmlElementName$ more than once per object" );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implTableAttrEndRequiredAttr">
+			if( editBuff == null ) {
+				editBuff = (I$poptop Table SchemaName$$poptop Table TableName$EditObj)origBuff.beginEdit();
+			}
+			if( origBuff.get$OptionalOrRequired$$Name$().length() &lt;= 0 ) {
+				editBuff.set$OptionalOrRequired$$Name$( attrText );
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Cannot specify $poptop Table TableName$ sub-element $XmlElementName$ more than once per object" );
+			}</GenRule>
+
+</RuleSet>

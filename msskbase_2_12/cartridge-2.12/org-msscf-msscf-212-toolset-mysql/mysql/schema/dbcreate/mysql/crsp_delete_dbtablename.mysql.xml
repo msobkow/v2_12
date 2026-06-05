@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mysql"
+	Name="schema/dbcreate/mysql/crsp_delete_dbtablename.mysql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPDeleteDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mysql"
+		ExpansionClassName="$dbadminfilename_CreateSPDeleteDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPDeleteDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPDeleteDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+delimiter ////
+create procedure $lower DbSchemaName$.$sp_delete_dbtablename$($implMySqlSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaIndexCol )$$sparg_Revision$ )
+not deterministic
+modifies sql data
+begin
+	declare RowsAffected bigint;$switch HasChain yes declMySqlSPDeleteTableContainerVars default empty$$switch HasChain yes declMySqlSPDeleteTableChainLinkVars default empty$$declSPOldVars$$switch SecScope None empty System implMySqlSPDeleteTableDeclPermFlag Cluster implMySqlSPDeleteTableDeclPermFlag Tenant implMySqlSPDeleteTableDeclPermFlag default error$$declMySqlSPDeleteTableDone$$declMySqlSPDeleteTableClearDepVars$$iterate ReverseDelDeps( each declMySqlSPDeleteTableDelDepVars empty empty )$$declMySqlSPDeleteTableClearDepsCursor$$iterate ReverseDelDeps( each declMySqlSPDeleteTableDelDepCursor empty empty )$$declMySqlSPDeleteTableContinueHandler$$switch HasChain yes implMySqlSPDeleteTableFetchContainerKeys default empty$$switch HasChain yes implMySqlSPDeleteTableLatchContainer default empty$$implMySqlLockTables$$switch SecScope None empty System implMySqlSPDeleteTableCheckSystem Cluster implMySqlSPDeleteTableCheckCluster Tenant implMySqlSPDeleteTableCheckTenant default error$$switch HasChain yes implMySqlSPDeleteTableChainSelectChainLinks default empty$$switch HasChain yes implMySqlSPDeleteTableUpdatePrev default empty$$switch HasChain yes implMySqlSPDeleteTableUpdateNext default empty$$switch BaseHasHistory yes implMySqlDeleteLogAudit default empty$$implMySqlSPDeleteTableClearDeps$$implMySqlSPDeleteTableClearSubObjectRefs$$switch HasDelDeps no empty default implMySqlDeleteDelDeps$$implMySqlDeleteHierarchy$$switch HasChain yes implMySqlSPDeleteTableUnlatchContainer default empty$
+end;////
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUpdatePrev">
+	if( $reference Chain reference PrevRel reference FromIndex iterate Columns( first implMySqlSPDeleteTableUpdatePrevIfNotNull each empty )$ )
+	then$switch ChainTableHasSuperClassRelation yes implMySqlSPDeleteTableUpdatePrevTwoTables default implMySqlSPDeleteTableUpdatePrevOneTable$$switch BaseHasHistory yes implMySqlSPDeleteTableUpdatePrevAuditUpdated default empty$
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUpdatePrevOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMySqlSPDeleteTableUpdateTableAuditColumns default empty$$reference Chain reference NextRel iterate Columns( each implMySqlSPDeleteTableUpdatePrevWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPDeleteTableUpdateTableWherePrevPKeyCol each implMySqlSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUpdateTableAuditColumns">,
+			updatedby = argAuditUserId,
+			updatedat = now()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableUpdatePrevWithKey"
+		>$lower reference FromCol DbColumnName$ = next$reference FromCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableUpdatePrevWithCommaKey">,
+			$implMySqlSPDeleteTableUpdatePrevWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableUpdateTableWherePrevPKeyCol"
+		>$lower reference ToCol DbColumnName$ = prev$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableUpdateTableWhereAndPrevPKeyCol">
+			and $implMySqlSPDeleteTableUpdateTableWherePrevPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUpdatePrevTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMySqlSPDeleteTableUpdateTableAuditColumns default empty$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPDeleteTableUpdateTableWherePrevPKeyCol each implMySqlSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference NextRel iterate Columns( first implMySqlSPDeleteTableUpdatePrevWithKey each implMySqlSPDeleteTableUpdatePrevWithCommaKey )$
+		where
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPDeleteTableUpdateTableWherePrevPKeyCol each implMySqlSPDeleteTableUpdateTableWhereAndPrevPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableUpdatePrevIfNotNull"
+		>prev$Name$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUpdatePrevAuditUpdated">
+		call $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implMySqlSPDeleteTableUpdatePrevAuditPassClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implMySqlSPDeleteTableAuditUpdatedPrevPassArg )$,
+			1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUpdatePrevAuditPassClassCode">,
+			prevClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableAuditUpdatedPrevPassArg">,
+			prev$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUpdateNext">
+	if( $reference Chain reference NextRel reference FromIndex iterate Columns( first implMySqlSPDeleteTableUpdateNextIfNotNull each empty )$ )
+	then$switch ChainTableHasSuperClassRelation yes implMySqlSPDeleteTableUpdateNextTwoTables default implMySqlSPDeleteTableUpdateNextOneTable$$switch BaseHasHistory yes implMySqlSPDeleteTableUpdateNextAuditUpdated default empty$
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUpdateNextOneTable">
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table switch HasAuditColumns yes implMySqlSPDeleteTableUpdateTableAuditColumns default empty$$reference Chain reference PrevRel iterate Columns( each implMySqlSPDeleteTableUpdateNextWithCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implMySqlSPDeleteTableUpdateTableWhereNextPKeyCol each implMySqlSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableUpdateNextWithKey"
+		>$lower reference FromCol DbColumnName$ = prev$reference FromCol ColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableUpdateNextWithCommaKey">,
+			$implMySqlSPDeleteTableUpdateNextWithKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableUpdateTableWhereNextPKeyCol"
+		>$lower reference ToCol DbColumnName$ = next$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableUpdateTableWhereAndNextPKeyCol">
+			and $implMySqlSPDeleteTableUpdateTableWhereNextPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUpdateNextTwoTables">
+		update $lower DbSchemaName$.$reference Chain reference Table reference BaseClass DbTableName$
+		set
+			revision = revision + 1$reference Chain reference Table reference BaseClass switch HasAuditColumns yes implMySqlSPDeleteTableUpdateTableAuditColumns default empty$
+		where
+			$reference Chain reference NextRel iterate Columns( first implMySqlSPDeleteTableUpdateTableWhereNextPKeyCol each implMySqlSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;
+
+		update $lower DbSchemaName$.$reference Chain reference Table DbTableName$
+		set
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPDeleteTableUpdateNextWithKey each implMySqlSPDeleteTableUpdateNextWithCommaKey )$
+		where
+			$reference Chain reference NextRel iterate Columns( first implMySqlSPDeleteTableUpdateTableWhereNextPKeyCol each implMySqlSPDeleteTableUpdateTableWhereAndNextPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableUpdateNextIfNotNull"
+		>next$Name$ is not null</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUpdateNextAuditUpdated">
+		call $lower poptop Table DbSchemaName$.sp_audit_$reference Chain reference Table lower DbTableName$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Chain reference Table switch HasClassCode yes implMySqlSPDeleteTableUpdateNextAuditPassClassCode default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMySqlSPDeleteTableAuditUpdatedNextPassArg )$,
+			1 );</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUpdateNextAuditPassClassCode">,
+			nextClassCode</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableAuditUpdatedNextPassArg">,
+			next$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableChainLinkVars"
+		>$switch HasClassCode yes declMySqlSPDeleteTableChainLinkClassCode default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each declMySqlSPDeleteTableChainPrevVar )$$reference Chain reference NextRel reference FromIndex iterate Columns( each declMySqlSPDeleteTableChainNextVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableChainLinkClassCode">
+	declare prevClassCode varchar(4);
+	declare nextClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMySqlSPDeleteTableChainPrevVar">
+	declare prev$Name$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMySqlSPDeleteTableChainNextVar">
+	declare next$Name$ $reference Column clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableChainSelectLinks"
+		>$reference Chain reference Table implMySqlSPDeleteTableChainSelectChainLinks$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableChainSelectChainLinks">
+	select$switch HasClassCode yes implMySqlSPDeleteTableChainSelectPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implMySqlSPDeleteTableChainSelectPrevKeyComma )$$switch HasClassCode yes implMySqlSPDeleteTableChainSelectNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMySqlSPDeleteTableChainSelectNextKeyComma last implMySqlSPDeleteTableChainSelectNextKey )$
+	into$switch HasClassCode yes implMySqlSPDeleteTableChainSelectIntoPrevClassCodeComma default empty$$reference Chain reference PrevRel reference FromIndex iterate Columns( each implMySqlSPDeleteTableChainSelectIntoPrevKeyComma )$$switch HasClassCode yes implMySqlSPDeleteTableChainSelectIntoNextClassCodeComma default empty$$reference Chain reference NextRel reference FromIndex iterate Columns( each implMySqlSPDeleteTableChainSelectIntoNextKeyComma last implMySqlSPDeleteTableChainSelectIntoNextKey )$
+	from $lower DbSchemaName$.$reference Chain reference Table DbTableName$ myself$switch HasClassCode yes implMySqlSPDeleteTableChainSelectOuterJoinLinkBases default empty$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteTableChainSelectWherePKey each implMySqlSPDeleteTableChainSelectWhereAndPKey )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableChainSelectWherePKey"
+		>myself.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableChainSelectWhereAndPKey">
+		and $implMySqlSPDeleteTableChainSelectWherePKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableChainSelectOuterJoinLinkBases">
+		left outer join $lower DbSchemaName$.$reference BaseClass DbTableName$ prv$lower reference BaseClass ClassCode$ on
+			$reference Chain reference PrevRel iterate Columns( first implMySqlSPDeleteTableChainSelectOJPrevKey each implMySqlSPDeleteTableChainSelectOJAndPrevKey )$
+		left outer join $lower DbSchemaName$.$reference BaseClass DbTableName$ nxt$lower reference BaseClass ClassCode$ on
+			$reference Chain reference NextRel iterate Columns( first implMySqlSPDeleteTableChainSelectOJNextKey each implMySqlSPDeleteTableChainSelectOJAndNextKey )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableChainSelectOJPrevKey"
+		>prv$lower popto Table reference BaseClass ClassCode$.$lower reference ToCol DbColumnName$ = myself.$lower reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableChainSelectOJAndPrevKey">
+			and $implMySqlSPDeleteTableChainSelectOJPrevKey$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableChainSelectOJNextKey"
+		>nxt$lower popto Table reference BaseClass ClassCode$.$lower reference ToCol DbColumnName$ = myself.$lower reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableChainSelectOJAndNextKey">
+			and $implMySqlSPDeleteTableChainSelectOJNextKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableChainSelectPrevClassCodeComma">
+		prv$lower reference BaseClass ClassCode$.classcode as prvclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableChainSelectPrevKeyComma">
+		myself.$lower DbColumnName$ as prv$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableChainSelectNextClassCodeComma">
+		nxt$lower reference BaseClass ClassCode$.classcode as nxtclasscode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableChainSelectNextKey">
+		myself.$lower DbColumnName$ as nxt$lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableChainSelectNextKeyComma"
+		>$implMySqlSPDeleteTableChainSelectNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableChainSelectIntoPrevClassCodeComma">
+		prevClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableChainSelectIntoPrevKeyComma">
+		prev$Name$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableChainSelectIntoNextClassCodeComma">
+		nextClassCode,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableChainSelectIntoNextKey">
+		next$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableChainSelectIntoNextKeyComma"
+		>$implMySqlSPDeleteTableChainSelectIntoNextKey$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableFetchContainerKeys">
+	select$reference ContainerRelation iterate Columns( first implMySqlSPDeleteTableFetchContainerKeysColName each implMySqlSPDeleteTableFetchContainerKeysCommaColName )$
+	into$reference ContainerRelation iterate Columns( first implMySqlSPDeleteTableFetchContainerKeysIntoVar each implMySqlSPDeleteTableFetchContainerKeysCommaIntoVar )$
+	from $lower DbSchemaName$.$reference ContainerRelation reference FromTable DbTableName$
+	where$reference ContainerRelation reference FromTable reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteTableFetchContainerKeysPassPKey each implMySqlSPDeleteTableFetchContainerKeysAndPassPKey )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableFetchContainerKeysColName">
+		$lower reference FromCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableFetchContainerKeysCommaColName"
+		>,$implMySqlSPDeleteTableFetchContainerKeysColName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableFetchContainerKeysIntoVar">
+		var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableFetchContainerKeysCommaIntoVar"
+		>,$implMySqlSPDeleteTableFetchContainerKeysIntoVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableFetchContainerKeysPassPKey">
+		$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableFetchContainerKeysAndPassPKey">
+		and $lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableContainerVars"
+		>$reference ContainerRelation iterate Columns( each declMySqlSPDeleteTableContainerVar )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="declMySqlSPDeleteTableContainerVar">
+	declare var$reference FromCol Name$ $reference FromCol clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableLatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implMySqlSPDeleteTableLatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableLatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision + 1
+	where
+		$popto Relation iterate Columns( first implMySqlSPDeleteTableLatchWhereArg each implMySqlSPDeleteTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableLatchWhereArg"
+		>$lower reference ToCol DbColumnName$ = var$reference FromCol Name$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableLatchWhereAndArg">
+		and $implMySqlSPDeleteTableLatchWhereArg$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUnlatchContainer"
+		>$reference ContainerRelation reference ToTable reference BaseClass implMySqlSPDeleteTableUnlatchBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableUnlatchBase">
+	update $lower DbSchemaName$.$DbTableName$
+	set revision = revision - 1
+	where
+		$popto Relation iterate Columns( first implMySqlSPDeleteTableLatchWhereArg each implMySqlSPDeleteTableLatchWhereAndArg )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableClearDepVars"
+		>$switch HasSuperClassRelation yes declMySqlSPDeleteTableInhClearDepVars default declMySqlSPDeleteTableBaseClearDepVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableInhClearDepVars"
+		>$reference SuperClassRelation reference ToTable declMySqlSPDeleteTableClearDepVars$$iterate ReverseClearDeps( each declMySqlSPDeleteTableClearDepVars empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableBaseClearDepVars"
+		>$iterate ReverseClearDeps( each declMySqlSPDeleteTableClearDepVars empty empty )$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="declMySqlSPDeleteTableClearDepVars"
+		>$switch HasClearSubDep yes declMySqlSPDeleteTableClearDepSubVars default declMySqlSPDeleteTableClearDepMyVars$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="declMySqlSPDeleteTableClearDepSubVars"
+		>$reference ClearSubDep declMySqlSPDeleteTableClearDepVars$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="declMySqlSPDeleteTableClearDepMyVars"
+		>$reference Relation reference ToTable declMySqlSPDeleteTableClearDepActualVars$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="declMySqlSPDeleteTableClearDepVars"
+		>$switch HasClearSubDep yes declMySqlSPDeleteTableClearDepSubVars default declMySqlSPDeleteTableClearDepMyVars$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="declMySqlSPDeleteTableClearDepSubVars"
+		>$reference ClearSubDep declMySqlSPDeleteTableClearDepVars$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="declMySqlSPDeleteTableClearDepMyVars"
+		>$reference Relation reference FromTable declMySqlSPDeleteTableClearDepActualVars$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="declMySqlSPDeleteTableClearDepVars"
+		>$switch HasClearSubDep yes declMySqlSPDeleteTableClearDepSubVars default declMySqlSPDeleteTableClearDepMyVars$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="declMySqlSPDeleteTableClearDepSubVars"
+		>$reference ClearSubDep declMySqlSPDeleteTableClearDepVars$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="declMySqlSPDeleteTableClearDepMyVars"
+		>$reference Relation reference FromTable declMySqlSPDeleteTableClearDepActualVars$</GenRule>
+
+	<GenRule GenDef="ClearSubDep3" Name="declMySqlSPDeleteTableClearDepVars"
+		>$reference Relation reference FromTable declMySqlSPDeleteTableClearDepActualVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableClearDepActualVars"
+		>$reference PrimaryKeyIndex iterate Columns( each declMySqlSPDeleteTableClearDepVar empty empty )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMySqlSPDeleteTableClearDepVar"
+		>$reference Column declMySqlSPDeleteTableClearDepVar$</GenRule>
+
+	<GenRule GenDef="Value" Name="declMySqlSPDeleteTableClearDepVar">
+	declare $lower popto ClearTopDep Name$$Name$ $clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableClearDepsCursor"
+		>$switch HasSuperClassRelation yes declMySqlSPDeleteTableInhClearDepsCursor default declMySqlSPDeleteTableBaseClearDepsCursor$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableInhClearDepsCursor"
+		>$reference SuperClassRelation reference ToTable declMySqlSPDeleteTableClearDepsCursor$$iterate ReverseClearDeps( each declMySqlSPDeleteTableClearDepCursor empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableBaseClearDepsCursor"
+		>$iterate ReverseClearDeps( each declMySqlSPDeleteTableClearDepCursor empty empty )$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="declMySqlSPDeleteTableClearDepCursor">
+	declare cur_$lower Name$ cursor for
+		select$switch HasClearSubDep yes implMySqlSPDeleteSelectClearDepSubDeleteColumns default implMySqlSPDeleteSelectClearDepMyDeleteColumns$
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$$switch HasClearSubDep yes implMySqlSPDeleteClearDepSubJoin default empty$
+		where
+			$poptop Table reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteClearDepWhereFragBindVar each implMySqlSPDeleteClearDepWhereAndFragBindVar )$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableClearDeps"
+		>$switch HasSuperClassRelation yes implMySqlSPDeleteTableInhClearDeps default implMySqlSPDeleteTableBaseClearDeps$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableInhClearDeps"
+		>$reference SuperClassRelation reference ToTable implMySqlSPDeleteTableClearDeps$$iterate ReverseClearDeps( each implMySqlSPDeleteTableClearDep empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableBaseClearDeps"
+		>$iterate ReverseClearDeps( each implMySqlSPDeleteTableClearDep empty empty )$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implMySqlSPDeleteTableClearDep">
+	set done = false;
+	open cur_$lower Name$;
+	read_loop_$lower Name$: loop
+		fetch cur_$lower Name$ into$implMySqlDeleteClearDepInto$;
+		if done then
+			leave read_loop_$lower Name$;
+		end if;$switch HasClearSubDep yes implMySqlSPDeleteClearDepSubBody default implMySqlSPDeleteClearDepMyBody$
+	end loop;
+	close cur_$lower Name$;
+</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implMySqlDeleteClearDepInto"
+		>$switch HasClearSubDep yes implMySqlDeleteClearDepSubInto default implMySqlDeleteClearDepMyInto$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implMySqlDeleteClearDepSubInto"
+		>$reference ClearSubDep implMySqlDeleteClearDepInto$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implMySqlDeleteClearDepInto"
+		>$switch HasClearSubDep yes implMySqlDeleteClearDepSubInto default implMySqlDeleteClearDepMyInto$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implMySqlDeleteClearDepSubInto"
+		>$reference ClearSubDep implMySqlDeleteClearDepInto$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implMySqlDeleteClearDepInto"
+		>$switch HasClearSubDep yes implMySqlDeleteClearDepSubInto default implMySqlDeleteClearDepMyInto$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implMySqlDeleteClearDepSubInto"
+		>$reference ClearSubDep implMySqlDeleteClearDepInto$</GenRule>
+
+	<GenRule GenDef="ClearSubDep3" Name="implMySqlDeleteClearDepInto"
+		>$implMySqlDeleteClearDepMyInto$</GenRule>
+
+	<GenRule GenDef="ClearDep" Name="implMySqlDeleteClearDepMyInto"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implMySqlDeleteClearDepNLIntoVar each implMySqlDeleteClearDepCommaNLIntoVar )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlDeleteClearDepNLIntoVar">
+			$lower popto ClearTopDep Name$$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlDeleteClearDepCommaNLIntoVar">,$implMySqlDeleteClearDepNLIntoVar$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implMySqlSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep switch HasClearSubDep yes implMySqlSPDeleteSelectClearDepSubDeleteColumns default implMySqlSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implMySqlSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteSelectClearDepColumn each implMySqlSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteSelectClearDepColumn">
+			$lower popto Table ClassCode$.$lower reference Column DbColumnName$ as $lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteSelectCommaClearDepColumn">,
+			$lower popto Table ClassCode$.$lower reference Column DbColumnName$ as $lower DbColumnName$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implMySqlSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep switch HasClearSubDep yes implMySqlSPDeleteSelectClearDepSubDeleteColumns default implMySqlSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implMySqlSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteSelectClearDepColumn each implMySqlSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implMySqlSPDeleteSelectClearDepSubDeleteColumns"
+		>$reference ClearSubDep implMySqlSPDeleteSelectClearDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implMySqlSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteSelectClearDepColumn each implMySqlSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="ClearSubDep3" Name="implMySqlSPDeleteSelectClearDepMyDeleteColumns"
+		>$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteSelectClearDepColumn each implMySqlSPDeleteSelectCommaClearDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteClearDepWhereFragBindVar"
+		>$poptop Table lower ClassCode$.$lower reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteClearDepWhereAndFragBindVar">
+			and $poptop Table lower ClassCode$.$lower reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implMySqlSPDeleteClearDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implMySqlSPDeleteClearDepJoinRelCol each implMySqlSPDeleteClearDepJoinAndRelCol )$$reference ClearSubDep implMySqlSPDeleteClearDepJoin$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteClearDepJoinRelCol">
+				$popto Relation reference FromTable lower ClassCode$.$lower reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteClearDepJoinAndRelCol">
+				and $popto Relation reference FromTable lower ClassCode$.$lower reference FromCol DbColumnName$ = $popto Relation reference ToTable lower ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implMySqlSPDeleteClearDepJoin"
+		>$switch HasClearSubDep yes implMySqlSPDeleteClearDepSubJoin default empty$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implMySqlSPDeleteClearDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implMySqlSPDeleteClearDepJoinRelCol each implMySqlSPDeleteClearDepJoinAndRelCol )$$reference ClearSubDep implMySqlSPDeleteClearDepJoin$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implMySqlSPDeleteClearDepJoin"
+		>$switch HasClearSubDep yes implMySqlSPDeleteClearDepSubJoin default empty$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implMySqlSPDeleteClearDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implMySqlSPDeleteClearDepJoinRelCol each implMySqlSPDeleteClearDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="ClearTopDep" Name="implMySqlSPDeleteClearDepSubBody"
+		>$reference ClearSubDep switch HasClearSubDep yes implMySqlSPDeleteClearDepSubBody default implMySqlSPDeleteClearDepMyBody$</GenRule>
+
+	<GenRule GenDef="ClearDep" Name="implMySqlSPDeleteClearDepMyBody">
+		update $lower poptop Table DbSchemaName$.$reference Relation reference FromTable DbTableName$
+		set$reference Relation reference FromIndex iterate Columns( first implMySqlSPDeleteClearNLCol each implMySqlSPDeleteClearCommaNLCol )$
+		where
+			$reference Relation reference FromTable reference PrimaryKeyIndex iterate Columns( first implSPDeleteClearDepPassCurArg each implSPDeleteClearDepPassAndCurArg )$;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteClearNLCol">
+			$lower DbColumnName$ = null</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteClearCommaNLCol"
+		>,$implMySqlSPDeleteClearNLCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteClearDepPassCurArg"
+		>$lower DbColumnName$ = $lower popto ClearTopDep Name$$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteClearDepPassAndCurArg">
+			and $implSPDeleteClearDepPassCurArg$</GenRule>
+
+	<GenRule GenDef="ClearSubDep1" Name="implMySqlSPDeleteClearDepSubBody"
+		>$reference ClearSubDep switch HasClearSubDep yes implMySqlSPDeleteClearDepSubBody default implMySqlSPDeleteClearDepMyBody$</GenRule>
+
+	<GenRule GenDef="ClearSubDep2" Name="implMySqlSPDeleteClearDepSubBody"
+		>$reference ClearSubDep implMySqlSPDeleteClearDepMyBody$</GenRule>
+
+	<!-- End of ClearDep rules -->
+
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableClearSubObjectRefs"
+		>$switch HasSuperClassRelation yes implMySqlSPDeleteTableClearInhSubObjectRefs default implMySqlSPDeleteTableClearBaseSubObjectRefs$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableClearInhSubObjectRefs"
+		>$reference SuperClassRelation reference ToTable implMySqlSPDeleteTableClearSubObjectRefs$$switch HasSubObjectLookup yes implMySqlSPDeleteTableClearSubObjectLookups default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableClearBaseSubObjectRefs"
+		>$switch HasSubObjectLookup yes implMySqlSPDeleteTableClearSubObjectLookups default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableClearSubObjectLookups">
+	update $lower DbSchemaName$.$DbTableName$
+	set
+		$reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteTableClearSubObjectLookupsSetPKeyCol each empty )$$iterate Relation( each implMySqlSPDeleteTableClearSubObjectLookupCols empty empty )$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMySqlLockWhereFragBindVar each implMySqlLockWhereAndFragBindVar )$;
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="implMySqlSPDeleteTableClearSubObjectLookupCols"
+		>$switch IsSubObjectLookup yes implMySqlSPDeleteTableReallyClearSubObjectLookupCols default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implMySqlSPDeleteTableReallyClearSubObjectLookupCols"
+		>$iterate Columns( each implMySqlSPDeleteTableClearSubObjectFromCol )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteTableClearSubObjectFromCol">,
+		$lower reference FromCol DbColumnName$ = null</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteTableClearSubObjectLookupsSetPKeyCol"
+		>$lower DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableContinueHandler">
+	declare continue handler for not found set done = true;</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="declMySqlSPDeleteTableDelDepVars"
+		>$switch HasDelSubDep yes declMySqlSPDeleteTableDelDepSubVars default declMySqlSPDeleteTableDelDepMyVars$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="declMySqlSPDeleteTableDelDepSubVars"
+		>$reference DelSubDep declMySqlSPDeleteTableDelDepVars$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="declMySqlSPDeleteTableDelDepMyVars"
+		>$reference Relation reference ToTable declMySqlSPDeleteTableDelDepVars$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="declMySqlSPDeleteTableDelDepVars"
+		>$switch HasDelSubDep yes declMySqlSPDeleteTableDelDepSubVars default declMySqlSPDeleteTableDelDepMyVars$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="declMySqlSPDeleteTableDelDepSubVars"
+		>$reference DelSubDep declMySqlSPDeleteTableDelDepVars$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="declMySqlSPDeleteTableDelDepMyVars"
+		>$reference Relation reference ToTable declMySqlSPDeleteTableDelDepVars$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="declMySqlSPDeleteTableDelDepVars"
+		>$switch HasDelSubDep yes declMySqlSPDeleteTableDelDepSubVars default declMySqlSPDeleteTableDelDepMyVars$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="declMySqlSPDeleteTableDelDepSubVars"
+		>$reference DelSubDep declMySqlSPDeleteTableDelDepVars$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="declMySqlSPDeleteTableDelDepMyVars"
+		>$reference Relation reference ToTable declMySqlSPDeleteTableDelDepVars$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="declMySqlSPDeleteTableDelDepVars"
+		>$reference Relation reference ToTable declMySqlSPDeleteTableDelDepVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableDelDepVars"
+		>$reference PrimaryKeyIndex iterate Columns( each declMySqlSPDeleteTableDelDepVar empty empty )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declMySqlSPDeleteTableDelDepVar"
+		>$reference Column declMySqlSPDeleteTableDelDepVar$</GenRule>
+
+	<GenRule GenDef="Value" Name="declMySqlSPDeleteTableDelDepVar">
+	declare $lower popto DelTopDep Name$$Name$ $clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="declMySqlSPDeleteTableDone">
+	declare done int default false;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableArgSecClusterId">,
+	secClusterId</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableArgSecTenantId">,
+	secTenantId</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableDeclPermFlag">
+	declare permissionFlag boolean;
+	declare isSystemUser boolean;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableCheckSystem">
+	select $lower DbSchemaName$.sp_is_system_user( argAuditUserId ) into permissionFlag;
+
+	if( permissionFlag = false )
+	then
+		signal sqlstate '45001'
+		set message_text = '$poptop Table sp_delete_dbtablename$() Permission denied, not identified as system',
+			schema_name = '$lower DbSchemaName$',
+			table_name = '$poptop Table DbTableName$';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableCheckCluster">
+	if( old$reference ClusterIdColumn Name$ != secClusterId )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+
+		into permissionFlag;
+		if( permissionFlag = false )
+		then
+			signal sqlstate '45001'
+			set message_text = '$poptop Table sp_delete_dbtablename$() Permission denied, not identified as system',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+	end if;
+
+	select $lower DbSchemaName$.sp_is_cluster_user( old$reference ClusterIdColumn Name$,
+			'Delete$Name$',
+			argAuditUserId ),
+		$lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+	into permissionFlag, isSystemUser;
+
+	if( ( permissionFlag = false ) and ( isSystemUser = false ) )
+	then
+		signal sqlstate '45002'
+		set message_text = '$poptop Table sp_delete_dbtablename$() Permission denied, not granted access to Delete$Name$ for current Cluster',
+			schema_name = '$lower DbSchemaName$',
+			table_name = '$poptop Table DbTableName$';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPDeleteTableCheckTenant">
+	if( old$reference TenantIdColumn Name$ != secTenantId )
+	then
+		select $lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+		into permissionFlag;
+
+		if( permissionFlag = false )
+		then
+			signal sqlstate '45001'
+			set message_text = '$poptop Table sp_delete_dbtablename$() Permission denied, not identified as system',
+				schema_name = '$lower DbSchemaName$',
+				table_name = '$poptop Table DbTableName$';
+		end if;
+	end if;
+
+	select $lower DbSchemaName$.sp_is_tenant_user( old$reference TenantIdColumn Name$,
+			'Delete$Name$',
+			argAuditUserId ),
+		$lower DbSchemaName$.sp_is_system_user( argAuditUserId )
+	into permissionFlag, isSystemUser;
+
+	if( ( permissionFlag = false ) and ( isSystemUser = false ) )
+	then
+		signal sqlstate '45003'
+		set message_text = '$poptop Table sp_delete_dbtablename$() Permission denied, not granted access to Delete$Name$ for current Tenant',
+			schema_name = '$lower DbSchemaName$',
+			table_name = '$poptop Table DbTableName$';
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlDeleteLogAudit"
+		>$switch BaseHasClassCode yes implCreateAuditThreeWithCC default implCreateAuditThreeNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditThreeNoCC">
+	insert into $lower DbSchemaName$.$DbTableHName$ ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			$lower reference BaseClass ClassCode$.revision + 1,
+			3
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateAuditThreeWithCC">
+	if( oldClassCode = '$poptop Table ClassCode$' )
+	then
+		insert into $lower DbSchemaName$.$DbTableHName$ ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgAuditOneComma )$
+			classcode,
+			auditclusterid,
+			auditsessionid,
+			auditstamp,$implAuditInheritedIntoDataColumnNameComma$
+			revision,
+			auditaction )
+		select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implFragArgValueComma )$
+			$lower reference BaseClass ClassCode$.classcode,
+			argAuditClusterId,
+			argAuditSessionId,
+			now(),$implAuditInheritedDataColumnNameComma$
+			$lower reference BaseClass ClassCode$.revision + 1,
+			3
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implMySqlIndexColumnWhereFragBindVar each implMySqlIndexColumnWhereAndFragBindVar )$;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Relation" Name="ToIndexAllRequired"
+		>$reference ToIndex AllColumnsRequired$</GenRule>
+
+<GenRule GenDef="Table" Name="implMySqlDeleteHierarchy">
+	delete from $lower DbSchemaName$.$DbTableName$
+	where
+		$reference PrimaryKeyIndex iterate Columns( first implMySqlIndexColumnDeleteFragBindVar each implMySqlIndexColumnDeleteAndFragBindVar )$;
+	select row_count()
+	into RowsAffected;
+
+	if RowsAffected != 1 and RowsAffected != 0
+	then
+		signal sqlstate '45000'
+		set message_text = '$poptop Table sp_delete_dbtablename$() Expected to affect 1 $DbTableName$',
+			schema_name = '$lower DbSchemaName$',
+			table_name = '$poptop Table DbTableName$';
+	end if;
+$switch HasSuperClassRelation yes implMySqlDeleteSuper default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlDeleteSuper"
+		>$reference SuperClassRelation reference ToTable implMySqlDeleteHierarchy$</GenRule>
+
+	<GenRule GenDef="Object" Name="sparg_Revision">,
+	argRevision int</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteAndFragBindVar">
+		and $implMySqlIndexColumnDeleteFragBindVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlIndexColumnDeleteFragBindVar"
+		>$switch IsNullable yes implMySqlIndexColumnDeleteFragBindOptVar
+			default implMySqlIndexColumnDeleteFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlIndexColumnDeleteFragBindOptVar"
+		>$reference Column implMySqlIndexColumnDeleteFragBindOptVar$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlIndexColumnDeleteFragBindReqVar"
+		>$reference Column implMySqlIndexColumnDeleteFragBindReqVar$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptVar"
+		>$switch BaseModelAtomClass
+			BlobDef implMySqlIndexColumnDeleteFragBindOptBlobVar
+			BoolDef implMySqlIndexColumnDeleteFragBindOptBoolVar
+			EnumDef implMySqlIndexColumnDeleteFragBindOptEnumVar
+			Int16Def implMySqlIndexColumnDeleteFragBindOptInt16Var
+			Int32Def implMySqlIndexColumnDeleteFragBindOptInt32Var
+			Int64Def implMySqlIndexColumnDeleteFragBindOptInt64Var
+			UInt16Def implMySqlIndexColumnDeleteFragBindOptUInt16Var
+			UInt32Def implMySqlIndexColumnDeleteFragBindOptUInt32Var
+			UInt64Def implMySqlIndexColumnDeleteFragBindOptUInt64Var
+			Id16Gen implMySqlIndexColumnDeleteFragBindOptInt16Var
+			Id32Gen implMySqlIndexColumnDeleteFragBindOptInt32Var
+			Id64Gen implMySqlIndexColumnDeleteFragBindOptInt64Var
+			FloatDef implMySqlIndexColumnDeleteFragBindOptFloatVar
+			DoubleDef implMySqlIndexColumnDeleteFragBindOptDoubleVar
+			NumberDef implMySqlIndexColumnDeleteFragBindOptNumberVar
+			StringDef implMySqlIndexColumnDeleteFragBindOptStringVar
+			TokenDef implMySqlIndexColumnDeleteFragBindOptStringVar
+			NmTokenDef implMySqlIndexColumnDeleteFragBindOptStringVar
+			NmTokensDef implMySqlIndexColumnDeleteFragBindOptStringVar
+			TextDef implMySqlIndexColumnDeleteFragBindOptTextVar
+			DateDef implMySqlIndexColumnDeleteFragBindOptDateVar
+			TimeDef implMySqlIndexColumnDeleteFragBindOptTimeVar
+			TimestampDef implMySqlIndexColumnDeleteFragBindOptTimestampVar
+			TZDateDef implMySqlIndexColumnDeleteFragBindOptTZDateVar
+			TZTimeDef implMySqlIndexColumnDeleteFragBindOptTZTimeVar
+			TZTimestampDef implMySqlIndexColumnDeleteFragBindOptTZTimestampVar
+			UuidDef implMySqlIndexColumnDeleteFragBindOptUuidVar
+			UuidGen implMySqlIndexColumnDeleteFragBindOptUuidVar
+			default error$</GenRule>
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqVar"
+		>$switch BaseModelAtomClass
+			BlobDef implMySqlIndexColumnDeleteFragBindReqBlobVar
+			BoolDef implMySqlIndexColumnDeleteFragBindReqBoolVar
+			EnumDef implMySqlIndexColumnDeleteFragBindReqEnumVar
+			Int16Def implMySqlIndexColumnDeleteFragBindReqInt16Var
+			Int32Def implMySqlIndexColumnDeleteFragBindReqInt32Var
+			Int64Def implMySqlIndexColumnDeleteFragBindReqInt64Var
+			UInt16Def implMySqlIndexColumnDeleteFragBindReqUInt16Var
+			UInt32Def implMySqlIndexColumnDeleteFragBindReqUInt32Var
+			UInt64Def implMySqlIndexColumnDeleteFragBindReqUInt64Var
+			Id16Gen implMySqlIndexColumnDeleteFragBindReqInt16Var
+			Id32Gen implMySqlIndexColumnDeleteFragBindReqInt32Var
+			Id64Gen implMySqlIndexColumnDeleteFragBindReqInt64Var
+			FloatDef implMySqlIndexColumnDeleteFragBindReqFloatVar
+			DoubleDef implMySqlIndexColumnDeleteFragBindReqDoubleVar
+			NumberDef implMySqlIndexColumnDeleteFragBindReqNumberVar
+			StringDef implMySqlIndexColumnDeleteFragBindReqStringVar
+			TokenDef implMySqlIndexColumnDeleteFragBindReqStringVar
+			NmTokenDef implMySqlIndexColumnDeleteFragBindReqStringVar
+			NmTokensDef implMySqlIndexColumnDeleteFragBindReqStringVar
+			TextDef implMySqlIndexColumnDeleteFragBindReqTextVar
+			DateDef implMySqlIndexColumnDeleteFragBindReqDateVar
+			TimeDef implMySqlIndexColumnDeleteFragBindReqTimeVar
+			TimestampDef implMySqlIndexColumnDeleteFragBindReqTimestampVar
+			TZDateDef implMySqlIndexColumnDeleteFragBindReqTZDateVar
+			TZTimeDef implMySqlIndexColumnDeleteFragBindReqTZTimeVar
+			TZTimestampDef implMySqlIndexColumnDeleteFragBindReqTZTimestampVar
+			UuidDef implMySqlIndexColumnDeleteFragBindReqUuidVar
+			UuidGen implMySqlIndexColumnDeleteFragBindReqUuidVar
+			default error$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqBlobVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptBlobVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqBoolVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptBoolVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqEnumVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptEnumVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqInt16Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptInt16Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqInt32Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptInt32Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqInt64Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptInt64Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqUInt16Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptUInt16Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqUInt32Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptUInt32Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqUInt64Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptUInt64Var"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqFloatVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptFloatVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqDoubleVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptDoubleVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqNumberVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptNumberVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqStringVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptStringVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqTokenVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptTokenVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqNmTokenVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptNmTokenVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqNmTokensVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptNmTokensVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqTextVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptTextVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqDateVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptDateVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqTimeVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptTimeVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqTimestampVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptTimestampVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqTZDateVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptTZDateVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqTZTimeVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptTZTimeVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqTZTimestampVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptTZTimestampVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindReqUuidVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="Object" Name="implMySqlIndexColumnDeleteFragBindOptUuidVar"
+		>$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="declMySqlSPDeleteTableDelDepCursor">
+	declare cur_$lower Name$ cursor for
+		select$switch HasDelSubDep yes implMySqlSPDeleteSelectDelDepSubDeleteColumns default implMySqlSPDeleteSelectDelDepMyDeleteColumns$
+		from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$$switch HasDelSubDep yes implMySqlSPDeleteDelDepSubJoin default implMySqlSPDeleteDelDepMyJoin$
+		where
+			$poptop Table reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteDelDepWhereFragBindVar each implMySqlSPDeleteDelDepWhereAndFragBindVar )$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlDeleteDelDeps"
+		>$iterate ReverseDelDeps( each implMySqlDeleteDelDep empty empty )$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implMySqlDeleteDelDep">
+	set done = false;
+	open cur_$lower Name$;
+	read_loop_$lower Name$: loop
+		fetch cur_$lower Name$ into$implMySqlDeleteDelDepInto$;
+		if done then
+			leave read_loop_$lower Name$;
+		end if;$switch HasDelSubDep yes implMySqlSPDeleteDelDepSubBody default implMySqlSPDeleteDelDepMyBody$
+	end loop;
+	close cur_$lower Name$;</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implMySqlDeleteDelDepInto"
+		>$switch HasDelSubDep yes implMySqlDeleteDelDepSubInto default implMySqlDeleteDelDepMyInto$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implMySqlDeleteDelDepSubInto"
+		>$reference DelSubDep implMySqlDeleteDelDepInto$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implMySqlDeleteDelDepInto"
+		>$switch HasDelSubDep yes implMySqlDeleteDelDepSubInto default implMySqlDeleteDelDepMyInto$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implMySqlDeleteDelDepSubInto"
+		>$reference DelSubDep implMySqlDeleteDelDepInto$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implMySqlDeleteDelDepInto"
+		>$switch HasDelSubDep yes implMySqlDeleteDelDepSubInto default implMySqlDeleteDelDepMyInto$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implMySqlDeleteDelDepSubInto"
+		>$reference DelSubDep implMySqlDeleteDelDepInto$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implMySqlDeleteDelDepInto"
+		>$implMySqlDeleteDelDepMyInto$</GenRule>
+
+	<GenRule GenDef="DelDep" Name="implMySqlDeleteDelDepMyInto"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implMySqlDeleteDelDepNLIntoVar each implMySqlDeleteDelDepCommaNLIntoVar )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlDeleteDelDepNLIntoVar">
+			$lower popto DelTopDep Name$$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlDeleteDelDepCommaNLIntoVar">,$implMySqlDeleteDelDepNLIntoVar$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implMySqlSPDeleteDelDepSubBody"
+		>$reference DelSubDep switch HasDelSubDep yes implMySqlSPDeleteDelDepSubBody default implMySqlSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="DelDep" Name="implMySqlSPDeleteDelDepMyBody">
+		call $lower poptop Table DbSchemaName$.sp_delete_$reference Relation reference ToTable lower DbTableName$_by_$lower reference Relation reference ToTable reference PrimaryKeyIndex Suffix$( argAuditClusterId,
+			argAuditUserId,
+			argAuditSessionId,
+			secClusterId,
+			secTenantId$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( each implSPDeleteDelDepCommaPassCurArg )$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implSPDeleteDelDepCommaPassCurArg">,$implMySqlDeleteDelDepNLIntoVar$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implMySqlSPDeleteDelDepSubBody"
+		>$reference DelSubDep switch HasDelSubDep yes implMySqlSPDeleteDelDepSubBody default implMySqlSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implMySqlSPDeleteDelDepSubBody"
+		>$reference DelSubDep implMySqlSPDeleteDelDepMyBody$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteDelDepWhereFragBindVar"
+		>$poptop Table lower ClassCode$.$lower reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteDelDepWhereAndFragBindVar">
+			and $poptop Table lower ClassCode$.$lower reference Column DbColumnName$ = arg$reference Column Name$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implMySqlSPDeleteDelDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implMySqlSPDeleteDelDepJoinRelCol each implMySqlSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implMySqlSPDeleteDelDepJoin$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implMySqlSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implMySqlSPDeleteDelDepJoinRelCol each implMySqlSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteDelDepJoinRelCol">
+				$reference Relation reference FromTable lower ClassCode$.$lower reference FromCol DbColumnName$ = $reference Relation reference ToTable lower ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implMySqlSPDeleteDelDepJoinAndRelCol">
+				and $reference Relation reference FromTable lower ClassCode$.$lower reference FromCol DbColumnName$ = $reference Relation reference ToTable lower ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$.$lower reference ToCol DbColumnName$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implMySqlSPDeleteDelDepJoin"
+		>$switch HasDelSubDep yes implMySqlSPDeleteDelDepSubJoin default implMySqlSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implMySqlSPDeleteDelDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implMySqlSPDeleteDelDepJoinRelCol each implMySqlSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implMySqlSPDeleteDelDepJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implMySqlSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implMySqlSPDeleteDelDepJoinRelCol each implMySqlSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implMySqlSPDeleteDelDepJoin"
+		>$switch HasDelSubDep yes implMySqlSPDeleteDelDepSubJoin default implMySqlSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implMySqlSPDeleteDelDepSubJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implMySqlSPDeleteDelDepJoinRelCol each implMySqlSPDeleteDelDepJoinAndRelCol )$$reference DelSubDep implMySqlSPDeleteDelDepMyJoin$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implMySqlSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implMySqlSPDeleteDelDepJoinRelCol each implMySqlSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implMySqlSPDeleteDelDepMyJoin">
+			inner join $lower reference Relation reference ToTable DbSchemaName$.$reference Relation reference ToTable DbTableName$ $lower reference Relation reference ToTable ClassCode$$lower reference Relation switch IsSelfReferencingRelation yes Suffix default empty$ on$reference Relation iterate Columns( first implMySqlSPDeleteDelDepJoinRelCol each implMySqlSPDeleteDelDepJoinAndRelCol )$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implMySqlSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep switch HasDelSubDep yes implMySqlSPDeleteSelectDelDepSubDeleteColumns default implMySqlSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implMySqlSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteSelectDelDepColumn each implMySqlSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteSelectDelDepColumn">
+			$lower popto Table ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPDeleteSelectCommaDelDepColumn">,
+			$lower popto Table ClassCode$$lower popto Relation switch IsSelfReferencingRelation yes Suffix default empty$.$lower reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implMySqlSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep switch HasDelSubDep yes implMySqlSPDeleteSelectDelDepSubDeleteColumns default implMySqlSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implMySqlSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteSelectDelDepColumn each implMySqlSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implMySqlSPDeleteSelectDelDepSubDeleteColumns"
+		>$reference DelSubDep implMySqlSPDeleteSelectDelDepMyDeleteColumns$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implMySqlSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteSelectDelDepColumn each implMySqlSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implMySqlSPDeleteSelectDelDepMyDeleteColumns"
+		>$reference Relation reference ToTable reference PrimaryKeyIndex iterate Columns( first implMySqlSPDeleteSelectDelDepColumn each implMySqlSPDeleteSelectCommaDelDepColumn )$</GenRule>
+
+</RuleSet>

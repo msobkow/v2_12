@@ -1,0 +1,1954 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+mysql"
+	Name="src/SchemaMySqlSchema.java"
+	Revision="2.12"
+	Descr="Java 11 MySql Jdbc DbIO implementation">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaMySqlSchemaJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$MySql/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$MySql"
+		ExpansionClassName="$SchemaName$MySqlSchemaJava"
+		ExpansionKeyName="$SchemaName$MySqlSchemaJava"
+		ExpansionFileName="$SchemaName$MySqlSchema.java"
+>// Description: Java 11 MySQL Jdbc DbIO implementation for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$MySql;
+
+import java.lang.reflect.*;
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import javax.naming.*;
+import javax.sql.*;
+import org.apache.commons.codec.binary.Base64;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$importJavaPackageSchemaName$$iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$importJavaPackageSchemaNameObj$
+import $lower JavaPackage$.$SchemaName$SaxLoader.$SchemaName$SaxLoader;$JavaMySqlSchemaObjImport$$ReferencedJavaMySqlSchemaObjImport$
+
+public class $SchemaName$MySqlSchema
+	extends $SchemaName$Schema
+	implements I$SchemaName$Schema
+{
+	protected Connection cnx;
+	protected boolean inTransaction;$implSchemaMySqlDeclStmtIsBlahUser$$iterate Id16Generators( each declSchemaMySqlNextIdGenStmts empty empty )$$iterate Id32Generators( each declSchemaMySqlNextIdGenStmts empty empty )$$iterate Id64Generators( each declSchemaMySqlNextIdGenStmts empty empty )$$JavaMySqlSchemaObjMembers$$ReferencedJavaMySqlSchemaObjMembers$
+$implSchemaMySqlConstructor$$implSchemaMySqlCnxAccessors$$implSchemaMySqlIsConnected$$implSchemaMySqlConnect$$implSchemaMySqlDisconnect$$implSchemaMySqlCommitControl$$implSchemaMySqlIsSystemUser$$implSchemaMySqlIsClusterUser$$implSchemaMySqlIsTenantUser$$implReleasePreparedStatements$$iterate Id16Generators( each implSchemaMySqlNextIdGen empty empty )$$iterate Id32Generators( each implSchemaMySqlNextIdGen empty empty )$$iterate Id64Generators( each implSchemaMySqlNextIdGen empty empty )$$iterate UuidGenerators( each implSchemaMySqlNextIdGen empty empty )$$implMySqlSchemaFileImport$$implSchemaMySqlSchemaMoreMethods$$JavaMySqlSchemaObjImpl$$ReferencedJavaMySqlSchemaObjImpl$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implMySqlSchemaFileImport">
+	/**
+	 *	Import the contents of the specified file name
+	 *	and file contents by applying a SAX Loader parse.
+	 */
+	public String fileImport( $SecSchemaName$Authorization auth, String fileName, String fileContent ) {
+		if( isTransactionOpen() ) {
+			rollback();
+		}
+
+		try {
+			beginTransaction();
+
+			$SchemaName$SaxLoader saxLoader = new $SchemaName$SaxLoader();
+			I$SchemaName$SchemaObj schemaObj = new $SchemaName$SchemaObj();
+			schemaObj.setBackingStore( this );
+			saxLoader.setSchemaObj( schemaObj );
+			I$SecSchemaName$ClusterObj useCluster = schemaObj.getClusterTableObj().readClusterByIdIdx( auth.getSecClusterId() );
+			I$SecSchemaName$TenantObj useTenant = schemaObj.getTenantTableObj().readTenantByIdIdx( auth.getSecTenantId() );
+			CFLibCachedMessageLog runlog = new CFLibCachedMessageLog();
+			saxLoader.setLog( runlog );
+			saxLoader.setUseCluster( useCluster );
+			saxLoader.setUseTenant( useTenant );
+			saxLoader.parseStringContents( fileContent );
+			String logFileContent = runlog.getCacheContents();
+			if( logFileContent == null ) {
+				logFileContent = "";
+			}
+
+			commit();
+
+			return( logFileContent );
+		}
+		catch( RuntimeException e ) {
+			rollback();
+			throw e;
+		}
+		catch( Error e ) {
+			rollback();
+			throw e;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaMySqlSchemaObjImport"
+		>$iterate SchemaRefs( each ApplyJavaMySqlSchemaObjImport empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaMySqlSchemaObjImport"
+		>$reference RefSchema JavaMySqlSchemaObjImport$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaMySqlSchemaObjMembers"
+		>$iterate SchemaRefs( each ApplyJavaMySqlSchemaObjMembers empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaMySqlSchemaObjMembers"
+		>$reference RefSchema JavaMySqlSchemaObjMembers$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaMySqlSchemaObjImpl"
+		>$iterate SchemaRefs( each ApplyJavaMySqlSchemaObjImpl empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaMySqlSchemaObjImpl"
+		>$reference RefSchema JavaMySqlSchemaObjImpl$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlDeclStmtIsBlahUser">
+	protected PreparedStatement stmtSelectIsSystemUser = null;
+	protected PreparedStatement stmtSelectIsClusterUser = null;
+	protected PreparedStatement stmtSelectIsTenantUser = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlIsSystemUser">
+	public boolean isSystemUser( $SecSchemaName$Authorization Authorization) {
+		if( ! inTransaction ) {
+			throw new CFLibUsageException( getClass(),
+				"isSystemUser",
+				"Not in a transaction" );
+		}
+		ResultSet resultSet = null;
+		try {
+			String sql = "SELECT " + getLowerDbSchemaName() + ".$sp_is_system_user$( ? ) as IsSystemUser";
+			if( stmtSelectIsSystemUser == null ) {
+				stmtSelectIsSystemUser = cnx.prepareStatement( sql );
+			}
+			stmtSelectIsSystemUser.setString( 1, Authorization.getSecUserId().toString() );
+			resultSet = stmtSelectIsSystemUser.executeQuery();
+			boolean resultFlag;
+			if( resultSet.next() ) {
+				resultFlag = resultSet.getBoolean( 1 );
+			}
+			else {
+				throw new CFLibRuntimeException( getClass(),
+					"isSystemUser",
+					"Query of $sp_is_system_user$() did not return a result row" );
+			}
+			resultSet.close();
+			return( resultFlag );
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"isSystemUser",
+				e );
+		}
+		finally {
+			if( resultSet != null ) {
+				try {
+					resultSet.close();
+				}
+				catch( SQLException e ) {
+				}
+				resultSet = null;
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlIsClusterUser">
+	public boolean isClusterUser( $SecSchemaName$Authorization Authorization,
+		long clusterId,
+		String groupName )
+	{
+		if( ! inTransaction ) {
+			throw new CFLibUsageException( getClass(),
+				"isClusterUser",
+				"Not in a transaction" );
+		}
+		ResultSet resultSet = null;
+		try {
+			String sql = "SELECT " + getLowerDbSchemaName() + ".$sp_is_cluster_user$( ?, ?, ? ) as IsClusterUser";
+			if( stmtSelectIsClusterUser == null ) {
+				stmtSelectIsClusterUser = cnx.prepareStatement( sql );
+			}
+			stmtSelectIsClusterUser.setLong( 1, clusterId );
+			stmtSelectIsClusterUser.setString( 2, groupName );
+			stmtSelectIsClusterUser.setString( 3, Authorization.getSecUserId().toString() );
+			resultSet = stmtSelectIsClusterUser.executeQuery();
+			boolean resultFlag;
+			if( resultSet.next() ) {
+				resultFlag = resultSet.getBoolean( 1 );
+			}
+			else {
+				throw new CFLibRuntimeException( getClass(),
+					"isClusterUser",
+					"Query of $sp_is_cluster_user$() did not return a result row" );
+			}
+			resultSet.close();
+			return( resultFlag );
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"isClusterUser",
+				e );
+		}
+		finally {
+			if( resultSet != null ) {
+				try {
+					resultSet.close();
+				}
+				catch( SQLException e ) {
+				}
+				resultSet = null;
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlIsTenantUser">
+	public boolean isTenantUser( $SecSchemaName$Authorization Authorization,
+		long tenantId,
+		String groupName )
+	{
+		if( ! inTransaction ) {
+			throw new CFLibUsageException( getClass(),
+				"isTenantUser",
+				"Not in a transaction" );
+		}
+		ResultSet resultSet = null;
+		try {
+			String sql = "SELECT " + getLowerDbSchemaName() + ".$sp_is_tenant_user$( ?, ?, ? ) as IsTenantUser";
+			if( stmtSelectIsTenantUser == null ) {
+				stmtSelectIsTenantUser = cnx.prepareStatement( sql );
+			}
+			stmtSelectIsTenantUser.setLong( 1, tenantId );
+			stmtSelectIsTenantUser.setString( 2, groupName );
+			stmtSelectIsTenantUser.setString( 3, Authorization.getSecUserId().toString() );
+			resultSet = stmtSelectIsTenantUser.executeQuery();
+			boolean resultFlag;
+			if( resultSet.next() ) {
+				resultFlag = resultSet.getBoolean( 1 );
+			}
+			else {
+				throw new CFLibRuntimeException( getClass(),
+					"isTenantUser",
+					"Query of $sp_is_tenant_user$() did not return a result row" );
+			}
+			resultSet.close();
+			return( resultFlag );
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"isTenantUser",
+				e );
+		}
+		finally {
+			if( resultSet != null ) {
+				try {
+					resultSet.close();
+				}
+				catch( SQLException e ) {
+				}
+				resultSet = null;
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="declSchemaMySqlNextIdGenStmts">
+	protected PreparedStatement stmtSelectNext$Name$ = null;
+	protected PreparedStatement stmtInsertNext$Name$ = null;
+	protected PreparedStatement stmtUpdateNext$Name$ = null;</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaCheckOpenTransaction"
+		>$popto SchemaDef implSchemaCheckOpenTransaction$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaCheckOpenTransaction">
+		if( ! isTransactionOpen() ) {
+			throw new CFLibUsageException( getClass(),
+				S_ProcName,
+				"Transaction not open" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlSchemaMoreMethods"
+		>$implSchemaMySqlGetQuotedString$$implSchemaMySqlGetNullableString$$implSchemaMySqlGetBlobString$$implSchemaMySqlGetBoolString$$implSchemaMySqlGetInt16String$$implSchemaMySqlGetInt32String$$implSchemaMySqlGetInt64String$$implSchemaMySqlGetUInt16String$$implSchemaMySqlGetUInt32String$$implSchemaMySqlGetUInt64String$$implSchemaMySqlGetFloatString$$implSchemaMySqlGetDoubleString$$implSchemaMySqlGetNumberString$$implSchemaMySqlGetNullableInt32$$implSchemaMySqlGetNullableInt16$$implSchemaMySqlGetNullableUInt16$$implSchemaMySqlGetNullableUInt32$$implSchemaMySqlGetNullableUInt64$$implSchemaMySqlGetNullableIntByte$$implSchemaMySqlGetQuotedDateString$$implSchemaMySqlGetQuotedTimeString$$implSchemaMySqlGetQuotedTimestampString$$implSchemaMySqlGetQuotedTZDateString$$implSchemaMySqlGetQuotedTZTimeString$$implSchemaMySqlGetQuotedTZTimestampString$$implSchemaMySqlGetDateString$$implSchemaMySqlGetTimeString$$implSchemaMySqlGetTimestampString$$implSchemaMySqlGetTZDateString$$implSchemaMySqlGetTZTimeString$$implSchemaMySqlGetTZTimestampString$$implSchemaMySqlGetUuidString$$implSchemaMySqlConvertDateString$$implSchemaMySqlConvertTimeString$$implSchemaMySqlConvertTimestampString$$implSchemaMySqlConvertTZDateString$$implSchemaMySqlConvertTZTimeString$$implSchemaMySqlConvertTZTimestampString$$implSchemaMySqlConvertUuidString$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlNewSchema">
+	public I$SchemaName$Schema newSchema() {
+		return( new $SchemaName$MySqlSchema() );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implReleasePreparedStatements">
+	public void releasePreparedStatements() {$implMySqlSchemaReleaseIsSystemUser$$implMySqlSchemaReleaseIsClusterUser$$implMySqlSchemaReleaseIsTenantUser$$iterate Id16Generators( each releaseIdGenPreparedStatements empty empty )$$iterate Id32Generators( each releaseIdGenPreparedStatements empty empty )$$iterate Id64Generators( each releaseIdGenPreparedStatements empty empty )$$iterate SchemaTables( each releaseTablePreparedStatements empty empty )$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implMySqlSchemaReleaseIsSystemUser">
+		if( stmtSelectIsSystemUser != null ) {
+			try {
+				stmtSelectIsSystemUser.close();
+			}
+			catch( SQLException e ) {
+			}
+			stmtSelectIsSystemUser = null;
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implMySqlSchemaReleaseIsClusterUser">
+		if( stmtSelectIsClusterUser != null ) {
+			try {
+				stmtSelectIsClusterUser.close();
+			}
+			catch( SQLException e ) {
+			}
+			stmtSelectIsClusterUser = null;
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implMySqlSchemaReleaseIsTenantUser">
+		if( stmtSelectIsTenantUser != null ) {
+			try {
+				stmtSelectIsTenantUser.close();
+			}
+			catch( SQLException e ) {
+			}
+			stmtSelectIsTenantUser = null;
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="releaseTablePreparedStatements">
+		if( table$Name$ != null ) {
+			(($SchemaName$MySql$TableName$Table)table$Name$).releasePreparedStatements();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="releaseIdGenPreparedStatements">
+		if( stmtSelectNext$Name$ != null ) {
+			try {
+				stmtSelectNext$Name$.close();
+			}
+			catch( SQLException e ) {
+			}
+			stmtSelectNext$Name$= null;
+		}
+		if( stmtInsertNext$Name$ != null ) {
+			try {
+				stmtInsertNext$Name$.close();
+			}
+			catch( SQLException e ) {
+			}
+			stmtInsertNext$Name$= null;
+		}
+		if( stmtUpdateNext$Name$ != null ) {
+			try {
+				stmtUpdateNext$Name$.close();
+			}
+			catch( SQLException e ) {
+			}
+			stmtUpdateNext$Name$= null;
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaMySqlConstructTable">
+		table$TableName$ = new $SchemaName$MySql$TableName$Table( this );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConstructor">
+	public $SchemaName$MySqlSchema() {
+		super();
+		cnx = null;
+		inTransaction = false;$iterate SchemaTables( each implSchemaMySqlConstructTable )$
+	}
+
+	public $SchemaName$MySqlSchema( $SchemaName$ConfigurationFile conf ) {
+		super( conf );
+		cnx = null;
+		inTransaction = false;$iterate SchemaTables( each implSchemaMySqlConstructTable )$
+		setDbSchemaName( conf.getDbDatabase() );
+	}
+
+	public $SchemaName$MySqlSchema( String argJndiName ) {
+		super( argJndiName );
+		cnx = null;
+		inTransaction = false;$iterate SchemaTables( each implSchemaMySqlConstructTable )$
+	}
+
+	public $SchemaName$MySqlSchema( Connection argCnx ) {
+		super();
+		cnx = argCnx;
+		inTransaction = false;$iterate SchemaTables( each implSchemaMySqlConstructTable )$
+		try {
+			cnx.setAutoCommit( false );
+			cnx.setTransactionIsolation( Connection.TRANSACTION_REPEATABLE_READ );
+			cnx.rollback();
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"$SchemaName$MySqlSchema-constructor",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConnect">
+	public boolean connect() {
+		final String S_ProcName = "connect";
+		if( cnx != null ) {
+			return( false );
+		}
+$implSchemaMySqlConnectEnsureConfiguration$$implSchemaMySqlConnectEstablishJNDI$
+		throw new CFLibUsageException( getClass(),
+			S_ProcName,
+			"Neither configurationFile nor jndiName found, do not know how to connect to database" );
+	}
+$implSchemaMySqlConnectUserPW$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConnectUserPW">
+	public boolean connect( String username, String password ) {
+		final String S_ProcName = "connect-userpw";
+		if( cnx != null ) {
+			return( false );
+		}
+		if( ( username == null ) || ( username.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"username" );
+		}
+		if( password == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"password" );
+		}
+$implSchemaMySqlConnectEnsureUserPWConfiguration$
+		throw new CFLibUsageException( getClass(),
+			S_ProcName,
+			"configurationFile not found, do not know how to connect to database" );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConnectEnsureUserPWConfiguration">
+		if( configuration != null ) {
+			try {
+				Class.forName( "com.mysql.jdbc.Driver" );
+			}
+			catch( ClassNotFoundException e ) {
+				throw new CFLibRuntimeException( getClass(),
+					"connect",
+					"Could not load MySql JDBC driver",
+					e );
+			}
+			String dbServer = configuration.getDbServer();
+			int dbPort = configuration.getDbPort();
+			String dbDatabase = configuration.getDbDatabase();
+			String dbUserName = username;
+			String dbPassword = password;
+			String url =
+					"jdbc:mysql://" + dbServer
+				+	":" + Integer.toString( dbPort )
+				+	"/" + dbDatabase;
+			Properties props = new Properties();
+			props.setProperty( "user", dbUserName );
+			props.setProperty( "password", dbPassword );
+			try {
+				cnx = DriverManager.getConnection( url, props );
+				cnx.setAutoCommit( false );
+				cnx.setTransactionIsolation( Connection.TRANSACTION_REPEATABLE_READ );
+				cnx.rollback();
+				setDbSchemaName( dbDatabase );
+			}
+			catch( SQLException e ) {
+				throw new CFLibDbException( getClass(),
+					S_ProcName,
+					e );
+			}
+			return( true );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConnectEnsureConfiguration">
+		if( configuration != null ) {
+			try {
+				Class.forName( "com.mysql.jdbc.Driver" );
+			}
+			catch( ClassNotFoundException e ) {
+				throw new CFLibRuntimeException( getClass(),
+					"connect",
+					"Could not load MySql JDBC driver",
+					e );
+			}
+			String dbServer = configuration.getDbServer();
+			int dbPort = configuration.getDbPort();
+			String dbDatabase = configuration.getDbDatabase();
+			String dbUserName = configuration.getDbUserName();
+			String dbPassword = configuration.getDbPassword();
+			String url =
+					"jdbc:mysql://" + dbServer
+				+	":" + Integer.toString( dbPort )
+				+	"/" + dbDatabase;
+			Properties props = new Properties();
+			props.setProperty( "user", dbUserName );
+			props.setProperty( "password", dbPassword );
+			try {
+				cnx = DriverManager.getConnection( url, props );
+				cnx.setAutoCommit( false );
+				cnx.setTransactionIsolation( Connection.TRANSACTION_REPEATABLE_READ );
+				cnx.rollback();
+				setDbSchemaName( dbDatabase );
+			}
+			catch( SQLException e ) {
+				throw new CFLibDbException( getClass(),
+					S_ProcName,
+					e );
+			}
+			return( true );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConnectEstablishJNDI">
+		if( jndiName != null ) {
+			try {
+				Context ctx = new InitialContext();
+				DataSource ds = (DataSource)ctx.lookup( jndiName );
+				if( ds == null ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Could not get resolve DataSource \"" + jndiName + "\"" );
+				}
+				cnx = ds.getConnection();
+				if( cnx == null ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Could not get Connection from PooledConnection for ConnectionPoolDataSource \"" + jndiName + "\"" );
+				}
+				cnx.setAutoCommit( false );
+				cnx.setTransactionIsolation( Connection.TRANSACTION_REPEATABLE_READ );
+				cnx.rollback();
+			}
+			catch( NamingException e ) {
+				cnx = null;
+				throw new CFLibRuntimeException( getClass(),
+					S_ProcName,
+					"NamingException " + e.getMessage(),
+					e );
+			}
+			catch( SQLException e ) {
+				cnx = null;
+				inTransaction = false;
+				throw new CFLibDbException( getClass(),
+					S_ProcName,
+					e );
+			}
+			return( true );
+		}</GenRule>
+
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlIsConnected">
+	public boolean isConnected() {
+		final String S_ProcName = "isConnected";
+		boolean retval;
+		if( cnx == null ) {
+			retval = false;
+		}
+		else {
+			try {
+				if( cnx.isClosed() ) {
+					retval = false;
+					cnx = null;
+					releasePreparedStatements();
+				}
+				else {
+					retval = true;
+				}
+			}
+			catch( SQLException e ) {
+				throw new CFLibDbException( getClass(),
+					S_ProcName,
+					e );
+			}
+		}
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlDisconnect">
+	public void disconnect( boolean doCommit ) {
+		final String S_ProcName = "disconnect";
+		if( cnx != null ) {
+			try {
+				if( ! cnx.isClosed() ) {
+					if( doCommit ) {
+						cnx.commit();
+					}
+					else {
+						cnx.rollback();
+					}
+					cnx.close();
+				}
+			}
+			catch( SQLException e ) {
+				throw new CFLibDbException( getClass(),
+					S_ProcName,
+					e );
+			}
+			finally {
+				cnx = null;
+			}
+		}
+		releasePreparedStatements();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlCommitControl">
+	public boolean isTransactionOpen() {
+		return( inTransaction );
+	}
+
+	public boolean beginTransaction() {
+		if( inTransaction ) {
+			return( false );
+		}
+//		try {
+//			String sql =
+//					"begin transaction";
+//			Statement stmt = cnx.createStatement( ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY );
+//			stmt.execute( sql );
+			inTransaction = true;
+//		}
+//		catch( SQLException e ) {
+//			throw new CFLibDbException( getClass(),
+//				"beginTransaction",
+//				e );
+//		}
+		return( inTransaction );
+	}
+
+	public void commit() {
+		try {
+			cnx.commit();
+			inTransaction = false;
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"commit",
+				e );
+		}
+	}
+
+	public void rollback() {
+		try {
+			if( cnx != null ) {
+				cnx.rollback();
+			}
+			inTransaction = false;
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				"rollback",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlCnxAccessors">
+	public Connection getCnx() {
+		return( cnx );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetQuotedString">
+	public static String getQuotedString(String val) {
+		if (val == null) {
+			return ("null");
+		}
+		else {
+			char c;
+			StringBuilder quoted = new StringBuilder();
+			quoted.append( "'" );
+			int len = val.length();
+			for (int i = 0; i &lt; len; i++)
+			{
+				if (val.charAt( i ) == '\'')
+				{
+					quoted.append("''");
+				}
+				else if (val.charAt( i ) == '\\\\') {
+					quoted.append("'||E'\\\\\\\\'||'");
+				}
+				else {
+					c = val.charAt( i );
+					if (   ( c == '0' )
+						|| ( c == '1' )
+						|| ( c == '2' )
+						|| ( c == '3' )
+						|| ( c == '4' )
+						|| ( c == '5' )
+						|| ( c == '6' )
+						|| ( c == '7' )
+						|| ( c == '8' )
+						|| ( c == '9' )
+						|| ( c == 'a' )
+						|| ( c == 'b' )
+						|| ( c == 'c' )
+						|| ( c == 'd' )
+						|| ( c == 'e' )
+						|| ( c == 'f' )
+						|| ( c == 'g' )
+						|| ( c == 'h' )
+						|| ( c == 'i' )
+						|| ( c == 'j' )
+						|| ( c == 'k' )
+						|| ( c == 'l' )
+						|| ( c == 'm' )
+						|| ( c == 'n' )
+						|| ( c == 'o' )
+						|| ( c == 'p' )
+						|| ( c == 'q' )
+						|| ( c == 'r' )
+						|| ( c == 's' )
+						|| ( c == 't' )
+						|| ( c == 'u' )
+						|| ( c == 'v' )
+						|| ( c == 'w' )
+						|| ( c == 'x' )
+						|| ( c == 'y' )
+						|| ( c == 'z' )
+						|| ( c == 'A' )
+						|| ( c == 'B' )
+						|| ( c == 'C' )
+						|| ( c == 'D' )
+						|| ( c == 'E' )
+						|| ( c == 'F' )
+						|| ( c == 'G' )
+						|| ( c == 'H' )
+						|| ( c == 'I' )
+						|| ( c == 'J' )
+						|| ( c == 'K' )
+						|| ( c == 'L' )
+						|| ( c == 'M' )
+						|| ( c == 'N' )
+						|| ( c == 'O' )
+						|| ( c == 'P' )
+						|| ( c == 'Q' )
+						|| ( c == 'R' )
+						|| ( c == 'S' )
+						|| ( c == 'T' )
+						|| ( c == 'U' )
+						|| ( c == 'V' )
+						|| ( c == 'W' )
+						|| ( c == 'X' )
+						|| ( c == 'Y' )
+						|| ( c == 'Z' )
+						|| ( c == ' ' )
+						|| ( c == '\t' )
+						|| ( c == '\r' )
+						|| ( c == '\n' )
+						|| ( c == '`' )
+						|| ( c == '~' )
+						|| ( c == '!' )
+						|| ( c == '@' )
+						|| ( c == '#' )
+						|| ( c == '$$' )
+						|| ( c == '%' )
+						|| ( c == '^' )
+						|| ( c == '&amp;' )
+						|| ( c == '*' )
+						|| ( c == '(' )
+						|| ( c == ')' )
+						|| ( c == '-' )
+						|| ( c == '_' )
+						|| ( c == '=' )
+						|| ( c == '+' )
+						|| ( c == '[' )
+						|| ( c == ']' )
+						|| ( c == '{' )
+						|| ( c == '}' )
+						|| ( c == '|' )
+						|| ( c == ';' )
+						|| ( c == ':' )
+						|| ( c == '"' )
+						|| ( c == '&lt;' )
+						|| ( c == '&gt;' )
+						|| ( c == ',' )
+						|| ( c == '.' )
+						|| ( c == '/' )
+						|| ( c == '?' ))
+					{
+						quoted.append(c);
+					}
+					else {
+//						Syslog.warn("\\t\\t\\tReplacing invalid character '" + c + "' with space");
+						quoted.append( ' ' );
+					}
+				}
+			}
+			quoted.append( "'" );
+			return (quoted.toString());
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetNullableString">
+	public static String getNullableString(ResultSet reader, int colidx) {
+		try {
+			String val = reader.getString( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( val );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MySqlSchema.class,
+				"getNullableString",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetBlobString">
+	public static String getBlobString(byte[] val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( "'" + new String( Base64.encodeBase64( val ) ) + "'" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetBoolString">
+	public static String getBoolString(Boolean val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			if( val ) {
+				return( "true" );
+			}
+			else {
+				return( "false" );
+			}
+		}
+	}
+
+	public static String getBoolString(boolean val) {
+		if( val ) {
+			return( "true" );
+		}
+		else {
+			return( "false" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetInt16String">
+	public static String getInt16String(Short val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getInt16String(short val) {
+		return( Short.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetInt32String">
+	public static String getInt32String(Integer val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getInt32String(int val) {
+		return( Integer.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetInt64String">
+	public static String getInt64String(Long val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getInt64String(long val) {
+		return( Long.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetUInt16String">
+	public static String getUInt16String(Integer val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getUInt16String(int val) {
+		return( Integer.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetUInt32String">
+	public static String getUInt32String(Long val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getUInt32String(long val) {
+		return( Long.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetUInt64String">
+	public static String getUInt64String(BigDecimal val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetFloatString">
+	public static String getFloatString(Float val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getFloatString(float val) {
+		return( Float.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetDoubleString">
+	public static String getDoubleString(Double val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+
+	public static String getDoubleString(double val) {
+		return( Double.toString( val ) );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetNumberString">
+	public static String getNumberString(BigDecimal val) {
+		if( val == null ) {
+			return( "null" );
+		}
+		else {
+			return( val.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetNullableInt32">
+	public static Integer getNullableInt32(ResultSet reader, int colidx) {
+		try {
+			int val = reader.getInt( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Integer.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MySqlSchema.class,
+				"getNullableInt32",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetNullableInt16">
+	public static Short getNullableInt16(ResultSet reader, int colidx) {
+		try {
+			short val = reader.getShort( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Short.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MySqlSchema.class,
+				"getNullableInt64",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetNullableUInt16">
+	public static Integer getNullableUInt16(ResultSet reader, int colidx) {
+		try {
+			int val = reader.getInt( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Integer.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MySqlSchema.class,
+				"getNullableUInt16",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetNullableUInt32">
+	public static Long getNullableUInt32(ResultSet reader, int colidx) {
+		try {
+			long val = reader.getLong( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Long.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MySqlSchema.class,
+				"getNullableUInt32",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetNullableUInt64">
+	public static BigDecimal getNullableUInt64(ResultSet reader, int colidx) {
+		try {
+			String strval = reader.getString( colidx );
+			if( reader.wasNull() || ( strval == null ) || ( strval.length() &lt;=0 ) ) {
+				return(null);
+			}
+			else {
+				BigDecimal retval = new BigDecimal( strval );
+				return( retval );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MySqlSchema.class,
+				"getNullableUInt64",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetNullableIntByte">
+	public static Byte getNullableByte(ResultSet reader, int colidx) {
+		try {
+			byte val = reader.getByte( colidx );
+			if( reader.wasNull() ) {
+				return(null);
+			}
+			else {
+				return( Byte.valueOf( val ) );
+			}
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( $SchemaName$MySqlSchema.class,
+				"getNullableByte",
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetDateString">
+	public static String getDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetTimeString">
+	public static String getTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetTimestampString">
+	public static String getTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetTZDateString">
+	public static String getTZDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetTZTimeString">
+	public static String getTZTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetTZTimestampString">
+	public static String getTZTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer();
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetQuotedDateString">
+	public static String getQuotedDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetQuotedTimeString">
+	public static String getQuotedTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetQuotedTimestampString">
+	public static String getQuotedTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetQuotedTZDateString">
+	public static String getQuotedTZDateString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetQuotedTZTimeString">
+	public static String getQuotedTZTimeString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetQuotedTZTimestampString">
+	public static String getQuotedTZTimestampString(Calendar val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			Calendar db = CFLibDbUtil.getDbServerCalendar( val );
+			StringBuffer buff = new StringBuffer( "'" );
+			Formatter fmt = new Formatter( buff );
+			fmt.format( "%1$$04d", db.get( Calendar.YEAR ) );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.MONTH ) + 1 );
+			buff.append( "-" );
+			fmt.format( "%1$$02d", db.get( Calendar.DAY_OF_MONTH ) );
+			buff.append( " " );
+			fmt.format( "%1$$02d", db.get( Calendar.HOUR_OF_DAY ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.MINUTE ) );
+			buff.append( ":" );
+			fmt.format( "%1$$02d", db.get( Calendar.SECOND ) );
+			buff.append( "'" );
+			fmt.close();
+			return( buff.toString() );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlGetUuidString">
+	public static String getUuidString(UUID val) {
+		if ( val == null ) {
+			return ("null");
+		}
+		else {
+			return( "'" + val.toString() + "'" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertDateString">
+	public static Calendar convertDateString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 10 ) {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertDateString",
+				"Value must be in YYYY-MM-DD format, \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9')) )
+$implSchemaMySqlConvertDateStringIfMatchElse$
+	}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertDateStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, 0 );
+			retval.set( Calendar.MINUTE, 0 );
+			retval.set( Calendar.SECOND, 0 );
+			Calendar local = new GregorianCalendar();
+			local.setTimeInMillis( retval.getTimeInMillis() );
+			return( local );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertDateString",
+				"Value must be in YYYY-MM-DD format, \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertTimeString">
+	public static Calendar convertTimeString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 8 ) {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertTimeString",
+				"Value must be in HH24:MI:SS format, \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 2 ) == ':')
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 4 ) &gt;= '0') &amp;&amp; (val.charAt( 4 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 5 ) == ':')
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 7 ) &gt;= '0') &amp;&amp; (val.charAt( 7 ) &lt;= '9')) )
+$implSchemaMySqlConvertTimeStringIfMatchElse$
+	}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertTimeStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int hour = Integer.parseInt( val.substring( 0, 2 ) );
+			int minute = Integer.parseInt( val.substring( 3, 5 ) );
+			int second = Integer.parseInt( val.substring( 6, 8 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, 2000 );
+			retval.set( Calendar.MONTH, 0 );
+			retval.set( Calendar.DAY_OF_MONTH, 1 );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar local = new GregorianCalendar();
+			local.setTimeInMillis( retval.getTimeInMillis() );
+			return( local );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertTimeString",
+				"Value must be in HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertTimestampString">
+	public static Calendar convertTimestampString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertTimestampString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaMySqlConvertTimestampStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertTimestampStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar local = new GregorianCalendar();
+			local.setTimeInMillis( retval.getTimeInMillis() );
+			return( local );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertTimestampString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertTZDateString">
+	public static Calendar convertTZDateString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertTZDateString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaMySqlConvertTZDateStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertTZDateStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar utc = CFLibDbUtil.getUTCCalendar( retval );
+			return( utc );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertTZDateString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertTZTimeString">
+	public static Calendar convertTZTimeString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertTZTimeString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaMySqlConvertTZTimeStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertTZTimeStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar utc = CFLibDbUtil.getUTCCalendar( retval );
+			return( utc );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertTZTimeString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertTZTimestampString">
+	public static Calendar convertTZTimestampString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else if ( val.length() != 19 ) {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertTZTimestampString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}
+		else if (((val.charAt( 0 ) &gt;= '0') &amp;&amp; (val.charAt( 0 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 1 ) &gt;= '0') &amp;&amp; (val.charAt( 1 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 2 ) &gt;= '0') &amp;&amp; (val.charAt( 2 ) &lt;= '9'))
+			 &amp;&amp; ((val.charAt( 3 ) &gt;= '0') &amp;&amp; (val.charAt( 3 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 4 ) == '-')
+			 &amp;&amp; ((val.charAt( 5 ) &gt;= '0') &amp;&amp; (val.charAt( 5 ) &lt;= '1'))
+			 &amp;&amp; ((val.charAt( 6 ) &gt;= '0') &amp;&amp; (val.charAt( 6 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 7 ) == '-' )
+			 &amp;&amp; ((val.charAt( 8 ) &gt;= '0') &amp;&amp; (val.charAt( 8 ) &lt;= '3'))
+			 &amp;&amp; ((val.charAt( 9 ) &gt;= '0') &amp;&amp; (val.charAt( 9 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 10 ) == ' ' )
+			 &amp;&amp; ((val.charAt( 11 ) &gt;= '0') &amp;&amp; (val.charAt( 11 ) &lt;= '2'))
+			 &amp;&amp; ((val.charAt( 12 ) &gt;= '0') &amp;&amp; (val.charAt( 12 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 13 ) == ':' )
+			 &amp;&amp; ((val.charAt( 14 ) &gt;= '0') &amp;&amp; (val.charAt( 14 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 15 ) &gt;= '0') &amp;&amp; (val.charAt( 15 ) &lt;= '9'))
+			 &amp;&amp; (val.charAt( 16 ) == ':' )
+			 &amp;&amp; ((val.charAt( 17 ) &gt;= '0') &amp;&amp; (val.charAt( 17 ) &lt;= '5'))
+			 &amp;&amp; ((val.charAt( 18 ) &gt;= '0') &amp;&amp; (val.charAt( 18 ) &lt;= '9')) )
+$implSchemaMySqlConvertTZTimestampStringIfMatchElse$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertTZTimestampStringIfMatchElse"
+>		{
+			/*
+			 *	NOTE:
+			 *		.Net uses substring( startcol, lengthOfSubstring )
+			 *		Java uses substring( startcol, endcol ) and does not
+			 *			include charAt( endcol );
+			 */
+			int year = Integer.parseInt( val.substring( 0, 4 ) );
+			int month = Integer.parseInt( val.substring( 5, 7 ) );
+			int day = Integer.parseInt( val.substring( 8, 10 ) );
+			int hour = Integer.parseInt( val.substring( 11, 13 ) );
+			int minute = Integer.parseInt( val.substring( 14, 16 ) );
+			int second = Integer.parseInt( val.substring( 17, 19 ) );
+			Calendar retval = new GregorianCalendar( CFLibDbUtil.getDbServerTimeZone() );
+			retval.set( Calendar.YEAR, year );
+			retval.set( Calendar.MONTH, month - 1 );
+			retval.set( Calendar.DAY_OF_MONTH, day );
+			retval.set( Calendar.HOUR_OF_DAY, hour );
+			retval.set( Calendar.MINUTE, minute );
+			retval.set( Calendar.SECOND, second );
+			Calendar utc = CFLibDbUtil.getUTCCalendar( retval );
+			return( utc );
+		}
+		else {
+			throw new CFLibUsageException( $SchemaName$MySqlSchema.class,
+				"convertTZTimestampString",
+				"Value must be in YYYY-MM-DD HH24:MI:SS format \"" + val + "\" is invalid" );
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMySqlConvertUuidString">
+	public static UUID convertUuidString(String val) {
+		if( ( val == null ) || ( val.length() == 0 ) ) {
+			return( null );
+		}
+		else {
+			return( UUID.fromString( val ) );
+		}
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="implSchemaMySqlNextIdGen">
+	public short next$Name$() {
+		final String S_ProcName = "next$Name$";
+		String sqlSelectNextIdGen =
+				"SELECT " + getLowerDbSchemaName() + ".$sp_next_schemaidgen$() as Next$Name$;";$implSchemaCheckOpenTransaction$$implSchemaNextIdGenTryBody$
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="implSchemaNextIdGenTryBody">
+		ResultSet rsSelect = null;
+		try {
+			Connection cnx = getCnx();
+			if( stmtSelectNext$Name$ == null ) {
+				stmtSelectNext$Name$ = cnx.prepareStatement( sqlSelectNextIdGen );
+			}
+			short nextId;
+			rsSelect = stmtSelectNext$Name$.executeQuery();
+			if( rsSelect.next() ) {$implSchemaNextIdGenRowExistsCode$
+			}
+			else {
+				throw new CFLibRuntimeException( getClass(),
+					S_ProcName,
+					"Expected 1 row to be returned by invoking " + getLowerDbSchemaName() + ".$sp_next_schemaidgen$()" );
+			}
+			return( nextId );
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				S_ProcName,
+				e );
+		}
+		finally {
+			if( rsSelect != null ) {
+				try {
+					rsSelect.close();
+				}
+				catch( SQLException e ) {
+				}
+				rsSelect = null;
+			}
+		}</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="implSchemaNextIdGenRowExistsCode">
+				nextId = rsSelect.getShort( 1 );
+				if( rsSelect.wasNull() ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"next_id cannot be null!" );
+				}
+				if( rsSelect.next() ) {
+					rsSelect.last();
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Did not expect multi-buff select response, " + rsSelect.getRow() + " rows selected" );
+				}</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="implSchemaMySqlNextIdGen">
+	public int next$Name$() {
+		final String S_ProcName = "next$Name$";
+		String sqlSelectNextIdGen =
+				"SELECT " + getLowerDbSchemaName() + ".$sp_next_schemaidgen$() as Next$Name$;";$implSchemaCheckOpenTransaction$$implSchemaNextIdGenTryBody$
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="implSchemaNextIdGenTryBody">
+		ResultSet rsSelect = null;
+		try {
+			Connection cnx = getCnx();
+			if( stmtSelectNext$Name$ == null ) {
+				stmtSelectNext$Name$ = cnx.prepareStatement( sqlSelectNextIdGen );
+			}
+			int nextId;
+			rsSelect = stmtSelectNext$Name$.executeQuery();
+			if( rsSelect.next() ) {$implSchemaNextIdGenRowExistsCode$
+			}
+			else {
+				throw new CFLibRuntimeException( getClass(),
+					S_ProcName,
+					"Expected 1 row to be returned by invoking " + getLowerDbSchemaName() + ".$sp_next_schemaidgen$()" );
+			}
+			return( nextId );
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				S_ProcName,
+				e );
+		}
+		finally {
+			if( rsSelect != null ) {
+				try {
+					rsSelect.close();
+				}
+				catch( SQLException e ) {
+				}
+				rsSelect = null;
+			}
+		}</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="implSchemaNextIdGenRowExistsCode">
+				nextId = rsSelect.getInt( 1 );
+				if( rsSelect.wasNull() ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"next_id cannot be null!" );
+				}
+				if( rsSelect.next() ) {
+					rsSelect.last();
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Did not expect multi-buff select response, " + rsSelect.getRow() + " rows selected" );
+				}</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="implSchemaMySqlNextIdGen">
+	public long next$Name$() {
+		final String S_ProcName = "next$Name$";
+		String sqlSelectNextIdGen =
+				"SELECT " + getLowerDbSchemaName() + ".$sp_next_schemaidgen$() as Next$Name$;";$implSchemaCheckOpenTransaction$$implSchemaNextIdGenTryBody$
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="implSchemaNextIdGenTryBody">
+		ResultSet rsSelect = null;
+		try {
+			Connection cnx = getCnx();
+			if( stmtSelectNext$Name$ == null ) {
+				stmtSelectNext$Name$ = cnx.prepareStatement( sqlSelectNextIdGen );
+			}
+			long nextId;
+			rsSelect = stmtSelectNext$Name$.executeQuery();
+			if( rsSelect.next() ) {$implSchemaNextIdGenRowExistsCode$
+			}
+			else {
+				throw new CFLibRuntimeException( getClass(),
+					S_ProcName,
+					"Expected 1 row to be returned by invoking " + getLowerDbSchemaName() + ".$sp_next_schemaidgen$()" );
+			}
+			return( nextId );
+		}
+		catch( SQLException e ) {
+			throw new CFLibDbException( getClass(),
+				S_ProcName,
+				e );
+		}
+		finally {
+			if( rsSelect != null ) {
+				try {
+					rsSelect.close();
+				}
+				catch( SQLException e ) {
+				}
+				rsSelect = null;
+			}
+		}</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="implSchemaNextIdGenRowExistsCode">
+				nextId = rsSelect.getLong( 1 );
+				if( rsSelect.wasNull() ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"next_id cannot be null!" );
+				}
+				if( rsSelect.next() ) {
+					rsSelect.last();
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Did not expect multi-buff select response, " + rsSelect.getRow() + " rows selected" );
+				}</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidGen" Name="implSchemaMySqlNextIdGen">
+	public UUID next$Name$() {
+		UUID retval = UUID.randomUUID();
+		return( retval );
+	}
+</GenRule>
+
+</RuleSet>

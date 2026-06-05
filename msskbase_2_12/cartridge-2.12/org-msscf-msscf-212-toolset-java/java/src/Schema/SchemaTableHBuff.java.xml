@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/Schema/SchemaTableHBuff.java"
+	Revision="2.12"
+	Descr="Java 11 implementation of a $TableName$ history buffer object.">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableHBuffJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$$TableName$HBuffJava"
+		ExpansionKeyName="$SchemaName$$TableName$HBuffJava"
+		ExpansionFileName="$SchemaName$$TableName$HBuff.java"
+>// Description: Java 11 implementation of a $TableName$ history buffer object.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$;
+
+import java.lang.reflect.*;
+import java.io.*;
+import java.math.*;
+import java.net.*;
+import java.rmi.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$
+
+public class $SchemaName$$TableName$HBuff
+$switch HasSuperClassRelation yes implHBuffInheritSuper default implHBuffInheritHKey$	implements Comparable&lt;Object&gt;,
+		Serializable
+{$iterate Columns( each maybeDeclInitValue empty empty )$$iterate Columns( each maybeDeclMinValue empty empty )$$iterate Columns( each maybeDeclMaxValue empty empty )$
+$switch HasSuperClassRelation yes implHBuffDataAttr default implHBuffColumnAttr$$implHBuffConstructor$$implHBuffGetClassCode$$switch HasSuperClassRelation no implHBuffColumnGetterSetters default implHBuffDataGetterSetters$$implHBuffEquals$$implHBuffGetHashCode$$implHBuffCompareTo$$implHBuffSet$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implHBuffInheritHKey">
+	extends $SchemaName$HPKey</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffColumnGetterSetters"
+		>$iterate Columns( each implColumnGetterSetter )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffDataGetterSetters"
+		>$iterate DataColumns( each implColumnGetterSetter empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffColumnAttr"
+		>$iterate Columns( each implColumnAttr )$</GenRule>
+	<GenRule GenDef="Table" Name="implHBuffDataAttr"
+		>$iterate DataColumns( each implColumnAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffInheritSuper"
+>	extends $SchemaName$$reference SuperClassRelation reference ToTable TableName$HBuff
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffGetClassCode">
+	public String getClassCode() {
+		return( $SchemaName$$TableName$Buff.CLASS_CODE );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffConstructor">
+	public $SchemaName$$TableName$HBuff() {
+		super();$switch HasSuperClassRelation yes implHBuffConstructorInitDataColumns default implHBuffConstructorInitColumns$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffConstructorInitDataColumns"
+		>$iterate DataColumns( each implConstructorInitAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffConstructorInitColumns"
+		>$iterate Columns( each implConstructorInitAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffConstructorInvokeSuper"
+>		super();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffEquals">
+	public boolean equals( Object obj ) {
+		if( obj == null ) {
+			return( false );
+		}
+		else if( obj instanceof $SchemaName$$TableName$HBuff ) {
+			$SchemaName$$TableName$HBuff rhs = ($SchemaName$$TableName$HBuff)obj;$implHBuffEqualsInvokeSuper$$iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}
+		else if( obj instanceof $SchemaName$$TableName$Buff ) {
+			$SchemaName$$TableName$Buff rhs = ($SchemaName$$TableName$Buff)obj;$implHBuffEqualsInvokeSuper$$iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}$iterate Index( each maybeImplEqualsCmpKey)$$switch HasSuperClassRelation yes implHBuffEqualsElseInvokeSuper default implHBuffEqualsKeys$
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implHBuffEqualsHPKeyAttributes"
+		>$implHPKeyEqualsAuditClusterId$$implHPKeyEqualsAuditStamp$$implHPKeyEqualsAuditActionId$$implHPKeyEqualsRequiredRevision$$implHPKeyEqualsAuditSessionId$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffEqualsElseInvokeSuper">
+		else {
+			return( super.equals( obj ) );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffEqualsKeys">
+		else if( obj instanceof $SchemaName$$reference BaseClass TableName$HPKey ) {
+			$SchemaName$$reference BaseClass TableName$HPKey rhs = ($SchemaName$$reference BaseClass TableName$HPKey)obj;$implHPKeyEqualsAuditClusterId$$implHPKeyEqualsAuditStamp$$implHPKeyEqualsAuditActionId$$implHPKeyEqualsRequiredRevision$$implHPKeyEqualsAuditSessionId$$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}
+		else if( obj instanceof $SchemaName$HPKey ) {
+			$SchemaName$HPKey rhs = ($SchemaName$HPKey)obj;$implHPKeyEqualsAuditClusterId$$implHPKeyEqualsAuditStamp$$implHPKeyEqualsAuditActionId$$implHPKeyEqualsRequiredRevision$$implHPKeyEqualsAuditSessionId$
+			return( true );
+		}
+		else if( obj instanceof $SchemaName$$TableName$PKey ) {
+			$SchemaName$$TableName$PKey rhs = ($SchemaName$$TableName$PKey)obj;$reference PrimaryKeyIndex iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}
+		else {
+			return( super.equals( obj ) );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffEqualsInvokeSuper">
+			if( ! super.equals( obj ) ) {
+				return( false );
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffGetHashCode">
+	public int hashCode() {
+		int hashCode = super.hashCode();$switch HasSuperClassRelation no implHBuffGetHashCodeColumns default implHBuffGetHashCodeData$
+		return( hashCode &amp; 0x7fffffff );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffGetHashCodeColumns"
+		>$iterate Columns( each implGetHashCodeAttr )$</GenRule>
+	<GenRule GenDef="Table" Name="implHBuffGetHashCodeData"
+		>$iterate DataColumns( each implGetHashCodeAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffGetHashCodeInitHashCode"
+>		int hashCode = 0;
+</GenRule>
+	<GenRule GenDef="Table" Name="implHBuffGetHashCodeInitSuper"
+>		int hashCode = super.hashCode();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffCompareTo">
+	public int compareTo( Object obj ) {
+		if( obj == null ) {
+			return( -1 );
+		}
+		else if( obj instanceof $SchemaName$$TableName$Buff ) {
+			$SchemaName$$TableName$Buff rhs = ($SchemaName$$TableName$Buff)obj;$implBuffCompareInvokeSuperRetVal$
+			return( 0 );
+		}$iterate Index( each maybeImplBuffCompareToIndex )$$implHBuffCompareToHistory$
+		else {
+			return( super.compareTo( obj ) );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffCompareHierarchy"
+		>$switch HasSuperClassRelation yes implHBuffCompareData default implHBuffCompareColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffCompareData"
+		>$reference SuperClassRelation reference ToTable implHBuffCompareHierarchy$$iterate DataColumns( each implCompareToAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffCompareColumns"
+		>$implHPKeyCompareToAuditClusterId$$implHPKeyCompareToAuditStamp$$implHPKeyCompareToAuditActionId$$implHPKeyCompareToRequiredRevision$$implHPKeyCompareToAuditSessionId$$iterate Columns( each implCompareToAttr empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffCompareToHistory">
+		else if( obj instanceof $SchemaName$$TableName$HBuff ) {
+			$SchemaName$$TableName$HBuff rhs = ($SchemaName$$TableName$HBuff)obj;
+$switch HasSuperClassRelation yes implBuffCompareInvokeSuperRetVal default implBuffCompareInitRetVal$$switch HasSuperClassRelation yes empty default implHBuffCompareAuditAttributes$$implHBuffCompareHierarchy$
+			return( 0 );
+		}$switch HasSuperClassRelation no implHBuffCompareToHPKey default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffCompareAuditAttributes"
+		>$implHPKeyCompareToAuditClusterId$$implHPKeyCompareToAuditStamp$$implHPKeyCompareToAuditActionId$$implHPKeyCompareToRequiredRevision$$implHPKeyCompareToAuditSessionId$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffCompareToHPKey">
+		else if( obj instanceof $SchemaName$$reference BaseClass TableName$HPKey ) {
+			$SchemaName$$reference BaseClass TableName$HPKey rhs = ($SchemaName$$reference BaseClass TableName$HPKey)obj;$implHPKeyCompareToAuditClusterId$$implHPKeyCompareToAuditStamp$$implHPKeyCompareToAuditActionId$$implHPKeyCompareToRequiredRevision$$implHPKeyCompareToAuditSessionId$$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implCompareToAttr )$
+			return( 0 );
+		}
+		else if( obj instanceof $SchemaName$$TableName$PKey ) {
+			$SchemaName$$TableName$PKey rhs = ($SchemaName$$TableName$PKey)obj;$reference PrimaryKeyIndex iterate Columns( each implCompareToAttr )$
+			return( 0 );
+		}
+		else if( obj instanceof $SchemaName$HPKey ) {
+			$SchemaName$HPKey rhs = ($SchemaName$HPKey)obj;$implHPKeyCompareToRequiredRevision$
+			return( 0 );
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="maybeImplHBuffMethCompareToIndex"
+		>$switch IsPrimaryIndex yes empty default implHBuffMethCompareToIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implHBuffMethCompareToIndex">
+	public int compareTo( $SchemaName$$popto Table TableName$By$Suffix$Key rhs ) {
+$iterate Columns( each implCompareToAttr )
+$			return( 0 );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffSet">
+	public void set( $reference BaseClass DefSchemaName$$reference BaseClass TableName$Buff src ) {$switch HasSuperClassRelation yes implBuffSetWithCast default implBuffSetDirect$
+	}
+
+	public void set$TableName$Buff( $DefSchemaName$$TableName$Buff src ) {$switch HasSuperClassRelation yes implHBuffSetInvokeSuper default implHBuffSetCopyPKey$$iterate Columns( each implBuffSetCopyDataCol )$$switch HasSuperClassRelation no implBuffSetCopyRevision default empty$
+	}
+
+	public void set( $reference BaseClass DefSchemaName$$reference BaseClass TableName$HBuff src ) {$switch HasSuperClassRelation yes implHBuffSetWithCast default implBuffSetDirect$
+	}
+
+	public void set$TableName$Buff( $DefSchemaName$$TableName$HBuff src ) {$switch HasSuperClassRelation yes implHBuffSetInvokeSuper default implHBuffSetCopyPKey$$iterate Columns( each implBuffSetCopyDataCol )$$switch HasSuperClassRelation no implBuffSetCopyRevision default empty$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffSetWithCast">
+		if( src instanceof $DefSchemaName$$TableName$HBuff ) {
+			set$TableName$Buff( ($DefSchemaName$$TableName$HBuff)src );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				"compareTo",
+				"src",
+				src,
+				"$DefSchemaName$$TableName$HBuff" );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffSetCopyPKey"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implBuffSetCopyPKeyCol )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implHBuffSetInvokeSuper">
+		super.set$reference SuperClassRelation reference ToTable TableName$Buff( src );</GenRule>
+
+</RuleSet>

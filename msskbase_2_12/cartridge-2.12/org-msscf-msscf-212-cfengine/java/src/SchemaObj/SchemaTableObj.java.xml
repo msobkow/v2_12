@@ -1,0 +1,2286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/SchemaObj/SchemaTableObj.java"
+	Revision="2.12"
+	Descr="Java 11 Table Object implementation">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableObjJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema SchemaName$Obj"
+		ExpansionClassName="$SchemaName$$TableName$TableObjJava"
+		ExpansionKeyName="$SchemaName$$TableName$TableObjJava"
+		ExpansionFileName="$SchemaName$$TableName$TableObj.java"
+>// Description: Java 11 Table Object implementation for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower SubProjectPackageName$.$SchemaName$Obj;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$importJavaPackageSchemaName$$JavaTableObjImport$
+$implSchemaTableObjClassBody$</GenFile>
+
+<GenRule GenDef="Table" Name="implSchemaTableObjClassBody">
+public class $SchemaName$$TableName$TableObj
+	implements I$SchemaName$$TableName$TableObj
+{
+	protected I$poptop SchemaDef SchemaName$SchemaObj schema;
+	private Map&lt;$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey, I$DefSchemaName$$TableName$Obj&gt; members;
+	private Map&lt;$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey, I$DefSchemaName$$TableName$Obj&gt; all$TableName$;$declTableObjIndexMapByIndexes$
+	public static String TABLE_NAME = "$TableName$";
+	public static String TABLE_DBNAME = "$lower DbTableName$";$JavaTableObjMembers$
+
+	public $SchemaName$$TableName$TableObj() {
+		schema = null;
+		members = new HashMap&lt;$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey, I$DefSchemaName$$TableName$Obj&gt;();
+		all$TableName$ = null;$initTableObjIndexMapByIndexes$
+	}
+
+	public $SchemaName$$TableName$TableObj( I$reference BaseClass DefSchemaName$SchemaObj argSchema ) {
+		schema = (I$poptop SchemaDef SchemaName$SchemaObj)argSchema;
+		members = new HashMap&lt;$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey, I$reference BaseClass DefSchemaName$$TableName$Obj&gt;();
+		all$TableName$ = null;$initTableObjIndexMapByIndexes$
+	}
+$implSchemaTableObjMethods$$implNewInstance$$implNewEditInstance$$switch IsBaseTable yes implConstructByClassCode default empty$$implRealiseObj$$implCreateObj$$implReadObjByPKey$$implReadCachedObjByPKey$$implReallyDeepDisposeTable$$implDeepDisposeObjByPKey$$implLockObjByPKey$$implReadAllObj$$implReadCachedAllObj$$switch PageData yes implPageAllObj default empty$$implTableObjReadByIndexes$$implTableObjReadCachedByIndexes$$implTableObjDeepDisposeByIndexes$$switch PageData yes implTableObjPageByIndex default empty$$implUpdateObj$$implDeleteObj$$implTableObjDeleteByIndexes$$switch HasChain yes implTableObjMoveUp default empty$$switch HasChain yes implTableObjMoveDown default empty$$iterate ServerMethods( each implJavaTableObjServerMethod empty empty )$$JavaTableObjImplementation$}</GenRule>
+
+	<GenRule GenDef="Table" Name="implPageAllObj">
+	/**
+	 *	Return a sorted map of a page of the $TableName$-derived instances in the database.
+	 *
+	 *	@return	List of I$DefSchemaName$$TableName$Obj instance, sorted by their primary keys, which
+	 *		may include an empty set.
+	 */
+	public List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; pageAll$poptop Table TableName$($reference BaseClass reference PrimaryKeyIndex iterate Columns( first declOptPriorArg each declCommaOptPriorArg )$ )
+	{
+		final String S_ProcName = "pageAll$poptop Table TableName$";
+		Map&lt;$DefSchemaName$$poptop Table reference BaseClass TableName$PKey, I$DefSchemaName$$TableName$Obj&gt; map = new HashMap&lt;$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey,I$DefSchemaName$$TableName$Obj&gt;();
+		$DefSchemaName$$TableName$Buff[] buffList = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().pageAllBuff( schema.getAuthorization()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each passCommaOptPriorArg )$ );
+		$DefSchemaName$$TableName$Buff buff;
+		I$DefSchemaName$$TableName$Obj obj;
+		I$DefSchemaName$$TableName$Obj realised;
+		ArrayList&lt;I$DefSchemaName$$TableName$Obj&gt; arrayList = new ArrayList&lt;I$DefSchemaName$$TableName$Obj&gt;( buffList.length );
+		for( int idx = 0; idx &lt; buffList.length; idx ++ ) {
+			buff = buffList[ idx ];$switch HasClassCode yes implReadAllObjConsObjByClassCode default implReadAllObjConsObj$
+			obj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference BaseClass TableName$().newPKey() );
+			obj.setBuff( buff );
+			realised = (I$DefSchemaName$$TableName$Obj)obj.realise();
+			arrayList.add( realised );
+		}
+		return( arrayList );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="passCommaOptPriorArg">,
+			prior$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjPageByIndex"
+		>$switch HasSuperClassRelation yes implTableObjPageByInhIndex default implTableObjPageByBaseIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjPageBySubIndex"
+		>$switch HasSuperClassRelation yes implTableObjPageByInhIndex default empty$$iterate Index( each implTableObjPageByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjPageByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default ifdup_implTableObjPageByIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjPageByInhIndex"
+		>$reference SuperClassRelation reference ToTable implTableObjPageBySubIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjPageByBaseIndex"
+		>$iterate Index( each implTableObjPageByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="ifdup_implTableObjPageByIndex"
+		>$switch IsUnique
+			yes empty
+			default implPageObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implPageObjByIndex"
+		>$switch IsUnique yes empty default implPageObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implPageObjByDuplicateIndex">
+	/**
+	 *	Read a page of data as a List of $TableName$-derived instances sorted by their primary keys,
+	 *	as identified by the duplicate $Suffix$ key attributes.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	A List of $TableName$-derived instances sorted by their primary keys,
+	 *		as identified by the key attributes, which may be an empty set.
+	 */
+	public List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; page$TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaOptPriorArg )$ )
+	{
+		final String S_ProcName = "page$poptop Table TableName$By$Suffix$";
+		$DefSchemaName$$TableName$By$Suffix$Key key = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$TableName$().new$Suffix$Key();$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$$implTableObjPageByIndexCalcList$
+		return( retList );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjPageByThisDuplicateIndexReturnSortedList">
+		int len = dict.size();
+		I$DefSchemaName$$poptop Table TableName$Obj arr[] = new I$DefSchemaName$$poptop Table TableName$Obj[len];
+		Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; valIter = dict.values().iterator();
+		int idx = 0;
+		while( ( idx &lt; len ) &amp;&amp; valIter.hasNext() ) {
+			arr[idx++] = valIter.next();
+		}
+		if( idx &lt; len ) {
+			throw new CFLibArgumentUnderflowException( getClass(),
+				S_ProcName,
+				0,
+				"idx",
+				idx,
+				len );
+		}
+		else if( valIter.hasNext() ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+					S_ProcName,
+					0,
+					"idx",
+					idx,
+					len );
+		}
+		ArrayList&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; arrayList = new ArrayList&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt;(len);
+		for( idx = 0; idx &lt; len; idx ++ ) {
+			arrayList.add( arr[idx] );
+		}
+$implReadAllObjComparator$
+		Collections.sort( arrayList, cmp );
+		List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; sortedList = arrayList;
+		return( sortedList );</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implJavaTableObjServerMethod"
+		>$switch IsInstanceMethod yes implJavaTableObjInstServerProc default implJavaTableObjClassServerProc$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implJavaTableObjClassServerProc">
+	public boolean $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		boolean retval = ((I$poptop SchemaDef SchemaName$$TableName$Table)((I$poptop SchemaDef SchemaName$Schema)(schema.getBackingStore())).getTable$TableName$()).$leadlower Name$( ((I$poptop SchemaDef SchemaName$SchemaObj)schema)$iterate Params( each passServerMethodParam empty empty )$ );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implJavaTableObjInstServerProc">
+	public boolean $leadlower Name$( I$DefSchemaName$$TableName$Obj obj$iterate Params( each declServerMethodParam empty empty )$ )
+	{
+		boolean retval = ((I$poptop SchemaDef SchemaName$$TableName$Table)((I$poptop SchemaDef SchemaName$Schema)(schema.getBackingStore())).getTable$TableName$()).$leadlower Name$( ((I$poptop SchemaDef SchemaName$SchemaObj)schema),
+			obj$iterate Params( each passServerMethodParam empty empty )$ );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implJavaTableObjServerMethod"
+		>$switch IsInstanceMethod yes implJavaTableObjInstServerObjFunc default implJavaTableObjClassServerObjFunc$</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implJavaTableObjClassServerObjFunc">
+	public I$reference RetTable DefSchemaName$$reference RetTable Name$Obj $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		I$reference RetTable DefSchemaName$$reference RetTable Name$Obj retobj = null;
+		$reference RetTable DefSchemaName$$reference RetTable Name$Buff readBuff = ((I$poptop SchemaDef SchemaName$$TableName$Table)((I$poptop SchemaDef SchemaName$Schema)(schema.getBackingStore())).getTable$TableName$()).$leadlower Name$( ((I$poptop SchemaDef SchemaName$SchemaObj)schema)$iterate Params( each passServerMethodParam empty empty )$ );
+		if( readBuff != null ) {$reference RetTable switch HasClassCode yes implJavaTableObjServerMethodConsObjByClassCode default implJavaTableObjServerMethodConsObj$
+			retobj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference RetTable reference BaseClass TableName$().newPKey() );
+			retobj.setBuff( readBuff );
+			retobj = (I$DefSchemaName$$reference RetTable TableName$Obj)retobj.realise();
+		}
+		return( retobj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaTableObjServerMethodConsObjByClassCode">
+			retobj = (I$popto ServerMethod reference RetTable DefSchemaName$$popto ServerMethod reference RetTable TableName$Obj)((I$SchemaName$SchemaObj)schema).get$reference BaseClass TableName$TableObj().constructByClassCode( readBuff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaTableObjServerMethodConsObj">
+			retobj = (I$popto ServerMethod reference RetTable DefSchemaName$$popto ServerMethod reference RetTable TableName$Obj)((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().newInstance();</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implJavaTableObjInstServerObjFunc">
+	public I$reference RetTable DefSchemaName$$reference RetTable Name$Obj $leadlower Name$( I$DefSchemaName$$TableName$Obj obj$iterate Params( each declServerMethodParam empty empty )$ )
+	{
+		I$DefSchemaName$$reference RetTable Name$Obj retobj = null;
+		$DefSchemaName$$reference RetTable Name$Buff readBuff = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().$leadlower Name$( schema,
+			obj$iterate Params( each passServerMethodParam empty empty )$ );
+		if( readBuff != null ) {$reference RetTable switch HasClassCode yes implJavaTableObjServerMethodConsObjByClassCode default implJavaTableObjServerMethodConsObj$
+			retobj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference RetTable reference BaseClass TableName$().newPKey() );
+			retobj.setBuff( readBuff );
+			retobj = (I$DefSchemaName$$reference RetTable TableName$Obj)retobj.realise();
+		}
+		return( retobj );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implJavaTableObjServerMethod"
+		>$switch IsInstanceMethod yes implJavaTableObjInstServerListFunc default implJavaTableObjClassServerListFunc$</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implJavaTableObjClassServerListFunc">
+	public List&lt;I$reference RetTable DefSchemaName$$reference RetTable Name$Obj&gt; $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		LinkedList&lt;I$reference RetTable DefSchemaName$$reference RetTable Name$Obj&gt; list = new LinkedList&lt;I$reference RetTable DefSchemaName$$reference RetTable Name$Obj&gt;();
+		I$reference RetTable DefSchemaName$$reference RetTable Name$Obj retobj = null;
+		$reference RetTable DefSchemaName$$reference RetTable Name$Buff readBuff;
+		$reference RetTable DefSchemaName$$reference RetTable Name$Buff readArray[] = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().$leadlower Name$( schema$iterate Params( each passServerMethodParam empty empty )$ );
+		if( readArray == null ) {
+			return( list );
+		}
+		int sz = readArray.length;
+		for( int i = 0; i &lt; sz; i ++ ) {
+			readBuff = readArray[i];$reference RetTable switch HasClassCode yes implJavaTableObjServerMethodConsObjByClassCode default implJavaTableObjServerMethodConsObj$
+			retobj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference RetTable reference BaseClass TableName$().newPKey() );
+			retobj.setBuff( readBuff );
+			retobj = (I$DefSchemaName$$reference RetTable TableName$Obj)retobj.realise();
+			list.add( retobj );
+		}
+		return( list );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implJavaTableObjInstServerListFunc">
+	public List&lt;I$reference RetTable DefSchemaName$$reference RetTable Name$Obj&gt; $leadlower Name$( I$DefSchemaName$$TableName$Obj obj$iterate Params( each declServerMethodParam empty empty )$ )
+	{
+		LinkedList&lt;I$reference RetTable DefSchemaName$$reference RetTable Name$Obj&gt; list = new LinkedList&lt;I$reference RetTable DefSchemaName$$reference RetTable Name$Obj&gt;();
+		I$reference RetTable DefSchemaName$$reference RetTable Name$Obj retobj = null;
+		$reference RetTable DefSchemaName$$reference RetTable Name$Buff readBuff;
+		$reference RetTable DefSchemaName$$reference RetTable Name$Buff readArray[] = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().$leadlower Name$( schema,
+			obj$iterate Params( each passServerMethodParam empty empty )$ );
+		if( readArray == null ) {
+			return( list );
+		}
+		int sz = readArray.length;
+		for( int i = 0; i &lt; sz; i ++ ) {
+			readBuff = readArray[i];$reference RetTable switch HasClassCode yes implJavaTableObjServerMethodConsObjByClassCode default implJavaTableObjServerMethodConsObj$
+			retobj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference RetTable reference BaseClass TableName$().newPKey() );
+			retobj.setBuff( readBuff );
+			retobj = (I$reference RetTable DefSchemaName$$reference RetTable TableName$Obj)retobj.realise();
+			list.add( retobj );
+		}
+		return( list );
+	}
+</GenRule>
+
+	<GenRule GenDef="Param" Name="passServerMethodParam">,
+			$leadlower Name$</GenRule>
+
+	<GenRule GenDef="Param" Name="declServerMethodParamNoComma"> $implJavaAtomType$ $leadlower Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetTableObjQualifyingClass">
+
+	public Class getObjQualifyingClass() {
+		return( $switch HasQualTable yes implGetTableObjQualifyingClassQualTableXFace default implGetTableObjQualifyingClassNull$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetTableObjQualifyingClassQualTableXFace"
+		>I$SchemaName$$reference QualTable Name$Obj.class</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetTableObjQualifyingClassNull"
+		>null</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableObjMethods">
+	public I$reference BaseClass DefSchemaName$SchemaObj getSchema() {
+		return( schema );
+	}
+
+	public void setSchema( I$reference BaseClass DefSchemaName$SchemaObj value ) {
+		schema = (I$poptop SchemaDef SchemaName$SchemaObj)value;
+	}
+
+	public String getTableName() {
+		return( TABLE_NAME );
+	}
+
+	public String getTableDbName() {
+		return( TABLE_DBNAME );
+	}$implGetTableObjQualifyingClass$
+
+	public void minimizeMemory() {$implTableMinimizeMemoryResetByIndexes$$implTableMinimizeMemoryForgetCached$
+	}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMinimizeMemoryForgetCached">
+		List&lt;I$DefSchemaName$$TableName$Obj&gt; toForget = new LinkedList&lt;I$DefSchemaName$$TableName$Obj&gt;();
+		I$DefSchemaName$$TableName$Obj cur = null;
+		Iterator&lt;I$DefSchemaName$$TableName$Obj&gt; iter = members.values().iterator();
+		while( iter.hasNext() ) {
+			cur = iter.next();
+			toForget.add( cur );
+		}
+		iter = toForget.iterator();
+		while( iter.hasNext() ) {
+			cur = iter.next();
+			cur.forget();
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMinimizeMemoryResetByIndexes">
+		all$TableName$ = null;$switch HasSuperClassRelation yes implTableMinimizeMemoryResetByInhIndexes default empty$$iterate Index( each implTableMinimizeMemoryResetByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMinimizeMemoryResetBySubIndexes"
+		>$switch HasSuperClassRelation yes implTableMinimizeMemoryResetByInhIndexes default empty$$iterate Index( each implTableMinimizeMemoryResetByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableMinimizeMemoryResetByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableMinimizeMemoryResetByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMinimizeMemoryResetByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableMinimizeMemoryResetBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByThisIndex"
+		>$switch IsUnique
+			yes implTableMinimizeMemoryResetByThisUniqueIndex
+			default implTableMinimizeMemoryResetByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByInhIndex"
+		>$switch IsUnique
+			yes implTableMinimizeMemoryResetByInhUniqueIndex
+			default implTableMinimizeMemoryResetByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByIndex"
+		>$switch IsUnique
+			yes implTableMinimizeMemoryResetByUniqueIndex
+			default implTableMinimizeMemoryResetByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByThisUniqueIndex">
+		indexBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByInhUniqueIndex">
+		indexBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByThisDuplicateIndex">
+		indexBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByInhDuplicateIndex">
+		indexBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjIndexMapByIndexes"
+		>$switch HasSuperClassRelation yes declTableObjIndexMapByInhIndexes default empty$$iterate Index( each declTableObjIndexMapByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjIndexMapBySubIndexes"
+		>$switch HasSuperClassRelation yes declTableObjIndexMapByInhIndexes default empty$$iterate Index( each declTableObjIndexMapByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjIndexMapByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjIndexMapByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjIndexMapByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declTableObjIndexMapBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByThisIndex"
+		>$switch IsUnique
+			yes declTableObjIndexMapByThisUniqueIndex
+			default declTableObjIndexMapByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByInhIndex"
+		>$switch IsUnique
+			yes declTableObjIndexMapByInhUniqueIndex
+			default declTableObjIndexMapByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByIndex"
+		>$switch IsUnique
+			yes declTableObjIndexMapByUniqueIndex
+			default declTableObjIndexMapByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByThisUniqueIndex">
+	private Map&lt; $reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key,
+		I$poptop Table DefSchemaName$$poptop Table TableName$Obj &gt; indexBy$Suffix$;</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByInhUniqueIndex">
+	private Map&lt; $reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key,
+		I$poptop Table DefSchemaName$$poptop Table TableName$Obj &gt; indexBy$Suffix$;</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByThisDuplicateIndex">
+	private Map&lt; $reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key,
+		Map&lt;$poptop Table DefSchemaName$$poptop Table reference BaseClass TableName$PKey, I$poptop Table DefSchemaName$$poptop Table TableName$Obj &gt; &gt; indexBy$Suffix$;</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjIndexMapByInhDuplicateIndex">
+	private Map&lt; $reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key,
+		Map&lt;$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, I$poptop Table DefSchemaName$$poptop Table TableName$Obj &gt; &gt; indexBy$Suffix$;</GenRule>
+
+	<GenRule GenDef="Table" Name="initTableObjIndexMapByIndexes"
+		>$switch HasSuperClassRelation yes initTableObjIndexMapByInhIndexes default empty$$iterate Index( each initTableObjIndexMapByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="initTableObjIndexMapBySubIndexes"
+		>$switch HasSuperClassRelation yes initTableObjIndexMapByInhIndexes default empty$$iterate Index( each initTableObjIndexMapByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default initTableObjIndexMapByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default initTableObjIndexMapByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="initTableObjIndexMapByInhIndexes"
+		>$reference SuperClassRelation reference ToTable initTableObjIndexMapBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByThisIndex"
+		>$switch IsUnique
+			yes initTableObjIndexMapByThisUniqueIndex
+			default initTableObjIndexMapByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByInhIndex"
+		>$switch IsUnique
+			yes initTableObjIndexMapByInhUniqueIndex
+			default initTableObjIndexMapByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByIndex"
+		>$switch IsUnique
+			yes initTableObjIndexMapByUniqueIndex
+			default initTableObjIndexMapByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByThisUniqueIndex">
+		indexBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByInhUniqueIndex">
+		indexBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByThisDuplicateIndex">
+		indexBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByInhDuplicateIndex">
+		indexBy$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implNewInstance">
+	/**
+	 *	If your implementation subclasses the objects,
+	 *	you'll want to overload the constructByClassCode()
+	 *	implementation to return your implementation's
+	 *	instances instead of the base implementation.
+	 *
+	 *	This is the sole factory for instances derived from
+	 *	$SchemaName$$TableName$Obj.
+	 */
+	public I$DefSchemaName$$TableName$Obj newInstance() {
+		I$DefSchemaName$$TableName$Obj inst = new $SchemaName$$TableName$Obj( schema );
+		return( inst );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implNewEditInstance">
+	/**
+	 *	If your implementation subclasses the objects,
+	 *	you'll want to overload the constructByClassCode()
+	 *	implementation to return your implementation's
+	 *	instances instead of the base implementation.
+	 *
+	 *	This is the sole factory for instances derived from
+	 *	$SchemaName$$TableName$Obj.
+	 */
+	public I$DefSchemaName$$TableName$EditObj newEditInstance( I$DefSchemaName$$TableName$Obj orig ) {
+		I$DefSchemaName$$TableName$EditObj edit = new $SchemaName$$TableName$EditObj( orig );
+		return( edit );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructByClassCode">
+	public I$DefSchemaName$$TableName$Obj constructByClassCode( String argClassCode ) {
+		I$DefSchemaName$$TableName$Obj obj = null;
+		if( argClassCode.equals( "$ClassCode$" ) ) {
+			obj = ((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().newInstance();
+		}
+$switch HasSubClasses yes implConstructByClassCodeIterSubClasses default empty
+$		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructByClassCodeIterSubClasses"
+		>$iterate TableSubClasses( each implConstructByClassCodeConstructAndIterate empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructByClassCodeConstructAndIterate"
+>		else if( argClassCode.equals( "$ClassCode$" ) ) {
+			obj = ((I$SchemaName$SchemaObj)schema).get$TableName$TableObj().newInstance();
+		}
+$switch HasSubClasses yes implConstructByClassCodeIterSubClasses default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="ToTableHasSubClasses"
+		>$reference ToTable HasSubClasses$</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTableObjPKeyType"
+		>$switch HasSuperClassRelation yes SchemaTableObjBasePKeyT default SchemaTableObjPKeyT$</GenRule>
+	<GenRule GenDef="Table" Name="SchemaTableObjBasePKeyT"
+		>$reference BaseClass SchemaTableObjPKeyT$</GenRule>
+	<GenRule GenDef="Table" Name="SchemaTableObjPKeyT"
+		>$SchemaName$$TableName$PKey</GenRule>
+
+	<GenRule GenDef="Table" Name="implRealiseObjReplaceBuff">
+			keepObj.setBuff( Obj.getBuff() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRealiseObj">
+	public I$DefSchemaName$$TableName$Obj realise$TableName$( I$DefSchemaName$$TableName$Obj Obj ) {
+		I$DefSchemaName$$TableName$Obj obj = Obj;
+		$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey pkey = obj.getPKey();
+		I$DefSchemaName$$TableName$Obj keepObj = null;
+		if( members.containsKey( pkey ) &amp;&amp; ( null != members.get( pkey ) ) ) {
+			I$DefSchemaName$$TableName$Obj existingObj = members.get( pkey );
+			keepObj = existingObj;
+
+			/*
+			 *	We always rebind the data because if we're being called, some index has
+			 *	been updated and is refreshing it's data, which may or may not have changed
+			 */
+
+			// Detach object from alternate and duplicate indexes, leave PKey alone
+$implTableObjIndexDetachFromIndexes$$switch HasSuperClassRelation yes implRealiseObjInvokeBase default implRealiseObjReplaceBuff$
+			// Attach new object to alternate and duplicate indexes -- PKey stay stable
+$implTableObjIndexAddToIndexes$
+			if( all$TableName$ != null ) {
+				all$TableName$.put( keepObj.getPKey(), keepObj );
+			}
+		}
+		else {
+			keepObj = obj;
+$switch HasSuperClassRelation yes implRealiseObjNewInvokeBase default empty$$switch HasSuperClassRelation no implRealiseObjSetIsNewFalse default empty$
+			// Attach new object to PKey, all, alternate, and duplicate indexes
+			members.put( keepObj.getPKey(), keepObj );
+			if( all$TableName$ != null ) {
+				all$TableName$.put( keepObj.getPKey(), keepObj );
+			}
+$implTableObjIndexAddToIndexes$
+		}
+		return( keepObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexDetachFromIndexes"
+		>$switch HasSuperClassRelation yes implTableObjIndexDetachFromInhIndexes default empty$$iterate Index( each implTableObjIndexDetachFromThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexDetachFromSubIndexes"
+		>$switch HasSuperClassRelation yes implTableObjIndexDetachFromInhIndexes default empty$$iterate Index( each implTableObjIndexDetachFromInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjIndexDetachFromThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjIndexDetachFromInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexDetachFromInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableObjIndexDetachFromSubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromThisIndex"
+		>$switch IsUnique
+			yes implTableObjIndexDetachFromThisUniqueIndex
+			default implTableObjIndexDetachFromThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromInhIndex"
+		>$switch IsUnique
+			yes implTableObjIndexDetachFromInhUniqueIndex
+			default implTableObjIndexDetachFromInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromIndex"
+		>$switch IsUnique
+			yes implTableObjIndexDetachFromUniqueIndex
+			default implTableObjIndexDetachFromDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjIndexCopyKeepObjToKey">
+				key$popto Index Suffix$.set$implColumnAttrOptionality$$Name$( keepObj.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromThisUniqueIndex">
+			if( indexBy$Suffix$ != null ) {
+				$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$ =
+					((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				indexBy$Suffix$.remove( key$Suffix$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromInhUniqueIndex">
+			if( indexBy$Suffix$ != null ) {
+				$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$ =
+					((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				indexBy$Suffix$.remove( key$Suffix$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromThisDuplicateIndex">
+			if( indexBy$Suffix$ != null ) {
+				$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$ =
+					((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				Map&lt;$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, I$DefSchemaName$$poptop Table TableName$Obj &gt; map$Suffix$ = indexBy$Suffix$.get( key$Suffix$ );
+				if( map$Suffix$ != null ) {
+					map$Suffix$.remove( keepObj.getPKey() );
+					if( map$Suffix$.size() &lt;= 0 ) {
+						indexBy$Suffix$.remove( key$Suffix$ );
+					}
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromInhDuplicateIndex">
+			if( indexBy$Suffix$ != null ) {
+				$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$ =
+					((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				Map&lt;$poptop Table DefSchemaName$$poptop Table reference BaseClass TableName$PKey, I$poptop Table DefSchemaName$$poptop Table TableName$Obj &gt; map$Suffix$ = indexBy$Suffix$.get( key$Suffix$ );
+				if( map$Suffix$ != null ) {
+					indexBy$Suffix$.remove( key$Suffix$ );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexAddToIndexes"
+		>$switch HasSuperClassRelation yes implTableObjIndexAddToInhIndexes default empty$$iterate Index( each implTableObjIndexAddToThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexAddToSubIndexes"
+		>$switch HasSuperClassRelation yes implTableObjIndexAddToInhIndexes default empty$$iterate Index( each implTableObjIndexAddToInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjIndexAddToThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjIndexAddToInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexAddToInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableObjIndexAddToSubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToThisIndex"
+		>$switch IsUnique
+			yes implTableObjIndexAddToThisUniqueIndex
+			default implTableObjIndexAddToThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToInhIndex"
+		>$switch IsUnique
+			yes implTableObjIndexAddToInhUniqueIndex
+			default implTableObjIndexAddToInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToIndex"
+		>$switch IsUnique
+			yes implTableObjIndexAddToUniqueIndex
+			default implTableObjIndexAddToDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToThisUniqueIndex">
+			if( indexBy$Suffix$ != null ) {
+				$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$ =
+					((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				indexBy$Suffix$.put( key$Suffix$, keepObj );
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToInhUniqueIndex">
+			if( indexBy$Suffix$ != null ) {
+				$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$ =
+					((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				indexBy$Suffix$.put( key$Suffix$, keepObj );
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToThisDuplicateIndex">
+			if( indexBy$Suffix$ != null ) {
+				$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$ =
+					((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				Map&lt;$poptop Table DefSchemaName$$poptop Table reference BaseClass TableName$PKey, I$poptop Table DefSchemaName$$poptop Table TableName$Obj &gt; map$Suffix$ = indexBy$Suffix$.get( key$Suffix$ );
+				if( map$Suffix$ != null ) {
+					map$Suffix$.put( keepObj.getPKey(), keepObj );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToInhDuplicateIndex">
+			if( indexBy$Suffix$ != null ) {
+				$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$ =
+					((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				Map&lt;$poptop Table DefSchemaName$$poptop Table reference BaseClass TableName$PKey, I$poptop Table DefSchemaName$$poptop Table TableName$Obj &gt; map$Suffix$ = indexBy$Suffix$.get( key$Suffix$ );
+				if( map$Suffix$ != null ) {
+					map$Suffix$.put( keepObj.getPKey(), keepObj );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRealiseObjSetIsNewFalse"
+>			keepObj.setIsNew( false );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRealiseObjInvokeBase"
+>			// Keep passing the new object because it's the one with the buffer
+			// that the base table needs to copy to the existing object from
+			// the cache.
+			keepObj = (I$DefSchemaName$$TableName$Obj)schema.get$reference SuperClassRelation reference ToTable TableName$TableObj().realise$reference SuperClassRelation reference ToTable TableName$( Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRealiseObjNewInvokeBase"
+>			keepObj = (I$DefSchemaName$$TableName$Obj)schema.get$reference SuperClassRelation reference ToTable TableName$TableObj().realise$reference SuperClassRelation reference ToTable TableName$( keepObj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjCopyBuffToPKey">
+		obj.copyBuffToPKey();</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjInvokeSuper">
+		I$DefSchemaName$$TableName$Obj obj = (I$DefSchemaName$$TableName$Obj)schema.get$reference SuperClassRelation reference ToTable TableName$TableObj().create$reference SuperClassRelation reference ToTable TableName$( Obj );</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjAssignObj">
+		I$DefSchemaName$$TableName$Obj obj = Obj;</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObj">
+	public I$DefSchemaName$$TableName$Obj create$TableName$( I$DefSchemaName$$TableName$Obj Obj ) {<!--$switch HasSuperClassRelation yes implCreateObjInvokeSuper default implCreateObjAssignObj$-->$implCreateObjAssignObj$
+		$DefSchemaName$$TableName$Buff buff = obj.get$TableName$Buff();
+		((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().create$TableName$(
+			schema.getAuthorization(),
+			buff );$implCreateObjCopyBuffToPKey$$switch HasClassCode no implCreateObjRealise default implCreateObjRealiseIfMatches$$switch HasChain yes implCreateObjRefreshChainPrev default empty$
+		obj.endEdit();
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjRefreshChainPrev">
+		I$DefSchemaName$$reference Chain reference Table TableName$Obj prev = obj.get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$();
+		if( prev != null ) {
+			prev.read( true );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjCopyClassCodeToPKey">
+		pkey.setClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implCreateObjCopyPKeyAttr">
+		pkey.set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjRealiseIfMatches">
+		if( obj.getPKey().getClassCode().equals( "$ClassCode$" ) ) {
+			obj = (I$DefSchemaName$$TableName$Obj)(obj.realise());
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjRealise">
+		obj = obj.realise();</GenRule>
+
+	<GenRule GenDef="Table" Name="invokeSuperCreateTable">
+		// The base class assigns any generated ids
+		schema.get$reference SuperClassRelation reference ToTable TableName$TableObj().create$reference SuperClassRelation reference ToTable TableName$( obj );</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implCopyDataColumnFromObj"
+		>$switch ColumnInPrimaryIndex
+			yes empty
+			default implCopyColumnFromObj$</GenRule>
+	<GenRule GenDef="Atom" Name="implCopyDataColumnFromObj"
+		>$switch ColumnInPrimaryIndex
+			yes empty
+			default implCopyColumnFromObj$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implCopyDataColumnFromObj"
+		>$reference Column implCopyDataColumnFromObj$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implCopyColumnFromObj">
+					data.set$implColumnAttrOptionality$$Name$( obj.get$implColumnAttrOptionality$$Name$() );</GenRule>
+	<GenRule GenDef="Atom" Name="implCopyColumnFromObj">
+					data.set$implColumnAttrOptionality$$Name$( obj.get$implColumnAttrOptionality$$Name$() );</GenRule>
+	<GenRule GenDef="IndexCol" Name="implCopyColumnFromObj"
+		>$reference Column implCopyColumnFromObj$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implCopyPKeyColumnFromObj"
+		>$reference Column implCopyPKeyColumnFromObj$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implCopyPKeyColumnFromObj">
+					pkey.set$implColumnAttrOptionality$$Name$( obj.get$implColumnAttrOptionality$$Name$() );</GenRule>
+	<GenRule GenDef="TableCol" Name="implCopyPKeyColumnFromObj">
+					pkey.set$implColumnAttrOptionality$$Name$( obj.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllObj">
+	public List&lt;I$DefSchemaName$$TableName$Obj&gt; readAll$TableName$() {
+		return( readAll$TableName$( false ) );
+	}
+
+	public List&lt;I$DefSchemaName$$TableName$Obj&gt; readAll$TableName$( boolean forceRead ) {
+		final String S_ProcName = "readAll$TableName$";
+		if( ( all$TableName$ == null ) || forceRead ) {
+			Map&lt;$DefSchemaName$$poptop Table reference BaseClass TableName$PKey, I$DefSchemaName$$TableName$Obj&gt; map = new HashMap&lt;$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey,I$DefSchemaName$$TableName$Obj&gt;();
+			all$TableName$ = map;
+			$DefSchemaName$$TableName$Buff[] buffList = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().readAllDerived( schema.getAuthorization() );
+			$DefSchemaName$$TableName$Buff buff;
+			I$DefSchemaName$$TableName$Obj obj;
+			for( int idx = 0; idx &lt; buffList.length; idx ++ ) {
+				buff = buffList[ idx ];$switch HasClassCode yes implReadAllObjConsObjByClassCode default implReadAllObjConsObj$
+				obj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference BaseClass TableName$().newPKey() );
+				obj.setBuff( buff );
+				I$DefSchemaName$$TableName$Obj realised = (I$DefSchemaName$$TableName$Obj)obj.realise();
+			}
+		}$implReadAllReturnSortedArray$
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadAllObjComparator"
+		>$poptop Table implReadAllObjComparator$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllObjComparator">
+		Comparator&lt;I$DefSchemaName$$TableName$Obj&gt; cmp = new Comparator&lt;I$DefSchemaName$$TableName$Obj&gt;() {
+			public int compare( I$DefSchemaName$$TableName$Obj lhs, I$DefSchemaName$$TableName$Obj rhs ) {
+				if( lhs == null ) {
+					if( rhs == null ) {
+						return( 0 );
+					}
+					else {
+						return( -1 );
+					}
+				}
+				else if( rhs == null ) {
+					return( 1 );
+				}
+				else {
+					$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey lhsPKey = lhs.getPKey();
+					$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey rhsPKey = rhs.getPKey();
+					int ret = lhsPKey.compareTo( rhsPKey );
+					return( ret );
+				}
+			}
+		};</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllReturnSortedArray">
+		int len = all$TableName$.size();
+		I$DefSchemaName$$TableName$Obj arr[] = new I$DefSchemaName$$TableName$Obj[len];
+		Iterator&lt;I$DefSchemaName$$TableName$Obj&gt; valIter = all$TableName$.values().iterator();
+		int idx = 0;
+		while( ( idx &lt; len ) &amp;&amp; valIter.hasNext() ) {
+			arr[idx++] = valIter.next();
+		}
+		if( idx &lt; len ) {
+			throw new CFLibArgumentUnderflowException( getClass(),
+				S_ProcName,
+				0,
+				"idx",
+				idx,
+				len );
+		}
+		else if( valIter.hasNext() ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+					S_ProcName,
+					0,
+					"idx",
+					idx,
+					len );
+		}
+		ArrayList&lt;I$DefSchemaName$$TableName$Obj&gt; arrayList = new ArrayList&lt;I$DefSchemaName$$TableName$Obj&gt;(len);
+		for( idx = 0; idx &lt; len; idx ++ ) {
+			arrayList.add( arr[idx] );
+		}
+$implReadAllObjComparator$
+		Collections.sort( arrayList, cmp );
+		List&lt;I$DefSchemaName$$TableName$Obj&gt; sortedList = arrayList;
+		return( sortedList );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllObjConsObjByClassCode">
+				obj = (I$DefSchemaName$$TableName$Obj)schema.get$reference BaseClass TableName$TableObj().constructByClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllObjConsObj">
+				obj = newInstance();</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllObjCopyPKeyClassCode">
+				obj.getPKey().setClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadAllObjCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadObjByPKey">
+	public I$DefSchemaName$$TableName$Obj read$TableName$( $DefSchemaName$$reference BaseClass TableName$PKey pkey ) {
+		return( read$TableName$( pkey, false ) );
+	}
+
+	public I$DefSchemaName$$TableName$Obj read$TableName$( $DefSchemaName$$reference BaseClass TableName$PKey pkey, boolean forceRead ) {
+		I$DefSchemaName$$TableName$Obj obj = null;
+		if( ( ! forceRead ) &amp;&amp; members.containsKey( pkey ) ) {
+			obj = members.get( pkey );
+		}
+		else {
+			$DefSchemaName$$TableName$Buff readBuff = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().readDerivedBy$reference BaseClass reference PrimaryKeyIndex Suffix$( schema.getAuthorization()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implReadObjByPKeyCommaPassArg empty empty )$ );
+			if( readBuff != null ) {$switch HasClassCode yes implReadObjByPKeyConsObjByClassCode default implReadObjByPKeyConsObj$
+				obj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference BaseClass TableName$().newPKey() );
+				obj.setBuff( readBuff );
+				obj = (I$DefSchemaName$$TableName$Obj)obj.realise();
+			}
+		}
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implLockObjByPKey">
+	public I$DefSchemaName$$TableName$Obj lock$TableName$( $DefSchemaName$$reference BaseClass TableName$PKey pkey ) {
+		I$DefSchemaName$$TableName$Obj locked = null;
+		$DefSchemaName$$TableName$Buff lockBuff = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().lockDerived( schema.getAuthorization(), pkey );
+		if( lockBuff != null ) {$switch HasClassCode yes implLockObjByPKeyConsLockedByClassCode default implLockObjByPKeyConsLocked$
+			locked.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference BaseClass TableName$().newPKey() );
+			locked.setBuff( lockBuff );
+			locked = (I$DefSchemaName$$TableName$Obj)locked.realise();
+		}
+		else {
+			throw new CFLibCollisionDetectedException( getClass(), "lock$TableName$", pkey );
+		}
+		return( locked );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadObjByPKeyCopyPKeyClassCode">
+				obj.getPKey().setClassCode( readBuff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadObjByPKeyConsObjByClassCode">
+				obj = (I$DefSchemaName$$TableName$Obj)schema.get$reference BaseClass TableName$TableObj().constructByClassCode( readBuff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadObjByPKeyConsObj">
+				obj = schema.get$TableName$TableObj().newInstance();</GenRule>
+
+	<GenRule GenDef="Table" Name="implLockObjByPKeyConsLockedByClassCode">
+				locked = (I$DefSchemaName$$TableName$Obj)schema.get$reference BaseClass TableName$TableObj().constructByClassCode( lockBuff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implLockObjByPKeyConsLocked">
+				locked = schema.get$TableName$TableObj().newInstance();</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByPKeyCommaPassArg">,
+				pkey.get$implColumnAttrOptionality$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByPKeyCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( readBuff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDataCopyObjColumnToData"
+		>$reference Column implDataCopyObjColumnToData$</GenRule>
+	<GenRule GenDef="Object" Name="implDataCopyObjColumnToData"
+		>$switch ColumnInPrimaryIndexDef
+			yes empty
+			default implCopyObjoColumnToData$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByIndex"
+		>$switch IsUnique
+			yes implReadObjByUniqueIndex
+			default implReadObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadByIndexes"
+		>$implTableObjReadByPrimaryIndex$$switch HasSuperClassRelation yes implTableObjReadByInhIndexes default empty$$iterate Index( each implTableObjReadByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex implTableObjReadByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadBySubIndexes"
+		>$switch HasSuperClassRelation yes implTableObjReadByInhIndexes default empty$$iterate Index( each implTableObjReadByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjReadByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjReadByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableObjReadBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisIndex"
+		>$switch IsUnique
+			yes implTableObjReadByThisUniqueIndex
+			default implTableObjReadByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByInhIndex"
+		>$switch IsUnique
+			yes implTableObjReadByInhUniqueIndex
+			default implTableObjReadByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByIndex"
+		>$switch IsUnique
+			yes implTableObjReadByUniqueIndex
+			default implTableObjReadByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisUniqueIndex">
+	public I$DefSchemaName$$poptop Table TableName$Obj read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		return( read$poptop Table TableName$By$Suffix$( $iterate Columns( first passAlongColumnArg each passAlongCommaColumnArg )$,
+			false ) );
+	}
+
+	public I$DefSchemaName$$poptop Table TableName$Obj read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$, boolean forceRead )
+	{$switch IsPrimaryIndex yes implTableObjReadByUniqueIndexPKey default implTableObjReadByUniqueAltIndex$
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="passAlongColumnArg"
+		>$Name$</GenRule>
+	<GenRule GenDef="IndexCol" Name="passAlongCommaColumnArg">,
+			$passAlongColumnArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByUniqueIndexPKey">
+		$reference Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey pkey = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$poptop Table reference BaseClass TableName$().newPKey();$iterate Columns( each implReadObjByUniqueIndexCopyArgToPKey )$
+		I$DefSchemaName$$poptop Table TableName$Obj obj = read$poptop Table TableName$( pkey, forceRead );</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByUniqueAltIndex">
+		if( indexBy$Suffix$ == null ) {
+			indexBy$Suffix$ = new HashMap&lt; $DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				I$DefSchemaName$$poptop Table TableName$Obj &gt;();
+		}
+		$DefSchemaName$$reference Table TableName$By$Suffix$Key key = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$
+		I$DefSchemaName$$poptop Table TableName$Obj obj = null;
+		if( ( ! forceRead ) &amp;&amp; indexBy$Suffix$.containsKey( key ) ) {
+			obj = indexBy$Suffix$.get( key );
+		}
+		else {
+			$DefSchemaName$$TableName$Buff buff = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().readDerivedBy$Suffix$( schema.getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+			if( buff != null ) {$switch HasClassCode yes implReadObjByAltIdxConsObjByClassCode default implReadObjByAltIdxConsObj$
+				obj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table reference BaseClass TableName$().newPKey() );
+				obj.setBuff( buff );
+				obj = (I$DefSchemaName$$poptop Table TableName$Obj)obj.realise();
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByInhUniqueIndex"
+		>$implTableObjReadByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisDuplicateIndex">
+	public List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		return( read$poptop Table TableName$By$Suffix$( $iterate Columns( first passAlongColumnArg each passAlongCommaColumnArg )$,
+			false ) );
+	}
+
+	public List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+		boolean forceRead )
+	{
+		final String S_ProcName = "read$poptop Table TableName$By$Suffix$";
+		$DefSchemaName$$TableName$By$Suffix$Key key = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$TableName$().new$Suffix$Key();$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$
+		Map&lt;$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey, I$DefSchemaName$$poptop Table TableName$Obj&gt; dict;
+		if( indexBy$Suffix$ == null ) {
+			indexBy$Suffix$ = new HashMap&lt; $DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				Map&lt; $DefSchemaName$$reference Table reference BaseClass TableName$PKey, I$DefSchemaName$$poptop Table TableName$Obj &gt; &gt;();
+		}$implTableObjReadByInhDupIndexCalcDict$$implTableObjReadByThisDuplicateIndexReturnSortedList$
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisDuplicateIndexComparator">
+		Comparator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; cmp = new Comparator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt;() {
+			public int compare( I$DefSchemaName$$poptop Table TableName$Obj lhs, I$DefSchemaName$$poptop Table TableName$Obj rhs ) {
+				if( lhs == null ) {
+					if( rhs == null ) {
+						return( 0 );
+					}
+					else {
+						return( -1 );
+					}
+				}
+				else if( rhs == null ) {
+					return( 1 );
+				}
+				else {
+					$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey lhsPKey = lhs.getPKey();
+					$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey rhsPKey = rhs.getPKey();
+					int ret = lhsPKey.compareTo( rhsPKey );
+					return( ret );
+				}
+			}
+		};</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisDuplicateIndexReturnSortedList">
+		int len = dict.size();
+		I$DefSchemaName$$poptop Table TableName$Obj arr[] = new I$DefSchemaName$$poptop Table TableName$Obj[len];
+		Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; valIter = dict.values().iterator();
+		int idx = 0;
+		while( ( idx &lt; len ) &amp;&amp; valIter.hasNext() ) {
+			arr[idx++] = valIter.next();
+		}
+		if( idx &lt; len ) {
+			throw new CFLibArgumentUnderflowException( getClass(),
+				S_ProcName,
+				0,
+				"idx",
+				idx,
+				len );
+		}
+		else if( valIter.hasNext() ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+					S_ProcName,
+					0,
+					"idx",
+					idx,
+					len );
+		}
+		ArrayList&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; arrayList = new ArrayList&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt;(len);
+		for( idx = 0; idx &lt; len; idx ++ ) {
+			arrayList.add( arr[idx] );
+		}
+$implReadAllObjComparator$
+		Collections.sort( arrayList, cmp );
+		List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; sortedList = arrayList;
+		return( sortedList );</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByInhDupIndexCalcDict">
+		if( ( ! forceRead ) &amp;&amp; indexBy$Suffix$.containsKey( key ) ) {
+			dict = indexBy$Suffix$.get( key );
+		}
+		else {
+			dict = new HashMap&lt;$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey, I$DefSchemaName$$poptop Table TableName$Obj&gt;();
+			I$DefSchemaName$$TableName$Obj obj;
+			$DefSchemaName$$TableName$Buff[] buffList = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().readDerivedBy$Suffix$( schema.getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+			$DefSchemaName$$TableName$Buff buff;
+			for( int idx = 0; idx &lt; buffList.length; idx ++ ) {
+				buff = buffList[ idx ];$switch HasClassCode yes implReadObjByDupIdxConsObjByClassCode default implReadObjByDupIdxConsObj$
+				obj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table reference BaseClass TableName$().newPKey() );
+				obj.setBuff( buff );
+				I$DefSchemaName$$poptop Table TableName$Obj realised = (I$DefSchemaName$$poptop Table TableName$Obj)obj.realise();
+				dict.put( realised.getPKey(), realised );
+			}
+			indexBy$Suffix$.put( key, dict );
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjPageByIndexCalcList">
+		List&lt;I$DefSchemaName$$TableName$Obj&gt; retList = new LinkedList&lt;I$DefSchemaName$$TableName$Obj&gt;();
+		I$DefSchemaName$$TableName$Obj obj;
+		$DefSchemaName$$TableName$Buff[] buffList = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().pageBuffBy$declReadTableSuffix$( schema.getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each passCommaOptPriorArg )$ );
+		$DefSchemaName$$TableName$Buff buff;
+		for( int idx = 0; idx &lt; buffList.length; idx ++ ) {
+			buff = buffList[ idx ];$switch HasClassCode yes implReadObjByDupIdxConsObjByClassCode default implReadObjByDupIdxConsObj$
+			obj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table reference BaseClass TableName$().newPKey() );
+			obj.setBuff( buff );
+			I$DefSchemaName$$poptop Table TableName$Obj realised = (I$DefSchemaName$$poptop Table TableName$Obj)obj.realise();
+			retList.add( realised );
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByInhDuplicateIndex"
+		>$implTableObjReadByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByUniqueIndexPKey">
+		$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey pkey = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table reference BaseClass TableName$().newPKey();$iterate Columns( each implReadObjByUniqueIndexCopyArgToPKey )$
+		I$DefSchemaName$$TableName$Obj obj = read$TableName$( pkey );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByUniqueIndexCopyArgToPKey">
+		pkey.set$implColumnAttrOptionality$$Name$( $Name$ );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByAltIdxCopyPKeyClassCode">
+				obj.getPKey().setClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByAltIdxConsObjByClassCode">
+				obj = (I$DefSchemaName$$poptop Table TableName$Obj)schema.get$reference Table reference BaseClass TableName$TableObj().constructByClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByAltIdxConsObj">
+				obj = schema.get$TableName$TableObj().newInstance();</GenRule>
+
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByAltIdxCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByUniqueIndexCopyBuffToPKey">
+				pkey.set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByUniqueIndexCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByIndexPassArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByIndexCommaPassArg">,
+				$implReadObjByIndexPassArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDuplicateIndex">
+	public List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		return( read$poptop Table TableName$By$Suffix$( $iterate Columns( first passAlongColumnArg each passAlongCommaColumnArg )$,
+			false ) );
+	}
+
+	public List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+		boolean forceRead )
+	{
+		final String S_ProcName = "read$poptop Table TableName$By$Suffix$";
+		$DefSchemaName$$poptop Table TableName$By$Suffix$Key key = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$poptop Table TableName$().new$Suffix$Key();$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$
+		Map&lt;$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey,I$DefSchemaName$$poptop Table TableName$Obj&gt; dict;
+$implReadObjByDuplicateIndexPart1$
+$implReadObjByDuplicateIndexComparator$$implReadObjByDuplicateIndexReturnSortedList$
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDuplicateIndexComparator">
+		Comparator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; cmp = new Comparator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt;() {
+			public int compare( I$DefSchemaName$$poptop Table TableName$Obj lhs, I$DefSchemaName$$poptop Table TableName$Obj rhs ) {
+				if( lhs == null ) {
+					if( rhs == null ) {
+						return( 0 );
+					}
+					else {
+						return( -1 );
+					}
+				}
+				else if( rhs == null ) {
+					return( 1 );
+				}
+				else {
+					$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey lhsPKey = lhs.getPKey();
+					$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey rhsPKey = rhs.getPKey();
+					int ret = lhsPKey.compareTo( rhsPKey );
+					return( ret );
+				}
+			}
+		};</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDuplicateIndexReturnSortedList">
+		int len = dict.size();
+		I$DefSchemaName$$poptop Table TableName$Obj arr[] = new I$DefSchemaName$$poptop Table TableName$Obj[len];
+		Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; valIter = dict.values().iterator();
+		int idx = 0;
+		while( ( idx &lt; len ) &amp;&amp; valIter.hasNext() ) {
+			arr[idx++] = valIter.next();
+		}
+		if( idx &lt; len ) {
+			throw new CFLibArgumentUnderflowException( getClass(),
+				S_ProcName,
+				0,
+				"idx",
+				idx,
+				len );
+		}
+		else if( valIter.hasNext() ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+					S_ProcName,
+					0,
+					"idx",
+					idx,
+					len );
+		}
+		ArrayList&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; arrayList = new ArrayList&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt;(len);
+		for( idx = 0; idx &lt; len; idx ++ ) {
+			arrayList.add( arr[idx] );
+		}
+$implReadAllObjComparator$
+		Collections.sort( arrayList, cmp );
+		List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; sortedList = arrayList;
+		return( sortedList );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDuplicateIndexPart1"
+>		if( indexBy$Suffix$ == null ) {
+			indexBy$Suffix$ = new HashMap&lt; $DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				Map&lt; $DefSchemaName$$reference Table reference BaseClass TableName$PKey, I$DefSchemaName$$poptop Table TableName$Obj &gt; &gt;();
+		}
+		if( ( ! forceRead ) &amp;&amp; indexBy$Suffix$.containsKey( key ) ) {
+			dict = indexBy$Suffix$.get( key );
+		}
+		else {
+			dict = new HashMap&lt;$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey,I$DefSchemaName$$TableName$Obj&gt;();
+			// Allow other threads to dirty-read while we're loading
+			indexBy$Suffix$.put( key, dict );
+			I$DefSchemaName$$TableName$Obj obj;
+			$DefSchemaName$$TableName$Buff[] buffList = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().readDerivedBy$Suffix$( schema.getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+			$DefSchemaName$$TableName$Buff buff;
+			for( int idx = 0; idx &lt; buffList.length; idx ++ ) {
+				buff = buffList[ idx ];$switch HasClassCode yes implReadObjByDupIdxConsObjByClassCode default implReadObjByDupIdxConsObj$
+				obj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table reference BaseClass TableName$().newPKey() );
+				obj.setBuff( buff );
+				I$DefSchemaName$$TableName$Obj realised = (I$DefSchemaName$$TableName$Obj)obj.realise();
+			}
+		}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByDupIdxCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByDuplicateIndexAssignKey">
+		key.set$implColumnAttrOptionality$$Name$( $Name$ );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDupIdxCopyPKeyClassCode">
+				obj.getPKey().setClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDupIdxConsObjByClassCode">
+				obj = (I$DefSchemaName$$poptop Table TableName$Obj)schema.get$reference Table reference BaseClass TableName$TableObj().constructByClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDupIdxConsObj">
+				obj = schema.get$TableName$TableObj().newInstance();</GenRule>
+
+	<GenRule GenDef="Table" Name="implUpdateObjInvokeSuper">
+		I$DefSchemaName$$TableName$Obj obj = (I$DefSchemaName$$TableName$Obj)schema.get$reference SuperClassRelation reference ToTable TableName$TableObj().update$reference SuperClassRelation reference ToTable TableName$( Obj );</GenRule>
+
+	<GenRule GenDef="Table" Name="implUpdateObjInitObj">
+		I$DefSchemaName$$TableName$Obj obj = Obj;</GenRule>
+
+
+	<GenRule GenDef="Table" Name="implTableObjMoveUp">
+	/**
+	 *	Move the $DefSchemaName$$TableName$Obj instance up in the chain.  The instance is always refreshed.
+	 *
+	 *	@return	$DefSchemaName$$TableName$Obj refreshed cache instance.
+	 */
+	public I$DefSchemaName$$TableName$Obj moveUp$TableName$( I$DefSchemaName$$TableName$Obj Obj ) {
+		I$DefSchemaName$$TableName$Obj obj = null;
+		if( null != Obj.getEdit() ) {
+			throw new CFLibUsageException( getClass(),
+				"moveUp$TableName$",
+				"You cannot move an object that is being edited" );
+		}
+		$DefSchemaName$$TableName$Buff buff = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().moveBuffUp( schema.getAuthorization()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMoveBuffPassCommaPKeyArg )$,
+			Obj.getBuff().getRequiredRevision() );
+		if( buff != null ) {
+			obj = schema.get$TableName$TableObj().newInstance();
+			obj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference BaseClass TableName$().newPKey() );
+			obj.setBuff( buff );
+			obj = (I$DefSchemaName$$TableName$Obj)obj.realise();
+			I$reference Chain reference Table DefSchemaName$$reference Chain reference Table TableName$Obj prev = obj.get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$( true );
+			I$reference Chain reference Table DefSchemaName$$reference Chain reference Table TableName$Obj next = obj.get$reference Chain reference NextRel OptionalOrRequired$$reference Chain reference NextRel RelationTypeTag$$reference Chain reference NextRel Suffix$( true );
+			if( next != null ) {
+				I$reference Chain reference Table DefSchemaName$$reference Chain reference Table TableName$Obj gnext = next.get$reference Chain reference NextRel OptionalOrRequired$$reference Chain reference NextRel RelationTypeTag$$reference Chain reference NextRel Suffix$( true );
+			}
+		}
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjMoveDown">
+	/**
+	 *	Move the $DefSchemaName$$TableName$Obj instance down in the chain.  The instance is always refreshed.
+	 *
+	 *	@return	$DefSchemaName$$TableName$Obj refreshed cache instance.
+	 */
+	public I$DefSchemaName$$TableName$Obj moveDown$TableName$( I$DefSchemaName$$TableName$Obj Obj ) {
+		I$DefSchemaName$$TableName$Obj obj = null;
+		if( null != Obj.getEdit() ) {
+			throw new CFLibUsageException( getClass(),
+				"moveDown$TableName$",
+				"You cannot move an object that is being edited" );
+		}
+		$DefSchemaName$$TableName$Buff buff = ((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().moveBuffDown( schema.getAuthorization()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMoveBuffPassCommaPKeyArg )$,
+			Obj.getBuff().getRequiredRevision() );
+		if( buff != null ) {
+			obj = schema.get$TableName$TableObj().newInstance();
+			obj.setPKey( ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference BaseClass TableName$().newPKey() );
+			obj.setBuff( buff );
+			obj = (I$DefSchemaName$$TableName$Obj)obj.realise();
+			I$reference Chain reference Table DefSchemaName$$reference Chain reference Table TableName$Obj prev = obj.get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$( true );
+			if( prev != null ) {
+				I$reference Chain reference Table DefSchemaName$$reference Chain reference Table TableName$Obj gprev = prev.get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$( true );
+			}
+			I$DefSchemaName$$reference Chain reference Table TableName$Obj next = obj.get$reference Chain reference NextRel OptionalOrRequired$$reference Chain reference NextRel RelationTypeTag$$reference Chain reference NextRel Suffix$( true );
+		}
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMoveBuffPassCommaPKeyArg">,
+			Obj.get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="Table" Name="implUpdateObj">
+	public I$DefSchemaName$$TableName$Obj update$TableName$( I$DefSchemaName$$TableName$Obj Obj ) {<!--$switch HasSuperClassRelation yes implUpdateObjInvokeSuper default implUpdateObjInitObj$-->$implUpdateObjInitObj$
+		((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().update$TableName$( schema.getAuthorization(),
+			Obj.get$TableName$Buff() );$switch HasClassCode no implUpdateObjAlwaysRealise default implUpdateObjMaybeRealise$
+		obj.endEdit();
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implUpdateObjAlwaysRealise">
+		obj = (I$DefSchemaName$$TableName$Obj)Obj.realise();</GenRule>
+
+	<GenRule GenDef="Table" Name="implUpdateObjMaybeRealise">
+		if( Obj.getClassCode().equals( "$ClassCode$" ) ) {
+			obj = (I$DefSchemaName$$TableName$Obj)Obj.realise();
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteObjInvokeSuper">
+		schema.get$reference SuperClassRelation reference ToTable TableName$TableObj().delete$reference SuperClassRelation reference ToTable TableName$( Obj );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteObj">
+	public void delete$TableName$( I$DefSchemaName$$TableName$Obj Obj ) {
+		I$DefSchemaName$$TableName$Obj obj = Obj;$switch HasChain yes implDeleteObjChainGetPrevNext default empty$
+		((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().delete$TableName$( schema.getAuthorization(),
+			obj.get$TableName$Buff() );<!--$switch HasSuperClassRelation yes implDeleteObjInvokeSuper default empty$ -->
+		Obj.forget();$switch HasChain yes implDeleteObjChainRefreshPrevNext default empty$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteObjChainGetPrevNext">
+		I$DefSchemaName$$reference Chain reference Table TableName$Obj prev = obj.get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$();
+		I$DefSchemaName$$reference Chain reference Table TableName$Obj next = obj.get$reference Chain reference NextRel OptionalOrRequired$$reference Chain reference NextRel RelationTypeTag$$reference Chain reference NextRel Suffix$();</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteObjChainRefreshPrevNext">
+		if( prev != null ) {
+			prev.read( true );
+		}
+		if( next != null ) {
+			next.read( true );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeleteByIndexes"
+		>$implTableObjDeleteByPrimaryIndex$$switch HasSuperClassRelation yes implTableObjDeleteByInhIndexes default empty$$iterate Index( each implTableObjDeleteByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeleteByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex implTableObjDeleteByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeleteBySubIndexes"
+		>$switch HasSuperClassRelation yes implTableObjDeleteByInhIndexes default empty$$iterate Index( each implTableObjDeleteByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjDeleteByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjDeleteByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeleteByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableObjDeleteBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByThisIndex"
+		>$switch IsUnique
+			yes implTableObjDeleteByThisUniqueIndex
+			default implTableObjDeleteByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByInhIndex"
+		>$switch IsUnique
+			yes implTableObjDeleteByInhUniqueIndex
+			default implTableObjDeleteByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByIndex"
+		>$switch IsUnique
+			yes implTableObjDeleteByUniqueIndex
+			default implTableObjDeleteByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByThisUniqueIndex">
+	public void delete$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{$switch IsPrimaryIndex yes implTableObjDeleteByUniqueIndexPKey default implTableObjDeleteByUniqueAltIndex$
+		deepDispose$poptop Table TableName$By$Suffix$( $iterate Columns( first implReadObjByIndexPassArg each implReadObjByIndexCommaPassArg )$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByUniqueIndexPKey">
+		$reference Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey pkey = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$poptop Table reference BaseClass TableName$().newPKey();$iterate Columns( each implReadObjByUniqueIndexCopyArgToPKey )$
+		I$poptop Table DefSchemaName$$poptop Table TableName$Obj obj = read$poptop Table TableName$( pkey );
+		if( obj != null ) {
+			I$poptop Table DefSchemaName$$poptop Table TableName$EditObj editObj = (I$poptop Table DefSchemaName$$poptop Table TableName$EditObj)obj.getEdit();
+			boolean editStarted;
+			if( editObj == null ) {
+				editObj = (I$poptop Table DefSchemaName$$poptop Table TableName$EditObj)obj.beginEdit();
+				if( editObj != null ) {
+					editStarted = true;
+				}
+				else {
+					editStarted = false;
+				}
+			}
+			else {
+				editStarted = false;
+			}
+			if( editObj != null ) {
+				editObj.deleteInstance();
+				if( editStarted ) {
+					editObj.endEdit();
+				}
+			}
+			obj.forget();
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByUniqueAltIndex">
+		if( indexBy$Suffix$ == null ) {
+			indexBy$Suffix$ = new HashMap&lt; $DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				I$DefSchemaName$$poptop Table TableName$Obj &gt;();
+		}
+		$DefSchemaName$$reference Table TableName$By$Suffix$Key key = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$
+		I$DefSchemaName$$poptop Table TableName$Obj obj = null;
+		if( indexBy$Suffix$.containsKey( key ) ) {
+			obj = indexBy$Suffix$.get( key );
+			((I$SchemaName$Schema)schema.getBackingStore()).getTable$poptop Table TableName$().delete$poptop Table TableName$By$Suffix$( schema.getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+			obj.forget();
+		}
+		else {
+			((I$SchemaName$Schema)schema.getBackingStore()).getTable$poptop Table TableName$().delete$poptop Table TableName$By$Suffix$( schema.getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByInhUniqueIndex"
+		>$implTableObjDeleteByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByThisDuplicateIndex">
+	public void delete$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		$DefSchemaName$$reference Table TableName$By$Suffix$Key key = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$
+		if( indexBy$Suffix$ == null ) {
+			indexBy$Suffix$ = new HashMap&lt; $DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				Map&lt; $DefSchemaName$$reference Table reference BaseClass TableName$PKey, I$DefSchemaName$$poptop Table TableName$Obj &gt; &gt;();
+		}$implTableObjDeleteByInhUniqueIndexCalcDict$
+		deepDispose$poptop Table TableName$By$Suffix$( $iterate Columns( first implReadObjByIndexPassArg each implReadObjByIndexCommaPassArg )$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByInhUniqueIndexCalcDict">
+		if( indexBy$Suffix$.containsKey( key ) ) {
+			Map&lt;$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey, I$DefSchemaName$$poptop Table TableName$Obj&gt; dict = indexBy$Suffix$.get( key );
+			((I$SchemaName$Schema)schema.getBackingStore()).getTable$poptop Table TableName$().delete$poptop Table TableName$By$Suffix$( schema.getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+			Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; iter = dict.values().iterator();
+			I$DefSchemaName$$poptop Table TableName$Obj obj;
+			List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; toForget = new LinkedList&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt;();
+			while( iter.hasNext() ) {
+				obj = iter.next();
+				toForget.add( obj );
+			}
+			iter = toForget.iterator();
+			while( iter.hasNext() ) {
+				obj = iter.next();
+				obj.forget();
+			}
+			indexBy$Suffix$.remove( key );
+		}
+		else {
+			((I$SchemaName$Schema)schema.getBackingStore()).getTable$poptop Table TableName$().delete$poptop Table TableName$By$Suffix$( schema.getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByInhDuplicateIndex"
+		>$implTableObjDeleteByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implDeleteObjByUniqueIndexPKey">
+		$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey pkey = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table reference BaseClass TableName$().newPKey();$iterate Columns( each implDeleteObjByUniqueIndexCopyArgToPKey )$
+		I$DefSchemaName$$poptop Table TableName$Obj obj = read$poptop Table TableName$By$Suffix$( schema.getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+		if( obj != null ) {
+			I$poptop Table DefSchemaName$$poptop Table TableName$EditObj editObj = (I$poptop Table DefSchemaName$$poptop Table TableName$EditObj)obj.getEdit();
+			boolean editStarted;
+			if( editObj == null ) {
+				editObj = (I$poptop Table DefSchemaName$$poptop Table TableName$EditObj)obj.beginEdit();
+				if( editObj != null ) {
+					editStarted = true;
+				}
+				else {
+					editStarted = false;
+				}
+			}
+			else {
+				editStarted = false;
+			}
+			if( editObj != null ) {
+				editObj.deleteInstance();
+				if( editStarted ) {
+					editObj.endEdit();
+				}
+			}
+			obj.forget();
+		}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeleteObjByIndexPassArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeleteObjByIndexCommaPassArg">,
+				$implDeleteObjByIndexPassArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implDeleteObjByDuplicateIndex">
+	public void delete$TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		$DefSchemaName$$TableName$By$Suffix$Key key = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$TableName$().new$Suffix$Key();$iterate Columns( each implDeleteObjByDuplicateIndexAssignKey )$
+$implDeleteObjByDuplicateIndexPart1$
+		deepDispose$poptop Table TableName$By$Suffix$( $iterate Columns( first implReadObjByIndexPassArg each implReadObjByIndexCommaPassArg )$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implDeleteObjByDuplicateIndexPart1"
+>		if( indexBy$Suffix$ == null ) {
+			indexBy$Suffix$ = new HashMap&lt; $DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				Map&lt; $DefSchemaName$$reference Table reference BaseClass TableName$PKey, I$DefSchemaName$$poptop Table TableName$Obj &gt; &gt;();
+		}
+		if( indexBy$Suffix$.containsKey( key ) ) {
+			Map&lt;$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey,I$DefSchemaName$$TableName$Obj&gt; dict = indexBy$Suffix$.get( key );
+			((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().delete$poptop Table TableName$By$Suffix$( schema.getAuthorization()$iterate Columns( each implDeleteObjByIndexCommaPassArg empty empty )$ );
+			Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; iter = dict.values().iterator();
+			while( iter.hasNext() ) {
+				I$DefSchemaName$$poptop Table TableName$Obj obj = iter.next();
+				obj.forget();
+			}
+			indexBy$Suffix$.remove( key );
+		}
+		else {
+			((I$SchemaName$Schema)schema.getBackingStore()).getTable$TableName$().delete$poptop Table TableName$By$Suffix$( schema.getAuthorization()$iterate Columns( each implDeleteObjByIndexCommaPassArg empty empty )$ );
+		}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeleteObjByDupIdxCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeleteObjByDuplicateIndexAssignKey">
+		key.set$implColumnAttrOptionality$$Name$( $Name$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadCachedAllObj">
+	public List&lt;I$DefSchemaName$$TableName$Obj&gt; readCachedAll$TableName$() {
+		final String S_ProcName = "readCachedAll$TableName$";
+		ArrayList&lt;I$DefSchemaName$$TableName$Obj&gt; arrayList = new ArrayList&lt;I$DefSchemaName$$TableName$Obj&gt;();
+		if( all$TableName$ != null ) {
+			int len = all$TableName$.size();
+			I$DefSchemaName$$TableName$Obj arr[] = new I$DefSchemaName$$TableName$Obj[len];
+			Iterator&lt;I$DefSchemaName$$TableName$Obj&gt; valIter = all$TableName$.values().iterator();
+			int idx = 0;
+			while( ( idx &lt; len ) &amp;&amp; valIter.hasNext() ) {
+				arr[idx++] = valIter.next();
+			}
+			if( idx &lt; len ) {
+				throw new CFLibArgumentUnderflowException( getClass(),
+					S_ProcName,
+					0,
+					"idx",
+					idx,
+					len );
+			}
+			else if( valIter.hasNext() ) {
+				throw new CFLibArgumentOverflowException( getClass(),
+						S_ProcName,
+						0,
+						"idx",
+						idx,
+						len );
+			}
+			for( idx = 0; idx &lt; len; idx ++ ) {
+				arrayList.add( arr[idx] );
+			}
+		}
+		Comparator&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; cmp = new Comparator&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt;() {
+			public int compare( I$poptop Table DefSchemaName$$poptop Table TableName$Obj lhs, I$poptop Table DefSchemaName$$poptop Table TableName$Obj rhs ) {
+				if( lhs == null ) {
+					if( rhs == null ) {
+						return( 0 );
+					}
+					else {
+						return( -1 );
+					}
+				}
+				else if( rhs == null ) {
+					return( 1 );
+				}
+				else {
+					$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey lhsPKey = lhs.getPKey();
+					$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey rhsPKey = rhs.getPKey();
+					int ret = lhsPKey.compareTo( rhsPKey );
+					return( ret );
+				}
+			}
+		};
+		Collections.sort( arrayList, cmp );
+		return( arrayList );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadCachedAllObjCopyPKeyClassCode">
+				obj.getPKey().setClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadCachedAllObjCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadCachedObjByPKey">
+	public I$DefSchemaName$$TableName$Obj readCached$TableName$( $DefSchemaName$$reference BaseClass TableName$PKey pkey ) {
+		I$DefSchemaName$$TableName$Obj obj = null;
+		if( members.containsKey( pkey ) ) {
+			obj = members.get( pkey );
+		}
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadCachedObjByPKeyCopyPKeyClassCode">
+				obj.getPKey().setClassCode( readCachedBuff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadCachedObjByPKeyCommaPassArg">,
+				pkey.get$implColumnAttrOptionality$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadCachedObjByPKeyCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( readCachedBuff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadCachedObjByIndex"
+		>$switch IsUnique
+			yes implReadCachedObjByUniqueIndex
+			default implReadCachedObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadCachedByIndexes"
+		>$implTableObjReadCachedByPrimaryIndex$$switch HasSuperClassRelation yes implTableObjReadCachedByInhIndexes default empty$$iterate Index( each implTableObjReadCachedByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadCachedByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex implTableObjReadCachedByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadCachedBySubIndexes"
+		>$switch HasSuperClassRelation yes implTableObjReadCachedByInhIndexes default empty$$iterate Index( each implTableObjReadCachedByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjReadCachedByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjReadCachedByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadCachedByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableObjReadCachedBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByThisIndex"
+		>$switch IsUnique
+			yes implTableObjReadCachedByThisUniqueIndex
+			default implTableObjReadCachedByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByInhIndex"
+		>$switch IsUnique
+			yes implTableObjReadCachedByInhUniqueIndex
+			default implTableObjReadCachedByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByIndex"
+		>$switch IsUnique
+			yes implTableObjReadCachedByUniqueIndex
+			default implTableObjReadCachedByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByThisUniqueIndex">
+	public I$DefSchemaName$$poptop Table TableName$Obj readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		I$DefSchemaName$$poptop Table TableName$Obj obj = null;$switch IsPrimaryIndex yes implTableObjReadCachedByUniqueIndexPKey default implTableObjReadCachedByUniqueAltIndex$
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByUniqueIndexPKey">
+		$reference Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey pkey = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$poptop Table reference BaseClass TableName$().newPKey();$iterate Columns( each implReadCachedObjByUniqueIndexCopyArgToPKey )$
+		obj = readCached$poptop Table TableName$( pkey );</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByUniqueAltIndex">
+		$DefSchemaName$$reference Table TableName$By$Suffix$Key key = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$reference Table TableName$().new$Suffix$Key();$iterate Columns( each implReadCachedObjByDuplicateIndexAssignKey )$
+		if( indexBy$Suffix$ != null ) {
+			if( indexBy$Suffix$.containsKey( key ) ) {
+				obj = indexBy$Suffix$.get( key );
+			}
+			else {
+				Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; valIter = members.values().iterator();
+				while( ( obj == null ) &amp;&amp; valIter.hasNext() ) {
+					obj = valIter.next();
+					if( obj != null ) {
+						if( obj.getBuff().compareTo( key ) != 0 ) {
+							obj = null;
+						}
+					}
+				}
+			}
+		}
+		else {
+			Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; valIter = members.values().iterator();
+			while( valIter.hasNext() ) {
+				obj = valIter.next();
+				if( obj != null ) {
+					if( obj.getBuff().compareTo( key ) != 0 ) {
+						obj = null;
+					}
+				}
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByInhUniqueIndex"
+		>$implTableObjReadCachedByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByThisDuplicateIndex">
+	public List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		final String S_ProcName = "readCached$poptop Table TableName$By$Suffix$";
+		$DefSchemaName$$TableName$By$Suffix$Key key = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$TableName$().new$Suffix$Key();$iterate Columns( each implReadCachedObjByDuplicateIndexAssignKey )$
+		ArrayList&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; arrayList = new ArrayList&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt;();
+		if( indexBy$Suffix$ != null ) {
+			Map&lt;$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey, I$DefSchemaName$$poptop Table TableName$Obj&gt; dict;
+			if( indexBy$Suffix$.containsKey( key ) ) {
+				dict = indexBy$Suffix$.get( key );
+				int len = dict.size();
+				I$DefSchemaName$$poptop Table TableName$Obj arr[] = new I$DefSchemaName$$poptop Table TableName$Obj[len];
+				Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; valIter = dict.values().iterator();
+				int idx = 0;
+				while( ( idx &lt; len ) &amp;&amp; valIter.hasNext() ) {
+					arr[idx++] = valIter.next();
+				}
+				if( idx &lt; len ) {
+					throw new CFLibArgumentUnderflowException( getClass(),
+						S_ProcName,
+						0,
+						"idx",
+						idx,
+						len );
+				}
+				else if( valIter.hasNext() ) {
+					throw new CFLibArgumentOverflowException( getClass(),
+							S_ProcName,
+							0,
+							"idx",
+							idx,
+							len );
+				}
+				for( idx = 0; idx &lt; len; idx ++ ) {
+					arrayList.add( arr[idx] );
+				}
+			}
+		}
+		else {
+			I$DefSchemaName$$poptop Table TableName$Obj obj;
+			Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; valIter = members.values().iterator();
+			while( valIter.hasNext() ) {
+				obj = valIter.next();
+				if( obj != null ) {
+					if( obj.getBuff().compareTo( key ) == 0 ) {
+						arrayList.add( obj );
+					}
+				}
+			}
+		}
+		Comparator&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; cmp = new Comparator&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt;() {
+			public int compare( I$poptop Table DefSchemaName$$poptop Table TableName$Obj lhs, I$poptop Table DefSchemaName$$poptop Table TableName$Obj rhs ) {
+				if( lhs == null ) {
+					if( rhs == null ) {
+						return( 0 );
+					}
+					else {
+						return( -1 );
+					}
+				}
+				else if( rhs == null ) {
+					return( 1 );
+				}
+				else {
+					$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey lhsPKey = lhs.getPKey();
+					$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey rhsPKey = rhs.getPKey();
+					int ret = lhsPKey.compareTo( rhsPKey );
+					return( ret );
+				}
+			}
+		};
+		Collections.sort( arrayList, cmp );
+		return( arrayList );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByInhDuplicateIndex"
+		>$implTableObjReadCachedByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadCachedObjByUniqueIndexCopyArgToPKey">
+		pkey.set$implColumnAttrOptionality$$Name$( $Name$ );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadCachedObjByAltIdxCopyPKeyClassCode">
+				obj.getPKey().setClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadCachedObjByAltIdxCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadCachedObjByUniqueIndexCopyBuffToPKey">
+				pkey.set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadCachedObjByUniqueIndexCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadCachedObjByIndexPassArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadCachedObjByIndexCommaPassArg">,
+				$implReadCachedObjByIndexPassArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadCachedObjByDuplicateIndex">
+	public List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+		final String S_ProcName = "readCached$poptop Table TableName$By$Suffix$";
+		$DefSchemaName$$poptop Table TableName$By$Suffix$Key key = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$poptop Table TableName$().new$Suffix$Key();$iterate Columns( each implReadCachedObjByDuplicateIndexAssignKey )$
+		ArrayList&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; arrayList = new ArrayList&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt;();
+		if( indexBy$Suffix$ != null ) {
+			if( indexBy$Suffix$.containsKey( key ) ) {
+				Map&lt;$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey,I$DefSchemaName$$poptop Table TableName$Obj&gt; dict = indexBy$Suffix$.get( key );
+				int len = dict.size();
+				I$DefSchemaName$$poptop Table TableName$Obj arr[] = new I$DefSchemaName$$poptop Table TableName$Obj[len];
+				Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; valIter = dict.values().iterator();
+				int idx = 0;
+				while( ( idx &lt; len ) &amp;&amp; valIter.hasNext() ) {
+					arr[idx++] = valIter.next();
+				}
+				if( idx &lt; len ) {
+					throw new CFLibArgumentUnderflowException( getClass(),
+						S_ProcName,
+						0,
+						"idx",
+						idx,
+						len );
+				}
+				else if( valIter.hasNext() ) {
+					throw new CFLibArgumentOverflowException( getClass(),
+							S_ProcName,
+							0,
+							"idx",
+							idx,
+							len );
+				}
+				for( idx = 0; idx &lt; len; idx ++ ) {
+					arrayList.add( arr[idx] );
+				}
+			}
+		}
+		else {
+			I$DefSchemaName$$poptop Table TableName$Obj obj;
+			Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; valIter = members.values().iterator();
+			while( valIter.hasNext() ) {
+				obj = valIter.next();
+				if( obj != null ) {
+					if( obj.getBuff().compareTo( key ) == 0 ) {
+						arrayList.add( obj );
+					}
+				}
+			}
+		}
+		Comparator&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; cmp = new Comparator&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt;() {
+			public int compare( I$poptop Table DefSchemaName$$poptop Table TableName$Obj lhs, I$poptop Table DefSchemaName$$poptop Table TableName$Obj rhs ) {
+				if( lhs == null ) {
+					if( rhs == null ) {
+						return( 0 );
+					}
+					else {
+						return( -1 );
+					}
+				}
+				else if( rhs == null ) {
+					return( 1 );
+				}
+				else {
+					$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey lhsPKey = lhs.getPKey();
+					$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey rhsPKey = rhs.getPKey();
+					int ret = lhsPKey.compareTo( rhsPKey );
+					return( ret );
+				}
+			}
+		};
+		Collections.sort( arrayList, cmp );
+		return( arrayList );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadCachedObjByDupIdxCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadCachedObjByDuplicateIndexAssignKey">
+		key.set$implColumnAttrOptionality$$Name$( $Name$ );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadCachedObjByDupIdxCopyPKeyClassCode">
+				obj.getPKey().setClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeepDisposeAllObjCopyPKeyClassCode">
+				obj.getPKey().setClassCode( buff.getClassCode() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeepDisposeAllObjCopyPKeyAttribute">
+				obj.getPKey().set$implColumnAttrOptionality$$Name$( buff.get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeepDisposeObjByPKey">
+	public void deepDispose$TableName$( $DefSchemaName$$reference BaseClass TableName$PKey pkey ) {
+		I$DefSchemaName$$TableName$Obj obj = readCached$TableName$( pkey );
+		if( obj != null ) {
+			obj.forget();
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implDeepDisposeObjByIndex"
+		>$switch IsUnique
+			yes implDeepDisposeObjByUniqueIndex
+			default implDeepDisposeObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeepDisposeByIndexes"
+		>$implTableObjDeepDisposeByPrimaryIndex$$switch HasSuperClassRelation yes implTableObjDeepDisposeByInhIndexes default empty$$iterate Index( each implTableObjDeepDisposeByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeepDisposeByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex implTableObjDeepDisposeByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeepDisposeBySubIndexes"
+		>$switch HasSuperClassRelation yes implTableObjDeepDisposeByInhIndexes default empty$$iterate Index( each implTableObjDeepDisposeByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjDeepDisposeByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjDeepDisposeByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeepDisposeByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableObjDeepDisposeBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByThisIndex"
+		>$switch IsUnique
+			yes implTableObjDeepDisposeByThisUniqueIndex
+			default implTableObjDeepDisposeByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByInhIndex"
+		>$switch IsUnique
+			yes implTableObjDeepDisposeByInhUniqueIndex
+			default implTableObjDeepDisposeByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByIndex"
+		>$switch IsUnique
+			yes implTableObjDeepDisposeByUniqueIndex
+			default implTableObjDeepDisposeByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByThisUniqueIndex">
+	public void deepDispose$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		I$DefSchemaName$$poptop Table TableName$Obj obj = readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first implDeepDisposeObjByIndexPassArg each implDeepDisposeObjByIndexCommaPassArg )$ );
+		if( obj != null ) {
+			obj.forget();
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByInhUniqueIndex"
+		>$implTableObjDeepDisposeByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByThisDuplicateIndex">
+	public void deepDispose$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		final String S_ProcName = "deepDispose$poptop Table TableName$By$Suffix$";
+		I$DefSchemaName$$poptop Table TableName$Obj obj;
+		List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; arrayList = readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first implDeepDisposeObjByIndexPassArg each implDeepDisposeObjByIndexCommaPassArg )$ );
+		if( arrayList != null )  {
+			Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; arrayIter = arrayList.iterator();
+			while( arrayIter.hasNext() ) {
+				obj = arrayIter.next();
+				if( obj != null ) {
+					obj.forget();
+				}
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByInhDuplicateIndex"
+		>$implTableObjDeepDisposeByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeepDisposeObjByIndexPassArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeepDisposeObjByIndexCommaPassArg">,
+				$implDeepDisposeObjByIndexPassArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implDeepDisposeObjByDuplicateIndex">
+	public void deepDispose$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+		final String S_ProcName = "deepDispose$poptop Table TableName$By$Suffix$";
+		I$DefSchemaName$$poptop Table TableName$Obj obj;
+		List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; arrayList = readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first implDeepDisposeObjByIndexPassArg each implDeepDisposeObjByIndexCommaPassArg )$ );
+		if( arrayList != null )  {
+			Iterator&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; arrayIter = arrayList.iterator();
+			while( arrayIter.hasNext() ) {
+				obj = arrayIter.next();
+				if( obj != null ) {
+					obj.forget();
+				}
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeTable">
+	public void reallyDeepDispose$TableName$( I$DefSchemaName$$TableName$Obj obj )
+	{
+		final String S_ProcName = "$SchemaName$$TableName$TableObj.reallyDeepDispose$TableName$() ";
+		String classCode;
+		if( obj == null ) {
+			return;
+		}
+		$DefSchemaName$$reference BaseClass TableName$PKey pkey = obj.getPKey();
+		I$DefSchemaName$$TableName$Obj existing = readCached$TableName$( pkey );
+		if( existing == null ) {
+			return;
+		}
+		members.remove( pkey );$iterate Index( each maybeImplReallyDeepDisposeTableInitIndexKey )$
+$switch HasDelDeps no implReallyDeepDisposeCascades default implReallyDeepDisposeTableDelDeps$
+$iterate Index( each maybeImplReallyDeepDisposeTableRemoveIndexEntry )$
+$switch HasSuperClassRelation yes implReallyDeepDisposeTableInvokeSuper default empty$
+	}</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeCascades"
+		>$implReallyDeleteCascades$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeleteCascades"
+		>$iterate Relation( each implReallyDeepDisposeCascadeRelation empty empty )$$switch HasSuperClassRelation yes implReallyDeepDisposeSuperCascades default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeSuperCascades"
+		>$reference SuperClassRelation reference ToTable implReallyDeleteCascades$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyDeepDisposeCascadeRelation"
+		>$switch RelationTypeTag
+			Components implReallyDeepDisposeCascade
+			Children implReallyDeepDisposeCascade
+			Details implReallyDeepDisposeCascade
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyDeepDisposeCascade"
+		>$switch ToIndexIsUnique yes implReallyDeepDisposeCascadeSingleton default implReallyDeepDisposeCascadeMany$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyDeepDisposeCascadeSingleton">
+		schema.get$reference ToTable TableName$TableObj().deepDispose$reference ToTable TableName$By$reference ToIndex Suffix$( $reference FromIndex iterate Columns( first implReallyDeepDisposeTableDelExistingPassArg each implReallyDeepDisposeTableDelExistingCommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyDeepDisposeCascadeMany">
+		schema.get$reference ToTable TableName$TableObj().deepDispose$reference ToTable TableName$By$reference ToIndex Suffix$( $reference FromIndex iterate Columns( first implReallyDeepDisposeTableDelExistingPassArg each implReallyDeepDisposeTableDelExistingCommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeTableDelDeps"
+		>$implReallyDeleteTableDelDeps$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeleteTableDelDeps"
+		>$switch HasSuperClassRelation yes implReallyDeepDisposeTableInhDelDeps default implReallyDeepDisposeTableBaseDelDeps$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeTableInhDelDeps"
+		>$reference SuperClassRelation reference ToTable implReallyDeleteTableDelDeps$$iterate ReverseDelDeps( each implReallyDeepDisposeTableDelDep empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeTableBaseDelDeps"
+		>$iterate ReverseDelDeps( each implReallyDeepDisposeTableDelDep empty empty )$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelDep"
+		>$switch RelationIsUnique yes implReallyDeepDisposeTableDelUniqueDep default implReallyDeepDisposeTableDelDupDep$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelUniqueDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelUniqueDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelDupDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelDupDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelThisOne">
+					schema.get$reference Relation reference ToTable TableName$TableObj().deepDispose$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelExistingPassArg each implReallyDeepDisposeTableDelExistingCommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelExistingPassArg"
+		>existing.get$reference FromCol OptionalOrRequired$$reference FromCol Name$()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelExistingCommaPassArg">,
+						$implReallyDeepDisposeTableDelExistingPassArg$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReallyDeepDisposeTableDelExistingPassArg"
+		>existing.get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReallyDeepDisposeTableDelExistingCommaPassArg">,
+						$implReallyDeepDisposeTableDelExistingPassArg$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelUniqueDepChaseDown">
+		I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj obj$Name$ = schema.get$reference Relation reference ToTable TableName$TableObj().readCached$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTablePassExistingArg each implReallyDeepDisposeTableCommaPassExistingArg )$ );
+		if( obj$Name$ != null ) {$reference DelSubDep implReallyDeepDisposeTableDelDep$
+		}</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassExistingArg"
+		>existing.get$reference FromCol OptionalOrRequired$$reference FromCol Name$()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableCommaPassExistingArg">,
+			$implReallyDeepDisposeTablePassExistingArg$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelDupDepChaseDown">
+		I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj obj$Name$;
+		List&lt;I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj&gt; arr$Name$ = schema.get$reference Relation reference ToTable TableName$TableObj().readCached$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTablePassExistingArg each implReallyDeepDisposeTableCommaPassExistingArg )$ );
+		Iterator&lt;I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj&gt; iter$Name$ = arr$Name$.iterator();
+		while( iter$Name$.hasNext() ) {
+			obj$Name$ = iter$Name$.next();
+			if( obj$Name$ != null ) {$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}
+		}</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelDep"
+		>$switch RelationIsUnique yes implReallyDeepDisposeTableDelUniqueDep default implReallyDeepDisposeTableDelDupDep$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelUniqueDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelUniqueDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelDupDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelDupDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelThisOne">
+						schema.get$reference Relation reference ToTable TableName$TableObj().deepDispose$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelTopDepPassArg each implReallyDeepDisposeTableDelTopDepCommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelTopDepPassArg"
+		>obj$popto DelTopDep Name$.get$reference FromCol OptionalOrRequired$$reference FromCol Name$()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelTopDepCommaPassArg">,
+							$implReallyDeepDisposeTableDelTopDepPassArg$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelUniqueDepChaseDown">
+			I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj obj$Name$ = schema.get$reference Relation reference ToTable TableName$TableObj().readCached$reference Relation reference ToTable TableName$By$reference Relation reference FromIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelTopDepPassArg each implReallyDeepDisposeTableDelTopDepCommaPassArg )$ );
+			if( obj$Name$ != null ) {$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelDupDepChaseDown">
+			I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj obj$Name$;
+			List&lt;I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj&gt; arr$Name$ = schema.get$reference Relation reference ToTable TableName$TableObj().readCached$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelTopDepPassArg each implReallyDeepDisposeTableDelTopDepCommaPassArg )$ );
+			Iterator&lt;I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj&gt; iter$Name$ = arr$Name$.iterator();
+			while( iter$Name$.hasNext() ) {
+				obj$Name$ = iter$Name$.next();$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelDep"
+		>$switch RelationIsUnique yes implReallyDeepDisposeTableDelUniqueDep default implReallyDeepDisposeTableDelDupDep$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelUniqueDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelUniqueDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelDupDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelDupDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelThisOne">
+					schema.get$reference Relation reference ToTable TableName$TableObj().deepDispose$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelSubDep1PassArg each implReallyDeepDisposeTableDelSubDep1CommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep1PassArg"
+		>obj$popto DelSubDep1 Name$.get$reference FromCol OptionalOrRequired$$reference FromCol Name$()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep1CommaPassArg">,
+							$implReallyDeepDisposeTableDelSubDep1PassArg$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelUniqueDepChaseDown">
+			I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj obj$Name$ = schema.get$reference Relation reference ToTable TableName$TableObj().readCached$reference Relation reference ToTable TableName$By$reference Relation reference FromIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelSubDep1PassArg each implReallyDeepDisposeTableDelSubDep1CommaPassArg )$ );
+			if( buff$Name$ != null ) {$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelDupDepChaseDown">
+			I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj obj$Name$;
+			List&lt;I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj&gt; arr$Name$ = schema.get$reference Relation reference ToTable TableName$TableObj().readCached$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelSubDep1PassArg each implReallyDeepDisposeTableDelSubDep1CommaPassArg )$ );
+			Iterator&lt;I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj&gt; iter$Name$ = arr$Name$.iterator();
+			while( iter$Name$.hasNext() ) {
+				obj$Name$ = iter$Name$.next();$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelDep"
+		>$switch RelationIsUnique yes implReallyDeepDisposeTableDelUniqueDep default implReallyDeepDisposeTableDelDupDep$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelUniqueDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelUniqueDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelDupDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelDupDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelThisOne">
+					schema.get$reference Relation reference ToTable TableName$TableObj().deepDispose$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelSubDep2PassArg each implReallyDeepDisposeTableDelSubDep2CommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep2PassArg"
+		>obj$popto DelSubDep2 Name$.get$reference FromCol OptionalOrRequired$$reference FromCol Name$()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep2CommaPassArg">,
+							$implReallyDeepDisposeTableDelSubDep2PassArg$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelUniqueDepChaseDown">
+			I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj obj$Name$ = schema.get$reference Relation reference ToTable TableName$TableObj().readCached$reference Relation reference ToTable TableName$By$reference Relation reference FromIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelSubDep2PassArg each implReallyDeepDisposeTableDelSubDep2CommaPassArg )$ );
+			if( buff$Name$ != null ) {$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelDupDepChaseDown">
+			I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj obj$Name$;
+			List&lt;I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj&gt; arr$Name$ = schema.get$reference Relation reference ToTable TableName$TableObj().readCached$reference Relation reference ToTable TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelSubDep2PassArg each implReallyDeepDisposeTableDelSubDep2CommaPassArg )$ );
+			Iterator&lt;I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj&gt; iter$Name$ = arr$Name$.iterator();
+			while( iter$Name$.hasNext() ) {
+				obj$Name$ = iter$Name$.next();$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="Index" Name="maybeImplReallyDeepDisposeTableInitIndexKey"
+		>$switch IsPrimaryIndex yes empty default implReallyDeepDisposeTableInitIndexKey$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReallyDeepDisposeTableInitIndexKey">
+		$DefSchemaName$$TableName$By$Suffix$Key key$Suffix$ = ((I$SchemaName$Schema)schema.getBackingStore()).getFactory$TableName$().new$Suffix$Key();
+$iterate Columns( each implReallyDeepDisposeTableInitExistingKeyAttr )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReallyDeepDisposeTableInitExistingKeyAttr"
+>		key$popto Index Suffix$.set$implColumnAttrOptionality$$Name$( existing.get$implColumnAttrOptionality$$Name$() );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="maybeImplReallyDeepDisposeTableRemoveIndexEntry"
+		>$switch IsPrimaryIndex yes empty default implReallyDeepDisposeTableRemoveIndexEntry$</GenRule>
+	<GenRule GenDef="Index" Name="implReallyDeepDisposeTableRemoveIndexEntry"
+		>$switch IsUnique yes implReallyDeepDisposeTableRemoveUniqueEntry default implReallyDeepDisposeTableRemoveDupEntry$</GenRule>
+	<GenRule GenDef="Index" Name="implReallyDeepDisposeTableRemoveUniqueEntry">
+		if( indexBy$Suffix$ != null ) {
+			indexBy$Suffix$.remove( key$Suffix$ );
+		}
+</GenRule>
+	<GenRule GenDef="Index" Name="implReallyDeepDisposeTableRemoveDupEntry">
+		if( indexBy$Suffix$ != null ) {
+			if( indexBy$Suffix$.containsKey( key$Suffix$ ) ) {
+				indexBy$Suffix$.get( key$Suffix$ ).remove( pkey );
+				if( indexBy$Suffix$.get( key$Suffix$ ).size() &lt;= 0 ) {
+					indexBy$Suffix$.remove( key$Suffix$ );
+				}
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeTableInvokeSuper">
+		schema.get$reference SuperClassRelation reference ToTable TableName$TableObj().reallyDeepDispose$reference SuperClassRelation reference ToTable TableName$( obj );</GenRule>
+
+</RuleSet>

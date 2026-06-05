@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus+ram"
+	Name="libschemaram/SchemaRamSchema.cpp"
+	Revision="2.12"
+	Descr="C++18 Implementation of an in-memory RAM $SchemaName$ schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaRamSchemaCPlus"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$ram"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$RamSchemaCPlus"
+		ExpansionKeyName="$SchemaName$RamSchemaCPlus"
+		ExpansionFileName="$SchemaName$RamSchema.cpp"
+>// Description: C++18 Implementation of an in-memory RAM $SchemaName$ schema.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+#include &lt;$lower SchemaName$obj/$SchemaName$SchemaObj.hpp&gt;
+#include &lt;$poptop SchemaDef lower SchemaName$saxloader/$poptop SchemaDef SchemaName$SaxLoader.hpp&gt;
+#include &lt;$lower SchemaName$ram/$SchemaName$RamSchema.hpp&gt;$iterate SchemaTables( each includeSchemaRamTableTableHpp empty empty )$
+
+using namespace std;
+
+namespace $CPlusNamespace$ {
+
+	const std::string $SchemaName$RamSchema::CLASS_NAME( "$SchemaName$RamSchema" );
+$implSchemaRamConstructor$$implRamSchemaConnectionMethods$$implRamSchemaNewSchema$$iterate Id16Generators( each implRamNextIdGen empty empty)$$iterate Id32Generators( each implRamNextIdGen empty empty)$$iterate Id64Generators( each implRamNextIdGen empty empty)$$implRamSchemaReleasePreparedStatements$$implRamSchemaFileImport$
+}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="includeSchemaRamTableTableHpp">
+#include &lt;$lower poptop SchemaDef SchemaName$ram/$poptop SchemaDef SchemaName$Ram$TableName$Table.hpp&gt;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRamSchemaReleasePreparedStatements">
+	void $SchemaName$RamSchema::releasePreparedStatements() {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRamSchemaConnectionMethods">
+	bool $SchemaName$RamSchema::isConnected() {
+		return( sessConnected );
+	}
+
+	bool $SchemaName$RamSchema::connect() {
+		if( sessConnected ) {
+			return( false );
+		}
+		else {
+			sessConnected = true;
+			tranOpen = false;
+			return( true );
+		}
+	}
+
+	bool $SchemaName$RamSchema::connect( const std::string&amp; username, const std::string&amp; password ) {
+		static const std::string S_ProcName( "connect" );
+		static const std::string S_UserName( "username" );
+		static const std::string S_System( "system" );
+		static const std::string S_MsgOnlySystem( "Only 'system' is authorized to use a RAM database" );
+		if( username.length() &lt;= 0 ) {
+			throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_UserName );
+		}
+		if( username != S_System ) {
+			throw cflib::CFLibRuntimeException( CLASS_NAME,
+				S_ProcName,
+				S_MsgOnlySystem );
+		}
+		if( sessConnected ) {
+			return( false );
+		}
+		else {
+			sessConnected = true;
+			tranOpen = false;
+			return( true );
+		}
+	}
+
+	bool $SchemaName$RamSchema::connect( const std::string&amp; loginId, const std::string&amp; password, const std::string&amp; clusterName, const std::string&amp; tenantName ) {
+		static const std::string S_ProcName( "connect" );
+		static const std::string S_LoginId( "loginId" );
+		static const std::string S_ClusterName( "clusterName" );
+		static const std::string S_TenantName( "tenantName" );
+		static const std::string S_System( "system" );
+		static const std::string S_MsgOnlySystemAuthorized( "Only 'system' is authorized to use a RAM database" );
+		static const std::string S_MsgOnlySystemClusterAuthorized( "Only the 'system' Cluster is authorized to use a RAM database" );
+		static const std::string S_MsgOnlySystemTenantAuthorized( "Only the 'system' Tenant is authorized to use a RAM database" );
+		if( loginId.length() &lt;= 0 ) {
+			throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_LoginId );
+		}
+		if( clusterName.length() &lt;= 0 ) {
+			throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+				S_ProcName,
+				3,
+				S_ClusterName );
+		}
+		if( tenantName.length() &lt;= 0 ) {
+			throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+				S_ProcName,
+				4,
+				S_TenantName );
+		}
+		if( loginId != S_System ) {
+			throw cflib::CFLibRuntimeException( CLASS_NAME,
+				S_ProcName,
+				S_MsgOnlySystemAuthorized );
+		}
+		if( clusterName != S_System ) {
+			throw cflib::CFLibRuntimeException( CLASS_NAME,
+				S_ProcName,
+				S_MsgOnlySystemClusterAuthorized );
+		}
+		if( tenantName != S_System ) {
+			throw cflib::CFLibRuntimeException( CLASS_NAME,
+				S_ProcName,
+				S_MsgOnlySystemTenantAuthorized );
+		}
+		if( sessConnected ) {
+			return( false );
+		}
+		else {
+			sessConnected = true;
+			tranOpen = false;
+			return( true );
+		}
+	}
+
+	void $SchemaName$RamSchema::disconnect( bool doCommit ) {
+		tranOpen = false;
+		sessConnected = false;
+	}
+
+	//	Transactions are not supported, so pretend there is always one open
+
+	bool $SchemaName$RamSchema::isTransactionOpen() {
+		return( tranOpen );
+	}
+
+	bool $SchemaName$RamSchema::beginTransaction() {
+		if( tranOpen ) {
+			return( false );
+		}
+		tranOpen = true;
+		return( true );
+	}
+
+	void $SchemaName$RamSchema::commit() {
+		tranOpen = false;
+	}
+
+	void $SchemaName$RamSchema::rollback() {
+		tranOpen = false;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRamSchemaFileImport">
+	std::string $SchemaName$RamSchema::fileImport( $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization,
+		const std::string&amp; fileName,
+		const std::string&amp; fileContent )
+	{
+		const static std::string S_ProcName( "fileImport" );
+		const static std::string S_FileName( "fileName" );
+		const static std::string S_FileContent( "fileContent" );
+		if( fileName.length() &lt;= 0 ) {
+			throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_FileName );
+		}
+		if( fileContent.length() &lt;= 0 ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				2,
+				S_FileContent );
+		}
+		$CPlusNamespace$::$SchemaName$SaxLoader* saxLoader = new $CPlusNamespace$::$SchemaName$SaxLoader();
+		$CPlusNamespace$::I$SchemaName$SchemaObj* schemaObj = new $CPlusNamespace$::$SchemaName$SchemaObj();
+		schemaObj-&gt;setBackingStore( this );
+		saxLoader-&gt;setSchemaObj( schemaObj );
+		$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* useCluster = schemaObj-&gt;getClusterTableObj()-&gt;readClusterByIdIdx( Authorization-&gt;getSecClusterId() );
+		$CPlusSecNamespace$::I$SecSchemaName$TenantObj* useTenant = schemaObj-&gt;getTenantTableObj()-&gt;readTenantByIdIdx( Authorization-&gt;getSecTenantId() );
+		cflib::CFLibCachedMessageLog runlog;
+		saxLoader-&gt;setLog( &amp;runlog );
+		saxLoader-&gt;setUseCluster( useCluster );
+		saxLoader-&gt;setUseTenant( useTenant );
+		// MSS TODO WORKING - Need to wrap parseStringContents() with try-catch so it can never crash out
+		saxLoader-&gt;parseStringContents( fileName, fileContent );
+		return( runlog.getCacheContents() );
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="initRamNextIdGen">
+		next$Name$Value = 1;</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="initRamNextIdGen">
+		next$Name$Value = 1;</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="initRamNextIdGen">
+		next$Name$Value = 1L;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaRamConstructTable">
+		table$TableName$ = new $SchemaName$Ram$TableName$Table( this );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaRamDestructTable">
+		if( table$TableName$ != NULL ) {
+			delete table$TableName$;
+			table$TableName$ = NULL;
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaRamConstructor">
+	$SchemaName$RamSchema::$SchemaName$RamSchema()
+	: $CPlusNamespace$::$SchemaName$Schema(),
+	  $CPlusNamespace$::I$SchemaName$Schema()
+	{
+		sessConnected = false;
+		tranOpen = false;$iterate Id16Generators( each initRamNextIdGen empty empty )$$iterate Id32Generators( each initRamNextIdGen empty empty )$$iterate Id64Generators( each initRamNextIdGen empty empty )$$iterate SchemaTables( each implSchemaRamConstructTable )$
+	}
+
+	$SchemaName$RamSchema::~$SchemaName$RamSchema() {
+		tranOpen = false;
+		sessConnected = false;$iterate SchemaTables( each implSchemaRamDestructTable )$
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="implRamNextIdGen">
+	int16_t $SchemaName$RamSchema::next$Name$() {
+		int16_t next = next$Name$Value++;
+		return( next );
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="implRamNextIdGen">
+	int32_t $SchemaName$RamSchema::next$Name$() {
+		int32_t next = next$Name$Value++;
+		return( next );
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="implRamNextIdGen">
+	int64_t $SchemaName$RamSchema::next$Name$() {
+		int64_t next = next$Name$Value++;
+		return( next );
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidGen" Name="implRamNextIdGen"></GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRamSchemaNewSchema">
+	$CPlusNamespace$::I$SchemaName$Schema* $SchemaName$RamSchema::newSchema() {
+		static const std::string S_ProcName( "newSchema" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+</GenRule>
+
+</RuleSet>

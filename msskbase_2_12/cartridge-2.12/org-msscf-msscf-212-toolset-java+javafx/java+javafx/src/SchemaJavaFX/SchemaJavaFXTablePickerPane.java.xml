@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+javafx"
+	Name="src/SchemaJavaFXTablePickerPane.java"
+	Revision="2.12"
+	Descr="Java 11 JavaFX List of Obj Pane for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaJavaFXTablePickerPaneJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$JavaFX/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$JavaFX"
+		ExpansionClassName="$SchemaName$JavaFX$TableName$TablePickerPaneJava"
+		ExpansionKeyName="$SchemaName$JavaFX$TableName$TablePickerPaneJava"
+		ExpansionFileName="$SchemaName$JavaFX$TableName$PickerPane.java"
+>// Description: Java 11 JavaFX Picker of Obj Pane implementation for $TableName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$JavaFX;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import java.util.List;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
+import javafx.util.Callback;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.JavaFX.*;
+import org.apache.commons.codec.binary.Base64;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameJavaFX empty empty )$
+
+/**
+ *	$SchemaName$JavaFX$TableName$PickerPane JavaFX Pick Obj Pane implementation
+ *	for $TableName$.
+ */$implPickerPaneClassBody$
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implPickerPaneClassBody">
+public class $SchemaName$JavaFX$TableName$PickerPane
+extends CFBorderPane
+implements I$SchemaName$JavaFX$TableName$PaneList
+{
+	public static String S_FormName = "Choose $EffLabel$";$counter PickerListColId new$$declJavaFXTablePickerPaneMembers$
+	public final String S_ColumnNames[] = { "Name" };
+	protected ICFFormManager cfFormManager = null;
+	protected I$DefSchemaName$JavaFX$TableName$Chosen invokeWhenChosen = null;
+	protected $switch HasContainer yes implISchemaJavaFXTableContainerObjInterface default implISchemaJavaFXTableContainerAnyInterface$ javafxContainer = null;
+	protected CFButton buttonCancel = null;
+	protected CFButton buttonChooseNone = null;
+	protected CFButton buttonChooseSelected = null;
+	protected ScrollPane scrollMenu = null;$implConstructJavaFXTablePickerPane$$implGetSetCFFormManager$$implGetJavaFXSchema$$implJavaFXTablePickerPaneGetSetJavaFXFocus$$implJavaFXPickerTableGetSetJavaFXDataCollection$$implJavaFXTablePickerPaneGetSetJavaFXContainer$$implJavaFXTablePickerPaneAdjustListButtons$}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTablePickerPaneGetSetJavaFXContainer">
+	public $switch HasContainer yes implISchemaJavaFXTableContainerObjInterface default implISchemaJavaFXTableContainerAnyInterface$ getJavaFXContainer() {
+		return( javafxContainer );
+	}
+
+	public void setJavaFXContainer( $switch HasContainer yes implISchemaJavaFXTableContainerObjInterface default implISchemaJavaFXTableContainerAnyInterface$ value ) {
+		javafxContainer = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTablePickerPaneGetSetJavaFXFocus">
+	public void setJavaFXFocus( ICFLibAnyObj value ) {
+		final String S_ProcName = "setJavaFXFocus";
+		if( ( value == null ) || ( value instanceof I$DefSchemaName$$TableName$Obj ) ) {
+			super.setJavaFXFocus( value );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				S_ProcName,
+				"value",
+				value,
+				"I$DefSchemaName$$TableName$Obj" );
+		}
+		if( dataTable == null ) {
+			return;
+		}
+	}
+
+	public I$DefSchemaName$$TableName$Obj getJavaFXFocusAs$TableName$() {
+		return( (I$DefSchemaName$$TableName$Obj)getJavaFXFocus() );
+	}
+
+	public void setJavaFXFocusAs$TableName$( I$DefSchemaName$$TableName$Obj value ) {
+		setJavaFXFocus( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTablePickerPaneMembers">
+	protected I$SchemaName$JavaFXSchema javafxSchema = null;$switch PageData yes declJavaFXTableListPaneMemberPageCallback default declJavaFXTableListPaneMemberDataCollection$
+	protected ObservableList&lt;I$DefSchemaName$$TableName$Obj&gt; observableListOf$TableName$ = null;$switch HasSubClasses yes declJavaFXTableListPaneClassTableColumn default empty$$declJavaFXTableListPaneAttributeTableColumns$$declJavaFXTableListPaneMasterTableColumns$$declJavaFXTableListPaneParentTableColumns$$declJavaFXTableListPaneLookupTableColumns$
+	protected TableView&lt;I$DefSchemaName$$TableName$Obj&gt; dataTable = null;
+	protected CFHBox hboxMenu = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXPickerTableGetSetJavaFXDataCollection">$classJavaFXTablePickerPaneListTableByQualNameComparator$
+	public Collection&lt;I$DefSchemaName$$TableName$Obj&gt; getJavaFXDataCollection() {$switch PageData yes implJavaFXListTableGetJavaFXDataCollectionReturnNull default implJavaFXListTableGetJavaFXDataCollectionReturnCollection$
+	}
+
+	public void setJavaFXDataCollection( Collection&lt;I$DefSchemaName$$TableName$Obj&gt; value ) {$switch PageData yes implJavaFXListTableSetJavaFXDataCollectionIgnore default implJavaFXPickerTableSetJavaFXDataCollectionSetCollection$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXPickerTableSetJavaFXDataCollectionSetCollection">
+		final String S_ProcName = "setJavaFXDataCollection";
+		javafxDataCollection = value;
+		observableListOf$TableName$ = FXCollections.observableArrayList();
+		if( javafxDataCollection != null ) {$implJavaFXListTableSetDataCollectionBodyByQualName$
+		}
+		if( dataTable != null ) {
+			dataTable.setItems( observableListOf$TableName$ );
+			// Hack from stackoverflow to fix JavaFX TableView refresh issue
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( false );
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( true );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="classJavaFXTablePickerPaneListTableByQualNameComparator">
+	public class $TableName$ByQualNameComparator
+	implements Comparator&lt;I$DefSchemaName$$TableName$Obj&gt;
+	{
+		public $TableName$ByQualNameComparator() {
+		}
+
+		public int compare( I$DefSchemaName$$TableName$Obj lhs, I$DefSchemaName$$TableName$Obj rhs ) {
+			if( lhs == null ) {
+				if( rhs == null ) {
+					return( 0 );
+				}
+				else {
+					return( -1 );
+				}
+			}
+			else if( rhs == null ) {
+				return( 1 );
+			}
+			else {
+				String lhsValue = lhs.getObjQualifiedName();
+				String rhsValue = rhs.getObjQualifiedName();
+				if( lhsValue == null ) {
+					if( rhsValue == null ) {
+						return( 0 );
+					}
+					else {
+						return( -1 );
+					}
+				}
+				else if( rhsValue == null ) {
+					return( 1 );
+				}
+				else {
+					return( lhsValue.compareTo( rhsValue ) );
+				}
+			}
+		}
+	}
+
+	protected $TableName$ByQualNameComparator compare$TableName$ByQualName = new $TableName$ByQualNameComparator();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTablePickerPane">
+	public $SchemaName$JavaFX$TableName$PickerPane( ICFFormManager formManager,
+		I$SchemaName$JavaFXSchema argSchema,
+		I$DefSchemaName$$TableName$Obj argFocus,
+		$switch HasContainer yes implISchemaJavaFXTableContainerObjInterface default implISchemaJavaFXTableContainerAnyInterface$ argContainer$switch PageData yes implConstructJavaFXTableListPanePageCallback default implConstructJavaFXTableListPaneDataCollection$,
+		I$DefSchemaName$JavaFX$TableName$Chosen whenChosen )
+	{
+		super();
+		final String S_ProcName = "construct-schema-focus";
+		if( formManager == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"formManager" );
+		}
+		cfFormManager = formManager;
+		if( argSchema == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"argSchema" );
+		}
+		if( whenChosen == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				6,
+				"whenChosen" );
+		}
+		invokeWhenChosen = whenChosen;
+		// argFocus is optional; focus may be set later during execution as
+		// conditions of the runtime change.
+		javafxSchema = argSchema;
+		javaFXFocus = argFocus;
+		javafxContainer = argContainer;$switch PageData yes implConstructJavaFXTableListPaneRetainPageCallback default implConstructJavaFXTableListPaneSetDataCollection$$implConstructJavaFXTablePickerPanePart2$
+		adjustListButtons();
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTablePickerPanePart2">
+		dataTable = new TableView&lt;I$DefSchemaName$$TableName$Obj&gt;();$switch HasSubClasses yes implJavaFXTableListPaneConstructClassTableColumn default empty$$implJavaFXTableListPaneAttributeConstructTableColumns$$implJavaFXTableListPaneMasterConstructTableColumns$$implJavaFXTableListPaneParentConstructTableColumns$$implJavaFXTableListPaneLookupConstructTableColumns$
+		dataTable.getSelectionModel().selectedItemProperty().addListener(
+			new ChangeListener&lt;I$DefSchemaName$$TableName$Obj&gt;() {
+				@Override public void changed( ObservableValue&lt;? extends I$DefSchemaName$$TableName$Obj&gt; observable,
+					I$DefSchemaName$$TableName$Obj oldValue,
+					I$DefSchemaName$$TableName$Obj newValue )
+				{
+					setJavaFXFocus( newValue );
+					if( buttonChooseSelected != null ) {
+						if( newValue != null ) {
+							buttonChooseSelected.setDisable( false );
+						}
+						else {
+							buttonChooseSelected.setDisable( true );
+						}
+					}
+				}
+			});
+		hboxMenu = new CFHBox( 10 );$switch PageData yes implJavaFXTablePickerPaneGetPanelHBoxMenuButtonRefresh default empty$$switch PageData yes implJavaFXTablePickerPaneGetPanelHBoxMenuButtonMoreData default empty$$implConstructJavaFXTablePickerPaneCancel$$implConstructJavaFXTablePickerPaneChooseNone$$implConstructJavaFXTablePickerPaneChooseSelected$
+		if( argFocus != null ) {
+			dataTable.getSelectionModel().select( argFocus );
+		}
+
+		scrollMenu = new ScrollPane();
+		scrollMenu.setVbarPolicy( ScrollBarPolicy.NEVER );
+		scrollMenu.setHbarPolicy( ScrollBarPolicy.AS_NEEDED );
+		scrollMenu.setFitToHeight( true );
+		scrollMenu.setContent( hboxMenu );
+
+		setTop( scrollMenu );
+		setCenter( dataTable );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTablePickerPaneGetPanelHBoxMenuButtonRefresh">
+			buttonRefresh = new CFButton();
+			buttonRefresh.setMinWidth( 200 );
+			buttonRefresh.setText( "Refresh" );
+			buttonRefresh.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						observableListOf$TableName$ = FXCollections.observableArrayList();
+						List&lt;I$DefSchemaName$$TableName$Obj&gt; page = pageCallback.pageData( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implListPaneMoreDataPassNull each implListPaneMoreDataPassCommaNull )$ );
+						Iterator&lt;I$DefSchemaName$$TableName$Obj&gt; iter = page.iterator();
+						while( iter.hasNext() ) {
+							observableListOf$TableName$.add( iter.next() );
+						}
+						if( page.size() &lt; 25 ) {
+							observableListOf$TableName$.sort( compare$TableName$ByQualName );
+							endOfData = true;
+						}
+						else {
+							endOfData = false;
+						}
+						if( dataTable != null ) {
+							dataTable.setItems( observableListOf$TableName$ );
+							// Hack from stackoverflow to fix JavaFX TableView refresh issue
+							((TableColumn)dataTable.getColumns().get(0)).setVisible( false );
+							((TableColumn)dataTable.getColumns().get(0)).setVisible( true );
+						}
+						adjustListButtons();
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonRefresh );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTablePickerPaneGetPanelHBoxMenuButtonMoreData">
+			buttonMoreData = new CFButton();
+			buttonMoreData.setMinWidth( 200 );
+			buttonMoreData.setText( "MoreData" );
+			buttonMoreData.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$DefSchemaName$$TableName$Obj lastObj = null;
+						if( ( observableListOf$TableName$ != null ) &amp;&amp; ( observableListOf$TableName$.size() &gt; 0 ) ) {
+							lastObj = observableListOf$TableName$.get( observableListOf$TableName$.size() - 1 );
+						}
+						List&lt;I$DefSchemaName$$TableName$Obj&gt; page;
+						if( lastObj != null ) {
+							page = pageCallback.pageData( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implListPaneMoreDataPassLastObjCol each implListPaneMoreDataPassCommaLastObjCol )$ );
+						}
+						else {
+							page = pageCallback.pageData( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implListPaneMoreDataPassNull each implListPaneMoreDataPassCommaNull )$ );
+						}
+						Iterator&lt;I$DefSchemaName$$TableName$Obj&gt; iter = page.iterator();
+						while( iter.hasNext() ) {
+							observableListOf$TableName$.add( iter.next() );
+						}
+						if( page.size() &lt; 25 ) {
+							observableListOf$TableName$.sort( compare$TableName$ByQualName );
+							endOfData = true;
+						}
+						else {
+							endOfData = false;
+						}
+						if( dataTable != null ) {
+							dataTable.setItems( observableListOf$TableName$ );
+							// Hack from stackoverflow to fix JavaFX TableView refresh issue
+							((TableColumn)dataTable.getColumns().get(0)).setVisible( false );
+							((TableColumn)dataTable.getColumns().get(0)).setVisible( true );
+						}
+						adjustListButtons();
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonMoreData );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTablePickerPaneCancel">
+		buttonCancel = new CFButton();
+		buttonCancel.setMinWidth( 200 );
+		buttonCancel.setText( "Cancel" );
+		buttonCancel.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+			@Override public void handle( ActionEvent e ) {
+				final String S_ProcName = "handle";
+				try {
+					cfFormManager.closeCurrentForm();
+				}
+				catch( Throwable t ) {
+					CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+				}
+			}
+		});
+		hboxMenu.getChildren().add( buttonCancel );</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTablePickerPaneChooseNone">
+		buttonChooseNone = new CFButton();
+		buttonChooseNone.setMinWidth( 200 );
+		buttonChooseNone.setText( "ChooseNone" );
+		buttonChooseNone.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+			@Override public void handle( ActionEvent e ) {
+				final String S_ProcName = "handle";
+				try {
+					I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+					if( schemaObj == null ) {
+						throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"schemaObj" );
+					}
+					invokeWhenChosen.chose$TableName$( null );
+					cfFormManager.closeCurrentForm();
+				}
+				catch( Throwable t ) {
+					CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+				}
+			}
+		});
+		hboxMenu.getChildren().add( buttonChooseNone );</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTablePickerPaneChooseSelected">
+		buttonChooseSelected = new CFButton();
+		buttonChooseSelected.setMinWidth( 200 );
+		buttonChooseSelected.setText( "ChooseSelected" );
+		buttonChooseSelected.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+			@Override public void handle( ActionEvent e ) {
+				final String S_ProcName = "handle";
+				try {
+					I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+					if( schemaObj == null ) {
+						throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"schemaObj" );
+					}
+					I$DefSchemaName$$TableName$Obj selectedInstance = getJavaFXFocusAs$TableName$();
+					invokeWhenChosen.chose$TableName$( selectedInstance );
+					cfFormManager.closeCurrentForm();
+				}
+				catch( Throwable t ) {
+					CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+				}
+			}
+		});
+		hboxMenu.getChildren().add( buttonChooseSelected );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTablePickerPaneAdjustListButtons">
+	public void adjustListButtons() {$implJavaFXTablePickerPaneAdjustListButtonsPart1$$switch PageData yes implJavaFXTablePickerPaneAdjustPagingButtons default empty$$implJavaFXTablePickerPaneAdjustListButtonsPart2$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTablePickerPaneAdjustListButtonsPart1">
+		boolean enableState;
+		I$DefSchemaName$$TableName$Obj selectedObj = getJavaFXFocusAs$TableName$();
+		if( selectedObj == null ) {
+			enableState = false;
+		}
+		else {
+			enableState = true;
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTablePickerPaneAdjustPagingButtons">
+		if( buttonRefresh != null ) {
+			buttonRefresh.setDisable( false );
+		}
+		if( buttonMoreData != null ) {
+			buttonMoreData.setDisable( endOfData );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTablePickerPaneAdjustListButtonsPart2">
+		if( buttonChooseSelected != null ) {
+			buttonChooseSelected.setDisable( ! enableState );
+		}
+		if( buttonChooseNone != null ) {
+			buttonChooseNone.setDisable( false );
+		}
+		if( buttonCancel != null ) {
+			buttonCancel.setDisable( false );
+		}
+</GenRule>
+
+</RuleSet>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/SchemaSchemaPool.cpp"
+	Revision="2.12"
+	Descr="C++18 implementation of a $SchemaName$ schema pool.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSchemaPoolCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$SchemaPoolCpp"
+		ExpansionKeyName="$SchemaName$SchemaPoolCpp"
+		ExpansionFileName="$SchemaName$SchemaPool.cpp"
+>// Description: C++18 implementation of a $SchemaName$ schema pool.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+#include &lt;$lower SchemaName$/$SchemaName$SchemaPool.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	const std::string $SchemaName$SchemaPool::CLASS_NAME( "$SchemaName$SchemaPool" );$iterate SchemaRefs( first implSchemaSchemaPoolSubMembers empty implSchemaSchemaPoolBaseMembers each empty )$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSchemaPoolMembers"
+		>$reference RefSchema implSchemaSchemaPoolMembers$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolMembers"
+		>$iterate SchemaRefs( first derefImplSchemaSchemaPoolMembers each empty empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="derefImplSchemaSchemaPoolMembers"
+		>$reference RefSchema derefImplSchemaSchemaPoolSubMembers$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSchemaPoolSubMembers"
+		>$implSchemaSchemaPoolConstructorInvokeSuper$$reference RefSchema implSchemaSchemaPoolSetConfigurationFile$$reference RefSchema implSchemaSchemaPoolStaticSetterMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolBaseMembers"
+		>$implSchemaSchemaPoolBaseConstructor$$implSchemaSchemaPoolGetConfigurationFile$$implSchemaSchemaPoolStaticMethods$$implSchemaSchemaPoolInstanceAllocators$$implSchemaSchemaPoolToBeOverloaded$$implSchemaPoolConfigurationGetSetJndiName$</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaSchemaPoolBaseMembers">
+$popto SchemaDef implSchemaPoolBaseMembers$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolStaticMethods">
+	$SchemaName$SchemaPool* $poptop SchemaDef SchemaName$SchemaPool::getSetStaticSchemaPool( $SchemaName$SchemaPool* value ) {
+		static $SchemaName$SchemaPool* schemaPool = NULL;
+		if( value != NULL ) {
+			if( schemaPool != NULL ) {
+				delete schemaPool;
+				schemaPool = NULL;
+			}
+			schemaPool = value;
+		}
+		return( schemaPool );
+	}
+
+	$SchemaName$SchemaPool* $poptop SchemaDef SchemaName$SchemaPool::getSchemaPool() {
+		$SchemaName$SchemaPool* retval = getSetStaticSchemaPool( NULL );
+		return( retval );
+	}
+
+	void $poptop SchemaDef SchemaName$SchemaPool::setSchemaPool( $CPlusNamespace$::$SchemaName$SchemaPool* pool ) {$iterate SchemaRefs( first invokeSuperPool each empty empty invokeBasePool )$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolStaticSetterMethods">
+	void $poptop SchemaDef SchemaName$SchemaPool::setSchemaPool( $CPlusNamespace$::$SchemaName$SchemaPool* pool ) {$iterate SchemaRefs( first invokeSuperPool each empty empty invokeBasePool )$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="invokeSuperPool">
+		$reference RefSchema SchemaName$SchemaPool::setSchemaPool( pool );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="invokeBasePool">
+		if( getSetStaticSchemaPool( NULL ) == NULL ) {
+			getSetStaticSchemaPool( pool );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolGetConfigurationFile">
+	$CPlusDefNamespace$::$DefSchemaName$ConfigurationFile* $poptop SchemaDef SchemaName$SchemaPool::getConfigurationFile() {
+		return( configFile );
+	}
+$implSchemaSchemaPoolSetConfigurationFile$
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolSetConfigurationFile">
+	void $poptop SchemaDef SchemaName$SchemaPool::setConfigurationFile( $CPlusNamespace$::$SchemaName$ConfigurationFile* value ) {
+		$iterate SchemaRefs( first implSchemaSchemaPoolSetConfigurationFileInvokeSuper empty implSchemaSchemaPoolSetConfigurationFileInvokeBase each empty )$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSchemaPoolSetConfigurationFile">
+	void $poptop SchemaDef SchemaName$SchemaPool::setConfigurationFile( $reference RefSchema CPlusNamespace$::$reference RefSchema SchemaName$ConfigurationFile* value ) {$implSchemaSchemaPoolSetConfigurationFileInvokeSuper$
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaSchemaPoolSetConfigurationFileInvokeSuper">
+		$reference RefSchema SchemaName$SchemaPool::setConfigurationFile( value );</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaSchemaPoolSetConfigurationFileInvokeBase">
+		if( configFile != NULL ) {
+			delete configFile;
+			configFile = NULL;
+		}
+		configFile = value;</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaPoolConfigurationGetSetJndiName">
+	const std::string* $poptop SchemaDef SchemaName$SchemaPool::getJndiName() {
+		return( jndiName );
+	}
+
+	void $poptop SchemaDef SchemaName$SchemaPool::setJndiName( const std::string* value ) {
+		if( jndiName != NULL ) {
+			delete jndiName;
+			jndiName = NULL;
+		}
+		if( value != NULL ) {
+			jndiName = new std::string( *value );
+		}
+		if( ( jndiName != NULL ) &amp;&amp; ( jndiName-&gt;length() &gt; 0 ) ) {
+			if( configFile != NULL ) {
+				delete configFile;
+				configFile = NULL;
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="setConfigurationFileInvokeSuper">
+		$reference RefSchema SchemaName$SchemaPool::setConfigurationFile( value );</GenRule>
+
+	<GenRule GenDef="Object" Name="setConfigurationFileInvokeBase">
+		static const std::string S_ProcName( "setConfigurationFile" );
+		static const std::string S_Value( "value" );
+		if( value == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_Value );
+		}
+		if( configFile != NULL ) {
+			delete configFile;
+			configFile = NULL;
+		}
+		configFile = value;
+		if( configFile != NULL ) {
+			if( jndiName != NULL ) {
+				delete jndiName;
+				jndiName = NULL;
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolBaseConstructor">
+	$poptop SchemaDef SchemaName$SchemaPool::$poptop SchemaDef SchemaName$SchemaPool() {
+		instances = new std::list&lt;I$SchemaName$Schema*&gt;();
+		jndiName = NULL;
+		configFile = NULL;
+	}
+
+	$poptop SchemaDef SchemaName$SchemaPool::~$poptop SchemaDef SchemaName$SchemaPool() {
+		if( instances != NULL ) {
+			$poptop SchemaDef CPlusNamespace$::I$poptop SchemaDef SchemaName$Schema* inst = NULL;
+			while( ! instances-&gt;empty() ) {
+				inst = instances-&gt;front();
+				instances-&gt;remove( inst );
+				delete inst;
+				inst = NULL;
+			}
+			delete instances;
+			instances = NULL;
+		}
+		if( jndiName != NULL ) {
+			delete jndiName;
+			jndiName = NULL;
+		}
+		if( configFile != NULL ) {
+			delete configFile;
+			configFile = NULL;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSchemaPoolConstructorInvokeSuper">
+	$poptop SchemaDef SchemaName$SchemaPool::$poptop SchemaDef SchemaName$SchemaPool()
+	: $reference RefSchema CPlusNamespace$::$reference RefSchema SchemaName$SchemaPool()
+	{
+	}
+
+	$poptop SchemaDef SchemaName$SchemaPool::~$poptop SchemaDef SchemaName$SchemaPool() {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolToBeOverloaded"
+		>$iterate SchemaRefs( first reallyImplSchemaPoolToBeOverloaded each empty empty reallyImplSchemaSchemaPoolToBeOverloaded )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="reallyImplSchemaSchemaPoolToBeOverloaded">
+	/**
+	 *	You need to overload the implementation of newInstance() to return
+	 *	connected instances of your backing store.
+	 */
+	$reference RefSchema CPlusDefNamespace$::I$reference RefSchema DefSchemaName$Schema* $poptop SchemaDef SchemaName$SchemaPool::newInstance() {
+		$reference RefSchema CPlusDefNamespace$::I$reference RefSchema DefSchemaName$Schema* retInst = new $reference RefSchema DefSchemaName$Schema();
+		return( retInst );
+	}
+
+	/**
+	 *	Overload disposeInstance().
+	 */
+	void $poptop SchemaDef SchemaName$SchemaPool::disposeInstance( $reference RefSchema CPlusDefNamespace$::I$reference RefSchema DefSchemaName$Schema* inst ) {
+//		try {
+			inst-&gt;disconnect( false );
+//		}
+//		catch( std::exception e ) {
+//		}
+		if( instances != NULL ) {
+			instances-&gt;remove( inst );
+		}
+		delete inst;
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="reallyImplSchemaSchemaPoolToBeOverloaded">
+	/**
+	 *	You need to overload the implementation of newInstance() to return
+	 *	connected instances of your backing store.
+	 */
+	$CPlusDefNamespace$::I$DefSchemaName$Schema* $poptop SchemaDef SchemaName$SchemaPool::newInstance() {
+		$CPlusDefNamespace$::I$DefSchemaName$Schema* retInst = new $CPlusDefNamespace$::$DefSchemaName$Schema();
+		return( retInst );
+	}
+
+	/**
+	 *	Overload disposeInstance().
+	 */
+	void $poptop SchemaDef SchemaName$SchemaPool::disposeInstance( $CPlusDefNamespace$::I$DefSchemaName$Schema* inst ) {
+//		try {
+			inst-&gt;disconnect( false );
+//		}
+//		catch( std::exception e ) {
+//		}
+		if( instances != NULL ) {
+			instances-&gt;remove( inst );
+		}
+		delete inst;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaPoolInstanceAllocators">
+	/**
+	 *	Retrieve an entry from the pool with a previously
+	 *	established database connection.
+	 */
+	/* TODO: synchronized */ $CPlusDefNamespace$::I$DefSchemaName$Schema* $poptop SchemaDef SchemaName$SchemaPool::getInstance() {
+		$CPlusDefNamespace$::I$DefSchemaName$Schema* retInst = NULL;
+		if( instances != NULL ) {
+			if( instances-&gt;empty() ) {
+				retInst = newInstance();
+				retInst-&gt;setConfigurationFile( ($SchemaName$ConfigurationFile*)getConfigurationFile() );
+				if( getJndiName() != NULL ) {
+					retInst-&gt;setJndiName( *getJndiName() );
+				}
+				retInst-&gt;connect();
+			}
+			else {
+				retInst = instances-&gt;front();
+				instances-&gt;remove( retInst );
+			}
+		}
+		else {
+			retInst = NULL;
+		}
+		return( retInst );
+	}
+
+	/**
+	 *	Return an entry to the pool.
+	 */
+	/* TODO: synchronized */ void $poptop SchemaDef SchemaName$SchemaPool::releaseInstance( $CPlusDefNamespace$::I$DefSchemaName$Schema* inst ) {
+		if( inst == NULL ) {
+			return;
+		}
+		inst-&gt;rollback();
+		if( instances != NULL ) {
+			instances-&gt;insert( instances->begin(), inst );
+		}
+	}
+</GenRule>
+
+</RuleSet>

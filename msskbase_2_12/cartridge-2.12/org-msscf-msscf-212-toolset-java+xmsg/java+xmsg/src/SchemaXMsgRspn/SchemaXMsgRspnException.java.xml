@@ -1,0 +1,1076 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsg/SchemaXMsgRspnException.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Element  for Exception">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaXMsgRspnExceptionJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsgRspn/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsgRspn"
+		ExpansionClassName="$SchemaName$XMsgRspnExceptionJava"
+		ExpansionKeyName="$SchemaName$XMsgRspnExceptionJava"
+		ExpansionFileName="$SchemaName$XMsgRspnException.java">
+// Description: Java 11 XML Message SAX Response Record Element  for Exception
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsgRspn;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.xml.sax.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+
+/*
+ *	$SchemaName$XMsgRspnException XML SAX Element  implementation
+ */
+public class $SchemaName$XMsgRspnException
+	extends CFLibXmlCoreElementHandler
+{$implConstructXMsgRspnException$$implRspnExceptionStartElement$$implRspnExceptionEndElement$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implConstructXMsgRspnException">
+	public $SchemaName$XMsgRspnException( $SchemaName$XMsgRspn xmsgRspn ) {
+		super( xmsgRspn );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionStartElement">
+	public void startElement(
+		String		uri,
+		String		localName,
+		String		qName,
+		Attributes	attrs )
+	throws SAXException
+	{
+		try {
+			// Common XML Attributes
+			String	attrId = null;
+			// Attribute Extraction
+			String	attrLocalName;
+			int		numAttrs;
+			int		idxAttr;
+			final String S_ProcName = "startElement";
+			final String S_LocalName = "LocalName";
+			// Element attributes
+			String	attrName = null;
+			String	attrMessage = null;
+
+			assert qName.equals( "RspnException" );
+$implRspnExceptionRetrieveSchemaObj$$implRspnExceptionExtractAttrs$$implRspnExceptionCheckRequiredAttrs$$implRspnExceptionGetCurContext$$implRspnExceptionConvertAttributes$$implRspnExceptionEvalCFLibExceptions$$implRspnExceptionRetainException$
+		}
+		catch( RuntimeException e ) {
+			throw new RuntimeException( "Near " + getParser().getLocationInfo() + ": Caught and rethrew " + e.getClass().getName() + " - " + e.getMessage(),
+				e );
+		}
+		catch( Error e ) {
+			throw new Error( "Near " + getParser().getLocationInfo() + ": Caught and rethrew " + e.getClass().getName() + " - " + e.getMessage(),
+				e );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionEndElement">
+	public void endElement(
+		String		uri,
+		String		localName,
+		String		qName )
+	throws SAXException
+	{
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionRetrieveSchemaObj">
+			$SchemaName$XMsgRspn xmsgRspn = ($SchemaName$XMsgRspn)getParser();
+			if( xmsgRspn == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser()" );
+			}
+
+			I$SchemaName$SchemaObj schemaObj = xmsgRspn.getSchemaObj();
+			if( schemaObj == null ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"getParser().getSchemaObj()" );
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionExtractAttrs">
+			// Extract Attributes
+			numAttrs = attrs.getLength();
+			for( idxAttr = 0; idxAttr &lt; numAttrs; idxAttr++ ) {
+				attrLocalName = attrs.getLocalName( idxAttr );
+				if( attrLocalName.equals( "Id" ) ) {
+					if( attrId != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrId = attrs.getValue( idxAttr );
+				}
+				else if( attrLocalName.equals( "schemaLocation" ) ) {
+					// ignored
+				}
+				else if( attrLocalName.equals( "Name" ) ) {
+					if( attrName != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrName = attrs.getValue( idxAttr );
+				}
+				else if( attrLocalName.equals( "Message" ) ) {
+					if( attrMessage != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attrMessage = attrs.getValue( idxAttr );
+				}
+				else {
+					throw new CFLibUnrecognizedAttributeException( getClass(),
+						S_ProcName,
+						getParser().getLocationInfo(),
+						attrLocalName );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionParseAttrs"
+		></GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionParseAnAttr">
+				else if( attrLocalName.equals( "$Name$" ) ) {
+					if( attr$Name$ != null ) {
+						throw new CFLibUniqueIndexViolationException( getClass(),
+							S_ProcName,
+							S_LocalName,
+							attrLocalName );
+					}
+					attr$Name$ = attrs.getValue( idxAttr );
+				}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionCheckRequiredAttrs">
+			// Ensure that required attributes have values
+			if( ( attrName == null ) || ( attrName.length() &lt;= 0 ) ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"Name" );
+			}
+			if( attrMessage == null ) {
+				attrMessage = "";
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionCheckReqAttrs"
+		></GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionReallyCheckReqAttr">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				throw new CFLibNullArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$" );
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionGetCurContext">
+			// Save named attributes to context
+			CFLibXmlCoreContext curContext = getParser().getCurContext();
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionGetParentContext">
+			// Get the parent context
+			CFLibXmlCoreContext parentContext = curContext.getPrevContext();</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionConvertAttributes">
+			// Convert string attributes to native Java types
+			String	natName = attrName;
+			String	natMessage = attrMessage;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColBlobValue">
+			throw new RuntimeException( S_ProcName + "ERROR: Cannot use a BLOB as a PKey attribute!" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColBoolValue"
+		>$switch IsNullable yes implRspnExceptionConvertColOptBoolValue default implRspnExceptionConvertColReqBoolValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColReqBoolValue">
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColOptBoolValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() == 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) ) {
+				nat$Name$ = Boolean.valueOf( true );
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) ) {
+				nat$Name$ = Boolean.valueOf( false );
+			}
+			else {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColEnumValue"
+		>$switch IsNullable yes implRspnExceptionConvertColOptEnumValue default implRspnExceptionConvertColReqEnumValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColOptEnumValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColReqEnumValue">
+			nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColInt16Value"
+		>$switch IsNullable yes implRspnExceptionConvertColOptInt16Value default implRspnExceptionConvertColReqInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColOptInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColReqInt16Value">
+			nat$Name$ = Short.parseShort( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColInt32Value"
+		>$switch IsNullable yes implRspnExceptionConvertColOptInt32Value default implRspnExceptionConvertColReqInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColOptInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColReqInt32Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColInt64Value"
+		>$switch IsNullable yes implRspnExceptionConvertColOptInt64Value default implRspnExceptionConvertColReqInt64Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColOptInt64Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColReqInt64Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColUInt16Value"
+		>$switch IsNullable yes implRspnExceptionConvertColOptUInt16Value default implRspnExceptionConvertColReqUInt16Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColOptUInt16Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColReqUInt16Value">
+			nat$Name$ = Integer.parseInt( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColUInt32Value"
+		>$switch IsNullable yes implRspnExceptionConvertColOptUInt32Value default implRspnExceptionConvertColReqUInt32Value$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColOptUInt32Value">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColReqUInt32Value">
+			nat$Name$ = Long.parseLong( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColUInt64Value">
+			nat$Name$ = new BigDecimal( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColFloatValue"
+		>$switch IsNullable yes implRspnExceptionConvertColOptFloatValue default implRspnExceptionConvertColReqFloatValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColOptFloatValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColReqFloatValue">
+			nat$Name$ = Float.parseFloat( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColDoubleValue"
+		>$switch IsNullable yes implRspnExceptionConvertColOptDoubleValue default implRspnExceptionConvertColReqDoubleValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColOptDoubleValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColReqDoubleValue">
+			nat$Name$ = Double.parseDouble( attr$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColNumberValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = new BigDecimal( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColStringValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColNmTokenValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColNmTokensValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColTextValue">
+			nat$Name$ = attr$Name$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColTZDateValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColTZTimeValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColTZTimestampValue">
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertColUuidValue">
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionConvertNatId">
+			Integer natId;
+			if( ( attrId != null ) &amp;&amp; ( attrId.length() &gt; 0 ) ) {
+				natId = Integer.valueOf( Integer.parseInt( attrId ) );
+			}
+			else {
+				natId = null;
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionConvertAttrs"
+		></GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRspnExceptionConvertReqBlob
+			BoolDef implRspnExceptionConvertReqBool
+			EnumDef implRspnExceptionConvertReqEnum
+			Id16Gen implRspnExceptionConvertReqInt16
+			Id32Gen implRspnExceptionConvertReqInt32
+			Id64Gen implRspnExceptionConvertReqInt64
+			Int16Def implRspnExceptionConvertReqInt16
+			Int32Def implRspnExceptionConvertReqInt32
+			Int64Def implRspnExceptionConvertReqInt64
+			UInt16Def implRspnExceptionConvertReqUInt16
+			UInt32Def implRspnExceptionConvertReqUInt32
+			UInt64Def implRspnExceptionConvertReqUInt64
+			FloatDef implRspnExceptionConvertReqFloat
+			DoubleDef implRspnExceptionConvertReqDouble
+			NumberDef implRspnExceptionConvertReqNumber
+			DateDef implRspnExceptionConvertReqDate
+			TimeDef implRspnExceptionConvertReqTime
+			TimestampDef implRspnExceptionConvertReqTimestamp
+			TZDateDef implRspnExceptionConvertReqTZDate
+			TZTimeDef implRspnExceptionConvertReqTZTime
+			TZTimestampDef implRspnExceptionConvertReqTZTimestamp
+			UuidGen implRspnExceptionConvertReqUuid
+			UuidDef implRspnExceptionConvertReqUuid
+			StringDef implRspnExceptionConvertReqString
+			TokenDef implRspnExceptionConvertReqString
+			NmTokenDef implRspnExceptionConvertReqString
+			NmTokensDef implRspnExceptionConvertReqString
+			TextDef implRspnExceptionConvertReqString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptAttr"
+		>$switch BaseModelAtomClass
+			BlobDef implRspnExceptionConvertOptBlob
+			BoolDef implRspnExceptionConvertOptBool
+			EnumDef implRspnExceptionConvertOptEnum
+			Id16Gen implRspnExceptionConvertOptInt16
+			Id32Gen implRspnExceptionConvertOptInt32
+			Id64Gen implRspnExceptionConvertOptInt64
+			Int16Def implRspnExceptionConvertOptInt16
+			Int32Def implRspnExceptionConvertOptInt32
+			Int64Def implRspnExceptionConvertOptInt64
+			UInt16Def implRspnExceptionConvertOptUInt16
+			UInt32Def implRspnExceptionConvertOptUInt32
+			UInt64Def implRspnExceptionConvertOptUInt64
+			FloatDef implRspnExceptionConvertOptFloat
+			DoubleDef implRspnExceptionConvertOptDouble
+			NumberDef implRspnExceptionConvertOptNumber
+			DateDef implRspnExceptionConvertOptDate
+			TimeDef implRspnExceptionConvertOptTime
+			TimestampDef implRspnExceptionConvertOptTimestamp
+			TZDateDef implRspnExceptionConvertOptTZDate
+			TZTimeDef implRspnExceptionConvertOptTZTime
+			TZTimestampDef implRspnExceptionConvertOptTZTimestamp
+			UuidGen implRspnExceptionConvertOptUuid
+			UuidDef implRspnExceptionConvertOptUuid
+			StringDef implRspnExceptionConvertOptString
+			TokenDef implRspnExceptionConvertOptString
+			NmTokenDef implRspnExceptionConvertOptString
+			NmTokensDef implRspnExceptionConvertOptString
+			TextDef implRspnExceptionConvertOptString
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqBlob">
+			byte[] nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqBool">
+			boolean nat$Name$;
+			if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqInt16">
+			short nat$Name$ = Short.parseShort( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqInt32">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqInt64">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqUInt16">
+			int nat$Name$ = Integer.parseInt( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqUInt32">
+			long nat$Name$ = Long.parseLong( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqUInt64">
+			BigDecimal nat$Name$ = new BigDecimal( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqFloat">
+			float nat$Name$ = Float.parseFloat( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqDouble">
+			double nat$Name$ = Double.parseDouble( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqNumber">
+			BigDecimal nat$Name$ = new BigDecimal( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqTZDate">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqTZTime">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqTZTimestamp">
+			Calendar nat$Name$;
+			try {
+				nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+			}
+			catch( RuntimeException e ) {
+				throw new CFLibInvalidArgumentException( getClass(),
+					S_ProcName,
+					0,
+					"$Name$",
+					attr$Name$,
+					e );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqUuid">
+			UUID nat$Name$ = UUID.fromString( attr$Name$ );
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertReqString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptBlob">
+			byte[] nat$Name$;
+			if( attr$Name$ == null ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.length() &lt;= 0 ) {
+				nat$Name$ = new byte[0];
+			}
+			else {
+				nat$Name$ = Base64.decodeBase64( attr$Name$.getBytes() );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptBool">
+			Boolean nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else if( attr$Name$.equals( "true" ) || attr$Name$.equals( "yes" ) || attr$Name$.equals( "1" ) ) {
+				nat$Name$ = true;
+			}
+			else if( attr$Name$.equals( "false" ) || attr$Name$.equals( "no" ) || attr$Name$.equals( "0" ) ) {
+				nat$Name$ = false;
+			}
+			else {
+				throw new CFLibUsageException( getClass(),
+					S_ProcName,
+					"Unexpected $Name$ value, must be one of true, false, yes, no, 1, or 0, not \"" + attr$Name$ + "\"" );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptEnum">
+			I$reference DataType EffSchemaName$Schema.$reference DataType Name$ nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = $reference DataType EffSchemaName$Schema.parse$reference DataType Name$( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptInt16">
+			Short nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Short.valueOf( Short.parseShort( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptInt32">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptInt64">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptUInt16">
+			Integer nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Integer.valueOf( Integer.parseInt( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptUInt32">
+			Long nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Long.valueOf( Long.parseLong( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptUInt64">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= new BigDecimal( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptFloat">
+			Float nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Float.valueOf( Float.parseFloat( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptDouble">
+			Double nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= Double.valueOf( Double.parseDouble( attr$Name$ ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptNumber">
+			BigDecimal nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$= new BigDecimal( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptTZDate">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZDate( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptTZTime">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTime( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptTZTimestamp">
+			Calendar nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				try {
+					nat$Name$ = CFLibXmlUtil.parseTZTimestamp( attr$Name$ );
+				}
+				catch( RuntimeException e ) {
+					throw new CFLibInvalidArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$Name$",
+						attr$Name$,
+						e );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptUuid">
+			UUID nat$Name$;
+			if( ( attr$Name$ == null ) || ( attr$Name$.length() &lt;= 0 ) ) {
+				nat$Name$ = null;
+			}
+			else {
+				nat$Name$ = UUID.fromString( attr$Name$ );
+			}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implRspnExceptionConvertOptString">
+			String nat$Name$ = attr$Name$;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionEvalCFLibExceptions"
+		>$implRspnExceptionEvalCFLibExceptionsPartOne$$implRspnExceptionEvalCFLibExceptionsPartTwo$$implRspnExceptionEvalCFLibExceptionsPartThree$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionEvalCFLibExceptionsPartOne">
+			RuntimeException raisedException;
+			final String S_CFLibPrefix = "org.msscf.msscf.cflib.CFLib.";
+			final int S_CFLibPrefixLen = S_CFLibPrefix.length();
+			if( natName.startsWith( S_CFLibPrefix ) ) {
+				natName = natName.substring( S_CFLibPrefixLen );
+			}
+			if( natName.equals( "CFLibRuntimeException" ) ) {
+				raisedException = new CFLibRuntimeException( natMessage );
+			}
+			else if( natName.equals( "CFLibUsageException" ) ) {
+				raisedException = new CFLibUsageException( natMessage );
+			}
+			else if( natName.equals( "CFLibEmptyArgumentException" ) ) {
+				raisedException = new CFLibEmptyArgumentException( natMessage );
+			}
+			else if( natName.equals( "CFLibNullArgumentException" ) ) {
+				raisedException = new CFLibNullArgumentException( natMessage );
+			}
+			else if( natName.equals( "CFLibInvalidArgumentException" ) ) {
+				raisedException = new CFLibInvalidArgumentException( natMessage );
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionEvalCFLibExceptionsPartTwo">
+			else if( natName.equals( "CFLibArgumentRangeException" ) ) {
+				raisedException = new CFLibArgumentRangeException( natMessage );
+			}
+			else if( natName.equals( "CFLibMustOverrideException" ) ) {
+				raisedException = new CFLibMustOverrideException( natMessage );
+			}
+			else if( natName.equals( "CFLibNotImplementedYetException" ) ) {
+				raisedException = new CFLibNotImplementedYetException( natMessage );
+			}
+			else if( natName.equals( "CFLibNotSupportedException" ) ) {
+				raisedException = new CFLibNotSupportedException( natMessage );
+			}
+			else if( natName.equals( "CFLibPrimaryKeyNotNewException" ) ) {
+				raisedException = new CFLibPrimaryKeyNotNewException( natMessage );
+			}
+			else if( natName.equals( "CFLibDependentsDetectedException" ) ) {
+				raisedException = new CFLibDependentsDetectedException( natMessage );
+			}
+			else if( natName.equals( "CFLibUnresolvedRelationException" ) ) {
+				raisedException = new CFLibUnresolvedRelationException( natMessage );
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionEvalCFLibExceptionsPartThree">
+			else if( natName.equals( "CFLibStaleCacheDetectedException" ) ) {
+				raisedException = new CFLibStaleCacheDetectedException( natMessage );
+			}
+			else if( natName.equals( "CFLibUniqueIndexViolationException" ) ) {
+				raisedException = new CFLibUniqueIndexViolationException( natMessage );
+			}
+			else if( natName.equals( "CFLibCollisionDetectedException" ) ) {
+				raisedException = new CFLibCollisionDetectedException( natMessage );
+			}
+			else if( natName.equals( "CFLibUnsupportedClassException" ) ) {
+				raisedException = new CFLibUnsupportedClassException( natMessage );
+			}
+			else if( natName.equals( "CFLibDbException" ) ) {
+				raisedException = new CFLibDbException( natMessage );
+			}
+			else if( natName.equals( "CFLibArgumentOverflowException" ) ) {
+				raisedException = new CFLibArgumentOverflowException( natMessage );
+			}
+			else if( natName.equals( "CFLibArgumentUnderflowException" ) ) {
+				raisedException = new CFLibArgumentUnderflowException( natMessage );
+			}
+			else if( natName.equals( "CFLibUnrecognizedAttributeException" ) ) {
+				raisedException = new CFLibUnrecognizedAttributeException( natMessage );
+			}
+			else {
+				raisedException = new CFLibRuntimeException( natName + " " + natMessage );
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implRspnExceptionRetainException">
+			// Retain the raised exception for access by the parse invoker
+			xmsgRspn.setExceptionRaised( raisedException );</GenRule>
+
+</RuleSet>

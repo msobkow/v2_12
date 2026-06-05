@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schema/SchemaClientConfigurationFile.hpp"
+	Revision="2.12"
+	Descr="C++18 configuration section for a $SchemaName$ schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaClientConfigurationFileHpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference ManufacturingSchema SchemaName$"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$ClientConfigurationFileHpp"
+		ExpansionKeyName="$SchemaName$ClientConfigurationFileHpp"
+		ExpansionFileName="$SchemaName$ClientConfigurationFile.hpp"
+>#pragma once
+
+// Description: C++18 client configuration file specification for a $SchemaName$ schema.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+$iterate SchemaRefs( first includeSchemaClientConfigurationFile each empty empty empty )$
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$ClientConfigurationFile$iterate SchemaRefs( first extendSchemaClientConfigurationFile each empty empty empty )$
+	{$iterate SchemaRefs( first ClientConfigurationFileExtendDefBaseBody each empty empty ClientConfigurationFileImplDefBaseBody )$	};
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaRef" Name="includeSchemaClientConfigurationFile">
+#include &lt;$lower reference RefSchema SchemaName$/$reference RefSchema SchemaName$ClientConfigurationFile.hpp&gt;
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ClientConfigurationFileExtendDefBaseBody">
+	public:
+		$poptop SchemaDef SchemaName$ClientConfigurationFile();
+		virtual ~$poptop SchemaDef SchemaName$ClientConfigurationFile();
+</GenRule>
+
+	<GenRule GenDef="Object" Name="ClientConfigurationFileImplDefBaseBody">
+	protected:
+		std::string* fileName;
+		std::string* keyStore;
+		std::string* deviceName;
+		int32_t serverURLUsed;
+		std::string* serverURL[20];
+
+	public:
+		static const std::string CLASS_NAME;
+		static const std::string S_KEYSTORE;
+		static const std::string S_DEVICENAME;
+		static const std::string S_SERVERURLPREFIX;
+$poptop SchemaDef declSchemaClientConfigurationFileMethods$
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="extendSchemaClientConfigurationFile"> : $reference RefSchema CPlusNamespace$::$reference RefSchema SchemaName$ClientConfigurationFile</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaClientConfigurationFileMethods"
+		>$iterate SchemaRefs( empty reallyDeclSchemaClientConfigurationFileMethods each empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="reallyDeclSchemaClientConfigurationFileMethods"
+		>$reference RefSchema reallyDeclSchemaClientConfigurationFileMethods$</GenRule>
+
+	<GenRule GenDef="Object" Name="reallyDeclSchemaClientConfigurationFileMethods"
+		>$switch HasDefSchema yes reallyDerefDeclSchemaClientConfigurationFileMethods default empty empty empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="reallyDerefDeclSchemaClientConfigurationFileMethods"
+		>$reference DefSchema reallyDeclSchemaClientConfigurationFileMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="reallyDeclSchemaClientConfigurationFileMethods">
+	public:
+		CFSecClientConfigurationFile();
+		virtual ~CFSecClientConfigurationFile();
+
+		virtual std::string* getFileName() const;
+		virtual void setFileName( const std::string&amp; value );
+
+		virtual std::string* getKeyStore() const;
+		virtual void setKeyStore( const std::string&amp; value );
+
+		virtual std::string* getDeviceName() const;
+		virtual void setDeviceName( const std::string&amp; value );
+
+		virtual std::string** getServerURLArray();
+		virtual int32_t getServerURLUsed() const;
+		virtual const std::string* getLatestServerURL() const;
+		virtual void setLatestServerURL( const std::string&amp; value );
+
+		virtual bool load();
+		virtual bool save() const;</GenRule>
+
+</RuleSet>

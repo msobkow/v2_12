@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/schema/ISchemaTablePerms.hpp"
+	Revision="2.12"
+	Descr="C++18 $SchemaName$ Table Permissions Interface.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaITablePermsHpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="I$SchemaName$TablePermsHpp"
+		ExpansionKeyName="I$SchemaName$TablePermsHpp"
+		ExpansionFileName="I$SchemaName$TablePerms.hpp"
+>#pragma once
+
+// Description: C++18 $SchemaName$ Table Permissions Interface.
+
+$MssSourceLicense$
+
+#include &lt;uuid/uuid.h&gt;
+
+#include &lt;array&gt;
+#include &lt;cassert&gt;
+#include &lt;cstddef&gt;
+#include &lt;chrono&gt;
+#include &lt;ctime&gt;
+#include &lt;functional&gt;
+#include &lt;list&gt;
+#include &lt;string&gt;
+$iterate SchemaRefs( each includeISchemaTablePerms empty empty )$
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$Authorization;
+
+	class I$SchemaName$TablePerms$iterate SchemaRefs( first extendsCPlusDefSchemaTablePerms each commaNewlineCPlusDefSchemaTablePerms empty empty )$
+	{
+	public:$declISchemaTablePermsConstructor$$iterate SchemaTables( each implITablePermsAllowAccessors )$	};
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="declISchemaTablePermsConstructor">
+		I$SchemaName$TablePerms();
+		virtual ~I$SchemaName$TablePerms();
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="includeISchemaTablePerms">
+#include &lt;$lower reference RefSchema SchemaName$/I$reference RefSchema SchemaName$TablePerms.hpp&gt;</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="extendsCPlusDefSchemaTablePerms">
+	: public virtual $reference RefSchema CPlusNamespace$::I$reference RefSchema SchemaName$TablePerms</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="commaNewlineCPlusDefSchemaTablePerms">,
+	  public virtual $reference RefSchema CPlusNamespace$::I$reference RefSchema SchemaName$TablePerms</GenRule>
+
+	<GenRule GenDef="Table" Name="implITablePermsAllowAccessors"
+		>$reallyImplITablePermsAllowAccessors$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyImplITablePermsAllowAccessors">
+		virtual bool allowCreate$TableName$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization ) = 0;
+		virtual bool allowRead$TableName$( const $CPlusSecNamespace$::$SecSchemaName$Authorization Authorization ) = 0;
+		virtual bool allowUpdate$TableName$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization ) = 0;
+		virtual bool allowDelete$TableName$( const $CPlusSecNamespace$::$SecSchemaName$Authorization* Authorization ) = 0;
+</GenRule>
+
+</RuleSet>

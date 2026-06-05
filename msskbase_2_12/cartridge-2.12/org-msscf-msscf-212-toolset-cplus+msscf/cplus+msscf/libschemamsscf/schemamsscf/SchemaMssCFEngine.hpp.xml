@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus+msscf"
+	Name="libschemamsscf/schemamsscf/SchemaMssCFEngine.cplus"
+	Revision="2.12"
+	Descr="C++18 SchemaMssCFEngine">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaMssCFEngineHPlus"
+		GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$reference ManufacturingSchema lower PackageName$msscf"
+		SubPackageName="$lower poptop SchemaDef SchemaName$msscf"
+		ExpansionClassName="$SchemaName$MssCFEngineHPlus"
+		ExpansionKeyName="$SchemaName$MssCFEngineHPlus"
+		ExpansionFileName="$SchemaName$MssCFEngine.hpp">
+// Description: C++18 MssCF CFEngine for $SchemaName$
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;msscf/MssCFPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$MssCFEngine : public cfcore::MssCFEngine
+	{
+		public:
+			static const std::string CLASS_NAME;
+			static const std::string ITEMNAME_TOP;
+
+		protected:
+			$lower CPlusNamespace$::I$SchemaName$SchemaObj* $leadlower SchemaName$Schema;
+
+		public:
+			$SchemaName$MssCFEngine();
+			virtual ~$SchemaName$MssCFEngine();
+
+			virtual std::string fixGenDefName( const std::string&amp; rawName ) = 0;
+
+			virtual $CPlusNamespace$::I$SchemaName$SchemaObj* get$SchemaName$Schema();
+			virtual void set$SchemaName$Schema( $CPlusNamespace$::I$SchemaName$SchemaObj* value );
+
+			virtual void init( const std::string&amp; generatingBuild,
+				cfcore::ICFGenKbSchemaObj* argCFGenKbSchema,
+				cfcore::ICFGenKbTenantObj* argTenant,
+				$CPlusNamespace$::I$SchemaName$SchemaObj* arg$SchemaName$Schema,
+				const std::string&amp; strRootGenDir );
+
+			virtual void init( const std::string&amp; generatingBuild,
+				cfcore::ICFGenKbSchemaObj* argCFGenKbSchema,
+				cfcore::ICFGenKbTenantObj* argTenant,
+				const std::string&amp; strRootGenDir );
+
+			virtual cfcore::ICFGenKbGenFileObj* defineFile(
+				const std::string&amp; definedNear,
+				const std::string&amp; toolsetName,
+				const std::string&amp; scopeDefClassName,
+				const std::string&amp; genDefClassName,
+				const std::string&amp; itemName,
+				const std::string&amp; expansionBody,
+				const std::string&amp; generateOnce,
+				const std::string&amp; sourceBundle,
+				const std::string&amp; moduleName,
+				const std::string&amp; basePackageName,
+				const std::string&amp; subPackageName,
+				const std::string&amp; expansionClassName,
+				const std::string&amp; expansionKeyName,
+				const std::string&amp; expansionFileName );
+
+			virtual cfcore::ICFGenKbGenRuleObj* defineRule(
+				const std::string&amp; definedNear,
+				const std::string&amp; toolsetName,
+				const std::string&amp; scopeDefClassName,
+				const std::string&amp; genDefClassName,
+				const std::string&amp; itemName,
+				const std::string&amp; expansionBody );
+
+			virtual cfcore::ICFGenKbGenTruncObj* defineTrunc(
+				const std::string&amp; definedNear,
+				const std::string&amp; toolsetName,
+				const std::string&amp; scopeDefClassName,
+				const std::string&amp; genDefClassName,
+				const std::string&amp; itemName,
+				const std::string&amp; expansionBody,
+				int truncAt );
+
+			virtual void bootstrapDefClasses();
+			virtual void bootstrapBindings();
+			virtual void bootstrapIterators();
+			virtual void bootstrapReferences();
+	};
+}
+</GenFile>
+
+</RuleSet>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschemaram/schemaram/SchemaRamSchema.hpp"
+	Revision="2.12"
+	Descr="C++18 Interface for an declementation of an in-memory RAM $SchemaName$ schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaRamSchemaHPlus"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName="$lower reference ManufacturingSchema SchemaName$ram"
+		ExpansionClassName="$SchemaName$RamSchemaHPlus"
+		ExpansionKeyName="$SchemaName$RamSchemaHPlus"
+		ExpansionFileName="$SchemaName$RamSchema.hpp"
+>#pragma once
+
+// Description: C++18 Interface for an declementation of an in-memory RAM $SchemaName$ schema.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$/$SchemaName$Schema.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	class $SchemaName$RamSchema
+	: public $CPlusNamespace$::$SchemaName$Schema,
+	  public virtual $CPlusNamespace$::I$SchemaName$Schema
+	{
+	protected:
+		bool sessConnected = false;
+		bool tranOpen = false;$iterate Id16Generators( each declRamNextIdGen empty empty )$$iterate Id32Generators( each declRamNextIdGen empty empty )$$iterate Id64Generators( each declRamNextIdGen empty empty )$
+
+	public:
+		static const std::string CLASS_NAME;
+$declSchemaRamConstructor$$declRamSchemaConnectionMethods$$declRamSchemaNewSchema$$iterate Id16Generators( each declRamNextIdGenMethod empty empty)$$iterate Id32Generators( each declRamNextIdGenMethod empty empty)$$iterate Id64Generators( each declRamNextIdGenMethod empty empty)$$iterate UuidGenerators( each declRamNextIdGenMethod empty empty )$$declRamSchemaReleasePreparedStatements$
+	};
+}
+</GenFile>
+
+<!--
+	<GenRule GenDef="Table" Name="includeIDefSchemaTableTable">
+#include &lt;$lower DefSchemaName$/I$DefSchemaName$$TableName$Table.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeDefSchemaTablePKey"
+		>$switch HasSuperClassRelation yes empty default reallyIncludeDefSchemaTablePKey$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyIncludeDefSchemaTablePKey">
+#include &lt;$lower DefSchemaName$/$DefSchemaName$$TableName$PKey.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeDefSchemaTableBuff">
+#include &lt;$lower DefSchemaName$/$DefSchemaName$$TableName$Buff.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeDefSchemaTableIndexKey"
+		>$iterate Index( each includeDefSchemaTableIndexKey empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="includeDefSchemaTableIndexKey"
+		>$switch IsPrimaryIndex yes empty default reallyIncludeDefSchemaTableIndexKey$</GenRule>
+
+	<GenRule GenDef="Index" Name="reallyIncludeDefSchemaTableIndexKey">
+#include &lt;$lower reference Table DefSchemaName$/$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeISchemaTableObj">
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$Obj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeISchemaTableEditObj">
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$EditObj.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Table" Name="includeISchemaTableTableObj">
+#include &lt;$lower SchemaName$obj/I$SchemaName$$TableName$TableObj.hpp&gt;</GenRule>
+-->
+
+	<GenRule GenDef="Table" Name="includeSchemaRamTableHPlus">
+#include &lt;$lower SchemaName$ram/$SchemaName$Ram$TableName$Table.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Value" Name="includeSchemaRamTableId16GenHPlus">
+#include &lt;$lower SchemaName$ram/$SchemaName$Ram$popto Table TableName$Id16Gen.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Value" Name="includeSchemaRamTableId32GenHPlus">
+#include &lt;$lower SchemaName$ram/$SchemaName$Ram$popto Table TableName$Id32Gen.hpp&gt;</GenRule>
+
+	<GenRule GenDef="Value" Name="includeSchemaRamTableId64GenHPlus">
+#include &lt;$lower SchemaName$ram/$SchemaName$Ram$popto Table TableName$Id64Gen.hpp&gt;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declRamSchemaReleasePreparedStatements">
+	virtual void releasePreparedStatements();</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declRamSchemaConnectionMethods">
+	virtual bool isConnected();
+	virtual bool connect();
+	virtual bool connect( const std::string&amp; username, const std::string&amp; password );
+	virtual bool connect( const std::string&amp; loginId, const std::string&amp; password, const std::string&amp; clusterName, const std::string&amp; tenantName );
+	virtual void disconnect( bool doCommit );
+	virtual bool isTransactionOpen();
+	virtual bool beginTransaction();
+	virtual void commit();
+	virtual void rollback();</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="declRamNextIdGen">
+		int16_t next$Name$Value;</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="declRamNextIdGen">
+		int32_t next$Name$Value;</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="declRamNextIdGen">
+		int64_t next$Name$Value;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declSchemaRamConstructor">
+	$SchemaName$RamSchema();
+	virtual ~$SchemaName$RamSchema();</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="declRamNextIdGenMethod">
+	virtual int16_t next$Name$();</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="declRamNextIdGenMethod">
+	virtual int32_t next$Name$();</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="declRamNextIdGenMethod">
+	virtual int64_t next$Name$();</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidGen" Name="declRamNextIdGenMethod"></GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="declRamSchemaNewSchema">
+	virtual $CPlusNamespace$::I$SchemaName$Schema* newSchema();
+</GenRule>
+
+</RuleSet>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+javafx"
+	Name="src/SchemaJavaFXTableViewEditPane.java"
+	Revision="2.12"
+	Descr="Java 11 JavaFX View/Edit Pane for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaJavaFXTableViewEditPaneJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$JavaFX/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$JavaFX"
+		ExpansionClassName="$SchemaName$JavaFX$TableName$TableViewEditPaneJava"
+		ExpansionKeyName="$SchemaName$JavaFX$TableName$TableViewEditPaneJava"
+		ExpansionFileName="$SchemaName$JavaFX$TableName$ViewEditPane.java"
+>// Description: Java 11 JavaFX View/Edit Pane implementation for $TableName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$JavaFX;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import javafx.geometry.Orientation;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.JavaFX.*;
+import org.apache.commons.codec.binary.Base64;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+
+/**
+ *	$SchemaName$JavaFX$TableName$ViewEditPane JavaFX View/Edit Pane implementation
+ *	for $TableName$.
+ */
+public class $SchemaName$JavaFX$TableName$ViewEditPane
+extends CFSplitPane
+implements I$DefSchemaName$JavaFX$TableName$PaneCommon
+{
+	protected ICFFormManager cfFormManager = null;
+	protected I$SchemaName$JavaFXSchema javafxSchema = null;
+	protected ScrollPane attrScrollPane = null;
+	protected CFGridPane attrPane = null;$switch HasEltTabs yes declJavaFXTableViewEditPaneEltTabPane default empty$
+$implConstructJavaFXTableViewEditPane$$implGetSetCFFormManager$$implGetJavaFXSchema$$implGetSetJavaFXFocusViewEditPane$$implSetPaneModeViewEditPane$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableViewEditPaneEltTabPane">
+	protected CFTabPane eltTabPane = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="HasEltTabs"
+		>$switch HasEltTabsATab empty no default yes$</GenRule>
+
+	<GenRule GenDef="Table" Name="HasEltTabsATab"
+		>$switch HasSuperClassRelation yes HasEltTabsInhTabs default HasEltTabsBaseTabs$</GenRule>
+
+	<GenRule GenDef="Table" Name="HasEltTabsBaseTabs"
+		>$iterate Relation( each HasEltTabsATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="HasEltTabsInhTabs"
+		>$reference SuperClassRelation reference ToTable HasEltTabsATab$$iterate Relation( each HasEltTabsATab empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="HasEltTabsATab"
+		>$switch RelationTypeTag
+			Lookup empty
+			Children yes
+			Components yes
+			Details yes
+			Parent empty
+			Container empty
+			Owner empty
+			Master empty
+			default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetSetJavaFXFocusViewEditPane">
+	public void setJavaFXFocus( ICFLibAnyObj value ) {
+		final String S_ProcName = "setJavaFXFocus";
+		if( ( value == null ) || ( value instanceof I$DefSchemaName$$TableName$Obj ) ) {
+			super.setJavaFXFocus( value );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				S_ProcName,
+				"value",
+				value,
+				"I$DefSchemaName$$TableName$Obj" );
+		}
+		if( attrPane != null ) {
+			attrPane.setJavaFXFocus( value );
+		}$switch HasEltTabs yes ViewEditPanePropagateToEltTabPane default empty$
+	}
+
+	public void setJavaFXFocusAs$TableName$( I$DefSchemaName$$TableName$Obj value ) {
+		setJavaFXFocus( value );
+	}
+
+	public I$DefSchemaName$$TableName$Obj getJavaFXFocusAs$TableName$() {
+		return( (I$DefSchemaName$$TableName$Obj)getJavaFXFocus() );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="ViewEditPanePropagateToEltTabPane">
+		if( eltTabPane != null ) {
+			eltTabPane.setJavaFXFocus( value );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeViewEditPane">
+	public void setPaneMode( CFPane.PaneMode value ) {
+		CFPane.PaneMode oldMode = getPaneMode();
+		if( oldMode == value ) {
+			return;
+		}
+		try {
+			super.setPaneMode( value );
+			((I$DefSchemaName$JavaFX$TableName$PaneCommon)attrPane).setPaneMode( value );$switch HasEltTabs yes implSetPaneModeViewEditPaneAdjustEltTabPane default empty$
+		}
+		catch( Throwable t ) {
+			super.setPaneMode( oldMode );
+			((I$DefSchemaName$JavaFX$TableName$PaneCommon)attrPane).setPaneMode( oldMode );$switch HasEltTabs yes implSetPaneModeViewEditPaneAdjustOldModeEltTabPane default empty$
+			throw t;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeViewEditPaneAdjustEltTabPane">
+			((I$DefSchemaName$JavaFX$TableName$PaneCommon)eltTabPane).setPaneMode( value );</GenRule>
+
+	<GenRule GenDef="Table" Name="implSetPaneModeViewEditPaneAdjustOldModeEltTabPane">
+			((I$DefSchemaName$JavaFX$TableName$PaneCommon)eltTabPane).setPaneMode( oldMode );</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableViewEditPane">
+	public $SchemaName$JavaFX$TableName$ViewEditPane( ICFFormManager formManager, I$SchemaName$JavaFXSchema argSchema, I$DefSchemaName$$TableName$Obj argFocus ) {
+		super();
+		final String S_ProcName = "construct-schema-focus";
+		if( formManager == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"formManager" );
+		}
+		cfFormManager = formManager;
+		if( argSchema == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"argSchema" );
+		}
+		// argFocus is optional; focus may be set later during execution as
+		// conditions of the runtime change.
+		javafxSchema = argSchema;
+		setJavaFXFocus( argFocus );
+		attrPane = argSchema.get$TableName$Factory().newAttrPane( cfFormManager, argFocus );
+		attrScrollPane = new ScrollPane();
+		attrScrollPane.setFitToWidth( true );
+		attrScrollPane.setHbarPolicy( ScrollBarPolicy.NEVER );
+		attrScrollPane.setVbarPolicy( ScrollBarPolicy.AS_NEEDED );
+		attrScrollPane.setContent( attrPane );$switch HasEltTabs yes implConstructJavaFXTableViewEditPaneInstantiateEltTabPane default empty$
+		setOrientation( Orientation.VERTICAL );
+		getItems().add( attrScrollPane );$switch HasEltTabs yes implConstructJavaFXTableViewEditPaneAddEltTabPane default empty$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableViewEditPaneInstantiateEltTabPane">
+		eltTabPane = argSchema.get$TableName$Factory().newEltTabPane( cfFormManager, argFocus );</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableViewEditPaneAddEltTabPane">
+		getItems().add( eltTabPane );</GenRule>
+
+</RuleSet>

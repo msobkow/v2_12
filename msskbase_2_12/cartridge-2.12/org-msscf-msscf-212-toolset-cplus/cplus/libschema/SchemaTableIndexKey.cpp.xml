@@ -1,0 +1,1524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/SchemaTableIndexKey.cpp"
+	Revision="2.12"
+	Descr="C++18 implementation of a $TableName$ $Suffix$ index key object.">
+
+	<GenRule GenDef="Index" Name="fileSchemaTableIndexKeyCpp"
+		>$switch IsPrimaryIndex yes empty default implFileSchemaTableIndexKeyCpp$</GenRule>
+
+	<GenFile GenDef="Index" Name="implFileSchemaTableIndexKeyCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$lower reference Table reference ManufacturingSchema SchemaName$"
+		SubPackageName=""
+		ExpansionClassName="$reference Table reference ManufacturingSchema SchemaName$$TableName$By$Suffix$KeyCpp"
+		ExpansionKeyName="$reference Table reference ManufacturingSchema SchemaName$$TableName$By$Suffix$KeyCpp"
+		ExpansionFileName="$reference Table reference ManufacturingSchema SchemaName$$TableName$By$Suffix$Key.cpp"
+>// Description: C++18 implementation for a $TableName$ by $Suffix$ index key object.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+#include &lt;$lower SchemaName$/$SchemaName$$TableName$By$Suffix$Key.hpp&gt;
+#include &lt;$lower SchemaName$/$SchemaName$$TableName$Buff.hpp&gt;
+#include &lt;$lower SchemaName$/$SchemaName$$TableName$HBuff.hpp&gt;
+
+namespace $CPlusNamespace$ {
+	const std::string $poptop SchemaDef SchemaName$$TableName$By$Suffix$Key::CLASS_NAME( "$SchemaName$$TableName$By$Suffix$Key" );$implIndexKeySValue$
+$switch HasDefSchema yes implIndexKeyInhConstructor default implIndexKeyBaseConstructor$$switch HasDefSchema yes empty default implIndexKeyBaseColumns$$switch HasDefSchema yes empty default implIndexKeyGetHashCode$$switch HasDefSchema yes empty default implIndexKeyToString$$implIndexKeyComparison$$implIndexKeySet$
+}
+$implStdIndexKeyComparison$
+</GenFile>
+
+	<GenRule GenDef="Index" Name="implIndexKeySet">
+	$SchemaName$$TableName$By$Suffix$Key $SchemaName$$TableName$By$Suffix$Key::operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$By$Suffix$Key&amp; src ) {$iterate Columns( each implBuffSetCopyCol )$
+		return( *this );
+	}
+
+	$SchemaName$$TableName$By$Suffix$Key $SchemaName$$TableName$By$Suffix$Key::operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff&amp; src ) {$iterate Columns( each implBuffSetCopyCol )$
+		return( *this );
+	}
+
+	$SchemaName$$TableName$By$Suffix$Key $SchemaName$$TableName$By$Suffix$Key::operator =( $CPlusDefNamespace$::$DefSchemaName$$TableName$HBuff&amp; src ) {$iterate Columns( each implBuffSetCopyCol )$
+		return( *this );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeySValue">
+	const std::string $SchemaName$$TableName$By$Suffix$Key::S_VALUE( "value" );
+	const std::string $SchemaName$$TableName$By$Suffix$Key::S_VALUE_LENGTH( "value.length()" );
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implIndexKeyColumnGetterSetter"
+	>$reference Column implIndexKeyColumnGetterSetter$</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeyBaseColumns"
+	>$iterate Columns( each implIndexKeyColumnGetterSetter )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implSchemaTableBySuffixKeyColumnAttr"
+	>$iterate Columns( each declColumnAttr )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeyInhConstructor">
+	$SchemaName$$TableName$By$Suffix$Key::$SchemaName$$TableName$By$Suffix$Key()
+	: $reference DefSchema SchemaName$$TableName$By$Suffix$Key()
+	{
+	}
+
+	$SchemaName$$TableName$By$Suffix$Key::$SchemaName$$TableName$By$Suffix$Key( const $SchemaName$$TableName$By$Suffix$Key&amp; src )
+	: $reference DefSchema SchemaName$$TableName$By$Suffix$Key( src )
+	{
+	}
+
+	$SchemaName$$TableName$By$Suffix$Key::~$SchemaName$$TableName$By$Suffix$Key() {
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeyBaseConstructor">
+	$SchemaName$$TableName$By$Suffix$Key::$SchemaName$$TableName$By$Suffix$Key() {$iterate Columns( each implConstructorInitAttr )$
+	}
+
+	$SchemaName$$TableName$By$Suffix$Key::$SchemaName$$TableName$By$Suffix$Key( const $SchemaName$$TableName$By$Suffix$Key&amp; src ) {$iterate Columns( each implConstructorInitAttr )$$iterate Columns( each implBuffSetCopyCol )$
+	}
+
+	$SchemaName$$TableName$By$Suffix$Key::~$SchemaName$$TableName$By$Suffix$Key() {$iterate Columns( each implDestructorDestructAttr )$
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeyGetHashCode">
+	size_t $SchemaName$$TableName$By$Suffix$Key::hashCode() const {
+		size_t hashCode = 0;$iterate Columns( each implGetHashCodeAttr )$
+		return( hashCode );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeyToString">
+	std::string $SchemaName$$TableName$By$Suffix$Key::toString() {
+		static const std::string S_Space( " " );
+		static const std::string S_Preamble( "&lt;$SchemaName$$TableName$By$Suffix$Key" );
+		static const std::string S_Postamble( "/&gt;" );$iterate Columns( each implToStringAttrName )$
+		std::string ret( S_Preamble );$iterate Columns( each implToStringEmitXmlAttr )$
+		ret.append( S_Postamble );
+		return( ret );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyColumnGetterSetter"
+	>$switch IsNullable yes implIndexKeyOptGetterSetter default implIndexKeyReqGetterSetter$</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqGetterSetter"
+	>$switch BaseModelAtomClass
+		BlobDef implIndexKeyReqBlobGetterSetter
+		BoolDef implIndexKeyReqBoolGetterSetter
+		EnumDef implIndexKeyReqEnumGetterSetter
+		Id16Gen implIndexKeyReqInt16GetterSetter
+		Id32Gen implIndexKeyReqInt32GetterSetter
+		Id64Gen implIndexKeyReqInt64GetterSetter
+		Int16Def implIndexKeyReqInt16GetterSetter
+		Int32Def implIndexKeyReqInt32GetterSetter
+		Int64Def implIndexKeyReqInt64GetterSetter
+		UInt16Def implIndexKeyReqUInt16GetterSetter
+		UInt32Def implIndexKeyReqUInt32GetterSetter
+		UInt64Def implIndexKeyReqUInt64GetterSetter
+		FloatDef implIndexKeyReqFloatGetterSetter
+		DoubleDef implIndexKeyReqDoubleGetterSetter
+		NumberDef implIndexKeyReqNumberGetterSetter
+		DateDef implIndexKeyReqDateGetterSetter
+		TimeDef implIndexKeyReqTimeGetterSetter
+		TimestampDef implIndexKeyReqTimestampGetterSetter
+		TZDateDef implIndexKeyReqTZDateGetterSetter
+		TZTimeDef implIndexKeyReqTZTimeGetterSetter
+		TZTimestampDef implIndexKeyReqTZTimestampGetterSetter
+		UuidGen implIndexKeyReqUuidGetterSetter
+		UuidDef implIndexKeyReqUuidGetterSetter
+		StringDef implIndexKeyReqStringGetterSetter
+		TokenDef implIndexKeyReqTokenGetterSetter
+		NmTokenDef implIndexKeyReqNmTokenGetterSetter
+		NmTokensDef implIndexKeyReqNmTokensGetterSetter
+		TextDef implIndexKeyReqTextGetterSetter
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqBlobGetterSetter">
+	const std::vector&lt;cflib::BYTE&gt;&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::vector&lt;cflib::BYTE&gt;* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::vector&lt;cflib::BYTE&gt;&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );
+		static const std::string S_ValueSize( "value.size()" );
+		if( value.size() > $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN ) {
+			throw cflib::CFLibArgumentOverflowException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_ValueSize,
+				value.size(),
+				$SchemaName$$TableName$Buff::$upper Name$_MAX_LEN );
+		}
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::vector&lt;cflib::BYTE&gt;( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqBoolGetterSetter">
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const bool value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqEnumGetterSetter">
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqInt16GetterSetter">
+	const int16_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const int16_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const int16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqInt32GetterSetter">
+	const int32_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const int32_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const int32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqInt64GetterSetter">
+	const int64_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const int64_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const int64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqUInt16GetterSetter">
+	const uint16_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uint16_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const uint16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqUInt32GetterSetter">
+	const uint32_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uint32_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const uint32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqUInt64GetterSetter">
+	const uint64_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uint64_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const uint64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqFloatGetterSetter">
+	const float $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const float* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const float value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqDoubleGetterSetter">
+	const double $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const double* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const double value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqNumberGetterSetter">
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const cflib::CFLibGenericBigDecimal&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqDateGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqTimeGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqTimestampGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqTZDateGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqTZTimeGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqTZTimestampGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( &amp;$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqUuidGetterSetter">
+	const uuid_ptr_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uuid_ptr_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const uuid_ptr_t value ) {
+		uuid_copy( $lower implColumnAttrOptionality$$Name$, value );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::generate$implColumnAttrOptionality$$Name$() {
+		uuid_generate_random( $lower implColumnAttrOptionality$$Name$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqStringGetterSetter">
+	const std::string&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqTokenGetterSetter">
+	const std::string&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqNmTokenGetterSetter">
+	const std::string&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqNmTokensGetterSetter">
+	const std::string&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyReqTextGetterSetter">
+	const std::string&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$" );$implReqSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptGetterSetter"
+	>$switch BaseModelAtomClass
+		BlobDef implIndexKeyOptBlobGetterSetter
+		BoolDef implIndexKeyOptBoolGetterSetter
+		EnumDef implIndexKeyOptEnumGetterSetter
+		Id16Gen implIndexKeyOptInt16GetterSetter
+		Id32Gen implIndexKeyOptInt32GetterSetter
+		Id64Gen implIndexKeyOptInt64GetterSetter
+		Int16Def implIndexKeyOptInt16GetterSetter
+		Int32Def implIndexKeyOptInt32GetterSetter
+		Int64Def implIndexKeyOptInt64GetterSetter
+		UInt16Def implIndexKeyOptUInt16GetterSetter
+		UInt32Def implIndexKeyOptUInt32GetterSetter
+		UInt64Def implIndexKeyOptUInt64GetterSetter
+		FloatDef implIndexKeyOptFloatGetterSetter
+		DoubleDef implIndexKeyOptDoubleGetterSetter
+		NumberDef implIndexKeyOptNumberGetterSetter
+		DateDef implIndexKeyOptDateGetterSetter
+		TimeDef implIndexKeyOptTimeGetterSetter
+		TimestampDef implIndexKeyOptTimestampGetterSetter
+		TZDateDef implIndexKeyOptTZDateGetterSetter
+		TZTimeDef implIndexKeyOptTZTimeGetterSetter
+		TZTimestampDef implIndexKeyOptTZTimestampGetterSetter
+		UuidGen implIndexKeyOptUuidGetterSetter
+		UuidDef implIndexKeyOptUuidGetterSetter
+		StringDef implIndexKeyOptStringGetterSetter
+		TokenDef implIndexKeyOptTokenGetterSetter
+		NmTokenDef implIndexKeyOptNmTokenGetterSetter
+		NmTokensDef implIndexKeyOptNmTokensGetterSetter
+		TextDef implIndexKeyOptTextGetterSetter
+		default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptBlobGetterSetter">
+	const std::vector&lt;cflib::BYTE&gt;&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::vector&lt;cflib::BYTE&gt;* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::vector&lt;cflib::BYTE&gt;&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ValueSize( "value.size()" );
+		if( value.size() > $SchemaName$$TableName$Buff::$upper Name$_MAX_LEN ) {
+			throw cflib::CFLibArgumentOverflowException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_ValueSize,
+				value.size(),
+				$SchemaName$$TableName$Buff::$upper Name$_MAX_LEN );
+		}
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::vector&lt;cflib::BYTE&gt;( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptBoolGetterSetter">
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const bool* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const bool value ) {
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptEnumGetterSetter">
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const $reference DataType CPlusDefNamespace$::I$reference DataType EffSchemaName$Schema::$reference DataType Name$ value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			$lower implColumnAttrOptionality$$Name$ = new I$reference DataType EffSchemaName$Schema::$reference DataType Name$;
+		}
+		*$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptInt16GetterSetter">
+	const int16_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const int16_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const int16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptInt32GetterSetter">
+	const int32_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const int32_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const int32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptInt64GetterSetter">
+	const int64_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const int64_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const int64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptUInt16GetterSetter">
+	const uint16_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const uint16_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const uint16_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptUInt32GetterSetter">
+	const uint32_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const uint32_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const uint32_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptUInt64GetterSetter">
+	const uint64_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const uint64_t* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const uint64_t value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptFloatGetterSetter">
+	const float $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const float* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const float value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptDoubleGetterSetter">
+	const double $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$.getValue() );
+	}
+
+	const double* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$.getReference() );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$.isNull() );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		$lower implColumnAttrOptionality$$Name$.setNull();
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const double value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$.setValue( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptNumberGetterSetter">
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const cflib::CFLibGenericBigDecimal&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		std::string fieldName( CLASS_NAME );
+		fieldName.append( S_ColumnName );
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = cflib::TCFLibBigDecimal&lt;$Digits$,$Precis$&gt;::coerce( fieldName, value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptDateGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptTimeGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptTimestampGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptTZDateGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptTZTimeGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptTZTimestampGetterSetter">
+	const std::chrono::system_clock::time_point&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::chrono::system_clock::time_point* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::chrono::system_clock::time_point&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );
+		static const std::string S_ColumnName( ".$Name$" );$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::chrono::system_clock::time_point( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptUuidGetterSetter">
+	const uuid_ptr_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( is$implColumnAttrOptionality$$Name$Null() ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const uuid_ptr_t $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		if( is$implColumnAttrOptionality$$Name$Null() ) {
+			return( NULL );
+		}
+		else {
+			return( $lower implColumnAttrOptionality$$Name$ );
+		}
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		for( int i = 0; i &lt; 16; i++ ) {
+			if( $lower implColumnAttrOptionality$$Name$[ i ] != 0 ) {
+				return( false );
+			}
+		}
+		return( true );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		for( int i = 0; i &lt; 16; i ++ ) {
+			$lower implColumnAttrOptionality$$Name$[i] = 0;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const uuid_ptr_t value ) {
+		uuid_copy( $lower implColumnAttrOptionality$$Name$, value );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::generate$implColumnAttrOptionality$$Name$() {
+		uuid_generate_random( $lower implColumnAttrOptionality$$Name$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptStringGetterSetter">
+	const std::string&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptTokenGetterSetter">
+	const std::string&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptNmTokenGetterSetter">
+	const std::string&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptNmTokensGetterSetter">
+	const std::string&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implIndexKeyOptTextGetterSetter">
+	const std::string&amp; $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Value() const {
+		static const std::string S_ProcName( "get$implColumnAttrOptionality$$Name$Value" );
+		if( $lower implColumnAttrOptionality$$Name$ == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_VALUE );
+		}
+		return( *$lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const std::string* $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::get$implColumnAttrOptionality$$Name$Reference() const {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	const bool $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::is$implColumnAttrOptionality$$Name$Null() const {
+		return( $lower implColumnAttrOptionality$$Name$ == NULL );
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Null() {
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+	}
+
+	void $popto Index SchemaName$$popto Index TableName$By$popto Index Suffix$Key::set$implColumnAttrOptionality$$Name$Value( const std::string&amp; value ) {
+		static const std::string S_ProcName( "set$implColumnAttrOptionality$$Name$Value" );$implOptSetterCheckMaxLen$
+		if( $lower implColumnAttrOptionality$$Name$ != NULL ) {
+			delete $lower implColumnAttrOptionality$$Name$;
+			$lower implColumnAttrOptionality$$Name$ = NULL;
+		}
+		$lower implColumnAttrOptionality$$Name$ = new std::string( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeyComparison"
+	>$implIndexKeyComparisonLessThan$
+$implIndexKeyComparisonLessOrEqual$
+$implIndexKeyComparisonEqual$
+$implIndexKeyComparisonNotEqual$
+$implIndexKeyComparisonGreaterOrEqual$
+$implIndexKeyComparisonGreaterThan$</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeyComparisonLessThan">
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &lt;( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implLessThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &lt;( const $SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implLessThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &lt;( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implLessThanCmpAttr )$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeyComparisonLessOrEqual">
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &lt;=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &lt;=( const $SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &lt;=( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpAttr )$
+		return( true );
+	}</GenRule>
+
+
+	<GenRule GenDef="Index" Name="implIndexKeyComparisonEqual">
+	bool $SchemaName$$TableName$By$Suffix$Key::operator ==( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator ==( const $SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator ==( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implEqualCmpAttr )$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeyComparisonNotEqual">
+	bool $SchemaName$$TableName$By$Suffix$Key::operator !=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implNotEqualCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator !=( const $SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implNotEqualCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator !=( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implNotEqualCmpAttr )$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeyComparisonGreaterOrEqual">
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &gt;=( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &gt;=( const $SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpAttr )$
+		return( true );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &gt;=( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpAttr )$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implIndexKeyComparisonGreaterThan">
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &gt;( const $SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implGreaterThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &gt;( const $SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implGreaterThanCmpAttr )$
+		return( false );
+	}
+
+	bool $SchemaName$$TableName$By$Suffix$Key::operator &gt;( const $SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implGreaterThanCmpAttr )$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdIndexKeyComparison">
+namespace std {
+$implStdIndexKeyComparisonLessThan$
+$implStdIndexKeyComparisonLessOrEqual$
+$implStdIndexKeyComparisonEqual$
+$implStdIndexKeyComparisonNotEqual$
+$implStdIndexKeyComparisonGreaterOrEqual$
+$implStdIndexKeyComparisonGreaterThan$
+}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdIndexKeyComparisonLessThan">
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implLessThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implLessThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &lt;(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implLessThanCmpLhsAttr )$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdIndexKeyComparisonLessOrEqual">
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &lt;=(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implLessOrEqualCmpLhsAttr )$
+		return( true );
+	}</GenRule>
+
+
+	<GenRule GenDef="Index" Name="implStdIndexKeyComparisonEqual">
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator ==(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implEqualCmpLhsAttr )$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdIndexKeyComparisonNotEqual">
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implNotEqualCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implNotEqualCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator !=(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implNotEqualCmpLhsAttr )$
+		return( false );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdIndexKeyComparisonGreaterOrEqual">
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpLhsAttr )$
+		return( true );
+	}
+
+	bool operator &gt;=(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implGreaterOrEqualCmpLhsAttr )$
+		return( true );
+	}</GenRule>
+
+	<GenRule GenDef="Index" Name="implStdIndexKeyComparisonGreaterThan">
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; rhs ) {$iterate Columns( each implGreaterThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$HBuff&amp; rhs ) {$iterate Columns( each implGreaterThanCmpLhsAttr )$
+		return( false );
+	}
+
+	bool operator &gt;(const  $CPlusNamespace$::$SchemaName$$TableName$By$Suffix$Key&amp; lhs, const $CPlusNamespace$::$SchemaName$$TableName$Buff&amp; rhs ) {$iterate Columns( each implGreaterThanCmpLhsAttr )$
+		return( false );
+	}</GenRule>
+
+</RuleSet>

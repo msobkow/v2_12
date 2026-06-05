@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+xmsg"
+	Name="src/SchemaXMsgHandler/SchemaXMsgSchemaMessageFormatter.java"
+	Revision="2.12"
+	Descr="Java 11 XML SAX Element Handler for Table">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaXMsgSchemaMessageFormatterJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$XMsg/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$XMsg"
+		ExpansionClassName="$SchemaName$XMsgSchemaMessageFormatterJava"
+		ExpansionKeyName="$SchemaName$XMsgSchemaMessageFormatterJava"
+		ExpansionFileName="$SchemaName$XMsgSchemaMessageFormatter.java">
+// Description: Java 11 XML Message message formatter for $SchemaName$
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$XMsg;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.apache.commons.codec.binary.Base64;
+import org.xml.sax.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$importJavaPackageSchemaName$$iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$importJavaPackageSchemaNameObj$$JavaXMsgSchemaImport$$ReferencedJavaXMsgSchemaImport$
+
+/*
+ *	$SchemaName$XMsgSchemaMessageFormatter XML message formatter
+ *	for $SchemaName$.
+ */
+public class $SchemaName$XMsgSchemaMessageFormatter
+{$implAttributesSchemaMessageFormatter$$implConstructXMsgSchemaMessageFormatter$$implXMsgSchemaMessageFormatterFormatRqstXmlPreamble$$implXMsgSchemaMessageFormatterFormatRqstXmlPostamble$$implXMsgSchemaMessageFormatterFormatRspnXmlPreamble$$implXMsgSchemaMessageFormatterFormatRspnXmlPostamble$$implXMsgSchemaMessageFormatterFormatRspnNoDataFound$$implXMsgSchemaMessageFormatterFormatRspnException$$implXMsgSchemaMessageFormatterFormatRqstFileImport$$implXMsgSchemaMessageFormatterFormatRqstLogIn$$implXMsgSchemaMessageFormatterFormatRqstLogOut$$implXMsgSchemaMessageFormatterFormatRspnFileLoaded$$implXMsgSchemaMessageFormatterFormatRspnServerProcExecuted$$implXMsgSchemaMessageFormatterFormatRspnLoggedIn$$implXMsgSchemaMessageFormatterFormatRspnLoggedOut$$JavaXMsgSchemaFormatters$$ReferencedJavaXMsgSchemaFormatters$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implAttributesSchemaMessageFormatter">
+	private String messageNamespace = "$SchemaName$";
+
+	public String getMessageNamespace() {
+		return( messageNamespace );
+	}
+
+	public void setMessageNamespace( String value ) {
+		final String S_ProcName = "setMessageNamespace";
+		if( ( value == null ) || ( value.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"value" );
+		}
+		messageNamespace = new String( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgSchemaFormatters"
+		>$iterate SchemaRefs( each ApplyJavaXMsgSchemaFormatters empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgSchemaFormatters"
+		>$reference RefSchema JavaXMsgSchemaFormatters$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferencedJavaXMsgSchemaImport"
+		>$iterate SchemaRefs( each ApplyJavaXMsgSchemaImport empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="ApplyJavaXMsgSchemaImport"
+		>$reference RefSchema JavaXMsgSchemaImport$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implConstructXMsgSchemaMessageFormatter">
+	public $SchemaName$XMsgSchemaMessageFormatter() {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRqstXmlPreamble">
+	public static String formatRqstXmlPreamble() {
+		String retval =
+				"&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"
+			+	"&lt;$SchemaName$Rqst\n"
+			+	"\t\txmlns=\"$SchemaXMsgRqstNamespace$\"\n"
+			+	"\t\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
+			+	"\t\txmlns:xs=\"http://www.w3.org/2001/XMLSchema\"\n"
+			+	"\t\txsi:schemaLocation=\"$SchemaXMsgRqstNamespace$ file:../bin/xsd/$lower SchemaName$-rqst.xsd\" &gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRqstXmlPostamble">
+	public static String formatRqstXmlPostamble() {
+		String retval =
+				"&lt;/$SchemaName$Rqst&gt;\n";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRspnXmlPreamble">
+	public String formatRspnXmlPreamble() {
+		String lowerNamespace = messageNamespace.toLowerCase();
+		String retval =
+				"&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"
+			+	"&lt;" + messageNamespace + "Rspn\n"
+			+	"\t\txmlns=\"uri://" + lowerNamespace + "/" + lowerNamespace + "rspn\"\n"
+			+	"\t\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
+			+	"\t\txmlns:xs=\"http://www.w3.org/2001/XMLSchema\"\n"
+			+	"\t\txsi:schemaLocation=\"uri://" + lowerNamespace + "/" + lowerNamespace + "rspn file:../bin/xsd/" + lowerNamespace + "-rspn.xsd\" &gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRspnXmlPostamble">
+	public String formatRspnXmlPostamble() {
+		String retval =
+				"&lt;/" + messageNamespace + "Rspn&gt;\n";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRspnNoDataFound">
+	public static String formatRspnNoDataFound() {
+		String retval = "&lt;RspnNoDataFound /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRspnException">
+	public static String formatRspnException( String separator, Throwable t ) {
+		String msg = t.getMessage();
+		if( msg == null ) {
+			msg = "";
+		}
+		String retval = "&lt;RspnException "
+			+	CFLibXmlUtil.formatRequiredXmlString( null,
+					"Name",
+					t.getClass().getName() )
+			+	CFLibXmlUtil.formatRequiredXmlString( separator,
+					"Message",
+					msg )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRqstFileImport">
+	public static String formatRqstFileImport( String separator, String fileName, String fileContent ) {
+		String retval = "&lt;RqstFileImport "
+			+	CFLibXmlUtil.formatRequiredXmlString( null,
+					"FileName",
+					fileName )
+			+	CFLibXmlUtil.formatRequiredXmlString( separator,
+					"FileContent",
+					fileContent )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRqstLogIn">
+	public static String formatRqstLogIn( String separator, String loginId, String deviceName, byte devEncPWHash[], String clusterName, String tenantName ) {
+		String retval = "&lt;RqstLogIn "
+			+	CFLibXmlUtil.formatRequiredXmlString( null,
+					"LoginId",
+					loginId )
+			+	CFLibXmlUtil.formatRequiredXmlString( separator,
+					"DeviceName",
+					deviceName )
+			+	CFLibXmlUtil.formatRequiredBlob( separator,
+					"DevEncPWHash",
+					devEncPWHash )
+			+	CFLibXmlUtil.formatRequiredXmlString( separator,
+					"ClusterName",
+					clusterName )
+			+	CFLibXmlUtil.formatRequiredXmlString( separator,
+					"TenantName",
+					tenantName )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRspnFileLoaded">
+	public static String formatRspnFileLoaded( String separator, String logContent ) {
+		String retval = "&lt;RspnFileLoaded "
+			+	CFLibXmlUtil.formatRequiredXmlString( null,
+					"LogContent",
+					logContent )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRspnServerProcExecuted">
+	public static String formatRspnServerProcExecuted( String separator, boolean dataChanged ) {
+		String retval = "&lt;RspnServerProcExecuted "
+			+	CFLibXmlUtil.formatRequiredBoolean( null,
+					"DataChanged",
+					dataChanged )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRspnLoggedIn">
+	public static String formatRspnLoggedIn( String separator, long clusterId, String clusterName, long tenantId, String tenantName, UUID secUserId, String secUserName, UUID secSessionId ) {
+		String retval = "&lt;RspnLoggedIn "
+			+	CFLibXmlUtil.formatRequiredInt64( null,
+					"ClusterId",
+					clusterId )
+			+	CFLibXmlUtil.formatRequiredXmlString( separator,
+					"ClusterName",
+					clusterName )
+			+	CFLibXmlUtil.formatRequiredInt64( separator,
+					"TenantId",
+					tenantId )
+			+	CFLibXmlUtil.formatRequiredXmlString( separator,
+					"TenantName",
+					tenantName )
+			+	CFLibXmlUtil.formatRequiredXmlString( separator,
+					"SecUserId",
+					secUserId.toString() )
+			+	CFLibXmlUtil.formatRequiredXmlString( separator,
+					"SecUserName",
+					secUserName )
+			+	CFLibXmlUtil.formatRequiredXmlString( separator,
+					"SecSessionId",
+					secSessionId.toString() )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRqstLogOut">
+	public static String formatRqstLogOut( String separator, UUID secSessionId ) {
+		String retval = "&lt;RqstLogOut "
+			+	CFLibXmlUtil.formatRequiredXmlString( null,
+					"SecSessionId",
+					secSessionId.toString() )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implXMsgSchemaMessageFormatterFormatRspnLoggedOut">
+	public static String formatRspnLoggedOut( String separator, UUID secSessionId ) {
+		String retval = "&lt;RspnLoggedOut "
+			+	CFLibXmlUtil.formatRequiredXmlString( null,
+					"SecSessionId",
+					secSessionId.toString() )
+			+	" /&gt;";
+		return( retval );
+	}
+</GenRule>
+
+</RuleSet>

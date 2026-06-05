@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="schema/dbcreate/pgsql/crsp_read_dbtablename.pgsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPLockDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="pgsql"
+		ExpansionClassName="$dbadminfilename_CreateSPLockDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPLockDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPLockDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+$switch HasSuperClassRelation yes implPgSqlLockTableHierarchyBody default implPgSqlLockTableBaseBody$</GenFile>
+
+	<GenRule GenDef="Table" Name="implPgSqlLockTableBaseBody">
+create or replace function $lower DbSchemaName$.$sp_lock_dbtablename$($implPgSqlSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaTableCol )$ )
+returns setof $lower DbSchemaName$.$type_dbtablename_rec$ as $$$$$switch SecScope None empty System empty Cluster implPgSqlSPReadTableDeclPermFlag Tenant implPgSqlSPReadTableDeclPermFlag default error$
+begin$switch TableName Cluster empty Tenant empty SecUser empty default implPgSqlSPLockEnforceSec$$switch TableName Cluster implPgSqlSPLockTableRetSelectByPKeyNormal Tenant implPgSqlSPLockTableRetSelectByPKeyNormal SecUser implPgSqlSPLockTableRetSelectByPKeyNormal default implPgSqlSPLockTableRetSelectMakeChoice$
+	return;
+end;
+$$$$ language plpgsql;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPLockTableRetSelectMakeChoice"
+		>$switch SecScope None implPgSqlSPLockTableRetSelectByPKeyNormal System implPgSqlSPLockTableRetSelectByPKeyNormal Cluster implPgSqlSPLockTableRetSelectByPKeyRestrictCluster Tenant implPgSqlSPLockTableRetSelectByPKeyRestrictTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPLockTableRetSelectByPKeyNormal">
+	return query select
+$poptop Table implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+	where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+	for update;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPLockTableRetSelectByPKeyRestrictCluster">
+	if( isSystemUser )
+	then
+		return query select
+$implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+		for update;
+	else
+		return query select
+$implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+			and $lower reference ClusterIdColumn reference Table ClassCode$.$reference ClusterIdColumn DbColumnName$ = secClusterId
+		for update;
+	end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPLockTableRetSelectByPKeyRestrictTenant">
+	if( isSystemUser )
+	then
+		return query select
+$implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+		for update;
+	else
+		return query select
+$implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+			and $lower reference TenantIdColumn reference Table ClassCode$.$reference TenantIdColumn DbColumnName$ = secTenantId
+		for update;
+	end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPLockEnforceSec"
+		>$switch SecScope None empty System empty Cluster implPgSqlSPReadTableCheckCluster Tenant implPgSqlSPReadTableCheckTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictLockPKeyQuery"
+		>$switch HasSuperClassRelation yes restrictLockPKeyQueryByClassCode default restrictBaseLockPKeyQueryByClassCode$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictBaseLockPKeyQueryByClassCode"
+		>$switch IsBaseTable yes restrictLockPKeyQueryByClassCode default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictLockPKeyQueryByClassCode">
+			and $lower reference BaseClass ClassCode$.ClassCode = '$poptop Table ClassCode$'</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlLockTableHierarchyBody">
+create or replace function $lower DbSchemaName$.$sp_lock_dbtablename$($implPgSqlSPStandardArgs$$reference PrimaryKeyIndex iterate Columns( each sparg_CommaTableCol )$ )
+returns setof $lower DbSchemaName$.$type_dbtablename_rec$ as $$$$
+declare$switch SecScope None empty System empty Cluster implPgSqlSPLockTableDeclPermFlag Tenant implPgSqlSPLockTableDeclPermFlag default error$$declSPOldVars$
+begin$switch TableName Cluster empty Tenant empty SecUser empty default implPgSqlSPLockEnforceSec$$switch TableName Cluster implPgSqlSPLockTableRetSubSelectByPKeyNormal Tenant implPgSqlSPLockTableRetSubSelectByPKeyNormal SecUser implPgSqlSPLockTableRetSubSelectByPKeyNormal default implPgSqlSPLockTableRetSubSelectMakeChoice$
+	return;
+end;
+$$$$ language plpgsql;
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implPgSqlSPLockTableDeclPermFlag">
+	permissionFlag boolean;
+	isSystemUser boolean;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPLockTableRetSubSelectMakeChoice"
+		>$switch SecScope None implPgSqlSPLockTableRetSubSelectByPKeyNormal System implPgSqlSPLockTableRetSubSelectByPKeyNormal Cluster implPgSqlSPLockTableRetSubSelectByPKeyRestrictCluster Tenant implPgSqlSPLockTableRetSubSelectByPKeyRestrictTenant default error$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPLockTableRetSubSelectByPKeyNormal">$implPgSqlLockTables$
+	return query select
+$poptop Table implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+	from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+	where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPLockTableRetSubSelectByPKeyRestrictCluster">
+	if( isSystemUser )
+	then$implPgSqlLockTables$
+		return query select
+$implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;
+	else$implPgSqlLockTables$
+		return query select
+$implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+			and $lower reference ClusterIdColumn reference Table ClassCode$.$reference ClusterIdColumn DbColumnName$ = secClusterId;
+	end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPLockTableRetSubSelectByPKeyRestrictTenant">
+	if( isSystemUser )
+	then$implPgSqlLockTables$
+		return query select
+$implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$;
+	else$implPgSqlLockTables$
+		return query select
+$implPgSqlSelectTableColumns$,
+			$lower reference BaseClass ClassCode$.revision as revision
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlIndexColumnWhereFragBindVar each implPgSqlIndexColumnWhereAndFragBindVar )$
+			and $lower reference TenantIdColumn reference Table ClassCode$.$reference TenantIdColumn DbColumnName$ = secTenantId;
+	end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlLockTables"
+		>$switch HasSuperClassRelation yes implPgSqlLockInhTable default implPgSqlLockBaseTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlLockBaseTable"
+		>$switch HasSubClasses yes implPgSqlLockBaseCCTable default implPgSqlLockBaseNoCCTable$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlLockInhTable"
+		>$reference SuperClassRelation reference ToTable implPgSqlLockTables$
+		select
+			$iterate Columns( first implPgSqlLockSelectCol each implPgSqlLockSelectCommaCol )$
+		into
+			$iterate Columns( first implPgSqlLockIntoOldVar each implPgSqlLockIntoCommaOldVar )$
+		from $lower DbSchemaName$.$DbTableName$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlLockWhereFragBindVar each implPgSqlLockWhereAndFragBindVar )$
+		for update;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlLockBaseCCTable">
+		select
+			ClassCode$iterate Columns( each implPgSqlLockSelectCommaCol )$,
+			revision
+		into
+			oldClassCode$iterate Columns( each implPgSqlLockIntoCommaOldVar )$,
+			oldRevision
+		from $lower DbSchemaName$.$DbTableName$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlLockWhereFragBindVar each implPgSqlLockWhereAndFragBindVar )$
+		for update;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlLockBaseNoCCTable">
+		select
+			$iterate Columns( first implPgSqlLockSelectCol each implPgSqlLockSelectCommaCol )$,
+			revision
+		into
+			$iterate Columns( first implPgSqlLockIntoOldVar each implPgSqlLockIntoCommaOldVar )$,
+			oldRevision
+		from $lower DbSchemaName$.$DbTableName$
+		where
+			$reference PrimaryKeyIndex iterate Columns( first implPgSqlLockWhereFragBindVar each implPgSqlLockWhereAndFragBindVar )$
+		for update;
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlLockWhereFragBindVar"
+		>$DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlLockWhereAndFragBindVar">
+			and $implPgSqlLockWhereFragBindVar$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlLockSelectCommaCol">,
+			$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlLockSelectCol"
+		>$DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlLockIntoOldVar"
+		>old$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implPgSqlLockIntoCommaOldVar">,
+			old$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSPOldVars"
+		>$switch HasSuperClassRelation yes declSPOldInhVars default declSPOldBaseVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSPOldInhVars"
+		>$reference SuperClassRelation reference ToTable declSPOldVars$$iterate Columns( each declSPOldDataVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declSPOldBaseVars"
+		>$switch HasSubClasses yes declSPOldClassCode default empty$$iterate Columns( each declSPOldVar )$
+	oldRevision int;</GenRule>
+
+	<GenRule GenDef="Value" Name="declSPOldDataVar"
+		>$switch ColumnInPrimaryIndex yes empty default declSPOldVar$</GenRule>
+
+	<GenRule GenDef="Value" Name="declSPOldVar">
+	old$Name$ $clause_SPColType$;</GenRule>
+
+	<GenRule GenDef="Table" Name="declSPOldClassCode">
+	oldClassCode varchar(4);</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPIntoOldVars"
+		>$switch HasSuperClassRelation yes implSPIntoOldInhVars default implSPIntoOldBaseVars$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPIntoOldInhVars"
+		>$reference SuperClassRelation reference ToTable implSPIntoOldVars$$iterate Columns( each implSPIntoOldDataVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPIntoOldBaseVars"
+		>$switch HasSubClasses yes implSPIntoOldClassCode default implSPIntoOldNoCC$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPIntoOldClassCode">
+			oldClassCode$iterate Columns( each implSPCommaIntoOldVar )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implSPIntoOldNoCC"
+		>$iterate Columns( first implSPIntoOldVar each implSPCommaIntoOldVar )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSPIntoOldDataVar"
+		>$switch ColumnInPrimaryIndex yes empty default implSPCommaIntoOldVar$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSPIntoOldVar"
+		>old$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSPCommaIntoOldVar">,
+			$implSPIntoOldVar$</GenRule>
+
+</RuleSet>

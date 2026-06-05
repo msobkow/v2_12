@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mssql"
+	Name="schema/dbcreate/mssql/CommandParse"
+	Revision="2.12"
+	Descr="Microsoft SQL Server Developer Edition argument parser">
+
+	<GenRule GenDef="Object" Name="parseMSSqlArgs">
+REM	Initialize locals
+SET mssqlpwd=""
+SET mssqlsrv=""
+SET mssqluser=""
+SET logfilename=$GenFileBaseName$.log
+
+IF NOT "%1" == "" SET mssqlsrv=%1
+IF NOT "%2" == "" SET mssqluser=%2
+IF NOT "%3" == "" SET mssqlpwd=%3
+IF NOT "%4" == "" SET logfilename=%4
+</GenRule>
+
+	<GenRule GenDef="Object" Name="validateMSSqlArgs">
+IF "%mssqluser%" == "" (
+	ECHO "ERROR: User must be specified as second argument"
+	PAUSE
+	EXIT
+)
+
+IF "%mssqlpwd%" == "" (
+	ECHO "ERROR: Password must be specified as third argument"
+	PAUSE
+	EXIT
+)
+
+IF "%mssqlsrv%" == "" (
+	ECHO "ERROR: Server must be specified as first argument"
+	PAUSE
+	EXIT
+)
+</GenRule>
+
+	<GenRule GenDef="Object" Name="defineMSSqlCommands">
+SET cmddb=sqlcmd -S %mssqlsrv% -U %mssqluser% -P %mssqlpwd% -e
+</GenRule>
+
+</RuleSet>

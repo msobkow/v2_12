@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="any"
+	Name="Verbs"
+	Revision="2.12"
+	Descr="Engine Verbs">
+
+	<GenRule GenDef="SchemaDef" Name="TldName"
+		>$reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj reference ParentSDom reference ParentTld Name$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="TopDomainName"
+		>$reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj reference ParentSDom Name$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="TopProjectName"
+		>$reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="SubProjectName"
+		>$reference MinorVersion reference ParentMajVer reference ParentSPrj Name$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="MajorVersionName"
+		>$reference MinorVersion reference ParentMajVer Name$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="MinorVersionName"
+		>$reference MinorVersion Name$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="TopProjectDescription"
+		>$reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Description$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="SubProjectDescription"
+		>$reference MinorVersion reference ParentMajVer reference ParentSPrj Description$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SubProjectPackageName"
+		>$lower TldName$.$lower TopDomainName$.$lower TopProjectName$.v$lower MajorVersionName$_$lower MinorVersionName$.$lower SubProjectName$</GenRule>
+
+	<GenRule GenDef="Value" Name="HasXmlElementName"
+		>no</GenRule>
+
+	<GenRule GenDef="Value" Name="XmlElementName"
+		></GenRule>
+
+	<GenRule GenDef="Object" Name="EffectiveProjectName"
+		>$poptop SchemaDef ProjectName$</GenRule>
+
+	<GenRule GenDef="License" Name="EffectiveLicenseName"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="EffectiveLicenseName"
+		>$reference DefaultLicense EffectiveLicenseName$</GenRule>
+
+	<GenRule GenDef="Object" Name="OneSpace"
+		> </GenRule>
+	<GenRule GenDef="Object" Name="TwoSpaces"
+		>  </GenRule>
+	<GenRule GenDef="Object" Name="FourSpaces"
+		>	</GenRule>
+	<GenRule GenDef="Object" Name="OneTab"
+		>	</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CompactVersion"
+		>$reference MinorVersion reference ParentMajVer Name$$reference MinorVersion Name$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DotVersion"
+		>$reference MinorVersion reference ParentMajVer Name$.$reference MinorVersion Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="StripPrevNextColumnName">$reference Column StripPrevNextColumnName$</GenRule>
+
+	<GenRule GenDef="Object" Name="EffLabel">$switch HasLabel yes Label default Name$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="Digits">$reference DataType Digits$</GenRule>
+	<GenRule GenDef="TableCol" Name="Precis">$reference DataType Precis$</GenRule>
+	<GenRule GenDef="IndexCol" Name="Digits">$reference Column Digits$</GenRule>
+	<GenRule GenDef="IndexCol" Name="Precis">$reference Column Precis$</GenRule>
+
+	<GenRule GenDef="Table" Name="ClassCode">$TableClassCode$</GenRule>
+	<GenRule GenDef="Relation" Name="ClassCode">$reference FromTable ClassCode$</GenRule>
+	<GenRule GenDef="RelationCol" Name="ClassCode">$reference Relation reference FromTable ClassCode$</GenRule>
+	<GenRule GenDef="Object" Name="ClassCode">$reference Table ClassCode$</GenRule>
+	<GenRule GenDef="IndexCol" Name="ClassCode">$reference Column ClassCode$</GenRule>
+	<GenRule GenDef="Id16Gen" Name="ClassCode">$reference Dispenser ClassCode$</GenRule>
+	<GenRule GenDef="Id32Gen" Name="ClassCode">$reference Dispenser ClassCode$</GenRule>
+	<GenRule GenDef="Id64Gen" Name="ClassCode">$reference Dispenser ClassCode$</GenRule>
+	<GenRule GenDef="UuidGen" Name="ClassCode">$reference Dispenser ClassCode$</GenRule>
+
+	<GenRule GenDef="Object" Name="empty"></GenRule>
+	<GenRule GenDef="Object" Name="yes">yes</GenRule>
+	<GenRule GenDef="Object" Name="no">no</GenRule>
+	<GenRule GenDef="Object" Name="true">true</GenRule>
+	<GenRule GenDef="Object" Name="false">false</GenRule>
+
+	<GenRule GenDef="Object" Name="DefiningSchemaName"
+		>$switch HasDefSchema yes DerefDefSchemaName default SchemaName$</GenRule>
+	<GenRule GenDef="Object" Name="DerefDefSchemaName"
+		>$reference DefSchema SchemaName$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="DefiningSchemaName"
+		>$SchemaName$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaName">$Name$</GenRule>
+	<GenRule GenDef="Table" Name="SchemaName">$reference SchemaDef Name$</GenRule>
+	<GenRule GenDef="Index" Name="SchemaName">$reference Table reference SchemaDef Name$</GenRule>
+	<GenRule GenDef="Relation" Name="SchemaName">$reference FromTable reference SchemaDef Name$</GenRule>
+	<GenRule GenDef="Object" Name="SchemaName">$poptop SchemaDef SchemaName$</GenRule>
+
+	<GenRule GenDef="Value" Name="DbColumnName">$switch HasDbName yes DbName default Name$</GenRule>
+	<GenRule GenDef="IndexCol" Name="DbColumnName">$reference Column DbColumnName$</GenRule>
+
+	<GenRule GenDef="Value" Name="ColumnName">$Name$</GenRule>
+	<GenRule GenDef="IndexCol" Name="ColumnName">$reference Column Name$</GenRule>
+
+	<GenRule GenDef="Index" Name="DbIndexName">$switch HasDbName yes DbName default Name$</GenRule>
+
+	<GenRule GenDef="Relation" Name="DbRelationName">$switch HasDbName yes DbName default Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="BaseModelAtomClass">$reference Column BaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Index" Name="SecScope"
+		>$poptop Table SecScope$</GenRule>
+
+	<GenRule GenDef="Table" Name="TableName">$Name$</GenRule>
+	<GenRule GenDef="Relation" Name="TableName">$reference FromTable Name$</GenRule>
+	<GenRule GenDef="RelationCol" Name="TableName">$reference Relation reference FromTable Name$</GenRule>
+	<GenRule GenDef="Object" Name="TableName">$reference Table Name$</GenRule>
+	<GenRule GenDef="Id16Gen" Name="TableName">$reference Dispenser Name$</GenRule>
+	<GenRule GenDef="Id32Gen" Name="TableName">$reference Dispenser Name$</GenRule>
+	<GenRule GenDef="Id64Gen" Name="TableName">$reference Dispenser Name$</GenRule>
+	<GenRule GenDef="UuidGen" Name="TableName">$reference Dispenser Name$</GenRule>
+	<GenRule GenDef="IndexCol" Name="TableName">$reference Column TableName$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="IsNullable">$reference Column IsNullable$</GenRule>
+	<GenRule GenDef="RelationCol" Name="IsNullable">$reference FromCol IsNullable$</GenRule>
+
+	<GenRule GenDef="BlobCol" Name="IsNullable">yes</GenRule>
+	<GenRule GenDef="BlobDef" Name="IsNullable">yes</GenRule>
+
+	<GenRule GenDef="TableCol" Name="HasMinValue">$reference DataType HasMinValue$</GenRule>
+	<GenRule GenDef="TableCol" Name="MinValue">$reference DataType MinValue$</GenRule>
+	<GenRule GenDef="TableCol" Name="HasMaxValue">$reference DataType HasMaxValue$</GenRule>
+	<GenRule GenDef="TableCol" Name="MaxValue">$reference DataType MaxValue$</GenRule>
+	<GenRule GenDef="TableCol" Name="HasInitValue">$reference DataType HasInitValue$</GenRule>
+	<GenRule GenDef="TableCol" Name="InitValue">$reference DataType InitValue$</GenRule>
+	<GenRule GenDef="TableCol" Name="MaxLen">$reference DataType MaxLen$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="HasMinValue">$reference Column HasMinValue$</GenRule>
+	<GenRule GenDef="IndexCol" Name="MinValue">$reference Column MinValue$</GenRule>
+	<GenRule GenDef="IndexCol" Name="HasMaxValue">$reference Column HasMaxValue$</GenRule>
+	<GenRule GenDef="IndexCol" Name="MaxValue">$reference Column MaxValue$</GenRule>
+	<GenRule GenDef="IndexCol" Name="HasInitValue">$reference Column HasInitValue$</GenRule>
+	<GenRule GenDef="IndexCol" Name="InitValue">$reference Column InitValue$</GenRule>
+	<GenRule GenDef="IndexCol" Name="MaxLen">$reference Column MaxLen$</GenRule>
+
+	<GenRule GenDef="UuidCol" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="UuidCol" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="UuidDef" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="UuidDef" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="UuidGen" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="UuidGen" Name="HasMaxValue">no</GenRule>
+
+	<GenRule GenDef="Index" Name="HasClassCode"
+		>$reference Table HasClassCode$</GenRule>
+	<GenRule GenDef="Table" Name="HasClassCode"
+		>$switch HasSuperClassRelation yes yes default HasClassCodeCheckForSubClasses$</GenRule>
+	<GenRule GenDef="Table" Name="HasClassCodeCheckForSubClasses"
+		>$switch HasSubClasses yes yes default no$</GenRule>
+
+	<GenRule GenDef="Index" Name="HasSuperClassRelation"
+		>$reference Table HasSuperClassRelation$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="GenerateId">$reference Column GenerateId$</GenRule>
+
+	<GenRule GenDef="Relation" Name="RelationTypeTag">$RelationType$</GenRule>
+
+	<GenRule GenDef="Object" Name="EffectiveEmbeddedLicense"
+		>$switch HasDefSchema yes UseDefSchemaLicense default UseCurSchemaLicense$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="EffectiveEmbeddedLicense"
+		>$CurEmbeddedLicense$</GenRule>
+
+	<GenRule GenDef="Object" Name="UseDefSchemaLicense"
+		>$reference DefSchema CurEmbeddedLicense$</GenRule>
+
+	<GenRule GenDef="Object" Name="UseCurSchemaLicense"
+		>$poptop SchemaDef CurEmbeddedLicense$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="CurEmbeddedLicense"
+		>$switch HasDefaultLicense yes ReferToLicenseText default empty$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="ReferToLicenseText"
+		>$reference DefaultLicense switch HasEmbeddedText yes EmbeddedText default MaybeFullText$</GenRule>
+
+	<GenRule GenDef="License" Name="MaybeFullText"
+		>$switch HasFullText yes FullText default empty$</GenRule>
+
+	<GenRule GenDef="Object" Name="EffectiveCopyrightHolder"
+		>$switch HasDefSchema yes UseDefSchemaCopyrightHolder default UseCurSchemaCopyrightHolder$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="EffectiveCopyrightHolder"
+		>$CopyrightHolder$</GenRule>
+
+	<GenRule GenDef="Object" Name="UseDefSchemaCopyrightHolder"
+		>$reference DefSchema CopyrightHolder$</GenRule>
+
+	<GenRule GenDef="Object" Name="UseCurSchemaCopyrightHolder"
+		>$poptop SchemaDef CopyrightHolder$</GenRule>
+
+	<GenRule GenDef="Object" Name="EffectiveCopyrightPeriod"
+		>$switch HasDefSchema yes UseDefSchemaCopyrightPeriod default UseCurSchemaCopyrightPeriod$</GenRule>
+	<GenRule GenDef="SchemaDef" Name="EffectiveCopyrightPeriod"
+		>$CopyrightPeriod$</GenRule>
+
+	<GenRule GenDef="Object" Name="UseDefSchemaCopyrightPeriod"
+		>$reference DefSchema CopyrightPeriod$</GenRule>
+
+	<GenRule GenDef="Object" Name="UseCurSchemaCopyrightPeriod"
+		>$poptop SchemaDef CopyrightPeriod$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="DbSchemaName">$switch HasDbName yes DbName default Name$</GenRule>
+	<GenRule GenDef="Table" Name="DbSchemaName">$reference SchemaDef DbSchemaName$</GenRule>
+	<GenRule GenDef="Index" Name="DbSchemaName">$reference Table reference SchemaDef DbSchemaName$</GenRule>
+	<GenRule GenDef="Relation" Name="DbSchemaName">$reference FromTable reference SchemaDef DbSchemaName$</GenRule>
+	<GenRule GenDef="Object" Name="DbSchemaName">$poptop SchemaDef DbSchemaName$</GenRule>
+
+	<GenRule GenDef="Table" Name="DbTableName">$switch HasDbName yes DbName default Name$</GenRule>
+	<GenRule GenDef="Object" Name="DbTableName">$reference Table DbTableName$</GenRule>
+	<GenRule GenDef="Relation" Name="DbTableName">$reference FromTable DbTableName$</GenRule>
+	<GenRule GenDef="RelationCol" Name="DbTableName">$reference Relation reference FromTable DbTableName$</GenRule>
+	<GenRule GenDef="Id16Gen" Name="DbTableName">$reference Dispenser DbTableName$</GenRule>
+	<GenRule GenDef="Id32Gen" Name="DbTableName">$reference Dispenser DbTableName$</GenRule>
+	<GenRule GenDef="Id64Gen" Name="DbTableName">$reference Dispenser DbTableName$</GenRule>
+	<GenRule GenDef="UuidGen" Name="DbTableName">$reference Dispenser DbTableName$</GenRule>
+
+	<GenRule GenDef="Object" Name="TableClassCode">$reference Table TableClassCode$</GenRule>
+	<GenRule GenDef="Relation" Name="TableClassCode">$reference FromTable TableClassCode$</GenRule>
+	<GenRule GenDef="RelationCol" Name="TableClassCode">$reference Relation reference FromTable TableClassCode$</GenRule>
+
+	<GenRule GenDef="Index" Name="IndexName">$Name$</GenRule>
+
+	<GenRule GenDef="Table" Name="LoaderBehaviourName">$LoaderBehaviour$</GenRule>
+
+	<GenRule GenDef="Table" Name="HasDelDeps"
+		>$iterate ReverseDelDeps( first answerYes each empty empty answerNo )$</GenRule>
+
+	<GenRule GenDef="Object" Name="answerYes">yes</GenRule>
+	<GenRule GenDef="Object" Name="answerNo">no</GenRule>
+
+	<GenRule GenDef="Table" Name="ThisHasChain"
+		>$switch HasChain no answerNo default ThisHasChainIfNoSuper$</GenRule>
+
+	<GenRule GenDef="Table" Name="ThisHasChainIfNoSuper"
+		>$switch HasSuperClassRelation no answerYes default ThisHasChainIfSuperDoesnt$</GenRule>
+
+	<GenRule GenDef="Table" Name="ThisHasChainIfSuperDoesnt"
+		>$reference SuperClassRelation reference ToTable ThisHasChainInvertAnswer$</GenRule>
+
+	<GenRule GenDef="Table" Name="ThisHasChainInvertAnswer"
+		>$switch HasChain yes answerNo default answerYes$</GenRule>
+
+	<GenRule GenDef="Relation" Name="ToTableHasClassCode"
+		>$reference ToTable HasClassCode$</GenRule>
+	<GenRule GenDef="RelationCol" Name="ToTableHasClassCode"
+		>$reference Relation reference ToTable HasClassCode$</GenRule>
+
+	<GenRule GenDef="Relation" Name="ToTableHasLookupIndex"
+		>$reference ToTable HasLookupIndex$</GenRule>
+	<GenRule GenDef="RelationCol" Name="ToTableHasLookupIndex"
+		>$reference Relation reference ToTable HasLookupIndex$</GenRule>
+
+	<GenRule GenDef="DateCol" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="DateCol" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="DateCol" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="DateCol" Name="HasInitValue">$switch IsNullable yes no default yes$</GenRule>
+
+	<GenRule GenDef="TZDateCol" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="TZDateCol" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="TZDateCol" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="TZDateCol" Name="HasInitValue">$switch IsNullable yes no default yes$</GenRule>
+
+	<GenRule GenDef="TimeCol" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="TimeCol" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="TimeCol" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="TimeCol" Name="HasInitValue">$switch IsNullable yes no default yes$</GenRule>
+
+	<GenRule GenDef="TZTimeCol" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="TZTimeCol" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="TZTimeCol" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="TZTimeCol" Name="HasInitValue">$switch IsNullable yes no default yes$</GenRule>
+
+	<GenRule GenDef="TimestampCol" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="TimestampCol" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="TimestampCol" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="TimestampCol" Name="HasInitValue">$switch IsNullable yes no default yes$</GenRule>
+
+	<GenRule GenDef="TZTimestampCol" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="TZTimestampCol" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="TZTimestampCol" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="TZTimestampCol" Name="HasInitValue">$switch IsNullable yes no default yes$</GenRule>
+
+	<GenRule GenDef="DateType" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="DateType" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="DateType" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="DateType" Name="HasInitValue">no</GenRule>
+
+	<GenRule GenDef="TZDateType" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="TZDateType" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="TZDateType" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="TZDateType" Name="HasInitValue">no</GenRule>
+
+	<GenRule GenDef="TimeType" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="TimeType" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="TimeType" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="TimeType" Name="HasInitValue">no</GenRule>
+
+	<GenRule GenDef="TZTimeType" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="TZTimeType" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="TZTimeType" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="TZTimeType" Name="HasInitValue">no</GenRule>
+
+	<GenRule GenDef="TimestampType" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="TimestampType" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="TimestampType" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="TimestampType" Name="HasInitValue">no</GenRule>
+
+	<GenRule GenDef="TZTimestampType" Name="HasMinValue">no</GenRule>
+	<GenRule GenDef="TZTimestampType" Name="HasMaxValue">no</GenRule>
+	<GenRule GenDef="TZTimestampType" Name="HasDefaultValue">no</GenRule>
+	<GenRule GenDef="TZTimestampType" Name="HasInitValue">no</GenRule>
+
+	<GenRule GenDef="TextDef" Name="ShowLines">10</GenRule>
+	<GenRule GenDef="Object" Name="ShowLines">1</GenRule>
+
+	<GenRule GenDef="Table" Name="InheritsAnyLateResolvers"
+		>$switch HasSuperClassRelation yes InheritsAnyLateSuperResolvers default InheritsAnyLateBaseResolvers$</GenRule>
+
+	<GenRule GenDef="Table" Name="InheritsAnyLateSuperResolvers"
+		>$switch ConsolidateAnyLateResolvers yes yes default SuperInheritsAnyLateResolvers$</GenRule>
+
+	<GenRule GenDef="Table" Name="SuperInheritsAnyLateResolvers"
+		>$reference SuperClassRelation reference ToTable InheritsAnyLateResolvers$</GenRule>
+
+	<GenRule GenDef="Table" Name="InheritsAnyLateBaseResolvers"
+		>$ConsolidateAnyLateResolvers$</GenRule>
+
+	<GenRule GenDef="Table" Name="ConsolidateAnyLateResolvers"
+		>$switch EvaluateLateResolvers empty no default yes$</GenRule>
+
+	<GenRule GenDef="Table" Name="EvaluateLateResolvers"
+		>$iterate Relation( each EvaluateLateResolver empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="EvaluateLateResolver"
+		>$switch RelationTypeTag
+			Lookup MaybeLateResolver
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="MaybeLateResolver"
+		>$switch IsLateResolver yes yes default empty$</GenRule>
+
+</RuleSet>

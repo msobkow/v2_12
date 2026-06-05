@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+saxloader"
+	Name="src/SchemaSaxLoader/SchemaSaxLoader.java"
+	Revision="2.12"
+	Descr="Java 11 SAX Parser for Schema">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSaxLoaderJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$SaxLoader/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$SaxLoader"
+		ExpansionClassName="$SchemaName$SaxLoaderJava"
+		ExpansionKeyName="$SchemaName$SaxLoaderJava"
+		ExpansionFileName="$SchemaName$SaxLoader.java"
+>// Description: Java 11 XML SAX Parser for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$SaxLoader;
+$SchemaSaxLoaderImports$
+
+public class $SchemaName$SaxLoader
+	extends CFLibXmlCoreSaxParser
+	implements ContentHandler
+{
+$implSchemaSaxLoaderSchemaConstants$
+	// The schema instance to load in to
+
+	private I$SchemaName$SchemaObj schemaObj = null;
+$implSchemaSaxLoaderUseCluster$$implSchemaSaxLoaderUseTenant$
+	// Loader behaviour configuration attributes
+$implSchemaSaxLoaderSchemaLoaderBehaviourAttrs$
+	// Constructors
+$implSchemaSaxLoaderConstructor$
+	// Element Handler instances
+$iterate SchemaTables( each implSchemaSaxLoaderDeclElementHandler )$$implSchemaSaxLoaderDeclRootElementHandler$$implSchemaSaxLoaderDeclDocElementHandler$
+	// Schema object accessors
+$implSchemaSaxLoaderImplSchemaObjAccessors$
+	// Element Handler Resolver Factories
+$iterate SchemaTables( each implSchemaSaxLoaderGetElementHandler )$
+	// Root Element Handler Resolver Factory
+$implSchemaSaxLoaderGetRootElementHandler$
+	// Root Element Handler
+$implSchemaSaxLoaderRootElementHandler$
+	// Document Element Handler Resolver Factory
+$implSchemaSaxLoaderGetDocElementHandler$
+	// Document Element Handler
+$implSchemaSaxLoaderDocElementHandler$
+	// Loader behaviour configuration accessors
+$iterate SchemaTables( each implSchemaSaxLoaderImplLoaderBehaviour empty empty )$
+	// Parse a file
+$implSchemaSaxLoaderParseFile$}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSaxLoaderImports">
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.lang.reflect.*;
+import java.math.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import javax.naming.*;
+import javax.sql.*;
+import org.apache.commons.codec.binary.Base64;
+import org.xml.sax.*;
+
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$importJavaPackageSchemaName$$iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$importJavaPackageSchemaNameObj$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderUseCluster">
+	// The cluster to use for loading
+
+	private I$SecSchemaName$ClusterObj useCluster = null;
+
+	public I$SecSchemaName$ClusterObj getUseCluster() {
+		return( useCluster );
+	}
+
+	public void setUseCluster( I$SecSchemaName$ClusterObj value ) {
+		useCluster = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderUseTenant">
+	// The tenant to use for loading
+
+	private I$SecSchemaName$TenantObj useTenant = null;
+
+	public I$SecSchemaName$TenantObj getUseTenant() {
+		return( useTenant );
+	}
+
+	public void setUseTenant( I$SecSchemaName$TenantObj value ) {
+		useTenant = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderParseFile">
+	public void parseFile( String url ) {
+		parse( url );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderSchemaLoaderBehaviourAttrs">
+	public enum LoaderBehaviourEnum {
+		Insert,
+		Update,
+		Replace
+	};
+$iterate SchemaTables( each implSchemaSaxLoaderDeclLoaderBehaviour empty empty )$
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderSchemaConstants">
+	// The namespace URI of the supported schema
+	public final static String	SCHEMA_XMLNS = "http://mcf.markhome.server/$lower reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference MinorVersion reference ParentMajVer Name$.0.$reference MinorVersion Name$/xsd/$lower SchemaName$-structured.xsd";
+
+	// The source for loading the supported schema
+	public final static String	SCHEMA_URI = "http://mcf.markhome.server/$lower reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference MinorVersion reference ParentMajVer Name$.0.$reference MinorVersion Name$/xsd/$lower SchemaName$-structured.xsd";
+	public final static String	SCHEMA_ROOT_URI = "http://mcf.markhome.server/$lower reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference MinorVersion reference ParentMajVer Name$.0.$reference MinorVersion Name$/xsd/$lower SchemaName$-structured.xsd";
+$iterate SchemaRefs( each implSchemaSaxLoaderSchemaRefConstants empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSaxLoaderSchemaRefConstants">
+	public final static String	$upper reference RefSchema SchemaName$_XMLNS = "http://mcf.markhome.server/$lower reference RefSchema reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference RefSchema reference MinorVersion reference ParentMajVer Name$.0.$reference RefSchema reference MinorVersion Name$/xsd/$lower reference RefSchema SchemaName$-structured.xsd";
+	public final static String	$upper reference RefSchema SchemaName$_URI = "http://mcf.markhome.server/$lower reference RefSchema reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference RefSchema reference MinorVersion reference ParentMajVer Name$.0.$reference RefSchema reference MinorVersion Name$/xsd/$lower reference RefSchema SchemaName$-structured.xsd";
+	public final static String	$upper reference RefSchema SchemaName$_ROOT_URI = "http://mcf.markhome.server/$lower reference RefSchema reference MinorVersion reference ParentMajVer reference ParentSPrj reference ParentTPrj Name$/$reference RefSchema reference MinorVersion reference ParentMajVer Name$.0.$reference RefSchema reference MinorVersion Name$/xsd/$lower reference RefSchema SchemaName$-structured.xsd";
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderConstructor"
+		>$implSchemaSaxLoaderConstructorVoid$$implSchemaSaxLoaderConstructorLogger$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderConstructorVoid">
+	public $SchemaName$SaxLoader() {
+		super();
+		setRootElementHandler( getSaxRootHandler() );
+		initParser();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSaxLoaderConstructorLoadXSD"></GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderConstructorLogger">
+	public $SchemaName$SaxLoader( ICFLibMessageLog logger ) {
+		super( logger );
+		setRootElementHandler( getSaxRootHandler() );$iterate SchemaRefs( each implSchemaSaxLoaderConstructorLoadXSD empty empty )$
+		initParser();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderImplSchemaObjAccessors">
+	// SchemaObj accessors
+
+	public I$SchemaName$SchemaObj getSchemaObj() {
+		return( schemaObj );
+	}
+
+	public void setSchemaObj( I$SchemaName$SchemaObj value ) {
+		schemaObj = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderDeclLoaderBehaviour"
+		>	private LoaderBehaviourEnum $leadlower TableName$LoaderBehaviour = LoaderBehaviourEnum.$LoaderBehaviourName$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderImplLoaderBehaviour">
+	public LoaderBehaviourEnum get$TableName$LoaderBehaviour() {
+		return( $leadlower TableName$LoaderBehaviour );
+	}
+
+	public void set$TableName$LoaderBehaviour( LoaderBehaviourEnum value ) {
+		$leadlower TableName$LoaderBehaviour = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderDeclElementHandler">
+	private $SchemaName$SaxLoader$TableName$ $leadlower TableName$Handler = null;$iterate Columns( each implSchemaSaxLoaderDeclAttrElementHandler empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderDeclAttrElementHandler"
+		>$switch ColumnInPrimaryIndex yes empty default implSchemaSaxLoaderDeclXmlNameAttrElementHandler$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderDeclXmlNameAttrElementHandler"
+		>$switch HasXmlElementName no empty default implSchemaSaxLoaderDeclRealAttrElementHandler$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderDeclRealAttrElementHandler">
+	private $SchemaName$SaxLoader$TableName$$XmlElementName$ $leadlower TableName$$XmlElementName$Handler = null;</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderDeclRootElementHandler">
+	private $SchemaName$SaxRootHandler saxRootHandler = null;
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderDeclDocElementHandler">
+	private $SchemaName$SaxDocHandler saxDocHandler = null;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLoaderGetElementHandler">
+	protected $SchemaName$SaxLoader$TableName$ get$TableName$Handler() {
+		if( $leadlower TableName$Handler == null ) {
+			$leadlower TableName$Handler = new $SchemaName$SaxLoader$TableName$( this );$implComponentWireElementHandler$$implAttrWireElementHandler$
+		}
+		return( $leadlower TableName$Handler );
+	}$iterate Columns( each implSchemaSaxLoaderGetAttrElementHandler empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderGetAttrElementHandler"
+		>$switch ColumnInPrimaryIndex yes empty default implSchemaSaxLoaderGetXmlNameAttrElementHandler$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderGetXmlNameAttrElementHandler"
+		>$switch HasXmlElementName no empty default implSchemaSaxLoaderGetRealAttrElementHandler$</GenRule>
+
+	<GenRule GenDef="Value" Name="implSchemaSaxLoaderGetRealAttrElementHandler">
+	protected $SchemaName$SaxLoader$TableName$$XmlElementName$ get$TableName$$XmlElementName$Handler() {
+		if( $leadlower TableName$$XmlElementName$Handler == null ) {
+			$leadlower TableName$$XmlElementName$Handler = new $SchemaName$SaxLoader$TableName$$XmlElementName$( this );
+		}
+		return( $leadlower TableName$$XmlElementName$Handler );
+	}</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrWireElementHandler"
+		>$switch HasSuperClassRelation yes implAttrWireSuperElementHandler default implAttrWireBaseElementHandler$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrWireSuperElementHandler"
+		>$reference SuperClassRelation reference ToTable implAttrWireElementHandler$$iterate Columns( each implXmlElementNameAttrWireElementHandler empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implAttrWireBaseElementHandler"
+		>$iterate Columns( each implXmlElementNameAttrWireElementHandler empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implXmlElementNameAttrWireElementHandler"
+		>$switch HasXmlElementName no empty default implDataAttrWireElementHandler$</GenRule>
+
+	<GenRule GenDef="Value" Name="implDataAttrWireElementHandler"
+		>$switch ColumnInPrimaryIndex yes empty default implRealAttrWireElementHandler$</GenRule>
+
+	<GenRule GenDef="Value" Name="implRealAttrWireElementHandler">
+			$leadlower poptop Table TableName$Handler.addElementHandler( "$XmlElementName$", get$TableName$$XmlElementName$Handler() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implComponentWireElementHandler"
+		>$switch HasSuperClassRelation yes implComponentWireInhElementHandler default implComponentWireBaseElementHandler$</GenRule>
+
+	<GenRule GenDef="Table" Name="implComponentWireInhElementHandler"
+		>$reference SuperClassRelation reference ToTable implComponentWireElementHandler$$iterate Relation( each implComponentWireElementHandler empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implComponentWireBaseElementHandler"
+		>$iterate Relation( each implComponentWireElementHandler empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderGetRootElementHandler">
+	protected $SchemaName$SaxRootHandler getSaxRootHandler() {
+		if( saxRootHandler == null ) {
+			saxRootHandler = new $SchemaName$SaxRootHandler( this );
+			saxRootHandler.addElementHandler( "$SchemaName$", getSaxDocHandler() );$iterate SchemaRefs( each implSchemaSaxLoaderGetRootElementHandlerWireRefSchema empty empty )$
+		}
+		return( saxRootHandler );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSaxLoaderGetRootElementHandlerWireRefSchema">
+			saxRootHandler.addElementHandler( "$reference RefSchema SchemaName$", getSaxDocHandler() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderGetDocElementHandler">
+	protected $SchemaName$SaxDocHandler getSaxDocHandler() {
+		if( saxDocHandler == null ) {
+			saxDocHandler = new $SchemaName$SaxDocHandler( this );$iterate SchemaTables( each implDocElementHandlerWireDocBuffElement empty empty )$
+		}
+		return( saxDocHandler );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implDocElementHandlerWireDocBuffElement"
+		>$switch HasContainer yes empty default implDocElementHandlerMaybeAttachElementHandler$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDocElementHandlerMaybeAttachElementHandler"
+		>$switch IsInstantiable yes implDocElementHandlerAttachElementHandler default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDocElementHandlerAttachElementHandler">
+			saxDocHandler.addElementHandler( "$TableName$", get$TableName$Handler() );</GenRule>
+
+	<GenRule GenDef="Relation" Name="implComponentWireElementHandler"
+		>$switch RelationTypeTag Components implComponentWireElementHandlerMaybe default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implComponentWireElementHandlerMaybe"
+		>$switch IsXsdContainer yes implComponentAttachElementHandlers default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implComponentAttachElementHandlers"
+		>$iterate ComponentCandidates( each implComponentAttachElementHandler empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implComponentAttachElementHandler">
+			$leadlower poptop Table TableName$Handler.addElementHandler( "$TableName$", get$TableName$Handler() );</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderRootElementHandler">
+	/*
+	 *	$SchemaName$SaxRootHandler XML SAX Root Element Handler implementation
+	 */
+	public class $SchemaName$SaxRootHandler
+		extends CFLibXmlCoreElementHandler
+	{$implConstructSaxRootHandler$$implSaxRootHandlerStartElement$$implSaxRootHandlerEndElement$	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implConstructSaxRootHandler">
+		public $SchemaName$SaxRootHandler( $SchemaName$SaxLoader saxLoader ) {
+			super( saxLoader );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRootHandlerStartElement">
+		public void startElement(
+			String		uri,
+			String		localName,
+			String		qName,
+			Attributes	attrs )
+		throws SAXException
+		{
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxRootHandlerEndElement">
+		public void endElement(
+			String		uri,
+			String		localName,
+			String		qName )
+		throws SAXException
+		{
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLoaderDocElementHandler">
+	/*
+	 *	$SchemaName$SaxDocHandler XML SAX Doc Element Handler implementation
+	 */
+	public class $SchemaName$SaxDocHandler
+		extends CFLibXmlCoreElementHandler
+	{$implConstructSaxDocHandler$$implSaxDocHandlerStartElement$$implSaxDocHandlerEndElement$	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implConstructSaxDocHandler">
+		public $SchemaName$SaxDocHandler( $SchemaName$SaxLoader saxLoader ) {
+			super( saxLoader );
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxDocHandlerStartElement">
+		public void startElement(
+			String		uri,
+			String		localName,
+			String		qName,
+			Attributes	attrs )
+		throws SAXException
+		{
+		}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSaxDocHandlerEndElement">
+		public void endElement(
+			String		uri,
+			String		localName,
+			String		qName )
+		throws SAXException
+		{
+		}
+</GenRule>
+
+</RuleSet>

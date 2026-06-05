@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="pgsql"
+	Name="schema/dbcreate/pgsql/crsp_page_dbtablename_all.pgsql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPPageDbTableNameAll"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="pgsql"
+		ExpansionClassName="$dbadminfilename_CreateSPPageDbTableNameAll$"
+		ExpansionKeyName="$dbadminfilename_CreateSPPageDbTableNameAll$"
+		ExpansionFileName="$dbadminfilename_CreateSPPageDbTableNameAll$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+create or replace function $lower DbSchemaName$.$sp_page_dbtablename_all$($implPgSqlSPStandardArgs$$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implPgSqlSPSpecPriorArg )$ )
+returns setof $lower DbSchemaName$.$type_dbtablename_rec$ as $$$$$switch SecScope None empty System empty Cluster implPgSqlSPReadTableDeclPermFlag Tenant implPgSqlSPReadTableDeclPermFlag default error$
+begin$switch SecScope None empty System empty Cluster implPgSqlSPReadTableCheckCluster Tenant implPgSqlSPReadTableCheckTenant default error$$switch SecScope None implPgSqlSPPageTableRetSelectNormal System implPgSqlSPPageTableRetSelectNormal Cluster implPgSqlSPPageTableRetSelectRestrictCluster Tenant implPgSqlSPPageTableRetSelectRestrictTenant default error$
+	return;
+end;
+$$$$ language plpgsql;
+</GenFile>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlSPSpecPriorArg">,
+	prior$Name$ $clause_SPColType$</GenRule>
+
+	<GenRule GenDef="Object" Name="clauseEmitWhere">
+			where </GenRule>
+
+	<GenRule GenDef="Object" Name="restrictQueryWhereBeforePrior"
+		>$clauseEmitWhere$$restrictBeforePrior$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictReadAllQueryBeforePrior"
+		>$switch HasSuperClassRelation yes restrictReadQueryByClassCodeAndBeforePrior default restrictBaseReadQueryByClassCodeBeforePrior$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictBaseReadQueryByClassCodeBeforePrior"
+		>$switch IsBaseTable yes restrictReadQueryByClassCodeAndBeforePrior default restrictQueryWhereBeforePrior $</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictReadAllQueryWhereBeforePrior"
+		>$switch HasSuperClassRelation yes restrictReadQueryByClassCodeAndBeforePrior default restrictBaseReadQueryByClassCodeAndBeforePrior$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictBaseReadQueryByClassCodeAndBeforePrior"
+		>$switch IsBaseTable yes restrictReadQueryByClassCodeAndBeforePrior default restrictWhereBeforePrior$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictReadQueryByClassCodeAndBeforePrior"
+		>$restrictReadQueryByClassCode$
+			and $restrictBeforePrior$</GenRule>
+
+	<GenRule GenDef="Index" Name="restrictAndBeforePrior"
+		>$poptop Table restrictAndBeforePrior$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictAndBeforePrior">
+			and $restrictBeforePriorCore$</GenRule>
+
+	<GenRule GenDef="Index" Name="restrictBeforePrior"
+		>$poptop Table restrictBeforePrior$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictBeforePrior">
+			$restrictBeforePriorCore$</GenRule>
+
+	<GenRule GenDef="Table" Name="restrictBeforePriorCore"
+			>( $reference BaseClass reference PrimaryKeyIndex spread Columns( before emitLParen after emitRParen first emitPriorEquals each emitAndPriorEquals last emitAndPriorLess lone emitPriorLess between emitOr )$ )</GenRule>
+
+	<GenRule GenDef="Object" Name="emitLParen">( </GenRule>
+	<GenRule GenDef="Object" Name="emitRParen"> )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="emitAndPriorEquals">
+					and $emitPriorEquals$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="emitAndPriorLess">
+					and $emitPriorLess$</GenRule>
+
+	<GenRule GenDef="Object" Name="emitOr">
+				or </GenRule>
+
+	<GenRule GenDef="IndexCol" Name="emitPriorEquals"
+		>( $lower reference Index reference Table ClassCode$.$DbColumnName$ = prior$Name$ )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="emitPriorLess"
+		>( $lower reference Index reference Table ClassCode$.$DbColumnName$ &lt; prior$Name$ )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlPriorNotNull"
+		>( prior$Name$ is not null )</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implPgSqlAndPriorNotNull"
+		>and $implPgSqlPriorNotNull$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPPageTableRetSelectNormal">
+	if( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implPgSqlPriorNotNull each implPgSqlAndPriorNotNull )$ )
+	then
+			return query select
+$poptop Table implPgSqlSelectTableColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQueryBeforePrior default restrictQueryWhereBeforePrior$$implSPReadTableOrderByDescendingPKey$$implImposeTableLimit$;
+	else
+			return query select
+$poptop Table implPgSqlSelectTableColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$implSPReadTableOrderByDescendingPKey$$implImposeTableLimit$;
+	end if;
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implImposeTableLimit">
+			limit 25</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPPageTableRetSelectRestrictCluster">
+	if( isSystemUser )
+	then
+		if( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implPgSqlPriorNotNull each implPgSqlAndPriorNotNull )$ )
+		then
+			return query select
+$poptop Table implPgSqlSelectTableColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQueryBeforePrior default restrictQueryWhereBeforePrior$$implSPReadTableOrderByDescendingPKey$$implImposeTableLimit$;
+		else
+			return query select
+$poptop Table implPgSqlSelectTableColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$implSPReadTableOrderByDescendingPKey$$implImposeTableLimit$;
+		end if;$implPgSqlSPPageTableRetSelectRestrictClusterPart2$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPPageTableRetSelectRestrictClusterPart2">
+	else
+		if( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implPgSqlPriorNotNull each implPgSqlAndPriorNotNull )$ )
+		then
+			return query select
+$poptop Table implPgSqlSelectTableColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$switch TableInClassHierarchy yes implPgSqlSPReadTableRetSelectAndRestrictCluster default implPgSqlSPReadTableRetSelectWhereRestrictCluster$$restrictAndBeforePrior$$implSPReadTableOrderByDescendingPKey$$implImposeTableLimit$;
+		else
+			return query select
+$poptop Table implPgSqlSelectTableColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$switch TableInClassHierarchy yes implPgSqlSPReadTableRetSelectAndRestrictCluster default implPgSqlSPReadTableRetSelectWhereRestrictCluster$$implSPReadTableOrderByDescendingPKey$$implImposeTableLimit$;
+		end if;
+	end if;</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPPageTableRetSelectRestrictTenant">
+	if( isSystemUser )
+	then
+		if( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implPgSqlPriorNotNull each implPgSqlAndPriorNotNull )$ )
+		then
+			return query select
+$poptop Table implPgSqlSelectTableColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQueryBeforePrior default restrictQueryWhereBeforePrior$$implSPReadTableOrderByDescendingPKey$$implImposeTableLimit$;
+		else
+			return query select
+$poptop Table implPgSqlSelectTableColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$implSPReadTableOrderByDescendingPKey$$implImposeTableLimit$;
+		end if;$implPgSqlSPPageTableRetSelectRestrictTenantPart2$</GenRule>
+
+	<GenRule GenDef="Table" Name="implPgSqlSPPageTableRetSelectRestrictTenantPart2">
+	else
+		if( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implPgSqlPriorNotNull each implPgSqlAndPriorNotNull )$ )
+		then
+			return query select
+$poptop Table implPgSqlSelectTableColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQueryBeforePrior default restrictQueryWhereBeforePrior$$switch TableInClassHierarchy yes implPgSqlSPReadTableRetSelectAndRestrictTenant default empty$$implSPReadTableOrderByDescendingPKey$$implImposeTableLimit$;
+		else
+			return query select
+$poptop Table implPgSqlSelectTableColumns$,
+				$poptop Table lower reference BaseClass ClassCode$.revision as revision
+			from $poptop Table lower DbSchemaName$.$poptop Table DbTableName$ as $poptop Table lower ClassCode$$poptop Table switch HasSuperClassRelation yes implPgSqlClassCodeJoinSuperTable default empty$$switch TableInClassHierarchy yes restrictReadAllQuery default empty$$switch TableInClassHierarchy yes implPgSqlSPReadTableRetSelectWhereRestrictTenant default empty$$implSPReadTableOrderByDescendingPKey$$implImposeTableLimit$;
+		end if;
+	end if;</GenRule>
+
+</RuleSet>

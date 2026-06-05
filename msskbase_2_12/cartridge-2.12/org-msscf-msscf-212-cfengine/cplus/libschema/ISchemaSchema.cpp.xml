@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/ISchemaSchema.cpp"
+	Revision="2.12"
+	Descr="C++18 interface implementation for a $SchemaName$ schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaISchemaCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName=""
+		ExpansionClassName="I$SchemaName$SchemaCpp"
+		ExpansionKeyName="I$SchemaName$SchemaCpp"
+		ExpansionFileName="I$SchemaName$Schema.cpp"
+>// Description: C++18 interface implementation for a $SchemaName$ schema.
+
+$MssSourceLicense$
+
+$SchemaISchemaImplIncludes$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+$iterate SchemaRefs( each includeISchemaSchemaHpp empty empty )$
+#include &lt;$lower SchemaName$/I$SchemaName$Schema.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	const std::string I$SchemaName$Schema::CLASS_NAME( "I$SchemaName$Schema" );<!--$iterate Types( each implISchemaParseEnumVars empty empty )$-->
+
+	I$SchemaName$Schema::I$SchemaName$Schema()$iterate SchemaRefs( first implFirstISchemaConstructorSuperclass each implISchemaConstructorSuperclass empty empty )$
+	{
+	}
+
+	I$SchemaName$Schema::~I$SchemaName$Schema() {
+	}
+$iterate Types( empty empty each implISchemaParseEnum )$
+}
+</GenFile>
+
+	<GenRule GenDef="EnumDef" Name="implISchemaParseEnumVars"
+		>$switch HasDefSchema yes empty default reallyImplSchemaParseEnumVars$</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="reallyImplSchemaParseEnumVars">
+		std::map&lt;std::string,I$SchemaName$Schema::$Name$&gt;* I$SchemaName$Schema::lookup$Name$ = NULL;</GenRule>
+
+	<GenRule GenDef="Value" Name="implISchemaParseEnumVars"></GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implFirstISchemaConstructorSuperclass">
+	: $reference RefSchema CPlusNamespace$::I$reference RefSchema SchemaName$Schema()</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implISchemaConstructorSuperclass">,
+	  $reference RefSchema CPlusNamespace$::I$reference RefSchema SchemaName$Schema()</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaISchemaImplIncludes">
+#include &lt;uuid/uuid.h&gt;
+
+#include &lt;array&gt;
+#include &lt;cassert&gt;
+#include &lt;cstddef&gt;
+#include &lt;chrono&gt;
+#include &lt;ctime&gt;
+#include &lt;functional&gt;
+#include &lt;list&gt;
+#include &lt;string&gt;
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+$iterate SchemaRefs( each includeISchemaSchemaHpp empty empty )$
+</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="implISchemaParseEnum"
+		>$switch HasDefSchema yes empty default reallyImplSchemaParseEnum$</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="reallyImplSchemaParseEnum"
+		>$implISchemaParseEnumParse$$implISchemaParseEnumOrdinal$</GenRule>
+
+	<GenRule GenDef="Value" Name="implISchemaParseEnum"></GenRule>
+
+	<GenRule GenDef="EnumDef" Name="implISchemaParseEnumParse">
+	I$SchemaName$Schema::$Name$* I$poptop SchemaDef SchemaName$Schema::parse$Name$( const std::string* value ) {
+		I$SchemaName$Schema::$Name$* retval = parse$Name$( CLASS_NAME, value );
+		return( retval );
+	}
+
+	I$SchemaName$Schema::$Name$* I$poptop SchemaDef SchemaName$Schema::parse$Name$( const std::string&amp; fieldOrClassName, const std::string* value ) {
+		static std::map&lt;std::string,I$SchemaName$Schema::$Name$&gt;* lookup$Name$ = NULL;
+		static const std::string S_ProcName( "parse$Name$" );
+		static const std::string S_Value( "value" );
+		static const std::string S_Msg( "Could not resolve key" );
+		if( lookup$Name$ == NULL ) {
+			std::map&lt;std::string,I$SchemaName$Schema::$Name$&gt;* newMap = new std::map&lt;std::string,I$SchemaName$Schema::$Name$&gt;();$iterate Tag( each implISchemaParseEnumAddTagToMap )$
+			lookup$Name$ = newMap;
+		}
+		I$SchemaName$Schema::$Name$* retval;
+		if( ( value == NULL ) || ( value-&gt;length() &lt;= 0 ) ) {
+			retval = NULL;
+		}
+		else {
+			std::map&lt;std::string,I$SchemaName$Schema::$Name$&gt;::iterator search = lookup$Name$-&gt;find( *value );
+			if( search == lookup$Name$-&gt;end() ) {
+				throw cflib::CFLibInvalidArgumentException( fieldOrClassName,
+					S_ProcName,
+					1,
+					S_Value,
+					S_Msg );
+			}
+			retval = &amp;search-&gt;second;
+		}
+		return( retval );
+	}
+
+	const std::string* I$poptop SchemaDef SchemaName$Schema::to$Name$String( const I$SchemaName$Schema::$Name$ value ) {
+		static std::map&lt;I$SchemaName$Schema::$Name$,std::string&gt;* tostring$Name$ = NULL;
+		static const std::string S_ProcName( "to$Name$String" );
+		static const std::string S_Value( "value" );
+		static const std::string S_Msg( "Could not resolve $Name$ value" );
+		if( tostring$Name$ == NULL ) {
+			std::map&lt;$Name$,std::string&gt;* newMap = new std::map&lt;$Name$,std::string&gt;();$iterate Tag( each implISchemaToEnumStringAddTagToMap )$
+			tostring$Name$ = newMap;
+			newMap = NULL;
+		}
+		const std::string* retval;
+		std::map&lt;I$SchemaName$Schema::$Name$,std::string&gt;::iterator search = tostring$Name$-&gt;find( value );
+		if( search == tostring$Name$-&gt;end() ) {
+			throw cflib::CFLibInvalidArgumentException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_Value,
+				S_Msg );
+		}
+		retval = &amp;(search-&gt;second);
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="implISchemaParseEnumAddTagToMap">
+			newMap-&gt;insert( std::map&lt;std::string,I$SchemaName$Schema::$popto EnumDef Name$&gt;::value_type( std::string( "$Name$" ), I$SchemaName$Schema::$popto EnumDef Name$::$Name$ ) );</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="implISchemaToEnumStringAddTagToMap">
+			newMap-&gt;insert( std::map&lt;I$SchemaName$Schema::$popto EnumDef Name$,std::string&gt;::value_type( I$SchemaName$Schema::$popto EnumDef Name$::$Name$, std::string( "$Name$" ) ) );</GenRule>
+
+	<GenRule GenDef="EnumDef" Name="implISchemaParseEnumOrdinal">
+	const I$SchemaName$Schema::$Name$ I$poptop SchemaDef SchemaName$Schema::ordinalTo$Name$( const std::string&amp; fieldOrClassName, const int16_t value ) {
+		int32_t ivalue = value;
+		const I$SchemaName$Schema::$Name$* retval = ordinalTo$Name$( fieldOrClassName, &amp;ivalue );
+		return( *retval );
+	}
+
+	const I$SchemaName$Schema::$Name$* I$poptop SchemaDef SchemaName$Schema::ordinalTo$Name$( const std::string&amp; fieldOrClassName, const int16_t* value ) {
+		const I$SchemaName$Schema::$Name$* retval;
+		if( value == NULL ) {
+			retval = NULL;
+		}
+		else {
+			int32_t ivalue = *value;
+			retval = ordinalTo$Name$( fieldOrClassName, &amp;ivalue );
+		}
+		return( retval );
+	}
+
+	const I$SchemaName$Schema::$Name$ I$poptop SchemaDef SchemaName$Schema::ordinalTo$Name$( const int16_t value ) {
+		int32_t ivalue = value;
+		const I$SchemaName$Schema::$Name$* retval = ordinalTo$Name$( CLASS_NAME, &amp;ivalue );
+		return( *retval );
+	}
+
+	const I$SchemaName$Schema::$Name$* I$poptop SchemaDef SchemaName$Schema::ordinalTo$Name$( const int16_t* value ) {
+		const I$SchemaName$Schema::$Name$* retval;
+		if( value == NULL ) {
+			retval = NULL;
+		}
+		else {
+			int32_t ivalue = *value;
+			retval = ordinalTo$Name$( CLASS_NAME, &amp;ivalue );
+		}
+		return( retval );
+	}
+
+	const I$SchemaName$Schema::$Name$ I$poptop SchemaDef SchemaName$Schema::ordinalTo$Name$( const int32_t value ) {
+		int32_t ivalue = value;
+		const I$SchemaName$Schema::$Name$* retval = ordinalTo$Name$( CLASS_NAME, &amp;ivalue );
+		return( *retval );
+	}
+
+	const I$SchemaName$Schema::$Name$ I$poptop SchemaDef SchemaName$Schema::ordinalTo$Name$( const std::string&amp; fieldOrClassName, const int32_t value ) {
+		int32_t ivalue = value;
+		const I$SchemaName$Schema::$Name$* retval = ordinalTo$Name$( fieldOrClassName, &amp;ivalue );
+		return( *retval );
+	}
+
+	const I$SchemaName$Schema::$Name$* I$poptop SchemaDef SchemaName$Schema::ordinalTo$Name$( const int32_t* value ) {
+	const I$SchemaName$Schema::$Name$* retval;
+		if( value == NULL ) {
+			retval = NULL;
+		}
+		else {
+			retval = ordinalTo$Name$( CLASS_NAME, value );
+		}
+		return( retval );
+	}
+
+	const I$SchemaName$Schema::$Name$* I$poptop SchemaDef SchemaName$Schema::ordinalTo$Name$( const std::string&amp; fieldOrClassName, const int32_t* value ) {
+		static std::map&lt;const int32_t,I$SchemaName$Schema::$Name$&gt;* lookupOrdinal$Name$ = NULL;
+		static const std::string S_ProcName( "ordinalTo$Name$" );
+		static const std::string S_Value( "value" );
+		static const std::string S_Msg( "Could not resolve key" );
+		if( lookupOrdinal$Name$ == NULL ) {
+			std::map&lt;const int32_t,I$SchemaName$Schema::$Name$&gt;* newMap = new std::map&lt;const int32_t,I$SchemaName$Schema::$Name$&gt;();$iterate Tag( each implISchemaParseEnumAddOrdinalTagToMap )$
+			lookupOrdinal$Name$ = newMap;
+		}
+		const I$SchemaName$Schema::$Name$* retval;
+		if( value == NULL ) {
+			retval = NULL;
+		}
+		else {
+			std::map&lt;const int32_t,I$SchemaName$Schema::$Name$&gt;::iterator search = lookupOrdinal$Name$-&gt;find( *value );
+			if( search == lookupOrdinal$Name$-&gt;end() ) {
+				throw cflib::CFLibInvalidArgumentException( fieldOrClassName,
+					S_ProcName,
+					1,
+					S_Value,
+					S_Msg );
+			}
+			retval = &amp;search-&gt;second;
+		}
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="implISchemaParseEnumAddOrdinalTagToMap">
+			newMap-&gt;insert( std::map&lt;int32_t,I$SchemaName$Schema::$popto EnumDef Name$&gt;::value_type( (int32_t)I$SchemaName$Schema::$popto EnumDef Name$::$Name$, I$SchemaName$Schema::$popto EnumDef Name$::$Name$ ) );</GenRule>
+
+</RuleSet>

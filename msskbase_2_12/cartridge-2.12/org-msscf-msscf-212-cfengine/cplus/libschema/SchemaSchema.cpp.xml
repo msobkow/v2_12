@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/SchemaSchema.cpp"
+	Revision="2.12"
+	Descr="C++18 implementation of a $SchemaName$ schema.">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSchemaCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$SchemaCpp"
+		ExpansionKeyName="$SchemaName$SchemaCpp"
+		ExpansionFileName="$SchemaName$Schema.cpp"
+>// Description: C++18 implementation of a $SchemaName$ schema.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+#include &lt;$lower SchemaName$/$SchemaName$Schema.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	const std::string $SchemaName$Schema::CLASS_NAME( "$SchemaName$Schema" );
+$implSchemaMoreMethods$$implSchemaCommitControl$$iterate SchemaRefs( first implSchemaTablePermsAccessors each empty empty implSchemaTablePermsAccessors )$$implSchemaReleasePreparedStatements$$implSchemaSchemaGetSetDbSchemaNameMethods$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaMoreMethods"
+		>$iterate SchemaRefs( first implSchemaSchemaConstructor each empty empty implSchemaSchemaConstructor )$$implSchemaAuthorizationAccessors$$iterate SchemaRefs( first implSchemaJndiNameAccessors each empty empty implSchemaJndiNameAccessors )$$iterate SchemaRefs( first implSchemaConnectionMethods each empty empty implSchemaConnectionMethods )$$iterate SchemaRefs( first implSchemaNewSchema each empty empty implSchemaNewSchema )$$iterate Id16Generators( each implNextIdGen empty empty)$$iterate Id32Generators( each implNextIdGen empty empty)$$iterate Id64Generators( each implNextIdGen empty empty)$$iterate SchemaTables( each implTableMethods empty empty )$</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaReleasePreparedStatements"
+		>$reference RefSchema implSchemaReleasePreparedStatements$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaReleasePreparedStatements">
+	void $poptop SchemaDef SchemaName$Schema::releasePreparedStatements() {
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaReleasePreparedStatements">
+	void $poptop SchemaDef SchemaName$Schema::releasePreparedStatements() {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSchemaGetSetDbSchemaNameMethods"
+		>$reference RefSchema implSchemaSchemaGetSetDbSchemaNameMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaGetSetDbSchemaNameMethods">
+	const std::string* $poptop SchemaDef SchemaName$Schema::getDbSchemaName() const {
+		return( schemaDbName );
+	}
+
+	const std::string* $poptop SchemaDef SchemaName$Schema::getLowerDbSchemaName() const {
+		return( lowerDbSchemaName );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::setDbSchemaName( const std::string&amp; argDbSchemaName ) {
+		static const std::string S_ProcName( "setDbSchemaName" );
+		static const std::string S_ArgDbSchemaName( "argDbSchemaName" );
+		if( argDbSchemaName.length() &lt;= 0 ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_ArgDbSchemaName );
+		}
+		if( schemaDbName != NULL ) {
+			delete schemaDbName;
+			schemaDbName = NULL;
+		}
+		if( lowerDbSchemaName != NULL ) {
+			delete lowerDbSchemaName;
+			lowerDbSchemaName = NULL;
+		}
+		schemaDbName = new std::string( argDbSchemaName );
+		lowerDbSchemaName = new std::string( argDbSchemaName );
+		std::transform( lowerDbSchemaName-&gt;begin(), lowerDbSchemaName-&gt;end(), lowerDbSchemaName-&gt;begin(), ::tolower );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaSchemaGetSetDbSchemaNameMethods">
+	const std::string* $poptop SchemaDef SchemaName$Schema::getDbSchemaName() const {
+		return( schemaDbName );
+	}
+
+	const std::string* $poptop SchemaDef SchemaName$Schema::getLowerDbSchemaName() const {
+		return( lowerDbSchemaName );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::setDbSchemaName( std::string argDbSchemaName ) {
+		static const std::string S_ProcName( "setDbSchemaName" );
+		static const std::string S_ArgDbSchemaName( "argDbSchemaName" );
+		if( ( argDbSchemaName == NULL ) || ( argDbSchemaName.length() &lt;= 0 ) ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_ArgDbSchemaName );
+		}
+		if( schemaDbName != NULL ) {
+			delete schemaDbName;
+			schemaDbName = NULL;
+		}
+		if( lowerDbSchemaName != NULL ) {
+			delete lowerDbSchemaName;
+			lowerDbSchemaName = NULL;
+		}
+		schemaDbName = new std::string( argDbSchemaName );
+		lowerDbSchemaName = new std::string( argDbSchemaName );
+		std::transform( lowerDbSchemaName-&gt;begin(), lowerDbSchemaName-&gt;end(), lowerDbSchemaName-&gt;begin(), ::tolower );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaInvokeReleasePreparedStatements">
+		if( table$TableName$ != NULL ) {
+			table$TableName$-&gt;releasePreparedStatements();
+		}</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaCommitControl"
+		>$reference RefSchema implSchemaCommitControl$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaCommitControl">
+	bool $poptop SchemaDef SchemaName$Schema::isTransactionOpen() const {
+		static const std::string S_ProcName( "isTransactionOpen" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	bool $poptop SchemaDef SchemaName$Schema::beginTransaction() {
+		static const std::string S_ProcName( "beginTransaction" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::commit() {
+		static const std::string S_ProcName( "commit" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::rollback() {
+		static const std::string S_ProcName( "rollback" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaCommitControl">
+	bool $poptop SchemaDef SchemaName$Schema::isTransactionOpen() const {
+		static const std::string S_ProcName( "isTransactionOpen" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	bool $poptop SchemaDef SchemaName$Schema::beginTransaction() {
+		static const std::string S_ProcName( "beginTransaction" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcNamee );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::commit() {
+		static const std::string S_ProcName( "commit" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::rollback() {
+		static const std::string S_ProcName( "rollback" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="Id16Gen" Name="implNextIdGen">
+	int16_t $poptop SchemaDef SchemaName$Schema::next$Name$() {
+		static const std::string S_ProcName( "next$Name$" );
+		// MSS TODO WORKING
+		throw cflib::CFLibNotImplementedYetException( CLASS_NAME, S_ProcName );
+	}
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id32Gen" Name="implNextIdGen">
+	int32_t $poptop SchemaDef SchemaName$Schema::next$Name$() {
+		static const std::string S_ProcName( "next$Name$" );
+		// MSS TODO WORKING
+		throw cflib::CFLibNotImplementedYetException( CLASS_NAME, S_ProcName );
+	}
+</GenRule>
+	<GenRule ScopeDef="SchemaDef" GenDef="Id64Gen" Name="implNextIdGen">
+	int64_t $poptop SchemaDef SchemaName$Schema::next$Name$() {
+		static const std::string S_ProcName( "next$Name$" );
+		// MSS TODO WORKING
+		throw cflib::CFLibNotImplementedYetException( CLASS_NAME, S_ProcName );
+	}
+</GenRule>
+
+	<GenRule ScopeDef="SchemaDef" GenDef="UuidGen" Name="implNextIdGen"></GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMethods"
+		>$implSchemaTableTableAccessors$</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaAuthorizationAccessors"
+		>$popto SchemaDef implSchemaAuthorizationAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaAuthorizationAccessors">
+	$CPlusSecNamespace$::$SecSchemaName$Authorization* $poptop SchemaDef SchemaName$Schema::getAuthorization() const {
+		return( authorization );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::setAuthorization( $CPlusSecNamespace$::$SecSchemaName$Authorization* value ) {
+		authorization = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaTablePermsAccessors"
+		>$reference RefSchema implSchemaTablePermsAccessors$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaTablePermsAccessors">
+	$CPlusNamespace$::I$DefSchemaName$TablePerms* $poptop SchemaDef SchemaName$Schema::getTablePerms() {
+		return( tablePerms );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::setTablePerms( $CPlusNamespace$::I$SchemaName$TablePerms* value ) {
+		if( tablePerms != NULL ) {
+			delete tablePerms;
+			tablePerms = NULL;
+		}
+		tablePerms = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableTableAccessors">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Table* $poptop SchemaDef SchemaName$Schema::getTable$TableName$() {
+		return( table$TableName$ );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::setTable$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Table* value ) {
+		if( table$TableName$ != NULL ) {
+			delete table$TableName$;
+			table$TableName$ = NULL;
+		}
+		table$TableName$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaSchemaConstructor"
+		>$reference RefSchema implSchemaSchemaConstructor$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSchemaConstructor">
+	$poptop SchemaDef SchemaName$Schema::$poptop SchemaDef SchemaName$Schema()
+	: I$poptop SchemaDef SchemaName$Schema()$poptop SchemaDef iterate SchemaRefs( each newlineSchemaSchemaInvokeInterface empty empty )$
+ 	{
+		authorization = NULL;
+		tablePerms = NULL;
+		jndiName = NULL;
+		schemaDbName = new std::string( "$poptop SchemaDef DbSchemaName$" );
+		lowerDbSchemaName = new std::string( "$poptop SchemaDef DbSchemaName$" );
+		std::transform( lowerDbSchemaName-&gt;begin(), lowerDbSchemaName-&gt;end(), lowerDbSchemaName-&gt;begin(), ::tolower );
+$poptop SchemaDef iterate SchemaTables( each initSchemaTableTableMember )$
+	}
+
+	$poptop SchemaDef SchemaName$Schema::$poptop SchemaDef SchemaName$Schema( const std::string&amp; argJndiName )
+	: I$poptop SchemaDef SchemaName$Schema()$poptop SchemaDef iterate SchemaRefs( each newlineSchemaSchemaInvokeInterface empty empty )$
+	{
+		static const std::string S_ProcName( "$poptop SchemaDef SchemaName$Schema-constructor" );
+		static const std::string S_ArgJndiName( "argJndiName" );
+		if( argJndiName.length() &lt;= 0 ) {
+			throw cflib::CFLibEmptyArgumentException( CLASS_NAME,
+				S_ProcName,
+				1,
+				S_ArgJndiName );
+		}
+		authorization = NULL;
+		tablePerms = NULL;
+		jndiName = new std::string( argJndiName );
+		schemaDbName = new std::string( "$poptop SchemaDef DbSchemaName$" );
+		lowerDbSchemaName = new std::string( "$poptop SchemaDef DbSchemaName$" );
+		std::transform( lowerDbSchemaName-&gt;begin(), lowerDbSchemaName-&gt;end(), lowerDbSchemaName-&gt;begin(), ::tolower );
+$poptop SchemaDef iterate SchemaTables( each initSchemaTableTableMember )$
+	}
+
+	$poptop SchemaDef SchemaName$Schema::~$poptop SchemaDef SchemaName$Schema() {
+		authorization = NULL;
+		if( tablePerms != NULL ) {
+			delete tablePerms;
+			tablePerms = NULL;
+		}
+		if( jndiName != NULL ) {
+			delete jndiName;
+			jndiName = NULL;
+		}
+		if( schemaDbName != NULL ) {
+			delete schemaDbName;
+			schemaDbName = NULL;
+		}
+		if( lowerDbSchemaName != NULL ) {
+			delete lowerDbSchemaName;
+			lowerDbSchemaName = NULL;
+		}
+$poptop SchemaDef iterate SchemaTables( each deleteSchemaTableTableMember )$
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="newlineSchemaSchemaInvokeInterface">,
+	  $reference RefSchema CPlusNamespace$::I$reference RefSchema SchemaName$Schema()</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaNewSchema"
+		>$reference RefSchema implSchemaNewSchema$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaNewSchema">
+	I$poptop SchemaDef SchemaName$Schema* $poptop SchemaDef SchemaName$Schema::newSchema() {
+		static const std::string S_ProcName( "newSchema" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaJndiNameAccessors">
+	const std::string* $poptop SchemaDef SchemaName$Schema::getJndiName() const {
+		return( jndiName );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::setJndiName( const std::string&amp; value ) {
+		if( jndiName != NULL ) {
+			delete jndiName;
+			jndiName = NULL;
+		}
+		if( value.length() &gt; 0 ) {
+			jndiName = new std::string( value );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaJndiNameAccessors">
+	const std::string* $poptop SchemaDef SchemaName$Schema::getJndiName() const {
+		return( jndiName );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::setJndiName( const std::string&amp; value ) {
+		if( jndiName != NULL ) {
+			delete jndiName;
+			jndiName = NULL;
+		}
+		if( value.length() &gt; 0 ) {
+			jndiName = new std::string( value );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaRef" Name="implSchemaConnectionMethods"
+		>$reference RefSchema implSchemaConnectionMethods$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaConnectionMethods">
+	bool $poptop SchemaDef SchemaName$Schema::isConnected() {
+		static const std::string S_ProcName( "isConnected" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	bool $poptop SchemaDef SchemaName$Schema::connect() {
+		static const std::string S_ProcName( "connect" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	bool $poptop SchemaDef SchemaName$Schema::connect( const std::string&amp; username, const std::string&amp; password ) {
+		static const std::string S_ProcName( "connect-userpw" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	bool $poptop SchemaDef SchemaName$Schema::connect( const std::string&amp; loginId, const std::string&amp; password, const std::string&amp; clusterName, const std::string&amp; tenantName ) {
+		static const std::string S_ProcName( "connect-full" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::disconnect( bool doCommit ) {
+		static const std::string S_ProcName( "disconnect" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::logout( $CPlusSecNamespace$::$SecSchemaName$Authorization* auth ) {
+		static const std::string S_ProcName( "logout" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implSchemaConnectionMethods">
+	bool $poptop SchemaDef SchemaName$Schema::isConnected() {
+		static const std::string S_ProcName( "isConnected" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	bool $poptop SchemaDef SchemaName$Schema::connect() {
+		static const std::string S_ProcName( "connect" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	bool $poptop SchemaDef SchemaName$Schema::connect( const std::string&amp; username, const std::string&amp; password ) {
+		static const std::string S_ProcName( "connect-userpw" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	bool $poptop SchemaDef SchemaName$Schema::connect( const std::string&amp; loginId, const std::string&amp; password, const std::string&amp; clusterName, const std::string&amp; tenantName ) {
+		static const std::string S_ProcName( "connect-full" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::disconnect( bool doCommit ) {
+		static const std::string S_ProcName( "disconnect" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+
+	void $poptop SchemaDef SchemaName$Schema::logout( $CPlusSecNamespace$::$SecSchemaName$Authorization* auth ) {
+		static const std::string S_ProcName( "logout" );
+		throw cflib::CFLibMustOverrideException( CLASS_NAME, S_ProcName );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="initSchemaTableTableMember">
+		table$TableName$ = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="deleteSchemaTableTableMember"
+		>$switch HasSuperClassRelation yes empty default deleteWalkSchemaTableTableMember$</GenRule>
+
+	<GenRule GenDef="Table" Name="deleteWalkSchemaTableTableMember">$iterate TableSubClasses( each deleteWalkSchemaTableTableMember empty empty )$
+		if( table$TableName$ != NULL ) {
+			delete table$TableName$;
+			table$TableName$ = NULL;
+		}</GenRule>
+
+</RuleSet>

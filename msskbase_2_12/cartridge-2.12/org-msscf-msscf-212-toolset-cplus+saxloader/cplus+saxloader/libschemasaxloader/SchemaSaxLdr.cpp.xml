@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus+saxloader"
+	Name="libschemaxml/SchemaSaxLdr.cpp"
+	Revision="2.12"
+	Descr="C++18 XML Command Line Interface common core implementation for Schema">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSaxLdrCPlus"
+		GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="lib$reference ManufacturingSchema lower PackageName$saxloader"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$SaxLdrCPlus"
+		ExpansionKeyName="$SchemaName$SaxLdrCPlus"
+		ExpansionFileName="$SchemaName$SaxLdr.cpp"
+>// Description: C++18 XML Command Line Interface common core implementation for $SchemaName$.
+
+$MssSourceLicense$
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+
+#include &lt;$lower SchemaName$saxloader/$SchemaName$SaxLoader.hpp&gt;
+#include &lt;$lower SchemaName$saxloader/$SchemaName$SaxLdr.hpp&gt;
+
+namespace $CPlusNamespace$ {
+
+	const std::string $SchemaName$SaxLdr::CLASS_NAME( "$SchemaName$SaxLdr" );
+	const std::string $SchemaName$SaxLdr::S_SYSTEM( "system" );
+	const std::string $SchemaName$SaxLdr::S_UnhandledException( "Unhandled exception" );
+$implSchemaSaxLdrConstructor$$implSchemaSaxLdrSaxLoaderAccessors$$implSchemaSaxLdrClusterAccessors$$implSchemaSaxLdrTenantAccessors$$implSchemaSaxLdrSecUserAccessors$$implSchemaSaxLdrSecSessionAccessors$$implSchemaSaxLdrApplyLoaderOptions$$implSchemaSaxLdrEvalLoaderSegment$$implSchemaSaxLdrEvalRemaining$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrSaxLoaderAccessors">
+	void $SchemaName$SaxLdr::setSaxLoader( $CPlusNamespace$::$SchemaName$SaxLoader* value ) {
+		saxLoader = value;
+	}
+
+	$CPlusNamespace$::$SchemaName$SaxLoader* $SchemaName$SaxLdr::getSaxLoader() {
+		static const std::string S_ProcName( "getSaxLoader" );
+		static const std::string S_Log( "log" );
+		if( log == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_Log );
+		}
+		if( saxLoader == NULL ) {
+			saxLoader = new $SchemaName$SaxLoader( log );
+		}
+		return( saxLoader );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessors"
+		>$implSchemaSaxLdrClusterAccessorsPart01$$implSchemaSaxLdrClusterAccessorsPart02$$implSchemaSaxLdrClusterAccessorsPart03$$implSchemaSaxLdrClusterAccessorsPart04$$implSchemaSaxLdrClusterAccessorsPart05$$implSchemaSaxLdrClusterAccessorsPart06$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart01">
+	void $SchemaName$SaxLdr::setClusterName( const std::string&amp; value ) {
+		const static std::string S_ProcName( "setClusterName" );
+		const static std::string S_Default( "default" );
+		const static std::string S_System( "system" );
+		const static std::string S_ReadClusterSystem( "readClusterByUDomName-system" );
+		const static std::string S_ExpectedValues( "Expected value to by 'default' or 'system'" );
+		CFLIB_EXCEPTION_DECLINFO
+		$CPlusNamespace$::I$SchemaName$SchemaObj* schema = saxLoader-&gt;getSchemaObj();
+		if( value == S_Default ) {
+			bool transactionStarted = schema-&gt;beginTransaction();
+			try {
+				$CPlusSecNamespace$::I$SecSchemaName$SysClusterObj* sysCluster = schema-&gt;getSysClusterTableObj()-&gt;readSysClusterByIdIdx( 1 );
+				if( sysCluster == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						"sysCluster" );
+				}
+				$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* useCluster = sysCluster-&gt;getRequiredContainerCluster();
+				if( useCluster == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						"sysCluster-&gt;containerCluster" );
+				}
+				if( clusterName != NULL ) {
+					delete clusterName;
+					clusterName = NULL;
+				}
+				clusterName = new std::string( value );
+				clusterObj = useCluster;
+				saxLoader-&gt;getSchemaObj()-&gt;setSecCluster( useCluster );
+				if( transactionStarted ) {
+					schema-&gt;commit();
+				}
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart02">
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				if( transactionStarted ) {
+					try {
+						schema-&gt;rollback();
+					}
+					catch( ... ) {
+					}
+				}
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					S_UnhandledException );
+			}
+		}
+		else if( value == S_System ) {
+			bool transactionStarted = schema-&gt;beginTransaction();
+			try {
+				$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* useCluster = schema-&gt;getClusterTableObj()-&gt;readClusterByUDomNameIdx( S_System );
+				if( useCluster == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_ReadClusterSystem );
+				}
+				if( clusterName != NULL ) {
+					delete clusterName;
+					clusterName = NULL;
+				}
+				clusterName = new std::string( value );
+				clusterObj = useCluster;
+				saxLoader-&gt;getSchemaObj()-&gt;setSecCluster( useCluster );
+				if( transactionStarted ) {
+					schema-&gt;commit();
+				}
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart03">
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				if( transactionStarted ) {
+					try {
+						schema-&gt;rollback();
+					}
+					catch( ... ) {
+					}
+				}
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					S_UnhandledException );
+			}
+		}
+		else {
+			throw cflib::CFLibUsageException( CLASS_NAME,
+				S_ProcName,
+				S_ExpectedValues );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart04">
+	const std::string&amp; $SchemaName$SaxLdr::getClusterName() const {
+		return( *clusterName );
+	}
+
+	$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* $SchemaName$SaxLdr::getClusterObj() {
+		const static std::string S_ProcName( "getClusterObj" );
+		const static std::string S_Default( "default" );
+		const static std::string S_System( "system" );
+		const static std::string S_SysCluster( "sysCluster" );
+		const static std::string S_SysClusterContainingCluster( "sysCluster-&gt;containingCluster" );
+		const static std::string S_ReadClusterSystem( "readClusterByUDomName-system" );
+		const static std::string S_ClusterObj( "clusterObj" );
+		CFLIB_EXCEPTION_DECLINFO
+		if( clusterObj == NULL ) {
+			$CPlusNamespace$::I$SchemaName$SchemaObj* schema = saxLoader-&gt;getSchemaObj();
+			if( *clusterName == S_Default ) {
+				bool transactionStarted = schema-&gt;beginTransaction();
+				try {
+					$CPlusSecNamespace$::I$SecSchemaName$SysClusterObj* sysCluster = schema-&gt;getSysClusterTableObj()-&gt;readSysClusterByIdIdx( 1 );
+					if( sysCluster == NULL ) {
+						throw cflib::CFLibNullArgumentException( CLASS_NAME,
+							S_ProcName,
+							0,
+							S_SysCluster );
+					}
+					$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* useCluster = sysCluster-&gt;getRequiredContainerCluster();
+					if( useCluster == NULL ) {
+						throw cflib::CFLibNullArgumentException( CLASS_NAME,
+							S_ProcName,
+							0,
+							S_SysClusterContainingCluster );
+					}
+					clusterObj = useCluster;
+					saxLoader-&gt;getSchemaObj()-&gt;setSecCluster( useCluster );
+					if( transactionStarted ) {
+						schema-&gt;commit();
+					}
+				}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart05">
+				CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+				if( ! CFLIB_EXCEPTION_EMPTY ) {
+					if( transactionStarted ) {
+						try {
+							schema-&gt;rollback();
+						}
+						catch( ... ) {
+						}
+					}
+					throw cflib::CFLibRuntimeException( CLASS_NAME,
+						S_ProcName,
+						S_UnhandledException );
+				}
+			}
+			else if( *clusterName == S_System ) {
+				bool transactionStarted = schema-&gt;beginTransaction();
+				try {
+					$CPlusSecNamespace$::I$SecSchemaName$ClusterObj* useCluster = schema-&gt;getClusterTableObj()-&gt;readClusterByUDomNameIdx( S_System );
+					if( useCluster == NULL ) {
+						throw cflib::CFLibNullArgumentException( CLASS_NAME,
+							S_ProcName,
+							0,
+							S_ReadClusterSystem );
+					}
+					clusterObj = useCluster;
+					saxLoader-&gt;getSchemaObj()-&gt;setSecCluster( useCluster );
+					if( transactionStarted ) {
+						schema-&gt;commit();
+					}
+				}
+				CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+				if( ! CFLIB_EXCEPTION_EMPTY ) {
+					if( transactionStarted ) {
+						try {
+							schema-&gt;rollback();
+						}
+						catch( ... ) {
+						}
+					}
+					throw cflib::CFLibRuntimeException( CLASS_NAME,
+						S_ProcName,
+						S_UnhandledException );
+				}
+			}
+		}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrClusterAccessorsPart06">
+		if( clusterObj == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_ClusterObj );
+		}
+		return( clusterObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessors"
+		>$implSchemaSaxLdrTenantAccessorsPart01$$implSchemaSaxLdrTenantAccessorsPart02$$implSchemaSaxLdrTenantAccessorsPart03$$implSchemaSaxLdrTenantAccessorsPart04$$implSchemaSaxLdrTenantAccessorsPart05$$implSchemaSaxLdrTenantAccessorsPart06$$implSchemaSaxLdrTenantAccessorsPart07$$implSchemaSaxLdrTenantAccessorsPart08$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart01">
+	void $SchemaName$SaxLdr::setTenantName( const std::string&amp; value ) {
+		const static std::string S_ProcName = "setTenantName";
+		const static std::string S_System= "system";
+		const static std::string S_Value = "value";
+		const static std::string S_ClusterObj = "clusterObj";
+		$CPlusNamespace$::I$SchemaName$SchemaObj* schema = saxLoader-&gt;getSchemaObj();
+		CFLIB_EXCEPTION_DECLINFO
+		if( value == S_System ) {
+			bool transactionStarted = schema-&gt;beginTransaction();
+			try {
+				$CPlusSecNamespace$::I$SecSchemaName$TenantObj* useTenant = schema-&gt;getTenantTableObj()-&gt;readTenantByUNameIdx( clusterObj-&gt;getRequiredId(),
+					S_System );
+				if( useTenant == NULL ) {
+					std::string Msg( "readTenantByUNameIdx-" + clusterObj-&gt;getObjName() + "-system" );
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						Msg );
+				}
+				if( tenantName != NULL ) {
+					delete tenantName;
+					tenantName = NULL;
+				}
+				tenantName = new std::string( value );
+				tenantObj = useTenant;
+				saxLoader-&gt;getSchemaObj()-&gt;setSecTenant( useTenant );
+				if( transactionStarted ) {
+					schema-&gt;commit();
+				}
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart02">
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				if( transactionStarted ) {
+					try {
+						schema-&gt;rollback();
+					}
+					catch( ... ) {
+					}
+				}
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					S_UnhandledException );
+			}
+		}
+		else {
+			if( clusterObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_ClusterObj );
+			}
+			if( *clusterName == S_System ) {
+				std::string Msg( "Cluster 'system' only supports the tenant 'system', not '" + value + "'" );
+				throw cflib::CFLibUsageException( CLASS_NAME,
+					S_ProcName,
+					Msg );
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart03">
+			bool transactionStarted = schema-&gt;beginTransaction();
+			try {
+				$CPlusSecNamespace$::I$SecSchemaName$TenantObj* useTenant = schema-&gt;getTenantTableObj()-&gt;readTenantByUNameIdx( clusterObj-&gt;getRequiredId(),
+					value );
+				if( useTenant == NULL ) {
+					std::string Msg( "readTenantByUNameIdx-" + clusterObj-&gt;getObjName() + "-" + value );
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						Msg );
+				}
+				if( tenantName != NULL ) {
+					delete tenantName;
+					tenantName = NULL;
+				}
+				tenantName = new std::string( value );
+				tenantObj = useTenant;
+				saxLoader-&gt;getSchemaObj()-&gt;setSecTenant( useTenant );
+				if( transactionStarted ) {
+					schema-&gt;commit();
+				}
+			}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart04">
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				if( transactionStarted ) {
+					try {
+						schema-&gt;rollback();
+					}
+					catch( ... ) {
+					}
+				}
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					S_UnhandledException );
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart05">
+	const std::string&amp; $SchemaName$SaxLdr::getTenantName() const {
+		return( *tenantName );
+	}
+
+	$CPlusSecNamespace$::I$SecSchemaName$TenantObj* $SchemaName$SaxLdr::getTenantObj() {
+		const static std::string S_ProcName( "getTenantObj" );
+		const static std::string S_System( "system" );
+		const static std::string S_TenantName( "tenantName" );
+		const static std::string S_ClusterObj( "clusterObj" );
+		CFLIB_EXCEPTION_DECLINFO
+		if( tenantObj == NULL ) {
+			$CPlusNamespace$::I$SchemaName$SchemaObj* schema = saxLoader-&gt;getSchemaObj();
+			if( tenantName == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_TenantName );
+			}
+			else if( *tenantName == S_System ) {
+				bool transactionStarted = schema-&gt;beginTransaction();
+				try {
+					$CPlusSecNamespace$::I$SecSchemaName$TenantObj* useTenant = schema-&gt;getTenantTableObj()-&gt;readTenantByUNameIdx( clusterObj-&gt;getRequiredId(),
+						S_System );
+					if( useTenant == NULL ) {
+						std::string Msg( "readTenantByUNameIdx-" + clusterObj-&gt;getObjName() + "-system" );
+						throw cflib::CFLibNullArgumentException( CLASS_NAME,
+							S_ProcName,
+							0,
+							Msg );
+					}
+					tenantObj = useTenant;
+					saxLoader-&gt;getSchemaObj()-&gt;setSecTenant( useTenant );
+					if( transactionStarted ) {
+						schema-&gt;commit();
+					}
+				}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart06">
+				CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+				if( ! CFLIB_EXCEPTION_EMPTY ) {
+					if( transactionStarted ) {
+						try {
+							schema-&gt;rollback();
+						}
+						catch( ... ) {
+						}
+					}
+					throw cflib::CFLibRuntimeException( CLASS_NAME,
+						S_ProcName,
+						S_UnhandledException );
+				}
+			}
+			else {
+				if( clusterObj == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_ClusterObj );
+				}
+				if( *clusterName == S_System ) {
+					std::string Msg( "Cluster 'system' only supports the tenant 'system', not '" + *tenantName + "'" );
+					throw cflib::CFLibUsageException( CLASS_NAME,
+						S_ProcName,
+						Msg );
+				}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart07">
+				bool transactionStarted = schema-&gt;beginTransaction();
+				try {
+					$CPlusSecNamespace$::I$SecSchemaName$TenantObj* useTenant = schema-&gt;getTenantTableObj()-&gt;readTenantByUNameIdx( clusterObj-&gt;getRequiredId(),
+						*tenantName );
+					if( useTenant == NULL ) {
+						std::string Msg( "readTenantByUNameIdx-" + clusterObj-&gt;getObjName() + "-" + *tenantName );
+						throw cflib::CFLibNullArgumentException( CLASS_NAME,
+							S_ProcName,
+							0,
+							Msg );
+					}
+					tenantObj = useTenant;
+					saxLoader-&gt;getSchemaObj()-&gt;setSecTenant( useTenant );
+					if( transactionStarted ) {
+						schema-&gt;commit();
+					}
+				}</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrTenantAccessorsPart08">
+				CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+				if( ! CFLIB_EXCEPTION_EMPTY ) {
+					if( transactionStarted ) {
+						try {
+							schema-&gt;rollback();
+						}
+						catch( ... ) {
+						}
+					}
+					throw cflib::CFLibRuntimeException( CLASS_NAME,
+						S_ProcName,
+						S_UnhandledException );
+				}
+			}
+		}
+		if( tenantObj == NULL ) {
+			std::string Msg( "tenantObj-" + *tenantName );
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				Msg );
+		}
+		return( tenantObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrSecUserAccessors">
+	void $SchemaName$SaxLdr::setSecUserName( const std::string&amp; value ) {
+		if( secUserName != NULL ) {
+			delete secUserName;
+			secUserName = NULL;
+		}
+		secUserName = new std::string( value );
+	}
+
+	const std::string&amp; $SchemaName$SaxLdr::getSecUserName() const {
+		return( *secUserName );
+	}
+
+	$CPlusSecNamespace$::I$SecSchemaName$SecUserObj* $SchemaName$SaxLdr::getSecUserObj() {
+		static const std::string S_ProcName( "getSecUserObj" );
+		CFLIB_EXCEPTION_DECLINFO
+		if( secUserObj == NULL ) {
+			I$SchemaName$SchemaObj* schema = saxLoader-&gt;getSchemaObj();
+			bool transactionStarted = schema-&gt;beginTransaction();
+			try {
+				secUserObj = schema-&gt;getSecUserTableObj()-&gt;readSecUserByULoginIdx( *secUserName );
+				if( transactionStarted ) {
+					schema-&gt;commit();
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				if( transactionStarted ) {
+					try {
+						schema-&gt;rollback();
+					}
+					catch( ... ) {
+					}
+				}
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					S_UnhandledException );
+			}
+		}
+		if( secUserObj == NULL ) {
+			std::string Msg( "SecUser \"" + *secUserName + "\" could not be found" );
+			throw cflib::CFLibRuntimeException( CLASS_NAME,
+				S_ProcName,
+				Msg );
+		}
+		return( secUserObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrSecSessionAccessors">
+	$CPlusSecNamespace$::I$SecSchemaName$SecSessionObj* $SchemaName$SaxLdr::getSecSessionObj() {
+		static const std::string S_ProcName( "getSecSessionObj" );
+		CFLIB_EXCEPTION_DECLINFO
+		if( secSessionObj == NULL ) {
+			$CPlusNamespace$::I$SchemaName$SchemaObj* schema = saxLoader-&gt;getSchemaObj();
+			bool transactionStarted = schema-&gt;beginTransaction();
+			try {
+				getClusterObj();
+				getTenantObj();
+				getSecUserObj();
+				secSessionObj = schema-&gt;getSecSessionTableObj()-&gt;newInstance();
+				$CPlusSecNamespace$::I$SecSchemaName$SecSessionEditObj* sessionEdit = secSessionObj-&gt;beginEdit();
+				sessionEdit-&gt;setRequiredContainerSecUser( secUserObj );
+				std::chrono::system_clock::time_point curTimestamp = cflib::CFLib::getUTCTimestampInstance();
+				sessionEdit-&gt;setRequiredStart( curTimestamp );
+				sessionEdit-&gt;setOptionalFinishNull();
+				secSessionObj = sessionEdit-&gt;create();
+				if( transactionStarted ) {
+					schema-&gt;commit();
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+			if( ! CFLIB_EXCEPTION_EMPTY ) {
+				if( transactionStarted ) {
+					try {
+						schema-&gt;rollback();
+					}
+					catch( ... ) {
+					}
+				}
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					S_UnhandledException );
+			}
+		}
+		return( secSessionObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrConstructor"
+		>$implSchemaSaxLdrConstructorVoid$$implSchemaSaxLdrConstructorLog$</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrConstructorVoid">
+	$SchemaName$SaxLdr::$SchemaName$SaxLdr() {
+		log = NULL;
+		saxLoader = NULL;
+		clusterName = new std::string( S_SYSTEM );
+		clusterObj = NULL;
+		tenantName = new std::string( S_SYSTEM );
+		tenantObj = NULL;
+		secUserName = new std::string( S_SYSTEM );
+		secUserObj = NULL;
+		secSessionObj = NULL;
+	}
+
+	$SchemaName$SaxLdr::~$SchemaName$SaxLdr() {
+		if( saxLoader != NULL ) {
+			delete saxLoader;
+			saxLoader = NULL;
+		}
+		if( clusterName != NULL ) {
+			delete clusterName;
+			clusterName = NULL;
+		}
+		if( tenantName != NULL ) {
+			delete tenantName;
+			tenantName = NULL;
+		}
+		if( secUserName != NULL ) {
+			delete secUserName;
+			secUserName = NULL;
+		}
+		clusterObj = NULL;
+		tenantObj = NULL;
+		secUserObj = NULL;
+		secSessionObj = NULL;
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrConstructorLog">
+	$SchemaName$SaxLdr::$SchemaName$SaxLdr( cflib::ICFLibMessageLog* messageLog ) {
+		log = messageLog;
+		saxLoader = NULL;
+		clusterName = new std::string( S_SYSTEM );
+		clusterObj = NULL;
+		tenantName = new std::string( S_SYSTEM );
+		tenantObj = NULL;
+		secUserName = new std::string( S_SYSTEM );
+		secUserObj = NULL;
+		secSessionObj = NULL;
+		getSaxLoader();
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrEvalRemaining">
+	void $SchemaName$SaxLdr::evaluateRemainingArgs( size_t argc, char* argv[], size_t consumed ) {
+		// This method gets overloaded to evaluate the database-specific
+		// connection arguments, if supported by a database specialization.
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrApplyLoaderOptions">
+	void $SchemaName$SaxLdr::applyLoaderOptions( $CPlusNamespace$::$SchemaName$SaxLoader* loader, const std::string&amp; loaderOptions ) {
+		static const std::string S_PathSeparator( ":" );
+		std::string workingOptions( loaderOptions );
+		while( workingOptions.length() &gt; 0 ) {
+			std::string evalSegment;
+			std::string::size_type sepIndex = workingOptions.find( S_PathSeparator );
+			if( sepIndex != std::string::npos ) {
+				evalSegment = workingOptions.substr( 0, sepIndex );
+				if( workingOptions.length() &gt; sepIndex + 1 ) {
+					workingOptions = workingOptions.substr( sepIndex + 1 );
+				}
+				else {
+					workingOptions.clear();
+				}
+			}
+			else {
+				evalSegment = workingOptions;
+				workingOptions.clear();
+			}
+			evalLoaderSegment( loader, evalSegment );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="implSchemaSaxLdrEvalLoaderSegment">
+	void $SchemaName$SaxLdr::evalLoaderSegment( $CPlusNamespace$::$SchemaName$SaxLoader* loader, const std::string&amp; evalSegment ) {
+		const static std::string S_ProcName( "evalLoaderSegment()" );
+		const static std::string S_Asterisk( "*" );
+		const static std::string S_Equal( "=" );
+		const static std::string S_Insert( "Insert" );
+		const static std::string S_Update( "Update" );
+		const static std::string S_Replace( "Replace" );
+		const static std::string S_SegmentMsg( "ERROR: Expected segment to comprise &lt;TableName&gt;={*|Insert|Update|Replace}" );
+		std::string::size_type sepEquals = evalSegment.find( S_Equal );
+		if( sepEquals == std::string::npos ) {
+			throw cflib::CFLibRuntimeException( CLASS_NAME,
+				S_ProcName,
+				S_SegmentMsg );
+		}
+		std::string tableName = evalSegment.substr( 0, sepEquals );
+		std::string tableOption = evalSegment.substr( sepEquals + 1 );$iterate SchemaTables( first implSchemaSaxLdrEvalLoaderSegmentFirstTable each implSchemaSaxLdrEvalLoaderSegmentEachTable )$
+		else {
+			throw cflib::CFLibRuntimeException( CLASS_NAME,
+				S_ProcName,
+				S_SegmentMsg );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLdrEvalLoaderSegmentFirstTable">
+		if( tableName == $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::GENDEFNAME ) {
+			if( tableOption == S_Asterisk ) {
+				// Leave at default
+			}
+			else if( tableOption == S_Insert ) {
+				loader-&gt;set$Name$LoaderBehaviour( $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Insert );
+			}
+			else if( tableOption == S_Update ) {
+				loader-&gt;set$Name$LoaderBehaviour( $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Update );
+			}
+			else if( tableOption == S_Replace ) {
+				loader-&gt;set$Name$LoaderBehaviour( $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Replace );
+			}
+			else {
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					S_SegmentMsg );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaSaxLdrEvalLoaderSegmentEachTable">
+		else if( tableName == $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::GENDEFNAME ) {
+			if( tableOption == S_Asterisk ) {
+				// Leave at default
+			}
+			else if( tableOption == S_Insert ) {
+				loader-&gt;set$Name$LoaderBehaviour( $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Insert );
+			}
+			else if( tableOption == S_Update ) {
+				loader-&gt;set$Name$LoaderBehaviour( $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Update );
+			}
+			else if( tableOption == S_Replace ) {
+				loader-&gt;set$Name$LoaderBehaviour( $CPlusNamespace$::$SchemaName$SaxLoader::LoaderBehaviourEnum::Replace );
+			}
+			else {
+				throw cflib::CFLibRuntimeException( CLASS_NAME,
+					S_ProcName,
+					S_SegmentMsg );
+			}
+		}</GenRule>
+
+</RuleSet>

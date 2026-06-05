@@ -1,0 +1,1908 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+		xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+javafx"
+	Name="src/SchemaJavaFXTableListPane.java"
+	Revision="2.12"
+	Descr="Java 11 JavaFX List of Obj Pane for Table">
+
+	<GenFile GenDef="Table" Name="fileSchemaJavaFXTableListPaneJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$JavaFX/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$JavaFX"
+		ExpansionClassName="$SchemaName$JavaFX$TableName$TableListPaneJava"
+		ExpansionKeyName="$SchemaName$JavaFX$TableName$TableListPaneJava"
+		ExpansionFileName="$SchemaName$JavaFX$TableName$ListPane.java"
+>// Description: Java 11 JavaFX List of Obj Pane implementation for $TableName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$JavaFX;
+
+import java.math.*;
+import java.util.*;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
+import javafx.util.Callback;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.JavaFX.*;
+import org.apache.commons.codec.binary.Base64;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameJavaFX empty empty )$
+
+/**
+ *	$SchemaName$JavaFX$TableName$ListPane JavaFX List of Obj Pane implementation
+ *	for $TableName$.
+ */$implJavaFXTableListPaneClassSpec$</GenFile>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneClassSpec">
+public class $SchemaName$JavaFX$TableName$ListPane
+extends CFBorderPane
+implements I$SchemaName$JavaFX$TableName$PaneList
+{
+	public static String S_FormName = "List $EffLabel$";$declJavaFXTableListPaneMembers$
+	public final String S_ColumnNames[] = { "Name" };
+	protected ICFFormManager cfFormManager = null;
+	protected boolean javafxIsInitializing = true;
+	protected boolean javafxSortByChain = false;
+	protected $switch HasContainer yes implISchemaJavaFXTableContainerObjInterface default implISchemaJavaFXTableContainerAnyInterface$ javafxContainer = null;
+	protected ICFRefreshCallback javafxRefreshCallback = null;$implSchemaJavaFXTableListPaneViewEditClosedCallback$$implSchemaJavaFXTableListPaneDeleteCallback$
+$implConstructJavaFXTableListPane$$implGetSetCFFormManager$$implGetJavaFXSchema$$implJavaFXTableListPaneSetPaneMode$$implJavaFXTableListPaneGetSetJavaFXFocus$$implJavaFXListTableGetSetJavaFXDataCollection$$implJavaFXTableListPaneGetPanelHBoxMenu$$implJavaFXTableListPaneGetSetJavaFXContainer$$implJavaFXTableListPaneRefreshMe$$implJavaFXTableListPaneAdjustListButtons$}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaJavaFXTableListPaneViewEditClosedCallback">
+	class ViewEditClosedCallback implements ICFFormClosedCallback {
+		public ViewEditClosedCallback() {
+		}
+
+		@Override
+		public void formClosed( ICFLibAnyObj affectedObject ) {
+			if( affectedObject != null ) {
+				refreshMe();
+			}
+		}
+	}
+
+	protected ViewEditClosedCallback viewEditClosedCallback = null;
+
+	public ICFFormClosedCallback getViewEditClosedCallback() {
+		if( viewEditClosedCallback == null ) {
+			viewEditClosedCallback = new ViewEditClosedCallback();
+		}
+		return( viewEditClosedCallback );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaJavaFXTableListPaneDeleteCallback">
+	class DeleteCallback implements ICFDeleteCallback {
+		public DeleteCallback() {
+		}$implSchemaJavaFXTableListPaneDeleteCallbackBody$
+		@Override
+		public void formClosed( ICFLibAnyObj affectedObject ) {
+			if( affectedObject != null ) {
+				refreshMe();
+			}
+		}
+	}
+
+	protected DeleteCallback deleteCallback = null;
+
+	public ICFDeleteCallback getDeleteCallback() {
+		if( deleteCallback == null ) {
+			deleteCallback = new DeleteCallback();
+		}
+		return( deleteCallback );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaJavaFXTableListPaneDeleteCallbackBody">
+		@Override
+		public void deleted( ICFLibAnyObj deletedObject ) {
+			if( deletedObject != null ) {
+				refreshMe();
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneSetPaneMode">
+	public void setPaneMode( CFPane.PaneMode value ) {
+		super.setPaneMode( value );
+		adjustListButtons();
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneGetPanelHBoxMenuMenuSubItemAdd"
+		>$switch IsInstantiable yes reallyDeclJavaFXTablePaneGetPanelHBoxMenuMenuSubItemAdd default empty$$iterate TableSubClasses( each declJavaFXTableListPaneGetPanelHBoxMenuMenuSubItemAdd empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyDeclJavaFXTablePaneGetPanelHBoxMenuMenuSubItemAdd">
+	protected CFButton buttonAdd$TableName$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetSetJavaFXContainer">
+	public $switch HasContainer yes implISchemaJavaFXTableContainerObjInterface default implISchemaJavaFXTableContainerAnyInterface$ getJavaFXContainer() {
+		return( javafxContainer );
+	}
+
+	public void setJavaFXContainer( $switch HasContainer yes implISchemaJavaFXTableContainerObjInterface default implISchemaJavaFXTableContainerAnyInterface$ value ) {
+		javafxContainer = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetSetJavaFXFocus">
+	public void setJavaFXFocus( ICFLibAnyObj value ) {
+		final String S_ProcName = "setJavaFXFocus";
+		if( ( value == null ) || ( value instanceof I$DefSchemaName$$TableName$Obj ) ) {
+			super.setJavaFXFocus( value );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				S_ProcName,
+				"value",
+				value,
+				"I$DefSchemaName$$TableName$Obj" );
+		}
+		adjustListButtons();
+	}
+
+	public I$DefSchemaName$$TableName$Obj getJavaFXFocusAs$TableName$() {
+		return( (I$DefSchemaName$$TableName$Obj)getJavaFXFocus() );
+	}
+
+	public void setJavaFXFocusAs$TableName$( I$DefSchemaName$$TableName$Obj value ) {
+		setJavaFXFocus( value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneMemberPageCallback">
+	protected I$SchemaName$JavaFX$TableName$PageCallback pageCallback;
+	protected CFButton buttonRefresh = null;
+	protected CFButton buttonMoreData = null;
+	protected boolean endOfData = true;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneMemberDataCollection">
+	protected Collection&lt;I$DefSchemaName$$TableName$Obj&gt; javafxDataCollection = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneMembers">
+	protected I$SchemaName$JavaFXSchema javafxSchema = null;$switch PageData yes declJavaFXTableListPaneMemberPageCallback default declJavaFXTableListPaneMemberDataCollection$
+	protected ObservableList&lt;I$DefSchemaName$$TableName$Obj&gt; observableListOf$TableName$ = null;$declJavaFXTableListPaneMembersPart2$$switch HasSubClasses yes declJavaFXTableListPaneClassTableColumn default empty$$declJavaFXTableListPaneAttributeTableColumns$$declJavaFXTableListPaneMasterTableColumns$$declJavaFXTableListPaneParentTableColumns$$declJavaFXTableListPaneLookupTableColumns$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneMembersPart2">
+	protected ScrollPane scrollMenu = null;
+	protected CFHBox hboxMenu = null;$switch HasSubClasses yes declJavaFXTableListPaneMenuAdd default empty$$declJavaFXTableListPaneGetPanelHBoxMenuMenuSubItemAdd$$switch ThisHasChain yes declJavaFXTableListPaneMoveUpSelectedButton default empty$$switch ThisHasChain yes declJavaFXTableListPaneMoveDownSelectedButton default empty$$declJavaFXTableListPaneViewSelectedButton$$declJavaFXTableListPaneEditSelectedButton$$switch TableName Cluster empty default declJavaFXTableListPaneDeleteSelectedButton$
+	protected TableView&lt;I$DefSchemaName$$TableName$Obj&gt; dataTable = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneMenuAdd">
+	protected ScrollPane scrollMenuAdd = null;
+	protected CFVBox vboxMenuAdd = null;
+	protected CFButton buttonAdd = null;
+	protected CFButton buttonCancelAdd = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneClassColumn">
+	public final static int COLID_OBJKIND = $counter ListColId increment$$counter ListColId value$;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneClassTableColumn">
+	protected TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,String&gt; tableColumnObjKind = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declButtonJavaFXTableListPaneAdd"
+		>$switch IsInstantiable yes reallyDeclButtonJavaFXTableListPaneAddAdd default empty$$iterate TableSubClasses( each declButtonJavaFXTableListPaneAdd empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeclButtonJavaFXTableListPaneAddAddBindOwner"
+		>$reference OwnerRelation implDeclButtonJavaFXTableListPaneAddAddBindOwner$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implDeclButtonJavaFXTableListPaneAddAddBindOwner"
+		>$switch ToTableName 
+			Cluster implDeclButtonJavaFXTableListPaneAddAddBindOwnerCluster
+			Tenant implDeclButtonJavaFXTableListPaneAddAddBindOwnerTenant
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implDeclButtonJavaFXTableListPaneAddAddBindOwnerCluster">
+								I$SecSchemaName$ClusterObj secCluster = schemaObj.getSecCluster();
+								edit.set$OptionalOrRequired$$RelationTypeTag$$Suffix$( secCluster );</GenRule>
+
+	<GenRule GenDef="Relation" Name="implDeclButtonJavaFXTableListPaneAddAddBindOwnerTenant">
+								I$SecSchemaName$TenantObj secTenant = schemaObj.getSecTenant();
+								edit.set$OptionalOrRequired$$RelationTypeTag$$Suffix$( secTenant );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeclButtonJavaFXTableListPaneAddAddBindContainer"
+			>$reference ContainerRelation implDeclButtonJavaFXTableListPaneAddAddBindContainer$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implDeclButtonJavaFXTableListPaneAddAddBindContainer">
+								I$SchemaName$$reference ToTable TableName$Obj container = (I$SchemaName$$reference ToTable TableName$Obj)( getJavaFXContainer() );
+								if( container == null ) {
+									throw new CFLibNullArgumentException( getClass(),
+										S_ProcName,
+										0,
+										"JavaFXContainer" );
+								}
+								edit.set$OptionalOrRequired$$RelationTypeTag$$Suffix$( container );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeclButtonJavaFXTableListPaneAddAddSetCont">
+			edit.set$reference ContainerRelation OptionalOrRequired$$reference ContainerRelation RelationTypeTag$$reference ContainerRelation Suffix$( (I$SchemaName$$reference ContainerRelation reference ToTable TableName$Obj)getJavaFXContainer() );</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneButtonAdd">
+	protected CFButton buttonAdd$TableName$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneCompareCFButtonByText">
+	protected class CompareCFButtonByText
+	implements Comparator&lt;CFButton&gt;
+	{
+		public CompareCFButtonByText() {
+		}
+
+		@Override public int compare( CFButton lhs, CFButton rhs ) {
+			if( lhs == null ) {
+				if( rhs == null ) {
+					return( 0 );
+				}
+				else {
+					return( -1 );
+				}
+			}
+			else if( rhs == null ) {
+				return( 1 );
+			}
+			else {
+				int retval = lhs.getText().compareTo( rhs.getText() );
+				return( retval );
+			}
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetPanelHBoxMenu">$implJavaFXTableListPaneCompareCFButtonByText$
+	public CFHBox getPanelHBoxMenu() {
+		if( hboxMenu == null ) {
+			hboxMenu = new CFHBox( 10 );$switch PageData yes implJavaFXTableListPaneGetPanelHBoxMenuButtonRefresh default empty$$switch PageData yes implJavaFXTableListPaneGetPanelHBoxMenuButtonMoreData default empty$$switch HasSubClasses yes implJavaFXTableListPaneGetPanelHBoxMenuAddMenuAddWithItems default maybeImplJavaFXTableListPaneGetPanelHBoxMenuAddMenuAddDirect$$switch ThisHasChain yes implJavaFXTableListPaneGetPanelHBoxMenuSubItemMoveUpSelected default empty$$switch ThisHasChain yes implJavaFXTableListPaneGetPanelHBoxMenuSubItemMoveDownSelected default empty$$implJavaFXTableListPaneGetPanelHBoxMenuSubItemViewSelected$$implJavaFXTableListPaneGetPanelHBoxMenuSubItemEditSelected$$switch TableName Cluster empty default implJavaFXTableListPaneGetPanelHBoxMenuSubItemDeleteSelected$
+		}
+		return( hboxMenu );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetPanelHBoxMenuButtonRefresh">
+			buttonRefresh = new CFButton();
+			buttonRefresh.setMinWidth( 200 );
+			buttonRefresh.setText( "Refresh" );
+			buttonRefresh.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						refreshMe();
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonRefresh );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetPanelHBoxMenuButtonMoreData">
+			buttonMoreData = new CFButton();
+			buttonMoreData.setMinWidth( 200 );
+			buttonMoreData.setText( "MoreData" );
+			buttonMoreData.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$DefSchemaName$$TableName$Obj lastObj = null;
+						if( ( observableListOf$TableName$ != null ) &amp;&amp; ( observableListOf$TableName$.size() &gt; 0 ) ) {
+							lastObj = observableListOf$TableName$.get( observableListOf$TableName$.size() - 1 );
+						}
+						List&lt;I$DefSchemaName$$TableName$Obj&gt; page;
+						if( lastObj != null ) {
+							page = pageCallback.pageData( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implListPaneMoreDataPassLastObjCol each implListPaneMoreDataPassCommaLastObjCol )$ );
+						}
+						else {
+							page = pageCallback.pageData( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implListPaneMoreDataPassNull each implListPaneMoreDataPassCommaNull )$ );
+						}
+						Iterator&lt;I$DefSchemaName$$TableName$Obj&gt; iter = page.iterator();
+						while( iter.hasNext() ) {
+							observableListOf$TableName$.add( iter.next() );
+						}
+						if( page.size() &lt; 25 ) {$switch ThisHasChain yes empty default implJavaFXListTableMoreDataSortByQualName$
+							endOfData = true;
+						}
+						else {
+							endOfData = false;
+						}
+						if( dataTable != null ) {
+							dataTable.setItems( observableListOf$TableName$ );
+							// Hack from stackoverflow to fix JavaFX TableView refresh issue
+							((TableColumn)dataTable.getColumns().get(0)).setVisible( false );
+							((TableColumn)dataTable.getColumns().get(0)).setVisible( true );
+						}
+						adjustListButtons();
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonMoreData );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXListTableMoreDataSortByQualName">
+							observableListOf$TableName$.sort( compare$TableName$ByQualName );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implListPaneMoreDataPassLastObjCol"
+		>lastObj.get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implListPaneMoreDataPassCommaLastObjCol">,
+							$implListPaneMoreDataPassLastObjCol$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implListPaneMoreDataPassNull"
+		>null</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implListPaneMoreDataPassCommaNull">,
+							$implListPaneMoreDataPassNull$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplJavaFXTableListPaneGetPanelHBoxMenuAddMenuAddDirect"
+		>$switch TableName Cluster empty default implJavaFXTableListPaneGetPanelHBoxMenuAddMenuAddDirect$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetPanelHBoxMenuAddMenuAddDirect">
+			buttonAdd$TableName$ = new CFButton();
+			buttonAdd$TableName$.setMinWidth( 200 );
+			buttonAdd$TableName$.setText( "Add $EffLabel$" );
+			buttonAdd$TableName$.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+						I$SchemaName$$TableName$Obj obj = (I$SchemaName$$TableName$Obj)schemaObj.get$TableName$TableObj().newInstance();
+						I$SchemaName$$TableName$EditObj edit = (I$SchemaName$$TableName$EditObj)( obj.beginEdit() );
+						if( edit == null ) {
+							throw new CFLibNullArgumentException( getClass(),
+								S_ProcName,
+								0,
+								"edit" );
+						}$switch HasOwner yes implDeclButtonJavaFXTableListPaneAddAddBindOwner default empty$$switch HasContainer yes implDeclButtonJavaFXTableListPaneAddAddBindContainer default empty$
+						CFBorderPane frame = javafxSchema.get$TableName$Factory().newAddForm( cfFormManager, obj, getViewEditClosedCallback(), true );
+						I$DefSchemaName$JavaFX$TableName$PaneCommon jpanelCommon = (I$SchemaName$JavaFX$TableName$PaneCommon)frame;
+						jpanelCommon.setJavaFXFocus( obj );
+						jpanelCommon.setPaneMode( CFPane.PaneMode.Add );
+						cfFormManager.pushForm( frame );
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonAdd$TableName$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetPanelHBoxMenuAddMenuAddWithItems">
+				LinkedList&lt;CFButton&gt; list = new LinkedList&lt;CFButton&gt;();
+
+				vboxMenuAdd = new CFVBox( 10 );$implJavaFXTableListPaneGetPanelHBoxMenuMenuSubItemAdd$
+
+				int len = list.size();
+				CFButton arr[] = new CFButton[len];
+				Iterator&lt;CFButton&gt; iter = list.iterator();
+				int idx = 0;
+				while( iter.hasNext() ) {
+					arr[idx++] = iter.next();
+				}
+				Arrays.sort( arr, new CompareCFButtonByText() );
+				for( idx = 0; idx &lt; len; idx ++ ) {
+					vboxMenuAdd.getChildren().add( arr[idx] );
+				}
+
+				buttonCancelAdd = new CFButton();
+				buttonCancelAdd.setMinWidth( 200 );
+				buttonCancelAdd.setText( "Cancel Add..." );
+				buttonCancelAdd.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+					@Override public void handle( ActionEvent e ) {
+						final String S_ProcName = "handle";
+						try {
+							setLeft( null );
+							adjustListButtons();
+						}
+						catch( Throwable t ) {
+							CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+						}
+					}
+				});
+				vboxMenuAdd.getChildren().add( buttonCancelAdd );
+
+				scrollMenuAdd = new ScrollPane();
+				scrollMenuAdd.setMinWidth( 240 );
+				scrollMenuAdd.setMaxWidth( 240 );
+				scrollMenuAdd.setFitToWidth( true );
+				scrollMenuAdd.setHbarPolicy( ScrollBarPolicy.NEVER );
+				scrollMenuAdd.setVbarPolicy( ScrollBarPolicy.AS_NEEDED );
+				scrollMenuAdd.setContent( vboxMenuAdd );
+
+			buttonAdd = new CFButton();
+			buttonAdd.setMinWidth( 200 );
+			buttonAdd.setText( "Add..." );
+			buttonAdd.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						setLeft( scrollMenuAdd );
+						adjustListButtons();
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonAdd );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetPanelHBoxMenuSubItemMoveUpSelected">
+			buttonMoveUpSelected = new CFButton();
+			buttonMoveUpSelected.setMinWidth( 200 );
+			buttonMoveUpSelected.setText( "Move Up Selected" );
+			buttonMoveUpSelected.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+						if( schemaObj == null ) {
+							throw new CFLibNullArgumentException( getClass(),
+								S_ProcName,
+								0,
+								"schemaObj" );
+						}
+						I$DefSchemaName$$TableName$Obj selectedInstance = getJavaFXFocusAs$TableName$();
+						if( selectedInstance != null ) {
+							if( null != selectedInstance.get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$() ) {
+								selectedInstance.moveUp();
+								refreshMe();
+							}
+						}
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonMoveUpSelected );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetPanelHBoxMenuSubItemMoveDownSelected">
+			buttonMoveDownSelected = new CFButton();
+			buttonMoveDownSelected.setMinWidth( 200 );
+			buttonMoveDownSelected.setText( "Move Down Selected" );
+			buttonMoveDownSelected.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+						if( schemaObj == null ) {
+							throw new CFLibNullArgumentException( getClass(),
+								S_ProcName,
+								0,
+								"schemaObj" );
+						}
+						I$DefSchemaName$$TableName$Obj selectedInstance = getJavaFXFocusAs$TableName$();
+						if( selectedInstance != null ) {
+							if( null != selectedInstance.get$reference Chain reference NextRel OptionalOrRequired$$reference Chain reference NextRel RelationTypeTag$$reference Chain reference NextRel Suffix$() ) {
+								selectedInstance.moveDown();
+								refreshMe();
+							}
+						}
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonMoveDownSelected );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetPanelHBoxMenuSubItemViewSelected">
+			buttonViewSelected = new CFButton();
+			buttonViewSelected.setMinWidth( 200 );
+			buttonViewSelected.setText( "View Selected" );
+			buttonViewSelected.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+						if( schemaObj == null ) {
+							throw new CFLibNullArgumentException( getClass(),
+								S_ProcName,
+								0,
+								"schemaObj" );
+						}
+						I$DefSchemaName$$TableName$Obj selectedInstance = getJavaFXFocusAs$TableName$();
+						if( selectedInstance != null ) {
+							String classCode = selectedInstance.getClassCode();
+							if( "$ClassCode$".equals( classCode ) ) {
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newViewEditForm( cfFormManager, selectedInstance, getViewEditClosedCallback(), false );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.View );
+								cfFormManager.pushForm( frame );
+							}$classJavaFXTableListPaneViewSelectedActionPerformedWalkSubClasses$
+							else {
+								throw new CFLibUnsupportedClassException( getClass(),
+									S_ProcName,
+									"selectedInstance",
+									selectedInstance,
+									"I$SchemaName$$TableName$Obj$iterate TableSubClasses( each commaNameSubClass empty empty )$" );
+							}
+						}
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonViewSelected );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="classJavaFXTableListPaneViewSelectedActionPerformedWalkSubClasses"
+		>$iterate TableSubClasses( each classJavaFXTableListPaneViewSelectedActionPerformedWireSubClass empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="classJavaFXTableListPaneViewSelectedActionPerformedWireSubClass">
+							else if( "$ClassCode$".equals( classCode ) ) {
+								I$SchemaName$$TableName$Obj obj = (I$SchemaName$$TableName$Obj)selectedInstance;
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newViewEditForm( cfFormManager, obj, getViewEditClosedCallback(), false );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.View );
+								cfFormManager.pushForm( frame );
+							}$classJavaFXTableListPaneViewSelectedActionPerformedWalkSubClasses$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetPanelHBoxMenuSubItemEditSelected">
+			buttonEditSelected = new CFButton();
+			buttonEditSelected.setMinWidth( 200 );
+			buttonEditSelected.setText( "Edit Selected" );
+			buttonEditSelected.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+						if( schemaObj == null ) {
+							throw new CFLibNullArgumentException( getClass(),
+								S_ProcName,
+								0,
+								"schemaObj" );
+						}
+						I$DefSchemaName$$TableName$Obj selectedInstance = getJavaFXFocusAs$TableName$();
+						if( selectedInstance != null ) {
+							String classCode = selectedInstance.getClassCode();
+							if( "$ClassCode$".equals( classCode ) ) {
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newViewEditForm( cfFormManager, selectedInstance, getViewEditClosedCallback(), false );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.Edit );
+								cfFormManager.pushForm( frame );
+							}$classJavaFXTableListPaneEditSelectedActionPerformedWalkSubClasses$
+							else {
+								throw new CFLibUnsupportedClassException( getClass(),
+									S_ProcName,
+									"selectedInstance",
+									selectedInstance,
+									"I$SchemaName$$TableName$Obj$iterate TableSubClasses( each commaNameSubClass empty empty )$" );
+							}
+						}
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonEditSelected );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="classJavaFXTableListPaneEditSelectedActionPerformedWalkSubClasses"
+		>$iterate TableSubClasses( each classJavaFXTableListPaneEditSelectedActionPerformedWireSubClass empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="classJavaFXTableListPaneEditSelectedActionPerformedWireSubClass">
+							else if( "$ClassCode$".equals( classCode ) ) {
+								I$SchemaName$$TableName$Obj obj = (I$SchemaName$$TableName$Obj)selectedInstance;
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newViewEditForm( cfFormManager, obj, getViewEditClosedCallback(), false );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.Edit );
+								cfFormManager.pushForm( frame );
+							}$classJavaFXTableListPaneViewSelectedActionPerformedWalkSubClasses$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetPanelHBoxMenuSubItemDeleteSelected">
+			buttonDeleteSelected = new CFButton();
+			buttonDeleteSelected.setMinWidth( 200 );
+			buttonDeleteSelected.setText( "Delete Selected" );
+			buttonDeleteSelected.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+				@Override public void handle( ActionEvent e ) {
+					final String S_ProcName = "handle";
+					try {
+						I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+						if( schemaObj == null ) {
+							throw new CFLibNullArgumentException( getClass(),
+								S_ProcName,
+								0,
+								"schemaObj" );
+						}
+						I$DefSchemaName$$TableName$Obj selectedInstance = getJavaFXFocusAs$TableName$();
+						if( selectedInstance != null ) {
+							String classCode = selectedInstance.getClassCode();
+							if( "$ClassCode$".equals( classCode ) ) {
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newAskDeleteForm( cfFormManager, selectedInstance, getDeleteCallback() );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.View );
+								cfFormManager.pushForm( frame );
+							}$classJavaFXTableListPaneDeleteSelectedActionPerformedWalkSubClasses$
+							else {
+								throw new CFLibUnsupportedClassException( getClass(),
+									S_ProcName,
+									"selectedInstance",
+									selectedInstance,
+									"I$SchemaName$$TableName$Obj$iterate TableSubClasses( each commaNameSubClass empty empty )$" );
+							}
+						}
+					}
+					catch( Throwable t ) {
+						CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+					}
+				}
+			});
+			hboxMenu.getChildren().add( buttonDeleteSelected );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="classJavaFXTableListPaneDeleteSelectedActionPerformedWalkSubClasses"
+		>$iterate TableSubClasses( each classJavaFXTableListPaneDeleteSelectedActionPerformedWireSubClass empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="classJavaFXTableListPaneDeleteSelectedActionPerformedWireSubClass">
+							else if( "$ClassCode$".equals( classCode ) ) {
+								I$SchemaName$$TableName$Obj obj = (I$SchemaName$$TableName$Obj)selectedInstance;
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newAskDeleteForm( cfFormManager, obj, getDeleteCallback() );
+								((I$DefSchemaName$JavaFX$TableName$PaneCommon)frame).setPaneMode( CFPane.PaneMode.View );
+								cfFormManager.pushForm( frame );
+							}$classJavaFXTableListPaneDeleteSelectedActionPerformedWalkSubClasses$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneGetPanelHBoxMenuMenuSubItemAdd"
+		>$switch IsInstantiable yes reallyImplJavaFXTablePaneGetPanelHBoxMenuMenuSubItemAdd default empty$$iterate TableSubClasses( each implJavaFXTableListPaneGetPanelHBoxMenuMenuSubItemAdd empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="reallyImplJavaFXTablePaneGetPanelHBoxMenuMenuSubItemAdd">
+					buttonAdd$TableName$ = new CFButton();
+					buttonAdd$TableName$.setMinWidth( 200 );
+					buttonAdd$TableName$.setText( "Add $EffLabel$" );
+					buttonAdd$TableName$.setOnAction( new EventHandler&lt;ActionEvent&gt;() {
+						@Override public void handle( ActionEvent e ) {
+							final String S_ProcName = "handle";
+							try {
+								I$SchemaName$SchemaObj schemaObj = (I$SchemaName$SchemaObj)javafxSchema.getSchema();
+								I$SchemaName$$TableName$Obj obj = (I$SchemaName$$TableName$Obj)schemaObj.get$TableName$TableObj().newInstance();
+								CFBorderPane frame = javafxSchema.get$TableName$Factory().newAddForm( cfFormManager, obj, getViewEditClosedCallback(), true );
+								I$SchemaName$$TableName$EditObj edit = (I$SchemaName$$TableName$EditObj)( obj.beginEdit() );
+								if( edit == null ) {
+									throw new CFLibNullArgumentException( getClass(),
+										S_ProcName,
+										0,
+										"edit" );
+								}$switch HasOwner yes implDeclButtonJavaFXTableListPaneAddAddBindOwner default empty$$switch HasContainer yes implDeclButtonJavaFXTableListPaneAddAddBindContainer default empty$
+								I$DefSchemaName$JavaFX$TableName$PaneCommon jpanelCommon = (I$DefSchemaName$JavaFX$TableName$PaneCommon)frame;
+								jpanelCommon.setJavaFXFocus( obj );
+								jpanelCommon.setPaneMode( CFPane.PaneMode.Add );
+								cfFormManager.pushForm( frame );
+								setLeft( null );
+								adjustListButtons();
+							}
+							catch( Throwable t ) {
+								CFConsole.formException( S_FormName, ((CFButton)e.getSource()).getText(), t );
+							}
+						}
+					});
+					if( javafxContainer instanceof $switch HasContainer yes implISchemaJavaFXTableContainerObjInterface default implISchemaJavaFXTableContainerAnyInterface$ ) {
+						list.add( buttonAdd$TableName$ );
+					}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXListTableGetSetJavaFXDataCollection">$classJavaFXTableListPaneListTableByQualNameComparator$
+	public Collection&lt;I$DefSchemaName$$TableName$Obj&gt; getJavaFXDataCollection() {$switch PageData yes implJavaFXListTableGetJavaFXDataCollectionReturnNull default implJavaFXListTableGetJavaFXDataCollectionReturnCollection$
+	}
+
+	public void setJavaFXDataCollection( Collection&lt;I$DefSchemaName$$TableName$Obj&gt; value ) {$switch PageData yes implJavaFXListTableSetJavaFXDataCollectionIgnore default implJavaFXListTableSetJavaFXDataCollectionSetCollection$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXListTableGetJavaFXDataCollectionReturnNull">
+		return( null );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXListTableGetJavaFXDataCollectionReturnCollection">
+		return( javafxDataCollection );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXListTableSetJavaFXDataCollectionIgnore">
+		// Use page data instead</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXListTableSetJavaFXDataCollectionSetCollection">
+		final String S_ProcName = "setJavaFXDataCollection";
+		javafxDataCollection = value;
+		observableListOf$TableName$ = FXCollections.observableArrayList();
+		if( javafxDataCollection != null ) {$switch ThisHasChain yes implJavaFXListTableSetDataCollectionByChain default implJavaFXListTableSetDataCollectionBodyByQualName$
+		}
+		if( dataTable != null ) {
+			dataTable.setItems( observableListOf$TableName$ );
+			// Hack from stackoverflow to fix JavaFX TableView refresh issue
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( false );
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( true );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXListTableSetDataCollectionByChain">
+			if( javafxSortByChain ) {$implJavaFXListTableSetDataCollectionBodyByChain$
+			}
+			else {$implJavaFXListTableSetDataCollectionBodyByQualName$
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXListTableSetDataCollectionBodyByChain">
+				Iterator&lt;I$DefSchemaName$$TableName$Obj&gt; iter = javafxDataCollection.iterator();
+				I$DefSchemaName$$TableName$Obj head = null;
+				while( ( head == null ) &amp;&amp; iter.hasNext() ) {
+					head = iter.next();
+					if( null != head.get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain referencePrevRel Suffix$() ) {
+						head = null;
+					}
+				}
+				if( ( head == null ) &amp;&amp; ( javafxDataCollection.size() &gt; 0 ) ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Could not locate head of object chain" );
+				}
+				I$DefSchemaName$$TableName$Obj cur = head;
+				while( cur != null ) {
+					observableListOf$TableName$.add( cur );
+					cur = cur.get$reference Chain reference NextRel OptionalOrRequired$$reference Chain reference NextRel RelationTypeTag$$reference Chain reference NextRel Suffix$();
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXListTableSetDataCollectionBodyByQualName">
+				Iterator&lt;I$DefSchemaName$$TableName$Obj&gt; iter = javafxDataCollection.iterator();
+				while( iter.hasNext() ) {
+					observableListOf$TableName$.add( iter.next() );
+				}
+				observableListOf$TableName$.sort( compare$TableName$ByQualName );</GenRule>
+
+	<GenRule GenDef="Table" Name="classJavaFXTableListPaneListTableByQualNameComparator">
+	public class $TableName$ByQualNameComparator
+	implements Comparator&lt;I$DefSchemaName$$TableName$Obj&gt;
+	{
+		public $TableName$ByQualNameComparator() {
+		}
+
+		public int compare( I$DefSchemaName$$TableName$Obj lhs, I$DefSchemaName$$TableName$Obj rhs ) {
+			if( lhs == null ) {
+				if( rhs == null ) {
+					return( 0 );
+				}
+				else {
+					return( -1 );
+				}
+			}
+			else if( rhs == null ) {
+				return( 1 );
+			}
+			else {
+				String lhsValue = lhs.getObjQualifiedName();
+				String rhsValue = rhs.getObjQualifiedName();
+				if( lhsValue == null ) {
+					if( rhsValue == null ) {
+						return( 0 );
+					}
+					else {
+						return( -1 );
+					}
+				}
+				else if( rhsValue == null ) {
+					return( 1 );
+				}
+				else {
+					return( lhsValue.compareTo( rhsValue ) );
+				}
+			}
+		}
+	}
+
+	protected $TableName$ByQualNameComparator compare$TableName$ByQualName = new $TableName$ByQualNameComparator();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableListPanePageCallback">,
+		I$SchemaName$JavaFX$TableName$PageCallback argPageCallback</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableListPaneDataCollection">,
+		Collection&lt;I$DefSchemaName$$TableName$Obj&gt; argDataCollection</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableListPane">
+	public $SchemaName$JavaFX$TableName$ListPane( ICFFormManager formManager,
+		I$SchemaName$JavaFXSchema argSchema,
+		$switch HasContainer yes implISchemaJavaFXTableContainerObjInterface default implISchemaJavaFXTableContainerAnyInterface$ argContainer,
+		I$DefSchemaName$$TableName$Obj argFocus$switch PageData yes implConstructJavaFXTableListPanePageCallback default implConstructJavaFXTableListPaneDataCollection$,
+		ICFRefreshCallback refreshCallback,
+		boolean sortByChain )
+	{
+		super();
+		final String S_ProcName = "construct-schema-focus";
+		if( formManager == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				1,
+				"formManager" );
+		}
+		cfFormManager = formManager;
+		if( argSchema == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				S_ProcName,
+				2,
+				"argSchema" );
+		}
+		// argFocus is optional; focus may be set later during execution as
+		// conditions of the runtime change.
+		javafxSchema = argSchema;
+		javaFXFocus = argFocus;
+		javafxContainer = argContainer;
+		javafxRefreshCallback = refreshCallback;
+		javafxSortByChain = sortByChain;$switch PageData yes implConstructJavaFXTableListPaneRetainPageCallback default implConstructJavaFXTableListPaneSetDataCollection$$implConstructJavaFXTableListPanePart2$
+		javafxIsInitializing = false;
+		if( observableListOf$TableName$ != null ) {
+			dataTable.setItems( observableListOf$TableName$ );
+		}
+		adjustListButtons();
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableListPaneRetainPageCallback">
+		pageCallback = argPageCallback;</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableListPaneSetDataCollection">
+		setJavaFXDataCollection( argDataCollection );</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructJavaFXTableListPanePart2">
+		dataTable = new TableView&lt;I$DefSchemaName$$TableName$Obj&gt;();$switch HasSubClasses yes implJavaFXTableListPaneConstructClassTableColumn default empty$$implJavaFXTableListPaneAttributeConstructTableColumns$$implJavaFXTableListPaneMasterConstructTableColumns$$implJavaFXTableListPaneParentConstructTableColumns$$implJavaFXTableListPaneLookupConstructTableColumns$
+		dataTable.getSelectionModel().selectedItemProperty().addListener(
+			new ChangeListener&lt;I$DefSchemaName$$TableName$Obj&gt;() {
+				@Override public void changed( ObservableValue&lt;? extends I$DefSchemaName$$TableName$Obj&gt; observable,
+					I$DefSchemaName$$TableName$Obj oldValue,
+					I$DefSchemaName$$TableName$Obj newValue )
+				{
+					setJavaFXFocus( newValue );
+				}
+			});
+
+		scrollMenu = new ScrollPane();
+		scrollMenu.setVbarPolicy( ScrollBarPolicy.NEVER );
+		scrollMenu.setHbarPolicy( ScrollBarPolicy.AS_NEEDED );
+		scrollMenu.setFitToHeight( true );
+		scrollMenu.setContent( getPanelHBoxMenu() );
+
+		setTop( scrollMenu );
+		setCenter( dataTable );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneConstructClassTableColumn">
+		tableColumnObjKind = new TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,String&gt;( "Class Code" );
+		tableColumnObjKind.setCellValueFactory( new Callback&lt;CellDataFeatures&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,String&gt;,ObservableValue&lt;String&gt; &gt;() {
+			@Override public ObservableValue&lt;String&gt; call( CellDataFeatures&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj, String&gt; p ) {
+				I$poptop Table DefSchemaName$$poptop Table TableName$Obj obj = p.getValue();
+				if( obj == null ) {
+					return( null );
+				}
+				else {
+					String classCode = obj.getClassCode();
+					ReadOnlyObjectWrapper&lt;String&gt; observable = new ReadOnlyObjectWrapper&lt;String&gt;();
+					observable.setValue( classCode );
+					return( observable );
+				}
+			}
+		});
+		tableColumnObjKind.setCellFactory( new Callback&lt;TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,String&gt;,TableCell&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,String&gt;&gt;() {
+			@Override public TableCell&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,String&gt; call(
+				TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,String&gt; arg)
+			{
+				return new CFStringTableCell&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj>();
+			}
+		});
+		dataTable.getColumns().add( tableColumnObjKind );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneMasterConstructTableColumns"
+		>$switch HasSuperClassRelation yes implJavaFXTableListPaneInhMasterConstructTableColumns default implJavaFXTableListPaneBaseMasterConstructTableColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneInhMasterConstructTableColumns"
+		>$reference SuperClassRelation reference ToTable implJavaFXTableListPaneMasterConstructTableColumns$$iterate Relation( each implJavaFXTableListPaneImplMaybeMasterConstructTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneBaseMasterConstructTableColumns"
+		>$iterate Relation( each implJavaFXTableListPaneImplMaybeMasterConstructTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableListPaneImplMaybeMasterConstructTableColumn"
+		>$switch IsChainRelation yes empty default implJavaFXTableListPaneImplMasterConstructTableColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableListPaneImplMasterConstructTableColumn"
+		>$switch RelationTypeTag Master implJavaFXTableListPaneImplRelationConstructTableColumn default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableListPaneImplRelationConstructTableColumn">
+		tableColumn$RelationTypeTag$$Suffix$ = new TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj, I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt;( "$EffLabel$" );$implJavaFXTableListPaneImplRelationConstructTableColumnSetCellValueFactory$$implJavaFXTableListPaneImplRelationConstructTableColumnSetCellFactory$
+		dataTable.getColumns().add( tableColumn$RelationTypeTag$$Suffix$ );</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableListPaneImplRelationConstructTableColumnSetCellValueFactory">
+		tableColumn$RelationTypeTag$$Suffix$.setCellValueFactory( new Callback&lt;CellDataFeatures&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt;,ObservableValue&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; &gt;() {
+			public ObservableValue&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; call( CellDataFeatures&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj, I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; p ) {
+				I$poptop Table DefSchemaName$$poptop Table TableName$Obj obj = p.getValue();
+				if( obj == null ) {
+					return( null );
+				}
+				else {
+					I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj ref = obj.get$OptionalOrRequired$$RelationTypeTag$$Suffix$();
+					ReadOnlyObjectWrapper&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; observable = new ReadOnlyObjectWrapper&lt;I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt;();
+					observable.setValue( ref );
+					return( observable );
+				}
+			}
+		});</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableListPaneImplRelationConstructTableColumnSetCellFactory">
+		tableColumn$RelationTypeTag$$Suffix$.setCellFactory( new Callback&lt;TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt;,TableCell&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt;&gt;() {
+			@Override public TableCell&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; call(
+				TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; arg)
+			{
+				return new CFReferenceTableCell&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj>();
+			}
+		});</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneParentConstructTableColumns"
+		>$switch HasSuperClassRelation yes implJavaFXTableListPaneInhParentConstructTableColumns default implJavaFXTableListPaneBaseParentConstructTableColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneInhParentConstructTableColumns"
+		>$reference SuperClassRelation reference ToTable implJavaFXTableListPaneParentConstructTableColumns$$iterate Relation( each implJavaFXTableListPaneImplMaybeParentConstructTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneBaseParentConstructTableColumns"
+		>$iterate Relation( each implJavaFXTableListPaneImplMaybeParentConstructTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableListPaneImplMaybeParentConstructTableColumn"
+		>$switch IsChainRelation yes empty default implJavaFXTableListPaneImplParentConstructTableColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableListPaneImplParentConstructTableColumn"
+		>$switch RelationTypeTag Parent implJavaFXTableListPaneImplRelationConstructTableColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneLookupConstructTableColumns"
+		>$switch HasSuperClassRelation yes implJavaFXTableListPaneInhLookupConstructTableColumns default implJavaFXTableListPaneBaseLookupConstructTableColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneInhLookupConstructTableColumns"
+		>$reference SuperClassRelation reference ToTable implJavaFXTableListPaneLookupConstructTableColumns$$iterate Relation( each implJavaFXTableListPaneImplMaybeLookupConstructTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneBaseLookupConstructTableColumns"
+		>$iterate Relation( each implJavaFXTableListPaneImplMaybeLookupConstructTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableListPaneImplMaybeLookupConstructTableColumn"
+		>$switch IsChainRelation yes empty default implJavaFXTableListPaneImplLookupConstructTableColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implJavaFXTableListPaneImplLookupConstructTableColumn"
+		>$switch RelationTypeTag Lookup implJavaFXTableListPaneImplRelationConstructTableColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneAttributeConstructTableColumns"
+		>$switch HasSuperClassRelation yes implJavaFXTableListPaneInhAttributeConstructTableColumns default implJavaFXTableListPaneBaseAttributeConstructTableColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneInhAttributeConstructTableColumns"
+		>$reference SuperClassRelation reference ToTable implJavaFXTableListPaneAttributeConstructTableColumns$$iterate Columns( each implJavaFXTableListPaneDataAttributeConstructTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneBaseAttributeConstructTableColumns"
+		>$iterate Columns( each implJavaFXTableListPaneMaybeAnAttributeConstructTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneDataAttributeConstructTableColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implJavaFXTableListPaneMaybeAnAttributeConstructTableColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneMaybeAnAttributeConstructTableColumn"
+		>$switch BaseModelAtomClass BlobDef empty default implJavaFXTableListPaneAnAttributeConstructTableColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneAnAttributeConstructTableColumn"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default implJavaFXTableListPaneImplAnAttributeConstructTableColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneImplAnAttributeConstructTableColumn">
+		tableColumn$Name$ = new TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,$implJavaOptAtomType$&gt;( "$EffLabel$" );
+		tableColumn$Name$.setCellValueFactory( new Callback&lt;CellDataFeatures&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,$implJavaOptAtomType$&gt;,ObservableValue&lt;$implJavaOptAtomType$&gt; &gt;() {
+			public ObservableValue&lt;$implJavaOptAtomType$&gt; call( CellDataFeatures&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj, $implJavaOptAtomType$&gt; p ) {
+				I$DefSchemaName$$TableName$Obj obj = p.getValue();
+				if( obj == null ) {
+					return( null );
+				}
+				else {$switch IsNullable yes implJavaFXTableListPaneConstructOptional default implJavaFXTableListPaneConstructRequired$
+				}
+			}
+		});
+		tableColumn$Name$.setCellFactory( new Callback&lt;TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,$implJavaOptAtomType$&gt;,TableCell&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,$implJavaOptAtomType$&gt;&gt;() {
+			@Override public TableCell&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,$implJavaOptAtomType$&gt; call(
+				TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj,$implJavaOptAtomType$&gt; arg)
+			{
+				return new $implJavaFXTableListPaneTableCellClass$&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj$switch BaseModelAtomClass EnumDef implJavaFXTableListPaneConstructPassEnumType default empty$>($switch BaseModelAtomClass NumberDef implJavaFXTableListPaneConstructPassNumberParms default empty$);
+			}
+		});
+		dataTable.getColumns().add( tableColumn$Name$ );</GenRule>
+
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneConstructPassEnumType"
+		>,I$reference DataType EffSchemaName$Schema.$reference DataType Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneConstructPassNumberParms"
+		> $Digits$, $Precis$ </GenRule>
+
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneConstructOptional">
+					$implJavaAtomType$ value = obj.get$OptionalOrRequired$$Name$();
+					ReadOnlyObjectWrapper&lt;$implJavaAtomType$&gt; observable = new ReadOnlyObjectWrapper&lt;$implJavaAtomType$&gt;();
+					observable.setValue( value );
+					return( observable );</GenRule>
+
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneConstructRequired"
+		>$switch BaseModelAtomClass
+			BlobDef implJavaFXTableListPaneConstructWrapperRequired
+			BoolDef implJavaFXTableListPaneConstructWrapperRequired
+			EnumDef implJavaFXTableListPaneConstructOptional
+			Int16Def implJavaFXTableListPaneConstructWrapperRequired
+			Int32Def implJavaFXTableListPaneConstructWrapperRequired
+			Int64Def implJavaFXTableListPaneConstructWrapperRequired
+			UInt16Def implJavaFXTableListPaneConstructWrapperRequired
+			UInt32Def implJavaFXTableListPaneConstructWrapperRequired
+			UInt64Def implJavaFXTableListPaneConstructOptional
+			Id16Gen implJavaFXTableListPaneConstructWrapperRequired
+			Id32Gen implJavaFXTableListPaneConstructWrapperRequired
+			Id64Gen implJavaFXTableListPaneConstructWrapperRequired
+			FloatDef implJavaFXTableListPaneConstructWrapperRequired
+			DoubleDef implJavaFXTableListPaneConstructWrapperRequired
+			NumberDef implJavaFXTableListPaneConstructOptional
+			StringDef implJavaFXTableListPaneConstructOptional
+			TokenDef implJavaFXTableListPaneConstructOptional
+			NmTokenDef implJavaFXTableListPaneConstructOptional
+			NmTokensDef implJavaFXTableListPaneConstructOptional
+			TextDef implJavaFXTableListPaneConstructOptional
+			DateDef implJavaFXTableListPaneConstructOptional
+			TimeDef implJavaFXTableListPaneConstructOptional
+			TimestampDef implJavaFXTableListPaneConstructOptional
+			TZDateDef implJavaFXTableListPaneConstructOptional
+			TZTimeDef implJavaFXTableListPaneConstructOptional
+			TZTimestampDef implJavaFXTableListPaneConstructOptional
+			UuidGen implJavaFXTableListPaneConstructOptional
+			UuidDef implJavaFXTableListPaneConstructOptional
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneConstructWrapperRequired">
+					$implJavaAtomType$ value = obj.get$OptionalOrRequired$$Name$();
+					$implJavaOptAtomType$ wrapped = $implJavaOptAtomType$.valueOf( value );
+					ReadOnlyObjectWrapper&lt;$implJavaOptAtomType$&gt; observable = new ReadOnlyObjectWrapper&lt;$implJavaOptAtomType$&gt;();
+					observable.setValue( wrapped );
+					return( observable );</GenRule>
+
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClass"
+		>$switch BaseModelAtomClass
+			BlobDef implJavaFXTableListPaneTableCellClassBlob
+			BoolDef implJavaFXTableListPaneTableCellClassBool
+			EnumDef implJavaFXTableListPaneTableCellClassEnum
+			Int16Def implJavaFXTableListPaneTableCellClassInt16
+			Int32Def implJavaFXTableListPaneTableCellClassInt32
+			Int64Def implJavaFXTableListPaneTableCellClassInt64
+			UInt16Def implJavaFXTableListPaneTableCellClassUInt16
+			UInt32Def implJavaFXTableListPaneTableCellClassUInt32
+			UInt64Def implJavaFXTableListPaneTableCellClassUInt64
+			Id16Gen implJavaFXTableListPaneTableCellClassInt16
+			Id32Gen implJavaFXTableListPaneTableCellClassInt32
+			Id64Gen implJavaFXTableListPaneTableCellClassInt64
+			FloatDef implJavaFXTableListPaneTableCellClassFloat
+			DoubleDef implJavaFXTableListPaneTableCellClassDouble
+			NumberDef implJavaFXTableListPaneTableCellClassNumber
+			StringDef implJavaFXTableListPaneTableCellClassString
+			TokenDef implJavaFXTableListPaneTableCellClassToken
+			NmTokenDef implJavaFXTableListPaneTableCellClassNmToken
+			NmTokensDef implJavaFXTableListPaneTableCellClassNmTokens
+			TextDef implJavaFXTableListPaneTableCellClassText
+			DateDef implJavaFXTableListPaneTableCellClassDate
+			TimeDef implJavaFXTableListPaneTableCellClassTime
+			TimestampDef implJavaFXTableListPaneTableCellClassTimestamp
+			TZDateDef implJavaFXTableListPaneTableCellClassTZDate
+			TZTimeDef implJavaFXTableListPaneTableCellClassTZTime
+			TZTimestampDef implJavaFXTableListPaneTableCellClassTZTimestamp
+			UuidGen implJavaFXTableListPaneTableCellClassUuid
+			UuidDef implJavaFXTableListPaneTableCellClassUuid
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassBlob"
+		>CFBlobTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassBool"
+		>CFBoolTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassEnum"
+		>CFEnumTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassInt16"
+		>CFInt16TableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassInt32"
+		>CFInt32TableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassInt64"
+		>CFInt64TableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassUInt16"
+		>CFUInt16TableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassUInt32"
+		>CFUInt32TableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassUInt64"
+		>CFUInt64TableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassFloat"
+		>CFFloatTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassDouble"
+		>CFDoubleTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassNumber"
+		>CFNumberTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassString"
+		>CFStringTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassToken"
+		>CFTokenTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassNmToken"
+		>CFNmTokenTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassNmTokens"
+		>CFNmTokensTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassText"
+		>CFTextTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassDate"
+		>CFDateTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassTime"
+		>CFTimeTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassTimestamp"
+		>CFTimestampTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassTZDate"
+		>CFTZDateTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassTZTime"
+		>CFTZTimeTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassTZTimestamp"
+		>CFTZTimestampTableCell</GenRule>
+	<GenRule GenDef="Value" Name="implJavaFXTableListPaneTableCellClassUuid"
+		>CFUuidTableCell</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneMoveUpSelectedButton">
+	protected CFButton buttonMoveUpSelected = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneMoveDownSelectedButton">
+	protected CFButton buttonMoveDownSelected = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneViewSelectedButton">
+	protected CFButton buttonViewSelected = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneEditSelectedButton">
+	protected CFButton buttonEditSelected = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneDeleteSelectedButton">
+	protected CFButton buttonDeleteSelected = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneAttributeColumns"
+		>$switch HasSuperClassRelation yes declJavaFXTableListPaneInhAttributeColumns default declJavaFXTableListPaneBaseAttributeColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneInhAttributeColumns"
+		>$reference SuperClassRelation reference ToTable declJavaFXTableListPaneAttributeColumns$$iterate Columns( each declJavaFXTableListPaneDataAttributeColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneBaseAttributeColumns"
+		>$iterate Columns( each declJavaFXTableListPaneMaybeAnAttributeColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="declJavaFXTableListPaneDataAttributeColumn"
+		>$switch ColumnInPrimaryIndex yes empty default declJavaFXTableListPaneMaybeAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="declJavaFXTableListPaneMaybeAnAttributeColumn"
+		>$switch BaseModelAtomClass BlobDef empty default declJavaFXTableListPaneAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="declJavaFXTableListPaneAnAttributeColumn"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default declJavaFXTableListPaneDeclAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="declJavaFXTableListPaneDeclAnAttributeColumn">
+	public final static int COLID_$upper Name$ = $counter ListColId increment$$counter ListColId value$;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneAttributeTableColumns"
+		>$switch HasSuperClassRelation yes declJavaFXTableListPaneInhAttributeTableColumns default declJavaFXTableListPaneBaseAttributeTableColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneInhAttributeTableColumns"
+		>$reference SuperClassRelation reference ToTable declJavaFXTableListPaneAttributeTableColumns$$iterate Columns( each declJavaFXTableListPaneDataAttributeTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneBaseAttributeTableColumns"
+		>$iterate Columns( each declJavaFXTableListPaneMaybeAnAttributeTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="declJavaFXTableListPaneDataAttributeTableColumn"
+		>$switch ColumnInPrimaryIndex yes empty default declJavaFXTableListPaneMaybeAnAttributeTableColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="declJavaFXTableListPaneMaybeAnAttributeTableColumn"
+		>$switch BaseModelAtomClass BlobDef empty default declJavaFXTableListPaneAnAttributeTableColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="declJavaFXTableListPaneAnAttributeTableColumn"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default declJavaFXTableListPaneDeclAnAttributeTableColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="declJavaFXTableListPaneDeclAnAttributeTableColumn">
+	protected TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj, $implJavaOptAtomType$&gt; tableColumn$Name$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneMasterColumns"
+		>$switch HasSuperClassRelation yes declJavaFXTableListPaneInhMasterColumns default declJavaFXTableListPaneBaseMasterColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneInhMasterColumns"
+		>$reference SuperClassRelation reference ToTable declJavaFXTableListPaneMasterColumns$$iterate Relation( each declJavaFXTableListPaneDeclMaybeMasterColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneBaseMasterColumns"
+		>$iterate Relation( each declJavaFXTableListPaneDeclMaybeMasterColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclMaybeMasterColumn"
+		>$switch IsChainRelation yes empty default declJavaFXTableListPaneDeclMasterColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclMasterColumn"
+		>$switch RelationTypeTag Master declJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclRelationColumn">
+	public final static int COLID_$upper RelationTypeTag$_$upper Suffix$ = $counter ListColId increment$$counter ListColId value$;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneMasterTableColumns"
+		>$switch HasSuperClassRelation yes declJavaFXTableListPaneInhMasterTableColumns default declJavaFXTableListPaneBaseMasterTableColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneInhMasterTableColumns"
+		>$reference SuperClassRelation reference ToTable declJavaFXTableListPaneMasterTableColumns$$iterate Relation( each declJavaFXTableListPaneDeclMaybeMasterTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneBaseMasterTableColumns"
+		>$iterate Relation( each declJavaFXTableListPaneDeclMaybeMasterTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclMaybeMasterTableColumn"
+		>$switch IsChainRelation yes empty default declJavaFXTableListPaneDeclMasterTableColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclMasterTableColumn"
+		>$switch RelationTypeTag Master declJavaFXTableListPaneDeclRelationTableColumn default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclRelationTableColumn">
+	protected TableColumn&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj, I$reference ToTable DefSchemaName$$reference ToTable TableName$Obj&gt; tableColumn$RelationTypeTag$$Suffix$ = null;</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneParentColumns"
+		>$switch HasSuperClassRelation yes declJavaFXTableListPaneInhParentColumns default declJavaFXTableListPaneBaseParentColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneInhParentColumns"
+		>$reference SuperClassRelation reference ToTable declJavaFXTableListPaneParentColumns$$iterate Relation( each declJavaFXTableListPaneDeclMaybeParentColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneBaseParentColumns"
+		>$iterate Relation( each declJavaFXTableListPaneDeclMaybeParentColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclMaybeParentColumn"
+		>$switch IsChainRelation yes empty default declJavaFXTableListPaneDeclParentColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclParentColumn"
+		>$switch RelationTypeTag Parent declJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneParentTableColumns"
+		>$switch HasSuperClassRelation yes declJavaFXTableListPaneInhParentTableColumns default declJavaFXTableListPaneBaseParentTableColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneInhParentTableColumns"
+		>$reference SuperClassRelation reference ToTable declJavaFXTableListPaneParentTableColumns$$iterate Relation( each declJavaFXTableListPaneDeclMaybeParentTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneBaseParentTableColumns"
+		>$iterate Relation( each declJavaFXTableListPaneDeclMaybeParentTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclMaybeParentTableColumn"
+		>$switch IsChainRelation yes empty default declJavaFXTableListPaneDeclParentTableColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclParentTableColumn"
+		>$switch RelationTypeTag Parent declJavaFXTableListPaneDeclRelationTableColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneLookupColumns"
+		>$switch HasSuperClassRelation yes declJavaFXTableListPaneInhLookupColumns default declJavaFXTableListPaneBaseLookupColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneInhLookupColumns"
+		>$reference SuperClassRelation reference ToTable declJavaFXTableListPaneLookupColumns$$iterate Relation( each declJavaFXTableListPaneDeclMaybeLookupColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneBaseLookupColumns"
+		>$iterate Relation( each declJavaFXTableListPaneDeclMaybeLookupColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclMaybeLookupColumn"
+		>$switch IsChainRelation yes empty default declJavaFXTableListPaneDeclLookupColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclLookupColumn"
+		>$switch RelationTypeTag Lookup declJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneLookupTableColumns"
+		>$switch HasSuperClassRelation yes declJavaFXTableListPaneInhLookupTableColumns default declJavaFXTableListPaneBaseLookupTableColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneInhLookupTableColumns"
+		>$reference SuperClassRelation reference ToTable declJavaFXTableListPaneLookupTableColumns$$iterate Relation( each declJavaFXTableListPaneDeclMaybeLookupTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declJavaFXTableListPaneBaseLookupTableColumns"
+		>$iterate Relation( each declJavaFXTableListPaneDeclMaybeLookupTableColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclMaybeLookupTableColumn"
+		>$switch IsChainRelation yes empty default declJavaFXTableListPaneDeclLookupTableColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="declJavaFXTableListPaneDeclLookupTableColumn"
+		>$switch RelationTypeTag Lookup declJavaFXTableListPaneDeclRelationTableColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneAttributeColumns"
+		>$switch HasSuperClassRelation yes getColumnNameJavaFXTableListPaneInhAttributeColumns default getColumnNameJavaFXTableListPaneBaseAttributeColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneInhAttributeColumns"
+		>$reference SuperClassRelation reference ToTable getColumnNameJavaFXTableListPaneAttributeColumns$$iterate Columns( each getColumnNameJavaFXTableListPaneDataAttributeColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneBaseAttributeColumns"
+		>$iterate Columns( each getColumnNameJavaFXTableListPaneMaybeAnAttributeColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="getColumnNameJavaFXTableListPaneDataAttributeColumn"
+		>$switch ColumnInPrimaryIndex yes empty default getColumnNameJavaFXTableListPaneMaybeAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="getColumnNameJavaFXTableListPaneMaybeAnAttributeColumn"
+		>$switch BaseModelAtomClass BlobDef empty default getColumnNameJavaFXTableListPaneAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="getColumnNameJavaFXTableListPaneAnAttributeColumn"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default getColumnNameJavaFXTableListPaneDeclAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="getColumnNameJavaFXTableListPaneDeclAnAttributeColumn">
+				case COLID_$upper Name$:
+					retval = "$EffLabel$";
+					break;</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneMasterColumns"
+		>$switch HasSuperClassRelation yes getColumnNameJavaFXTableListPaneInhMasterColumns default getColumnNameJavaFXTableListPaneBaseMasterColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneInhMasterColumns"
+		>$reference SuperClassRelation reference ToTable getColumnNameJavaFXTableListPaneMasterColumns$$iterate Relation( each getColumnNameJavaFXTableListPaneDeclMaybeMasterColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneBaseMasterColumns"
+		>$iterate Relation( each getColumnNameJavaFXTableListPaneDeclMaybeMasterColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getColumnNameJavaFXTableListPaneDeclMaybeMasterColumn"
+		>$switch IsChainRelation yes empty default getColumnNameJavaFXTableListPaneDeclMasterColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getColumnNameJavaFXTableListPaneDeclMasterColumn"
+		>$switch RelationTypeTag Master getColumnNameJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getColumnNameJavaFXTableListPaneDeclRelationColumn">
+				case COLID_$upper RelationTypeTag$_$upper Suffix$:
+					retval = "$EffLabel$";
+					break;</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneParentColumns"
+		>$switch HasSuperClassRelation yes getColumnNameJavaFXTableListPaneInhParentColumns default getColumnNameJavaFXTableListPaneBaseParentColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneInhParentColumns"
+		>$reference SuperClassRelation reference ToTable getColumnNameJavaFXTableListPaneParentColumns$$iterate Relation( each getColumnNameJavaFXTableListPaneDeclMaybeParentColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneBaseParentColumns"
+		>$iterate Relation( each getColumnNameJavaFXTableListPaneDeclMaybeParentColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getColumnNameJavaFXTableListPaneDeclMaybeParentColumn"
+		>$switch IsChainRelation yes empty default getColumnNameJavaFXTableListPaneDeclParentColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getColumnNameJavaFXTableListPaneDeclParentColumn"
+		>$switch RelationTypeTag Parent getColumnNameJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneLookupColumns"
+		>$switch HasSuperClassRelation yes getColumnNameJavaFXTableListPaneInhLookupColumns default getColumnNameJavaFXTableListPaneBaseLookupColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneInhLookupColumns"
+		>$reference SuperClassRelation reference ToTable getColumnNameJavaFXTableListPaneLookupColumns$$iterate Relation( each getColumnNameJavaFXTableListPaneDeclMaybeLookupColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="getColumnNameJavaFXTableListPaneBaseLookupColumns"
+		>$iterate Relation( each getColumnNameJavaFXTableListPaneDeclMaybeLookupColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getColumnNameJavaFXTableListPaneDeclMaybeLookupColumn"
+		>$switch IsChainRelation yes empty default getColumnNameJavaFXTableListPaneDeclLookupColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getColumnNameJavaFXTableListPaneDeclLookupColumn"
+		>$switch RelationTypeTag Lookup getColumnNameJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneAttributeColumns"
+		>$switch HasSuperClassRelation yes getValueAtJavaFXTableListPaneInhAttributeColumns default getValueAtJavaFXTableListPaneBaseAttributeColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneInhAttributeColumns"
+		>$reference SuperClassRelation reference ToTable getValueAtJavaFXTableListPaneAttributeColumns$$iterate Columns( each getValueAtJavaFXTableListPaneDataAttributeColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneBaseAttributeColumns"
+		>$iterate Columns( each getValueAtJavaFXTableListPaneMaybeAnAttributeColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneDataAttributeColumn"
+		>$switch ColumnInPrimaryIndex yes empty default getValueAtJavaFXTableListPaneMaybeAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneMaybeAnAttributeColumn"
+		>$switch BaseModelAtomClass BlobDef empty default getValueAtJavaFXTableListPaneAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneAnAttributeColumn"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default getValueAtJavaFXTableListPaneDeclAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneDeclAnAttributeColumn">
+				case COLID_$upper Name$:$getValueAtJavaFXTableListPaneGetRetVal$
+					break;</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetRetVal"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef getValueAtJavaFXTableListPaneGetBoolValue
+			EnumDef getValueAtJavaFXTableListPaneGetEnumValue
+			Int16Def getValueAtJavaFXTableListPaneGetInt16Value
+			Int32Def getValueAtJavaFXTableListPaneGetInt32Value
+			Int64Def getValueAtJavaFXTableListPaneGetInt64Value
+			UInt16Def getValueAtJavaFXTableListPaneGetUInt16Value
+			UInt32Def getValueAtJavaFXTableListPaneGetUInt32Value
+			UInt64Def getValueAtJavaFXTableListPaneGetUInt64Value
+			Id16Gen getValueAtJavaFXTableListPaneGetInt16Value
+			Id32Gen getValueAtJavaFXTableListPaneGetInt32Value
+			Id64Gen getValueAtJavaFXTableListPaneGetInt64Value
+			FloatDef getValueAtJavaFXTableListPaneGetFloatValue
+			DoubleDef getValueAtJavaFXTableListPaneGetDoubleValue
+			NumberDef getValueAtJavaFXTableListPaneGetNumberValue
+			StringDef getValueAtJavaFXTableListPaneGetStringValue
+			TokenDef getValueAtJavaFXTableListPaneGetTokenValue
+			NmTokenDef getValueAtJavaFXTableListPaneGetNmTokenValue
+			NmTokensDef getValueAtJavaFXTableListPaneGetNmTokensValue
+			TextDef getValueAtJavaFXTableListPaneGetTextValue
+			DateDef getValueAtJavaFXTableListPaneGetDateValue
+			TimeDef getValueAtJavaFXTableListPaneGetTimeValue
+			TimestampDef getValueAtJavaFXTableListPaneGetTimestampValue
+			TZDateDef getValueAtJavaFXTableListPaneGetTZDateValue
+			TZTimeDef getValueAtJavaFXTableListPaneGetTZTimeValue
+			TZTimestampDef getValueAtJavaFXTableListPaneGetTZTimestampValue
+			UuidGen getValueAtJavaFXTableListPaneGetUuidValue
+			UuidDef getValueAtJavaFXTableListPaneGetUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetBoolValue"
+		>$switch IsNullable no getValueAtJavaFXTableListPaneGetReqBoolValue default getValueAtJavaFXTableListPaneGetOptBoolValue$</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetOptBoolValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetReqBoolValue">
+					retval = Boolean.valueOf( obj.get$OptionalOrRequired$$Name$() );</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetEnumValue"
+		>$switch IsNullable no getValueAtJavaFXTableListPaneGetReqEnumValue default getValueAtJavaFXTableListPaneGetOptEnumValue$</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetOptEnumValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetReqEnumValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetInt16Value"
+		>$switch IsNullable no getValueAtJavaFXTableListPaneGetReqInt16Value default getValueAtJavaFXTableListPaneGetOptInt16Value$</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetOptInt16Value">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetReqInt16Value">
+					retval = Short.valueOf( obj.get$OptionalOrRequired$$Name$() );</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetInt32Value"
+		>$switch IsNullable no getValueAtJavaFXTableListPaneGetReqInt32Value default getValueAtJavaFXTableListPaneGetOptInt32Value$</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetOptInt32Value">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetReqInt32Value">
+					retval = Integer.valueOf( obj.get$OptionalOrRequired$$Name$() );</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetInt64Value"
+		>$switch IsNullable no getValueAtJavaFXTableListPaneGetReqInt64Value default getValueAtJavaFXTableListPaneGetOptInt64Value$</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetOptInt64Value">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetReqInt64Value">
+					retval = Long.valueOf( obj.get$OptionalOrRequired$$Name$() );</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetUInt16Value"
+		>$switch IsNullable no getValueAtJavaFXTableListPaneGetReqUInt16Value default getValueAtJavaFXTableListPaneGetOptUInt16Value$</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetOptUInt16Value">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetReqUInt16Value">
+					retval = Integer.valueOf( obj.get$OptionalOrRequired$$Name$() );</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetUInt32Value"
+		>$switch IsNullable no getValueAtJavaFXTableListPaneGetReqUInt32Value default getValueAtJavaFXTableListPaneGetOptUInt32Value$</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetOptUInt32Value">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetReqUInt32Value">
+					retval = Long.valueOf( obj.get$OptionalOrRequired$$Name$() );</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetUInt64Value"
+		>$switch IsNullable no getValueAtJavaFXTableListPaneGetReqUInt64Value default getValueAtJavaFXTableListPaneGetOptUInt64Value$</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetOptUInt64Value">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetReqUInt64Value">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetFloatValue"
+		>$switch IsNullable no getValueAtJavaFXTableListPaneGetReqFloatValue default getValueAtJavaFXTableListPaneGetOptFloatValue$</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetOptFloatValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetReqFloatValue">
+					retval = Float.valueOf( obj.get$OptionalOrRequired$$Name$() );</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetDoubleValue"
+		>$switch IsNullable no getValueAtJavaFXTableListPaneGetReqDoubleValue default getValueAtJavaFXTableListPaneGetOptDoubleValue$</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetOptDoubleValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetReqDoubleValue">
+					retval = Double.valueOf( obj.get$OptionalOrRequired$$Name$() );</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetNumberValue"
+		>$switch IsNullable no getValueAtJavaFXTableListPaneGetReqNumberValue default getValueAtJavaFXTableListPaneGetOptNumberValue$</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetOptNumberValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetReqNumberValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetStringValue">
+					retval = obj.get$OptionalOrRequired$$Name$();
+					if( retval == null ) {
+						retval = "";
+					}</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetTokenValue">
+					retval = obj.get$OptionalOrRequired$$Name$();
+					if( retval == null ) {
+						retval = "";
+					}</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetNmTokenValue">
+					retval = obj.get$OptionalOrRequired$$Name$();
+					if( retval == null ) {
+						retval = "";
+					}</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetNmTokensValue">
+					retval = obj.get$OptionalOrRequired$$Name$();
+					if( retval == null ) {
+						retval = "";
+					}</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetTextValue">
+					retval = obj.get$OptionalOrRequired$$Name$();
+					if( retval == null ) {
+						retval = "";
+					}</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetDateValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetTimeValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetTimestampValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetTZDateValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetTZTimeValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetTZTimestampValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+
+	<GenRule GenDef="Value" Name="getValueAtJavaFXTableListPaneGetUuidValue">
+					retval = obj.get$OptionalOrRequired$$Name$();</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneMasterColumns"
+		>$switch HasSuperClassRelation yes getValueAtJavaFXTableListPaneInhMasterColumns default getValueAtJavaFXTableListPaneBaseMasterColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneInhMasterColumns"
+		>$reference SuperClassRelation reference ToTable getValueAtJavaFXTableListPaneMasterColumns$$iterate Relation( each getValueAtJavaFXTableListPaneDeclMaybeMasterColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneBaseMasterColumns"
+		>$iterate Relation( each getValueAtJavaFXTableListPaneDeclMaybeMasterColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getValueAtJavaFXTableListPaneDeclMaybeMasterColumn"
+		>$switch IsChainRelation yes empty default getValueAtJavaFXTableListPaneDeclMasterColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getValueAtJavaFXTableListPaneDeclMasterColumn"
+		>$switch RelationTypeTag Master getValueAtJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getValueAtJavaFXTableListPaneDeclRelationColumn">
+				case COLID_$upper RelationTypeTag$_$upper Suffix$:
+					retval = obj.get$OptionalOrRequired$$RelationTypeTag$$Suffix$( javafxIsInitializing );
+					break;</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneParentColumns"
+		>$switch HasSuperClassRelation yes getValueAtJavaFXTableListPaneInhParentColumns default getValueAtJavaFXTableListPaneBaseParentColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneInhParentColumns"
+		>$reference SuperClassRelation reference ToTable getValueAtJavaFXTableListPaneParentColumns$$iterate Relation( each getValueAtJavaFXTableListPaneDeclMaybeParentColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneBaseParentColumns"
+		>$iterate Relation( each getValueAtJavaFXTableListPaneDeclMaybeParentColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getValueAtJavaFXTableListPaneDeclMaybeParentColumn"
+		>$switch IsChainRelation yes empty default getValueAtJavaFXTableListPaneDeclParentColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getValueAtJavaFXTableListPaneDeclParentColumn"
+		>$switch RelationTypeTag Parent getValueAtJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneLookupColumns"
+		>$switch HasSuperClassRelation yes getValueAtJavaFXTableListPaneInhLookupColumns default getValueAtJavaFXTableListPaneBaseLookupColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneInhLookupColumns"
+		>$reference SuperClassRelation reference ToTable getValueAtJavaFXTableListPaneLookupColumns$$iterate Relation( each getValueAtJavaFXTableListPaneDeclMaybeLookupColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="getValueAtJavaFXTableListPaneBaseLookupColumns"
+		>$iterate Relation( each getValueAtJavaFXTableListPaneDeclMaybeLookupColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getValueAtJavaFXTableListPaneDeclMaybeLookupColumn"
+		>$switch IsChainRelation yes empty default getValueAtJavaFXTableListPaneDeclLookupColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="getValueAtJavaFXTableListPaneDeclLookupColumn"
+		>$switch RelationTypeTag Lookup getValueAtJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneAttributeColumns"
+		>$switch HasSuperClassRelation yes classColumnModelJavaFXTableListPaneInhAttributeColumns default classColumnModelJavaFXTableListPaneBaseAttributeColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneInhAttributeColumns"
+		>$reference SuperClassRelation reference ToTable classColumnModelJavaFXTableListPaneAttributeColumns$$iterate Columns( each classColumnModelJavaFXTableListPaneDataAttributeColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneBaseAttributeColumns"
+		>$iterate Columns( each classColumnModelJavaFXTableListPaneMaybeAnAttributeColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="classColumnModelJavaFXTableListPaneDataAttributeColumn"
+		>$switch ColumnInPrimaryIndex yes empty default classColumnModelJavaFXTableListPaneMaybeAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="classColumnModelJavaFXTableListPaneMaybeAnAttributeColumn"
+		>$switch BaseModelAtomClass BlobDef empty default classColumnModelJavaFXTableListPaneAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="classColumnModelJavaFXTableListPaneAnAttributeColumn"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default classColumnModelJavaFXTableListPaneDeclAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneMasterColumns"
+		>$switch HasSuperClassRelation yes classColumnModelJavaFXTableListPaneInhMasterColumns default classColumnModelJavaFXTableListPaneBaseMasterColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneInhMasterColumns"
+		>$reference SuperClassRelation reference ToTable classColumnModelJavaFXTableListPaneMasterColumns$$iterate Relation( each classColumnModelJavaFXTableListPaneDeclMaybeMasterColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneBaseMasterColumns"
+		>$iterate Relation( each classColumnModelJavaFXTableListPaneDeclMaybeMasterColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classColumnModelJavaFXTableListPaneDeclMaybeMasterColumn"
+		>$switch IsChainRelation yes empty default classColumnModelJavaFXTableListPaneDeclMasterColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classColumnModelJavaFXTableListPaneDeclMasterColumn"
+		>$switch RelationTypeTag Master classColumnModelJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneParentColumns"
+		>$switch HasSuperClassRelation yes classColumnModelJavaFXTableListPaneInhParentColumns default classColumnModelJavaFXTableListPaneBaseParentColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneInhParentColumns"
+		>$reference SuperClassRelation reference ToTable classColumnModelJavaFXTableListPaneParentColumns$$iterate Relation( each classColumnModelJavaFXTableListPaneDeclMaybeParentColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneBaseParentColumns"
+		>$iterate Relation( each classColumnModelJavaFXTableListPaneDeclMaybeParentColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classColumnModelJavaFXTableListPaneDeclMaybeParentColumn"
+		>$switch IsChainRelation yes empty default classColumnModelJavaFXTableListPaneDeclParentColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classColumnModelJavaFXTableListPaneDeclParentColumn"
+		>$switch RelationTypeTag Parent classColumnModelJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneLookupColumns"
+		>$switch HasSuperClassRelation yes classColumnModelJavaFXTableListPaneInhLookupColumns default classColumnModelJavaFXTableListPaneBaseLookupColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneInhLookupColumns"
+		>$reference SuperClassRelation reference ToTable classColumnModelJavaFXTableListPaneLookupColumns$$iterate Relation( each classColumnModelJavaFXTableListPaneDeclMaybeLookupColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="classColumnModelJavaFXTableListPaneBaseLookupColumns"
+		>$iterate Relation( each classColumnModelJavaFXTableListPaneDeclMaybeLookupColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classColumnModelJavaFXTableListPaneDeclMaybeLookupColumn"
+		>$switch IsChainRelation yes empty default classColumnModelJavaFXTableListPaneDeclLookupColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="classColumnModelJavaFXTableListPaneDeclLookupColumn"
+		>$switch RelationTypeTag Lookup classColumnModelJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneAttributeColumns"
+		>$switch HasSuperClassRelation yes bindColumnModelJavaFXTableListPaneInhAttributeColumns default bindColumnModelJavaFXTableListPaneBaseAttributeColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneInhAttributeColumns"
+		>$reference SuperClassRelation reference ToTable bindColumnModelJavaFXTableListPaneAttributeColumns$$iterate Columns( each bindColumnModelJavaFXTableListPaneDataAttributeColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneBaseAttributeColumns"
+		>$iterate Columns( each bindColumnModelJavaFXTableListPaneMaybeAnAttributeColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Value" Name="bindColumnModelJavaFXTableListPaneDataAttributeColumn"
+		>$switch ColumnInPrimaryIndex yes empty default bindColumnModelJavaFXTableListPaneMaybeAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="bindColumnModelJavaFXTableListPaneMaybeAnAttributeColumn"
+		>$switch BaseModelAtomClass BlobDef empty default bindColumnModelJavaFXTableListPaneAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="bindColumnModelJavaFXTableListPaneAnAttributeColumn"
+		>$switch ColumnInContainerOrNamedLookupRelation yes empty default bindColumnModelJavaFXTableListPaneDeclAnAttributeColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="bindColumnModelJavaFXTableListPaneDeclAnAttributeColumn">
+			addColumn( new $Name$Column() );</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneMasterColumns"
+		>$switch HasSuperClassRelation yes bindColumnModelJavaFXTableListPaneInhMasterColumns default bindColumnModelJavaFXTableListPaneBaseMasterColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneInhMasterColumns"
+		>$reference SuperClassRelation reference ToTable bindColumnModelJavaFXTableListPaneMasterColumns$$iterate Relation( each bindColumnModelJavaFXTableListPaneDeclMaybeMasterColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneBaseMasterColumns"
+		>$iterate Relation( each bindColumnModelJavaFXTableListPaneDeclMaybeMasterColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindColumnModelJavaFXTableListPaneDeclMaybeMasterColumn"
+		>$switch IsChainRelation yes empty default bindColumnModelJavaFXTableListPaneDeclMasterColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindColumnModelJavaFXTableListPaneDeclMasterColumn"
+		>$switch RelationTypeTag Master bindColumnModelJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindColumnModelJavaFXTableListPaneDeclRelationColumn">
+			addColumn( new $Suffix$Column() );</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneParentColumns"
+		>$switch HasSuperClassRelation yes bindColumnModelJavaFXTableListPaneInhParentColumns default bindColumnModelJavaFXTableListPaneBaseParentColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneInhParentColumns"
+		>$reference SuperClassRelation reference ToTable bindColumnModelJavaFXTableListPaneParentColumns$$iterate Relation( each bindColumnModelJavaFXTableListPaneDeclMaybeParentColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneBaseParentColumns"
+		>$iterate Relation( each bindColumnModelJavaFXTableListPaneDeclMaybeParentColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindColumnModelJavaFXTableListPaneDeclMaybeParentColumn"
+		>$switch IsChainRelation yes empty default bindColumnModelJavaFXTableListPaneDeclParentColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindColumnModelJavaFXTableListPaneDeclParentColumn"
+		>$switch RelationTypeTag Parent bindColumnModelJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneLookupColumns"
+		>$switch HasSuperClassRelation yes bindColumnModelJavaFXTableListPaneInhLookupColumns default bindColumnModelJavaFXTableListPaneBaseLookupColumns$</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneInhLookupColumns"
+		>$reference SuperClassRelation reference ToTable bindColumnModelJavaFXTableListPaneLookupColumns$$iterate Relation( each bindColumnModelJavaFXTableListPaneDeclMaybeLookupColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="bindColumnModelJavaFXTableListPaneBaseLookupColumns"
+		>$iterate Relation( each bindColumnModelJavaFXTableListPaneDeclMaybeLookupColumn empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindColumnModelJavaFXTableListPaneDeclMaybeLookupColumn"
+		>$switch IsChainRelation yes empty default bindColumnModelJavaFXTableListPaneDeclLookupColumn$</GenRule>
+
+	<GenRule GenDef="Relation" Name="bindColumnModelJavaFXTableListPaneDeclLookupColumn"
+		>$switch RelationTypeTag Lookup bindColumnModelJavaFXTableListPaneDeclRelationColumn default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneAdjustListButtons">
+	public void adjustListButtons() {$implJavaFXTableListPaneAdjustListButtonsPart1$$switch PageData yes implJavaFXTableListPaneAdjustPagingButtons default empty$$switch ThisHasChain yes implJavaFXTableListPaneAdjustListButtonsMove default empty$$implJavaFXTableListPaneAdjustListButtonsPart2$$implJavaFXTableListPaneAdjustListButtonsPart3$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneAdjustListButtonsPart1">
+		boolean enableState;
+		boolean inEditState;
+		boolean allowAdds;
+		boolean inAddMode = false;
+		I$DefSchemaName$$TableName$Obj selectedObj = getJavaFXFocusAs$TableName$();
+		CFPane.PaneMode mode = getPaneMode();
+		if( mode == CFPane.PaneMode.Edit ) {
+			inEditState = true;
+			allowAdds = false;
+		}
+		else {
+			inEditState = false;
+			if( getJavaFXContainer() != null ) {
+				if( getLeft() != null ) {
+					allowAdds = false;
+					inAddMode = true;
+				}
+				else {
+					allowAdds = true;
+				}
+			}
+			else {
+				allowAdds = false;
+			}
+		}
+		if( selectedObj == null ) {
+			enableState = false;
+		}
+		else {
+			if( ( ! inAddMode ) &amp;&amp; ( ! inEditState ) ) {
+				enableState = true;
+			}
+			else {
+				enableState = false;
+			}
+		}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneAdjustPagingButtons">
+		if( buttonRefresh != null ) {
+			buttonRefresh.setDisable( false );
+		}
+		if( buttonMoreData != null ) {
+			buttonMoreData.setDisable( endOfData );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneAdjustListButtonsMove">
+		boolean enableMoveUp = ( ! inEditState )
+			&amp;&amp; ( ! inAddMode )
+			&amp;&amp; ( selectedObj != null )
+			&amp;&amp; ( null != selectedObj.get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$() );
+		boolean enableMoveDown = ( ! inEditState )
+			&amp;&amp; ( ! inAddMode )
+			&amp;&amp; ( selectedObj != null )
+			&amp;&amp; ( null != selectedObj.get$reference Chain reference NextRel OptionalOrRequired$$reference Chain reference NextRel RelationTypeTag$$reference Chain reference NextRel Suffix$() );
+		if( buttonMoveUpSelected != null ) {
+			buttonMoveUpSelected.setDisable( ! enableMoveUp );
+		}
+		if( buttonMoveDownSelected != null ) {
+			buttonMoveDownSelected.setDisable( ! enableMoveDown );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneAdjustListButtonsPart2">
+		if( buttonViewSelected != null ) {
+			buttonViewSelected.setDisable( ! enableState );
+		}
+		if( buttonEditSelected != null ) {
+			if( inEditState ) {
+				buttonEditSelected.setDisable( true );
+			}
+			else {
+				buttonEditSelected.setDisable( ! enableState );
+			}
+		}$switch TableName Cluster empty default implJavaFXTableListPaneAdjustListButtonsAdjustDeleteSelected$$switch TableName Cluster empty default implJavaFXTableListPaneAdjustListButtonsMaybeAdjustActionAdd$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneAdjustListButtonsAdjustDeleteSelected">
+		if( buttonDeleteSelected != null ) {
+			buttonDeleteSelected.setDisable( ! enableState );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneAdjustListButtonsMaybeAdjustActionAdd"
+		>$switch IsInstantiable yes implJavaFXTableListPaneAdjustListButtonsDefaultAction default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneAdjustListButtonsDefaultAction">
+		if( buttonAdd$TableName$ != null ) {
+			buttonAdd$TableName$.setDisable( ! allowAdds );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneAdjustListButtonsPart3"
+>$switch TableName Cluster empty default maybeImplJavaFXTableListPaneAdjustListButtonsAdjustButtonAdd$</GenRule>
+
+	<GenRule GenDef="Table" Name="maybeImplJavaFXTableListPaneAdjustListButtonsAdjustButtonAdd"
+		>$switch HasSubClasses yes implJavaFXTableListPaneAdjustListButtonsAdjustButtonAdd default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneAdjustListButtonsAdjustButtonAdd">
+		if( buttonAdd != null ) {
+			buttonAdd.setDisable( ! allowAdds );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneRefreshMe">
+	public void refreshMe() {$switch PageData yes implJavaFXTableListPaneRefreshMePage default implJavaFXTableListPaneRefreshMeCallback$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneRefreshMePage">
+		final String S_ProcName = "refreshMe";
+		observableListOf$TableName$ = FXCollections.observableArrayList();
+		if( javafxContainer != null ) {
+			List&lt;I$DefSchemaName$$TableName$Obj&gt; page = pageCallback.pageData( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implListPaneMoreDataPassNull each implListPaneMoreDataPassCommaNull )$ );
+			Iterator&lt;I$DefSchemaName$$TableName$Obj&gt; iter = page.iterator();
+			while( iter.hasNext() ) {
+				observableListOf$TableName$.add( iter.next() );
+			}
+			if( page.size() &lt; 25 ) {$switch ThisHasChain yes empty default implJavaFXListTableRefreshMeSortByQualName$
+				endOfData = true;
+			}
+			else {
+				endOfData = false;
+			}
+		}
+		else {
+			endOfData = true;
+		}
+		if( dataTable != null ) {
+			dataTable.setItems( observableListOf$TableName$ );
+			// Hack from stackoverflow to fix JavaFX TableView refresh issue
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( false );
+			((TableColumn)dataTable.getColumns().get(0)).setVisible( true );
+		}
+		adjustListButtons();</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXListTableRefreshMeSortByQualName">
+				observableListOf$TableName$.sort( compare$TableName$ByQualName );</GenRule>
+
+	<GenRule GenDef="Table" Name="implJavaFXTableListPaneRefreshMeCallback">
+		if( javafxRefreshCallback != null ) {
+			javafxRefreshCallback.refreshMe();
+		}</GenRule>
+
+</RuleSet>

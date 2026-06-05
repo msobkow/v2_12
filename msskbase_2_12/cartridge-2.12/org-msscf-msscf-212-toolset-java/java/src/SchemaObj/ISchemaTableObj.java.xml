@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/SchemaObj/ISchemaTableObj.java"
+	Revision="2.12"
+	Descr="Java 11 Table Object interface">
+
+	<GenFile GenDef="Table" Name="fileISchemaTableObjJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$Obj"
+		ExpansionClassName="I$SchemaName$$TableName$TableObjJava"
+		ExpansionKeyName="I$SchemaName$$TableName$TableObjJava"
+		ExpansionFileName="I$SchemaName$$TableName$TableObj.java"
+>// Description: Java 11 Table Object interface for $SchemaName$.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$Obj;
+
+import java.math.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$importJavaPackageSchemaName$$JavaTableObjImport$
+
+public interface I$SchemaName$$TableName$TableObj$iterate TableRefs( first extendISchemaTableTableObj each extendCommaISchemaTableTableObj empty empty )$
+{$switch HasDefSchema yes justDeclISchemaTableTableObjServerMethods default declISchemaTableTableObjMethods$}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="justDeclISchemaTableTableObjServerMethods"
+		>$iterate ServerMethods( each declJavaTableObjServerMethod empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="extendISchemaTableTableObj">
+	extends I$reference SchemaDef SchemaName$$TableName$TableObj</GenRule>
+
+	<GenRule GenDef="Table" Name="extendCommaISchemaTableTableObj">,
+		I$reference SchemaDef SchemaName$$TableName$TableObj</GenRule>
+
+	<GenRule GenDef="Table" Name="declISchemaTableTableObjMethods">
+	I$DefSchemaName$SchemaObj getSchema();
+	void setSchema( I$DefSchemaName$SchemaObj value );
+
+	void minimizeMemory();
+
+	String getTableName();
+	String getTableDbName();
+$declGetObjQualifyingClass$$declNewInstance$$declNewEditInstance$$switch IsBaseTable yes declConstructByClassCode default empty$$declRealiseObj$$declCreateObj$$declReadObjByPKey$$declReadCachedObjByPKey$$declReallyDeepDisposeTable$$declDeepDisposeObjByPKey$$declLockObjByPKey$$declReadAllObj$$declReadCachedAllObj$$switch PageData yes declPageAllObj default empty$$declTableObjReadByIndexes$$declTableObjReadCachedByIndexes$$declTableObjDeepDisposeByIndexes$$switch PageData yes declTableObjPageByIndex default empty$$declUpdateObj$$declDeleteObj$$declTableObjDeleteByIndexes$$switch HasChain yes declTableObjMoveUp default empty$$switch HasChain yes declTableObjMoveDown default empty$$iterate ServerMethods( each declJavaTableObjServerMethod empty empty )$$JavaTableObjInterface$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declJavaTableObjServerMethod"
+		>$switch IsInstanceMethod yes declJavaTableObjInstServerProc default declJavaTableObjClassServerProc$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declJavaTableObjClassServerProc">
+	boolean $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="declJavaTableObjInstServerProc">
+	boolean $leadlower Name$( I$DefSchemaName$$TableName$Obj obj$iterate Params( each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declJavaTableObjServerMethod"
+		>$switch IsInstanceMethod yes declJavaTableObjInstServerObjFunc default declJavaTableObjClassServerObjFunc$</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declJavaTableObjClassServerObjFunc">
+	I$reference RetTable DefSchemaName$$reference RetTable Name$Obj $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="declJavaTableObjInstServerObjFunc">
+	I$reference RetTable DefSchemaName$$reference RetTable Name$Obj $leadlower Name$( I$DefSchemaName$$TableName$Obj obj$iterate Params( each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declJavaTableObjServerMethod"
+		>$switch IsInstanceMethod yes declJavaTableObjInstServerListFunc default declJavaTableObjClassServerListFunc$</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declJavaTableObjClassServerListFunc">
+	List&lt;I$reference RetTable DefSchemaName$$reference RetTable Name$Obj&gt; $leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="declJavaTableObjInstServerListFunc">
+	List&lt;I$reference RetTable DefSchemaName$$reference RetTable Name$Obj&gt; $leadlower Name$( I$DefSchemaName$$TableName$Obj obj$iterate Params( each declServerMethodParam empty empty )$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjMoveUp">
+	/**
+	 *	Move the $DefSchemaName$$TableName$Obj instance up in the chain.  The instance is always refreshed.
+	 *
+	 *	@return	$DefSchemaName$$TableName$Obj refreshed cache instance.
+	 */
+	I$DefSchemaName$$TableName$Obj moveUp$TableName$( I$DefSchemaName$$TableName$Obj Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjMoveDown">
+	/**
+	 *	Move the $DefSchemaName$$TableName$Obj instance down in the chain.  The instance is always refreshed.
+	 *
+	 *	@return	$DefSchemaName$$TableName$Obj refreshed cache instance.
+	 */
+	I$DefSchemaName$$TableName$Obj moveDown$TableName$( I$DefSchemaName$$TableName$Obj Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declGetObjQualifyingClass">
+	Class getObjQualifyingClass();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadByIndexes"
+		>$reference BaseClass reference PrimaryKeyIndex declTableObjReadByThisPrimaryIndex$$switch HasSuperClassRelation yes declTableObjReadByInhIndexes default empty$$iterate Index( each declTableObjReadByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadBySubIndexes"
+		>$switch HasSuperClassRelation yes declTableObjReadByInhIndexes default empty$$iterate Index( each declTableObjReadByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjReadByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjReadByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declTableObjReadBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByThisIndex"
+		>$switch IsUnique
+			yes declTableObjReadByThisUniqueIndex
+			default declTableObjReadByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByInhIndex"
+		>$switch IsUnique
+			yes declTableObjReadByInhUniqueIndex
+			default declTableObjReadByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByIndex"
+		>$switch IsUnique
+			yes declTableObjReadByUniqueIndex
+			default declTableObjReadByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByThisUniqueIndex">
+	/**
+	 *	Get the $DefSchemaName$$TableName$Obj instance for the unique $Suffix$ key.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	$DefSchemaName$$TableName$Obj cached instance for the unique $Suffix$ key, or
+	 *		null if no such instance exists.
+	 */
+	I$poptop Table DefSchemaName$$poptop Table TableName$Obj read$poptop Table TableName$By$Suffix$($iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+
+	/**
+	 *	Get the $DefSchemaName$$TableName$Obj instance for the unique $Suffix$ key.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	$DefSchemaName$$TableName$Obj refreshed instance for the unique $Suffix$ key, or
+	 *		null if no such instance exists.
+	 */
+	I$poptop Table DefSchemaName$$poptop Table TableName$Obj read$poptop Table TableName$By$Suffix$($iterate Columns( first declColumnArg each declCommaColumnArg )$,
+		boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByThisPrimaryIndex">
+	/**
+	 *	Get the $DefSchemaName$$TableName$Obj instance for the primary key attributes.$reference Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	$DefSchemaName$$TableName$Obj cached instance for the primary key, or
+	 *		null if no such instance exists.
+	 */
+	I$poptop Table DefSchemaName$$poptop Table TableName$Obj read$poptop Table TableName$By$reference Table reference BaseClass reference PrimaryKeyIndex Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+
+	/**
+	 *	Get the $DefSchemaName$$TableName$Obj instance for the primary key attributes.$reference Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	$DefSchemaName$$TableName$Obj refreshed instance for the primary key, or
+	 *		null if no such instance exists.
+	 */
+	I$poptop Table DefSchemaName$$poptop Table TableName$Obj read$poptop Table TableName$By$reference Table reference BaseClass reference PrimaryKeyIndex Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+		boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByInhUniqueIndex">
+	/**
+	 *	Get the $DefSchemaName$$TableName$Obj instance for the unique $Suffix$ key.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	$DefSchemaName$$TableName$Obj cached instance for the unique $Suffix$ key, or
+	 *		null if no such instance exists.
+	 */
+	I$poptop Table DefSchemaName$$poptop Table TableName$Obj read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+
+	/**
+	 *	Get the $DefSchemaName$$TableName$Obj instance for the unique $Suffix$ key.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	$DefSchemaName$$TableName$Obj refreshed instance for the unique $Suffix$ key, or
+	 *		null if no such instance exists.
+	 */
+	I$poptop Table DefSchemaName$$poptop Table TableName$Obj read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+		boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByThisDuplicateIndex">
+	/**
+	 *	Get the map of $DefSchemaName$$TableName$Obj instances sorted by their primary keys for the duplicate $Suffix$ key.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	List of $DefSchemaName$$TableName$Obj cached instances sorted by their primary keys for the duplicate $Suffix$ key,
+	 *		which may be an empty set.
+	 */
+	List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+
+	/**
+	 *	Get the map of $DefSchemaName$$TableName$Obj instances sorted by their primary keys for the duplicate $Suffix$ key.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	List of $DefSchemaName$$TableName$Obj cached instances sorted by their primary keys for the duplicate $Suffix$ key,
+	 *		which may be an empty set.
+	 */
+	List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+		boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadByInhDuplicateIndex">
+	/**
+	 *	Get the map of $DefSchemaName$$TableName$Obj instances sorted by their primary keys for the duplicate $Suffix$ key.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	List of $poptop Table DefSchemaName$$poptop Table TableName$Obj cached instances sorted by their primary keys for the duplicate $Suffix$ key,
+	 *		which may be an empty set.
+	 */
+	List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+
+	/**
+	 *	Get the map of $poptop Table DefSchemaName$$poptop Table TableName$Obj instances sorted by their primary keys for the duplicate $Suffix$ key.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	List of $poptop Table DefSchemaName$$poptop Table TableName$Obj cached instances sorted by their primary keys for the duplicate $Suffix$ key,
+	 *		which may be an empty set.
+	 */
+	List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+		boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declNewInstance">
+	/**
+	 *	Instantiate a new $TableName$ instance.
+	 *
+	 *	@return	A new instance.
+	 */
+	I$DefSchemaName$$TableName$Obj newInstance();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declNewEditInstance">
+	/**
+	 *	Instantiate a new $TableName$ edition of the specified $TableName$ instance.
+	 *
+	 *	@return	A new edition.
+	 */
+	I$DefSchemaName$$TableName$EditObj newEditInstance( I$DefSchemaName$$TableName$Obj orig );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declConstructByClassCode">
+	/**
+	 *	Construct an appropriate subclass instance based on the specified class code.
+	 *
+	 *	@param	argClassCode	The class code used to identify the proposed instance class.
+	 *
+	 *	@return	I$SchemaName$$TableName$Obj instance, which may be a subclass of a $TableName$ instance.
+	 */
+	I$DefSchemaName$$TableName$Obj constructByClassCode( String argClassCode );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declRealiseObj">
+	/**
+	 *	Internal use only.
+	 */
+	I$DefSchemaName$$TableName$Obj realise$TableName$( I$DefSchemaName$$TableName$Obj Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declCreateObj">
+	/**
+	 *	Internal use only.
+	 */
+	I$DefSchemaName$$TableName$Obj create$TableName$( I$DefSchemaName$$TableName$Obj Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadAllObj">
+	/**
+	 *	Return a sorted list of all the $TableName$-derived instances in the database.
+	 *
+	 *	@return	List of I$DefSchemaName$$TableName$Obj instance, sorted by their primary keys, which
+	 *		may include an empty set.
+	 */
+	List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; readAll$poptop Table TableName$();
+
+	/**
+	 *	Return a sorted map of all the $TableName$-derived instances in the database.
+	 *
+	 *	@return	List of I$DefSchemaName$$TableName$Obj instance, sorted by their primary keys, which
+	 *		may include an empty set.
+	 */
+	List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; readAll$poptop Table TableName$( boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declPageAllObj">
+	/**
+	 *	Return a sorted map of a page of the $TableName$-derived instances in the database.
+	 *
+	 *	@return	List of I$DefSchemaName$$TableName$Obj instance, sorted by their primary keys, which
+	 *		may include an empty set.
+	 */
+	List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; pageAll$poptop Table TableName$($reference BaseClass reference PrimaryKeyIndex iterate Columns( first declOptPriorArg each declCommaOptPriorArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadObjByIndex"
+		>$switch IsUnique yes declReadObjByUniqueIndex default declReadObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadObjByPKey">
+	/**
+	 *	Read a $TableName$-derived instance by it's primary key.
+	 *
+	 *	@param	pkey	The primary key identifying the instance to read.
+	 *
+	 *	@return	The $TableName$-derived instance identified by the primary key,
+	 *		or null if no such key value exists.
+	 */
+	I$DefSchemaName$$TableName$Obj read$TableName$( $DefSchemaName$$reference BaseClass TableName$PKey pkey );
+
+	/**
+	 *	Read a $TableName$-derived instance by it's primary key.
+	 *
+	 *	@param	pkey	The primary key identifying the instance to read.
+	 *
+	 *	@return	The $TableName$-derived instance identified by the primary key,
+	 *		or null if no such key value exists.
+	 */
+	I$DefSchemaName$$TableName$Obj read$TableName$( $DefSchemaName$$reference BaseClass TableName$PKey pkey,
+		boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declLockObjByPKey">
+	/**
+	 *	Internal use only.
+	 */
+	I$DefSchemaName$$TableName$Obj lock$TableName$( $DefSchemaName$$reference BaseClass TableName$PKey pkey );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadObjByUniqueIndex">
+	/**
+	 *	Read an instance identified by the specified unique $Suffix$ key attributes.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	A $TableName$-derived instance, or null if no such instance exists.
+	 */
+	I$poptop Table DefSchemaName$$poptop Table TableName$Obj read$TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+
+	/**
+	 *	Read an instance identified by the specified unique $Suffix$ key attributes.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	A $TableName$-derived instance, or null if no such instance exists.
+	 */
+	I$poptop Table DefSchemaName$$poptop Table TableName$Obj read$TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+		boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadObjByDuplicateIndex">
+	/**
+	 *	Read a List of $TableName$-derived instances sorted by their primary keys,
+	 *	as identified by the duplicate $Suffix$ key attributes.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	A List of $TableName$-derived instances sorted by their primary keys,
+	 *		as identified by the key attributes, which may be an empty set.
+	 */
+	List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; read$TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+
+	/**
+	 *	Read a List of $TableName$-derived instances sorted by their primary keys,
+	 *	as identified by the duplicate $Suffix$ key attributes.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	A List of $TableName$-derived instances sorted by their primary keys,
+	 *		as identified by the key attributes, which may be an empty set.
+	 */
+	List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; read$TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+		boolean forceRead );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjPageByIndex"
+		>$switch HasSuperClassRelation yes declTableObjPageByInhIndex default declTableObjPageByBaseIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjPageBySubIndex"
+		>$switch HasSuperClassRelation yes declTableObjPageByInhIndex default empty$$iterate Index( each declTableObjPageByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjPageByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default ifdup_declTableObjPageByIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjPageByInhIndex"
+		>$reference SuperClassRelation reference ToTable declTableObjPageBySubIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjPageByBaseIndex"
+		>$iterate Index( each declTableObjPageByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="ifdup_declTableObjPageByIndex"
+		>$switch IsUnique
+			yes empty
+			default declPageObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declPageObjByIndex"
+		>$switch IsUnique yes empty default declPageObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declPageObjByDuplicateIndex">
+	/**
+	 *	Read a page of data as a List of $TableName$-derived instances sorted by their primary keys,
+	 *	as identified by the duplicate $Suffix$ key attributes.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 *
+	 *	@return	A List of $TableName$-derived instances sorted by their primary keys,
+	 *		as identified by the key attributes, which may be an empty set.
+	 */
+	List&lt;I$poptop Table DefSchemaName$$poptop Table TableName$Obj&gt; page$TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaOptPriorArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declUpdateObj">
+	/**
+	 *	Internal use only.
+	 */
+	I$poptop Table DefSchemaName$$poptop Table TableName$Obj update$poptop Table TableName$( I$poptop Table DefSchemaName$$poptop Table TableName$Obj Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declDeleteObj">
+	/**
+	 *	Internal use only.
+	 */
+	void delete$TableName$( I$poptop Table DefSchemaName$$poptop Table TableName$Obj Obj );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeleteByIndexes"
+		>$reference BaseClass reference PrimaryKeyIndex declTableObjDeleteByThisPrimaryIndex$$switch HasSuperClassRelation yes declTableObjDeleteByInhIndexes default empty$$iterate Index( each declTableObjDeleteByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeleteBySubIndexes"
+		>$switch HasSuperClassRelation yes declTableObjDeleteByInhIndexes default empty$$iterate Index( each declTableObjDeleteByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjDeleteByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjDeleteByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeleteByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declTableObjDeleteBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByThisIndex"
+		>$switch IsUnique
+			yes declTableObjDeleteByThisUniqueIndex
+			default declTableObjDeleteByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByInhIndex"
+		>$switch IsUnique
+			yes declTableObjDeleteByInhUniqueIndex
+			default declTableObjDeleteByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByIndex"
+		>$switch IsUnique
+			yes declTableObjDeleteByUniqueIndex
+			default declTableObjDeleteByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByThisUniqueIndex">
+	/**
+	 *	Internal use only.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 */
+	void delete$poptop Table TableName$By$Suffix$($iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByThisPrimaryIndex">
+	/**
+	 *	Internal use only.$reference Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each implCommentKeyAttr empty empty )$
+	 */
+	void delete$poptop Table TableName$By$reference Table reference BaseClass reference PrimaryKeyIndex Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByInhUniqueIndex">
+	/**
+	 *	Internal use only.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 */
+	void delete$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByThisDuplicateIndex">
+	/**
+	 *	Internal use only.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 */
+	void delete$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeleteByInhDuplicateIndex">
+	/**
+	 *	Internal use only.$iterate Columns( each implCommentKeyAttr empty empty )$
+	 */
+	void delete$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadCachedAllObj">
+	List&lt;I$DefSchemaName$$TableName$Obj&gt; readCachedAll$TableName$();
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReadCachedObjByPKey">
+	I$DefSchemaName$$TableName$Obj readCached$TableName$( $DefSchemaName$$reference BaseClass TableName$PKey pkey );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadCachedObjByIndex"
+		>$switch IsUnique
+			yes declReadCachedObjByUniqueIndex
+			default declReadCachedObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadCachedByIndexes"
+		>$declTableObjReadCachedByPrimaryIndex$$switch HasSuperClassRelation yes declTableObjReadCachedByInhIndexes default empty$$iterate Index( each declTableObjReadCachedByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadCachedByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex declTableObjReadCachedByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadCachedBySubIndexes"
+		>$switch HasSuperClassRelation yes declTableObjReadCachedByInhIndexes default empty$$iterate Index( each declTableObjReadCachedByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjReadCachedByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjReadCachedByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjReadCachedByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declTableObjReadCachedBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByThisIndex"
+		>$switch IsUnique
+			yes declTableObjReadCachedByThisUniqueIndex
+			default declTableObjReadCachedByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByInhIndex"
+		>$switch IsUnique
+			yes declTableObjReadCachedByInhUniqueIndex
+			default declTableObjReadCachedByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByIndex"
+		>$switch IsUnique
+			yes declTableObjReadCachedByUniqueIndex
+			default declTableObjReadCachedByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByInhUniqueIndex"
+		>$declTableObjReadCachedByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByThisUniqueIndex">
+	I$DefSchemaName$$poptop Table TableName$Obj readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByThisDuplicateIndex">
+	List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjReadCachedByInhDuplicateIndex"
+		>$declTableObjReadCachedByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declReadCachedObjByDuplicateIndex">
+	List&lt;I$DefSchemaName$$poptop Table TableName$Obj&gt; readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declDeepDisposeObjByPKey">
+	void deepDispose$TableName$( $DefSchemaName$$reference BaseClass TableName$PKey pkey );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declDeepDisposeObjByIndex"
+		>$switch IsUnique
+			yes declDeepDisposeObjByUniqueIndex
+			default declDeepDisposeObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeepDisposeByIndexes"
+		>$declTableObjDeepDisposeByPrimaryIndex$$switch HasSuperClassRelation yes declTableObjDeepDisposeByInhIndexes default empty$$iterate Index( each declTableObjDeepDisposeByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeepDisposeByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex declTableObjDeepDisposeByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeepDisposeBySubIndexes"
+		>$switch HasSuperClassRelation yes declTableObjDeepDisposeByInhIndexes default empty$$iterate Index( each declTableObjDeepDisposeByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeepDisposeByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjDeepDisposeByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeepDisposeByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default declTableObjDeepDisposeByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="declTableObjDeepDisposeByInhIndexes"
+		>$reference SuperClassRelation reference ToTable declTableObjDeepDisposeBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeepDisposeByThisIndex"
+		>$switch IsUnique
+			yes declTableObjDeepDisposeByThisUniqueIndex
+			default declTableObjDeepDisposeByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeepDisposeByInhIndex"
+		>$switch IsUnique
+			yes declTableObjDeepDisposeByInhUniqueIndex
+			default declTableObjDeepDisposeByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeepDisposeByIndex"
+		>$switch IsUnique
+			yes declTableObjDeepDisposeByUniqueIndex
+			default declTableObjDeepDisposeByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeepDisposeByThisUniqueIndex">
+	void deepDispose$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeepDisposeByInhUniqueIndex"
+		>$declTableObjDeepDisposeByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeepDisposeByThisDuplicateIndex">
+	void deepDispose$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Index" Name="declTableObjDeepDisposeByInhDuplicateIndex"
+		>$declTableObjDeepDisposeByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="declDeepDisposeObjByIndexPassArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="Index" Name="declDeepDisposeObjByDuplicateIndex">
+	public void deepDispose$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="declReallyDeepDisposeTable">
+	public void reallyDeepDispose$TableName$( I$DefSchemaName$$TableName$Obj obj );
+</GenRule>
+
+</RuleSet>
+

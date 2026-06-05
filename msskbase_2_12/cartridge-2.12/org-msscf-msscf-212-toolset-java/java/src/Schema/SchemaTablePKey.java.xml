@@ -1,0 +1,3042 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java"
+	Name="src/Schema/SchemaTablePKey.java"
+	Revision="2.12"
+	Descr="Java 11 implementation of a $TableName$ primary key object.">
+
+	<GenFile GenDef="Table" Name="fileSchemaTablePKeyJava"
+			GenerateOnce="false"
+		ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$"
+		ExpansionClassName="$SchemaName$$TableName$PKeyJava"
+		ExpansionKeyName="$SchemaName$$TableName$PKeyJava"
+		ExpansionFileName="$SchemaName$$TableName$PKey.java"
+>// Description: Java 11 implementation of a $TableName$ primary key object.
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$;
+
+import java.lang.reflect.*;
+import java.io.*;
+import java.math.*;
+import java.net.*;
+import java.rmi.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$
+import org.apache.commons.codec.binary.Base64;
+
+/*
+ *	$SchemaName$$TableName$PKey Primary Key for $TableName$
+$switch IsBaseTable yes implClassCodeAttrComment default empty$$reference PrimaryKeyIndex iterate Columns( each implColumnAttrComment )
+$ */
+public class $SchemaName$$TableName$PKey$switch HasDefSchema yes SchemaTablePKeyExtendBaseDef default SchemaTablePKeyImplementsComparable$
+{$switch HasDefSchema yes SchemaTablePKeyExtendBaseDefBody default SchemaTablePKeyImplBaseDefBody$}
+</GenFile>
+
+	<GenRule GenDef="Relation" Name="ToIndexIsUnique"
+		>$reference ToIndex IsUnique$</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTablePKeyExtendBaseDefBody">
+	$poptop SchemaDef SchemaName$$TableName$PKey() {
+		super();
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTablePKeyImplBaseDefBody">
+$switch IsBaseTable yes implClassCodeColumnAttr default empty$$reference PrimaryKeyIndex iterate Columns(
+	each implColumnAttr )
+$$reference PrimaryKeyIndex implPKeyConstructor$$switch IsBaseTable
+	yes implClassCodeGetterSetter
+	default empty$$reference PrimaryKeyIndex
+		iterate Columns(
+			each implColumnGetterSetter )
+$$reference PrimaryKeyIndex implPKeyEquals$$reference PrimaryKeyIndex implPKeyGetHashCode$$reference PrimaryKeyIndex implPKeyCompareTo$$reference PrimaryKeyIndex implPKeyToString$</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTablePKeyExtendBaseDef">
+	extends $DefSchemaName$$TableName$PKey</GenRule>
+
+	<GenRule GenDef="Table" Name="SchemaTablePKeyImplementsComparable">
+	implements Comparable&lt;Object&gt;,
+		Serializable</GenRule>
+
+	<GenRule GenDef="Object" Name="implClassCodeColumnAttr"
+>	protected String classCode;
+</GenRule>
+
+	<GenRule GenDef="TableCol" Name="HasInitValue"
+		>$reference DataType HasInitValue$</GenRule>
+	<GenRule GenDef="TableCol" Name="InitValue"
+		>$reference DataType InitValue$</GenRule>
+
+	<GenRule GenDef="Index" Name="implPKeyConstructor">
+	public $SchemaName$$TableName$PKey() {$iterate Columns( each implConstructorInitAttr )$
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implConstructorInitAttr"
+		>$reference Column implConstructorInitAttr$</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitAttr"
+		>$switch IsNullable yes implConstructorSetAttrNull default maybeImplConstructorInitValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="maybeImplConstructorInitValue"
+		>$switch HasInitValue yes implConstructorInitValue default empty$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implConstructorInitValue"
+		>$reference Column implConstructorInitValue$</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitValue"
+		>$switch BaseModelAtomClass
+			BlobDef implConstructorInitBlobValue
+			BoolDef implConstructorInitBoolValue
+			EnumDef implConstructorInitEnumValue
+			Int16Def implConstructorInitInt16Value
+			Int32Def implConstructorInitInt32Value
+			Int64Def implConstructorInitInt64Value
+			UInt16Def implConstructorInitUInt16Value
+			UInt32Def implConstructorInitUInt32Value
+			UInt64Def implConstructorInitUInt64Value
+			Id16Gen implConstructorInitInt16Value
+			Id32Gen implConstructorInitInt32Value
+			Id64Gen implConstructorInitInt64Value
+			FloatDef implConstructorInitFloatValue
+			DoubleDef implConstructorInitDoubleValue
+			NumberDef implConstructorInitNumberValue
+			StringDef implConstructorInitStringValue
+			TokenDef implConstructorInitTokenValue
+			NmTokenDef implConstructorInitNmTokenValue
+			NmTokensDef implConstructorInitNmTokensValue
+			TextDef implConstructorInitTextValue
+			DateDef implConstructorInitDateValue
+			TimeDef implConstructorInitTimeValue
+			TimestampDef implConstructorInitTimestampValue
+			TZDateDef implConstructorInitTZDateValue
+			TZTimeDef implConstructorInitTZTimeValue
+			TZTimestampDef implConstructorInitTZTimestampValue
+			UuidGen implConstructorInitUuidValue
+			UuidDef implConstructorInitUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitBlobValue">
+		$lower implColumnAttrOptionality$$Name$ = Base64.decodeBase64( "$InitValue$".getBytes() );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitBoolValue">
+		$lower implColumnAttrOptionality$$Name$ = $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitEnumValue">
+		$lower implColumnAttrOptionality$$Name$ = $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitInt16Value">
+		$lower implColumnAttrOptionality$$Name$ = $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitInt32Value">
+		$lower implColumnAttrOptionality$$Name$ = $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitInt64Value">
+		$lower implColumnAttrOptionality$$Name$ = $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitUInt16Value">
+		$lower implColumnAttrOptionality$$Name$ = $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitUInt32Value">
+		$lower implColumnAttrOptionality$$Name$ = $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitUInt64Value">
+		$lower implColumnAttrOptionality$$Name$ = $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitFloatValue">
+		$lower implColumnAttrOptionality$$Name$ = $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitDoubleValue">
+		$lower implColumnAttrOptionality$$Name$ = $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitNumberValue">
+		$lower implColumnAttrOptionality$$Name$ = $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE;</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitStringValue">
+		$lower implColumnAttrOptionality$$Name$ = new String( $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitTokenValue">
+		$lower implColumnAttrOptionality$$Name$ = new String( $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitNmTokenValue">
+		$lower implColumnAttrOptionality$$Name$ = new String( $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitNmTokensValue">
+		$lower implColumnAttrOptionality$$Name$ = new String( $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitTextValue">
+		$lower implColumnAttrOptionality$$Name$ = new String( $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitDateValue">
+		$lower implColumnAttrOptionality$$Name$ = CFLib.getUTCGregorianCalendar( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitTimeValue">
+		$lower implColumnAttrOptionality$$Name$ = CFLib.getUTCGregorianCalendar( 1970, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitTimestampValue">
+		$lower implColumnAttrOptionality$$Name$ = CFLib.getUTCGregorianCalendar( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitTZDateValue">
+		$lower implColumnAttrOptionality$$Name$ = CFLib.getUTCGregorianCalendar( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitTZTimeValue">
+		$lower implColumnAttrOptionality$$Name$ = CFLib.getUTCGregorianCalendar( 1970, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitTZTimestampValue">
+		$lower implColumnAttrOptionality$$Name$ = CFLib.getUTCGregorianCalendar( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implConstructorInitUuidValue">
+		$lower implColumnAttrOptionality$$Name$ = UUID.fromString( $DefSchemaName$$TableName$Buff.$upper Name$_INIT_VALUE.toString() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implConstructorSetAttrNull"
+		>$reference Column implConstructorSetAttrNull$</GenRule>
+	<GenRule GenDef="Value" Name="implConstructorSetAttrNull"
+		>$switch IsNullable
+			yes implConstructorSetAttrNullOk
+			default empty$</GenRule>
+	<GenRule GenDef="Object" Name="implConstructorSetAttrNullOk">
+		$lower implColumnAttrOptionality$$Name$ = null;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implColumnAttrOptionality"
+		>$switch IsNullable
+			yes implColumnAttrOptional
+			default implColumnAttrRequired$</GenRule>
+	<GenRule GenDef="Atom" Name="implColumnAttrOptionality"
+		>$switch IsNullable
+			yes implColumnAttrOptional
+			default implColumnAttrRequired$</GenRule>
+	<GenRule GenDef="TableCol" Name="implColumnAttrOptionality"
+		>$switch IsNullable
+			yes implColumnAttrOptional
+			default implColumnAttrRequired$</GenRule>
+
+	<GenRule GenDef="Object" Name="implColumnAttrOptional"
+		>Optional</GenRule>
+	<GenRule GenDef="Object" Name="implColumnAttrRequired"
+		>Required</GenRule>
+
+	<GenRule GenDef="Object" Name="implClassCodeAttrComment">
+ *		classCode	Required class code.</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implColumnAttrComment">
+ *		$lower implColumnAttrOptionality$$Name$	$implColumnAttrOptionality$ object attribute $Name$.</GenRule>
+
+	<GenRule ScopeDef="Table" GenDef="Atom" Name="implColumnAttrComment">
+ *		$implColumnAttrOptionality$$Name$	$implColumnAttrOptionality$ object attribute $Name$.</GenRule>
+	<GenRule ScopeDef="Table" GenDef="TableCol" Name="implColumnAttrComment">
+ *		$implColumnAttrOptionality$$Name$	$implColumnAttrOptionality$ object attribute $Name$.</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implColumnAttr">
+	protected $implJavaAtomType$ $lower implColumnAttrOptionality$$Name$;</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implColumnAttr">
+	protected $implJavaAtomType$ $lower implColumnAttrOptionality$$Name$;</GenRule>
+
+	<GenRule GenDef="Atom" Name="implColumnAttr">
+	protected $implJavaAtomType$ $lower implColumnAttrOptionality$$Name$;</GenRule>
+
+	<GenRule GenDef="Param" Name="implJavaAtomType"
+		>$switch IsNullable yes implJavaOptAtomType default implJavaReqAtomType$</GenRule>
+
+	<GenRule GenDef="Param" Name="implJavaOptAtomType"
+		>$reference Type implJavaOptAtomType$</GenRule>
+
+	<GenRule GenDef="Param" Name="implJavaReqAtomType"
+		>$reference Type implJavaReqAtomType$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implJavaAtomType"
+		>$reference Column implJavaAtomType$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implJavaOptAtomType"
+		>$reference Column implJavaOptAtomType$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implJavaReqAtomType"
+		>$reference Column implJavaReqAtomType$</GenRule>
+	<GenRule GenDef="Value" Name="implJavaAtomType"
+		>$switch IsNullable yes implJavaOptAtomType default implJavaReqAtomType$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implJavaOptAtomType"
+		>$reference DataType implJavaOptAtomType$</GenRule>
+	<GenRule GenDef="TableCol" Name="implJavaReqAtomType"
+		>$reference DataType implJavaReqAtomType$</GenRule>
+
+	<GenRule GenDef="Object" Name="EffSchemaName"
+		>$switch HasDefSchema yes UseDefSchemaName default UseCurSchemaName$</GenRule>
+	<GenRule GenDef="Object" Name="UseDefSchemaName"
+		>$reference DefSchema SchemaName$</GenRule>
+	<GenRule GenDef="Object" Name="UseCurSchemaName"
+		>$SchemaName$</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="implJavaReqAtomType">byte[]</GenRule>
+	<GenRule GenDef="BoolDef" Name="implJavaReqAtomType">boolean</GenRule>
+	<GenRule GenDef="EnumDef" Name="implJavaReqAtomType">I$EffSchemaName$Schema.$Name$</GenRule>
+	<GenRule GenDef="Int16Def" Name="implJavaReqAtomType">short</GenRule>
+	<GenRule GenDef="Int32Def" Name="implJavaReqAtomType">int</GenRule>
+	<GenRule GenDef="Int64Def" Name="implJavaReqAtomType">long</GenRule>
+	<GenRule GenDef="Id16Gen" Name="implJavaReqAtomType">short</GenRule>
+	<GenRule GenDef="Id32Gen" Name="implJavaReqAtomType">int</GenRule>
+	<GenRule GenDef="Id64Gen" Name="implJavaReqAtomType">long</GenRule>
+	<GenRule GenDef="UInt16Def" Name="implJavaReqAtomType">int</GenRule>
+	<GenRule GenDef="UInt32Def" Name="implJavaReqAtomType">long</GenRule>
+	<GenRule GenDef="UInt64Def" Name="implJavaReqAtomType">BigDecimal</GenRule>
+	<GenRule GenDef="FloatDef" Name="implJavaReqAtomType">float</GenRule>
+	<GenRule GenDef="DoubleDef" Name="implJavaReqAtomType">double</GenRule>
+	<GenRule GenDef="NumberDef" Name="implJavaReqAtomType">BigDecimal</GenRule>
+	<GenRule GenDef="StringDef" Name="implJavaReqAtomType">String</GenRule>
+	<GenRule GenDef="TextDef" Name="implJavaReqAtomType">String</GenRule>
+	<GenRule GenDef="DateDef" Name="implJavaReqAtomType">Calendar</GenRule>
+	<GenRule GenDef="TimeDef" Name="implJavaReqAtomType">Calendar</GenRule>
+	<GenRule GenDef="TimestampDef" Name="implJavaReqAtomType">Calendar</GenRule>
+	<GenRule GenDef="TokenDef" Name="implJavaReqAtomType">String</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="implJavaReqAtomType">String</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="implJavaReqAtomType">String</GenRule>
+	<GenRule GenDef="TZDateDef" Name="implJavaReqAtomType">Calendar</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="implJavaReqAtomType">Calendar</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="implJavaReqAtomType">Calendar</GenRule>
+	<GenRule GenDef="UuidDef" Name="implJavaReqAtomType">UUID</GenRule>
+	<GenRule GenDef="UuidGen" Name="implJavaReqAtomType">UUID</GenRule>
+
+	<GenRule GenDef="BlobDef" Name="implJavaOptAtomType">byte[]</GenRule>
+	<GenRule GenDef="BoolDef" Name="implJavaOptAtomType">Boolean</GenRule>
+	<GenRule GenDef="EnumDef" Name="implJavaOptAtomType">I$EffSchemaName$Schema.$Name$</GenRule>
+	<GenRule GenDef="Int16Def" Name="implJavaOptAtomType">Short</GenRule>
+	<GenRule GenDef="Int32Def" Name="implJavaOptAtomType">Integer</GenRule>
+	<GenRule GenDef="Int64Def" Name="implJavaOptAtomType">Long</GenRule>
+	<GenRule GenDef="Id16Gen" Name="implJavaOptAtomType">Short</GenRule>
+	<GenRule GenDef="Id32Gen" Name="implJavaOptAtomType">Integer</GenRule>
+	<GenRule GenDef="Id64Gen" Name="implJavaOptAtomType">Long</GenRule>
+	<GenRule GenDef="UInt16Def" Name="implJavaOptAtomType">Integer</GenRule>
+	<GenRule GenDef="UInt32Def" Name="implJavaOptAtomType">Long</GenRule>
+	<GenRule GenDef="UInt64Def" Name="implJavaOptAtomType">BigDecimal</GenRule>
+	<GenRule GenDef="FloatDef" Name="implJavaOptAtomType">Float</GenRule>
+	<GenRule GenDef="DoubleDef" Name="implJavaOptAtomType">Double</GenRule>
+	<GenRule GenDef="NumberDef" Name="implJavaOptAtomType">BigDecimal</GenRule>
+	<GenRule GenDef="StringDef" Name="implJavaOptAtomType">String</GenRule>
+	<GenRule GenDef="TextDef" Name="implJavaOptAtomType">String</GenRule>
+	<GenRule GenDef="DateDef" Name="implJavaOptAtomType">Calendar</GenRule>
+	<GenRule GenDef="TimeDef" Name="implJavaOptAtomType">Calendar</GenRule>
+	<GenRule GenDef="TimestampDef" Name="implJavaOptAtomType">Calendar</GenRule>
+	<GenRule GenDef="TokenDef" Name="implJavaOptAtomType">String</GenRule>
+	<GenRule GenDef="NmTokenDef" Name="implJavaOptAtomType">String</GenRule>
+	<GenRule GenDef="NmTokensDef" Name="implJavaOptAtomType">String</GenRule>
+	<GenRule GenDef="TZDateDef" Name="implJavaOptAtomType">Calendar</GenRule>
+	<GenRule GenDef="TZTimeDef" Name="implJavaOptAtomType">Calendar</GenRule>
+	<GenRule GenDef="TZTimestampDef" Name="implJavaOptAtomType">Calendar</GenRule>
+	<GenRule GenDef="UuidDef" Name="implJavaOptAtomType">UUID</GenRule>
+	<GenRule GenDef="UuidGen" Name="implJavaOptAtomType">UUID</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implColumnGetterSetter"
+		>$reference Column implColumnGetterSetter$</GenRule>
+
+	<GenRule GenDef="Object" Name="implRevisionGetterSetter">
+	public int getRequiredRevision() {
+		return( requiredRevision );
+	}
+
+	public void setRequiredRevision( int value ) {
+		requiredRevision = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implClassCodeGetterSetter">
+	public String getClassCode() {
+		return( classCode );
+	}
+
+	public void setClassCode( String value ) {
+		classCode = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implColumnGetterSetter"
+		>$switch IsNullable yes implOptGetterSetter default implReqGetterSetter$</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqGetterSetter"
+		>$switch BaseModelAtomClass
+			BlobDef implReqBlobGetterSetter
+			BoolDef implReqBoolGetterSetter
+			EnumDef implReqEnumGetterSetter
+			Id16Gen implReqInt16GetterSetter
+			Id32Gen implReqInt32GetterSetter
+			Id64Gen implReqInt64GetterSetter
+			Int16Def implReqInt16GetterSetter
+			Int32Def implReqInt32GetterSetter
+			Int64Def implReqInt64GetterSetter
+			UInt16Def implReqUInt16GetterSetter
+			UInt32Def implReqUInt32GetterSetter
+			UInt64Def implReqUInt64GetterSetter
+			FloatDef implReqFloatGetterSetter
+			DoubleDef implReqDoubleGetterSetter
+			NumberDef implReqNumberGetterSetter
+			DateDef implReqDateGetterSetter
+			TimeDef implReqTimeGetterSetter
+			TimestampDef implReqTimestampGetterSetter
+			TZDateDef implReqTZDateGetterSetter
+			TZTimeDef implReqTZTimeGetterSetter
+			TZTimestampDef implReqTZTimestampGetterSetter
+			UuidGen implReqUuidGetterSetter
+			UuidDef implReqUuidGetterSetter
+			StringDef implReqStringGetterSetter
+			TokenDef implReqTokenGetterSetter
+			NmTokenDef implReqNmTokenGetterSetter
+			NmTokensDef implReqNmTokensGetterSetter
+			TextDef implReqTextGetterSetter
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declMinValue"
+		>$switch BaseModelAtomClass
+			BlobDef declBlobMinValue
+			BoolDef declBoolMinValue
+			EnumDef declEnumMinValue
+			Id16Gen declInt16MinValue
+			Id32Gen declInt32MinValue
+			Id64Gen declInt64MinValue
+			Int16Def declInt16MinValue
+			Int32Def declInt32MinValue
+			Int64Def declInt64MinValue
+			UInt16Def declUInt16MinValue
+			UInt32Def declUInt32MinValue
+			UInt64Def declUInt64MinValue
+			FloatDef declFloatMinValue
+			DoubleDef declDoubleMinValue
+			NumberDef declNumberMinValue
+			DateDef declDateMinValue
+			TimeDef declTimeMinValue
+			TimestampDef declTimestampMinValue
+			TZDateDef declTZDateMinValue
+			TZTimeDef declTZTimeMinValue
+			TZTimestampDef declTZTimestampMinValue
+			UuidGen declUuidMinValue
+			UuidDef declUuidMinValue
+			StringDef declStringMinValue
+			TokenDef declTokenMinValue
+			NmTokenDef declNmTokenMinValue
+			NmTokensDef declNmTokensMinValue
+			TextDef declTextMinValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declMaxValue"
+		>$switch BaseModelAtomClass
+			BlobDef declBlobMaxValue
+			BoolDef declBoolMaxValue
+			EnumDef declEnumMaxValue
+			Id16Gen declInt16MaxValue
+			Id32Gen declInt32MaxValue
+			Id64Gen declInt64MaxValue
+			Int16Def declInt16MaxValue
+			Int32Def declInt32MaxValue
+			Int64Def declInt64MaxValue
+			UInt16Def declUInt16MaxValue
+			UInt32Def declUInt32MaxValue
+			UInt64Def declUInt64MaxValue
+			FloatDef declFloatMaxValue
+			DoubleDef declDoubleMaxValue
+			NumberDef declNumberMaxValue
+			DateDef declDateMaxValue
+			TimeDef declTimeMaxValue
+			TimestampDef declTimestampMaxValue
+			TZDateDef declTZDateMaxValue
+			TZTimeDef declTZTimeMaxValue
+			TZTimestampDef declTZTimestampMaxValue
+			UuidGen declUuidMaxValue
+			UuidDef declUuidMaxValue
+			StringDef declStringMaxValue
+			TokenDef declTokenMaxValue
+			NmTokenDef declNmTokenMaxValue
+			NmTokensDef declNmTokensMaxValue
+			TextDef declTextMaxValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declInitValue"
+		>$switch BaseModelAtomClass
+			BlobDef declBlobInitValue
+			BoolDef declBoolInitValue
+			EnumDef declEnumInitValue
+			Id16Gen declInt16InitValue
+			Id32Gen declInt32InitValue
+			Id64Gen declInt64InitValue
+			Int16Def declInt16InitValue
+			Int32Def declInt32InitValue
+			Int64Def declInt64InitValue
+			UInt16Def declUInt16InitValue
+			UInt32Def declUInt32InitValue
+			UInt64Def declUInt64InitValue
+			FloatDef declFloatInitValue
+			DoubleDef declDoubleInitValue
+			NumberDef declNumberInitValue
+			DateDef declDateInitValue
+			TimeDef declTimeInitValue
+			TimestampDef declTimestampInitValue
+			TZDateDef declTZDateInitValue
+			TZTimeDef declTZTimeInitValue
+			TZTimestampDef declTZTimestampInitValue
+			UuidGen declUuidInitValue
+			UuidDef declUuidInitValue
+			StringDef declStringInitValue
+			TokenDef declTokenInitValue
+			NmTokenDef declNmTokenInitValue
+			NmTokensDef declNmTokensInitValue
+			TextDef declTextInitValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="declBlobMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declBlobMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declBlobInitValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="implReqBlobGetterSetter">
+	public byte[] get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( byte[] value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declBoolMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declBoolMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declBoolInitValue">
+	public final static boolean $upper Name$_INIT_VALUE = $switch InitValue yes true default false$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqBoolGetterSetter">
+	public boolean get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( boolean value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="Zero">0</GenRule>
+
+	<GenRule GenDef="Value" Name="declEnumMinValue">
+	public static final I$reference DataType EffSchemaName$Schema.$reference DataType Name$ $upper Name$_MIN_VALUE = I$reference DataType EffSchemaName$Schema.$reference DataType Name$.$reference DataType iterate Tag( first declEnumMinValueEmitTagName each empty )$;</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="declEnumMinValueEmitTagName"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="declEnumMaxValue">
+	public static final I$reference DataType EffSchemaName$Schema.$reference DataType Name$ $upper Name$_MAX_VALUE = I$reference DataType EffSchemaName$Schema.$reference DataType Name$.$reference DataType iterate Tag( last declEnumMaxValueEmitTagName each empty )$;</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="declEnumMaxValueEmitTagName"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="declEnumInitValue">
+	public static final I$reference DataType EffSchemaName$Schema.$reference DataType Name$ $upper Name$_INIT_VALUE = $switch IsNullable yes declEnumInitValueNull default declEnumInitValueAlways$;</GenRule>
+
+	<GenRule GenDef="Value" Name="declEnumInitValueNull"
+		>null</GenRule>
+
+	<GenRule GenDef="Value" Name="declEnumInitValueAlways"
+		>$switch HasInitValue yes declEnumInitValueConvertOrdinal default declEnumInitValueUseFirst$</GenRule>
+
+	<GenRule GenDef="Value" Name="declEnumInitValueConvertOrdinal"
+		>$reference DataType EffSchemaName$Schema.ordinalTo$reference DataType Name$( $InitValue$ )</GenRule>
+
+	<GenRule GenDef="Value" Name="declEnumInitValueUseFirst"
+		>I$reference DataType EffSchemaName$Schema.$reference DataType Name$.$reference DataType iterate Tag( first declEnumInitValueUseFirstTagName each empty )$</GenRule>
+
+	<GenRule GenDef="EnumTag" Name="declEnumInitValueUseFirstTagName"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqEnumGetterSetter">
+	public I$reference DataType EffSchemaName$Schema.$reference DataType Name$ get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( I$reference DataType EffSchemaName$Schema.$reference DataType Name$ value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt16MinValue">
+	public static final short $upper Name$_MIN_VALUE = (short)$MinValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt16MaxValue">
+	public static final short $upper Name$_MAX_VALUE = (short)$MaxValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt16InitValue">
+	public static final short $upper Name$_INIT_VALUE = (short)$switch HasInitValue yes InitValue default Zero$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqInt16GetterSetter">
+	public short get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( short value ) {$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt32MinValue">
+	public static final int $upper Name$_MIN_VALUE = $MinValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt32MaxValue">
+	public static final int $upper Name$_MAX_VALUE = $MaxValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt32InitValue">
+	public static final int $upper Name$_INIT_VALUE = $switch HasInitValue yes InitValue default Zero$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqInt32GetterSetter">
+	public int get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( int value ) {$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt64MinValue">
+	public static final long $upper Name$_MIN_VALUE = $MinValue$L;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt64MaxValue">
+	public static final long $upper Name$_MAX_VALUE = $MaxValue$L;</GenRule>
+
+	<GenRule GenDef="Value" Name="declInt64InitValue">
+	public static final long $upper Name$_INIT_VALUE = $switch HasInitValue yes InitValue default Zero$L;</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqInt64GetterSetter">
+	public long get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( long value ) {$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt16MinValue">
+	public static final int $upper Name$_MIN_VALUE = $MinValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt16MaxValue">
+	public static final int $upper Name$_MAX_VALUE = $MaxValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt16InitValue">
+	public static final int $upper Name$_INIT_VALUE = $switch HasInitValue yes InitValue default Zero$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqUInt16GetterSetter">
+	public int get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( int value ) {$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt32MinValue">
+	public static final long $upper Name$_MIN_VALUE = $MinValue$L;</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt32MaxValue">
+	public static final long $upper Name$_MAX_VALUE = $MaxValue$L;</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt32InitValue">
+	public static final long $upper Name$_INIT_VALUE = $switch HasInitValue yes InitValue default Zero$L;</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqUInt32GetterSetter">
+	public long get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( long value ) {$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt64MinValue">
+	public static final BigDecimal $upper Name$_MIN_VALUE = CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", 19, 0, "$MinValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt64MaxValue">
+	public static final BigDecimal $upper Name$_MAX_VALUE = CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", 19, 0, "$MaxValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="declUInt64InitValue">
+	public static final BigDecimal $upper Name$_INIT_VALUE = CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", 19, 0, "$switch HasInitValue yes InitValue default Zero$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqUInt64GetterSetter">
+	public BigDecimal get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( BigDecimal value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = CFLibBigDecimalUtil.coerce( getClass().getName() + ".$Name$", 19, 0, value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declFloatMinValue">
+	public static final float $upper Name$_MIN_VALUE = (float)$MinValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="declFloatMaxValue">
+	public static final float $upper Name$_MAX_VALUE = (float)$MaxValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="declFloatInitValue">
+	public static final float $upper Name$_INIT_VALUE = (float)$switch HasInitValue yes InitValue default Zero$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqFloatGetterSetter">
+	public float get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( float value ) {$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declDoubleMinValue">
+	public static final double $upper Name$_MIN_VALUE = $MinValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="declDoubleMaxValue">
+	public static final double $upper Name$_MAX_VALUE = $MaxValue$;</GenRule>
+
+	<GenRule GenDef="Value" Name="declDoubleInitValue">
+	public static final double $upper Name$_INIT_VALUE = $switch HasInitValue yes InitValue default Zero$;</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqDoubleGetterSetter">
+	public double get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( double value ) {$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declNumberMinValue">
+	public static final BigDecimal $upper Name$_MIN_VALUE = CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", $Digits$, $Precis$, "$MinValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="declNumberMaxValue">
+	public static final BigDecimal $upper Name$_MAX_VALUE = CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", $Digits$, $Precis$, "$MaxValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="declNumberInitValue">
+	public static final BigDecimal $upper Name$_INIT_VALUE = CFLibBigDecimalUtil.parse( "$EffSchemaName$.$TableName$.$Name$", $Digits$, $Precis$, "$switch HasInitValue yes InitValue default Zero$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqNumberGetterSetter">
+	public BigDecimal get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( BigDecimal value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = CFLibBigDecimalUtil.coerce( getClass().getName() + ".$Name$", $Digits$, $Precis$, value );
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declDateMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declDateMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declDateInitValue">
+	public static final Calendar $upper Name$_INIT_VALUE = CFLib.getUTCGregorianCalendar( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqDateGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTimeMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTimeMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTimeInitValue">
+	public static final Calendar $upper Name$_INIT_VALUE = CFLib.getUTCGregorianCalendar( 1970, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqTimeGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTimestampMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTimestampMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTimestampInitValue">
+	public static final Calendar $upper Name$_INIT_VALUE = CFLib.getUTCGregorianCalendar( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqTimestampGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTZDateMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZDateMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZDateInitValue">
+	public static final Calendar $upper Name$_INIT_VALUE = CFLib.getUTCGregorianCalendar( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqTZDateGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimeMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimeMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimeInitValue">
+	public static final Calendar $upper Name$_INIT_VALUE = CFLib.getUTCGregorianCalendar( 1970, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqTZTimeGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimestampMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimestampMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTZTimestampInitValue">
+	public static final Calendar $upper Name$_INIT_VALUE = CFLib.getUTCGregorianCalendar( 2020, 0, 1, 0, 0, 0 );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqTZTimestampGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}$switch HasMinValue yes implReqSetterCheckMinValue default empty$$switch HasMaxValue yes implReqSetterCheckMaxValue default empty$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declUuidMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declUuidMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declUuidInitValue">
+	public static final UUID $upper Name$_INIT_VALUE = UUID.fromString( "$InitValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqUuidGetterSetter">
+	public UUID get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( UUID value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declStringMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declStringMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declStringInitValue">
+	public static final String $upper Name$_INIT_VALUE = new String( "$InitValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqStringGetterSetter">
+	public String get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( String value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}$implReqSetterCheckMaxLen$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTokenMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTokenMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTokenInitValue">
+	public static final String $upper Name$_INIT_VALUE = new String( "$InitValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqTokenGetterSetter">
+	public String get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( String value ) {
+		if( ( value == null ) || ( value.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}$implReqSetterCheckMaxLen$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokenMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokenMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokenInitValue">
+	public static final String $upper Name$_INIT_VALUE = new String( "$InitValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqNmTokenGetterSetter">
+	public String get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( String value ) {
+		if( ( value == null ) || ( value.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}$implReqSetterCheckMaxLen$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokensMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokensMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declNmTokensInitValue">
+	public static final String $upper Name$_INIT_VALUE = new String( "$InitValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqNmTokensGetterSetter">
+	public String get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( String value ) {
+		if( ( value == null ) || ( value.length() &lt;= 0 ) ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}$implReqSetterCheckMaxLen$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="declTextMinValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTextMaxValue"></GenRule>
+
+	<GenRule GenDef="Value" Name="declTextInitValue">
+	public static final String $upper Name$_INIT_VALUE = new String( "$InitValue$" );</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqTextGetterSetter">
+	public String get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( String value ) {
+		if( value == null ) {
+			throw new CFLibNullArgumentException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value" );
+		}$implReqSetterCheckMaxLen$
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqSetterCheckMaxLen">
+		if( value.length() &gt; $MaxLen$ ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value.length()",
+				value.length(),
+				$MaxLen$ );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqSetterCheckMinValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef empty
+			EnumDef empty
+			Id16Gen implReqSetterCheckGenericMinValue
+			Id32Gen implReqSetterCheckGenericMinValue
+			Id64Gen implReqSetterCheckGenericMinValue
+			Int16Def implReqSetterCheckGenericMinValue
+			Int32Def implReqSetterCheckGenericMinValue
+			Int64Def implReqSetterCheckGenericMinValue
+			UInt16Def implReqSetterCheckGenericMinValue
+			UInt32Def implReqSetterCheckGenericMinValue
+			UInt64Def implReqSetterCheckObjectMinValue
+			FloatDef implReqSetterCheckGenericMinValue
+			DoubleDef implReqSetterCheckGenericMinValue
+			NumberDef implReqSetterCheckObjectMinValue
+			DateDef implReqSetterCheckObjectMinValue
+			TimeDef empty
+			TimestampDef implReqSetterCheckObjectMinValue
+			TZDateDef implReqSetterCheckObjectMinValue
+			TZTimeDef empty
+			TZTimestampDef implReqSetterCheckObjectMinValue
+			UuidGen empty
+			UuidDef empty
+			StringDef empty
+			TokenDef empty
+			NmTokenDef empty
+			NmTokensDef empty
+			TextDef empty
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqSetterCheckGenericMinValue">
+		if( value &lt; $DefSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE ) {
+			throw new CFLibArgumentUnderflowException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value",
+				value,
+				$DefSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqSetterCheckObjectMinValue">
+		if( value.compareTo( $DefSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE ) &lt; 0 ) {
+			throw new CFLibArgumentUnderflowException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value",
+				value.toString(),
+				$DefSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE.toString() );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqSetterCheckMaxValue"
+		>$switch BaseModelAtomClass
+			BoolDef empty
+			Id16Gen implReqSetterCheckGenericMaxValue
+			Id32Gen implReqSetterCheckGenericMaxValue
+			Id64Gen implReqSetterCheckGenericMaxValue
+			Int16Def implReqSetterCheckGenericMaxValue
+			Int32Def implReqSetterCheckGenericMaxValue
+			Int64Def implReqSetterCheckGenericMaxValue
+			UInt16Def implReqSetterCheckGenericMaxValue
+			UInt32Def implReqSetterCheckGenericMaxValue
+			UInt64Def implReqSetterCheckObjectMaxValue
+			FloatDef implReqSetterCheckGenericMaxValue
+			DoubleDef implReqSetterCheckGenericMaxValue
+			NumberDef implReqSetterCheckObjectMaxValue
+			DateDef implReqSetterCheckObjectMaxValue
+			TimeDef empty
+			TimestampDef implReqSetterCheckObjectMaxValue
+			TZDateDef implReqSetterCheckObjectMaxValue
+			TZTimeDef empty
+			TZTimestampDef implReqSetterCheckObjectMaxValue
+			StringDef empty
+			TokenDef empty
+			NmTokenDef empty
+			NmTokensDef empty
+			TextDef empty
+			UuidGen empty
+			UuidDef empty
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqSetterCheckGenericMaxValue">
+		if( value &gt; $DefSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value",
+				value,
+				$DefSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implReqSetterCheckObjectMaxValue">
+		if( value.compareTo( $DefSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE ) &gt; 0 ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value",
+				value.toString(),
+				$DefSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE.toString() );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptGetterSetter"
+		>$switch BaseModelAtomClass
+			BlobDef implOptBlobGetterSetter
+			BoolDef implOptBoolGetterSetter
+			EnumDef implOptEnumGetterSetter
+			Id16Gen implOptInt16GetterSetter
+			Id32Gen implOptInt32GetterSetter
+			Id64Gen implOptInt64GetterSetter
+			Int16Def implOptInt16GetterSetter
+			Int32Def implOptInt32GetterSetter
+			Int64Def implOptInt64GetterSetter
+			UInt16Def implOptUInt16GetterSetter
+			UInt32Def implOptUInt32GetterSetter
+			UInt64Def implOptUInt64GetterSetter
+			FloatDef implOptFloatGetterSetter
+			DoubleDef implOptDoubleGetterSetter
+			NumberDef implOptNumberGetterSetter
+			DateDef implOptDateGetterSetter
+			TimeDef implOptTimeGetterSetter
+			TimestampDef implOptTimestampGetterSetter
+			TZDateDef implOptTZDateGetterSetter
+			TZTimeDef implOptTZTimeGetterSetter
+			TZTimestampDef implOptTZTimestampGetterSetter
+			UuidGen implOptUuidGetterSetter
+			UuidDef implOptUuidGetterSetter
+			StringDef implOptStringGetterSetter
+			TokenDef implOptTokenGetterSetter
+			NmTokenDef implOptNmTokenGetterSetter
+			NmTokensDef implOptNmTokensGetterSetter
+			TextDef implOptTextGetterSetter
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptBlobGetterSetter">
+	public byte[] get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( byte[] value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}
+		else if( value.length > $MaxLen$ ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value.length",
+				value.length,
+				$MaxLen$ );
+		}
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptBoolGetterSetter">
+	public Boolean get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Boolean value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptEnumGetterSetter">
+	public I$reference DataType EffSchemaName$Schema.$reference DataType Name$ get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( I$reference DataType EffSchemaName$Schema.$reference DataType Name$ value ) {
+		$lower implColumnAttrOptionality$$Name$ = value;
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptInt16GetterSetter">
+	public Short get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Short value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptInt32GetterSetter">
+	public Integer get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Integer value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptInt64GetterSetter">
+	public Long get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Long value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptUInt16GetterSetter">
+	public Integer get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Integer value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptUInt32GetterSetter">
+	public Long get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Long value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptUInt64GetterSetter">
+	public BigDecimal get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( BigDecimal value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = CFLibBigDecimalUtil.coerce( getClass().getName() + ".$Name$", 19, 0, value );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptFloatGetterSetter">
+	public Float get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Float value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptDoubleGetterSetter">
+	public Double get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Double value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptNumberGetterSetter">
+	public BigDecimal get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( BigDecimal value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = CFLibBigDecimalUtil.coerce( getClass().getName() + ".$Name$", $Digits$, $Precis$, value );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptDateGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptTimeGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptTimestampGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptTZDateGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptTZTimeGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptTZTimestampGetterSetter">
+	public Calendar get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( Calendar value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$switch HasMinValue yes implOptSetterCheckMinValue default empty$$switch HasMaxValue yes implOptSetterCheckMaxValue default empty$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptUuidGetterSetter">
+	public UUID get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( UUID value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptStringGetterSetter">
+	public String get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( String value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$implOptSetterCheckMaxLen$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptTokenGetterSetter">
+	public String get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( String value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$implOptSetterCheckMaxLen$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptNmTokenGetterSetter">
+	public String get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( String value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$implOptSetterCheckMaxLen$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptNmTokensGetterSetter">
+	public String get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( String value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$implOptSetterCheckMaxLen$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptTextGetterSetter">
+	public String get$implColumnAttrOptionality$$Name$() {
+		return( $lower implColumnAttrOptionality$$Name$ );
+	}
+
+	public void set$implColumnAttrOptionality$$Name$( String value ) {
+		if( value == null ) {
+			$lower implColumnAttrOptionality$$Name$ = null;
+		}$implOptSetterCheckMaxLen$
+		else {
+			$lower implColumnAttrOptionality$$Name$ = value;
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptSetterCheckMaxLen">
+		else if( value.length() &gt; $MaxLen$ ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value.length()",
+				value.length(),
+				$MaxLen$ );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptSetterCheckMinValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef empty
+			EnumDef empty
+			Id16Gen implOptSetterCheckGenericMinValue
+			Id32Gen implOptSetterCheckGenericMinValue
+			Id64Gen implOptSetterCheckGenericMinValue
+			Int16Def implOptSetterCheckGenericMinValue
+			Int32Def implOptSetterCheckGenericMinValue
+			Int64Def implOptSetterCheckGenericMinValue
+			UInt16Def implOptSetterCheckGenericMinValue
+			UInt32Def implOptSetterCheckGenericMinValue
+			UInt64Def implOptSetterCheckObjectMinValue
+			FloatDef implOptSetterCheckGenericMinValue
+			DoubleDef implOptSetterCheckGenericMinValue
+			NumberDef implOptSetterCheckObjectMinValue
+			DateDef implOptSetterCheckObjectMinValue
+			TimeDef empty
+			TimestampDef implOptSetterCheckObjectMinValue
+			TZDateDef implOptSetterCheckObjectMinValue
+			TZTimeDef empty
+			TZTimestampDef implOptSetterCheckObjectMinValue
+			UuidGen empty
+			UuidDef empty
+			StringDef implOptSetterCheckObjectMinValue
+			TokenDef implOptSetterCheckObjectMinValue
+			NmTokenDef implOptSetterCheckObjectMinValue
+			NmTokensDef implOptSetterCheckObjectMinValue
+			TextDef implOptSetterCheckObjectMinValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptSetterCheckGenericMinValue">
+		else if( value &lt; $DefSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE ) {
+			throw new CFLibArgumentUnderflowException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value",
+				value,
+				$DefSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptSetterCheckObjectMinValue">
+		else if( value.compareTo( $DefSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE ) &lt; 0 ) {
+			throw new CFLibArgumentUnderflowException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value",
+				value.toString(),
+				$DefSchemaName$$TableName$Buff.$upper Name$_MIN_VALUE.toString() );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptSetterCheckMaxValue"
+		>$switch BaseModelAtomClass
+			BlobDef empty
+			BoolDef empty
+			EnumDef empty
+			Id16Gen implOptSetterCheckGenericMaxValue
+			Id32Gen implOptSetterCheckGenericMaxValue
+			Id64Gen implOptSetterCheckGenericMaxValue
+			Int16Def implOptSetterCheckGenericMaxValue
+			Int32Def implOptSetterCheckGenericMaxValue
+			Int64Def implOptSetterCheckGenericMaxValue
+			UInt16Def implOptSetterCheckGenericMaxValue
+			UInt32Def implOptSetterCheckGenericMaxValue
+			UInt64Def implOptSetterCheckObjectMaxValue
+			FloatDef implOptSetterCheckGenericMaxValue
+			DoubleDef implOptSetterCheckGenericMaxValue
+			NumberDef implOptSetterCheckObjectMaxValue
+			DateDef implOptSetterCheckObjectMaxValue
+			TimeDef empty
+			TimestampDef implOptSetterCheckObjectMaxValue
+			TZDateDef implOptSetterCheckObjectMaxValue
+			TZTimeDef empty
+			TZTimestampDef implOptSetterCheckObjectMaxValue
+			UuidGen empty
+			UuidDef empty
+			StringDef implOptSetterCheckObjectMaxValue
+			TokenDef implOptSetterCheckObjectMaxValue
+			NmTokenDef implOptSetterCheckObjectMaxValue
+			NmTokensDef implOptSetterCheckObjectMaxValue
+			TextDef implOptSetterCheckObjectMaxValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptSetterCheckGenericMaxValue">
+		else if( value &gt; $DefSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value",
+				value,
+				$DefSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE );
+		}</GenRule>
+
+	<GenRule GenDef="Value" Name="implOptSetterCheckObjectMaxValue">
+		else if( value.compareTo( $DefSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE ) &gt; 0 ) {
+			throw new CFLibArgumentOverflowException( getClass(),
+				"set$implColumnAttrOptionality$$Name$",
+				1,
+				"value",
+				value.toString(),
+				$DefSchemaName$$TableName$Buff.$upper Name$_MAX_VALUE.toString() );
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implPKeyEquals">
+	public boolean equals( Object obj ) {
+		if( obj == null ) {
+			return( false );
+		}
+		else if( obj instanceof $SchemaName$$TableName$HPKey ) {
+			$SchemaName$$TableName$HPKey rhs = ($SchemaName$$TableName$HPKey)obj;$iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}
+		else if( obj instanceof $SchemaName$$TableName$PKey ) {
+			$SchemaName$$TableName$PKey rhs = ($SchemaName$$TableName$PKey)obj;$iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}
+		else if( obj instanceof $SchemaName$$TableName$HBuff ) {
+			$SchemaName$$TableName$HBuff rhs = ($SchemaName$$TableName$HBuff)obj;$iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}
+		else if( obj instanceof $SchemaName$$TableName$Buff ) {
+			$SchemaName$$TableName$Buff rhs = ($SchemaName$$TableName$Buff)obj;$iterate Columns( each implEqualsCmpAttr)$
+			return( true );
+		}
+		else {
+			return( false );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implEqualsCmpAttr"
+		>$switch IsNullable yes implEqualsCmpOpt default implEqualsCmpReq$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implEqualsCmpOpt"
+		>$reference Column implEqualsCmpOpt$</GenRule>
+
+	<GenRule GenDef="Object" Name="implEqualsCmpOpt"
+		>$switch BaseModelAtomClass
+			BlobDef implEqualsCmpOptBlobVar
+			BoolDef implEqualsCmpOptBoolVar
+			EnumDef implEqualsCmpOptEnumVar
+			Int16Def implEqualsCmpOptInt16Var
+			Int32Def implEqualsCmpOptInt32Var
+			Int64Def implEqualsCmpOptInt64Var
+			UInt16Def implEqualsCmpOptUInt16Var
+			UInt32Def implEqualsCmpOptUInt32Var
+			UInt64Def implEqualsCmpOptUInt64Var
+			Id16Gen implEqualsCmpOptId16GenVar
+			Id32Gen implEqualsCmpOptId32GenVar
+			Id64Gen implEqualsCmpOptId64GenVar
+			FloatDef implEqualsCmpOptFloatVar
+			DoubleDef implEqualsCmpOptDoubleVar
+			NumberDef implEqualsCmpOptNumberVar
+			StringDef implEqualsCmpOptStringVar
+			TokenDef implEqualsCmpOptTokenVar
+			NmTokenDef implEqualsCmpOptNmTokenVar
+			NmTokensDef implEqualsCmpOptNmTokensVar
+			TextDef implEqualsCmpOptTextVar
+			DateDef implEqualsCmpOptDateVar
+			TimeDef implEqualsCmpOptTimeVar
+			TimestampDef implEqualsCmpOptTimestampVar
+			TZDateDef implEqualsCmpOptTZDateVar
+			TZTimeDef implEqualsCmpOptTZTimeVar
+			TZTimestampDef implEqualsCmpOptTZTimestampVar
+			UuidDef implEqualsCmpOptUuidVar
+			UuidGen implEqualsCmpOptUuidVar
+			default error$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptBlobVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+						return( false );
+					}
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( false );
+				}
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptBoolVar"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptEnumVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+						return( false );
+					}
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( false );
+				}
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptInt16Var"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptInt32Var"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptInt64Var"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptUInt16Var"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptUInt32Var"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptUInt64Var"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptId16GenVar"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptId32GenVar"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptId64GenVar"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptFloatVar"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptDoubleVar"
+		>$implEqualsCmpOptValue$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptNumberVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+						return( false );
+					}
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( false );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implEqualsCmpOptStringVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+						return( false );
+					}
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( false );
+				}
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptTokenVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+						return( false );
+					}
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( false );
+				}
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptNmTokenVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+						return( false );
+					}
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( false );
+				}
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptNmTokensVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+						return( false );
+					}
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( false );
+				}
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptTextVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+						return( false );
+					}
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( false );
+				}
+			}</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptDateVar"
+		>$implEqualsCmpOptObj$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptTimeVar"
+		>$implEqualsCmpOptObj$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptTimestampVar"
+		>$implEqualsCmpOptObj$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptTZDateVar"
+		>$implEqualsCmpOptObj$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptTZTimeVar"
+		>$implEqualsCmpOptObj$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptTZTimestampVar"
+		>$implEqualsCmpOptObj$</GenRule>
+	<GenRule GenDef="Value" Name="implEqualsCmpOptUuidVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+						return( false );
+					}
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( false );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implEqualsCmpOptValue">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+						return( false );
+					}
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( false );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Value" Name="implEqualsCmpOptObj">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+						return( false );
+					}
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( false );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implEqualsCmpReq"
+		>$reference Column implEqualsCmpReq$</GenRule>
+
+	<GenRule GenDef="Value" Name="implEqualsCmpReq"
+		>$switch BaseModelAtomClass
+			BlobDef implEqualsCmpReqBlobVar
+			BoolDef implEqualsCmpReqBoolVar
+			EnumDef implEqualsCmpReqEnumVar
+			Int16Def implEqualsCmpReqInt16Var
+			Int32Def implEqualsCmpReqInt32Var
+			Int64Def implEqualsCmpReqInt64Var
+			UInt16Def implEqualsCmpReqUInt16Var
+			UInt32Def implEqualsCmpReqUInt32Var
+			UInt64Def implEqualsCmpReqUInt64Var
+			Id16Gen implEqualsCmpReqId16GenVar
+			Id32Gen implEqualsCmpReqId32GenVar
+			Id64Gen implEqualsCmpReqId64GenVar
+			FloatDef implEqualsCmpReqFloatVar
+			DoubleDef implEqualsCmpReqDoubleVar
+			NumberDef implEqualsCmpReqNumberVar
+			StringDef implEqualsCmpReqStringVar
+			TokenDef implEqualsCmpReqTokenVar
+			NmTokenDef implEqualsCmpReqNmTokenVar
+			NmTokensDef implEqualsCmpReqNmTokensVar
+			TextDef implEqualsCmpReqTextVar
+			DateDef implEqualsCmpReqDateVar
+			TimeDef implEqualsCmpReqTimeVar
+			TimestampDef implEqualsCmpReqTimestampVar
+			TZDateDef implEqualsCmpReqTZDateVar
+			TZTimeDef implEqualsCmpReqTZTimeVar
+			TZTimestampDef implEqualsCmpReqTZTimestampVar
+			UuidDef implEqualsCmpReqUuidVar
+			UuidGen implEqualsCmpReqUuidVar
+			default error$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqBlobVar"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqBoolVar"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqEnumVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqInt16Var"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqInt32Var"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqInt64Var"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqUInt16Var"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqUInt32Var"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqUInt64Var"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqId16GenVar"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqId32GenVar"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqId64GenVar"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqFloatVar"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqDoubleVar"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqNumberVar"
+		>$implEqualsCmpReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqStringVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqTokenVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqNmTokenVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqNmTokensVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqTextVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqDateVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqTimeVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqTimestampVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqTZDateVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqTZTimeVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqTZTimestampVar"
+		>$implEqualsCmpReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implEqualsCmpReqUuidVar"
+		>$implEqualsCmpReqObj$</GenRule>
+
+	<GenRule GenDef="Object" Name="implEqualsCmpReqValue">
+			if( get$implColumnAttrOptionality$$Name$() != rhs.get$implColumnAttrOptionality$$Name$() ) {
+				return( false );
+			}</GenRule>
+
+	<GenRule GenDef="Object" Name="implEqualsCmpReqObj">
+			if( ! get$implColumnAttrOptionality$$Name$().equals( rhs.get$implColumnAttrOptionality$$Name$() ) ) {
+				return( false );
+			}</GenRule>
+
+	<GenRule GenDef="Index" Name="implPKeyGetHashCode">
+	public int hashCode() {
+		int hashCode = 0;$iterate Columns( each implGetHashCodeAttr )$
+		return( hashCode &amp; 0x7fffffff );
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeAttr"
+		>$switch IsNullable yes implGetHashCodeOpt default implGetHashCodeReq$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implGetHashCodeOpt"
+		>$reference Column implGetHashCodeOpt$</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOpt"
+		>$switch BaseModelAtomClass
+			BlobDef implGetHashCodeOptBlobVar
+			BoolDef implGetHashCodeOptBoolVar
+			EnumDef implGetHashCodeOptEnumVar
+			Int16Def implGetHashCodeOptInt16Var
+			Int32Def implGetHashCodeOptInt32Var
+			Int64Def implGetHashCodeOptInt64Var
+			UInt16Def implGetHashCodeOptUInt16Var
+			UInt32Def implGetHashCodeOptUInt32Var
+			UInt64Def implGetHashCodeOptUInt64Var
+			Id16Gen implGetHashCodeOptInt16Var
+			Id32Gen implGetHashCodeOptInt32Var
+			Id64Gen implGetHashCodeOptInt64Var
+			FloatDef implGetHashCodeOptFloatVar
+			DoubleDef implGetHashCodeOptDoubleVar
+			NumberDef implGetHashCodeOptNumberVar
+			StringDef implGetHashCodeOptStringVar
+			TokenDef implGetHashCodeOptTokenVar
+			NmTokenDef implGetHashCodeOptNmTokenVar
+			NmTokensDef implGetHashCodeOptNmTokensVar
+			TextDef implGetHashCodeOptTextVar
+			DateDef implGetHashCodeOptDateVar
+			TimeDef implGetHashCodeOptTimeVar
+			TimestampDef implGetHashCodeOptTimestampVar
+			TZDateDef implGetHashCodeOptTZDateVar
+			TZTimeDef implGetHashCodeOptTZTimeVar
+			TZTimestampDef implGetHashCodeOptTZTimestampVar
+			UuidDef implGetHashCodeOptUuidVar
+			UuidGen implGetHashCodeOptUuidVar
+			default error$</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptBlobVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptBoolVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			if( get$implColumnAttrOptionality$$Name$() ) {
+				hashCode = ( hashCode * 4 ) + 1;
+			}
+			else {
+				hashCode = hashCode * 4;
+			}
+		}
+		else {
+			hashCode = (hashCode * 4 ) + 3;
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptEnumVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = ( hashCode * 0x10000 ) + get$implColumnAttrOptionality$$Name$().ordinal();
+		}
+		else {
+			hashCode = (hashCode * 0x10000 );
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptInt16Var">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = ( hashCode * 0x10000 ) + get$implColumnAttrOptionality$$Name$();
+		}
+		else {
+			hashCode = (hashCode * 0x10000 );
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptInt32Var">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptInt64Var">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptUInt16Var">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = ( hashCode * 0x10000 ) + (int)( get$implColumnAttrOptionality$$Name$() );
+		}
+		else {
+			hashCode = (hashCode * 0x10000 );
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptUInt32Var">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptUInt64Var">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptFloatVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptDoubleVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptNumberVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptStringVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptTokenVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptNmTokenVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptNmTokensVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptTextVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+	<GenRule GenDef="Object" Name="implGetHashCodeOptDateVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptTimeVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptTimestampVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+	<GenRule GenDef="Object" Name="implGetHashCodeOptTZDateVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptTZTimeVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptTZTimestampVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeOptUuidVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implGetHashCodeReq"
+		>$reference Column implGetHashCodeReq$</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReq"
+		>$switch BaseModelAtomClass
+			BlobDef implGetHashCodeReqBlobVar
+			BoolDef implGetHashCodeReqBoolVar
+			EnumDef implGetHashCodeReqEnumVar
+			Int16Def implGetHashCodeReqInt16Var
+			Int32Def implGetHashCodeReqInt32Var
+			Int64Def implGetHashCodeReqInt64Var
+			UInt16Def implGetHashCodeReqUInt16Var
+			UInt32Def implGetHashCodeReqUInt32Var
+			UInt64Def implGetHashCodeReqUInt64Var
+			Id16Gen implGetHashCodeReqId16GenVar
+			Id32Gen implGetHashCodeReqId32GenVar
+			Id64Gen implGetHashCodeReqId64GenVar
+			FloatDef implGetHashCodeReqFloatVar
+			DoubleDef implGetHashCodeReqDoubleVar
+			NumberDef implGetHashCodeReqNumberVar
+			StringDef implGetHashCodeReqStringVar
+			TokenDef implGetHashCodeReqTokenVar
+			NmTokenDef implGetHashCodeReqNmTokenVar
+			NmTokensDef implGetHashCodeReqNmTokensVar
+			TextDef implGetHashCodeReqTextVar
+			DateDef implGetHashCodeReqDateVar
+			TimeDef implGetHashCodeReqTimeVar
+			TimestampDef implGetHashCodeReqTimestampVar
+			TZDateDef implGetHashCodeReqTZDateVar
+			TZTimeDef implGetHashCodeReqTZTimeVar
+			TZTimestampDef implGetHashCodeReqTZTimestampVar
+			UuidDef implGetHashCodeReqUuidVar
+			UuidGen implGetHashCodeReqUuidVar
+			default error$</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqBlobVar">
+		hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqBoolVar">
+		if( get$implColumnAttrOptionality$$Name$() ) {
+			hashCode = ( hashCode * 2 ) + 1;
+		}
+		else {
+			hashCode = hashCode * 2;
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqEnumVar">
+		hashCode = ( hashCode * 0x10000 ) + get$implColumnAttrOptionality$$Name$().ordinal();</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqInt16Var">
+		hashCode = ( hashCode * 0x10000 ) + get$implColumnAttrOptionality$$Name$();</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqUInt16Var">
+		hashCode = ( hashCode * 0x10000 ) + get$implColumnAttrOptionality$$Name$();</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqId16GenVar">
+		hashCode = ( hashCode * 0x10000 ) + get$implColumnAttrOptionality$$Name$();</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqInt32Var">
+		hashCode = hashCode + get$implColumnAttrOptionality$$Name$();</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqUInt32Var">
+		hashCode = hashCode + (int)( get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqId32GenVar">
+		hashCode = hashCode + get$implColumnAttrOptionality$$Name$();</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqInt64Var">
+		hashCode = hashCode + (int)( get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqUInt64Var">
+		hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqId64GenVar">
+		hashCode = hashCode + (int)( get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqFloatVar">
+		hashCode = hashCode + (int)( get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqDoubleVar">
+		hashCode = hashCode + (int)( get$implColumnAttrOptionality$$Name$() );</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqNumberVar">
+		hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqStringVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqTokenVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqNmTokenVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqNmTokensVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqTextVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqDateVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqTimeVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqTimestampVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqTZDateVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqTZTimeVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqTZTimestampVar">
+		if( get$implColumnAttrOptionality$$Name$() != null ) {
+			hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();
+		}</GenRule>
+
+	<GenRule GenDef="Object" Name="implGetHashCodeReqUuidVar">
+		hashCode = hashCode + get$implColumnAttrOptionality$$Name$().hashCode();</GenRule>
+
+	<GenRule GenDef="Index" Name="implPKeyCompareTo">
+	public int compareTo( Object obj ) {
+		if( obj == null ) {
+			return( -1 );
+		}
+		else if( obj instanceof $SchemaName$$TableName$HPKey ) {
+			$SchemaName$$TableName$HPKey rhs = ($SchemaName$$TableName$HPKey)obj;$iterate Columns( each implCompareToAttr )$
+			return( 0 );
+		}
+		else if( obj instanceof $SchemaName$$TableName$PKey ) {
+			$SchemaName$$TableName$PKey rhs = ($SchemaName$$TableName$PKey)obj;$iterate Columns( each implCompareToAttr )$
+			return( 0 );
+		}
+		else if( obj instanceof $SchemaName$$TableName$Buff ) {
+			$SchemaName$$TableName$Buff rhs = ($SchemaName$$TableName$Buff)obj;$iterate Columns( each implCompareToAttr )$
+			return( 0 );
+		}
+		else if( obj instanceof $SchemaName$$TableName$HBuff ) {
+			$SchemaName$$TableName$HBuff rhs = ($SchemaName$$TableName$HBuff)obj;$iterate Columns( each implCompareToAttr )$
+			return( 0 );
+		}
+		else {
+			throw new CFLibUnsupportedClassException( getClass(),
+				"compareTo",
+				"obj",
+				obj,
+				"$SchemaName$$TableName$PKey, $SchemaName$$TableName$Buff" );
+		}
+	}
+</GenRule>
+
+	<GenRule GenDef="Object" Name="implCompareToAttr"
+		>$switch IsNullable yes implCompareToOpt default implCompareToReq$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="GTAdjusted"
+		>$switch IsAscending yes AdjustedOne default AdjustedMinusOne$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="GTAdjusted"
+		>$AdjustedOne$</GenRule>
+
+	<GenRule GenDef="Atom" Name="GTAdjusted"
+		>$AdjustedOne$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="LTAdjusted"
+		>$switch IsAscending yes AdjustedMinusOne default AdjustedOne$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="LTAdjusted"
+		>$AdjustedMinusOne$</GenRule>
+
+	<GenRule GenDef="Atom" Name="LTAdjusted"
+		>$AdjustedMinusOne$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="CmpAdjusted"
+		>$switch IsAscending yes PositiveCmp default NegativeCmp$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="CmpAdjusted"
+		>$PositiveCmp$</GenRule>
+
+	<GenRule GenDef="Atom" Name="CmpAdjusted"
+		>$PositiveCmp$</GenRule>
+
+	<GenRule GenDef="Object" Name="PositiveCmp">cmp</GenRule>
+	<GenRule GenDef="Object" Name="NegativeCmp">-cmp</GenRule>
+
+	<GenRule GenDef="Object" Name="AdjustedOne">1</GenRule>
+	<GenRule GenDef="Object" Name="AdjustedMinusOne">-1</GenRule>
+
+	<!-- GenRule GenDef="IndexCol" Name="implCompareToOpt"
+		>$reference Column implCompareToOpt$</GenRule -->
+
+	<GenRule GenDef="Object" Name="implCompareToOpt"
+		>$switch BaseModelAtomClass
+			BlobDef implCompareToOptBlobVar
+			BoolDef implCompareToOptBoolVar
+			EnumDef implCompareToOptEnumVar
+			Int16Def implCompareToOptInt16Var
+			Int32Def implCompareToOptInt32Var
+			Int64Def implCompareToOptInt64Var
+			UInt16Def implCompareToOptUInt16Var
+			UInt32Def implCompareToOptUInt32Var
+			UInt64Def implCompareToOptUInt64Var
+			Id16Gen implCompareToOptInt16Var
+			Id32Gen implCompareToOptInt32Var
+			Id64Gen implCompareToOptInt64Var
+			FloatDef implCompareToOptFloatVar
+			DoubleDef implCompareToOptDoubleVar
+			NumberDef implCompareToOptNumberVar
+			StringDef implCompareToOptStringVar
+			TokenDef implCompareToOptStringVar
+			NmTokenDef implCompareToOptNmTokenVar
+			NmTokensDef implCompareToOptNmTokensVar
+			TextDef implCompareToOptTextVar
+			DateDef implCompareToOptDateVar
+			TimeDef implCompareToOptTimeVar
+			TimestampDef implCompareToOptTimestampVar
+			TZDateDef implCompareToOptTZDateVar
+			TZTimeDef implCompareToOptTZTimeVar
+			TZTimestampDef implCompareToOptTZTimestampVar
+			UuidDef implCompareToOptUuidVar
+			UuidGen implCompareToOptUuidVar
+			default error$</GenRule>
+
+	<GenRule GenDef="Object" Name="implCompareToOptBlobVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					byte[] larr = get$implColumnAttrOptionality$$Name$();
+					byte[] rarr = rhs.get$implColumnAttrOptionality$$Name$();
+					int llen = larr.length;
+					int rlen = rarr.length;
+					int idx = 0;
+					byte lval;
+					byte rval;
+					while( ( idx &lt; llen ) &amp;&amp; ( idx &lt; rlen ) ) {
+						lval = larr[idx];
+						rval = rarr[idx];
+						if( lval &lt; rval ) {
+							return( $LTAdjusted$ );
+						}
+						else if( lval &gt; rval ) {
+							return( $GTAdjusted$ );
+						}
+						idx ++;
+					}
+					if( llen &lt; rlen ) {
+						return( $LTAdjusted$ );
+					}
+					else if( llen &gt; rlen ) {
+						return( $GTAdjusted$ );
+					}
+				}
+				else {
+					return( $GTAdjusted$ );
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( $LTAdjusted$ );
+				}
+			}</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptBoolVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				$implJavaAtomType$ lhs$Name$ = get$implColumnAttrOptionality$$Name$();
+				if( rhs.get$implColumnAttrOptionality$$Name$() ) {
+					$implJavaAtomType$ rhs$Name$ = rhs.get$implColumnAttrOptionality$$Name$();
+					if( lhs$Name$ ) {
+						if( ! rhs$Name$ ) {
+							return( $GTAdjusted$ );
+						}
+					}
+					else {
+						if( rhs$Name$ ) {
+							return( $LTAdjusted$ );
+						}
+					}
+				}
+				else {
+					return( $GTAdjusted$ );
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( $LTAdjusted$ );
+				}
+			}</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptEnumVar"
+		>$implCompareToOptObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptInt16Var"
+		>$implCompareToOptValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptInt32Var"
+		>$implCompareToOptValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptInt64Var"
+		>$implCompareToOptValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptUInt16Var"
+		>$implCompareToOptValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptUInt32Var"
+		>$implCompareToOptValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptUInt64Var"
+		>$implCompareToOptObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptFloatVar"
+		>$implCompareToOptValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptDoubleVar"
+		>$implCompareToOptValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptNumberVar"
+		>$implCompareToOptObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptStringVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					int cmp = get$implColumnAttrOptionality$$Name$().compareTo( rhs.get$implColumnAttrOptionality$$Name$() );
+					if( cmp != 0 ) {
+						return( $CmpAdjusted$ );
+					}
+				}
+				else {
+					return( $GTAdjusted$ );
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( $LTAdjusted$ );
+				}
+			}</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptTokenVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					int cmp = get$implColumnAttrOptionality$$Name$().compareTo( rhs.get$implColumnAttrOptionality$$Name$() );
+					if( cmp != 0 ) {
+						return( $CmpAdjusted$ );
+					}
+				}
+				else {
+					return( $GTAdjusted$ );
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( $LTAdjusted$ );
+				}
+			}</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptNmTokenVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					int cmp = get$implColumnAttrOptionality$$Name$().compareTo( rhs.get$implColumnAttrOptionality$$Name$() );
+					if( cmp != 0 ) {
+						return( $CmpAdjusted$ );
+					}
+				}
+				else {
+					return( $GTAdjusted$ );
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( $LTAdjusted$ );
+				}
+			}</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptNmTokensVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					int cmp = get$implColumnAttrOptionality$$Name$().compareTo( rhs.get$implColumnAttrOptionality$$Name$() );
+					if( cmp != 0 ) {
+						return( $CmpAdjusted$ );
+					}
+				}
+				else {
+					return( $GTAdjusted$ );
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( $LTAdjusted$ );
+				}
+			}</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptTextVar">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					int cmp = get$implColumnAttrOptionality$$Name$().compareTo( rhs.get$implColumnAttrOptionality$$Name$() );
+					if( cmp != 0 ) {
+						return( $CmpAdjusted$ );
+					}
+				}
+				else {
+					return( $GTAdjusted$ );
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( $LTAdjusted$ );
+				}
+			}</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptDateVar"
+		>$implCompareToOptObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptTimeVar"
+		>$implCompareToOptObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptTimestampVar"
+		>$implCompareToOptObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptTZDateVar"
+		>$implCompareToOptObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptTZTimeVar"
+		>$implCompareToOptObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptTZTimestampVar"
+		>$implCompareToOptObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToOptUuidVar"
+		>$implCompareToOptObj$</GenRule>
+
+	<GenRule GenDef="Object" Name="implCompareToOptValue">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				$implJavaAtomType$ lhs$Name$ = get$implColumnAttrOptionality$$Name$();
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					$implJavaAtomType$ rhs$Name$ = rhs.get$implColumnAttrOptionality$$Name$();
+					int cmp = lhs$Name$.compareTo( rhs$Name$ );
+					if( cmp != 0 ) {
+						return( $CmpAdjusted$ );
+					}
+				}
+				else {
+					return( $GTAdjusted$ );
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( $LTAdjusted$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Object" Name="implCompareToOptObj">
+			if( get$implColumnAttrOptionality$$Name$() != null ) {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					int cmp = get$implColumnAttrOptionality$$Name$().compareTo( rhs.get$implColumnAttrOptionality$$Name$() );
+					if( cmp != 0 ) {
+						return( $CmpAdjusted$ );
+					}
+				}
+				else {
+					return( $GTAdjusted$ );
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() != null ) {
+					return( $LTAdjusted$ );
+				}
+			}</GenRule>
+
+	<!-- GenRule GenDef="IndexCol" Name="implCompareToReq"
+		>$reference Column implCompareToReq$</GenRule -->
+
+	<GenRule GenDef="Object" Name="implCompareToReq"
+		>$switch BaseModelAtomClass
+			BlobDef implCompareToReqBlobVar
+			BoolDef implCompareToReqBoolVar
+			EnumDef implCompareToReqEnumVar
+			Int16Def implCompareToReqInt16Var
+			Int32Def implCompareToReqInt32Var
+			Int64Def implCompareToReqInt64Var
+			UInt16Def implCompareToReqUInt16Var
+			UInt32Def implCompareToReqUInt32Var
+			UInt64Def implCompareToReqUInt64Var
+			Id16Gen implCompareToReqInt16Var
+			Id32Gen implCompareToReqInt32Var
+			Id64Gen implCompareToReqInt64Var
+			FloatDef implCompareToReqFloatVar
+			DoubleDef implCompareToReqDoubleVar
+			NumberDef implCompareToReqNumberVar
+			StringDef implCompareToReqStringVar
+			TokenDef implCompareToReqTokenVar
+			NmTokenDef implCompareToReqNmTokenVar
+			NmTokensDef implCompareToReqNmTokensVar
+			TextDef implCompareToReqTextVar
+			DateDef implCompareToReqDateVar
+			TimeDef implCompareToReqTimeVar
+			TimestampDef implCompareToReqTimestampVar
+			TZDateDef implCompareToReqTZDateVar
+			TZTimeDef implCompareToReqTZTimeVar
+			TZTimestampDef implCompareToReqTZTimestampVar
+			UuidDef implCompareToReqUuidVar
+			UuidGen implCompareToReqUuidVar
+			default error$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqBlobVar">
+			{
+				byte[] larr = get$implColumnAttrOptionality$$Name$();
+				byte[] rarr = rhs.get$implColumnAttrOptionality$$Name$();
+				int llen = larr.length;
+				int rlen = rarr.length;
+				int idx = 0;
+				byte lval;
+				byte rval;
+				while( ( idx &lt; llen ) &amp;&amp; ( idx &lt; rlen ) ) {
+					lval = larr[idx];
+					rval = rarr[idx];
+					if( lval &lt; rval ) {
+						return( $LTAdjusted$ );
+					}
+					else if( lval &gt; rval ) {
+						return( $GTAdjusted$ );
+					}
+					idx ++;
+				}
+				if( llen &lt; rlen ) {
+					return( $LTAdjusted$ );
+				}
+				else if( llen &gt; rlen ) {
+					return( $GTAdjusted$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Object" Name="implCompareToReqBoolVar">
+			if( get$implColumnAttrOptionality$$Name$() ) {
+				if( ! rhs.get$implColumnAttrOptionality$$Name$() ) {
+					return( $GTAdjusted$ );
+				}
+			}
+			else {
+				if( rhs.get$implColumnAttrOptionality$$Name$() ) {
+					return( $LTAdjusted$ );
+				}
+			}</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqEnumVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqInt16Var"
+		>$implCompareToReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqInt32Var"
+		>$implCompareToReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqInt64Var"
+		>$implCompareToReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqUInt16Var"
+		>$implCompareToReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqUInt32Var"
+		>$implCompareToReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqUInt64Var"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqFloatVar"
+		>$implCompareToReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqDoubleVar"
+		>$implCompareToReqValue$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqNumberVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqStringVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqTokenVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqNmTokenVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqNmTokensVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqTextVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqDateVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqTimeVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqTimestampVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqTZDateVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqTZTimeVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqTZTimestampVar"
+		>$implCompareToReqObj$</GenRule>
+	<GenRule GenDef="Object" Name="implCompareToReqUuidVar"
+		>$implCompareToReqObj$</GenRule>
+
+	<GenRule GenDef="Object" Name="implCompareToReqValue">
+			if( get$implColumnAttrOptionality$$Name$() &lt; rhs.get$implColumnAttrOptionality$$Name$() ) {
+				return( $LTAdjusted$ );
+			}
+			else if( get$implColumnAttrOptionality$$Name$() &gt; rhs.get$implColumnAttrOptionality$$Name$() ) {
+				return( $GTAdjusted$ );
+			}</GenRule>
+
+	<GenRule GenDef="Object" Name="implCompareToReqObj">
+			{
+				int cmp = get$implColumnAttrOptionality$$Name$().compareTo( rhs.get$implColumnAttrOptionality$$Name$() );
+				if( cmp != 0 ) {
+					return( $CmpAdjusted$ );
+				}
+			}</GenRule>
+
+	<GenRule GenDef="Index" Name="implPKeyToString">
+	public String toString() {
+		String ret = "&lt;$SchemaName$$TableName$PKey"$iterate Columns( each implToStringEmitXmlAttr )$
+			+ "/&gt;";
+		return( ret );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implToStringEmitXmlAttr"
+		>$reference Column implToStringEmitXmlAttr$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implToStringEmitXmlAttr">
+			+ " $implColumnAttrOptionality$$Name$="$emitXmlAttrValue$</GenRule>
+	<GenRule GenDef="Atom" Name="implToStringEmitXmlAttr">
+			+ " $implColumnAttrOptionality$$Name$="$emitXmlAttrValue$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="emitXmlAttrValue"
+		>$switch IsNullable yes emitXmlOptAttrValue default emitXmlReqAttrValue$</GenRule>
+	<GenRule GenDef="Atom" Name="emitXmlAttrValue"
+		>$switch IsNullable yes emitXmlOptAttrValue default emitXmlReqAttrValue$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="emitXmlOptAttrValue"
+		>$switch BaseModelAtomClass
+			BlobDef emitXmlOptBlobValue
+			BoolDef emitXmlOptBoolValue
+			EnumDef emitXmlOptEnumValue
+			Id16Gen emitXmlOptInt16Value
+			Id32Gen emitXmlOptInt32Value
+			Id64Gen emitXmlOptInt64Value
+			Int16Def emitXmlOptInt16Value
+			Int32Def emitXmlOptInt32Value
+			Int64Def emitXmlOptInt64Value
+			UInt16Def emitXmlOptUInt16Value
+			UInt32Def emitXmlOptUInt32Value
+			UInt64Def emitXmlOptUInt64Value
+			FloatDef emitXmlOptFloatValue
+			DoubleDef emitXmlOptDoubleValue
+			NumberDef emitXmlOptNumberValue
+			StringDef emitXmlOptStringValue
+			TokenDef emitXmlOptTokenValue
+			NmTokenDef emitXmlOptNmTokenValue
+			NmTokensDef emitXmlOptNmTokensValue
+			TextDef emitXmlOptTextValue
+			DateDef emitXmlOptDateValue
+			TimeDef emitXmlOptTimeValue
+			TimestampDef emitXmlOptTimestampValue
+			TZDateDef emitXmlOptTZDateValue
+			TZTimeDef emitXmlOptTZTimeValue
+			TZTimestampDef emitXmlOptTZTimestampValue
+			UuidGen emitXmlOptUuidValue
+			UuidDef emitXmlOptUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+	<GenRule GenDef="Atom" Name="emitXmlOptAttrValue"
+		>$switch BaseModelAtomClass
+			BlobDef emitXmlOptBlobValue
+			BoolDef emitXmlOptBoolValue
+			EnumDef emitXmlOptEnumValue
+			Id16Gen emitXmlOptInt16Value
+			Id32Gen emitXmlOptInt32Value
+			Id64Gen emitXmlOptInt64Value
+			Int16Def emitXmlOptInt16Value
+			Int32Def emitXmlOptInt32Value
+			Int64Def emitXmlOptInt64Value
+			UInt16Def emitXmlOptUInt16Value
+			UInt32Def emitXmlOptUInt32Value
+			UInt64Def emitXmlOptUInt64Value
+			FloatDef emitXmlOptFloatValue
+			DoubleDef emitXmlOptDoubleValue
+			NumberDef emitXmlOptNumberValue
+			StringDef emitXmlOptStringValue
+			TokenDef emitXmlOptTokenValue
+			NmTokenDef emitXmlOptNmTokenValue
+			NmTokensDef emitXmlOptNmTokensValue
+			TextDef emitXmlOptTextValue
+			DateDef emitXmlOptDateValue
+			TimeDef emitXmlOptTimeValue
+			TimestampDef emitXmlOptTimestampValue
+			TZDateDef emitXmlOptTZDateValue
+			TZTimeDef emitXmlOptTZTimeValue
+			TZTimestampDef emitXmlOptTZTimestampValue
+			UuidGen emitXmlOptUuidValue
+			UuidDef emitXmlOptUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="emitXmlReqAttrValue"
+		>$switch BaseModelAtomClass
+			BlobDef emitXmlReqBlobValue
+			BoolDef emitXmlReqBoolValue
+			EnumDef emitXmlReqEnumValue
+			Id16Gen emitXmlReqInt16Value
+			Id32Gen emitXmlReqInt32Value
+			Id64Gen emitXmlReqInt64Value
+			Int16Def emitXmlReqInt16Value
+			Int32Def emitXmlReqInt32Value
+			Int64Def emitXmlReqInt64Value
+			UInt16Def emitXmlReqUInt16Value
+			UInt32Def emitXmlReqUInt32Value
+			UInt64Def emitXmlReqUInt64Value
+			DoubleDef emitXmlReqDoubleValue
+			NumberDef emitXmlReqNumberValue
+			StringDef emitXmlReqStringValue
+			TokenDef emitXmlReqTokenValue
+			NmTokenDef emitXmlReqNmTokenValue
+			NmTokensDef emitXmlReqNmTokensValue
+			TextDef emitXmlReqTextValue
+			DateDef emitXmlReqDateValue
+			TimeDef emitXmlReqTimeValue
+			TimestampDef emitXmlReqTimestampValue
+			TZDateDef emitXmlReqTZDateValue
+			TZTimeDef emitXmlReqTZTimeValue
+			TZTimestampDef emitXmlReqTZTimestampValue
+			UuidGen emitXmlReqUuidValue
+			UuidDef emitXmlReqUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+	<GenRule GenDef="Atom" Name="emitXmlReqAttrValue"
+		>$switch BaseModelAtomClass
+			BlobDef emitXmlReqBlobValue
+			BoolDef emitXmlReqBoolValue
+			EnumDef emitXmlReqEnumValue
+			Id16Gen emitXmlReqInt16Value
+			Id32Gen emitXmlReqInt32Value
+			Id64Gen emitXmlReqInt64Value
+			Int16Def emitXmlReqInt16Value
+			Int32Def emitXmlReqInt32Value
+			Int64Def emitXmlReqInt64Value
+			UInt16Def emitXmlReqUInt16Value
+			UInt32Def emitXmlReqUInt32Value
+			UInt64Def emitXmlReqUInt64Value
+			FloatDef emitXmlReqFloatValue
+			DoubleDef emitXmlReqDoubleValue
+			NumberDef emitXmlReqNumberValue
+			StringDef emitXmlReqStringValue
+			TokenDef emitXmlReqTokenValue
+			NmTokenDef emitXmlReqNmTokenValue
+			NmTokensDef emitXmlReqNmTokensValue
+			TextDef emitXmlReqTextValue
+			DateDef emitXmlReqDateValue
+			TimeDef emitXmlReqTimeValue
+			TimestampDef emitXmlReqTimestampValue
+			TZDateDef emitXmlReqTZDateValue
+			TZTimeDef emitXmlReqTZTimeValue
+			TZTimestampDef emitXmlReqTZTimestampValue
+			UuidGen emitXmlReqUuidValue
+			UuidDef emitXmlReqUuidValue
+			default ErrorUnrecognizedBaseModelAtomClass$</GenRule>
+
+	<GenRule GenDef="Value" Name="emitXmlReqBlobValue"
+		> + "\\"" + new String( Base64.encodeBase64( get$implColumnAttrOptionality$$Name$() ) ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqBoolValue"
+		> + (( get$implColumnAttrOptionality$$Name$() ) ? "\\"true\\"" : "\\"false\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqEnumValue"
+		> + "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqInt16Value"
+		> + "\\"" + Short.toString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqInt32Value"
+		> + "\\"" + Integer.toString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqInt64Value"
+		> + "\\"" + Long.toString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqUInt16Value"
+		> + "\\"" + Integer.toString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqUInt32Value"
+		> + "\\"" + Long.toString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqUInt64Value"
+		> + "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqFloatValue"
+		> + "\\"" + Float.toString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqDoubleValue"
+		> + "\\"" + Double.toString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqNumberValue"
+		> + "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqStringValue"
+		> + "\\"" + $SchemaName$Schema.xmlEncodeString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqTokenValue"
+		> + "\\"" + $SchemaName$Schema.xmlEncodeString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqNmTokenValue"
+		> + "\\"" + $SchemaName$Schema.xmlEncodeString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqNmTokensValue"
+		> + "\\"" + $SchemaName$Schema.xmlEncodeString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqTextValue"
+		> + "\\"" + $SchemaName$Schema.xmlEncodeString( get$implColumnAttrOptionality$$Name$() ) + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqDateValue"
+		> + "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqTimeValue"
+		> + "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqTimestampValue"
+		> + "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqTZDateValue"
+		> + "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqTZTimeValue"
+		> + "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqTZTimestampValue"
+		> + "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\""</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlReqUuidValue"
+		> + "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\""</GenRule>
+
+	<GenRule GenDef="Value" Name="emitXmlOptBlobValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + new String( Base64.encodeBase64( get$implColumnAttrOptionality$$Name$() ) ) + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptBoolValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : ( ( get$implColumnAttrOptionality$$Name$() ) ? "\\"true\\"" : "\\"false\\"" ) )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptEnumValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptInt16Value"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptInt32Value"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptInt64Value"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptUInt16Value"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptUInt32Value"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptUInt64Value"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptFloatValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptDoubleValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptNumberValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptStringValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + $SchemaName$Schema.xmlEncodeString( get$implColumnAttrOptionality$$Name$() ) + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptTokenValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + $SchemaName$Schema.xmlEncodeString( get$implColumnAttrOptionality$$Name$() ) + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptNmTokenValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + $SchemaName$Schema.xmlEncodeString( get$implColumnAttrOptionality$$Name$() ) + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptNmTokensValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + $SchemaName$Schema.xmlEncodeString( get$implColumnAttrOptionality$$Name$() ) + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptTextValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + $SchemaName$Schema.xmlEncodeString( get$implColumnAttrOptionality$$Name$() ) + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptDateValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptTimeValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptTimestampValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptTZDateValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptTZTimeValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptTZTimestampValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+	<GenRule GenDef="Value" Name="emitXmlOptUuidValue"
+		> + ( ( get$implColumnAttrOptionality$$Name$() == null ) ? "null" : "\\"" + get$implColumnAttrOptionality$$Name$().toString() + "\\"" )</GenRule>
+
+</RuleSet>

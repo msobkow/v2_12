@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="mysql"
+	Name="schema/dbcreate/mysql/crsp_audit_dbtablename.mysql"
+	Revision="2.12"
+	Descr="null">
+
+	<GenFile ScopeDef="SchemaDef" GenDef="Table" Name="dbadminfile_CreateSPAuditDbTableName"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="dbcreate"
+		BasePackageName="$lower SchemaName$"
+		SubPackageName="mysql"
+		ExpansionClassName="$dbadminfilename_CreateSPAuditDbTableName$"
+		ExpansionKeyName="$dbadminfilename_CreateSPAuditDbTableName$"
+		ExpansionFileName="$dbadminfilename_CreateSPAuditDbTableName$">--
+--	@(#) $GenPackageDir$/$GenFileName$
+$MssDoubleDashScriptLicense$
+delimiter ////
+create procedure $lower DbSchemaName$.$sp_audit_dbtablename$($implMySqlSPStandardArgs$$switch HasClassCode yes implMySqlSPArgClassCode default empty$$implMySqlSPAuditPKeyArgs$,
+	argAuditAction integer )
+not deterministic
+modifies sql data
+begin$switch HasClassCode yes implMySqlSPAuditTableWithClassCode default implMySqlSPAuditTableNoClassCode$
+end;////
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implMySqlSPArgClassCode">,
+	argClassCode varchar(4)</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPAuditPKeyArgs"
+		>$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMySqlSPAuditPKeyArg )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPAuditPKeyArg">,
+	arg$reference Column Name$ $reference Column clause_SPColType$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPAuditTableNoClassCode">
+	insert into $lower DbSchemaName$.$DbTableName$_h ($reference PrimaryKeyIndex iterate Columns( each implMySqlSPAuditInheritedIntoPKeyColumn )$
+				auditclusterid,
+				auditsessionid,
+				auditstamp,$implMySqlSPAuditInheritedIntoDataColumnNameComma$
+				revision,
+				auditaction )
+		select$reference PrimaryKeyIndex iterate Columns( each implMySqlSPAuditInheritedPKeyColumnNameComma )$
+				argAuditClusterId,
+				argAuditSessionId,
+				now(),$implMySqlSPAuditInheritedDataColumnNameComma$
+				$lower reference BaseClass ClassCode$.revision,
+				argAuditAction	
+		from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$
+		where
+				$reference PrimaryKeyIndex iterate Columns( first implMySqlSPAuditTableWhereAuditPKeyCol each implMySqlSPAuditTableWhereAndAuditPKeyCol )$;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPAuditTableWithClassCode">
+	case argClassCode
+	when '$ClassCode$' then$implMySqlSPAuditTableClassCodeBody$$iterate TableSubClasses( each implMySqlSPAuditTableSubCode empty empty )$
+	else
+		signal sqlstate '45004'
+		set message_text = '$poptop Table sp_audit_dbtablename$() Unrecognized class code',
+			schema_name = '$lower DbSchemaName$',
+			table_name = '$poptop Table DbTableName$';
+	end case;
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPAuditTableSubCode">
+	when '$ClassCode$' then$implMySqlSPAuditTableClassCodeBody$$iterate TableSubClasses( each implMySqlSPAuditTableSubCode empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPAuditTableClassCodeBody">
+		insert into $lower DbSchemaName$.$DbTableName$_h ($reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMySqlSPAuditInheritedIntoPKeyColumn )$
+				classcode,
+				auditclusterid,
+				auditsessionid,
+				auditstamp,$implMySqlSPAuditInheritedIntoDataColumnNameComma$
+				revision,
+				auditaction )
+			select$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMySqlSPAuditInheritedPKeyColumnNameComma )$
+				$lower reference BaseClass ClassCode$.classcode,
+				argAuditClusterId,
+				argAuditSessionId,
+				now(),$implMySqlSPAuditInheritedDataColumnNameComma$
+				$lower reference BaseClass ClassCode$.revision,
+				argAuditAction	
+			from $lower DbSchemaName$.$DbTableName$ as $lower ClassCode$$switch HasSuperClassRelation yes implMySqlClassCodeJoinSuperTable default empty$
+			where
+				$reference BaseClass reference PrimaryKeyIndex iterate Columns( first implMySqlSPAuditTableWhereAuditPKeyCol each implMySqlSPAuditTableWhereAndAuditPKeyCol )$;</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPAuditTableWhereAuditPKeyCol"
+		>$lower reference Index reference Table ClassCode$.$lower DbColumnName$ = arg$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPAuditTableWhereAndAuditPKeyCol">
+				and $implMySqlSPAuditTableWhereAuditPKeyCol$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPAuditInheritedIntoDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implMySqlSPAuditInheritedIntoDataColumnNameCommaInh default implMySqlSPAuditInheritedIntoDataColumnNameCommaBase$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPAuditInheritedIntoDataColumnNameCommaInh"
+		>$reference SuperClassRelation reference ToTable implMySqlSPAuditInheritedIntoDataColumnNameComma$$iterate Columns( each implMySqlSPAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPAuditInheritedIntoDataColumnNameCommaBase"
+		>$iterate Columns( each implMySqlSPAuditInheritedDataColumnEmitIntoDataColumn )$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPAuditInheritedDataColumnEmitIntoDataColumn"
+		>$switch ColumnInPrimaryIndex yes empty default implMySqlSPAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPAuditInheritedIntoPKeyColumn"
+		>$reference Column implMySqlSPAuditInheritedIntoDataColumnReallyEmitDataColumn$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPAuditInheritedIntoDataColumnReallyEmitDataColumn">
+				$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPAuditInheritedDataColumnNameComma"
+		>$switch HasSuperClassRelation yes implMySqlSPAuditInheritedDataColumnNameInhComma default implMySqlSPAuditInheritedDataColumnNameBaseComma$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPAuditInheritedDataColumnNameInhComma"
+		>$reference SuperClassRelation reference ToTable implMySqlSPAuditInheritedDataColumnNameComma$$iterate Columns( each implMySqlSPAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implMySqlSPAuditInheritedDataColumnNameBaseComma"
+		>$iterate Columns( each implMySqlSPAuditInheritedDataColumnNameComma )$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implMySqlSPAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implMySqlSPAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implMySqlSPAuditInheritedDataColumnNameComma"
+		>$switch ColumnInPrimaryIndex yes empty default implMySqlSPAuditInheritedDataColumnEmitNameComma$</GenRule>
+
+	<GenRule GenDef="Value" Name="implMySqlSPAuditInheritedDataColumnEmitNameComma">
+				$lower reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMySqlSPAuditInheritedPKeyColumnNameComma">
+				$lower reference Index reference Table ClassCode$.$lower DbColumnName$,</GenRule>
+
+</RuleSet>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://msscf.org:8088/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="java+jee"
+	Name="src/SchemaSMWar/SchemaSMWarApplicationListener.java"
+	Revision="2.12"
+	Descr="Java 11 Sec Manager Application Listener">
+
+	<GenFile GenDef="SchemaDef" Name="fileSchemaSMWarApplicationListenerJava"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="java"
+		BasePackageName="$reference ManufacturingSchema lower SubProjectPackageName$.$reference ManufacturingSchema Name$SMWar/src/main/java"
+		SubPackageName="$reference ManufacturingSchema lower JavaPackage$.$reference ManufacturingSchema SchemaName$SMWar"
+		ExpansionClassName="$SchemaName$SMWarApplicationListenerJava"
+		ExpansionKeyName="$SchemaName$SMWarApplicationListenerJava"
+		ExpansionFileName="$SchemaName$SMWarApplicationListener.java">
+// Description: Java 11 Sec Manager Application Listener
+
+$MssSourceLicense$
+
+package $reference ManufacturingSchema lower JavaPackage$.$SchemaName$SMWar;
+
+import java.lang.reflect.InvocationTargetException;
+import java.security.Security;
+import java.util.Date;
+import java.util.Properties;
+
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.naming.*;
+import javax.servlet.*;
+import javax.servlet.annotation.WebListener;
+
+import com.sun.mail.smtp.SMTPTransport;
+
+import org.msscf.msscf.v2_13.cflib.CFLib.*;
+import org.msscf.msscf.v2_13.cflib.CFLib.xml.*;$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaName empty empty )$$poptop SchemaDef importJavaPackageSchemaName$$poptop SchemaDef iterate SchemaRefs( each importJavaPackageSchemaNameObj empty empty )$$poptop SchemaDef importJavaPackageSchemaNameObj$
+
+/**
+ * Application Lifecycle Listener implementation class $SchemaName$PgSqlWARApplicationListener
+ *
+ */
+@WebListener
+public class $SchemaName$SMWarApplicationListener implements ServletContextListener {$SchemaSMWarApplicationListenerPart01$$SchemaSMWarApplicationListenerPart02$$SchemaSMWarApplicationListenerPart03$$SchemaSMWarApplicationListenerPart04$$SchemaSMWarApplicationListenerPart05$$SchemaSMWarApplicationListenerPart06$$SchemaSMWarApplicationListenerPart07$$SchemaSMWarApplicationListenerPart08$
+}
+</GenFile>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarApplicationListenerPart01">
+	protected String smtpUsername = null;
+	protected String smtpPassword = null;
+
+	/**
+	 * Default constructor. 
+	 */
+	public $SchemaName$SMWarApplicationListener() {
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+	}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarApplicationListenerPart02">
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		final String S_ProcName = "contextInitialized";
+
+		Properties props = System.getProperties();
+		if( null == $SchemaName$SchemaPool.getSchemaPool() ) {
+			try {
+				Context ctx = new InitialContext();
+				String poolClassName = (String)ctx.lookup( "java:comp/env/$SchemaName$PoolClass");
+				if( ( poolClassName == null ) || ( poolClassName.length() &lt;= 0 ) ) {
+					throw new CFLibNullArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"JNDI lookup for $SchemaName$PoolClass" );
+				}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarApplicationListenerPart03">
+				Class&lt;?&gt; poolClass = Class.forName( poolClassName );
+				if( poolClass == null ) {
+					throw new CFLibNullArgumentException( getClass(),
+						S_ProcName,
+						0,
+						"$SchemaName$PoolClass \"" + poolClassName + "\" not found." );
+				}
+
+				Object obj = null;
+				try {
+					obj = poolClass.getDeclaredConstructor().newInstance();
+				}
+				catch( InvocationTargetException e ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Mapped InvocationTargetException poolClass declared constructor threw an exception",
+						e );
+				}
+				catch( NoSuchMethodException e ) {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Mapped NoSuchMethodException poolClass has no declared constructor",
+						e );
+				}</GenRule>
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarApplicationListenerPart04">
+				if( obj instanceof $SchemaName$SchemaPool ) {
+					$SchemaName$SchemaPool newPool = ($SchemaName$SchemaPool)obj;
+					newPool.setConfigurationFile( null );
+					newPool.setJndiName( "java:comp/env/$SchemaName$Connection" );
+					$SchemaName$SchemaPool.setSchemaPool( newPool );
+				}
+				else {
+					throw new CFLibRuntimeException( getClass(),
+						S_ProcName,
+						"Problems constructing an instance of " + poolClassName );
+				}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarApplicationListenerPart05">
+				String smtpHost = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpHost");
+				if( ( smtpHost == null ) || ( smtpHost.length() &lt;= 0 ) ) {
+					throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"JNDI lookup for $SchemaName$SmtpHost" );
+				}
+				props.setProperty( "mail.smtp.host", smtpHost );
+
+				String smtpStartTLS = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpStartTLS");
+				if( ( smtpHost == null ) || ( smtpHost.length() &lt;= 0 ) ) {
+					throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"JNDI lookup for $SchemaName$SmtpStartTLS" );
+				}
+				props.setProperty( "mail.smtp.starttls.enable", smtpStartTLS );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarApplicationListenerPart06">
+				String smtpSocketFactoryClass = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpSocketFactoryClass");
+				if( ( smtpSocketFactoryClass == null ) || ( smtpSocketFactoryClass.length() &lt;= 0 ) ) {
+					throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"JNDI lookup for $SchemaName$SmtpSocketFactoryClass" );
+				}
+				props.setProperty( "mail.smtp.socketFactory.class", smtpSocketFactoryClass );
+
+				props.setProperty( "mail.smtp.socketFactory.fallback", "false" );
+
+				String smtpPort = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpPort");
+				if( ( smtpPort == null ) || ( smtpPort.length() &lt;= 0 ) ) {
+					throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"JNDI lookup for $SchemaName$SmtpPort" );
+				}
+				props.setProperty( "mail.smtp.port", smtpPort );
+				props.setProperty( "mail.smtp.socketFactory.port", smtpPort );
+
+				props.setProperty( "mail.smtps.auth", "true" );
+
+				props.put( "mail.smtps.quitwait", "false" );
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarApplicationListenerPart07">
+				String smtpEmailFrom = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpEmailFrom");
+				if( ( smtpEmailFrom == null ) || ( smtpEmailFrom.length() &lt;= 0 ) ) {
+					throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"JNDI lookup for $SchemaName$SmtpEmailFrom" );
+				}
+
+				smtpUsername = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpUsername");
+				if( ( smtpUsername == null ) || ( smtpUsername.length() &lt;= 0 ) ) {
+					throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"JNDI lookup for $SchemaName$SmtpUsername" );
+				}
+
+				smtpPassword = (String)ctx.lookup( "java:comp/env/$SchemaName$SmtpPassword");
+				if( ( smtpPassword == null ) || ( smtpPassword.length() &lt;= 0 ) ) {
+					throw new CFLibNullArgumentException( getClass(),
+							S_ProcName,
+							0,
+							"JNDI lookup for $SchemaName$SmtpPassword" );
+				}
+</GenRule>
+
+	<GenRule GenDef="SchemaDef" Name="SchemaSMWarApplicationListenerPart08">
+			}
+			catch( ClassNotFoundException e ) {
+				throw new CFLibRuntimeException( getClass(),
+					S_ProcName,
+					"Caught ClassNotFoundException -- " + e.getMessage(),
+					e );
+			}
+			catch( IllegalAccessException e ) {
+				throw new CFLibRuntimeException( getClass(),
+					S_ProcName,
+					"Caught IllegalAccessException trying to construct newInstance() -- " + e.getMessage(),
+					e );
+			}
+			catch( InstantiationException e ) {
+				throw new CFLibRuntimeException( getClass(),
+					S_ProcName,
+					"Caught InstantiationException trying to construct newInstance() -- " + e.getMessage(),
+					e );
+			}
+			catch( NamingException e ) {
+				throw new CFLibRuntimeException( getClass(),
+					S_ProcName,
+					"Caught NamingException -- " + e.getMessage(),
+					e );
+			}
+		}
+	}</GenRule>
+
+</RuleSet>

@@ -1,0 +1,2570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *	MSS Code Factory 2.12 Knowledge Base
+ *
+ *	Copyright (c) 2020 Mark Stephen Sobkow
+ *
+ *	This file is part of MSS Code Factory.
+ *
+ *	MSS Code Factory is free software: you can redistribute it and/or modify
+ *	it under the terms of the GNU General Public License as published by
+ *	the Free Software Foundation, either version 3 of the License, or
+ *	(at your option) any later version.
+ *
+ *	MSS Code Factory is distributed in the hope that it will be useful,
+ *	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	GNU General Public License for more details.
+ *
+ *	You should have received a copy of the GNU General Public License
+ *	along with MSS Code Factory.  If not, see https://www.gnu.org/licenses/.
+ *
+ *	Donations to support MSS Code Factory can be made at
+ *	https://www.paypal.com/paypalme2/MarkSobkow
+ *
+ *	Contact Mark Stephen Sobkow at msobkow@sasktel.net for commercial licensing.
+ * -->
+<RuleSet
+	xmlns="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd http://mcf.markhome.server/msscf/2.0.12/xsd/cfgenkb-2.12-ruleset.xsd"
+	ToolSet="cplus"
+	Name="libschema/SchemaTableObj.cpp"
+	Revision="2.12"
+	Descr="C++18 Table Object implementation">
+
+	<GenFile GenDef="Table" Name="fileSchemaTableObjCpp"
+			GenerateOnce="false"
+			ModuleName=""
+		SourceBundle="cplus"
+		BasePackageName="libcfcore"
+		SubPackageName=""
+		ExpansionClassName="$SchemaName$$TableName$TableObjCpp"
+		ExpansionKeyName="$SchemaName$$TableName$TableObjCpp"
+		ExpansionFileName="$SchemaName$$TableName$TableObj.cpp"
+>// Description: C++18 Table Object implementation for $SchemaName$.
+
+$MssSourceLicense$
+
+#include &lt;cflib/ICFLibPublic.hpp&gt;
+
+using namespace std;
+
+#include &lt;$lower SchemaName$/I$SchemaName$Public.hpp&gt;
+#include &lt;$lower SchemaName$obj/I$SchemaName$ObjPublic.hpp&gt;
+$poptop SchemaDef iterate SchemaTables( each includeHierarchyRootSchemaTableObjs empty empty )$
+$poptop SchemaDef iterate SchemaTables( each includeHierarchyRootSchemaTableEditObjs empty empty )$
+$poptop SchemaDef iterate SchemaTables( each includeHierarchyRootSchemaTableTableObjs empty empty )$
+
+namespace $CPlusNamespace$ {
+$implSchemaTableObjClassBody$
+}
+</GenFile>
+
+	<GenRule GenDef="Table" Name="implSchemaTableObjClassBody">
+	const std::string $poptop Table SchemaName$$poptop Table TableName$TableObj::CLASS_NAME( "$SchemaName$$TableName$TableObj" );
+	const std::string $poptop Table SchemaName$$poptop Table TableName$TableObj::TABLE_NAME( "$TableName$" );
+	const std::string $poptop Table SchemaName$$poptop Table TableName$TableObj::TABLE_DBNAME( "$DbTableName$" );
+
+	$poptop Table SchemaName$$poptop Table TableName$TableObj::$SchemaName$$TableName$TableObj() {
+		schema = NULL;
+		members = new std::map&lt;$reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey, $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;();
+		all$TableName$ = NULL;$initTableObjIndexMapByIndexes$
+	}
+
+	$poptop Table SchemaName$$poptop Table TableName$TableObj::$SchemaName$$TableName$TableObj( $reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$SchemaObj* argSchema ) {
+		schema = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::I$poptop SchemaDef SchemaName$SchemaObj*&gt;( argSchema );
+		members = new std::map&lt;$reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey, $reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$$TableName$Obj*&gt;();
+		all$TableName$ = NULL;$initTableObjIndexMapByIndexes$
+	}
+
+	$poptop Table SchemaName$$poptop Table TableName$TableObj::~$poptop Table SchemaName$$poptop Table TableName$TableObj() {
+		minimizeMemory();$releaseTableObjIndexMapByIndexes$$implSchemaTableObjDeleteMembers$
+	}
+$implSchemaTableObjMethods$$implNewInstance$$implNewEditInstance$$switch IsBaseTable yes implConstructByClassCode default empty$$implRealizeObj$$implTableObjDeepDisposeObj$$implCreateObj$$implReadObjByPKey$$implLockObjByPKey$$implReadAllObj$$switch PageData yes implPageAllObj default empty$$implTableObjReadByIndexes$$switch HasLookupIndex yes implTableObjReadByLookupIndex default empty$$implReadCachedObjByPKey$$implTableObjReadCachedByIndexes$$switch HasLookupIndex yes implTableObjReadCachedByLookupIndex default empty$$switch PageData yes implTableObjPageByIndex default empty$$implUpdateObj$$implDeleteObj$$implTableObjDeleteByIndexes$$switch HasChain yes implTableObjMoveUp default empty$$switch HasChain yes implTableObjMoveDown default empty$$iterate ServerMethods( each implCPlusTableObjServerMethod empty empty )$$implReallyDetachFromIndexesObj$$CPlusTableObjImplementation$
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableObjDeleteMembers">
+		if( members != NULL ) {$switch HasSuperClassRelation yes empty default implSchemaTableObjDeleteCursorDeclCurMember$
+			auto membersIter = members-&gt;begin();
+			while( membersIter != members-&gt;end() ) {$switch HasSuperClassRelation yes empty default implSchemaTableObjDeleteCurMember$
+				members-&gt;erase( membersIter );
+				membersIter = members-&gt;begin();
+			}
+			delete members;
+			members = NULL;
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableObjDeleteCursorDeclCurMember">
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* curMember;</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableObjDeleteCurMember">
+				curMember = membersIter-&gt;second;
+				if( curMember != NULL ) {
+					delete curMember;
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReallyDeepDisposeObj">
+	void $poptop Table SchemaName$$poptop Table TableName$TableObj::reallyDeepDispose$poptop Table TableName$( $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* Obj ) {
+		static const std::string S_ProcName( "reallyDeepDispose$poptop Table TableName$" );
+
+		if( Obj == NULL ) {
+			return;
+		}
+
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* obj = Obj;
+		$poptop Table switch HasDelDeps no implReallyDeepDisposeCascades default implReallyDeepDisposeTableDelDeps$
+		classcode_t classCode = obj-&gt;getClassCode();
+		if( classCode == $poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff::CLASS_CODE ) {
+			dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$poptop Table TableName$TableObj*&gt;( schema-&gt;get$poptop Table TableName$TableObj() )-&gt;reallyDetachFromIndexes$poptop Table TableName$( dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( obj ) );
+		}$poptop Table iterate TableSubClasses( each invokeSpecificReallyDetachFromIndexes empty empty )$
+$poptop Table switch HasSuperClassRelation yes implTableObjReallyDeepDisposeObjInvokeSuperclassTable default implTableObjReallyDeepDisposeDeleteObj$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReallyDeepDisposeDeleteObj">
+		if( obj-&gt;getEdit() != NULL ) {
+			obj-&gt;endEdit();
+		}
+		delete obj;
+		obj = NULL;</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReallyDeepDisposeObjInvokeSuperclassTable">
+		dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference SuperClassRelation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference SuperClassRelation reference ToTable TableName$TableObj() )-&gt;reallyDeepDispose$reference SuperClassRelation reference ToTable TableName$( dynamic_cast&lt;$reference SuperClassRelation reference ToTable CPlusDefNamespace$::I$reference SuperClassRelation reference ToTable DefSchemaName$$reference SuperClassRelation reference ToTable TableName$Obj*&gt;( obj ) );</GenRule>
+
+	<GenRule GenDef="Table" Name="invokeSpecificReallyDetachFromIndexes">
+		else if( classCode == $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::CLASS_CODE ) {
+			dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;reallyDetachFromIndexes$TableName$( dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj ) );
+		}$iterate TableSubClasses( each invokeSpecificReallyDetachFromIndexes empty empty )$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableObjReallyDeepDisposeObjComponents"
+		>$switch IsXsdContainer yes implTableObjReallyDeepDisposeXsdContainer default empty$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="IsToIndexColNullable"
+		>$reference ToCol IsNullable$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="IsFromIndexColNullable"
+		>$reference FromCol IsNullable$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implTableObjReallyDeepDisposeXsdContainer">
+				dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference ToTable TableName$TableObj() )-&gt;deepDisposeBy$reference ToIndex Suffix$( $iterate Columns( first implTableObjReallyDeepDisposeXsdContainerArg each implTableObjReallyDeepDisposeXsdContainerCommaArg )$ );</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implTableObjReallyDeepDisposeXsdContainerCommaArg">,
+					$implTableObjReallyDeepDisposeXsdContainerArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implTableObjReallyDeepDisposeXsdContainerArg"
+		>$switch IsToIndexColNullable no implTableObjReallyDeepDisposeXsdContainerReqArg default implTableObjReallyDeepDisposeXsdContainerOptArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implTableObjReallyDeepDisposeXsdContainerReqArg"
+		>$switch IsFromIndexColNullable no implTableObjReallyDeepDisposeXsdContainerReqClean default implTableObjReallyDeepDisposeXsdContainerReqValue$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implTableObjReallyDeepDisposeXsdContainerReqClean"
+		>obj-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implTableObjReallyDeepDisposeXsdContainerReqValue"
+		>obj-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$Value()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implTableObjReallyDeepDisposeXsdContainerOptArg"
+		>obj-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$Reference()</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReallyDetachFromIndexes"
+		>$switch HasSuperClassRelation yes implTableObjReallyDetachFromInhIndexes default implTableObjReallyDetachFromBaseIndexes$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReallyDetachFromInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableObjReallyDetachFromIndexes$$iterate Index( each implTableObjReallyDetachFromNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReallyDetachFromBaseIndexes"
+		>$iterate Index( each implTableObjReallyDetachFromNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReallyDetachFromNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjReallyDetachFromIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReallyDetachFromIndex"
+		>$switch IsUnique yes implTableObjReallyDetachFromUniqueIndex default implTableObjReallyDetachFromDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReallyDetachFromUniqueIndex">
+					if( indexBy$Suffix$ != NULL ) {
+						$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjReallyDetachIndexCopyObjToKey empty empty )$
+						auto removalProbe = indexBy$Suffix$-&gt;find( key$Suffix$ );
+						if( removalProbe != indexBy$Suffix$-&gt;end() ) {
+							indexBy$Suffix$-&gt;erase( removalProbe );
+						}
+					}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjReallyDetachIndexCopyObjToKey"
+		>$switch IsNullable yes implTableObjReallyDetachIndexCopyObjToOptKey default implTableObjReallyDetachIndexCopyObjToReqKey$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjReallyDetachIndexCopyObjToOptKey">
+						if( obj-&gt;is$implColumnAttrOptionality$$Name$Null() ) {
+							key$popto Index Suffix$.set$implColumnAttrOptionality$$Name$Null();
+						}
+						else {
+							key$popto Index Suffix$.set$implColumnAttrOptionality$$Name$Value( obj-&gt;get$implColumnAttrOptionality$$Name$Value() );
+						}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjReallyDetachIndexCopyObjToReqKey">
+						key$popto Index Suffix$.set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( obj-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReallyDetachFromDuplicateIndex">
+					if( indexBy$Suffix$ != NULL ) {
+						$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjReallyDetachIndexCopyObjToKey empty empty )$
+						auto search$Suffix$ = indexBy$Suffix$-&gt;find( key$Suffix$ );
+						if( search$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+							std::map&lt;$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* map$Suffix$ = search$Suffix$-&gt;second;$implTableObjReallyDetachFromDuplicateIndexP2$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReallyDetachFromDuplicateIndexP2">
+							if( map$Suffix$ == NULL ) {
+								indexBy$Suffix$-&gt;erase( search$Suffix$ );
+							}
+							else {
+								auto searchMap$Suffix$ = map$Suffix$-&gt;find( pkey );
+								if( searchMap$Suffix$ != map$Suffix$-&gt;end() ) {
+									map$Suffix$-&gt;erase( searchMap$Suffix$ );
+								}
+								if( map$Suffix$-&gt;empty() ) {
+									indexBy$Suffix$-&gt;erase( search$Suffix$ );
+									delete map$Suffix$;
+									map$Suffix$ = NULL;
+								}
+							}
+						}
+					}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeepDisposeObj"
+		>$switch HasSuperClassRelation yes implTableObjInhDeepDisposeObj default implTableObjBaseDeepDisposeObj$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjInhDeepDisposeObj"
+		>$reference SuperClassRelation reference ToTable implTableObjDeepDisposeObj$$iterate Index( each implTableObjDeepDisposeByNonPrimaryIndex empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjBaseDeepDisposeObj"
+		>$iterate Index( each implTableObjDeepDisposeByIndex empty empty )$$implTableObjReallyDeepDisposeObj$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjDeepDisposeByIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByIndex">
+	void $poptop Table SchemaName$$poptop Table TableName$TableObj::deepDisposeBy$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ ) {
+		static const std::string S_ProcName( "deepDisposeBy$Suffix$" );
+		std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; list;$switch IsUnique yes implTableObjDeepDisposeByUniqueIndex default implTableObjDeepDisposeByDuplicateIndex$
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* cur = NULL;
+		classcode_t classCode;
+		auto listIter = list.begin();
+		auto listEnd = list.end();
+		while( listIter != listEnd ) {
+			cur = *listIter;
+			if( cur != NULL ) {
+				classCode = cur-&gt;getClassCode();
+				if( classCode == $poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff::CLASS_CODE ) {
+					dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$poptop Table TableName$TableObj*&gt;( schema-&gt;get$poptop Table TableName$TableObj() )-&gt;reallyDeepDispose$poptop Table TableName$( dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( cur ) );
+				}$poptop Table iterate TableSubClasses( each implTableObjDeepDisposeByIndexInvokeSpecificReallyDeepDispose empty empty )$
+			}
+			listIter ++;
+		}
+	}
+</GenRule>
+
+		<GenRule GenDef="Table" Name="implTableObjDeepDisposeByIndexInvokeSpecificReallyDeepDispose">
+				else if( classCode == $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::CLASS_CODE ) {
+					dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;reallyDeepDispose$TableName$( dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( cur ) );
+				}$iterate TableSubClasses( each implTableObjDeepDisposeByIndexInvokeSpecificReallyDeepDispose empty empty )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByUniqueIndex">
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* existingObj = readCached$poptop Table TableName$By$Suffix$( $iterate Columns ( first implReadObjByIndexPassArg each implReadObjByIndexCommaPassArg )$ );
+		if( existingObj != NULL ) {
+			list.push_back( existingObj );
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeepDisposeByDuplicateIndex">
+		std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; matchesFound = readCached$poptop Table TableName$By$Suffix$( $iterate Columns ( first implReadObjByIndexPassArg each implReadObjByIndexCommaPassArg )$ );
+		auto iterMatches = matchesFound.begin();
+		auto endMatches = matchesFound.end();
+		while( iterMatches != endMatches ) {
+			if( *iterMatches != NULL ) {
+				list.push_back( *iterMatches );
+			}
+			iterMatches ++;
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implPageAllObj">
+	std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; $poptop Table SchemaName$$poptop Table TableName$TableObj::pageAll$poptop Table TableName$($reference BaseClass reference PrimaryKeyIndex iterate Columns( first declOptPriorArg each declCommaOptPriorArg )$ )
+	{
+		static const std::string S_Realized( "realized" );
+		static const std::string S_ProcName( "pageAll$poptop Table TableName$" );
+		CFLIB_EXCEPTION_DECLINFO
+		std::map&lt;$CPlusDefNamespace$::$DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;* map = NULL;
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* buff = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* realized = NULL;
+		std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; arrayList;
+		try {
+			map = new std::map&lt;$reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey,$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;();
+			std::TCFLibOwningVector&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt; buffList = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;pageAllBuff( schema-&gt;getAuthorization()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each passCommaOptPriorArg )$ );
+			arrayList.reserve( buffList.size() );
+			for( size_t idx = 0; idx &lt; buffList.size(); idx ++ ) {
+				buff = buffList[ idx ];
+				buffList[ idx ] = NULL;$switch HasClassCode yes implReadAllObjConsObjByClassCode default implReadAllObjConsObj$
+				obj-&gt;setBuff( buff );
+				realized = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+				if( realized == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_Realized );
+				}
+				// No need to delete obj -- realize() auto-destructs the instance it decided to discard
+				obj = NULL;
+				arrayList.push_back( realized );
+				realized = NULL;
+			}
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+		if( ( obj != NULL ) &amp;&amp; obj->getIsNew() ) {
+			delete obj;
+			obj = NULL;
+		}
+
+		CFLIB_EXCEPTION_RETHROW_CFLIBEXCEPTION
+
+		return( arrayList );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjPageByIndex"
+		>$switch HasSuperClassRelation yes implTableObjPageByInhIndex default implTableObjPageByBaseIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjPageBySubIndex"
+		>$switch HasSuperClassRelation yes implTableObjPageByInhIndex default empty$$iterate Index( each implTableObjPageByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjPageByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default ifdup_implTableObjPageByIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjPageByInhIndex"
+		>$reference SuperClassRelation reference ToTable implTableObjPageBySubIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjPageByBaseIndex"
+		>$iterate Index( each implTableObjPageByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="ifdup_implTableObjPageByIndex"
+		>$switch IsUnique
+			yes empty
+			default implPageObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implPageObjByIndex"
+		>$switch IsUnique yes empty default implPageObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implPageObjByDuplicateIndex">
+	std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; $poptop Table SchemaName$$poptop Table TableName$TableObj::page$TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each declCommaOptPriorArg )$ )
+	{
+		static const std::string S_ProcName( "page$poptop Table TableName$By$Suffix$" );
+		static const std::string S_Idx( "idx" );
+		static const std::string S_Obj( "obj" );
+		static const std::string S_Realized( "realized" );
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$By$Suffix$Key key;$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$$implTableObjPageByIndexCalcList$
+		return( retList );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjPageByThisDuplicateIndexReturnSortedList">
+		size_t len = dict-&gt;size();
+		std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; arr;
+		arr.reserve( len );
+		auto valIter = dict-&gt;begin();
+		while( valIter != dict-&gt;end() ) {
+			$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* cur = valIter-&gt;second;
+			if( cur != NULL ) {
+				cur = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( cur-&gt;clone() );
+				arr.push_back( cur );
+			}
+			valIter ++;
+		}
+		return( arr );</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implCPlusTableObjServerMethod"
+		>$switch IsInstanceMethod yes implCPlusTableObjInstServerProc default implCPlusTableObjClassServerProc$</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implCPlusTableObjClassServerProc">
+	bool $poptop Table SchemaName$$poptop Table TableName$TableObj::$leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		bool retval = dynamic_cast&lt;$CPlusNamespace$::I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;$leadlower Name$( schema$iterate Params( each passServerMethodParam empty empty )$ );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerProc" Name="implCPlusTableObjInstServerProc">
+	bool $poptop Table SchemaName$$poptop Table TableName$TableObj::$leadlower Name$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj$iterate Params( each declServerMethodParam empty empty )$ )
+	{
+		bool retval = dynamic_cast&lt;$CPlusNamespace$::I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;$leadlower Name$( schema,
+			obj$iterate Params( each passServerMethodParam empty empty )$ );
+		return( retval );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implCPlusTableObjServerMethod"
+		>$switch IsInstanceMethod yes implCPlusTableObjInstServerObjFunc default implCPlusTableObjClassServerObjFunc$</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implCPlusTableObjClassServerObjFunc">
+	$reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::$leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		static const std::string S_ProcName( "$leadlower Name$" );
+		CFLIB_EXCEPTION_DECLINFO
+		$reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj* retobj = NULL;
+		$reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable Name$Buff* readBuff = NULL;
+		try {
+			readBuff = dynamic_cast&lt;$CPlusNamespace$::I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;$leadlower Name$( schema$iterate Params( each passServerMethodParam empty empty )$ );
+			if( readBuff != NULL ) {$reference RetTable switch HasClassCode yes implCPlusTableObjServerMethodConsObjByClassCode default implCPlusTableObjServerMethodConsObj$
+				retobj-&gt;setBuff( readBuff );
+				retobj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$reference RetTable TableName$Obj*&gt;( retobj-&gt;realize() );
+			}
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+		if( ( retobj != NULL ) &amp;&amp; ( retobj->getIsNew() ) ) {
+			delete retobj;
+			retobj = NULL;
+		}
+
+		CFLIB_EXCEPTION_RETHROW_CFLIBEXCEPTION
+
+		return( retobj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCPlusTableObjServerMethodConsObjByClassCode">
+				retobj = dynamic_cast&lt;$popto ServerMethod reference RetTable CPlusDefNamespace$::I$popto ServerMethod reference RetTable DefSchemaName$$popto ServerMethod reference RetTable TableName$Obj*&gt;(
+					dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference BaseClass TableName$TableObj*&gt;( schema-&gt;get$reference BaseClass TableName$TableObj() )-&gt;constructByClassCode( readBuff-&gt;getClassCode() ) );</GenRule>
+
+	<GenRule GenDef="Table" Name="implCPlusTableObjServerMethodConsObj">
+				retobj = dynamic_cast&lt;$popto ServerMethod reference RetTable CPlusDefNamespace$::I$popto ServerMethod reference RetTable DefSchemaName$$popto ServerMethod reference RetTable TableName$Obj*&gt;(
+					dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;newInstance() );</GenRule>
+
+	<GenRule GenDef="ServerObjFunc" Name="implCPlusTableObjInstServerObjFunc">
+	$reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::$leadlower Name$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj$iterate Params( each declServerMethodParam empty empty )$ )
+	{
+		static const std::string S_ProcName( "$leadlower Name$" );
+		CFLIB_EXCEPTION_DECLINFO
+		$CPlusDefNamespace$::I$DefSchemaName$$reference RetTable Name$Obj* retobj = NULL;
+		$CPlusDefNamespace$::$DefSchemaName$$reference RetTable Name$Buff* readBuff = NULL;
+		try {
+			readBuff = dynamic_cast&lt;$CPlusNamespace$::I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;$leadlower Name$( schema,
+				obj$iterate Params( each passServerMethodParam empty empty )$ );
+			if( readBuff != NULL ) {$reference RetTable switch HasClassCode yes implCPlusTableObjServerMethodConsObjByClassCode default implCPlusTableObjServerMethodConsObj$
+				retobj-&gt;setBuff( readBuff );
+				retobj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$reference RetTable TableName$Obj*&gt;( retobj-&gt;realize() );
+			}
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+		if( ( retobj != NULL ) &amp;&amp; ( retobj->getIsNew() ) ) {
+			delete retobj;
+			retobj = NULL;
+		}
+
+		CFLIB_EXCEPTION_RETHROW_CFLIBEXCEPTION
+
+		return( retobj );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implCPlusTableObjServerMethod"
+		>$switch IsInstanceMethod yes implCPlusTableObjInstServerListFunc default implCPlusTableObjClassServerListFunc$</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implCPlusTableObjClassServerListFunc">
+	std::vector&lt;$reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj*&gt; $poptop Table SchemaName$$poptop Table TableName$TableObj::$leadlower Name$($iterate Params( first declServerMethodParamNoComma each declServerMethodParam empty empty )$ )
+	{
+		static const std::string S_ProcName( "$leadlower Name$" );
+		CFLIB_EXCEPTION_DECLINFO
+		std::vector&lt;$reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj*&gt; list;
+		$reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj* retobj = NULL;
+		$reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable Name$Buff* readBuff;
+		std::TCFLibOwningVector&lt;$reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable Name$Buff*&gt; readVec = dynamic_cast&lt;$CPlusNamespace$::I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;$leadlower Name$( schema$iterate Params( each passServerMethodParam empty empty )$ );
+		std::TCFLibOwningVector&lt;$reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable TableName$Buff*&gt;::iterator iter = readVec.begin();
+		std::TCFLibOwningVector&lt;$reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable TableName$Buff*&gt;::iterator end = readVec.end();
+		try {
+			while( iter != end ) {
+				readBuff = *iter;$reference RetTable switch HasClassCode yes implCPlusTableObjServerMethodConsObjByClassCode default implCPlusTableObjServerMethodConsObj$
+				retobj-&gt;setBuff( readBuff );
+				*iter = NULL;
+				retobj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$reference RetTable TableName$Obj*&gt;( retobj-&gt;realize() );
+				list.push_back( retobj );
+				retobj = NULL;
+				iter ++;
+			}
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+		if( ( retobj != NULL ) &amp;&amp; retobj->getIsNew() ) {
+			delete retobj;
+			retobj = NULL;
+		}
+
+		CFLIB_EXCEPTION_RETHROW_CFLIBEXCEPTION
+
+		return( list );
+	}
+</GenRule>
+
+	<GenRule GenDef="ServerListFunc" Name="implCPlusTableObjInstServerListFunc">
+	std::vector&lt;$reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj*&gt; $poptop Table SchemaName$$poptop Table TableName$TableObj::$leadlower Name$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj$iterate Params( each declServerMethodParam empty empty )$ )
+	{
+		static const std::string S_ProcName( "$leadlower Name$" );
+		CFLIB_EXCEPTION_DECLINFO
+		std::vector&lt;$reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj*&gt; list;
+		$reference RetTable CPlusDefNamespace$::I$reference RetTable DefSchemaName$$reference RetTable Name$Obj* retobj = NULL;
+		$reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable Name$Buff* readBuff = NULL;
+		try {
+			std::TCFLibOwningVector&lt;$reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable Name$Buff*&gt; readVec = dynamic_cast&lt;$CPlusNamespace$::I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;$leadlower Name$( schema,
+				obj$iterate Params( each passServerMethodParam empty empty )$ );
+			std::TCFLibOwningVector&lt;$reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable TableName$Buff*&gt;::iterator iter = readVec.begin();
+			std::TCFLibOwningVector&lt;$reference RetTable CPlusDefNamespace$::$reference RetTable DefSchemaName$$reference RetTable TableName$Buff*&gt;::iterator end = readVec.end();
+			while( iter != end ) {
+				readBuff = *iter;$reference RetTable switch HasClassCode yes implCPlusTableObjServerMethodConsObjByClassCode default implCPlusTableObjServerMethodConsObj$
+				retobj-&gt;setBuff( readBuff );
+				*iter = NULL;
+				retobj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$reference RetTable TableName$Obj*&gt;( retobj-&gt;realize() );
+				list.push_back( retobj );
+				retobj = NULL;
+				iter ++;
+			}
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+		if( ( retobj != NULL ) &amp;&amp; ( retobj->getIsNew() ) ) {
+			delete retobj;
+			retobj = NULL;
+		}
+
+		CFLIB_EXCEPTION_RETHROW_CFLIBEXCEPTION
+
+		return( list );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetTableObjQualifyingClassCode">
+	const classcode_t* $poptop Table SchemaName$$poptop Table TableName$TableObj::getObjQualifyingClassCode() {
+		return( $switch HasQualTable yes implGetTableObjQualifyingClassCodeQualTableXFace default implGetTableObjQualifyingClassCodeNull$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetTableObjQualifyingClassCodeQualTableXFace"
+		>&amp;$reference QualTable CPlusDefNamespace$::$reference QualTable DefSchemaName$$reference QualTable Name$Buff::CLASS_CODE</GenRule>
+
+	<GenRule GenDef="Table" Name="implGetTableObjQualifyingClassCodeNull"
+		>NULL</GenRule>
+
+	<GenRule GenDef="Table" Name="implSchemaTableObjMethods">
+	$reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$SchemaObj* $poptop Table SchemaName$$poptop Table TableName$TableObj::getSchema() {
+		return( schema );
+	}
+
+	void $poptop Table SchemaName$$poptop Table TableName$TableObj::setSchema( $reference BaseClass CPlusDefNamespace$::I$reference BaseClass DefSchemaName$SchemaObj* value ) {
+		schema = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::I$poptop SchemaDef SchemaName$SchemaObj*&gt;( value );
+	}
+
+	const std::string $poptop Table SchemaName$$poptop Table TableName$TableObj::getTableName() {
+		return( TABLE_NAME );
+	}
+
+	const std::string $poptop Table SchemaName$$poptop Table TableName$TableObj::getTableDbName() {
+		return( TABLE_DBNAME );
+	}$implGetTableObjQualifyingClassCode$
+
+	void $poptop Table SchemaName$$poptop Table TableName$TableObj::minimizeMemory() {$implTableMinimizeMemoryResetByIndexes$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMinimizeMemoryResetByIndexes">$implTableMinimizeMemoryClearAll$$switch HasSuperClassRelation yes implTableMinimizeMemoryResetByInhIndexes default empty$$iterate Index( each implTableMinimizeMemoryResetByThisNonPrimaryIndex )$$switch HasSuperClassRelation yes implTableMinimizeMemoryClearMembers default implTableMinimizeMemoryReleaseMembers$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMinimizeMemoryClearAll">
+		if( all$TableName$ != NULL ) {
+			all$TableName$-&gt;clear();
+			delete all$TableName$;
+			all$TableName$ = NULL;
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMinimizeMemoryClearMembers">
+		if( members != NULL ) {
+			members-&gt;clear();
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMinimizeMemoryReleaseMembers">
+		if( members != NULL ) {
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* cur = NULL;
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* edit = NULL;
+			auto iter = members-&gt;begin();
+			auto end = members-&gt;end();
+			while( iter != end ) {
+				cur = iter-&gt;second;
+				if( cur != NULL ) {
+					iter-&gt;second = NULL;
+					edit = cur-&gt;getEdit();
+					if( edit != NULL ) {
+						edit-&gt;endEdit();
+						edit = NULL;
+					}
+					delete cur;
+					cur = NULL;
+				}
+				iter ++;
+			}
+			members-&gt;clear();
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMinimizeMemoryResetBySubIndexes"
+		>$switch HasSuperClassRelation yes implTableMinimizeMemoryResetByInhIndexes default empty$$iterate Index( each implTableMinimizeMemoryResetByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableMinimizeMemoryResetByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableMinimizeMemoryResetByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableMinimizeMemoryResetByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableMinimizeMemoryResetBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByThisIndex"
+		>$switch IsUnique
+			yes implTableMinimizeMemoryResetByThisUniqueIndex
+			default implTableMinimizeMemoryResetByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByInhIndex"
+		>$switch IsUnique
+			yes implTableMinimizeMemoryResetByInhUniqueIndex
+			default implTableMinimizeMemoryResetByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByIndex"
+		>$switch IsUnique
+			yes implTableMinimizeMemoryResetByUniqueIndex
+			default implTableMinimizeMemoryResetByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByThisUniqueIndex">
+		if( indexBy$Suffix$ != NULL ) {
+			indexBy$Suffix$-&gt;clear();
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByInhUniqueIndex">
+		if( indexBy$Suffix$ != NULL ) {
+			indexBy$Suffix$-&gt;clear();
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByThisDuplicateIndex">
+		if( indexBy$Suffix$ != NULL ) {
+			std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* &gt;::iterator iterBy$Suffix$ = indexBy$Suffix$-&gt;begin();
+			std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* &gt;::iterator endBy$Suffix$ = indexBy$Suffix$-&gt;end();
+			std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* curBy$Suffix$ = NULL;
+			while( iterBy$Suffix$ != endBy$Suffix$ ) {
+				curBy$Suffix$ = iterBy$Suffix$-&gt;second;
+				if( curBy$Suffix$ != NULL ) {
+					curBy$Suffix$-&gt;clear();
+					delete curBy$Suffix$;
+					curBy$Suffix$ = NULL;
+					iterBy$Suffix$-&gt;second = NULL;
+				}
+				iterBy$Suffix$ ++;
+			}
+			indexBy$Suffix$-&gt;clear();
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableMinimizeMemoryResetByInhDuplicateIndex">
+		if( indexBy$Suffix$ != NULL ) {
+			std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* &gt;::iterator iterBy$Suffix$ = indexBy$Suffix$-&gt;begin();
+			std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* &gt;::iterator endBy$Suffix$ = indexBy$Suffix$-&gt;end();
+			std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* curBy$Suffix$ = NULL;
+			while( iterBy$Suffix$ != endBy$Suffix$ ) {
+				curBy$Suffix$ = iterBy$Suffix$-&gt;second;
+				if( curBy$Suffix$ != NULL ) {
+					curBy$Suffix$-&gt;clear();
+					delete curBy$Suffix$;
+					curBy$Suffix$ = NULL;
+					iterBy$Suffix$-&gt;second = NULL;
+				}
+				iterBy$Suffix$ ++;
+			}
+			indexBy$Suffix$-&gt;clear();
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="initTableObjIndexMapByIndexes"
+		>$switch HasSuperClassRelation yes initTableObjIndexMapByInhIndexes default empty$$iterate Index( each initTableObjIndexMapByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="initTableObjIndexMapBySubIndexes"
+		>$switch HasSuperClassRelation yes initTableObjIndexMapByInhIndexes default empty$$iterate Index( each initTableObjIndexMapByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default initTableObjIndexMapByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default initTableObjIndexMapByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="initTableObjIndexMapByInhIndexes"
+		>$reference SuperClassRelation reference ToTable initTableObjIndexMapBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByThisIndex"
+		>$switch IsUnique
+			yes initTableObjIndexMapByThisUniqueIndex
+			default initTableObjIndexMapByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByInhIndex"
+		>$switch IsUnique
+			yes initTableObjIndexMapByInhUniqueIndex
+			default initTableObjIndexMapByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByIndex"
+		>$switch IsUnique
+			yes initTableObjIndexMapByUniqueIndex
+			default initTableObjIndexMapByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByThisUniqueIndex">
+		indexBy$Suffix$ = new std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+			$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;();</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByInhUniqueIndex">
+		indexBy$Suffix$ = new std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+			$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;();</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByThisDuplicateIndex">
+		indexBy$Suffix$ = new std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+			std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;*&gt;();</GenRule>
+
+	<GenRule GenDef="Index" Name="initTableObjIndexMapByInhDuplicateIndex">
+		indexBy$Suffix$ = new std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+			std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;*&gt;();</GenRule>
+
+	<GenRule GenDef="Table" Name="implNewInstance">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::newInstance() {
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* inst = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( new $SchemaName$$TableName$Obj( schema ) );
+		return( inst );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="releaseTableObjIndexMapByIndexes"
+		>$switch HasSuperClassRelation yes releaseTableObjIndexMapByInhIndexes default empty$$iterate Index( each releaseTableObjIndexMapByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="releaseTableObjIndexMapBySubIndexes"
+		>$switch HasSuperClassRelation yes releaseTableObjIndexMapByInhIndexes default empty$$iterate Index( each releaseTableObjIndexMapByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="releaseTableObjIndexMapByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default releaseTableObjIndexMapByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="releaseTableObjIndexMapByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default releaseTableObjIndexMapByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="releaseTableObjIndexMapByInhIndexes"
+		>$reference SuperClassRelation reference ToTable releaseTableObjIndexMapBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="releaseTableObjIndexMapByThisIndex"
+		>$switch IsUnique
+			yes releaseTableObjIndexMapByThisUniqueIndex
+			default releaseTableObjIndexMapByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="releaseTableObjIndexMapByInhIndex"
+		>$switch IsUnique
+			yes releaseTableObjIndexMapByInhUniqueIndex
+			default releaseTableObjIndexMapByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="releaseTableObjIndexMapByIndex"
+		>$switch IsUnique
+			yes releaseTableObjIndexMapByUniqueIndex
+			default releaseTableObjIndexMapByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="releaseTableObjIndexMapByThisUniqueIndex">
+		if( indexBy$Suffix$ != NULL ) {
+			delete indexBy$Suffix$;
+			indexBy$Suffix$ = NULL;
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="releaseTableObjIndexMapByInhUniqueIndex">
+		if( indexBy$Suffix$ != NULL ) {
+			delete indexBy$Suffix$;
+			indexBy$Suffix$ = NULL;
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="releaseTableObjIndexMapByThisDuplicateIndex">
+		if( indexBy$Suffix$ != NULL ) {
+			delete indexBy$Suffix$;
+			indexBy$Suffix$ = NULL;
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="releaseTableObjIndexMapByInhDuplicateIndex">
+		if( indexBy$Suffix$ != NULL ) {
+			delete indexBy$Suffix$;
+			indexBy$Suffix$ = NULL;
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implNewEditInstance">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* $poptop Table SchemaName$$poptop Table TableName$TableObj::newEditInstance( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* orig ) {
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* edit = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj*&gt;( new $SchemaName$$TableName$EditObj( orig ));
+		return( edit );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructByClassCode">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::constructByClassCode( const classcode_t argClassCode ) {
+		static const std::string S_ProcName( "constructByClassCode" );
+		static const std::string S_Obj( "obj" );
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = NULL;
+		if( argClassCode == $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::CLASS_CODE ) {
+			obj = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;newInstance();
+		}$switch HasSubClasses yes implConstructByClassCodeIterSubClasses default empty$
+		if( obj == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_Obj );
+		}
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructByClassCodeIterSubClasses"
+		>$iterate TableSubClasses( each implConstructByClassCodeConstructAndIterate empty empty )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implConstructByClassCodeConstructAndIterate">
+		else if( argClassCode == $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::CLASS_CODE ) {
+			obj = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;newInstance();
+		}$switch HasSubClasses yes implConstructByClassCodeIterSubClasses default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implRealizeObjReplaceBuff">
+			keepObj-&gt;setBuff( dynamic_cast&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt;( Obj-&gt;getBuff()-&gt;clone() ) );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRealizeObj">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::realize$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* Obj ) {
+		static const std::string S_ProcName( "realize$TableName$" );
+		static const std::string S_ExistingObj( "existingObj" );
+		static const std::string S_KeepObj( "keepObj" );
+		static const std::string S_Obj( "Obj" );
+		if( Obj == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME, S_ProcName, 1, S_Obj );
+		}
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = Obj;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* existingObj = NULL;
+		$reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey* pkey = obj-&gt;getPKey();
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* keepObj = NULL;
+		auto searchMembers = members-&gt;find( *pkey );
+		if( searchMembers != members-&gt;end() ) {
+			existingObj = searchMembers-&gt;second;
+			if( existingObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_ExistingObj );
+			}
+			keepObj = existingObj;
+			pkey = keepObj-&gt;getPKey();
+			/*
+			 *	We always rebind the data because if we're being called, some index may have been
+			 *	updated and is refreshing it's data, which may require binding a different lookup key
+			 */
+			// Detach object from alternate and duplicate indexes, leave PKey alone$implTableObjIndexDetachFromIndexes$$switch HasSuperClassRelation yes implRealizeObjInvokeSuper default implRealizeObjReplaceBuff$
+			// Attach new object to alternate and duplicate indexes -- PKey stays stable
+$implTableObjIndexAddToIndexes$
+			if( all$TableName$ != NULL ) {
+				all$TableName$-&gt;insert( std::map&lt; $poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* &gt;::value_type( *(keepObj-&gt;getPKey()), keepObj ) );
+			}
+		}
+		else {
+			keepObj = obj;$switch HasSuperClassRelation yes implRealizeObjNewInvokeSuper default empty$$switch HasSuperClassRelation no implRealizeObjSetIsNewFalse default empty$
+			pkey = keepObj-&gt;getPKey();
+			// Attach new object to PKey, all, alternate, and duplicate indexes
+			members-&gt;insert( std::map&lt; $poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* &gt;::value_type( *(keepObj-&gt;getPKey()), keepObj ) );
+			// Attach new object to alternate and duplicate indexes -- PKey stay stable
+$implTableObjIndexAddToIndexes$
+			if( all$TableName$ != NULL ) {
+				all$TableName$-&gt;insert( std::map&lt; $poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* &gt;::value_type( *(keepObj-&gt;getPKey()), keepObj ) );
+			}
+		}$switch HasSuperClassRelation yes empty default implTableObjRealizeDeleteObj$
+		return( keepObj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjRealizeDeleteObj">
+		if( keepObj != obj ) {
+			delete obj;
+			obj = NULL;
+		}
+		// Something is leaking, so I've added this paranoid check
+		if( ( keepObj != existingObj ) &amp;&amp; ( existingObj != NULL ) ) {
+			delete existingObj;
+			existingObj = NULL;
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexDetachFromIndexes"
+>$switch HasSuperClassRelation yes implTableObjIndexDetachFromInhIndexes default empty$$iterate Index( each implTableObjIndexDetachFromThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexDetachFromSubIndexes"
+>$switch HasSuperClassRelation yes implTableObjIndexDetachFromInhIndexes default empty$$iterate Index( each implTableObjIndexDetachFromInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromThisNonPrimaryIndex"
+>$switch IsPrimaryIndex yes empty default implTableObjIndexDetachFromThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromInhNonPrimaryIndex"
+>$switch IsPrimaryIndex yes empty default implTableObjIndexDetachFromInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexDetachFromInhIndexes"
+>$reference SuperClassRelation reference ToTable implTableObjIndexDetachFromSubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromThisIndex"
+>$switch IsUnique
+	yes implTableObjIndexDetachFromThisUniqueIndex
+	default implTableObjIndexDetachFromThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromInhIndex"
+>$switch IsUnique
+	yes implTableObjIndexDetachFromInhUniqueIndex
+	default implTableObjIndexDetachFromInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromIndex"
+>$switch IsUnique
+	yes implTableObjIndexDetachFromUniqueIndex
+	default implTableObjIndexDetachFromDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjIndexCopyKeepObjToKey"
+	>$switch IsNullable yes implTableObjIndexCopyKeepObjToOptKey default implTableObjIndexCopyKeepObjToReqKey$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjIndexCopyKeepObjToOptKey">
+				if( keepObj-&gt;is$implColumnAttrOptionality$$Name$Null() ) {
+					key$popto Index Suffix$.set$implColumnAttrOptionality$$Name$Null();
+				}
+				else {
+					key$popto Index Suffix$.set$implColumnAttrOptionality$$Name$Value( keepObj-&gt;get$implColumnAttrOptionality$$Name$Value() );
+				}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjIndexCopyKeepObjToReqKey">
+				key$popto Index Suffix$.set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( keepObj-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromThisUniqueIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				auto removalProbe = indexBy$Suffix$-&gt;find( key$Suffix$ );
+				if( removalProbe != indexBy$Suffix$-&gt;end() ) {
+					indexBy$Suffix$-&gt;erase( removalProbe );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromInhUniqueIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				auto removalProbe = indexBy$Suffix$-&gt;find( key$Suffix$ );
+				if( removalProbe != indexBy$Suffix$-&gt;end() ) {
+					indexBy$Suffix$-&gt;erase( removalProbe );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromThisDuplicateIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				auto search$Suffix$ = indexBy$Suffix$-&gt;find( key$Suffix$ );
+				if( search$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+					std::map&lt;$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* map$Suffix$ = search$Suffix$-&gt;second;
+					if( map$Suffix$ != NULL ) {
+						auto removalProbe = map$Suffix$-&gt;find( *(keepObj-&gt;getPKey()) );
+						if( removalProbe != map$Suffix$-&gt;end() ) {
+							map$Suffix$-&gt;erase( removalProbe );
+						}
+					}
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexDetachFromInhDuplicateIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				auto search$Suffix$ = indexBy$Suffix$-&gt;find( key$Suffix$ );
+				if( search$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+					std::map&lt;$poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* map$Suffix$ = search$Suffix$-&gt;second;
+					if( map$Suffix$ != NULL ) {
+						auto removalProbe = map$Suffix$-&gt;find( *pkey );
+						if( removalProbe != map$Suffix$-&gt;end() ) {
+							map$Suffix$-&gt;erase( removalProbe );
+						}
+					}
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexAddToIndexes"
+>$switch HasSuperClassRelation yes implTableObjIndexAddToInhIndexes default empty$$iterate Index( each implTableObjIndexAddToThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexAddToSubIndexes"
+>$switch HasSuperClassRelation yes implTableObjIndexAddToInhIndexes default empty$$iterate Index( each implTableObjIndexAddToInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToThisNonPrimaryIndex"
+>$switch IsPrimaryIndex yes empty default implTableObjIndexAddToThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToInhNonPrimaryIndex"
+>$switch IsPrimaryIndex yes empty default implTableObjIndexAddToInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexAddToInhIndexes"
+>$reference SuperClassRelation reference ToTable implTableObjIndexAddToSubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToThisIndex"
+>$switch IsUnique
+	yes implTableObjIndexAddToThisUniqueIndex
+	default implTableObjIndexAddToThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToInhIndex"
+>$switch IsUnique
+	yes implTableObjIndexAddToInhUniqueIndex
+	default implTableObjIndexAddToInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToIndex"
+>$switch IsUnique
+	yes implTableObjIndexAddToUniqueIndex
+	default implTableObjIndexAddToDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToThisUniqueIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				static const std::string S_A$Suffix$Obj( "a$Suffix$Obj" );
+				$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* a$Suffix$Obj =
+					dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( keepObj );
+				if( a$Suffix$Obj == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_A$Suffix$Obj );
+				}
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				indexBy$Suffix$-&gt;insert( std::map&lt; $reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key, $reference Table CPlusDefNamespace$::I$reference Table DefSchemaName$$reference Table TableName$Obj* &gt;::value_type( key$Suffix$, a$Suffix$Obj ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToInhUniqueIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				static const std::string S_A$Suffix$Obj( "a$Suffix$Obj" );
+				$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* a$Suffix$Obj =
+					dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( keepObj );
+				if( a$Suffix$Obj == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_A$Suffix$Obj );
+				}
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				indexBy$Suffix$-&gt;insert( std::map&lt; $reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* &gt;::value_type( key$Suffix$, a$Suffix$Obj ) );
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToThisDuplicateIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				static const std::string S_A$Suffix$Obj( "a$Suffix$Obj" );
+				$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* a$Suffix$Obj =
+					dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( keepObj );
+				if( a$Suffix$Obj == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_A$Suffix$Obj );
+				}
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				auto searchIndexBy$Suffix$ = indexBy$Suffix$-&gt;find( key$Suffix$ );
+				if( searchIndexBy$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+					std::map&lt;$poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* map$Suffix$ = searchIndexBy$Suffix$-&gt;second;
+					if( map$Suffix$ != NULL ) {
+						map$Suffix$-&gt;insert( std::map&lt; $poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* &gt;::value_type( *(keepObj-&gt;getPKey()), a$Suffix$Obj ) );
+					}
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexAddToInhDuplicateIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				static const std::string S_A$Suffix$Obj( "a$Suffix$Obj" );
+				$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* a$Suffix$Obj =
+					dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( keepObj );
+				if( a$Suffix$Obj == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_A$Suffix$Obj );
+				}
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyKeepObjToKey empty empty )$
+				auto searchIndexBy$Suffix$ = indexBy$Suffix$-&gt;find( key$Suffix$ );
+				if( searchIndexBy$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+					std::map&lt;$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* map$Suffix$ = searchIndexBy$Suffix$-&gt;second;
+					if( map$Suffix$ != NULL ) {
+						map$Suffix$-&gt;insert( std::map&lt; $poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* &gt;::value_type( *(keepObj-&gt;getPKey()), a$Suffix$Obj ) );
+					}
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implRealizeObjSetIsNewFalse">
+			keepObj-&gt;setIsNew( false );</GenRule>
+
+	<GenRule GenDef="Table" Name="implRealizeObjInvokeSuper">
+			// Retain the current keepObj instead of realizing the new instance.
+			keepObj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference SuperClassRelation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference SuperClassRelation reference ToTable TableName$TableObj() )-&gt;realize$reference SuperClassRelation reference ToTable TableName$( Obj ) );
+			if( keepObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_KeepObj );
+			}
+			pkey = keepObj-&gt;getPKey();</GenRule>
+
+	<GenRule GenDef="Table" Name="implRealizeObjNewInvokeSuper">
+			// Retain the new obj because there is no current keepObj from the instance cache
+			keepObj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference SuperClassRelation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference SuperClassRelation reference ToTable TableName$TableObj() )-&gt;realize$reference SuperClassRelation reference ToTable TableName$( obj ) );
+			if( keepObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_KeepObj );
+			}</GenRule>
+
+	<GenRule GenDef="Object" Name="implRealizeObjRefreshDataAttribute"
+>$switch ColumnInPrimaryIndex yes empty default implRealizeObjRefreshAttribute$</GenRule>
+	<GenRule GenDef="Object" Name="implRealizeObjRefreshAttribute"
+>				keepObj-&gt;get$TableName$Rec()-&gt;set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( obj-&gt;get$TableName$Rec()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjInvokeSuper">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference SuperClassRelation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference SuperClassRelation reference ToTable TableName$TableObj() )-&gt;create$reference SuperClassRelation reference ToTable TableName$( Obj ) );</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjAssignObj">
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( Obj );
+		if( obj == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_Obj );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObj">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::create$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* Obj ) {
+		static const std::string S_ProcName( "create$TableName$" );
+		static const std::string S_Obj( "obj" );
+		static const std::string S_Cloneable( "cloneable" );
+		static const std::string S_ClonedBuff( "clonedbuff" );
+		CFLIB_EXCEPTION_DECLINFO
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( Obj-&gt;getOrig() );
+		try {
+			$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* buff = dynamic_cast&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt;( Obj-&gt;getBuff()-&gt;clone() );
+			// C++18 version of create returns a new buffer instance and takes over ownership of the passed-in buffer
+			// MSS TODO WORKING The xmsg client will need to return the buffer instance created by processing
+			// the response message, while xmsg rqst will have to delete the backing store instance
+			// it receives after preparing the reply message so that memory doesn't leak on every request.
+			cflib::ICFLibCloneableObj* cloneable = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;create$TableName$(
+				schema-&gt;getAuthorization(),
+				buff );
+			if( cloneable == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_Cloneable );
+			}
+			Obj-&gt;endEdit();
+			obj-&gt;setBuff( dynamic_cast&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt;( cloneable ) );
+			obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+			if( obj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_Obj );
+			}$switch HasChain yes implCreateObjRefreshChainPrev default empty$
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+		if( ! CFLIB_EXCEPTION_EMPTY ) {
+			if( obj-&gt;getEdit() != NULL ) {
+				obj-&gt;endEdit();
+			}
+			if( obj->getIsNew() ) {
+				delete obj;
+				obj = NULL;
+			}
+			CFLIB_EXCEPTION_RETHROW_CFLIBEXCEPTION
+		}
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjRefreshChainPrev">
+		$CPlusDefNamespace$::I$DefSchemaName$$reference Chain reference Table TableName$Obj* prev = obj-&gt;get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$();
+		if( prev != NULL ) {
+			prev-&gt;read( true );
+		}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implCreateObjCopyPKeyAttr">
+		pkey.set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( get$TableName$Buff()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjRealizeIfMatches">
+		if( obj-&gt;getClassCode() == $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::CLASS_CODE ) {
+			obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+			if( obj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_Obj );
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implCreateObjRealize">
+		obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+		if( obj == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_Obj );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="invokeSuperCreateTable">
+		// The base class assigns any generated ids
+		dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference SuperClassRelation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference SuperClassRelation reference ToTable TableName$TableObj() )-&gt;create$reference SuperClassRelation reference ToTable TableName$( obj );</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implCopyDataColumnFromObj"
+>$switch ColumnInPrimaryIndex
+	yes empty
+	default implCopyColumnFromObj$</GenRule>
+	<GenRule GenDef="Atom" Name="implCopyDataColumnFromObj"
+>$switch ColumnInPrimaryIndex
+	yes empty
+	default implCopyColumnFromObj$</GenRule>
+	<GenRule GenDef="IndexCol" Name="implCopyDataColumnFromObj"
+>$reference Column implCopyDataColumnFromObj$</GenRule>
+
+	<GenRule GenDef="TableCol" Name="implCopyColumnFromObj">
+			data-&gt;set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( obj-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+	<GenRule GenDef="Atom" Name="implCopyColumnFromObj">
+			data-&gt;set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( obj-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+	<GenRule GenDef="IndexCol" Name="implCopyColumnFromObj"
+>$reference Column implCopyColumnFromObj$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implCopyPKeyColumnFromObj"
+>$reference Column implCopyPKeyColumnFromObj$</GenRule>
+
+	<GenRule GenDef="Atom" Name="implCopyPKeyColumnFromObj">
+			pkey.set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( obj-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+	<GenRule GenDef="TableCol" Name="implCopyPKeyColumnFromObj">
+			pkey.set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( obj-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllObj">
+	std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; $poptop Table SchemaName$$poptop Table TableName$TableObj::readAll$poptop Table TableName$( bool forceRead ) {
+		static const std::string S_ProcName( "readAll$TableName$" );
+		static const std::string S_Idx( "idx" );
+		static const std::string S_Realized( "realized" );
+		CFLIB_EXCEPTION_DECLINFO
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* realized = NULL;
+		if( forceRead || ( all$TableName$ == NULL ) ) {
+			std::map&lt;$CPlusDefNamespace$::$DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;* map = new std::map&lt;$reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey,$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;();
+			all$TableName$ = map;
+			std::TCFLibOwningVector&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt; buffList = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;readAllDerived( schema-&gt;getAuthorization() );
+			$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* buff = NULL;
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = NULL;
+			try {
+				for( size_t idx = 0; idx &lt; buffList.size(); idx ++ ) {
+					buff = buffList[ idx ];
+					buffList[ idx ] = NULL;$switch HasClassCode yes implReadAllObjConsObjByClassCode default implReadAllObjConsObj$
+					obj-&gt;setBuff( buff );
+					realized = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+					if( realized == NULL ) {
+						throw cflib::CFLibNullArgumentException( CLASS_NAME,
+							S_ProcName,
+							0,
+							S_Realized );
+					}
+					all$TableName$-&gt;insert( std::map&lt; $poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* &gt;::value_type( *(realized-&gt;getPKey()), realized ) );
+					// No need to delete obj -- realize() auto-destructs the instance it decided to discard
+					obj = NULL;
+				}
+			}
+			CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+
+			if( ( obj != NULL ) &amp;&amp; obj->getIsNew() ) {
+				delete obj;
+				obj = NULL;
+			}
+
+			CFLIB_EXCEPTION_RETHROW_CFLIBEXCEPTION
+
+		}$implReadAllReturnSortedArray$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllReturnSortedArray">
+		size_t len = all$TableName$-&gt;size();
+		std::vector&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt; arr;
+		auto valIter = all$TableName$-&gt;begin();
+		size_t idx = 0;
+		while( valIter != all$TableName$-&gt;end() ) {
+			arr.push_back( valIter-&gt;second );
+			valIter ++;
+		}
+		return( arr );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllObjConsObjByClassCode">
+				obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference BaseClass TableName$TableObj*&gt;( schema-&gt;get$reference BaseClass TableName$TableObj() )-&gt;constructByClassCode( buff-&gt;getClassCode() ) );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadAllObjConsObj">
+				obj = newInstance();</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadAllObjCopyPKeyAttribute">
+		obj-&gt;getPKey()-&gt;set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( get$TableName$Buff()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadObjByPKey">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::read$TableName$( $CPlusDefNamespace$::$DefSchemaName$$reference BaseClass TableName$PKey* pkey, bool forceRead ) {
+		static const std::string S_Obj( "obj" );
+		static const std::string S_Realized( "realized" );
+		static const std::string S_ProcName( "read$TableName$" );
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* realized = NULL;
+		if( ! forceRead ) {
+			auto searchMembers = members-&gt;find( *pkey );
+			if( searchMembers != members-&gt;end() ) {
+				// obj could be NULL if cache misses is enabled
+				obj = searchMembers-&gt;second;
+				realized = obj;
+			}
+		}
+		if( forceRead || ( obj == NULL ) ) {
+			$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* readBuff = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;readDerivedBy$reference BaseClass reference PrimaryKeyIndex Suffix$( schema-&gt;getAuthorization()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implReadObjByPKeyCommaPassArg empty empty )$ );
+			if( readBuff != NULL ) {$switch HasClassCode yes implReadObjByPKeyConsObjByClassCode default implReadObjByPKeyConsObj$
+				obj-&gt;setBuff( readBuff );
+				realized = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+				if( realized == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_Realized );
+				}
+				// No need to delete obj -- realize() auto-destructs the instance it decided to discard
+				obj = NULL;
+			}
+		}
+		return( realized );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implLockObjByPKey">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::lock$TableName$( $CPlusDefNamespace$::$DefSchemaName$$reference BaseClass TableName$PKey* pkey ) {
+		static const std::string S_ProcName( "lock$TableName$" );
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* locked = NULL;
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* lockBuff = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;lockDerived( schema-&gt;getAuthorization(), pkey );
+		if( lockBuff != NULL ) {$switch HasClassCode yes implLockObjByPKeyConsLockedByClassCode default implLockObjByPKeyConsLocked$
+			locked-&gt;setBuff( lockBuff );
+			locked = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( locked-&gt;realize() );
+		}
+		else {
+			return( NULL );
+		}
+		return( locked );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadObjByPKeyConsObjByClassCode">
+			obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference BaseClass TableName$TableObj*&gt;( schema-&gt;get$reference BaseClass TableName$TableObj() )-&gt;constructByClassCode( readBuff-&gt;getClassCode() ) );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadObjByPKeyConsObj">
+			obj = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;newInstance();</GenRule>
+
+	<GenRule GenDef="Table" Name="implLockObjByPKeyConsLockedByClassCode">
+			locked = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference BaseClass TableName$TableObj*&gt;( schema-&gt;get$reference BaseClass TableName$TableObj() )-&gt;constructByClassCode( lockBuff-&gt;getClassCode() ) );</GenRule>
+
+	<GenRule GenDef="Table" Name="implLockObjByPKeyConsLocked">
+			locked = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;newInstance();</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByPKeyCommaPassArg">,
+			pkey-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByPKeyCopyPKeyAttribute">
+			obj-&gt;getPKey()-&gt;set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( readBuff-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDataCopyObjColumnToData"
+		>$reference Column implDataCopyObjColumnToData$</GenRule>
+	<GenRule GenDef="Object" Name="implDataCopyObjColumnToData"
+		>$switch ColumnInPrimaryIndexDef
+			yes empty
+			default implCopyObjoColumnToData$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByIndex"
+		>$switch IsUnique
+			yes implReadObjByUniqueIndex
+			default implReadObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadByIndexes"
+		>$implTableObjReadByPrimaryIndex$$switch HasSuperClassRelation yes implTableObjReadByInhIndexes default empty$$iterate Index( each implTableObjReadByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex implTableObjReadByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadBySubIndexes"
+		>$switch HasSuperClassRelation yes implTableObjReadByInhIndexes default empty$$iterate Index( each implTableObjReadByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjReadByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjReadByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableObjReadBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisIndex"
+		>$switch IsUnique
+			yes implTableObjReadByThisUniqueIndex
+			default implTableObjReadByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByInhIndex"
+		>$switch IsUnique
+			yes implTableObjReadByInhUniqueIndex
+			default implTableObjReadByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByIndex"
+		>$switch IsUnique
+			yes implTableObjReadByUniqueIndex
+			default implTableObjReadByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadByLookupIndex">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $SchemaName$$TableName$TableObj::read$TableName$ByLookup$reference LookupIndex Suffix$( $reference LookupIndex iterate Columns( first declReqColumnArg, each declCommaReqColumnArg last empty lone empty )$$reference LookupIndex iterate Columns( lone declColumnArg each empty last declCommaColumnArg )$, bool forceRead )
+	{
+		static const std::string S_Realized( "realized" );
+		static const std::string S_Obj( "obj" );
+		static const std::string S_ProcName( "read$TableName$ByLookup$reference LookupIndex Suffix$" );
+		if( indexBy$reference LookupIndex Suffix$ == NULL ) {
+			indexBy$reference LookupIndex Suffix$ = new std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$TableName$By$reference LookupIndex Suffix$Key,
+				$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;();
+		}
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$By$reference LookupIndex Suffix$Key key;$reference LookupIndex iterate Columns( each implReadObjByLookupIndexAssignKey last implReadObjByDuplicateIndexAssignKey )$
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* realized = NULL;
+		if( ! forceRead ) {
+			auto searchIndexBy$reference LookupIndex Suffix$ = indexBy$reference LookupIndex Suffix$-&gt;find( key );
+			if( searchIndexBy$reference LookupIndex Suffix$ != indexBy$reference LookupIndex Suffix$-&gt;end() ) {
+				obj = searchIndexBy$reference LookupIndex Suffix$-&gt;second;
+			}
+		}
+		if( forceRead || ( obj == NULL ) ) {
+			$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* buff = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;readDerivedByLookup$reference LookupIndex Suffix$( schema-&gt;getAuthorization()$reference LookupIndex iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+			if( buff != NULL ) {$switch HasClassCode yes implReadObjByLookupIdxConsObjByClassCode default implReadObjByLookupIdxConsObj$
+				obj-&gt;setBuff( buff );
+				realized = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+				if( realized == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_Realized );
+				}
+				indexBy$reference LookupIndex Suffix$-&gt;insert( std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$TableName$By$reference LookupIndex Suffix$Key, $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;::value_type( key, dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( realized ) ) );
+				// No need to delete obj -- realize() auto-destructs the instance it decided to discard
+				obj = realized;
+			}
+		}
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisUniqueIndex">
+	$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$, bool forceRead )
+	{
+		static const std::string S_ProcName( "read$poptop Table TableName$By$Suffix$" );
+		static const std::string S_Realized( "realized" );$switch IsPrimaryIndex yes implTableObjReadByUniqueIndexPKey default implTableObjReadByUniqueAltIndex$
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="passAlongColumnArg"
+		>$Name$</GenRule>
+	<GenRule GenDef="IndexCol" Name="passAlongCommaColumnArg">,
+			$passAlongColumnArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByUniqueIndexPKey">
+		$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey pkey;$iterate Columns( each implReadObjByUniqueIndexCopyArgToPKey )$
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* obj = read$poptop Table TableName$( &amp;pkey, forceRead );</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByUniqueAltIndex">
+		if( indexBy$Suffix$ == NULL ) {
+			indexBy$Suffix$ = new std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;();
+		}
+		$CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key key;$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* obj = NULL;
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* realized = NULL;
+		if( ! forceRead ) {
+			auto searchIndexBy$Suffix$ = indexBy$Suffix$-&gt;find( key );
+			if( searchIndexBy$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+				// Note: obj may be null if cache misses is enabled
+				obj = searchIndexBy$Suffix$-&gt;second;
+				realized = obj;
+			}
+		}
+		if( forceRead || ( obj == NULL ) ) {
+			$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* buff = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;readDerivedBy$Suffix$( schema-&gt;getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+			if( buff != NULL ) {$switch HasClassCode yes implReadObjByAltIdxConsObjByClassCode default implReadObjByAltIdxConsObj$
+				obj-&gt;setBuff( buff );
+				realized = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( obj-&gt;realize() );
+				if( realized == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_Realized );
+				}
+				indexBy$Suffix$-&gt;insert( std::map&lt; $reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;::value_type( key, dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( realized ) ) );
+				// No need to delete obj -- realize() auto-destructs the instance it decided to discard
+				obj = realized;
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByInhUniqueIndex"
+		>$implTableObjReadByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisDuplicateIndex">
+	std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; $poptop Table SchemaName$$poptop Table TableName$TableObj::read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+		bool forceRead )
+	{
+		static const std::string S_ProcName( "read$poptop Table TableName$By$Suffix$" );
+		static const std::string S_Idx( "idx" );
+		static const std::string S_Obj( "obj" );
+		static const std::string S_Realized( "realized" );
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$By$Suffix$Key key;$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$
+		std::map&lt;$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* dict;
+		std::map&lt;$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* oldDict;
+		if( indexBy$Suffix$ == NULL ) {
+			indexBy$Suffix$ = new std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;*&gt;();
+		}$implTableObjReadByThisDupIndexCalcDict$$implTableObjReadByThisDuplicateIndexReturnSortedList$
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisDupIndexCalcDict">
+		auto searchIndexBy$Suffix$ = indexBy$Suffix$-&gt;find( key );
+		if( searchIndexBy$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+			oldDict = searchIndexBy$Suffix$-&gt;second;
+		}
+		else {
+			oldDict = NULL;
+		}
+		if( ( oldDict != NULL ) &amp;&amp; ( ! forceRead ) ) {
+			dict = oldDict;
+		}
+		else {
+			dict = new std::map&lt;$reference Table reference BaseClass CPlusDefNamespace$::$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;();
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj;
+			std::TCFLibOwningVector&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt; buffList = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;readDerivedBy$Suffix$( schema-&gt;getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+			$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* buff;
+			for( size_t idx = 0; idx &lt; buffList.size(); idx ++ ) {
+				buff = buffList[ idx ];
+				buffList[ idx ] = NULL;$switch HasClassCode yes implReadObjByDupIdxConsObjByClassCode default implReadObjByDupIdxConsObj$
+				obj-&gt;setBuff( buff );
+				$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* realized = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( obj-&gt;realize() );
+				if( realized == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_Realized );
+				}
+				dict-&gt;insert( std::map&lt; $poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* &gt;::value_type( *(realized-&gt;getPKey()), realized ) );
+				// No need to delete obj -- realize() auto-destructs the instance it decided to discard
+				obj = NULL;
+			}
+			if( oldDict != NULL ) {
+				indexBy$Suffix$-&gt;erase( searchIndexBy$Suffix$ );
+				delete oldDict;
+				oldDict = NULL;
+			}
+			indexBy$Suffix$-&gt;insert( std::map&lt; $reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				std::map&lt; $poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $reference Table CPlusDefNamespace$::I$reference Table DefSchemaName$$poptop Table TableName$Obj* &gt;* &gt;::value_type( key, dict ) );
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByThisDuplicateIndexReturnSortedList">
+		size_t len = dict-&gt;size();
+		std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; arr;
+		arr.reserve( len );
+		auto valIter = dict-&gt;begin();
+		while( valIter != dict-&gt;end() ) {
+			arr.push_back( valIter-&gt;second );
+			valIter ++;
+		}
+		return( arr );</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjPageByIndexCalcList">
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj;
+		std::TCFLibOwningVector&lt;$poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff*&gt; buffList = dynamic_cast&lt;I$poptop Table SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;pageBuffBy$declReadTableSuffix$( schema-&gt;getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$$poptop Table reference BaseClass reference PrimaryKeyIndex iterate Columns( each passCommaOptPriorArg )$ );
+		std::vector&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt; retList;
+		retList.reserve( buffList.size() );
+		$poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table TableName$Buff* buff;
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* realized;
+		for( size_t idx = 0; idx &lt; buffList.size(); idx ++ ) {
+			buff = buffList[ idx ];
+			buffList[ idx ] = NULL;$switch HasClassCode yes implReadObjByDupIdxConsObjByClassCode default implReadObjByDupIdxConsObj$
+			obj-&gt;setBuff( buff );
+			realized = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( obj-&gt;realize() );
+			if( realized == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_Realized );
+			}
+			// No need to delete obj -- realize() auto-destructs the instance it decided to discard
+			obj = NULL;
+			retList.push_back( realized );
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadByInhDuplicateIndex"
+		>$implTableObjReadByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByUniqueIndexPKey">
+		$reference Table reference BaseClass CPlusDefNamespace$::$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey pkey;$iterate Columns( each implReadObjByUniqueIndexCopyArgToPKey )$
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = read$TableName$( pkey );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByUniqueIndexCopyArgToPKey">
+		pkey.set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( $Name$ );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByAltIdxConsObjByClassCode">
+				obj = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;( dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Table reference BaseClass TableName$TableObj*&gt;( schema-&gt;get$reference Table reference BaseClass TableName$TableObj() )-&gt;constructByClassCode( buff-&gt;getClassCode() ) );</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByAltIdxConsObj">
+				obj = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;newInstance();</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadObjByLookupIdxConsObjByClassCode">
+				obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference BaseClass TableName$TableObj*&gt;( schema-&gt;get$reference BaseClass TableName$TableObj() )-&gt;constructByClassCode( buff-&gt;getClassCode() ) );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadObjByLookupIdxConsObj">
+				obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;newInstance() );</GenRule>
+
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByAltIdxCopyPKeyAttribute">
+				obj-&gt;getPKey()-&gt;set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( get$TableName$Buff()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByUniqueIndexCopyBuffToPKey">
+				pkey-&gt;set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( get$TableName$Buff()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByUniqueIndexCopyPKeyAttribute">
+				obj-&gt;getPKey()-&gt;set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( get$TableName$Buff()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByIndexPassArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByIndexCommaPassArg">,
+				$implReadObjByIndexPassArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDuplicateIndex">
+	std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; $poptop Table SchemaName$$poptop Table TableName$TableObj::read$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$,
+		bool forceRead )
+	{
+		static const std::string S_ProcName( "read$poptop Table TableName$By$Suffix$" );
+		static const std::string S_Idx( "idx" );
+		static const std::string S_Obj( "obj" );
+		static const std::string S_Realized( "realized" );
+		$CPlusDefNamespace$::$DefSchemaName$$poptop Table TableName$By$Suffix$Key key;$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$
+		std::map&lt;$reference Table reference BaseClass CPlusDefNamespace$::$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey,$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* dict;$implReadObjByDuplicateIndexPart1$$implReadObjByDuplicateIndexReturnSortedList$
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDuplicateIndexPart1">
+		if( indexBy$Suffix$ == NULL ) {
+			indexBy$Suffix$ = new std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;*&gt;();
+		}
+		auto search = indexBy$Suffix$-&gt;find( key );
+		if( ( ! forceRead ) &amp;&amp; ( search != indexBy$Suffix$-&gt;end() ) {
+			dict = search-&gt;second;
+		}
+		else {
+			dict = new std::map&lt;$reference Table reference BaseClass CPlusDefNamespace$::$reference Table reference BaseClass DefSchemaName$$reference Table reference BaseClass TableName$PKey,$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;();
+			// Allow other threads to dirty-read while we're loading
+			indexBy$Suffix$-&gt;insert( std::map&lt; $reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				 std::map&lt;$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* &gt;*&gt;::value_type( key, dict ) );
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj;
+			std::TCFLibOwningVector&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt; buffList = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;readDerivedBy$Suffix$( schema-&gt;getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+			$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* buff;
+			for( size_t idx = 0; idx &lt; buffList.size(); idx ++ ) {
+				buff = buffList[ idx ];
+				buffList[ idx ] = NULL;$switch HasClassCode yes implReadObjByDupIdxConsObjByClassCode default implReadObjByDupIdxConsObj$
+				obj-&gt;setBuff( buff );
+				$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* realized = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+				if( realized == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_Realized );
+				}
+				dict-&gt;insert( std::map&lt; $reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table reference BaseClass TableName$PKey, $reference Table CPlusDefNamespace$::I$reference Table DefSchemaName$$reference Table TableName$Obj* &gt;::value_type( *(realized-&gt;getPKey()), realized ) );
+				// No need to delete obj -- realize() auto-destructs the instance it decided to discard
+				obj = NULL;
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDuplicateIndexReturnSortedList">
+		size_t len = dict-&gt;size();
+		std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; arrayList;
+		arrayList.reserve( len );
+		std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;::iterator iter = dict-&gt;begin();
+		std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;::iterator end = dict-&gt;end();
+		while( iter != end ) {
+			arrayList.push_back( iter-&gt;second );
+			iter ++;
+		}
+		// MSS TODO WORKING Sort the list by ascending primary key
+		return( arrayList );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByDupIdxCopyPKeyAttribute">
+				obj-&gt;getPKey()-&gt;set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( get$TableName$Buff()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByLookupIndexAssignKey">
+		key.set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( $Name$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByDuplicateIndexAssignKey"
+		>$switch IsNullable yes implReadObjByDuplicateIndexAssignOptKey default implReadObjByDuplicateIndexAssignReqKey$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByDuplicateIndexAssignReqKey">
+		key.set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( $Name$ );</GenRule>
+
+	<GenRule GenDef="Object" Name="emitAsterisk">*</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implReadObjByDuplicateIndexAssignOptKey">
+		if( $Name$ == NULL ) {
+			key.set$implColumnAttrOptionality$$Name$Null();
+		}
+		else {
+			key.set$implColumnAttrOptionality$$Name$Value( $switch BaseModelAtomClass UuidGen empty UuidCol empty UuidType empty UuidDef empty Uuid empty default emitAsterisk$$Name$ );
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDupIdxConsObjByClassCode">
+				obj = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;(
+					dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Table reference BaseClass TableName$TableObj*&gt;( schema-&gt;get$reference Table reference BaseClass TableName$TableObj() )-&gt;constructByClassCode( buff-&gt;getClassCode() ) );
+				if( obj == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_Obj );
+				}</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadObjByDupIdxConsObj">
+				obj = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;newInstance();
+				if( obj == NULL ) {
+					throw cflib::CFLibNullArgumentException( CLASS_NAME,
+						S_ProcName,
+						0,
+						S_Obj );
+				}</GenRule>
+
+	<GenRule GenDef="Table" Name="implUpdateObjInvokeSuper">
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;(
+					dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference SuperClassRelation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference SuperClassRelation reference ToTable TableName$TableObj() )-&gt;update$reference SuperClassRelation reference ToTable TableName$( Obj ) );
+		if( obj == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_Obj );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implUpdateObjInitObj">
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = Obj;</GenRule>
+
+
+	<GenRule GenDef="Table" Name="implTableObjMoveUp">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::moveUp$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* Obj ) {
+		static const std::string S_ProcName( "moveUp$TableName$" );
+		static const std::string S_CannotMoveEdition( "You cannot move an object that is being edited" );
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = NULL;
+		if( NULL != Obj-&gt;getEdit() ) {
+			throw cflib::CFLibUsageException( CLASS_NAME,
+				S_ProcName,
+				S_CannotMoveEdition );
+		}
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* buff = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;moveBuffUp( schema-&gt;getAuthorization()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMoveBuffPassCommaPKeyArg )$,
+			Obj-&gt;get$TableName$Buff()-&gt;getRequiredRevision() );
+		if( buff != NULL ) {
+			obj = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;newInstance();
+			obj-&gt;setBuff( buff );
+			obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+			$reference Chain reference Table CPlusDefNamespace$::I$reference Chain reference Table DefSchemaName$$reference Chain reference Table TableName$Obj* prev = obj-&gt;get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$( true );
+			$reference Chain reference Table CPlusDefNamespace$::I$reference Chain reference Table DefSchemaName$$reference Chain reference Table TableName$Obj* next = obj-&gt;get$reference Chain reference NextRel OptionalOrRequired$$reference Chain reference NextRel RelationTypeTag$$reference Chain reference NextRel Suffix$( true );
+			if( next != NULL ) {
+				$reference Chain reference Table CPlusDefNamespace$::I$reference Chain reference Table DefSchemaName$$reference Chain reference Table TableName$Obj* gnext = next-&gt;get$reference Chain reference NextRel OptionalOrRequired$$reference Chain reference NextRel RelationTypeTag$$reference Chain reference NextRel Suffix$( true );
+			}
+		}
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjMoveDown">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::moveDown$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* Obj ) {
+		static const std::string S_ProcName( "moveDown$TableName$" );
+		static const std::string S_CannotMoveEdition( "You cannot move an object that is being edited" );
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = NULL;
+		if( NULL != Obj-&gt;getEdit() ) {
+			throw cflib::CFLibUsageException( CLASS_NAME,
+				S_ProcName,
+				S_CannotMoveEdition );
+		}
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* buff = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;moveBuffDown( schema-&gt;getAuthorization()$reference BaseClass reference PrimaryKeyIndex iterate Columns( each implMoveBuffPassCommaPKeyArg )$,
+			Obj-&gt;get$TableName$Buff()-&gt;getRequiredRevision() );
+		if( buff != NULL ) {
+			obj = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;newInstance();
+			obj-&gt;setBuff( buff );
+			obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+			$reference Chain reference Table CPlusDefNamespace$::I$reference Chain reference Table DefSchemaName$$reference Chain reference Table TableName$Obj* prev = obj-&gt;get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$( true );
+			if( prev != NULL ) {
+				$reference Chain reference Table CPlusDefNamespace$::I$reference Chain reference Table DefSchemaName$$reference Chain reference Table TableName$Obj* gprev = prev-&gt;get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$( true );
+			}
+			$CPlusDefNamespace$::I$DefSchemaName$$reference Chain reference Table TableName$Obj* next = obj-&gt;get$reference Chain reference NextRel OptionalOrRequired$$reference Chain reference NextRel RelationTypeTag$$reference Chain reference NextRel Suffix$( true );
+		}
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implMoveBuffPassCommaPKeyArg">,
+			Obj-&gt;get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="Table" Name="implUpdateObj">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::update$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* Obj ) {
+		static const std::string S_ProcName( "update$TableName$" );
+		static const std::string S_Obj( "obj" );
+		static const std::string S_Updated( "updated" );
+		CFLIB_EXCEPTION_DECLINFO
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*>( Obj-&gt;getOrig() );
+		try {
+			$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff* updated = dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;update$TableName$( schema-&gt;getAuthorization(),
+				dynamic_cast&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt;( Obj-&gt;get$TableName$Buff()-&gt;clone() ) );
+			if( updated == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_Updated );
+			}
+			obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$TableName$TableObj*&gt;( schema-&gt;get$TableName$TableObj() )-&gt;newInstance() );
+			obj-&gt;setBuff( updated );
+			obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+			if( obj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_Obj );
+			}
+			if( obj-&gt;getEdit() != NULL ) {
+				obj-&gt;endEdit();
+			}
+		}
+		CFLIB_EXCEPTION_CATCH_FALLTHROUGH
+		if( ! CFLIB_EXCEPTION_EMPTY ) {
+			if( obj-&gt;getEdit() != NULL ) {
+				obj-&gt;endEdit();
+			}
+			CFLIB_EXCEPTION_RETHROW_CFLIBEXCEPTION
+		}
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implUpdateObjAlwaysRealize">
+		obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( Obj-&gt;realize() );
+		if( obj == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME,
+				S_ProcName,
+				0,
+				S_Obj );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implUpdateObjMaybeRealize">
+/*		if( obj-&gt;getClassCode() == $CPlusDefNamespace$::$DefSchemaName$$TableName$Buff::CLASS_CODE ) { */
+			obj = dynamic_cast&lt;$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;( obj-&gt;realize() );
+			if( obj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_Obj );
+			}
+/*		}*/</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteObjInvokeSuper">
+		dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference SuperClassRelation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference SuperClassRelation reference ToTable TableName$TableObj() )-&gt;delete$reference SuperClassRelation reference ToTable TableName$( Obj );</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteObj">
+	void $poptop Table SchemaName$$poptop Table TableName$TableObj::delete$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$EditObj* Obj ) {
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = Obj;$switch HasChain yes implDeleteObjChainGetPrevNext default empty$
+		dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;delete$TableName$( schema-&gt;getAuthorization(),
+			obj-&gt;get$TableName$Buff() );$switch HasChain yes implDeleteObjChainRefreshPrevNext default empty$
+		deepDisposeBy$reference BaseClass reference PrimaryKeyIndex Suffix$( $reference BaseClass reference PrimaryKeyIndex iterate Columns( first implTableObjDeleteObjPassObjArg each implTableObjDeleteObjPassObjCommaArg )$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjDeleteObjPassObjArg"
+		>obj-&gt;get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjDeleteObjPassObjCommaArg">,
+			obj-&gt;get$OptionalOrRequired$$Name$()</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteObjChainGetPrevNext">
+		$CPlusDefNamespace$::I$DefSchemaName$$reference Chain reference Table TableName$Obj* prev = obj-&gt;get$reference Chain reference PrevRel OptionalOrRequired$$reference Chain reference PrevRel RelationTypeTag$$reference Chain reference PrevRel Suffix$();
+		$CPlusDefNamespace$::I$DefSchemaName$$reference Chain reference Table TableName$Obj* next = obj-&gt;get$reference Chain reference NextRel OptionalOrRequired$$reference Chain reference NextRel RelationTypeTag$$reference Chain reference NextRel Suffix$();</GenRule>
+
+	<GenRule GenDef="Table" Name="implDeleteObjChainRefreshPrevNext">
+		if( prev != NULL ) {
+			prev-&gt;read( true );
+		}
+		if( next != NULL ) {
+			next-&gt;read( true );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeleteByIndexes"
+		>$implTableObjDeleteByPrimaryIndex$$switch HasSuperClassRelation yes implTableObjDeleteByInhIndexes default empty$$iterate Index( each implTableObjDeleteByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeleteByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex implTableObjDeleteByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeleteBySubIndexes"
+		>$switch HasSuperClassRelation yes implTableObjDeleteByInhIndexes default empty$$iterate Index( each implTableObjDeleteByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjDeleteByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjDeleteByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjDeleteByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableObjDeleteBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByThisIndex"
+		>$switch IsUnique
+			yes implTableObjDeleteByThisUniqueIndex
+			default implTableObjDeleteByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByInhIndex"
+		>$switch IsUnique
+			yes implTableObjDeleteByInhUniqueIndex
+			default implTableObjDeleteByInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByIndex"
+		>$switch IsUnique
+			yes implTableObjDeleteByUniqueIndex
+			default implTableObjDeleteByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByThisUniqueIndex">
+	void $poptop Table SchemaName$$poptop Table TableName$TableObj::delete$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{$switch IsPrimaryIndex yes implTableObjDeleteByUniqueIndexPKey default implTableObjDeleteByUniqueAltIndex$
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByUniqueIndexPKey">
+		$reference Table reference BaseClass CPlusDefNamespace$::$reference Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey pkey;$iterate Columns( each implReadObjByUniqueIndexCopyArgToPKey )$
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* obj = read$poptop Table TableName$( &amp;pkey, true );
+		if( obj != NULL ) {
+			$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$EditObj* editObj = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$EditObj*&gt;( obj->getEdit() );
+			if( editObj == NULL ) {
+				editObj = dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$EditObj*&gt;( obj-&gt;beginEdit() );
+			}
+			if( editObj != NULL ) {
+				editObj-&gt;deleteInstance();
+				editObj = NULL;
+			}
+		}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjDeleteByThisIndexPassIndentedArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjDeleteByThisIndexPassIndentedCommaArg">,
+				$Name$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByUniqueAltIndex">
+		if( indexBy$Suffix$ == NULL ) {
+			indexBy$Suffix$ = new std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;();
+		}
+		$CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key key;$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* obj = NULL;
+		auto searchIndexBy$Suffix$ = indexBy$Suffix$-&gt;find( key );
+		if( searchIndexBy$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+			dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$poptop Table TableName$()-&gt;delete$poptop Table TableName$By$Suffix$( schema-&gt;getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+		}
+		else {
+			dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$poptop Table TableName$()-&gt;delete$poptop Table TableName$By$Suffix$( schema-&gt;getAuthorization()$iterate Columns( each implReadObjByIndexCommaPassArg empty empty )$ );
+		}
+		deepDisposeBy$Suffix$( $iterate Columns( first implTableObjDeleteByThisIndexPassArg each implTableObjDeleteByThisIndexPassCommaArg )$ );</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByInhUniqueIndex"
+		>$implTableObjDeleteByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByThisDuplicateIndex">
+	void $poptop Table SchemaName$$poptop Table TableName$TableObj::delete$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		dynamic_cast&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$poptop Table TableName$()-&gt;delete$poptop Table TableName$By$Suffix$( schema-&gt;getAuthorization()$iterate Columns( each implDeleteObjByIndexCommaPassArg empty empty )$ );
+		deepDisposeBy$Suffix$( $iterate Columns( first implTableObjDeleteByThisIndexPassArg each implTableObjDeleteByThisIndexPassCommaArg )$ );
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjDeleteByThisIndexPassArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjDeleteByThisIndexPassCommaArg">,
+			$Name$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByInhUniqueIndexCalcDict">
+		dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;delete$poptop Table TableName$By$Suffix$( schema-&gt;getAuthorization()$iterate Columns( each implDeleteObjByIndexCommaPassArg empty empty )$ );
+		deepDisposeBy$Suffix$( $iterate Columns( first implDeleteObjByIndexPassArg each implDeleteObjByIndexCommaPassArg )$
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjDeleteByInhDuplicateIndex"
+		>$implTableObjDeleteByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implDeleteObjByUniqueIndexPKey">
+		dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;delete$poptop Table TableName$By$Suffix$( schema-&gt;getAuthorization()$iterate Columns( each implDeleteObjByIndexCommaPassArg empty empty )$ );
+		deepDisposeBy$Suffix$( $iterate Columns( first implDeleteObjByIndexPassArg each implDeleteObjByIndexCommaPassArg )$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeleteObjByIndexPassArg"
+		>$Name$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeleteObjByIndexCommaPassArg">,
+				$implDeleteObjByIndexPassArg$</GenRule>
+
+	<GenRule GenDef="Index" Name="implDeleteObjByDuplicateIndex">
+	void $poptop Table SchemaName$$poptop Table TableName$TableObj::delete$TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		dynamic_cast&lt;I$SchemaName$Schema*&gt;( schema-&gt;getBackingStore() )-&gt;getTable$TableName$()-&gt;delete$poptop Table TableName$By$Suffix$( schema-&gt;getAuthorization()$iterate Columns( each implDeleteObjByIndexCommaPassArg empty empty )$ );
+		deepDisposeBy$Suffix$( $iterate Columns( first implDeleteObjByIndexPassArg each implDeleteObjByIndexCommaPassArg )$
+	}
+</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeleteObjByDupIdxCopyPKeyAttribute">
+				obj-&gt;getPKey()-&gt;set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( get$TableName$Buff()-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeleteObjByDuplicateIndexAssignKey"
+		>$switch IsNullable yes implDeleteObjByDuplicateIndexAssignOptKey default implDeleteObjByDuplicateIndexAssignReqKey$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeleteObjByDuplicateIndexAssignReqKey">
+		key.set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( $Name$ );</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implDeleteObjByDuplicateIndexAssignOptKey">
+		if( $Name$ == NULL ) {
+			key.set$implColumnAttrOptionality$$Name$Null();
+		}
+		else {
+			key.set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( $switch BaseModelAtomClass UuidGen empty UuidCol empty UuidType empty UuidDef empty Uuid empty default emitAsterisk$$Name$ );
+		}</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDetachFromIndexesObj">
+	void $poptop Table SchemaName$$poptop Table TableName$TableObj::reallyDetachFromIndexes$TableName$( $CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* Obj ) {
+		static const std::string S_ProcName( "reallyDetachFromIndexes$TableName$" );
+		static const std::string S_Obj( "Obj" );
+		static const std::string S_ExistingObj( "ExistingObj" );
+		if( Obj == NULL ) {
+			throw cflib::CFLibNullArgumentException( CLASS_NAME, S_ProcName, 1, S_Obj );
+		}
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = Obj;
+		$reference BaseClass CPlusDefNamespace$::$reference BaseClass DefSchemaName$$reference BaseClass TableName$PKey* pkey = obj-&gt;getPKey();
+		auto searchMembers = members-&gt;find( *pkey );
+		if( searchMembers != members-&gt;end() ) {
+			$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* existingObj = searchMembers-&gt;second;
+			if( existingObj == NULL ) {
+				throw cflib::CFLibNullArgumentException( CLASS_NAME,
+					S_ProcName,
+					0,
+					S_ExistingObj );
+			}$implTableObjIndexReallyDetachFromIndexes$
+			members-&gt;erase( searchMembers );
+		}$switch HasSuperClassRelation yes implReallyDetachIndexesObjInvokeSuper default empty$
+	}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDetachIndexesObjInvokeSuper">
+			dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference SuperClassRelation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference SuperClassRelation reference ToTable TableName$TableObj() )-&gt;reallyDetachFromIndexes$reference SuperClassRelation reference ToTable TableName$( Obj );</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexReallyDetachFromIndexes"
+>$switch HasSuperClassRelation yes implTableObjIndexReallyDetachFromInhIndexes default empty$$iterate Index( each implTableObjIndexReallyDetachFromThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexReallyDetachFromSubIndexes"
+>$switch HasSuperClassRelation yes implTableObjIndexReallyDetachFromInhIndexes default empty$$iterate Index( each implTableObjIndexReallyDetachFromInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexReallyDetachFromThisNonPrimaryIndex"
+>$switch IsPrimaryIndex yes empty default implTableObjIndexReallyDetachFromThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexReallyDetachFromInhNonPrimaryIndex"
+>$switch IsPrimaryIndex yes empty default implTableObjIndexReallyDetachFromInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjIndexReallyDetachFromInhIndexes"
+>$reference SuperClassRelation reference ToTable implTableObjIndexReallyDetachFromSubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexReallyDetachFromThisIndex"
+>$switch IsUnique
+	yes implTableObjIndexReallyDetachFromThisUniqueIndex
+	default implTableObjIndexReallyDetachFromThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexReallyDetachFromInhIndex"
+>$switch IsUnique
+	yes implTableObjIndexReallyDetachFromInhUniqueIndex
+	default implTableObjIndexReallyDetachFromInhDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexReallyDetachFromIndex"
+>$switch IsUnique
+	yes implTableObjIndexReallyDetachFromUniqueIndex
+	default implTableObjIndexReallyDetachFromDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjIndexCopyObjToKey"
+	>$switch IsNullable yes implTableObjIndexCopyObjToOptKey default implTableObjIndexCopyObjToReqKey$</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjIndexCopyObjToOptKey">
+				if( obj-&gt;is$implColumnAttrOptionality$$Name$Null() ) {
+					key$popto Index Suffix$.set$implColumnAttrOptionality$$Name$Null();
+				}
+				else {
+					key$popto Index Suffix$.set$implColumnAttrOptionality$$Name$Value( obj-&gt;get$implColumnAttrOptionality$$Name$Value() );
+				}</GenRule>
+
+	<GenRule GenDef="IndexCol" Name="implTableObjIndexCopyObjToReqKey">
+				key$popto Index Suffix$.set$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$( obj-&gt;get$implColumnAttrOptionality$$Name$$switch IsNullable yes declIObjColumnValue default empty$() );</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexReallyDetachFromThisUniqueIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyObjToKey empty empty )$
+				auto removalProbe = indexBy$Suffix$-&gt;find( key$Suffix$ );
+				if( removalProbe != indexBy$Suffix$-&gt;end() ) {
+					indexBy$Suffix$-&gt;erase( removalProbe );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexReallyDetachFromInhUniqueIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyObjToKey empty empty )$
+				auto removalProbe = indexBy$Suffix$-&gt;find( key$Suffix$ );
+				if( removalProbe != indexBy$Suffix$-&gt;end() ) {
+					indexBy$Suffix$-&gt;erase( removalProbe );
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexReallyDetachFromThisDuplicateIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyObjToKey empty empty )$
+				auto search$Suffix$ = indexBy$Suffix$-&gt;find( key$Suffix$ );
+				if( search$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+					std::map&lt;$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* map$Suffix$ = search$Suffix$-&gt;second;
+					if( map$Suffix$ != NULL ) {
+						auto removalProbe = map$Suffix$-&gt;find( *(obj-&gt;getPKey()) );
+						if( removalProbe != map$Suffix$-&gt;end() ) {
+							map$Suffix$-&gt;erase( removalProbe );
+							if( map$Suffix$-&gt;empty() ) {
+								delete map$Suffix$;
+								map$Suffix$ = NULL;
+								indexBy$Suffix$-&gt;erase( search$Suffix$ );
+							}
+						}
+					}
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjIndexReallyDetachFromInhDuplicateIndex">
+			if( indexBy$Suffix$ != NULL ) {
+				$reference Table CPlusDefNamespace$::$reference Table DefSchemaName$$reference Table TableName$By$Suffix$Key key$Suffix$;$iterate Columns( each implTableObjIndexCopyObjToKey empty empty )$
+				auto search$Suffix$ = indexBy$Suffix$-&gt;find( key$Suffix$ );
+				if( search$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+					std::map&lt;$poptop Table CPlusDefNamespace$::$poptop Table DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* map$Suffix$ = search$Suffix$-&gt;second;
+					if( map$Suffix$ != NULL ) {
+						auto removalProbe = map$Suffix$-&gt;find( *pkey );
+						if( removalProbe != map$Suffix$-&gt;end() ) {
+							map$Suffix$-&gt;erase( removalProbe );
+							if( map$Suffix$-&gt;empty() ) {
+								delete map$Suffix$;
+								map$Suffix$ = NULL;
+								indexBy$Suffix$-&gt;erase( search$Suffix$ );
+							}
+						}
+					}
+				}
+			}
+</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeCascades"
+		>$implReallyDisposeCascades$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDisposeCascades"
+		>$iterate Relation( each implReallyDeepDisposeCascadeRelation empty empty )$$switch HasSuperClassRelation yes implReallyDeepDisposeSuperCascades default empty$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeSuperCascades"
+		>$reference SuperClassRelation reference ToTable implReallyDisposeCascades$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyDeepDisposeCascadeRelation"
+		>$switch RelationTypeTag
+			Components implReallyDeepDisposeCascade
+			Children implReallyDeepDisposeCascade
+			Details implReallyDeepDisposeCascade
+			default empty$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyDeepDisposeCascade"
+		>$switch ToIndexIsUnique yes implReallyDeepDisposeCascadeSingleton default implReallyDeepDisposeCascadeMany$</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyDeepDisposeCascadeSingleton">
+			dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference ToTable TableName$TableObj() )-&gt;deepDisposeBy$reference ToIndex Suffix$( $iterate Columns( first implReallyDeepDisposeTableObjPassArg each implReallyDeepDisposeTableObjCommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="Relation" Name="implReallyDeepDisposeCascadeMany">
+		dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference ToTable TableName$TableObj() )-&gt;deepDisposeBy$reference ToIndex Suffix$( $iterate Columns( first implReallyDeepDisposeTableObjPassArg each implReallyDeepDisposeTableObjCommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeTableDelDeps"
+		>$implReallyDisposeTableDelDeps$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDisposeTableDelDeps"
+		>$switch HasSuperClassRelation yes implReallyDeepDisposeTableInhDelDeps default implReallyDeepDisposeTableBaseDelDeps$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeTableInhDelDeps"
+		>$iterate ReverseDelDeps( each implReallyDeepDisposeTableDelDep empty empty )$$reference SuperClassRelation reference ToTable implReallyDisposeTableDelDeps$</GenRule>
+
+	<GenRule GenDef="Table" Name="implReallyDeepDisposeTableBaseDelDeps"
+		>$iterate ReverseDelDeps( each implReallyDeepDisposeTableDelDep empty empty )$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelDep"
+		>$switch RelationIsUnique yes implReallyDeepDisposeTableDelUniqueDep default implReallyDeepDisposeTableDelDupDep$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelUniqueDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelUniqueDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelDupDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelDupDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelThisOne">
+		dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;deepDisposeBy$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableObjPassArg each implReallyDeepDisposeTableObjCommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableObjCommaPassArg">,
+			$implReallyDeepDisposeTableObjPassArg$</GenRule>
+
+	<GenRule GenDef="Object" Name="implReallyDeepDisposeValue">Value</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableObjPassArg"
+		>$switch ToColIsNullable yes implReallyDeepDisposeTableDelObjPassOptArg default implReallyDeepDisposeTableDelObjPassReqArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelObjPassOptArg"
+		>obj-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$Reference()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelObjPassReqArg"
+		>obj-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$$switch IsFromColNullable yes implReallyDeepDisposeValue default empty$()</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelUniqueDepChaseDown">
+		$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj* obj$Name$ =
+			dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;readCached$reference Relation reference ToIndex reference Table TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTablePassObjArg each implReallyDeepDisposeTablePassCommaObjArg )$ );
+		if( obj$Name$ != NULL ) {$reference DelSubDep implReallyDeepDisposeTableDelDep$
+		}</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaExistingArg"
+		>$switch IsToColNullable yes implReallyDeepDisposeTablePassCommaExistingOptArg default implReallyDeepDisposeTablePassCommaExistingReqArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaExistingOptArg">,
+			existing-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$Reference()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaExistingReqArg">,
+			existing-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$$switch IsFromColNullable yes implReallyDeepDisposeValue default empty$()</GenRule>
+
+	<GenRule GenDef="DelTopDep" Name="implReallyDeepDisposeTableDelDupDepChaseDown">
+		$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj* obj$Name$;
+		std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt; arr$Name$ = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;readCached$reference Relation reference ToIndex reference Table TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableObjPassArg each implReallyDeepDisposeTableObjCommaPassArg )$ );
+		std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt;::iterator iterArr$Name$ = arr$Name$.begin();
+		std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt;::iterator endArr$Name$ = arr$Name$.end();
+		while( iterArr$Name$ != endArr$Name$ ) {
+			obj$Name$ = *iterArr$Name$;
+			iterArr$Name$ ++;$reference DelSubDep implReallyDeepDisposeTableDelDep$
+		}</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelDep"
+		>$switch RelationIsUnique yes implReallyDeepDisposeTableDelUniqueDep default implReallyDeepDisposeTableDelDupDep$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelUniqueDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelUniqueDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelDupDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelDupDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelThisOne">
+			dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;deepDisposeBy$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelTopDepPassArg each implReallyDeepDisposeTableDelTopDepCommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelTopDepCommaPassArg">,
+				$implReallyDeepDisposeTableDelTopDepPassArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelTopDepPassArg"
+		>$switch IsToColNullable yes implReallyDeepDisposeTableDelTopDepPassOptArg default implReallyDeepDisposeTableDelTopDepPassReqArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelTopDepPassOptArg"
+		>obj$popto DelTopDep Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$Reference()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelTopDepPassReqArg"
+		>obj$popto DelTopDep Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$$switch IsFromColNullable yes implReallyDeepDisposeValue default empty$()</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelUniqueDepChaseDown">
+			$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj* obj$Name$ = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;readCached$reference Relation reference ToIndex reference Table TableName$By$reference Relation reference FromIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelTopDepPassArg each implReallyDeepDisposeTablePassCommaDelTopDepArg )$ );
+			if( obj$Name$ != NULL ) {$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaDelTopDepArg"
+		>$switch IsToColNullable yes implReallyDeepDisposeTablePassCommaDelTopDepOptArg default implReallyDeepDisposeTablePassCommaDelTopDepReqArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaDelTopDepOptArg">,
+				obj$popto DelTopDep Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$Reference()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaDelTopDepReqArg">,
+				obj$popto DelTopDep Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$$switch IsFromColNullable yes implReallyDeepDisposeValue default empty$()</GenRule>
+
+	<GenRule GenDef="DelSubDep1" Name="implReallyDeepDisposeTableDelDupDepChaseDown">
+			$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj* obj$Name$;
+			std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt; arr$Name$ = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;readCached$reference Relation reference ToIndex reference Table TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelTopDepPassArg each implReallyDeepDisposeTablePassCommaDelTopDepArg )$ );
+			std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt;::iterator iterArr$Name$ = arr$Name$.begin();
+			std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt;::iterator endArr$Name$ = arr$Name$.end();
+			while( iterArr$Name$ != endArr$Name$ ) {
+				obj$Name$ = *iterArr$Name$;
+				iterArr$Name$ ++;$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelDep"
+		>$switch RelationIsUnique yes implReallyDeepDisposeTableDelUniqueDep default implReallyDeepDisposeTableDelDupDep$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelUniqueDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelUniqueDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelDupDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelDupDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelThisOne">
+			dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;deepDisposeBy$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelSubDep1PassArg each implReallyDeepDisposeTableDelSubDep1CommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep1CommaPassArg">,
+				$implReallyDeepDisposeTableDelSubDep1PassArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep1PassArg"
+		>$switch IsToColNullable yes implReallyDeepDisposeTableDelSubDep1PassOptArg default implReallyDeepDisposeTableDelSubDep1PassReqArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep1PassOptArg"
+		>obj$popto DelSubDep1 Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$Reference()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep1PassReqArg"
+		>obj$popto DelSubDep1 Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$$switch IsFromColNullable yes implReallyDeepDisposeValue default empty$()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaDelSubDep1PassArg"
+		>$switch IsToColNullable yes implReallyDeepDisposeTablePassCommaDelSubDep1OptArg default implReallyDeepDisposeTablePassCommaDelSubDep1ReqArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaDelSubDep1OptArg">,
+				obj$popto DelSubDep1 Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$Reference()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaDelSubDep1ReqArg">,
+				obj$popto DelSubDep1 Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$$switch IsFromColNullable yes implReallyDeepDisposeValue default empty$()</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelUniqueDepChaseDown">
+			$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj* obj$Name$ = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;readCached$reference Relation reference ToIndex reference Table TableName$By$reference Relation reference FromIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelSubDep1PassArg each implReallyDeepDisposeTablePassCommaDelSubDep1PassArg )$ );
+			if( obj$Name$ != NULL ) {$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="DelSubDep2" Name="implReallyDeepDisposeTableDelDupDepChaseDown">
+			$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj* obj$Name$;
+			std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt; arr$Name$ = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;readCached$reference Relation reference ToIndex reference Table TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelSubDep1PassArg each implReallyDeepDisposeTablePassCommaDelSubDep1PassArg )$ );
+			std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt;::iterator iter$Name$ = arr$Name$.begin();
+			std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt;::iterator end$Name$ = arr$Name$.end();
+			while( iter$Name$ != end$Name$ ) {
+				obj$Name$ = *iter$Name$;
+				iter$Name$ ++;$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelDep"
+		>$switch RelationIsUnique yes implReallyDeepDisposeTableDelUniqueDep default implReallyDeepDisposeTableDelDupDep$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelUniqueDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelUniqueDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelDupDep"
+		>$switch HasDelSubDep yes implReallyDeepDisposeTableDelDupDepChaseDown default implReallyDeepDisposeTableDelThisOne$</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelThisOne">
+			dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;deepDisposeBy$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTableDelSubDep2PassArg each implReallyDeepDisposeTableDelSubDep2CommaPassArg )$ );</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep2CommaPassArg">,
+				$implReallyDeepDisposeTableDelSubDep2PassArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep2PassArg"
+		>$switch IsToColNullable yes implReallyDeepDisposeTableDelSubDep2PassOptArg default implReallyDeepDisposeTableDelSubDep2PassReqArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep2PassOptArg"
+		>obj$popto DelSubDep2 Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$Reference()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTableDelSubDep2PassReqArg"
+		>obj$popto DelSubDep2 Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$$switch IsFromColNullable yes implReallyDeepDisposeValue default empty$()</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelUniqueDepChaseDown">
+			$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj* obj$Name$ =
+					dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;readCached$reference Relation reference ToIndex reference Table TableName$By$reference Relation reference FromIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTablePassDelSubDep2Arg each implReallyDeepDisposeTablePassCommaDelSubDep2Arg )$ );
+			if( obj$Name$ != NULL ) {$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaDelSubDep2Arg"
+		>$switch IsToColNullable yes implReallyDeepDisposeTablePassCommaDelSubDep2OptArg default implReallyDeepDisposeTablePassCommaDelSubDep2ReqArg$</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaDelSubDep2OptArg">,
+				obj$popto DelSubDep2 Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$Reference()</GenRule>
+
+	<GenRule GenDef="RelationCol" Name="implReallyDeepDisposeTablePassCommaDelSubDep2ReqArg">,
+				obj$popto DelSubDep2 Name$-&gt;get$reference FromCol OptionalOrRequired$$reference FromCol Name$$switch IsFromColNullable yes implReallyDeepDisposeValue default empty$()</GenRule>
+
+	<GenRule GenDef="DelSubDep3" Name="implReallyDeepDisposeTableDelDupDepChaseDown">
+			$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj* obj$Name$;
+			std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt; arr$Name$ = dynamic_cast&lt;$poptop SchemaDef CPlusNamespace$::$poptop SchemaDef SchemaName$$reference Relation reference ToTable TableName$TableObj*&gt;( schema-&gt;get$reference Relation reference ToTable TableName$TableObj() )-&gt;readCached$reference Relation reference ToIndex reference Table TableName$By$reference Relation reference ToIndex Suffix$( $reference Relation iterate Columns( first implReallyDeepDisposeTablePassCommaDelSubDep2Arg each implReallyDeepDisposeTablePassCommaDelSubDep2Arg )$ );
+			std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt;::iterator iter$Name$ = arr$Name$.begin();
+			std::vector&lt;$reference Relation reference ToTable CPlusDefNamespace$::I$reference Relation reference ToTable EffSchemaName$$reference Relation reference ToTable TableName$Obj*&gt;::iterator end$Name$ = arr$Name$.end();
+			while( iter$Name$ != end$Name$ ) {
+				obj$Name$ = *iter$Name$;
+				iter$Name$ ++;$reference DelSubDep implReallyDeepDisposeTableDelDep$
+			}</GenRule>
+
+	<GenRule GenDef="Table" Name="implReadCachedObjByPKey">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::readCached$TableName$( $CPlusDefNamespace$::$DefSchemaName$$reference BaseClass TableName$PKey* pkey ) {
+		static const std::string S_Obj( "obj" );
+		static const std::string S_Realized( "realized" );
+		static const std::string S_ProcName( "read$TableName$" );
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* realized = NULL;
+		auto searchMembers = members-&gt;find( *pkey );
+		if( searchMembers != members-&gt;end() ) {
+			// obj could be NULL if cache misses is enabled
+			obj = searchMembers-&gt;second;
+			realized = obj;
+		}
+		return( realized );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implReadCachedObjByIndex"
+		>$switch IsUnique
+			yes implReadCachedObjByUniqueIndex
+			default implReadCachedObjByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadCachedByIndexes"
+		>$implTableObjReadCachedByPrimaryIndex$$switch HasSuperClassRelation yes implTableObjReadCachedByInhIndexes default empty$$iterate Index( each implTableObjReadCachedByThisNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadCachedByPrimaryIndex"
+		>$reference BaseClass reference PrimaryKeyIndex implTableObjReadCachedByThisUniqueIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadCachedBySubIndexes"
+		>$switch HasSuperClassRelation yes implTableObjReadCachedByInhIndexes default empty$$iterate Index( each implTableObjReadCachedByInhNonPrimaryIndex )$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByThisNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjReadCachedByThisIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByInhNonPrimaryIndex"
+		>$switch IsPrimaryIndex yes empty default implTableObjReadCachedByInhIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadCachedByInhIndexes"
+		>$reference SuperClassRelation reference ToTable implTableObjReadCachedBySubIndexes$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByThisIndex"
+		>$switch IsUnique
+			yes implTableObjReadCachedByThisUniqueIndex
+			default implTableObjReadCachedByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByInhIndex"
+		>$switch IsUnique
+			yes implTableObjReadCachedByThisUniqueIndex
+			default implTableObjReadCachedByThisDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByIndex"
+		>$switch IsUnique
+			yes implTableObjReadCachedByUniqueIndex
+			default implTableObjReadCachedByDuplicateIndex$</GenRule>
+
+	<GenRule GenDef="Table" Name="implTableObjReadCachedByLookupIndex">
+	$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* $SchemaName$$TableName$TableObj::readCached$TableName$ByLookup$reference LookupIndex Suffix$( $reference LookupIndex iterate Columns( first declReqColumnArg, each declCommaReqColumnArg last empty lone empty )$$reference LookupIndex iterate Columns( lone declColumnArg each empty last declCommaColumnArg )$ )
+	{
+		static const std::string S_Realized( "realized" );
+		static const std::string S_Obj( "obj" );
+		static const std::string S_ProcName( "readCached$TableName$ByLookup$reference LookupIndex Suffix$" );
+		if( indexBy$reference LookupIndex Suffix$ == NULL ) {
+			indexBy$reference LookupIndex Suffix$ = new std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$TableName$By$reference LookupIndex Suffix$Key,
+				$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj*&gt;();
+		}
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$By$reference LookupIndex Suffix$Key key;$reference LookupIndex iterate Columns( each implReadObjByLookupIndexAssignKey last implReadObjByDuplicateIndexAssignKey )$
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* obj = NULL;
+		$CPlusDefNamespace$::I$DefSchemaName$$TableName$Obj* realized = NULL;
+		auto searchIndexBy$reference LookupIndex Suffix$ = indexBy$reference LookupIndex Suffix$-&gt;find( key );
+		if( searchIndexBy$reference LookupIndex Suffix$ != indexBy$reference LookupIndex Suffix$-&gt;end() ) {
+			obj = searchIndexBy$reference LookupIndex Suffix$-&gt;second;
+		}
+		else {
+			for( auto iterMembers = members-&gt;begin(); ( obj == NULL ) &amp;&amp; ( iterMembers != members-&gt;end() ); iterMembers ++ ) {
+				obj = iterMembers-&gt;second;
+				if( obj != NULL ) {
+					if( *(dynamic_cast&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt;( obj-&gt;getBuff() ) ) != key ) {
+						obj = NULL;
+					}
+				}
+			}
+		}
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByThisUniqueIndex">
+	$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* $poptop Table SchemaName$$poptop Table TableName$TableObj::readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		static const std::string S_ProcName( "readCached$poptop Table TableName$By$Suffix$" );
+		static const std::string S_Realized( "realized" );$switch IsPrimaryIndex yes implTableObjReadCachedByUniqueIndexPKey default implTableObjReadCachedByUniqueAltIndex$
+		return( obj );
+	}
+</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByUniqueIndexPKey">
+		$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey pkey;$iterate Columns( each implReadObjByUniqueIndexCopyArgToPKey )$
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* obj = readCached$poptop Table TableName$( &amp;pkey );</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByUniqueAltIndex">
+		if( indexBy$Suffix$ == NULL ) {
+			indexBy$Suffix$ = new std::map&lt; $CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key,
+				$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;();
+		}
+		$CPlusDefNamespace$::$DefSchemaName$$reference Table TableName$By$Suffix$Key key;$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$
+		$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* obj = NULL;
+		auto searchIndexBy$Suffix$ = indexBy$Suffix$-&gt;find( key );
+		if( searchIndexBy$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+			// Note: obj may be null if cache misses is enabled
+			obj = searchIndexBy$Suffix$-&gt;second;
+		}
+		else {
+			for( auto iterMembers = members-&gt;begin(); ( obj == NULL ) &amp;&amp; ( iterMembers != members-&gt;end() ); iterMembers ++ ) {
+				obj = iterMembers-&gt;second;
+				if( obj != NULL ) {
+					if( *(dynamic_cast&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt;( obj-&gt;getBuff() ) ) != key ) {
+						obj = NULL;
+					}
+				}
+			}
+		}</GenRule>
+
+	<GenRule GenDef="Index" Name="implTableObjReadCachedByThisDuplicateIndex">
+	std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; $poptop Table SchemaName$$poptop Table TableName$TableObj::readCached$poptop Table TableName$By$Suffix$( $iterate Columns( first declColumnArg each declCommaColumnArg )$ )
+	{
+		static const std::string S_ProcName( "readCached$poptop Table TableName$By$Suffix$" );
+		static const std::string S_Idx( "idx" );
+		static const std::string S_Obj( "obj" );
+		static const std::string S_Realized( "realized" );
+		std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; arr;
+		$CPlusDefNamespace$::$DefSchemaName$$TableName$By$Suffix$Key key;$iterate Columns( each implReadObjByDuplicateIndexAssignKey )$
+		std::map&lt;$poptop Table reference BaseClass CPlusDefNamespace$::$poptop Table reference BaseClass DefSchemaName$$poptop Table reference BaseClass TableName$PKey, $poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt;* dict;
+		if( indexBy$Suffix$ == NULL ) {
+			return( arr );
+		}
+		auto searchIndexBy$Suffix$ = indexBy$Suffix$-&gt;find( key );
+		if( searchIndexBy$Suffix$ != indexBy$Suffix$-&gt;end() ) {
+			dict = searchIndexBy$Suffix$-&gt;second;
+			size_t len = dict-&gt;size();
+			std::vector&lt;$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj*&gt; arr;
+			arr.reserve( len );
+			auto valIter = dict-&gt;begin();
+			while( valIter != dict-&gt;end() ) {
+				arr.push_back( valIter-&gt;second );
+				valIter ++;
+			}
+		}
+		else {
+			$poptop Table CPlusDefNamespace$::I$poptop Table DefSchemaName$$poptop Table TableName$Obj* obj;
+			for( auto iterMembers = members-&gt;begin(); iterMembers != members-&gt;end(); iterMembers ++ ) {
+				obj = iterMembers-&gt;second;
+				if( obj != NULL ) {
+					if( *(dynamic_cast&lt;$CPlusDefNamespace$::$DefSchemaName$$TableName$Buff*&gt;( obj-&gt;getBuff() ) ) == key ) {
+						arr.push_back( obj );
+					}
+				}
+			}
+		}
+		return( arr );
+	}
+</GenRule>
+
+</RuleSet>
