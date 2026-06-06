@@ -1,18 +1,21 @@
+MSS Code Factory 2.12
+
 Copyright 2016-2026 Mark Stephen Sobkow
 
-These files are part of Mark's Code Factory Version 2.12, with the exception of
+These files are part of MSS Code Factory Version 2.12, with the exception of
 the contents of the model directory, whose contents specify licensing within each
-individual model file.
+individual model file, and the stdjar directory, which contains files licensed
+according to the subdirectory names of their owners/publishers.
 
-Mark's Code Factory is available under the terms of the GNU General Public License,
+MSS Code Factory is available under the terms of the GNU General Public License,
 Version 3 or later.
 
-Mark's Code Factory is free software: you can redistribute it and/or
+MSS Code Factory is free software: you can redistribute it and/or
 modify it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-Mark's Code Factory is distributed in the hope that it will be useful,
+MSS Code Factory is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
