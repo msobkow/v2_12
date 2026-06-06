@@ -170,5 +170,4 @@ implements ICFLibMessageLog {
 			old.close();
 		}
 	}
-
 }

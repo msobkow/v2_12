@@ -1410,5 +1410,4 @@ public class MssCFRuleSetParser extends MssCFSaxParser implements ContentHandler
     		CFLib.beep();
 		}
 	}
-
 }

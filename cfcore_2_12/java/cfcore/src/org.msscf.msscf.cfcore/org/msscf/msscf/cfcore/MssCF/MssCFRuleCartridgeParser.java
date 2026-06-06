@@ -1117,5 +1117,4 @@ public class MssCFRuleCartridgeParser extends MssCFSaxParser implements ContentH
     		CFLib.beep();
 		}
 	}
-
 }

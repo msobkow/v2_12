@@ -4,10 +4,6 @@
 /*
  *	org.msscf.msscf.CFCore
  *
- *	Copyright (c) 2020 Mark Stephen Sobkow
- *	
- *	This file is part of MSS Code Factory.
- *
  *	Copyright 2016-2026 Mark Stephen Sobkow
  *
  *	These files are part of MSS Code Factory Version 2.12.
