@@ -181,6 +181,39 @@ for a commercial license at mark.sobkow@gmail.com</License>
 		<EnumTag Name="Children" />
 	</EnumType>
 
+	<!--
+	 *	The meaning of CodeVisibility is not the same as Java, C++, or C-sharp code.  It has to do with the
+	 *	visibility of the data within the architecture.
+	 *
+	 *	Public means that it is as it has been historically - inherited and visible throughout the system and
+	 *	user interface hierarchy.
+	 *
+	 *	Protected means that is is only visible and referenced within the SchemaDef server implementation
+	 *	and it's user interface specifically, but available to referencing schema's user interfaces or
+	 *	application code.
+	 *
+	 *	Private means that it is only visible and referenced withing the SchemaDef server implementation and
+	 *	is not accessed nor referenced by any referencing schema definitions, user interface code whether
+	 *	specific to the schema or implemented by referencing schemas, and generally is not accessible as a
+	 *	JSON stream interface at all.
+	 *
+	 *	None of this has been implemented in the knowledge base. For 2.13, this is only going to be used to add
+	 *	the configuration details in preparation for 3.1, and to document the planned visibility in the object
+	 *	code headers so that programmers at least know whether they're allowed to reference the objects they
+	 *	can currently see in the 3.1 code base. Visibility enforcement won't happen until the 3.2 code base,
+	 *	with 3.1 providing the knowledge base that implements the schism.
+	 *-->
+	<EnumType Name="CodeVisibilityEnum"
+			IsNullable="false"
+			MinValue="0"
+			InitValue="0"
+			Label="Code Visibility"
+			Description="The meaning of CodeVisibility is not the same as Java, C++, or C-sharp code.  It has to do with the visibility of the data within the architecture. Public means that it is as it has been historically - inherited and visible throughout the system and user interface hierarchy. Protected means that is is only visible and referenced within the SchemaDef server implementation and it's user interface specifically, but available to referencing schema's user interfaces or application code. Private means that it is only visible and referenced withing the SchemaDef server implementation and is not accessed nor referenced by any referencing schema definitions, user interface code whether specific to the schema or implemented by referencing schemas, and generally is not accessible as a JSON stream interface at all. For 2.13, this is serves to document the planned visibility in the models so that programmers at least know whether they're allowed to reference the objects they can currently see in the 3.1 code base." >
+		<EnumTag Name="Public" />
+		<EnumTag Name="Protected" />
+		<EnumTag Name="Private" />
+	</EnumType>
+
 	<Id64Gen Name="ScopeIdGen"
 			IsNullable="false"
 			MinValue="0"
@@ -1556,6 +1589,11 @@ for a commercial license at mark.sobkow@gmail.com</License>
 				IsNullable="false"
 				DbName="srv_only"
 				InitValue="false" />
+		<TableCol Name="CodeVis"
+				Label="Method Code Visibility"
+				IsNullable="false"
+				DbName="codevis"
+				DataType="CodeVisibilityEnum" />
 		<TextCol Name="JMethodBody"
 				Label="Java Method Body"
 				IsNullable="false"
@@ -1604,6 +1642,26 @@ for a commercial license at mark.sobkow@gmail.com</License>
 				Label="TableIdx" >
 			<IndexCol Name="TenantId" IsAscending="true" />
 			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<Index Name="ServerMethodTableVisIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="srvmeth_tablevisidx"
+				ShortName="TableVis"
+				Suffix="MethTableVisIdx"
+				Label="TableVisIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+			<IndexCol Name="CodeVis" IsAscending="true" />
+		</Index>
+		<Index Name="ServerMethodCodeVisIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="srvmeth_codevisidx"
+				ShortName="CodeVis"
+				Suffix="MethCodeVisIdx"
+				Label="CodeVisIdx" >
+			<IndexCol Name="CodeVis" IsAscending="true" />
 		</Index>
 		<Index Name="ServerMethodDefSchemaDefIdx"
 				IsDbMapped="true"
@@ -1859,6 +1917,11 @@ for a commercial license at mark.sobkow@gmail.com</License>
 				IsNullable="false"
 				DbName="SecScopeId"
 				DataType="SecScopeEnum" />
+		<TableCol Name="CodeVis"
+				Label="Table Code Visibility"
+				IsNullable="false"
+				DbName="codevis"
+				DataType="CodeVisibilityEnum" />
 		<TextCol Name="JObjMembers"
 				IsNullable="true"
 				DbName="jobj_memb"
@@ -2957,6 +3020,26 @@ for a commercial license at mark.sobkow@gmail.com</License>
 				Label="SchemaDefIdx" >
 			<IndexCol Name="TenantId" IsAscending="true" />
 			<IndexCol Name="SchemaDefId" IsAscending="true" />
+		</Index>
+		<Index Name="TableCodeVisIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tbldef_codevisidx"
+				ShortName="CodeVisIdx"
+				Suffix="CodeVisIdx"
+				Label="CodeVisIdx" >
+			<IndexCol Name="CodeVis" IsAscending="true" />
+		</Index>
+		<Index Name="TableSchemaCodeVisIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="tbldef_schcdvisidx"
+				ShortName="SchemaCodeVis"
+				Suffix="SchemaCodeVisIdx"
+				Label="SchemaCodeVisIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="SchemaDefId" IsAscending="true" />
+			<IndexCol Name="CodeVis" IsAscending="true" />
 		</Index>
 		<Index Name="TableDefSchemaDefIdx"
 				IsDbMapped="true"
@@ -8324,6 +8407,11 @@ for a commercial license at mark.sobkow@gmail.com</License>
 				Label="Is Db Mapped"
 				IsNullable="false"
 				InitValue="true" />
+		<TableCol Name="CodeVis"
+				Label="Index Code Visibility"
+				IsNullable="false"
+				DbName="codevis"
+				DataType="CodeVisibilityEnum" />
 		<PrimaryIndex Name="IndexIdIdx"
 				IsDbMapped="true"
 				IsUnique="true"
@@ -8363,6 +8451,26 @@ for a commercial license at mark.sobkow@gmail.com</License>
 				Label="TableIdx" >
 			<IndexCol Name="TenantId" IsAscending="true" />
 			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<Index Name="IndexCodeVisIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="idxdef_codevisidx"
+				ShortName="CodeVisIdx"
+				Suffix="CodeVisIdx"
+				Label="CodeVisIdx" >
+			<IndexCol Name="CodeVis" IsAscending="true" />
+		</Index>
+		<Index Name="IndexTableCodeVisIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="idxdef_tblcdvisidx"
+				ShortName="TableCodeVis"
+				Suffix="TableCodeVisIdx"
+				Label="TableCodeVisIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+			<IndexCol Name="CodeVis" IsAscending="true" />
 		</Index>
 		<Index Name="IndexDefSchemaDefIdx"
 				IsDbMapped="true"
@@ -9774,6 +9882,11 @@ for a commercial license at mark.sobkow@gmail.com</License>
 		<TableCol Name="NarrowedId"
 				IsNullable="true"
 				DataType="ScopeIdGen" />
+		<TableCol Name="CodeVis"
+				Label="Relationship Code Visibility"
+				IsNullable="false"
+				DbName="codevis"
+				DataType="CodeVisibilityEnum" />
 		<PrimaryIndex Name="RelationIdIdx"
 				IsDbMapped="true"
 				IsUnique="true"
@@ -9813,6 +9926,26 @@ for a commercial license at mark.sobkow@gmail.com</License>
 				Label="TableIdx" >
 			<IndexCol Name="TenantId" IsAscending="true" />
 			<IndexCol Name="TableId" IsAscending="true" />
+		</Index>
+		<Index Name="RelationCodeVisIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reldef_codevisidx"
+				ShortName="CodeVisIdx"
+				Suffix="CodeVisIdx"
+				Label="CodeVisIdx" >
+			<IndexCol Name="CodeVis" IsAscending="true" />
+		</Index>
+		<Index Name="RelationTableCodeVisIdx"
+				IsDbMapped="true"
+				IsUnique="false"
+				DbName="reldef_tblcdvisidx"
+				ShortName="TableCodeVis"
+				Suffix="TableCodeVisIdx"
+				Label="TableCodeVisIdx" >
+			<IndexCol Name="TenantId" IsAscending="true" />
+			<IndexCol Name="TableId" IsAscending="true" />
+			<IndexCol Name="CodeVis" IsAscending="true" />
 		</Index>
 		<Index Name="RelationDefSchemaDefIdx"
 				IsDbMapped="true"
